@@ -8,7 +8,7 @@
   "abiProfile": "ps1-psyq-mipsel",
   "currentDecompTier": "D4",
   "goalDecompTier": "D4",
-  "currentRecompTier": "R1",
+  "currentRecompTier": "R2",
   "goalRecompTier": "R3",
   "workspaceFile": "HarvestMoonBackToNature-PlayStation.code-workspace",
   "recompProjectPath": "<PROJECTS_PERSONAL>/HMBackToNature-Recomp",
@@ -130,8 +130,8 @@
       "verifiedAtUtc": "2026-11-14T00:40:01.019Z"
     },
     "R2": {
-      "passed": false,
-      "verifiedAtUtc": null
+      "passed": true,
+      "verifiedAtUtc": "2026-11-14T21:58:59.410Z"
     },
     "R3": {
       "passed": false,
@@ -174,7 +174,7 @@
       "verifiedAtUtc": null
     }
   },
-  "updatedAtUtc": "2026-11-14T00:40:13.159Z",
+  "updatedAtUtc": "2026-11-14T22:16:00.000Z",
   "manifestType": "research-repo",
   "researchAxis": "decomp",
   "currentStudyTier": "S4",

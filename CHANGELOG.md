@@ -3,6 +3,8 @@
 All notable changes to this research repository are documented in this file.
 
 ## [Unreleased]
+### Changed
+- Synced downstream Stage-3 `R2` gate verification (`currentRecompTier: "R2"`, `gates.R2.passed = true` @ `2026-11-14T21:58:59.410Z`) following release of [`HMBackToNature-Recomp v0.1.1`](../HMBackToNature-Recomp/README.md) on `reStation v0.1.5` + `reEngine v0.1.3` (Playable Title Screen Boot & 3-tier `"Harvest Moon Modern PC"` controls).
 
 ## [0.1.0] - 2026-11-14
 ### Added

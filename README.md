@@ -4,7 +4,7 @@
 
 ## Overview
 - **Research ID:** `harvest-moon-back-to-nature-play-station` (`axis=decomp`)
-- **Verified Tiers:** Decomp **`D4 / D4`** · Study **`S4 / S4`** · Recomp **`R0 -> R3`** (spawning downstream [`HMBackToNature-Recomp`](../HMBackToNature-Recomp/README.md) as [`reStation`](../reStation/README.md) `v1.0.0` Proving Ground Gate #2)
+- **Verified Tiers:** Decomp **`D4 / D4`** · Study **`S4 / S4`** · Optional Stage 3 **`R2 / R5`** (upstream research reference linked by downstream [`HMBackToNature-Recomp`](../HMBackToNature-Recomp/README.md) `v0.1.1` verified `R2` Title Boot & 3-tier controls on [`reStation`](../reStation/README.md) `v0.1.5`)
 - **Target Binary Surface (`14` ELF/Overlay Units):** Resident `SLUS_011.15` (`323,584` B, `t_addr=0x80010000`, `pc0=0x80011278`, `.text=0x80011270..0x80048B10`) + `13` overlays synthesized from `A_FILE.BIN` (`133,935,104` B) across **Slot A** (`0x800B7E20`, `11` overlays incl. Part 11 `.text 0x800BBC34..0x80121780`) and **Slot B** (`0x8012DDE8`, Parts `15` & `30` co-resident with Part 11).
 - **Coverage & D4 Build:** `3,828` total functions (`2,575` named game + `1,253` PS1 SDK SDK across `23` domains), `3,497` mapped globals, `513/513` readable `.c` TUs (`523` `Corpus/readable/` files), `libharvest_moon_btn_d4.a` (`3,463,828` B, `0` errors / `0` warnings), and `8/8` `x86-windows-gnu` LP32 host parity tests.
 
