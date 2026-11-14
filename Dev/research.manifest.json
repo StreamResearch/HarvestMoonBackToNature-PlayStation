@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 2,
+  "gameId": "harvest-moon-btn",
+  "title": "Harvest Moon: Back to Nature",
+  "platform": "ps1",
+  "pipelineFamily": "native_ghidra_c",
+  "serialOrHash": "SLUS-01115",
+  "abiProfile": "ps1-psyq-mipsel",
+  "currentDecompTier": "D4",
+  "goalDecompTier": "D4",
+  "currentRecompTier": "R1",
+  "goalRecompTier": "R3",
+  "workspaceFile": "HarvestMoonBackToNature-PlayStation.code-workspace",
+  "recompProjectPath": "<PROJECTS_PERSONAL>/HMBackToNature-Recomp",
+  "deferredStandalonePath": "../Corpus/standalone",
+  "customUnpackerScript": "Dev/scripts/hmbtn_unpack.py",
+  "binaries": [
+    {
+      "name": "SLUS_011.15",
+      "role": "primary",
+      "baseAddress": "0x80010000"
+    },
+    {
+      "name": "OVL_part08_id04.EXE",
+      "role": "overlay",
+      "baseAddress": "0x800b7e20"
+    },
+    {
+      "name": "OVL_part10_id05.EXE",
+      "role": "overlay",
+      "baseAddress": "0x800b7e20"
+    },
+    {
+      "name": "OVL_part11_id06.EXE",
+      "role": "overlay",
+      "baseAddress": "0x800b7e20"
+    },
+    {
+      "name": "OVL_part15_id10.EXE",
+      "role": "overlay",
+      "baseAddress": "0x8012dde8"
+    },
+    {
+      "name": "OVL_part17_id07.EXE",
+      "role": "overlay",
+      "baseAddress": "0x800b7e20"
+    },
+    {
+      "name": "OVL_part19_id08.EXE",
+      "role": "overlay",
+      "baseAddress": "0x800b7e20"
+    },
+    {
+      "name": "OVL_part21_id09.EXE",
+      "role": "overlay",
+      "baseAddress": "0x800b7e20"
+    },
+    {
+      "name": "OVL_part23_id0a.EXE",
+      "role": "overlay",
+      "baseAddress": "0x800b7e20"
+    },
+    {
+      "name": "OVL_part25_id0b.EXE",
+      "role": "overlay",
+      "baseAddress": "0x800b7e20"
+    },
+    {
+      "name": "OVL_part27_id0c.EXE",
+      "role": "overlay",
+      "baseAddress": "0x800b7e20"
+    },
+    {
+      "name": "OVL_part28_id0d.EXE",
+      "role": "overlay",
+      "baseAddress": "0x800b7e20"
+    },
+    {
+      "name": "OVL_part30_id0f.EXE",
+      "role": "overlay",
+      "baseAddress": "0x8012dde8"
+    },
+    {
+      "name": "OVL_part31_id0e.EXE",
+      "role": "overlay",
+      "baseAddress": "0x800b7e20"
+    }
+  ],
+  "metrics": {
+    "binariesCount": 14,
+    "functionsTotal": 3828,
+    "functionsSdk": 1253,
+    "functionsGame": 2575,
+    "functionsNamed": 2575,
+    "failedFunctions": 0,
+    "globalsTotal": 3497,
+    "globalsMapped": 3497,
+    "domainsCount": 23,
+    "readableFiles": 523,
+    "workspaceReady": true
+  },
+  "gates": {
+    "D0": {
+      "passed": true,
+      "verifiedAtUtc": "2026-11-13T08:09:56Z"
+    },
+    "D1": {
+      "passed": true,
+      "verifiedAtUtc": "2026-11-13T08:09:56Z"
+    },
+    "D2": {
+      "passed": true,
+      "verifiedAtUtc": "2026-11-13T09:06:41Z"
+    },
+    "D3": {
+      "passed": true,
+      "verifiedAtUtc": "2026-11-13T09:06:41Z"
+    },
+    "D4": {
+      "passed": true,
+      "verifiedAtUtc": "2026-11-14T00:39:47Z",
+      "report": "schemas/d4_build_report.json"
+    },
+    "R0": {
+      "passed": false,
+      "verifiedAtUtc": null
+    },
+    "R1": {
+      "passed": true,
+      "verifiedAtUtc": "2026-11-14T00:40:01.019Z"
+    },
+    "R2": {
+      "passed": false,
+      "verifiedAtUtc": null
+    },
+    "R3": {
+      "passed": false,
+      "verifiedAtUtc": null
+    },
+    "R4": {
+      "passed": false,
+      "verifiedAtUtc": null
+    },
+    "R5": {
+      "passed": false,
+      "verifiedAtUtc": null
+    },
+    "D5": {
+      "passed": false,
+      "verifiedAtUtc": null
+    },
+    "S0": {
+      "passed": true,
+      "verifiedAtUtc": "2026-11-14T00:34:46.211Z"
+    },
+    "S1": {
+      "passed": true,
+      "verifiedAtUtc": "2026-11-14T00:34:46.211Z"
+    },
+    "S2": {
+      "passed": true,
+      "verifiedAtUtc": "2026-11-14T00:34:46.211Z"
+    },
+    "S3": {
+      "passed": true,
+      "verifiedAtUtc": "2026-11-14T00:34:46.211Z"
+    },
+    "S4": {
+      "passed": true,
+      "verifiedAtUtc": "2026-11-14T00:34:46.211Z"
+    },
+    "S5": {
+      "passed": false,
+      "verifiedAtUtc": null
+    }
+  },
+  "updatedAtUtc": "2026-11-14T00:40:13.159Z",
+  "manifestType": "research-repo",
+  "researchAxis": "decomp",
+  "currentStudyTier": "S4",
+  "goalStudyTier": "S4",
+  "downstreamProjects": [
+    "<PROJECTS_PERSONAL>/HMBackToNature-Recomp"
+  ],
+  "upstreamResearchPath": "<PROJECTS_PERSONAL>/R&D/decomps/ps1/harvest-moon-btn",
+  "$schema": "https://schemas.local/manifest.v2.json",
+  "appId": "harvest-moon-back-to-nature-play-station",
+  "version": "0.1.0",
+  "researchId": "harvest-moon-back-to-nature-play-station",
+  "graduatedFromPath": "<PROJECTS_PERSONAL>/R&D/decomps/ps1/harvest-moon-btn",
+  "corpusRoot": "Corpus"
+}

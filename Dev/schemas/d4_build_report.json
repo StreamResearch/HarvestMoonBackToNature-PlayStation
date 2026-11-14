@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "gameId": "harvest-moon-btn",
+  "verifiedAtUtc": "2026-11-14T00:39:47Z",
+  "zigTarget": "mipsel-freestanding-eabi",
+  "zigCpu": "mips2",
+  "readableFiles": 513,
+  "compiledFiles": 513,
+  "totalObjects": 514,
+  "elf32MipsVerifiedObjects": 514,
+  "archiveFile": "work/d4_build/libharvest_moon_btn_d4.a",
+  "archiveBytes": 3463828,
+  "compilerErrors": 0,
+  "compilerWarnings": 0,
+  "errors": 0,
+  "warnings": 0,
+  "parityTarget": "x86-windows-gnu",
+  "parityTestsPassed": 8,
+  "parityTestsTotal": 8,
+  "parityPassed": true,
+  "passed": true,
+  "parityResults": [
+    {
+      "name": "retail_psx_exe_header",
+      "passed": true
+    },
+    {
+      "name": "retail_afile_hdt_table",
+      "passed": true
+    },
+    {
+      "name": "cd_init_afile_aligned_span",
+      "passed": true
+    },
+    {
+      "name": "vsync_stride_roundtrip",
+      "passed": true
+    },
+    {
+      "name": "draw_and_sync_flags",
+      "passed": true
+    },
+    {
+      "name": "vsync_oneshot_callback_and_swap",
+      "passed": true
+    },
+    {
+      "name": "highram_arena_accounting",
+      "passed": true
+    },
+    {
+      "name": "cd_xa_seek_and_stop_fsm",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,4582 @@
+[
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dc114",
+    "ghidra_name": "FUN_800dc114",
+    "name": "p11_animl_set_bg_clear_color",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "r",
+        "type": "u8"
+      },
+      {
+        "name": "g",
+        "type": "u8"
+      },
+      {
+        "name": "b",
+        "type": "u8"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Writes clear RGB color bytes to both display environment clear buffers DAT_8005e600..603 and DAT_8005e734..737."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dc9d4",
+    "ghidra_name": "FUN_800dc9d4",
+    "name": "p11_animl_alloc_light_slot",
+    "return_type": "void *",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Scans the 15-slot 0x30-byte pool at DAT_80128e08 and returns the first unused lighting slot pointer, or NULL."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dca10",
+    "ghidra_name": "FUN_800dca10",
+    "name": "p11_animl_zero_struct_0x30",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "slot_ptr",
+        "type": "u8 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Zero-fills a 0x30-byte scene lighting slot structure via bzero and clears slot fields."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dcbdc",
+    "ghidra_name": "FUN_800dcbdc",
+    "name": "p11_animl_set_fade_palette_a",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "duration",
+        "type": "s16"
+      },
+      {
+        "name": "rgb_target",
+        "type": "u16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Copies target RGB values and duration into palette fade channel A globals DAT_80128e10..14."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dcc1c",
+    "ghidra_name": "FUN_800dcc1c",
+    "name": "p11_animl_set_fade_palette_b",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "duration",
+        "type": "s16"
+      },
+      {
+        "name": "rgb_target",
+        "type": "u16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Copies target RGB values and duration into palette fade channel B globals DAT_80128e28..2c."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dce98",
+    "ghidra_name": "FUN_800dce98",
+    "name": "p11_animl_zero_struct_0x20",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "slot_ptr",
+        "type": "u8 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Zero-fills a 0x20-byte overlay interpolation slot structure via bzero."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dd060",
+    "ghidra_name": "FUN_800dd060",
+    "name": "p11_animl_apply_overlay_fx_interp",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "fx_slot",
+        "type": "int"
+      },
+      {
+        "name": "step_delta",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Interpolates fixed-point color/alpha fields over remaining frames in a 0x20-byte overlay slot."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dd1d0",
+    "ghidra_name": "FUN_800dd1d0",
+    "name": "p11_animl_check_actor_screen_bounds",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "pos",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Tests whether a 2D actor position falls within active camera/map viewport bounds using DAT_800a0378."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dd21c",
+    "ghidra_name": "FUN_800dd21c",
+    "name": "p11_animl_copy_u32_array",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "dst",
+        "type": "u32 *"
+      },
+      {
+        "name": "src",
+        "type": "u32 *"
+      },
+      {
+        "name": "count",
+        "type": "u32"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Copies count 32-bit words sequentially from src buffer to dst buffer."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dd248",
+    "ghidra_name": "FUN_800dd248",
+    "name": "p11_animl_copy_u16_array",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "dst",
+        "type": "u16 *"
+      },
+      {
+        "name": "src",
+        "type": "u16 *"
+      },
+      {
+        "name": "count",
+        "type": "u32"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Copies count 16-bit halfwords sequentially from src buffer to dst buffer."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dd274",
+    "ghidra_name": "FUN_800dd274",
+    "name": "p11_animl_resolve_farm_season_map_id",
+    "return_type": "int",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Computes the outdoor farm map index from season, house/barn/coop upgrade globals DAT_80070cf2..70d0c, and DAT_80123e50."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dd374",
+    "ghidra_name": "FUN_800dd374",
+    "name": "p11_animl_init_flag_fx_ch1",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Initializes scene effect channel 1 state and pool allocation at DAT_80129178..84 using DAT_80128e08."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dd45c",
+    "ghidra_name": "FUN_800dd45c",
+    "name": "p11_animl_eval_flag_fx_ch1",
+    "return_type": "bool",
+    "params": [
+      {
+        "name": "flag_state",
+        "type": "int"
+      },
+      {
+        "name": "threshold",
+        "type": "int"
+      },
+      {
+        "name": "mode",
+        "type": "u32"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Evaluates whether flag effect channel 1 at DAT_80129184 should transition based on state and threshold."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dd8ac",
+    "ghidra_name": "FUN_800dd8ac",
+    "name": "p11_animl_init_flag_fx_ch3",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Initializes scene effect channel 3 state at DAT_80129194..98 with lighting pool slot DAT_80128e08."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dd9f0",
+    "ghidra_name": "FUN_800dd9f0",
+    "name": "p11_animl_is_flag_fx_ch3_active",
+    "return_type": "bool",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Returns true if scene effect channel 3 state global DAT_80129198 is non-zero."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dda08",
+    "ghidra_name": "FUN_800dda08",
+    "name": "p11_animl_init_flag_fx_ch4",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Initializes scene effect channel 4 state at DAT_8012919c..a0 with lighting pool slot DAT_80128e08."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800ddb4c",
+    "ghidra_name": "FUN_800ddb4c",
+    "name": "p11_animl_is_flag_fx_ch4_active",
+    "return_type": "bool",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Returns true if scene effect channel 4 state global DAT_801291a0 is non-zero."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800ddc64",
+    "ghidra_name": "FUN_800ddc64",
+    "name": "p11_animl_init_flag_fx_ch5",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Initializes scene effect channel 5 state at DAT_801291a8..ac and palette offset DAT_80128e30."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800df0f8",
+    "ghidra_name": "FUN_800df0f8",
+    "name": "p11_barn_cow_zero_actor",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "u8 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Zero-clears a 0xb8-byte cow HmNpcActor slot using bzero."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800df3bc",
+    "ghidra_name": "FUN_800df3bc",
+    "name": "p11_barn_cow_lookup_anim_frame",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "state",
+        "type": "u32"
+      },
+      {
+        "name": "dir",
+        "type": "u32"
+      },
+      {
+        "name": "out_frame",
+        "type": "u16 *"
+      },
+      {
+        "name": "out_flip",
+        "type": "u16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Looks up cow animation frame index and horizontal flip bit from lookup tables DAT_80123e70..72."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800df4f0",
+    "ghidra_name": "FUN_800df4f0",
+    "name": "p11_barn_is_cow_actor",
+    "return_type": "bool",
+    "params": [
+      {
+        "name": "actor_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Returns true when actor_ptr is non-null, active, and lacks the sheep bit 0x10000 in actor flags."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e0d0c",
+    "ghidra_name": "FUN_800e0d0c",
+    "name": "p11_barn_sheep_zero_actor",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "u8 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Zero-clears a 0xb8-byte sheep HmNpcActor slot using bzero."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e0f8c",
+    "ghidra_name": "FUN_800e0f8c",
+    "name": "p11_barn_sheep_lookup_anim_frame",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "state",
+        "type": "u32"
+      },
+      {
+        "name": "dir",
+        "type": "u32"
+      },
+      {
+        "name": "out_frame",
+        "type": "u16 *"
+      },
+      {
+        "name": "out_flip",
+        "type": "u16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Looks up sheep animation frame index and flip bit from lookup tables DAT_80123f58..5a."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e109c",
+    "ghidra_name": "FUN_800e109c",
+    "name": "p11_barn_is_sheep_actor",
+    "return_type": "bool",
+    "params": [
+      {
+        "name": "actor_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Returns true when actor_ptr is non-null, active, and carries sheep flag bit 0x10000."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e20f0",
+    "ghidra_name": "FUN_800e20f0",
+    "name": "p11_coop_chicken_daily_rollover",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Processes overnight chicken feeding, growth (chick->adult), egg laying, and golden egg/affection updates."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e2718",
+    "ghidra_name": "FUN_800e2718",
+    "name": "p11_coop_chicken_can_render",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Returns non-zero when chicken record is active and eligible for coop sprite setup."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e2904",
+    "ghidra_name": "FUN_800e2904",
+    "name": "p11_coop_chicken_zero_actor",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "u8 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Zero-clears a 0xb4-byte chicken HmAnimalRecord slot using bzero."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e2934",
+    "ghidra_name": "FUN_800e2934",
+    "name": "p11_coop_chicken_get_slot_index",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "u16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Computes the zero-based chicken array index relative to base table DAT_800742ec."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e2aac",
+    "ghidra_name": "FUN_800e2aac",
+    "name": "p11_coop_chicken_lookup_anim_frame",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "state",
+        "type": "u32"
+      },
+      {
+        "name": "dir",
+        "type": "u32"
+      },
+      {
+        "name": "out_frame",
+        "type": "u16 *"
+      },
+      {
+        "name": "out_flip",
+        "type": "u16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Looks up chicken animation frame index and flip bit from lookup tables DAT_80124008..0a."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e3978",
+    "ghidra_name": "FUN_800e3978",
+    "name": "p11_animl_get_snapshot_slot_ptr",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "slot_idx",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Returns a pointer to the indexed snapshot slot buffer inside DAT_801247e8."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e39b8",
+    "ghidra_name": "FUN_800e39b8",
+    "name": "p11_animl_compute_snapshot_checksum",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "buf",
+        "type": "int *"
+      },
+      {
+        "name": "word_count",
+        "type": "u32"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Computes checksum and validity signature across word_count snapshot buffer words."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e3a3c",
+    "ghidra_name": "FUN_800e3a3c",
+    "name": "p11_animl_init_shipping_pet_menu",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Resets menu selection cursor globals DAT_80071a64/68 and shipping/pet menu state DAT_800742ac."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e3a94",
+    "ghidra_name": "FUN_800e3a94",
+    "name": "p11_animl_get_submenu_state_flag",
+    "return_type": "u32",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Returns the current snapshot/animal submenu active flag stored in DAT_801291b4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80108104",
+    "ghidra_name": "FUN_80108104",
+    "name": "p11_animl_tv_reset_broadcast_state",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Clears TV broadcast active globals DAT_8012d040 and DAT_8012d044 to stop TV rendering."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x801081a0",
+    "ghidra_name": "FUN_801081a0",
+    "name": "p11_animl_tv_select_channel_slot",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "channel_id",
+        "type": "s16"
+      },
+      {
+        "name": "param_flag",
+        "type": "u16"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Validates TV channel selection and updates channel index global DAT_8012d050."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80108214",
+    "ghidra_name": "FUN_80108214",
+    "name": "p11_animl_tv_is_program_ready",
+    "return_type": "bool",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Returns true if TV program broadcast state DAT_8012d052 is ready/unlocked."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010822c",
+    "ghidra_name": "FUN_8010822c",
+    "name": "p11_animl_tv_set_channel_sprite",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "channel_id",
+        "type": "s16"
+      },
+      {
+        "name": "program_idx",
+        "type": "s16"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Selects TV channel sprite/program slot using DAT_801278e4, DAT_8012d050, and DAT_8012d052."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x801082b0",
+    "ghidra_name": "FUN_801082b0",
+    "name": "p11_animl_tv_set_channel_frame_rect",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "tile_x",
+        "type": "s16"
+      },
+      {
+        "name": "tile_y",
+        "type": "s16"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Stores TV screen tile coordinates into DAT_8012d054..5e."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80108470",
+    "ghidra_name": "FUN_80108470",
+    "name": "p11_animl_tv_set_script_message",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "script_bank",
+        "type": "s16"
+      },
+      {
+        "name": "script_id",
+        "type": "s16"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Stores selected TV broadcast text bank and message ID in DAT_8012d058 and DAT_8012d05a."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80108594",
+    "ghidra_name": "FUN_80108594",
+    "name": "p11_animl_tv_check_weather_or_special",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "weekday",
+        "type": "s16"
+      },
+      {
+        "name": "param_b",
+        "type": "s16"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Evaluates special-day or weather forecast override conditions for TV broadcast scheduling."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x801086cc",
+    "ghidra_name": "FUN_801086cc",
+    "name": "p11_animl_tv_draw_overlay",
+    "return_type": "u32",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Submits active TV screen overlay primitives when DAT_8012d040 is active."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010876c",
+    "ghidra_name": "FUN_8010876c",
+    "name": "p11_animl_tv_lookup_script_page",
+    "return_type": "u32",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Fetches the next TV script page from DAT_80130000 using active script ID DAT_8012d05a."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80108864",
+    "ghidra_name": "FUN_80108864",
+    "name": "p11_animl_tv_init_channel_ui",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Initializes TV channel screen state globals DAT_8012d060..66 using camera/map state DAT_800a0378."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80108a24",
+    "ghidra_name": "FUN_80108a24",
+    "name": "p11_animl_tv_unlock_recipe_or_special",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Determines unlocked cooking recipes in DAT_8007afd8..db from calendar date DAT_80070cf0..f4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80108b8c",
+    "ghidra_name": "FUN_80108b8c",
+    "name": "p11_animl_tv_apply_channel_message",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Applies final TV message bank/ID DAT_8012d058..5a and festival status DAT_8007ad82."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x801092e0",
+    "ghidra_name": "FUN_801092e0",
+    "name": "p11_pet_horse_zero_actor",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "u8 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Zero-clears a 0xf0-byte horse actor record at DAT_800759e4 using bzero."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010941c",
+    "ghidra_name": "FUN_8010941c",
+    "name": "p11_pet_horse_set_world_pos",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "pos_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Copies target world position and facing fields into player horse globals DAT_80075a14..24."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80109550",
+    "ghidra_name": "FUN_80109550",
+    "name": "p11_pet_horse_lookup_anim_frame",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "state",
+        "type": "u32"
+      },
+      {
+        "name": "dir",
+        "type": "u32"
+      },
+      {
+        "name": "out_frame",
+        "type": "u16 *"
+      },
+      {
+        "name": "out_flip",
+        "type": "u16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Looks up horse animation frame index and flip bit from tables DAT_80127918..1a."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x801096fc",
+    "ghidra_name": "FUN_801096fc",
+    "name": "p11_pet_horse_find_barn_trough_pos",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      },
+      {
+        "name": "unk_b",
+        "type": "u32"
+      },
+      {
+        "name": "target_x",
+        "type": "int"
+      },
+      {
+        "name": "unk_d",
+        "type": "u32"
+      },
+      {
+        "name": "max_dist",
+        "type": "s16"
+      },
+      {
+        "name": "unk_f",
+        "type": "int"
+      },
+      {
+        "name": "out_x",
+        "type": "u32 *"
+      },
+      {
+        "name": "out_z",
+        "type": "u32 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Scans barn livestock slots DAT_800749f4 and stable coordinates to find a valid feed destination."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x801097f4",
+    "ghidra_name": "FUN_801097f4",
+    "name": "p11_pet_horse_find_pasture_grass",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      },
+      {
+        "name": "unk_b",
+        "type": "u32"
+      },
+      {
+        "name": "target_x",
+        "type": "int"
+      },
+      {
+        "name": "unk_d",
+        "type": "u32"
+      },
+      {
+        "name": "max_dist",
+        "type": "s16"
+      },
+      {
+        "name": "unk_f",
+        "type": "int"
+      },
+      {
+        "name": "out_pos",
+        "type": "u32 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Scans pasture grass tiles around DAT_80075bc4 to pick a grazing target for the horse."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010b64c",
+    "ghidra_name": "FUN_8010b64c",
+    "name": "p11_pet_dog_zero_actor",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "u8 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Zero-clears the 0xf0-byte dog actor record at DAT_80075ad4 using bzero."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010b830",
+    "ghidra_name": "FUN_8010b830",
+    "name": "p11_pet_dog_setup_model_anim",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Configures puppy vs adult dog sprite resource and shadow flags for active scene rendering."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010b898",
+    "ghidra_name": "FUN_8010b898",
+    "name": "p11_pet_dog_lookup_anim_frame",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "state",
+        "type": "u32"
+      },
+      {
+        "name": "dir",
+        "type": "u32"
+      },
+      {
+        "name": "out_frame",
+        "type": "u16 *"
+      },
+      {
+        "name": "out_flip",
+        "type": "u16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Looks up dog animation frame index and flip bit from tables DAT_80127b38..3a."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010c1c0",
+    "ghidra_name": "FUN_8010c1c0",
+    "name": "p11_pet_dog_sync_carried_player_pos",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "player_pos",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Copies player position into dog carry target globals DAT_80075b0c..18."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010c3c4",
+    "ghidra_name": "FUN_8010c3c4",
+    "name": "p11_animl_pond_reset_all",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Zeroes the 99-slot fish pond array DAT_80075854 and resets daily fish food flag DAT_8007621c."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010c4b0",
+    "ghidra_name": "FUN_8010c4b0",
+    "name": "p11_animl_pond_mark_fed",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Sets daily fish food given counter/flag DAT_800759e0."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010c4d4",
+    "ghidra_name": "FUN_8010c4d4",
+    "name": "p11_animl_pond_count_large_fish",
+    "return_type": "s16",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Counts fish in DAT_80075854 matching size 0xa3 (Large Fish) and returns total."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010c550",
+    "ghidra_name": "FUN_8010c550",
+    "name": "p11_animl_pond_promote_fish",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "pond_ptr",
+        "type": "int"
+      },
+      {
+        "name": "slot_idx",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Promotes a fish slot in DAT_80075854 from Small/Medium to the next fish growth stage."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010c5a0",
+    "ghidra_name": "FUN_8010c5a0",
+    "name": "p11_animl_pond_step_breeding_timer",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "fish_slot",
+        "type": "u16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Increments per-fish pond day age counter when daily food was provided."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010c668",
+    "ghidra_name": "FUN_8010c668",
+    "name": "p11_animl_pond_get_total_count",
+    "return_type": "int",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Counts all occupied fish slots (non-zero entries) in the 99-slot pond array DAT_80075854."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010ce80",
+    "ghidra_name": "FUN_8010ce80",
+    "name": "p11_animl_sprite_dispatch_state",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      },
+      {
+        "name": "new_state",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Transitions a Harvest Sprite actor to new_state using dispatch table DAT_800baa84."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010d20c",
+    "ghidra_name": "FUN_8010d20c",
+    "name": "p11_animl_sprite_lookup_anim_frame",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "state",
+        "type": "u32"
+      },
+      {
+        "name": "dir",
+        "type": "u32"
+      },
+      {
+        "name": "out_frame",
+        "type": "u16 *"
+      },
+      {
+        "name": "out_flip",
+        "type": "u16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Looks up Harvest Sprite animation frame index and flip bit from tables DAT_80127ba4..a6."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010e6e8",
+    "ghidra_name": "FUN_8010e6e8",
+    "name": "p11_animl_sprite_query_dialog_choice",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 0,
+    "summary": "Evaluates Harvest Sprite dialog selection cursor globals DAT_80071a64..6c during hire menus."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dc990",
+    "ghidra_name": "FUN_800dc990",
+    "name": "p11_animl_reset_light_slot_pool",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Clears all 15 entries in the 0x30-byte scene lighting/overlay pool at DAT_80128e08 using FUN_800dca10."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dcecc",
+    "ghidra_name": "FUN_800dcecc",
+    "name": "p11_animl_reset_overlay_fx_pool",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Clears all entries in the 0x20-byte overlay interpolation pool at DAT_801290d8 via FUN_800dce98."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dcf10",
+    "ghidra_name": "FUN_800dcf10",
+    "name": "p11_animl_alloc_overlay_fx_slot",
+    "return_type": "void *",
+    "params": [
+      {
+        "name": "mode",
+        "type": "u32"
+      },
+      {
+        "name": "target_ptr",
+        "type": "u32"
+      },
+      {
+        "name": "color",
+        "type": "u32"
+      },
+      {
+        "name": "params",
+        "type": "u16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Allocates a free 0x20-byte slot in DAT_801290d8 and populates interpolation mode, target pointer, color, and step params."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dcfec",
+    "ghidra_name": "FUN_800dcfec",
+    "name": "p11_animl_update_overlay_fx_slot",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "fx_slot",
+        "type": "int *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Evaluates active overlay interpolation slot timers and dispatches step updates via FUN_800dd060."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dd4d8",
+    "ghidra_name": "FUN_800dd4d8",
+    "name": "p11_animl_step_flag_fx_ch1",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Updates scene effect channel 1 DAT_80129178..84 each tick by polling event flags and calling FUN_800dd45c."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dd5b0",
+    "ghidra_name": "FUN_800dd5b0",
+    "name": "p11_animl_init_flag_fx_ch2",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Initializes scene effect channel 2 state at DAT_80129188..90 from event flags and lighting slot pool DAT_80128e08."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dd6f0",
+    "ghidra_name": "FUN_800dd6f0",
+    "name": "p11_animl_step_flag_fx_ch2",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Polls event flags and steps active transitions for scene effect channel 2 at DAT_80129188..90."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dd904",
+    "ghidra_name": "FUN_800dd904",
+    "name": "p11_animl_step_flag_fx_ch3",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Polls event flags via FUN_8001af44 and updates scene effect channel 3 at DAT_80129194..98."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dda60",
+    "ghidra_name": "FUN_800dda60",
+    "name": "p11_animl_step_flag_fx_ch4",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Polls event flags via FUN_8001af44 and updates scene effect channel 4 at DAT_8012919c..a0."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800ddb64",
+    "ghidra_name": "FUN_800ddb64",
+    "name": "p11_animl_reset_bg_tint_defaults",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Resets ambient RGB clear color to defaults via FUN_800dc114 and clears fade scratch DAT_80123e54..56."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800ddba0",
+    "ghidra_name": "FUN_800ddba0",
+    "name": "p11_animl_apply_time_of_day_bg_tint",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Applies hour/weather ambient tint tables DAT_80123e54..64 and updates clear color via FUN_800dc114."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800ddd18",
+    "ghidra_name": "FUN_800ddd18",
+    "name": "p11_animl_step_flag_fx_ch5",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Polls event flags via FUN_8001af44 and steps scene effect channel 5 at DAT_801291a8..ac."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800de76c",
+    "ghidra_name": "FUN_800de76c",
+    "name": "p11_animl_check_pasture_weather_ready",
+    "return_type": "u32",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Checks active calendar/map flags DAT_80070c88 and DAT_80070cf2..f4 to determine outdoor weather/pasture eligibility."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800de878",
+    "ghidra_name": "FUN_800de878",
+    "name": "p11_barn_cow_clear_sprite_flags",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Clears transient per-frame cow actor rendering flags via FUN_800d03b4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800deb00",
+    "ghidra_name": "FUN_800deb00",
+    "name": "p11_barn_cow_daily_rollover",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Processes overnight cow care, feeding, stress/sickness, affection, pregnancy countdown, and growth to adult 0x162."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800deee0",
+    "ghidra_name": "FUN_800deee0",
+    "name": "p11_barn_cow_can_enter_barn",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Checks cow validity via FUN_800df4f0 and tests whether the cow actor flags permit barn placement/state setup."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800df51c",
+    "ghidra_name": "FUN_800df51c",
+    "name": "p11_barn_cow_interact_talk",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Triggers player bell/talk interaction on a valid cow actor, playing SFX via FUN_800d12a0 and reaction bubble."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800df5ac",
+    "ghidra_name": "FUN_800df5ac",
+    "name": "p11_barn_cow_interact_pet",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Triggers pet/attention reaction bubble on a valid cow actor via FUN_80107de0."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dfb98",
+    "ghidra_name": "FUN_800dfb98",
+    "name": "p11_barn_cow_push_interact",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Handles pushing a cow from behind by checking player orientation DAT_80071a38 and applying push velocity."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dfc44",
+    "ghidra_name": "FUN_800dfc44",
+    "name": "p11_barn_cow_anim_step_idle_a",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps cow animation state machine table DAT_80123f00 via path/timer helper FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dfcfc",
+    "ghidra_name": "FUN_800dfcfc",
+    "name": "p11_barn_cow_anim_step_idle_b",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps cow animation state machine table DAT_80123f08 via path/timer helper FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dfdac",
+    "ghidra_name": "FUN_800dfdac",
+    "name": "p11_barn_cow_anim_step_graze",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps cow grazing animation table DAT_80123f18 via timer/action helper FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dff70",
+    "ghidra_name": "FUN_800dff70",
+    "name": "p11_barn_cow_anim_step_sleep_start",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps cow lie-down/sleep-start animation table DAT_80123f30 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e0028",
+    "ghidra_name": "FUN_800e0028",
+    "name": "p11_barn_cow_anim_step_sleep_loop",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps cow sleeping animation loop table DAT_80123f3c via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e00e0",
+    "ghidra_name": "FUN_800e00e0",
+    "name": "p11_barn_cow_anim_step_happy_a",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps cow reaction animation table DAT_80123f48 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e0180",
+    "ghidra_name": "FUN_800e0180",
+    "name": "p11_barn_cow_anim_step_happy_b",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps cow secondary reaction animation table DAT_80123f50 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e0450",
+    "ghidra_name": "FUN_800e0450",
+    "name": "p11_barn_sheep_clear_sprite_flags",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Clears transient per-frame sheep actor rendering flags via FUN_800d03b4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e06e0",
+    "ghidra_name": "FUN_800e06e0",
+    "name": "p11_barn_sheep_daily_rollover",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Processes overnight sheep care, feeding, sickness, wool regrow timer (+0xb4 up to 7), pregnancy, and growth to 0x165."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e0afc",
+    "ghidra_name": "FUN_800e0afc",
+    "name": "p11_barn_sheep_can_enter_barn",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Checks sheep validity via FUN_800e109c and verifies actor flags before configuring sheep model/barn state."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e10c8",
+    "ghidra_name": "FUN_800e10c8",
+    "name": "p11_barn_sheep_interact_talk",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Triggers player bell/talk interaction on a valid sheep actor, playing SFX 0xb and reaction bubble."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e1158",
+    "ghidra_name": "FUN_800e1158",
+    "name": "p11_barn_sheep_interact_pet",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Triggers pet/attention reaction bubble on a valid sheep actor via FUN_80107de0."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e1770",
+    "ghidra_name": "FUN_800e1770",
+    "name": "p11_barn_sheep_push_interact",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Handles pushing a sheep using player facing DAT_80071a38 and applying push velocity."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e180c",
+    "ghidra_name": "FUN_800e180c",
+    "name": "p11_barn_sheep_anim_step_idle_a",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps sheep animation state table DAT_80123fb8 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e18c4",
+    "ghidra_name": "FUN_800e18c4",
+    "name": "p11_barn_sheep_anim_step_idle_b",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps sheep animation state table DAT_80123fc0 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e1974",
+    "ghidra_name": "FUN_800e1974",
+    "name": "p11_barn_sheep_anim_step_graze",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps sheep grazing animation table DAT_80123fd0 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e1b38",
+    "ghidra_name": "FUN_800e1b38",
+    "name": "p11_barn_sheep_anim_step_sleep_start",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps sheep lie-down/sleep-start animation table DAT_80123fe8 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e1bf0",
+    "ghidra_name": "FUN_800e1bf0",
+    "name": "p11_barn_sheep_anim_step_sleep_loop",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps sheep sleeping loop animation table DAT_80123ff4 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e1ca8",
+    "ghidra_name": "FUN_800e1ca8",
+    "name": "p11_barn_sheep_anim_step_happy",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps sheep reaction animation table DAT_80124000 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e1f70",
+    "ghidra_name": "FUN_800e1f70",
+    "name": "p11_coop_chicken_clear_sprite_flags",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Clears transient per-frame chicken actor rendering flags via FUN_800d03b4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e2654",
+    "ghidra_name": "FUN_800e2654",
+    "name": "p11_coop_chicken_check_bounds_overlap",
+    "return_type": "bool",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "int *"
+      },
+      {
+        "name": "target_pos",
+        "type": "int *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Tests chicken spatial clearance and wander bounds for coop/pasture movement."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e2824",
+    "ghidra_name": "FUN_800e2824",
+    "name": "p11_coop_chicken_dispatch_state",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "int"
+      },
+      {
+        "name": "new_state",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Transitions chicken actor state using jump/state table DAT_800b96bc and reaction lookup FUN_800d0408."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e2ea0",
+    "ghidra_name": "FUN_800e2ea0",
+    "name": "p11_coop_chicken_anim_step_idle",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps chicken idle animation table DAT_80124078 via timer helper FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e2f58",
+    "ghidra_name": "FUN_800e2f58",
+    "name": "p11_coop_chicken_anim_step_peck_a",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps chicken pecking animation tables DAT_80124080/90 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e3020",
+    "ghidra_name": "FUN_800e3020",
+    "name": "p11_coop_chicken_anim_step_peck_b",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps secondary chicken peck/scratch animation tables DAT_8012409c/a8 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e3464",
+    "ghidra_name": "FUN_800e3464",
+    "name": "p11_coop_chicken_anim_step_happy",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps chicken happy/reaction animation table DAT_801240d0 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e351c",
+    "ghidra_name": "FUN_800e351c",
+    "name": "p11_animl_load_snapshot_vram",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "vram_buf",
+        "type": "u32 *"
+      },
+      {
+        "name": "slot_x",
+        "type": "s16"
+      },
+      {
+        "name": "slot_y",
+        "type": "s16"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Uploads a snapshot texture block into VRAM via LoadImage/DrawSync, verifying checksum via FUN_800e39b8."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e36cc",
+    "ghidra_name": "FUN_800e36cc",
+    "name": "p11_animl_save_snapshot_vram",
+    "return_type": "u8 *",
+    "params": [
+      {
+        "name": "vram_buf",
+        "type": "u32 *"
+      },
+      {
+        "name": "slot_x",
+        "type": "s16"
+      },
+      {
+        "name": "width",
+        "type": "u16"
+      },
+      {
+        "name": "height",
+        "type": "u32"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Captures a VRAM region with StoreImage into snapshot buffer DAT_801247e8/9420/94e8 and computes its checksum."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e3d88",
+    "ghidra_name": "FUN_800e3d88",
+    "name": "p11_animl_get_married_map_flag",
+    "return_type": "int",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Checks marriage/family event flags and DAT_8006c868 to select post-marriage farmhouse map state."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x801084e0",
+    "ghidra_name": "FUN_801084e0",
+    "name": "p11_animl_tv_check_recipe_broadcast",
+    "return_type": "u32",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Checks Tasty Time Tuesday recipe schedule, unlocks recipes in DAT_8007afda..db, and sets TV text IDs."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80108828",
+    "ghidra_name": "FUN_80108828",
+    "name": "p11_animl_tv_poll_close_input",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Checks pad button state via FUN_8002261c to close or step active TV channels DAT_8012d040/50."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80108ca4",
+    "ghidra_name": "FUN_80108ca4",
+    "name": "p11_pet_horse_clear_sprite_flags",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Clears transient per-frame horse actor rendering flags via FUN_800d03b4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x801098b0",
+    "ghidra_name": "FUN_801098b0",
+    "name": "p11_pet_horse_try_graze_pasture",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Attempts to select an outdoor pasture grass tile via FUN_801097f4 and initiate horse grazing in DAT_8012d080."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80109974",
+    "ghidra_name": "FUN_80109974",
+    "name": "p11_pet_horse_move_to_barn_bin",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "unk_a",
+        "type": "u32"
+      },
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      },
+      {
+        "name": "unk_c",
+        "type": "u32"
+      },
+      {
+        "name": "unk_d",
+        "type": "int"
+      },
+      {
+        "name": "unk_e",
+        "type": "u32"
+      },
+      {
+        "name": "dist",
+        "type": "s16"
+      },
+      {
+        "name": "unk_g",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Queries stable feed bin position via FUN_800f44b4 and updates horse steering vector via FUN_800d05d0."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80109d08",
+    "ghidra_name": "FUN_80109d08",
+    "name": "p11_pet_horse_seek_feed_target",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Resolves horse pathfinding target into DAT_8012d078/7c using FUN_801096fc and FUN_800d05d0."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80109e08",
+    "ghidra_name": "FUN_80109e08",
+    "name": "p11_pet_horse_start_mount_ride",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "player_ptr",
+        "type": "u32"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Synchronizes player mount state and position with DAT_8012d080 via FUN_800d05d0 when riding the horse."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80109e64",
+    "ghidra_name": "FUN_80109e64",
+    "name": "p11_pet_horse_interact_talk",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Displays horse affection/heart reaction bubble via FUN_80107de0 when spoken to."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80109ec4",
+    "ghidra_name": "FUN_80109ec4",
+    "name": "p11_pet_horse_anim_step_idle_a",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps horse idle animation table DAT_80127a78 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80109f7c",
+    "ghidra_name": "FUN_80109f7c",
+    "name": "p11_pet_horse_anim_step_idle_b",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps horse secondary idle animation table DAT_80127a80 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010a02c",
+    "ghidra_name": "FUN_8010a02c",
+    "name": "p11_pet_horse_anim_step_trot",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps horse trotting animation table DAT_80127a90 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010a0e4",
+    "ghidra_name": "FUN_8010a0e4",
+    "name": "p11_pet_horse_anim_step_gallop",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps horse galloping animation table DAT_80127a9c via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010a19c",
+    "ghidra_name": "FUN_8010a19c",
+    "name": "p11_pet_horse_anim_step_sleep_start",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps horse lie-down animation table DAT_80127aa4 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010a254",
+    "ghidra_name": "FUN_8010a254",
+    "name": "p11_pet_horse_anim_step_sleep_loop",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps horse sleeping loop animation table DAT_80127aac via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010a30c",
+    "ghidra_name": "FUN_8010a30c",
+    "name": "p11_pet_horse_anim_step_graze_wait",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps horse grazing pause animation table DAT_80127ab4 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010a3c4",
+    "ghidra_name": "FUN_8010a3c4",
+    "name": "p11_pet_horse_anim_step_happy",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps horse happy reaction animation table DAT_80127ac0 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010abac",
+    "ghidra_name": "FUN_8010abac",
+    "name": "p11_pet_horse_anim_step_mount_a",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps horse mounting/ridden animation table DAT_80127afc via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010ac64",
+    "ghidra_name": "FUN_8010ac64",
+    "name": "p11_pet_horse_anim_step_mount_b",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps horse mounted walk/turn animation table DAT_80127b0c via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010ad1c",
+    "ghidra_name": "FUN_8010ad1c",
+    "name": "p11_pet_horse_anim_step_mount_c",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps horse dismount/stop animation table DAT_80127b1c via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010b198",
+    "ghidra_name": "FUN_8010b198",
+    "name": "p11_pet_dog_clear_sprite_flags",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Clears transient per-frame dog actor rendering flags via FUN_800d03b4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010b264",
+    "ghidra_name": "FUN_8010b264",
+    "name": "p11_pet_dog_daily_rollover",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Processes overnight dog affection, puppy->adult growth (0x15e->0x15f), weather reaction, and state reset."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010b57c",
+    "ghidra_name": "FUN_8010b57c",
+    "name": "p11_pet_dog_dispatch_state",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "int"
+      },
+      {
+        "name": "new_state",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Transitions dog actor state using state table DAT_800ba9e4 and reaction lookup FUN_800d0408."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010b778",
+    "ghidra_name": "FUN_8010b778",
+    "name": "p11_pet_dog_spawn_actor",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "s16 *"
+      },
+      {
+        "name": "spawn_mode",
+        "type": "s16"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Initializes dog species (0x15e puppy / 0x15f adult), coordinates, shadow, and sprite via FUN_8010b830."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010ba84",
+    "ghidra_name": "FUN_8010ba84",
+    "name": "p11_pet_dog_interact_talk",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Triggers dog bark SFX via FUN_800d12a0 and speech/reaction bubble via FUN_80107de0."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010bb18",
+    "ghidra_name": "FUN_8010bb18",
+    "name": "p11_pet_dog_interact_pet",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Triggers pet/heart reaction bubble and happy SFX on the dog via FUN_80107de0."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010bba8",
+    "ghidra_name": "FUN_8010bba8",
+    "name": "p11_pet_dog_carry_pickup",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Handles picking up the dog by checking pad input via FUN_8002261c and playing reaction SFX."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010bc54",
+    "ghidra_name": "FUN_8010bc54",
+    "name": "p11_pet_dog_drop_or_throw",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Places carried dog in front of player facing DAT_80071a38 and clears carry velocity via FUN_800d05d0."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010bce8",
+    "ghidra_name": "FUN_8010bce8",
+    "name": "p11_pet_dog_play_happy_reaction",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Plays dog affection SFX via FUN_800d12a0 and spawns heart reaction bubble via FUN_80107de0."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010bd6c",
+    "ghidra_name": "FUN_8010bd6c",
+    "name": "p11_pet_dog_anim_step_idle",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps dog idle animation table DAT_80127b88 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010be24",
+    "ghidra_name": "FUN_8010be24",
+    "name": "p11_pet_dog_anim_step_bark",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps dog bark/sit animation table DAT_80127b90 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010bed4",
+    "ghidra_name": "FUN_8010bed4",
+    "name": "p11_pet_dog_anim_step_happy",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps dog wag/happy animation table DAT_80127b9c via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010c1fc",
+    "ghidra_name": "FUN_8010c1fc",
+    "name": "p11_pet_dog_update_carried_anim",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Syncs carried dog sprite animation and facing via DAT_80075af6/5b4c/5b51 and hm_sprite_set_anim_state."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010c330",
+    "ghidra_name": "FUN_8010c330",
+    "name": "p11_animl_pond_add_fish",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "fish_type",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Adds a small/medium/large fish into the 99-slot pond array DAT_80075854 and updates total pond count."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010caa8",
+    "ghidra_name": "FUN_8010caa8",
+    "name": "p11_animl_sprite_clear_flags",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Clears transient per-frame Harvest Sprite rendering flags via FUN_800d03b4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010cb6c",
+    "ghidra_name": "FUN_8010cb6c",
+    "name": "p11_animl_sprite_update_work_schedule",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Evaluates Harvest Sprite active chore timer, work completion, and home-return transition via FUN_8010ce80."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010d04c",
+    "ghidra_name": "FUN_8010d04c",
+    "name": "p11_animl_sprite_zero_actor",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "u8 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Zero-clears a 0xf8-byte Harvest Sprite record using bzero and resets position/animation state."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010d250",
+    "ghidra_name": "FUN_8010d250",
+    "name": "p11_animl_sprite_choose_idle_action",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Selects next Harvest Sprite idle or wander action using table DAT_80127cec and random roll."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010dd38",
+    "ghidra_name": "FUN_8010dd38",
+    "name": "p11_animl_sprite_show_reaction",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Spawns a reaction speech/emote bubble over a Harvest Sprite via FUN_80107de0."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010ddc8",
+    "ghidra_name": "FUN_8010ddc8",
+    "name": "p11_animl_sprite_play_tea_party_check",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Checks player held item and pad state for Harvest Sprite tea-party / interaction trigger DAT_80127d04."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010de68",
+    "ghidra_name": "FUN_8010de68",
+    "name": "p11_animl_sprite_run_hire_dialog",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Runs Harvest Sprite dialogue, gift preference check, and 1/3/7-day chore hire prompt via DAT_80127d14..3c."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010e2c4",
+    "ghidra_name": "FUN_8010e2c4",
+    "name": "p11_animl_sprite_anim_step_idle",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps Harvest Sprite idle animation table DAT_80127d48 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010e37c",
+    "ghidra_name": "FUN_8010e37c",
+    "name": "p11_animl_sprite_anim_step_walk",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps Harvest Sprite walking animation table DAT_80127d50 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010e434",
+    "ghidra_name": "FUN_8010e434",
+    "name": "p11_animl_sprite_anim_step_work_a",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps Harvest Sprite work/water animation table DAT_80127d5c via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010e4e4",
+    "ghidra_name": "FUN_8010e4e4",
+    "name": "p11_animl_sprite_anim_step_work_b",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps Harvest Sprite harvest/carry animation table DAT_80127d68 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010e594",
+    "ghidra_name": "FUN_8010e594",
+    "name": "p11_animl_sprite_anim_step_happy",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps Harvest Sprite happy/nod animation table DAT_80127d70 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010ea6c",
+    "ghidra_name": "FUN_8010ea6c",
+    "name": "p11_animl_sprite_anim_step_rest",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 1,
+    "summary": "Steps Harvest Sprite rest/sit animation table DAT_80127d88 via FUN_800d04d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dc148",
+    "ghidra_name": "FUN_800dc148",
+    "name": "p11_animl_tick_cutscene_fx_slots",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Advances all five flag-driven scene effect channels and updates day-clock freeze state DAT_80070d30 via FUN_80021b90."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dc388",
+    "ghidra_name": "FUN_800dc388",
+    "name": "p11_animl_resolve_area_variant_id",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "area_id",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Selects the active farm or indoor map variant ID from area_id, season, farm upgrades, and event flags via FUN_800dd274."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dca60",
+    "ghidra_name": "FUN_800dca60",
+    "name": "p11_animl_init_cutscene_fx_slots",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Initializes the lighting slot pool, overlay pool, and five flag-driven effect channels from DAT_8007aff0."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800de46c",
+    "ghidra_name": "FUN_800de46c",
+    "name": "p11_animl_advance_event_day_timer",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Advances or pauses event cutscene time counters using DAT_80070c88, DAT_80070d02, and DAT_80071a2c."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800df228",
+    "ghidra_name": "FUN_800df228",
+    "name": "p11_barn_cow_setup_model_anim",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "u16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Loads and configures cow calf/adult sprite resource in DAT_8008f7f8/DAT_80124ee8 after checking FUN_800deee0."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800df400",
+    "ghidra_name": "FUN_800df400",
+    "name": "p11_barn_cow_choose_idle_action",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Selects next cow idle, walk, graze, or sleep action based on hour DAT_80070cf8 and random roll."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800df614",
+    "ghidra_name": "FUN_800df614",
+    "name": "p11_barn_cow_cure_sickness",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Uses Animal Medicine on a sick cow: clears sickness timer at +0xae, clears status icon, and shows happy reaction."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800df6a8",
+    "ghidra_name": "FUN_800df6a8",
+    "name": "p11_barn_cow_use_brush",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Brushes a cow: sets brushed flag bit 0x4, updates daily care counter via FUN_800d049c, and triggers happy reaction."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800df72c",
+    "ghidra_name": "FUN_800df72c",
+    "name": "p11_barn_cow_use_miracle_potion",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Applies Cow Miracle Potion to a non-pregnant adult cow (0x162), allocating a pregnancy stall and setting flag 0x59."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800df9f0",
+    "ghidra_name": "FUN_800df9f0",
+    "name": "p11_barn_cow_apply_care_treat",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Applies cow care flag bit 0x2, updates daily care and affection via FUN_800d0dcc and FUN_800d049c."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dfa7c",
+    "ghidra_name": "FUN_800dfa7c",
+    "name": "p11_barn_cow_call_with_bell",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Directs a cow toward the player's current coordinates DAT_80071b00..0c when the farm bell rings."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dfb3c",
+    "ghidra_name": "FUN_800dfb3c",
+    "name": "p11_barn_cow_follow_player",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Updates a bell-attracted cow's target movement vector toward player position DAT_80071b00..0c."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e0e38",
+    "ghidra_name": "FUN_800e0e38",
+    "name": "p11_barn_sheep_setup_model_anim",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "u16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Selects sheared vs woolly sheep sprite in DAT_8008f7f8/DAT_80124ee8 based on wool regrow timer < 7."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e0fd0",
+    "ghidra_name": "FUN_800e0fd0",
+    "name": "p11_barn_sheep_choose_idle_action",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Selects next sheep idle, walk, graze, or sleep action based on hour DAT_80070cf8 and random roll."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e11c0",
+    "ghidra_name": "FUN_800e11c0",
+    "name": "p11_barn_sheep_cure_sickness",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Uses Animal Medicine on a sick sheep: clears sickness timer at +0xae, clears status icon, and shows happy reaction."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e1254",
+    "ghidra_name": "FUN_800e1254",
+    "name": "p11_barn_sheep_use_brush",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Brushes a sheep: sets brushed flag bit 0x4, updates daily care via FUN_800d049c, and triggers happy reaction."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e12d8",
+    "ghidra_name": "FUN_800e12d8",
+    "name": "p11_barn_sheep_use_miracle_potion",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Applies Sheep Miracle Potion to a non-pregnant woolly adult sheep (0x165, wool>=7), setting pregnancy flag."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e15c8",
+    "ghidra_name": "FUN_800e15c8",
+    "name": "p11_barn_sheep_apply_care_treat",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Applies sheep care flag bit 0x2 and updates daily care and affection via FUN_800d0dcc and FUN_800d049c."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e1654",
+    "ghidra_name": "FUN_800e1654",
+    "name": "p11_barn_sheep_call_with_bell",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Directs a sheep toward player position DAT_80071b00..0c when the farm bell rings."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e1714",
+    "ghidra_name": "FUN_800e1714",
+    "name": "p11_barn_sheep_follow_player",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Updates a bell-attracted sheep's movement vector toward player position DAT_80071b00..0c."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e2a30",
+    "ghidra_name": "FUN_800e2a30",
+    "name": "p11_coop_chicken_setup_model_anim",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "u16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Loads chicken/chick sprite resource in DAT_8009a3f8/DAT_80124f48 after checking FUN_800e2718."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e2af0",
+    "ghidra_name": "FUN_800e2af0",
+    "name": "p11_coop_chicken_choose_idle_action",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Chooses next chicken wander, peck, or idle state via FUN_800e2824 based on hour DAT_80070cf8."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e2e50",
+    "ghidra_name": "FUN_800e2e50",
+    "name": "p11_coop_chicken_mark_interacted",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Records daily chicken interaction/care progress via FUN_800d049c when picked up or fed."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e3cdc",
+    "ghidra_name": "FUN_800e3cdc",
+    "name": "p11_animl_upload_afile_snapshot_slot",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "slot_idx",
+        "type": "u32"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Restores saved snapshot slot data from DAT_80129418 and uploads it to VRAM via FUN_800e351c."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x801082f8",
+    "ghidra_name": "FUN_801082f8",
+    "name": "p11_animl_tv_dispatch_channel_schedule",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "channel_id",
+        "type": "s16"
+      },
+      {
+        "name": "weekday",
+        "type": "s16"
+      },
+      {
+        "name": "weather",
+        "type": "s16"
+      },
+      {
+        "name": "season",
+        "type": "s16"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Resolves today's TV broadcast script and recipe reward from channel, weekday, weather, and season."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010860c",
+    "ghidra_name": "FUN_8010860c",
+    "name": "p11_animl_tv_build_screen_prims",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Builds PS1 GPU display primitives for the active TV overlay using DAT_8005e3a8 and DAT_8012d040..44."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80108738",
+    "ghidra_name": "FUN_80108738",
+    "name": "p11_animl_tv_advance_dialog_input",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Polls pad input via FUN_8002261c and advances active TV broadcast dialog page via FUN_8010876c."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80108930",
+    "ghidra_name": "FUN_80108930",
+    "name": "p11_animl_tv_upload_frame_tim",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Uploads TV channel graphics/palette data from DAT_8007bff8 and DAT_8012d060..6c via LoadImage/TIM helpers."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80109594",
+    "ghidra_name": "FUN_80109594",
+    "name": "p11_pet_horse_choose_idle_action",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Selects next horse idle, walk, graze, or sleep action based on hour DAT_80070cf8 and pasture check."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010b05c",
+    "ghidra_name": "FUN_8010b05c",
+    "name": "p11_pet_horse_check_barley_reclaim",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "u32 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Checks low horse affection conditions so Barley can reclaim a neglected colt and clear ownership flags."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010b1c4",
+    "ghidra_name": "FUN_8010b1c4",
+    "name": "p11_pet_dog_spawn_in_world",
+    "return_type": "u16 *",
+    "params": [
+      {
+        "name": "spawn_mode",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Spawns the player's dog record at DAT_80075ad4 into the current scene via FUN_8010b778."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010b8dc",
+    "ghidra_name": "FUN_8010b8dc",
+    "name": "p11_pet_dog_choose_idle_action",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Selects next dog idle, trot, or bark action via FUN_8010b57c based on hour DAT_80070cf8 and random roll."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010b994",
+    "ghidra_name": "FUN_8010b994",
+    "name": "p11_pet_dog_respond_to_whistle",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Handles player whistle call: turns dog toward DAT_80071b00..0c, plays bark SFX, and sets run state."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010c5dc",
+    "ghidra_name": "FUN_8010c5dc",
+    "name": "p11_animl_pond_try_breed_new_fish",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "pond_idx",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Checks pond population cap via FUN_8010c668 and spawns a new fish entry via FUN_8010c330."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010c6a0",
+    "ghidra_name": "FUN_8010c6a0",
+    "name": "p11_animl_sprites_init_all",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Initializes all 7 Harvest Sprite records in DAT_8007a638 (stride 0xf8), names, home coords, and initial tasks."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010c9b4",
+    "ghidra_name": "FUN_8010c9b4",
+    "name": "p11_animl_sprites_daily_rollover",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Loops over all 7 Harvest Sprites in DAT_8007a638 and runs overnight work schedule updates via FUN_8010cb6c."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010cd80",
+    "ghidra_name": "FUN_8010cd80",
+    "name": "p11_animl_sprite_tick_ai",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Ticks Harvest Sprite idle/wander AI at hour DAT_80070cf8 via FUN_8010d250 and FUN_8010ce80."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010d0ec",
+    "ghidra_name": "FUN_8010d0ec",
+    "name": "p11_animl_sprite_setup_model_anim",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "u16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Binds the colored Harvest Sprite texture/model slot via hm_sprite_setup helper FUN_80015704."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010d648",
+    "ghidra_name": "FUN_8010d648",
+    "name": "p11_animl_sprite_try_work_crops",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      },
+      {
+        "name": "chore_type",
+        "type": "s16"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Checks remaining watered/ripe crop tiles via FUN_80110944 so a Harvest Sprite can work crop chores."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010d748",
+    "ghidra_name": "FUN_8010d748",
+    "name": "p11_animl_sprite_try_work_livestock",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      },
+      {
+        "name": "chore_type",
+        "type": "s16"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Checks uncared cows/sheep in DAT_800749f4 and executes Harvest Sprite brushing/feeding chores."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010d850",
+    "ghidra_name": "FUN_8010d850",
+    "name": "p11_animl_sprite_try_ship_products",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      },
+      {
+        "name": "chore_type",
+        "type": "s16"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 2,
+    "summary": "Checks unharvested eggs/milk/wool in DAT_800749f4/4aaa and ships or collects livestock products."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800de9c8",
+    "ghidra_name": "FUN_800de9c8",
+    "name": "p11_barn_cow_try_graze_pasture",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Checks weather DAT_8007ad00 and pasture grass tile via FUN_800d9108 so a cow outside can graze and eat."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800def30",
+    "ghidra_name": "FUN_800def30",
+    "name": "p11_barn_cow_tick_ai",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Advances per-frame cow AI by running FUN_800df400 behavior selection and updating anim via FUN_800df228."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800df128",
+    "ghidra_name": "FUN_800df128",
+    "name": "p11_barn_cow_spawn_actor",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "u8 *"
+      },
+      {
+        "name": "spawn_mode",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Initializes cow actor position, species type, flags, and sprite model via FUN_800df228 and shadow setup."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e05a8",
+    "ghidra_name": "FUN_800e05a8",
+    "name": "p11_barn_sheep_try_graze_pasture",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Checks weather DAT_8007ad00 and pasture grass tile via FUN_800d9108 so an outside sheep can graze."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e0b40",
+    "ghidra_name": "FUN_800e0b40",
+    "name": "p11_barn_sheep_tick_ai",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Advances per-frame sheep AI by calling FUN_800e0fd0 behavior selection and updating wool model via FUN_800e0e38."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e0d3c",
+    "ghidra_name": "FUN_800e0d3c",
+    "name": "p11_barn_sheep_spawn_actor",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "u8 *"
+      },
+      {
+        "name": "spawn_mode",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Initializes sheep actor position, species flags (0x10000), and wool sprite model via FUN_800e0e38."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e276c",
+    "ghidra_name": "FUN_800e276c",
+    "name": "p11_coop_chicken_tick_ai",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Advances per-frame chicken AI by invoking FUN_800e2af0 action selection and updating model via FUN_800e2a30."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e2968",
+    "ghidra_name": "FUN_800e2968",
+    "name": "p11_coop_chicken_spawn_actor",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "s16 *"
+      },
+      {
+        "name": "spawn_mode",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Initializes chicken species (0x109 adult / 0x10a chick), position, shadow, and sprite via FUN_800e2a30."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e2be8",
+    "ghidra_name": "FUN_800e2be8",
+    "name": "p11_coop_chicken_step_random_walk",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Steps chicken wander heading and velocity updates using terrain/tile helper FUN_800d075c."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e2c64",
+    "ghidra_name": "FUN_800e2c64",
+    "name": "p11_coop_chicken_carry_sync",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Syncs a picked-up chicken or chick's position with player carry coordinates DAT_80071b00..0c and plays SFX."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e2d3c",
+    "ghidra_name": "FUN_800e2d3c",
+    "name": "p11_coop_chicken_drop_or_throw",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Drops a held chicken at player facing DAT_80071a38 with ground placement checks and cluck SFX."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e32e4",
+    "ghidra_name": "FUN_800e32e4",
+    "name": "p11_coop_chicken_anim_step_sleep",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Steps chicken sleeping/roosting animation table DAT_801240c8 via FUN_800d04d4 and cluck SFX."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e3c4c",
+    "ghidra_name": "FUN_800e3c4c",
+    "name": "p11_animl_restore_saved_snapshot_afile",
+    "return_type": "u32",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Checks engine flags DAT_8006c844 and triggers A_FILE snapshot upload via FUN_800e3cdc."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80108118",
+    "ghidra_name": "FUN_80108118",
+    "name": "p11_animl_tv_open_broadcast",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Opens TV broadcast for current day-of-week, season, and weather DAT_80070cf0..70cf8 and DAT_8007ad00..02."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x801088e4",
+    "ghidra_name": "FUN_801088e4",
+    "name": "p11_animl_tv_open_screen",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Opens TV sprite frame overlay DAT_8012d040/52/68/6c via FUN_800bd9d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x801089dc",
+    "ghidra_name": "FUN_801089dc",
+    "name": "p11_animl_tv_close_screen",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Tears down TV channel UI graphics and frees screen slots DAT_8012d060..66 via FUN_800bd9d4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x801090a4",
+    "ghidra_name": "FUN_801090a4",
+    "name": "p11_pet_horse_tick_ai",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Ticks horse AI via FUN_80109594 unless horse is mounted (DAT_8012d084), syncing mount state."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80109310",
+    "ghidra_name": "FUN_80109310",
+    "name": "p11_pet_horse_setup_model_anim",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Loads and binds colt or adult horse sprite resource in DAT_8007f7f8 and configures model orientation."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80109a70",
+    "ghidra_name": "FUN_80109a70",
+    "name": "p11_pet_horse_respond_to_whistle",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Handles player whistle call: turns horse toward DAT_80071b00..0c, plays neigh SFX 0x19, and sets run state."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80109b88",
+    "ghidra_name": "FUN_80109b88",
+    "name": "p11_pet_horse_interact_pet",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Triggers pet/attention reaction bubble and horse SFX on interaction via FUN_80107de0."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80109c24",
+    "ghidra_name": "FUN_80109c24",
+    "name": "p11_pet_horse_move_to_stable_trough",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Checks hour DAT_80070cf8 and directs horse toward stable fodder trough via FUN_80109974."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010b4d8",
+    "ghidra_name": "FUN_8010b4d8",
+    "name": "p11_pet_dog_tick_ai",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Ticks dog AI via FUN_8010b8dc and checks player-carry / chase behavior updates."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010b67c",
+    "ghidra_name": "FUN_8010b67c",
+    "name": "p11_pet_dog_spawn_in_farmhouse_or_yard",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Places and binds the dog sprite model using DAT_80075b08/5b60 and FUN_800bd238 during scene load."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010c3f8",
+    "ghidra_name": "FUN_8010c3f8",
+    "name": "p11_animl_pond_daily_rollover",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 3,
+    "summary": "Processes daily fish pond feeding growth, size upgrades, and overnight fish breeding up to 99 fish."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800de2ec",
+    "ghidra_name": "FUN_800de2ec",
+    "name": "p11_animl_check_daily_wake_event",
+    "return_type": "u32",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 4,
+    "summary": "Evaluates morning/day-transition event triggers using calendar state DAT_80070cf2 and event script helpers."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800de8a4",
+    "ghidra_name": "FUN_800de8a4",
+    "name": "p11_barn_cow_spawn_in_world",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "cow_idx",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 4,
+    "summary": "Allocates an actor slot and spawns an indexed cow into the current barn or pasture scene via FUN_800df128."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800de924",
+    "ghidra_name": "FUN_800de924",
+    "name": "p11_barn_cow_init_barn_slot",
+    "return_type": "u16 *",
+    "params": [
+      {
+        "name": "slot_idx",
+        "type": "int"
+      },
+      {
+        "name": "barn_slot",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 4,
+    "summary": "Finds a free HmNpcActor entry in DAT_800749f4 for a newborn or purchased cow and spawns it via FUN_800df128."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e047c",
+    "ghidra_name": "FUN_800e047c",
+    "name": "p11_barn_sheep_spawn_in_world",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "sheep_idx",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 4,
+    "summary": "Allocates an actor slot and spawns an indexed sheep into the current barn or pasture scene via FUN_800e0d3c."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e04fc",
+    "ghidra_name": "FUN_800e04fc",
+    "name": "p11_barn_sheep_init_barn_slot",
+    "return_type": "u16 *",
+    "params": [
+      {
+        "name": "slot_idx",
+        "type": "int"
+      },
+      {
+        "name": "barn_slot",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 4,
+    "summary": "Finds a free HmNpcActor entry in DAT_800749f4 for a newborn or purchased sheep and spawns it via FUN_800e0d3c."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e1f9c",
+    "ghidra_name": "FUN_800e1f9c",
+    "name": "p11_coop_chicken_spawn_in_world",
+    "return_type": "u16 *",
+    "params": [
+      {
+        "name": "chicken_idx",
+        "type": "int"
+      },
+      {
+        "name": "coop_slot",
+        "type": "int"
+      },
+      {
+        "name": "spawn_mode",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 4,
+    "summary": "Allocates a HmAnimalRecord entry in DAT_800742ec/5fe4 and spawns a chick or adult chicken via FUN_800e2968."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e3c04",
+    "ghidra_name": "FUN_800e3c04",
+    "name": "p11_animl_open_shipping_pet_dialog",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 4,
+    "summary": "Initializes dialog cursor globals DAT_80071a64/68 and DAT_800742ac and triggers text box helper FUN_800e7798."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80108d84",
+    "ghidra_name": "FUN_80108d84",
+    "name": "p11_pet_horse_daily_rollover",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 4,
+    "summary": "Processes overnight horse feeding, outdoor weather stress, affection growth, colt->adult aging, and Barley reclaim."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010946c",
+    "ghidra_name": "FUN_8010946c",
+    "name": "p11_pet_horse_spawn_actor",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "s16 *"
+      },
+      {
+        "name": "spawn_mode",
+        "type": "s16"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 4,
+    "summary": "Initializes horse species (0x106 adult / 0x107 colt), coordinates, and model via FUN_80109310."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010da04",
+    "ghidra_name": "FUN_8010da04",
+    "name": "p11_animl_sprite_interact_talk_or_gift",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 4,
+    "summary": "Handles talking to or gifting a Harvest Sprite, opening hire/chore dialog via FUN_8010de68."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e3aa4",
+    "ghidra_name": "FUN_800e3aa4",
+    "name": "p11_animl_fade_and_swap_bgm",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 5,
+    "summary": "Fades screen clear color, halts active SEQ/BGM tracks, and swaps music bank via audio SEQ helpers."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80108cd0",
+    "ghidra_name": "FUN_80108cd0",
+    "name": "p11_pet_horse_spawn_in_world",
+    "return_type": "u16 *",
+    "params": [
+      {
+        "name": "horse_idx",
+        "type": "int"
+      },
+      {
+        "name": "spawn_mode",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 5,
+    "summary": "Selects player horse record DAT_800759e4 and spawns colt or adult horse actor via FUN_8010946c."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010cad4",
+    "ghidra_name": "FUN_8010cad4",
+    "name": "p11_animl_sprite_step_chore_clock",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 5,
+    "summary": "Checks weather DAT_8007ad00 and hour DAT_80070cf8 to trigger outdoor/indoor Harvest Sprite chore step."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800de7c8",
+    "ghidra_name": "FUN_800de7c8",
+    "name": "p11_barn_cow_update_sprite_frame",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 6,
+    "summary": "Resolves cow sprite frame/flip from facing and state via FUN_800df3bc, updates sprite anim, and spawns ground FX."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800df84c",
+    "ghidra_name": "FUN_800df84c",
+    "name": "p11_barn_cow_use_milker",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 6,
+    "summary": "Milks an adult non-pregnant cow (0x162), granting S/M/L/G milk (0x8b..0x8d/0xe3) to player or Harvest Sprite."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e03a0",
+    "ghidra_name": "FUN_800e03a0",
+    "name": "p11_barn_sheep_update_sprite_frame",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 6,
+    "summary": "Resolves sheep sprite frame/flip via FUN_800e0f8c, updates sprite animation state, and spawns ground splash FX."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e1404",
+    "ghidra_name": "FUN_800e1404",
+    "name": "p11_barn_sheep_use_shears",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 6,
+    "summary": "Shears a woolly adult sheep (0x165, wool>=7), resetting wool timer to 0 and granting S/M/L/G wool (0x91..0x93/0xe7)."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e1ec0",
+    "ghidra_name": "FUN_800e1ec0",
+    "name": "p11_coop_chicken_update_sprite_frame",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 6,
+    "summary": "Resolves chicken sprite frame/flip via FUN_800e2aac, updates sprite animation state, and spawns ground FX."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80108be8",
+    "ghidra_name": "FUN_80108be8",
+    "name": "p11_pet_horse_update_sprite_frame",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 6,
+    "summary": "Resolves horse sprite frame/flip via FUN_80109550, updates sprite anim, and updates double-buffered shadow."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010b0e8",
+    "ghidra_name": "FUN_8010b0e8",
+    "name": "p11_pet_dog_update_sprite_frame",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 6,
+    "summary": "Resolves dog sprite frame/flip via FUN_8010b898, updates sprite animation state, and spawns ground FX."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010c2ec",
+    "ghidra_name": "FUN_8010c2ec",
+    "name": "p11_pet_sync_carried_shadow",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "actor_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 6,
+    "summary": "Updates soil splash FX and ground shadow position at actor_ptr + 0xa8 when engine mask DAT_8006c844 allows."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010c95c",
+    "ghidra_name": "FUN_8010c95c",
+    "name": "p11_animl_sprites_step_hourly_chores",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 6,
+    "summary": "Loops over all 7 Harvest Sprites in DAT_8007a638 and advances active chore state machines via FUN_8010cad4."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010ca0c",
+    "ghidra_name": "FUN_8010ca0c",
+    "name": "p11_animl_sprite_update_frame",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 6,
+    "summary": "Resolves Harvest Sprite animation frame/flip via FUN_8010d20c and updates render/fx state."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800de334",
+    "ghidra_name": "FUN_800de334",
+    "name": "p11_animl_tick_hourly_farm_events",
+    "return_type": "u32",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 7,
+    "summary": "Runs hourly world, animal, and Harvest Sprite chore updates and triggers noon/6pm chimes at DAT_80070cf8 == 12/18."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010cf58",
+    "ghidra_name": "FUN_8010cf58",
+    "name": "p11_animl_sprite_handle_gift_flag",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 11,
+    "summary": "Monitors gift-held flag 0x800 on a Harvest Sprite and updates affection via hm_ovl11_query_npc_affection."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800de6bc",
+    "ghidra_name": "FUN_800de6bc",
+    "name": "p11_animl_dispatch_gift_reaction_4",
+    "return_type": "u32",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 12,
+    "summary": "Dispatches NPC/animal event gift reaction mode 4 through hm_ovl11_dispatch_npc_gift_reaction."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800de6e8",
+    "ghidra_name": "FUN_800de6e8",
+    "name": "p11_animl_dispatch_gift_reaction_1",
+    "return_type": "u32",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 12,
+    "summary": "Dispatches NPC/animal event gift reaction mode 1 through hm_ovl11_dispatch_npc_gift_reaction."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800de714",
+    "ghidra_name": "FUN_800de714",
+    "name": "p11_animl_dispatch_gift_reaction_2",
+    "return_type": "u32",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 12,
+    "summary": "Dispatches NPC/animal event gift reaction mode 2 through hm_ovl11_dispatch_npc_gift_reaction."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800de740",
+    "ghidra_name": "FUN_800de740",
+    "name": "p11_animl_dispatch_gift_reaction_0",
+    "return_type": "u32",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 12,
+    "summary": "Dispatches NPC/animal event gift reaction mode 0 through hm_ovl11_dispatch_npc_gift_reaction."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010c7f0",
+    "ghidra_name": "FUN_8010c7f0",
+    "name": "p11_animl_sprites_tick_all",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 12,
+    "summary": "Main per-frame loop across all 7 Harvest Sprites in DAT_8007a638 running gift checks, AI, shadows, and sprites."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800de3a0",
+    "ghidra_name": "FUN_800de3a0",
+    "name": "p11_animl_run_pet_event_wait_loop",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "wave": 15,
+    "summary": "Executes pet/livestock menu dialog wait loop while monitoring event flag 2 and state DAT_800742ac."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dfe74",
+    "ghidra_name": "FUN_800dfe74",
+    "name": "p11_barn_cow_anim_step_walk",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 19,
+    "summary": "Steps cow walking animation DAT_80123f24 and collision/turning via FUN_800d04d4 and FUN_800d12b8."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e0280",
+    "ghidra_name": "FUN_800e0280",
+    "name": "p11_barn_cow_settle_idle_state",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 19,
+    "summary": "Applies cow movement/collision step via FUN_800d12b8 and updates facing/idle state from velocity and weather."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e1a3c",
+    "ghidra_name": "FUN_800e1a3c",
+    "name": "p11_barn_sheep_anim_step_walk",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 19,
+    "summary": "Steps sheep walking animation DAT_80123fdc and collision movement via FUN_800d04d4 and FUN_800d12b8."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e1da8",
+    "ghidra_name": "FUN_800e1da8",
+    "name": "p11_barn_sheep_settle_idle_state",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 19,
+    "summary": "Applies sheep movement/collision step via FUN_800d12b8 and updates facing/idle state from velocity and weather."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e30fc",
+    "ghidra_name": "FUN_800e30fc",
+    "name": "p11_coop_chicken_anim_step_walk",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 19,
+    "summary": "Steps chicken walking animation DAT_801240b0 and collision movement via FUN_800d04d4 and FUN_800d12b8."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e3200",
+    "ghidra_name": "FUN_800e3200",
+    "name": "p11_coop_chicken_anim_step_flap",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 19,
+    "summary": "Steps chicken flapping/carried animation DAT_801240bc via FUN_800d04d4 and FUN_800d12b8."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e33e8",
+    "ghidra_name": "FUN_800e33e8",
+    "name": "p11_coop_chicken_settle_idle_state",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 19,
+    "summary": "Applies chicken collision step via FUN_800d12b8 and resets idle state based on movement velocity."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010add4",
+    "ghidra_name": "FUN_8010add4",
+    "name": "p11_pet_horse_settle_idle_state",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 19,
+    "summary": "Applies horse collision/movement via FUN_800d12b8 and clears ride-carry flags when velocity reaches zero."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010ae64",
+    "ghidra_name": "FUN_8010ae64",
+    "name": "p11_pet_horse_update_mount_motion",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 19,
+    "summary": "Updates horse mounted velocity, walk/gallop animation mode via DAT_80127b2c/32, and ride stamina counter."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010bfec",
+    "ghidra_name": "FUN_8010bfec",
+    "name": "p11_pet_dog_settle_idle_state",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 19,
+    "summary": "Applies dog collision step via FUN_800d12b8 and sets idle state 0 or run state 1."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010c090",
+    "ghidra_name": "FUN_8010c090",
+    "name": "p11_pet_dog_step_follow_motion",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 19,
+    "summary": "Steps dog chasing/following collision and ground contact flags via FUN_800d12b8 and FUN_800d0408."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010e644",
+    "ghidra_name": "FUN_8010e644",
+    "name": "p11_animl_sprite_step_move_collision",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 19,
+    "summary": "Applies Harvest Sprite collision step via FUN_800d12b8 and updates facing/idle state based on carry flag."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e0220",
+    "ghidra_name": "FUN_800e0220",
+    "name": "p11_barn_cow_anim_step_rest",
+    "return_type": "bool",
+    "params": [
+      {
+        "name": "cow_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 20,
+    "summary": "Checks cow rest flag 0x2000, resets rest timer to 300 or invokes FUN_800e0280 to settle idle/sleep state."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e1d48",
+    "ghidra_name": "FUN_800e1d48",
+    "name": "p11_barn_sheep_anim_step_rest",
+    "return_type": "bool",
+    "params": [
+      {
+        "name": "sheep_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 20,
+    "summary": "Checks sheep rest flag 0x2000, resets rest timer to 300 or invokes FUN_800e1da8 to settle idle/sleep state."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010a47c",
+    "ghidra_name": "FUN_8010a47c",
+    "name": "p11_pet_horse_state_seek_fodder",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 20,
+    "summary": "Executes horse state machine for approaching stable fodder (DAT_80127ad0/d070) and eating."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010a654",
+    "ghidra_name": "FUN_8010a654",
+    "name": "p11_pet_horse_state_graze_pasture",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 20,
+    "summary": "Executes horse state machine for grazing pasture grass (DAT_80127adc/d072) and clearing eaten grass tile."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010afcc",
+    "ghidra_name": "FUN_8010afcc",
+    "name": "p11_pet_horse_sync_mounted_player",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 20,
+    "summary": "Reads player mount input state via FUN_800f44b4(0x65) and synchronizes horse motion via FUN_8010ae64."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010bf8c",
+    "ghidra_name": "FUN_8010bf8c",
+    "name": "p11_pet_dog_anim_step_rest",
+    "return_type": "bool",
+    "params": [
+      {
+        "name": "dog_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 20,
+    "summary": "Checks dog carry/rest flag 0x2000, resets timer to 300 or invokes FUN_8010bfec to settle state."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010a850",
+    "ghidra_name": "FUN_8010a850",
+    "name": "p11_pet_horse_state_mount_and_ride",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "horse_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 21,
+    "summary": "Manages horse mount, shipping-bin deposit, and mounted ride sub-states via jump table PTR_LAB_800ba9d0."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010ee5c",
+    "ghidra_name": "FUN_8010ee5c",
+    "name": "p11_animl_sprite_chore_finish_subtask",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      },
+      {
+        "name": "expected_state",
+        "type": "s16"
+      },
+      {
+        "name": "flag_mask",
+        "type": "u32"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 21,
+    "summary": "Clears Harvest Sprite chore sub-task flag mask or walks sprite toward target position via FUN_80110544."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010f324",
+    "ghidra_name": "FUN_8010f324",
+    "name": "p11_animl_sprite_chore_walk_to_station",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 21,
+    "summary": "Guides a Harvest Sprite along station approach coordinates and switches into the assigned chore state."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010f4cc",
+    "ghidra_name": "FUN_8010f4cc",
+    "name": "p11_animl_sprite_chore_approach_door",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 21,
+    "summary": "Guides a Harvest Sprite through barn/coop entrance waypoints before returning to idle or starting work."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010f6c0",
+    "ghidra_name": "FUN_8010f6c0",
+    "name": "p11_animl_sprite_substep_water_tile",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      },
+      {
+        "name": "water_flag",
+        "type": "u32"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 21,
+    "summary": "Executes the 7-phase Harvest Sprite soil-watering sub-state (seek dry crop, water tile, step cooldown)."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010f80c",
+    "ghidra_name": "FUN_8010f80c",
+    "name": "p11_animl_sprite_substep_harvest_tile",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      },
+      {
+        "name": "harvest_flag",
+        "type": "u32"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 21,
+    "summary": "Executes the Harvest Sprite crop-picking sub-state (seek ripe crop, pick, carry/ship item)."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010f8e4",
+    "ghidra_name": "FUN_8010f8e4",
+    "name": "p11_animl_sprite_substep_feed_animals",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      },
+      {
+        "name": "barn_type",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 21,
+    "summary": "Executes Harvest Sprite fodder/chicken-feed chore: picks feed from silo dispenser and fills barn/coop bins."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010fbc4",
+    "ghidra_name": "FUN_8010fbc4",
+    "name": "p11_animl_sprite_substep_tend_livestock",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 21,
+    "summary": "Executes Harvest Sprite cow/sheep care sub-state: approaches livestock slot and triggers brush/care."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010fef8",
+    "ghidra_name": "FUN_8010fef8",
+    "name": "p11_animl_sprite_substep_collect_eggs",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 21,
+    "summary": "Executes Harvest Sprite egg/product collection sub-state from DAT_8007a604 slots and carries to shipping."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010eb24",
+    "ghidra_name": "FUN_8010eb24",
+    "name": "p11_animl_sprite_chore_water_crops",
+    "return_type": "bool",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 22,
+    "summary": "Drives Harvest Sprite crop-watering chore state machine via FUN_8010f6c0 and tile pathing."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010ecc0",
+    "ghidra_name": "FUN_8010ecc0",
+    "name": "p11_animl_sprite_chore_harvest_crops",
+    "return_type": "bool",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 22,
+    "summary": "Drives Harvest Sprite crop-harvesting chore state machine via FUN_8010f80c and shipping bin checks."
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010eee4",
+    "ghidra_name": "FUN_8010eee4",
+    "name": "p11_animl_sprite_chore_animal_care",
+    "return_type": "bool",
+    "params": [
+      {
+        "name": "sprite_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "wave": 22,
+    "summary": "Master Harvest Sprite animal-care state machine coordinating feeding, brushing/milking, and shipping eggs/milk/wool."
+  }
+]

@@ -1,0 +1,7 @@
+[
+  "primitives_and_sdk.h",
+  "engine_and_afile.h",
+  "render_and_gte.h",
+  "farm_npc_and_sim.h",
+  "ui_diary_and_overlays.h"
+]

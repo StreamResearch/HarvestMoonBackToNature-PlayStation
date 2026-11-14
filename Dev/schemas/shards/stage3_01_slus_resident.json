@@ -1,0 +1,6580 @@
+[
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80011334",
+    "ghidra_name": "FUN_80011334",
+    "name": "sys_run_vsync_cb_and_swap",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "wave": 0,
+    "summary": "Invokes pending one-shot VSync callback DAT_8005e388, clears it, then triggers post-swap handlers FUN_80014b44 and FUN_8001b118."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80011db0",
+    "ghidra_name": "FUN_80011db0",
+    "name": "gfx_flush_display_and_ots",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Applies DISPENV and DRAWENV on active display buffer when DAT_8005e278 equals 1 and flushes ordering tables DAT_8005e3b4/DAT_8005e3c0."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80011ee8",
+    "ghidra_name": "FUN_80011ee8",
+    "name": "sys_noop_callback",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "wave": 0,
+    "summary": "Empty void callback stub returning immediately for default VSync or event function pointer slots."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80011f2c",
+    "ghidra_name": "FUN_80011f2c",
+    "name": "sys_set_vsync_stride",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "stride",
+        "type": "u8"
+      }
+    ],
+    "domain": "core_mainloop",
+    "wave": 0,
+    "summary": "Stores frame VSync interval stride byte into DAT_8005e274 to throttle frame pacing."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80011f38",
+    "ghidra_name": "FUN_80011f38",
+    "name": "sys_get_vsync_stride",
+    "return_type": "u8",
+    "params": [],
+    "domain": "core_mainloop",
+    "wave": 0,
+    "summary": "Returns current frame VSync interval stride byte from DAT_8005e274."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80011f44",
+    "ghidra_name": "FUN_80011f44",
+    "name": "sys_set_draw_enable",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "enabled",
+        "type": "u32"
+      }
+    ],
+    "domain": "core_mainloop",
+    "wave": 0,
+    "summary": "Sets display draw-enable flag DAT_8005e278 controlling buffer swap and PutDispEnv/PutDrawEnv submission."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80011f50",
+    "ghidra_name": "FUN_80011f50",
+    "name": "sys_set_frame_sync_flag",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "flag",
+        "type": "u32"
+      }
+    ],
+    "domain": "core_mainloop",
+    "wave": 0,
+    "summary": "Updates frame synchronization control word DAT_8005e27c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001205c",
+    "ghidra_name": "FUN_8001205c",
+    "name": "sys_get_highram_free_bytes",
+    "return_type": "s32",
+    "params": [],
+    "domain": "core_mainloop",
+    "wave": 0,
+    "summary": "Computes remaining high-RAM arena bytes between DAT_8005e3b0 - 0x49000 and heap water-mark DAT_8007aff4."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800120bc",
+    "ghidra_name": "FUN_800120bc",
+    "name": "sys_get_highram_arena_ptr",
+    "return_type": "u32",
+    "params": [],
+    "domain": "core_mainloop",
+    "wave": 0,
+    "summary": "Returns base address of active OT/sprite arena pointer stored in DAT_8005e3b0."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800121d8",
+    "ghidra_name": "FUN_800121d8",
+    "name": "gfx_clear_active_ot_ctx",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Clears the active display context's primary ordering table via ClearOTagR when its OT pointer is non-null."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80012598",
+    "ghidra_name": "FUN_80012598",
+    "name": "gfx_init_ot_buffers_large",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Zeros 0x3ee50 bytes at DAT_801be1b0 and initializes double-buffered HmDisplayOtCtx OT/primitive pools at DAT_8005e5e8."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800128dc",
+    "ghidra_name": "FUN_800128dc",
+    "name": "gfx_copy_prim_backup_slot",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "slot",
+        "type": "s32"
+      },
+      {
+        "name": "use_full_stride",
+        "type": "s32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Copies 0x10000 or active context primitive buffer bytes from DAT_8012dde8 into backup buffer DAT_8005e718 when slot is zero."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800129f4",
+    "ghidra_name": "FUN_800129f4",
+    "name": "sys_enable_video_output",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "wave": 0,
+    "summary": "Calls PS1 SDK SetDispMask(1) to unblank PlayStation video output."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80013438",
+    "ghidra_name": "FUN_80013438",
+    "name": "sys_set_sync_mode",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "mode",
+        "type": "u32"
+      }
+    ],
+    "domain": "core_mainloop",
+    "wave": 0,
+    "summary": "Stores frame sync/VSync mode parameter into global DAT_8005e29c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80013668",
+    "ghidra_name": "FUN_80013668",
+    "name": "gfx_reset_640x480_gpu_env",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Initializes and applies a 640x480 (0x280x0x1e0) DISPENV and DRAWENV at VRAM (0,0)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80013aa4",
+    "ghidra_name": "FUN_80013aa4",
+    "name": "pad_set_repeat_timing",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "delay",
+        "type": "u32"
+      },
+      {
+        "name": "rate",
+        "type": "u32"
+      }
+    ],
+    "domain": "input_memcard",
+    "wave": 0,
+    "summary": "Reads controller button state globals DAT_8005e3a8/DAT_8005e3ac for repeat configuration."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80013ac8",
+    "ghidra_name": "FUN_80013ac8",
+    "name": "pad_set_analog_config",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "port",
+        "type": "u32"
+      },
+      {
+        "name": "mode",
+        "type": "u32"
+      }
+    ],
+    "domain": "input_memcard",
+    "wave": 0,
+    "summary": "Reads controller globals DAT_8005e3a8/DAT_8005e3ac during analog pad mode configuration stub."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80013af8",
+    "ghidra_name": "FUN_80013af8",
+    "name": "pad_get_io_state",
+    "return_type": "u32",
+    "params": [],
+    "domain": "input_memcard",
+    "wave": 0,
+    "summary": "Returns global pad/input enable state word DAT_8005e3ec."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80013f90",
+    "ghidra_name": "FUN_80013f90",
+    "name": "pad_clear_slot_state",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "slot_ctx",
+        "type": "u32 *"
+      }
+    ],
+    "domain": "input_memcard",
+    "wave": 0,
+    "summary": "Zeros pad descriptor state fields at offsets 1..5 and 8..10 in the given slot structure."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800140c8",
+    "ghidra_name": "FUN_800140c8",
+    "name": "pad_align_actuator",
+    "return_type": "s32",
+    "params": [
+      {
+        "name": "port_idx",
+        "type": "s32"
+      }
+    ],
+    "domain": "input_memcard",
+    "wave": 0,
+    "summary": "Checks PadGetState == 6 on port 0x00 or 0x10 and aligns DualShock actuators using table DAT_80048b14."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800142d8",
+    "ghidra_name": "FUN_800142d8",
+    "name": "pad_calc_analog_magnitude",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "axis_x",
+        "type": "u32"
+      },
+      {
+        "name": "axis_y",
+        "type": "u32"
+      }
+    ],
+    "domain": "input_memcard",
+    "wave": 0,
+    "summary": "Applies deadzone (0x5c..0xa4) around center 0x80 and computes analog stick magnitude via csqrt."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80014388",
+    "ghidra_name": "FUN_80014388",
+    "name": "pad_calc_analog_angle",
+    "return_type": "s32",
+    "params": [
+      {
+        "name": "axis_x",
+        "type": "u32"
+      },
+      {
+        "name": "axis_y",
+        "type": "u32"
+      }
+    ],
+    "domain": "input_memcard",
+    "wave": 0,
+    "summary": "Applies deadzone around 0x80 and computes quantized analog stick direction angle via ratan2."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001526c",
+    "ghidra_name": "FUN_8001526c",
+    "name": "gfx_emit_tile1_prim",
+    "return_type": "u32 *",
+    "params": [
+      {
+        "name": "prim_buf",
+        "type": "u32 *"
+      },
+      {
+        "name": "ot_entry",
+        "type": "u32 *"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "rgb",
+        "type": "u32"
+      },
+      {
+        "name": "semi_trans",
+        "type": "s16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Builds a 1x1 TILE_1 primitive (code 0x68/0x6a) at (x,y), links it into ot_entry, and returns the next buffer pointer."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001530c",
+    "ghidra_name": "FUN_8001530c",
+    "name": "gfx_emit_line_f2_prim",
+    "return_type": "u32 *",
+    "params": [
+      {
+        "name": "prim_buf",
+        "type": "u32 *"
+      },
+      {
+        "name": "ot_entry",
+        "type": "u32 *"
+      },
+      {
+        "name": "x0",
+        "type": "s16"
+      },
+      {
+        "name": "y0",
+        "type": "s16"
+      },
+      {
+        "name": "x1",
+        "type": "s16"
+      },
+      {
+        "name": "y1",
+        "type": "s16"
+      },
+      {
+        "name": "rgb",
+        "type": "u32"
+      },
+      {
+        "name": "semi_trans",
+        "type": "s16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Builds a flat LINE_F2 primitive (code 0x40/0x42) between (x0,y0) and (x1,y1), links into ot_entry, and advances prim_buf."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800153bc",
+    "ghidra_name": "FUN_800153bc",
+    "name": "gfx_emit_poly_g4_rect",
+    "return_type": "u32 *",
+    "params": [
+      {
+        "name": "prim_buf",
+        "type": "u32 *"
+      },
+      {
+        "name": "ot_entry",
+        "type": "u32 *"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "w",
+        "type": "s16"
+      },
+      {
+        "name": "h",
+        "type": "s16"
+      },
+      {
+        "name": "c0",
+        "type": "u32"
+      },
+      {
+        "name": "c1",
+        "type": "u32"
+      },
+      {
+        "name": "c2",
+        "type": "u32"
+      },
+      {
+        "name": "c3",
+        "type": "u32"
+      },
+      {
+        "name": "semi_trans",
+        "type": "s16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Builds a 4-corner Gouraud POLY_G4 rectangle (code 0x38/0x3a) with per-vertex colors, links into ot_entry, and returns next prim pointer."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800154cc",
+    "ghidra_name": "FUN_800154cc",
+    "name": "gfx_emit_poly_f4_rect",
+    "return_type": "u32 *",
+    "params": [
+      {
+        "name": "prim_buf",
+        "type": "u32 *"
+      },
+      {
+        "name": "ot_entry",
+        "type": "u32 *"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "w",
+        "type": "s16"
+      },
+      {
+        "name": "h",
+        "type": "s16"
+      },
+      {
+        "name": "rgb",
+        "type": "u32"
+      },
+      {
+        "name": "semi_trans",
+        "type": "s16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Builds a flat-shaded POLY_F4 rectangle (code 0x28/0x2a) at (x,y,w,h), links into ot_entry, and advances prim_buf."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80015594",
+    "ghidra_name": "FUN_80015594",
+    "name": "gfx_emit_tile_rect_prim",
+    "return_type": "u32 *",
+    "params": [
+      {
+        "name": "prim_buf",
+        "type": "u32 *"
+      },
+      {
+        "name": "ot_entry",
+        "type": "u32 *"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "w",
+        "type": "s16"
+      },
+      {
+        "name": "h",
+        "type": "s16"
+      },
+      {
+        "name": "rgb",
+        "type": "u32"
+      },
+      {
+        "name": "semi_trans",
+        "type": "s16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Builds a colored TILE primitive (code 0x60/0x62) of size (w,h) at (x,y), links into ot_entry, and advances prim_buf."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80015880",
+    "ghidra_name": "FUN_80015880",
+    "name": "gfx_sprite_set_hdr_noop",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "sprite_ctx",
+        "type": "s32"
+      },
+      {
+        "name": "arg1",
+        "type": "u32"
+      },
+      {
+        "name": "arg2",
+        "type": "u32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "No-op stub left after removing sprite header configuration hook."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80015aac",
+    "ghidra_name": "FUN_80015aac",
+    "name": "gfx_sprite_lookup_cel_id",
+    "return_type": "u16",
+    "params": [
+      {
+        "name": "sprite_sheet",
+        "type": "s32"
+      },
+      {
+        "name": "anim_id",
+        "type": "u32"
+      },
+      {
+        "name": "frame_idx",
+        "type": "u32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Indexes sprite sheet tables at +0x28 and +0x2c by anim_id and frame_idx (stride 10) to resolve the 16-bit cel/frame ID."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017a48",
+    "ghidra_name": "FUN_80017a48",
+    "name": "hud_res_set_text_color_idx",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "color_idx",
+        "type": "u32"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 0,
+    "summary": "Clamps text color palette index to <= 6 and stores it into DAT_8005e450."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017a64",
+    "ghidra_name": "FUN_80017a64",
+    "name": "hud_res_get_text_color_idx",
+    "return_type": "u32",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "wave": 0,
+    "summary": "Returns active text color palette index from DAT_8005e450."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017a70",
+    "ghidra_name": "FUN_80017a70",
+    "name": "hud_res_set_text_speed",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "speed_idx",
+        "type": "u32"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 0,
+    "summary": "Clamps speed preset index (< 3, else 1) and loads character delay from DAT_80049050 into DAT_8005e44c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017aa0",
+    "ghidra_name": "FUN_80017aa0",
+    "name": "hud_res_get_text_speed_idx",
+    "return_type": "u32",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "wave": 0,
+    "summary": "Maps current character delay DAT_8005e44c (0, 5, or other) back to text speed index 0, 2, or 1."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017acc",
+    "ghidra_name": "FUN_80017acc",
+    "name": "hud_res_arm_text_step",
+    "return_type": "void",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "wave": 0,
+    "summary": "Transitions dialogue typewriter pause state DAT_8005e446 from 0 (idle) to 1 (armed)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017ae8",
+    "ghidra_name": "FUN_80017ae8",
+    "name": "hud_res_advance_text_step",
+    "return_type": "void",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "wave": 0,
+    "summary": "When DAT_8005e446 is 1 or 3, resets it to 0 and advances page/line counter DAT_8005e444."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017b30",
+    "ghidra_name": "FUN_80017b30",
+    "name": "hud_res_get_active_speaker_id",
+    "return_type": "s32",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "wave": 0,
+    "summary": "Returns current speaker/portrait actor ID stored in DAT_8005e470."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017c30",
+    "ghidra_name": "FUN_80017c30",
+    "name": "hud_res_get_loaded_portrait_id",
+    "return_type": "u16",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "wave": 0,
+    "summary": "Returns currently cached portrait slot ID from DAT_8005e468."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017c3c",
+    "ghidra_name": "FUN_80017c3c",
+    "name": "hud_res_set_loaded_portrait_id",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "portrait_id",
+        "type": "u16"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 0,
+    "summary": "Updates both DAT_8005e468 and DAT_8005e460 with the active dialogue portrait ID."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017e34",
+    "ghidra_name": "FUN_80017e34",
+    "name": "hud_res_concat_tok_str",
+    "return_type": "s16 *",
+    "params": [
+      {
+        "name": "dst",
+        "type": "s16 *"
+      },
+      {
+        "name": "src",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 0,
+    "summary": "Appends a 0xFFFF-terminated 16-bit glyph token string from src onto the end of dst and returns dst."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80018b8c",
+    "ghidra_name": "FUN_80018b8c",
+    "name": "hud_res_clear_text_ptr",
+    "return_type": "void",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "wave": 0,
+    "summary": "Clears active dialogue script pointer DAT_8005e4b0 to null."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80019030",
+    "ghidra_name": "FUN_80019030",
+    "name": "hud_res_get_dialog_line_y",
+    "return_type": "s32",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "wave": 0,
+    "summary": "Computes dialogue window text Y coordinate using DAT_8005e47a, minus (12 + DAT_8005e2ba) if previous token was newline -2."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80019070",
+    "ghidra_name": "FUN_80019070",
+    "name": "gfx_emit_font_glyph_sprt",
+    "return_type": "u32 *",
+    "params": [
+      {
+        "name": "prim_buf",
+        "type": "u32 *"
+      },
+      {
+        "name": "ot_entry",
+        "type": "u32 *"
+      },
+      {
+        "name": "glyph_id",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "r",
+        "type": "u8"
+      },
+      {
+        "name": "g",
+        "type": "u8"
+      },
+      {
+        "name": "b",
+        "type": "u8"
+      },
+      {
+        "name": "color_idx",
+        "type": "u32"
+      },
+      {
+        "name": "semi_trans",
+        "type": "s32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Emits a 12x12 font SPRT + DR_TPAGE packet using glyph UV lookup and CLUT table DAT_80049044, linking into ot_entry."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800195f4",
+    "ghidra_name": "FUN_800195f4",
+    "name": "hud_res_get_text_step_state",
+    "return_type": "u16",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "wave": 0,
+    "summary": "Returns current dialogue wait/step state DAT_8005e446."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80019600",
+    "ghidra_name": "FUN_80019600",
+    "name": "hud_res_reset_text_step",
+    "return_type": "void",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "wave": 0,
+    "summary": "Resets dialogue page counter DAT_8005e444 and step state DAT_8005e446 to 0."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800198e0",
+    "ghidra_name": "FUN_800198e0",
+    "name": "hud_res_measure_tok_str_width",
+    "return_type": "s32",
+    "params": [
+      {
+        "name": "tokens",
+        "type": "u16 *"
+      },
+      {
+        "name": "max_glyphs",
+        "type": "s32"
+      },
+      {
+        "name": "spacing",
+        "type": "s16"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 0,
+    "summary": "Recursively measures pixel width of a 16-bit glyph token string including 0x4000 macro expansions in DAT_8005f0c8."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80019e50",
+    "ghidra_name": "FUN_80019e50",
+    "name": "hud_res_map_choice_result",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "choice_idx",
+        "type": "s32"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 0,
+    "summary": "Maps 1-based choice index (1..4, else 0) through lookup table DAT_80049058."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80019fac",
+    "ghidra_name": "FUN_80019fac",
+    "name": "hud_res_decode_portrait_idx",
+    "return_type": "s32",
+    "params": [
+      {
+        "name": "token",
+        "type": "u32"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 0,
+    "summary": "Converts portrait control token (0x0fef - (token & 0xffff)) into signed portrait resource index."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001a574",
+    "ghidra_name": "FUN_8001a574",
+    "name": "hud_res_expand_script_macro",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "macro_id",
+        "type": "s32"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 0,
+    "summary": "Invokes text macro handler PTR_FUN_80049078[macro_id % 3](macro_id / 3) and advances DAT_8005e4a8 until 0xFFFF."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001a8d0",
+    "ghidra_name": "FUN_8001a8d0",
+    "name": "hud_res_ascii_to_glyph_tok",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "ascii_ch",
+        "type": "u32"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 0,
+    "summary": "Translates an ASCII byte to an internal 16-bit font glyph token via character class table DAT_8005e025 and punctuation switch."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001aa7c",
+    "ghidra_name": "FUN_8001aa7c",
+    "name": "hud_res_copy_6tok_preset",
+    "return_type": "u16 *",
+    "params": [
+      {
+        "name": "preset_idx",
+        "type": "s32"
+      },
+      {
+        "name": "dst",
+        "type": "u16 *"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 0,
+    "summary": "Copies 6 halfword glyph tokens from table DAT_8004908c (stride 0xc) into dst."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001aca0",
+    "ghidra_name": "FUN_8001aca0",
+    "name": "hud_res_reset_portrait_cache",
+    "return_type": "void",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "wave": 0,
+    "summary": "Resets active dialogue portrait globals DAT_8005e454, DAT_8005e460 to 0xFFFF and DAT_8005e468 to 0xFFFD."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001b100",
+    "ghidra_name": "FUN_8001b100",
+    "name": "gfx_clear_overlay_busy_flag",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Clears screen transition/filter busy flag DAT_8005e2cc to 0."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001b10c",
+    "ghidra_name": "FUN_8001b10c",
+    "name": "gfx_get_overlay_busy_flag",
+    "return_type": "u32",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Returns screen transition/filter busy flag DAT_8005e2cc."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001b258",
+    "ghidra_name": "FUN_8001b258",
+    "name": "gfx_tick_screen_filter_slots",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Iterates screen fade/filter slots in DAT_8005e4c4 and invokes active handlers via table DAT_8001021c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001b4d0",
+    "ghidra_name": "FUN_8001b4d0",
+    "name": "gfx_set_filter_slot_noop",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "slot",
+        "type": "s32"
+      },
+      {
+        "name": "param",
+        "type": "u32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Empty stub for screen filter slot parameter assignment."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001b4e4",
+    "ghidra_name": "FUN_8001b4e4",
+    "name": "gfx_reset_filter_slot",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "slot",
+        "type": "s32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Clears filter slot entry DAT_8005e4c4[slot] and resets auxiliary color flags DAT_8005e8a6/DAT_8005e8a7."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001b6a0",
+    "ghidra_name": "FUN_8001b6a0",
+    "name": "gfx_gte_rebuild_iso_view_matrix",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Recomputes GTE view/projection matrix from eye DAT_80061de8 and target DAT_80061df4 using CrossProduct0/VectorNormal/ScaleMatrix."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001b9f8",
+    "ghidra_name": "FUN_8001b9f8",
+    "name": "gfx_cam_set_eye",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "x",
+        "type": "u32"
+      },
+      {
+        "name": "y",
+        "type": "u32"
+      },
+      {
+        "name": "z",
+        "type": "u32"
+      },
+      {
+        "name": "roll",
+        "type": "u32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Stores camera eye coordinates into DAT_80061de8..df0 and roll into DAT_80061e00, marking view matrix dirty (DAT_80061e04=0)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001ba40",
+    "ghidra_name": "FUN_8001ba40",
+    "name": "gfx_cam_set_target",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "x",
+        "type": "u32"
+      },
+      {
+        "name": "y",
+        "type": "u32"
+      },
+      {
+        "name": "z",
+        "type": "u32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Stores camera look-at target into DAT_80061df4..dfc and marks GTE view matrix dirty (DAT_80061e04=0)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001bd64",
+    "ghidra_name": "FUN_8001bd64",
+    "name": "gfx_light_set_vec_and_rgb",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "light_idx",
+        "type": "s32"
+      },
+      {
+        "name": "dir",
+        "type": "SVECTOR *"
+      },
+      {
+        "name": "r",
+        "type": "u16"
+      },
+      {
+        "name": "g",
+        "type": "u16"
+      },
+      {
+        "name": "b",
+        "type": "u8"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Normalizes dir with VectorNormalSS and configures light direction and RGB color matrices for slot light_idx."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001be18",
+    "ghidra_name": "FUN_8001be18",
+    "name": "gfx_light_set_rot_and_rgb",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "light_idx",
+        "type": "s32"
+      },
+      {
+        "name": "rx",
+        "type": "s16"
+      },
+      {
+        "name": "ry",
+        "type": "s16"
+      },
+      {
+        "name": "rz",
+        "type": "u32"
+      },
+      {
+        "name": "r",
+        "type": "u8"
+      },
+      {
+        "name": "g",
+        "type": "u8"
+      },
+      {
+        "name": "b",
+        "type": "u8"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Builds light rotation matrix via RotMatrix_gte/ApplyMatrix and updates GTE light and color matrices for light_idx."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001c1c0",
+    "ghidra_name": "FUN_8001c1c0",
+    "name": "gfx_frustum_cull_point_planes",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "world_pos",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Tests world point offset from camera eye DAT_80061ec8 against six view frustum planes using GTE vector/matrix products."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001d21c",
+    "ghidra_name": "FUN_8001d21c",
+    "name": "gfx_tri_in_screen_bounds",
+    "return_type": "bool",
+    "params": [
+      {
+        "name": "x0_y0",
+        "type": "s32"
+      },
+      {
+        "name": "x1_y1",
+        "type": "s32"
+      },
+      {
+        "name": "x2_y2",
+        "type": "s32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Checks packed screen-space vertex coords against 320x240 viewport margins [-0x13..0x153]."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001d2d8",
+    "ghidra_name": "FUN_8001d2d8",
+    "name": "gfx_quad_in_screen_bounds",
+    "return_type": "bool",
+    "params": [
+      {
+        "name": "x0",
+        "type": "s16"
+      },
+      {
+        "name": "x1",
+        "type": "s16"
+      },
+      {
+        "name": "x2",
+        "type": "s16"
+      },
+      {
+        "name": "x3",
+        "type": "s16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Checks four horizontal screen coordinates against viewport bounds [-0x13..0x153], returning true if any vertex is inside."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001d348",
+    "ghidra_name": "FUN_8001d348",
+    "name": "gfx_build_frustum_planes",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "eye",
+        "type": "s32 *"
+      },
+      {
+        "name": "target",
+        "type": "s32 *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Builds 6 camera frustum clipping planes at DAT_80061ea8 from eye and target vectors using GTE RotMatrix and CrossProduct12."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001d6b8",
+    "ghidra_name": "FUN_8001d6b8",
+    "name": "gfx_gte_refresh_rot_matrix",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Reads current GTE rotation matrix via gte_ReadRotMatrix and normalizes/updates matrix state."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001dbf0",
+    "ghidra_name": "FUN_8001dbf0",
+    "name": "gfx_init_poly_ft4_uv_tpage_clut",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "prim",
+        "type": "char *"
+      },
+      {
+        "name": "u",
+        "type": "s32"
+      },
+      {
+        "name": "v",
+        "type": "s32"
+      },
+      {
+        "name": "w",
+        "type": "char"
+      },
+      {
+        "name": "h",
+        "type": "char"
+      },
+      {
+        "name": "tpage_xy",
+        "type": "s32"
+      },
+      {
+        "name": "clut_xy",
+        "type": "s32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Writes quad UV coordinates onto a POLY_FT4 and populates tpage and clut fields via getTPage/getClut helpers."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001dca8",
+    "ghidra_name": "FUN_8001dca8",
+    "name": "gfx_prim_cull_stub_zero",
+    "return_type": "u32",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Returns 0 unconditionally as a disabled 3D primitive culling/clipping stub."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001e088",
+    "ghidra_name": "FUN_8001e088",
+    "name": "gfx_gte_rtps_get_otz",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "vertex",
+        "type": "SVECTOR *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Transforms one SVECTOR through GTE gte_ldv0/gte_rtps and returns the resulting ordering table Z value."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001e158",
+    "ghidra_name": "FUN_8001e158",
+    "name": "gfx_ot_submit_noop",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Empty stub following ordering table boundary selection."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001e160",
+    "ghidra_name": "FUN_8001e160",
+    "name": "gfx_reset_dual_ot_prims",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Initializes both frame slots at DAT_8005e6f8..704 inside arena DAT_8005e3b0 with 0x800-entry OTs and primitive pointers."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001e26c",
+    "ghidra_name": "FUN_8001e26c",
+    "name": "gfx_vec3_bounded_length",
+    "return_type": "s32",
+    "params": [
+      {
+        "name": "vec",
+        "type": "s32 *"
+      },
+      {
+        "name": "limit",
+        "type": "s32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Computes Squared/SquareRoot0 vector magnitude if components lie within [-limit, limit]."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001e38c",
+    "ghidra_name": "FUN_8001e38c",
+    "name": "gfx_floor_mesh_sample_height",
+    "return_type": "s32",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Reads DAT_8005e528 and falls through into 3D floor collision mesh height sampler."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001e390",
+    "ghidra_name": "FUN_8001e390",
+    "name": "gfx_floor_mesh_sample_height_v0",
+    "return_type": "s32",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Register-passed floor collision triangle height sampler returning ground height for active triangles."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001e78c",
+    "ghidra_name": "FUN_8001e78c",
+    "name": "gfx_point_near_xz",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "x0",
+        "type": "s32"
+      },
+      {
+        "name": "z0",
+        "type": "s32"
+      },
+      {
+        "name": "x1",
+        "type": "s32"
+      },
+      {
+        "name": "z1",
+        "type": "s32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Tests if (x0,z0) lies within bounding margin (DAT_8005e520 >> 1) + 600 of (x1,z1) on both X and Z axes."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001e7dc",
+    "ghidra_name": "FUN_8001e7dc",
+    "name": "gfx_vec3_near_box",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "pos_a",
+        "type": "s32 *"
+      },
+      {
+        "name": "pos_b",
+        "type": "s32 *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Checks if two 3D integer vectors are within (DAT_8005e520 >> 1) + 600 along all axes."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001e878",
+    "ghidra_name": "FUN_8001e878",
+    "name": "gfx_point_in_floor_tri",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "v0",
+        "type": "s16 *"
+      },
+      {
+        "name": "v1",
+        "type": "s16 *"
+      },
+      {
+        "name": "v2",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Tests whether active probe point DAT_8005e518 lies inside 2D projected triangle (v0, v1, v2) and computes DAT_8005e514."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001e8a8",
+    "ghidra_name": "FUN_8001e8a8",
+    "name": "gfx_point_in_floor_tri_regs",
+    "return_type": "u32",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Register-arg entry point for 2D floor triangle point-in-triangle test against DAT_8005e500..50c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001f038",
+    "ghidra_name": "FUN_8001f038",
+    "name": "gfx_set_subcam_angles",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "rx",
+        "type": "s32"
+      },
+      {
+        "name": "ry",
+        "type": "s32"
+      },
+      {
+        "name": "rz",
+        "type": "s32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Updates sub-camera rotation angles DAT_8005e2f8..300 and marks DAT_8005e2ee dirty when any angle changed."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001f250",
+    "ghidra_name": "FUN_8001f250",
+    "name": "sys_int_pow",
+    "return_type": "s32",
+    "params": [
+      {
+        "name": "base",
+        "type": "s32"
+      },
+      {
+        "name": "exp",
+        "type": "s32"
+      }
+    ],
+    "domain": "core_mainloop",
+    "wave": 0,
+    "summary": "Computes integer power base**exp via repeated multiplication loop (returning 1 when exp <= 0)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001f338",
+    "ghidra_name": "FUN_8001f338",
+    "name": "gfx_vec3_copy",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "dst",
+        "type": "u32 *"
+      },
+      {
+        "name": "src",
+        "type": "u32 *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Copies 3-word vector components from src to dst."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001f39c",
+    "ghidra_name": "FUN_8001f39c",
+    "name": "gfx_vec3_sub",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "dst",
+        "type": "s32 *"
+      },
+      {
+        "name": "src",
+        "type": "s32 *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Subtracts 3D integer vector src from dst in place."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001f5ec",
+    "ghidra_name": "FUN_8001f5ec",
+    "name": "gfx_vec3_norm_dot",
+    "return_type": "s32",
+    "params": [
+      {
+        "name": "vec_a",
+        "type": "VECTOR *"
+      },
+      {
+        "name": "vec_b",
+        "type": "VECTOR *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Normalizes vec_a and vec_b via VectorNormal and returns their integer dot product."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001fab4",
+    "ghidra_name": "FUN_8001fab4",
+    "name": "gfx_vram_page_offset_zero",
+    "return_type": "u32",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "Returns 0 unconditionally as a VRAM page/tile offset stub."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001fce4",
+    "ghidra_name": "FUN_8001fce4",
+    "name": "spu_reset_master_fade",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Initializes master audio volume fade state DAT_80061f08..1c to full 0x7f0000 fixed-point volume."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001fd84",
+    "ghidra_name": "FUN_8001fd84",
+    "name": "spu_tick_master_fade",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Advances fixed-point master volume ramp DAT_80061f10 by step DAT_80061f14, clamps [0..0x7f0000], and calls SsSetMVol."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001fe00",
+    "ghidra_name": "FUN_8001fe00",
+    "name": "spu_start_master_fade",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "frames",
+        "type": "s32"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Computes master audio fade increment DAT_80061f18 / frames into DAT_80061f14 and activates fade DAT_80061f0c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001ff70",
+    "ghidra_name": "FUN_8001ff70",
+    "name": "spu_clear_vab_slot_table",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Zeros 24-entry audio bank state table ending at DAT_80049a6c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001ff98",
+    "ghidra_name": "FUN_8001ff98",
+    "name": "spu_reset_seq_and_vab_slots",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Resets VAB transfer queue slots DAT_8005e540..560 and SEQ handle/status arrays DAT_8006bfc8..c088."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800200e4",
+    "ghidra_name": "FUN_800200e4",
+    "name": "spu_open_vab_header_slot",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "vh_addr",
+        "type": "u32"
+      },
+      {
+        "name": "vb_addr",
+        "type": "u32"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Stops active sequences if needed, sets transfer mode DAT_8005e544=0x1010, and records VH/VB buffers DAT_8005e548."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80020148",
+    "ghidra_name": "FUN_80020148",
+    "name": "spu_enqueue_vab_slot",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "vab_id",
+        "type": "s32"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Queues a VAB bank ID (shifted << 1) into DAT_8006bf48 at queue tail DAT_8005e550."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80020174",
+    "ghidra_name": "FUN_80020174",
+    "name": "spu_enqueue_vab_slot_with_arg",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "vab_id",
+        "type": "s32"
+      },
+      {
+        "name": "arg",
+        "type": "u32"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Queues VAB ID (<< 1) plus flag=1 and extra payload into DAT_8006bf48/68/88 queue arrays."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800201c4",
+    "ghidra_name": "FUN_800201c4",
+    "name": "spu_play_seq_slot",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "vab_slot",
+        "type": "s32"
+      },
+      {
+        "name": "seq_slot",
+        "type": "s32"
+      },
+      {
+        "name": "vol_l",
+        "type": "s16"
+      },
+      {
+        "name": "vol_r",
+        "type": "s16"
+      },
+      {
+        "name": "loop_cnt",
+        "type": "s16"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Stops all voices via SsUtAllKeyOff, calls SsSeqPlay and SsSeqSetVol, and marks sequence slot active if free."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002029c",
+    "ghidra_name": "FUN_8002029c",
+    "name": "spu_set_seq_volume_uniform",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "vab_slot",
+        "type": "s32"
+      },
+      {
+        "name": "seq_slot",
+        "type": "s32"
+      },
+      {
+        "name": "unused",
+        "type": "u32"
+      },
+      {
+        "name": "vol",
+        "type": "s16"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Calls SsSeqSetVol with symmetric (vol, vol) when sequence slot status in DAT_8006c088 equals 0 (playing)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800202f8",
+    "ghidra_name": "FUN_800202f8",
+    "name": "spu_stop_or_fade_seq_slot",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "vab_slot",
+        "type": "s32"
+      },
+      {
+        "name": "seq_slot",
+        "type": "s32"
+      },
+      {
+        "name": "fade_ticks",
+        "type": "s32"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Immediately stops active sequence slot via SsSeqStop or triggers crescendo/decrescendo fade when fade_ticks > 0."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002039c",
+    "ghidra_name": "FUN_8002039c",
+    "name": "spu_set_seq_volume_safe",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "vab_slot",
+        "type": "s32"
+      },
+      {
+        "name": "seq_slot",
+        "type": "s32"
+      },
+      {
+        "name": "vol",
+        "type": "s32"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Sets sequence volume via SsSeqSetVol if slot is open and vol <= 0x7d."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80020414",
+    "ghidra_name": "FUN_80020414",
+    "name": "spu_stop_seq_slot",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "vab_slot",
+        "type": "s32"
+      },
+      {
+        "name": "seq_slot",
+        "type": "s32"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Stops an open sequence handle in DAT_8006bfc8 via SsSeqStop and sets status DAT_8006c088 to -1."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002047c",
+    "ghidra_name": "FUN_8002047c",
+    "name": "spu_pause_seq_slot",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "vab_slot",
+        "type": "s32"
+      },
+      {
+        "name": "seq_slot",
+        "type": "s32"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Pauses playing sequence handle via SsSeqPause and updates slot status DAT_8006c088 to 1."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800204e0",
+    "ghidra_name": "FUN_800204e0",
+    "name": "spu_resume_seq_slot",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "vab_slot",
+        "type": "s32"
+      },
+      {
+        "name": "seq_slot",
+        "type": "s32"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Resumes paused sequence handle via SsSeqReplay and restores slot status DAT_8006c088 to 0."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80020540",
+    "ghidra_name": "FUN_80020540",
+    "name": "spu_set_reserved_voices",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "voice_count",
+        "type": "s8"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Calls SsSetReservedVoice(voice_count) and returns 0 on success or -1 if negative."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80020570",
+    "ghidra_name": "FUN_80020570",
+    "name": "spu_trigger_sfx_preset",
+    "return_type": "s32",
+    "params": [
+      {
+        "name": "vab_id",
+        "type": "s16"
+      },
+      {
+        "name": "sfx_idx",
+        "type": "s32"
+      },
+      {
+        "name": "vol_l",
+        "type": "s16"
+      },
+      {
+        "name": "vol_r",
+        "type": "s16"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Loads tone/note/pan parameters from SFX table DAT_800495d0 (stride 0xe) and triggers playback via SsUtKeyOn/SsUtSetVVol."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002066c",
+    "ghidra_name": "FUN_8002066c",
+    "name": "spu_trigger_sfx_on_voice",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "vab_id",
+        "type": "u32"
+      },
+      {
+        "name": "sfx_idx",
+        "type": "s32"
+      },
+      {
+        "name": "vol_l",
+        "type": "u32"
+      },
+      {
+        "name": "vol_r",
+        "type": "u32"
+      },
+      {
+        "name": "pitch_mod",
+        "type": "u32"
+      },
+      {
+        "name": "voice_id",
+        "type": "s32"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Reads tone preset from DAT_800495d0 and triggers playback explicitly on hardware voice voice_id via SsUtKeyOnV."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80020768",
+    "ghidra_name": "FUN_80020768",
+    "name": "spu_key_off_vab_prog",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "vab_id",
+        "type": "s32"
+      },
+      {
+        "name": "prog_id",
+        "type": "s32"
+      },
+      {
+        "name": "pitch",
+        "type": "s32"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Calls PS1 SDK SsVoKeyOff for packed (vab_id << 8 | prog_id) and pitch, returning 0."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80020790",
+    "ghidra_name": "FUN_80020790",
+    "name": "spu_stop_voice_channel",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "voice_id",
+        "type": "s16"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Mutes SPU hardware voice via SsUtSetVVol(voice_id, 0, 0) and releases key via SsUtKeyOffV."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800207e4",
+    "ghidra_name": "FUN_800207e4",
+    "name": "spu_set_voice_volume",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "voice_id",
+        "type": "s16"
+      },
+      {
+        "name": "vol_l",
+        "type": "s16"
+      },
+      {
+        "name": "vol_r",
+        "type": "s16"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Sets left/right SPU voice volume via SsUtSetVVol and returns 0."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80020900",
+    "ghidra_name": "FUN_80020900",
+    "name": "spu_set_reverb_type_muted",
+    "return_type": "s16",
+    "params": [
+      {
+        "name": "reverb_type",
+        "type": "s16"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Selects SPU reverb algorithm via SsUtSetReverbType and zeroes depth via SsUtSetReverbDepth(0, 0)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002093c",
+    "ghidra_name": "FUN_8002093c",
+    "name": "spu_set_reverb_depth_uniform",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "depth",
+        "type": "s16"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Sets symmetric left/right SPU reverb depth via SsUtSetReverbDepth(depth, depth)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80020964",
+    "ghidra_name": "FUN_80020964",
+    "name": "spu_set_reverb_vol_uniform",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "vol",
+        "type": "s16"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Sets symmetric left/right SPU reverb return volume via SsSetRVol(vol, vol)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002098c",
+    "ghidra_name": "FUN_8002098c",
+    "name": "spu_set_reverb_feedback",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "feedback",
+        "type": "s16"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Configures SPU reverb feedback level via SsUtSetReverbFeedback."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800209b0",
+    "ghidra_name": "FUN_800209b0",
+    "name": "spu_set_reverb_delay",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "delay",
+        "type": "s16"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Configures SPU reverb delay time via SsUtSetReverbDelay."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80020e38",
+    "ghidra_name": "FUN_80020e38",
+    "name": "spu_get_active_vab_slot",
+    "return_type": "u32",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Returns currently active VAB queue entry from DAT_8006bf48[DAT_8005e554]."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80021484",
+    "ghidra_name": "FUN_80021484",
+    "name": "spu_check_voice_active",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "voice_id",
+        "type": "s32"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Queries SpuGetAllKeysStatus and resets/keys off voice_id slot in DAT_8006c0c8/DAT_8006c128 if stopped."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800215ec",
+    "ghidra_name": "FUN_800215ec",
+    "name": "spu_set_stream_sector_params",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "bank_id",
+        "type": "u32"
+      },
+      {
+        "name": "afile_id",
+        "type": "u32"
+      },
+      {
+        "name": "sector_offset",
+        "type": "u32"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Stores pending CD-to-SPU stream bank, AFILE ID, and offset into DAT_8006c7b8..7c0."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80021604",
+    "ghidra_name": "FUN_80021604",
+    "name": "spu_start_stream_transfer",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "dst_buf",
+        "type": "u32"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Initializes SPU stream transfer destination DAT_8006c7d0, byte size DAT_8006c7cc from DAT_80049370, and sector count DAT_8006c7c4."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800217b0",
+    "ghidra_name": "FUN_800217b0",
+    "name": "spu_find_free_voice_by_prio",
+    "return_type": "s32",
+    "params": [
+      {
+        "name": "min_prio",
+        "type": "s32"
+      },
+      {
+        "name": "min_voice",
+        "type": "s32"
+      },
+      {
+        "name": "max_voice",
+        "type": "s32"
+      },
+      {
+        "name": "key_status",
+        "type": "s32"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Scans voice priority table DAT_80049a10 across [min_voice..max_voice] for an off voice matching priority threshold."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80021820",
+    "ghidra_name": "FUN_80021820",
+    "name": "spu_alloc_oldest_voice_slot",
+    "return_type": "s32",
+    "params": [
+      {
+        "name": "min_voice",
+        "type": "s32"
+      },
+      {
+        "name": "max_voice",
+        "type": "s32"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Scans DAT_8006c0c8/DAT_8006c128 across [min_voice..max_voice] to select the best free or oldest SPU voice."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800218bc",
+    "ghidra_name": "FUN_800218bc",
+    "name": "cd_xa_sync_noop",
+    "return_type": "void",
+    "params": [],
+    "domain": "cd_afile_overlays",
+    "wave": 0,
+    "summary": "No-op XA CD audio synchronization stub."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800218c4",
+    "ghidra_name": "FUN_800218c4",
+    "name": "cd_locate_xa_streams",
+    "return_type": "void",
+    "params": [],
+    "domain": "cd_afile_overlays",
+    "wave": 0,
+    "summary": "Resolves CD file positions for \\STR\\01.XA;1 through \\STR\\04.XA;1 via CdSearchFile into DAT_8006c7d8."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80021b20",
+    "ghidra_name": "FUN_80021b20",
+    "name": "cd_stop_xa_stream",
+    "return_type": "void",
+    "params": [],
+    "domain": "cd_afile_overlays",
+    "wave": 0,
+    "summary": "Mutes CD serial audio via SsSetSerialVol and sends CdControl pause command when DAT_8005e324 is active."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80021cd8",
+    "ghidra_name": "FUN_80021cd8",
+    "name": "cd_send_xa_seek_cmd",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cd_cmd",
+        "type": "u8"
+      }
+    ],
+    "domain": "cd_afile_overlays",
+    "wave": 0,
+    "summary": "Loads XA sector params from DAT_80049a80, converts LBA DAT_8005e584 via CdIntToPos, and issues CdControl(cd_cmd)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80021d64",
+    "ghidra_name": "FUN_80021d64",
+    "name": "sys_debug_stub_noop",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "wave": 0,
+    "summary": "Empty resident stub returning immediately without side effects."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80021e60",
+    "ghidra_name": "FUN_80021e60",
+    "name": "sys_init_locale_data_ptrs",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "lang_mode",
+        "type": "s32"
+      }
+    ],
+    "domain": "core_mainloop",
+    "wave": 0,
+    "summary": "Initializes global dialogue/text/font pointer slots DAT_8006c858..86c and DAT_8007a5c8 for the selected language mode."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80021fd0",
+    "ghidra_name": "FUN_80021fd0",
+    "name": "sys_clear_submode_stack",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "wave": 0,
+    "summary": "Resets global overlay/submode state fields DAT_80070cc0 and DAT_80070cc4 to zero."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80021fe4",
+    "ghidra_name": "FUN_80021fe4",
+    "name": "evt_res_get_portrait_buf_if_idle",
+    "return_type": "u8 *",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 0,
+    "summary": "Returns portrait buffer pointer DAT_8006c910 if portrait DMA flag DAT_8006c905 is zero, else NULL."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80022008",
+    "ghidra_name": "FUN_80022008",
+    "name": "evt_res_clear_portrait_busy",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 0,
+    "summary": "Clears portrait DMA busy flag DAT_8006c905 to zero."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80022014",
+    "ghidra_name": "FUN_80022014",
+    "name": "evt_res_find_race_entry_id",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "table_ptr",
+        "type": "s32"
+      },
+      {
+        "name": "entry_id",
+        "type": "s16"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 0,
+    "summary": "Searches 2D race/event schedule table at table_ptr for a matching s16 entry_id, returning 1 if found."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800225c4",
+    "ghidra_name": "FUN_800225c4",
+    "name": "evt_res_dispatch_submode_cb",
+    "return_type": "u32",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 0,
+    "summary": "Invokes active dialog/overlay submode callback from jump table DAT_80010358 indexed by DAT_8006c904."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800226b0",
+    "ghidra_name": "FUN_800226b0",
+    "name": "evt_res_is_dialog_idle_or_choice",
+    "return_type": "u32",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 0,
+    "summary": "Returns 1 if dialogue state DAT_8005e5b4 equals 2 or 5 (idle/waiting), else 0."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800226d8",
+    "ghidra_name": "FUN_800226d8",
+    "name": "evt_res_set_dialog_fade_flag",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "enabled",
+        "type": "u32"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 0,
+    "summary": "Writes dialogue fade/window lock flag into DAT_8005e334."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80022af0",
+    "ghidra_name": "FUN_80022af0",
+    "name": "evt_res_get_dialog_speaker_style",
+    "return_type": "s32",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 0,
+    "summary": "Maps dialogue style index DAT_8005e5ac (< 5, else 0) through DAT_8005597c to return window style ID."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80022f1c",
+    "ghidra_name": "FUN_80022f1c",
+    "name": "evt_res_get_npc_affection_tier",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "npc_idx",
+        "type": "s32"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 0,
+    "summary": "Reads NPC affection score from DAT_80076224 (stride 0x1d4) via table DAT_80055988 and returns tier 0..3."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002301c",
+    "ghidra_name": "FUN_8002301c",
+    "name": "evt_res_reset_yesno_prompt",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 0,
+    "summary": "Clears yes/no prompt state DAT_8005e338, DAT_8005e33a, and selection index DAT_8005e33c to zero."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80023100",
+    "ghidra_name": "FUN_80023100",
+    "name": "evt_res_reset_naming_state",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 0,
+    "summary": "Resets player/farm naming screen state globals DAT_8005e344..35c to initial values."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80023288",
+    "ghidra_name": "FUN_80023288",
+    "name": "evt_res_render_yesno_window",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 0,
+    "summary": "Draws yes/no choice frame/menu and commits prompt dismissal when state DAT_8005e338 reaches 3."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800236ec",
+    "ghidra_name": "FUN_800236ec",
+    "name": "evt_res_enter_yesno_active",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 0,
+    "summary": "Sets prompt cursor timer DAT_8005e33a to 0 and advances DAT_8005e338 to state 2 (active input)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80023710",
+    "ghidra_name": "FUN_80023710",
+    "name": "evt_res_close_yesno_prompt",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 0,
+    "summary": "Clears prompt cursor state, advances DAT_8005e338 to 3 (closing), and notifies FUN_80022738."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80023794",
+    "ghidra_name": "FUN_80023794",
+    "name": "evt_res_step_yesno_cursor",
+    "return_type": "s32",
+    "params": [
+      {
+        "name": "cur_sel",
+        "type": "s16"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 0,
+    "summary": "Processes up/down D-pad flags in DAT_8005e3a8 to cycle yes/no/choice cursor selection."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80023a74",
+    "ghidra_name": "FUN_80023a74",
+    "name": "evt_res_clear_naming_buf",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 0,
+    "summary": "Fills the 8-character naming-screen glyph buffer at DAT_8005e360 backwards with terminator/blank tokens."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80023b5c",
+    "ghidra_name": "FUN_80023b5c",
+    "name": "evt_res_format_naming_kana",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "out_tokens",
+        "type": "s16 *"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 0,
+    "summary": "Converts active naming buffer DAT_8005e360 into bordered glyph string in out_tokens using table DAT_8005393a."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80023c2c",
+    "ghidra_name": "FUN_80023c2c",
+    "name": "evt_res_format_naming_alnum",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "out_tokens",
+        "type": "u16 *"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 0,
+    "summary": "Converts active naming buffer DAT_8005e360 into alphanumeric glyph string in out_tokens using table DAT_8005392e."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80023dbc",
+    "ghidra_name": "FUN_80023dbc",
+    "name": "evt_res_tick_naming_input",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 0,
+    "summary": "Handles directional, page-switch, backspace, and confirm pad inputs on the naming-screen character grid."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800243d0",
+    "ghidra_name": "FUN_800243d0",
+    "name": "evt_res_clamp_naming_grid_col",
+    "return_type": "s32",
+    "params": [
+      {
+        "name": "row",
+        "type": "s32"
+      },
+      {
+        "name": "col",
+        "type": "s32"
+      },
+      {
+        "name": "moving_right",
+        "type": "s32"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 0,
+    "summary": "Handles column skip gaps on row 13 of the naming-screen character grid when moving left or right."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80024448",
+    "ghidra_name": "FUN_80024448",
+    "name": "evt_res_draw_naming_cursor",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "cell_idx",
+        "type": "u32"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 0,
+    "summary": "Maps naming grid index cell_idx (% 0xe) to pixel coordinates and draws the cursor via FUN_800248b0."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800244fc",
+    "ghidra_name": "FUN_800244fc",
+    "name": "evt_res_query_naming_cell",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cell_idx",
+        "type": "u32"
+      },
+      {
+        "name": "charset_mode",
+        "type": "u32"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 0,
+    "summary": "Dispatches naming-screen cell lookup via jump table PTR_LAB_800559cc for charset_mode < 2."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80026ea4",
+    "ghidra_name": "FUN_80026ea4",
+    "name": "sys_sdk_set_otc_dma_cb",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "cb",
+        "type": "u32"
+      }
+    ],
+    "domain": "core_mainloop",
+    "wave": 0,
+    "summary": "PS1 SDK wrapper registering DMA channel 4 (GPU OTC) interrupt callback via DMACallback(4, cb)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800276d4",
+    "ghidra_name": "FUN_800276d4",
+    "name": "spu_sdk_init_sound_system",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "PS1 SDK wrapper calling ResetCallback, SsUtReverbOff, SpuClearReverbWorkArea(7), and _SsInit."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80029354",
+    "ghidra_name": "FUN_80029354",
+    "name": "spu_sdk_set_reverb_type_stub",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "PS1 SDK VAB/NRPN wrapper forwarding stack argument to SsUtSetReverbType."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800293b4",
+    "ghidra_name": "FUN_800293b4",
+    "name": "spu_sdk_set_reverb_fb_stub",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "PS1 SDK VAB/NRPN wrapper forwarding stack argument to SsUtSetReverbFeedback."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800293e4",
+    "ghidra_name": "FUN_800293e4",
+    "name": "spu_sdk_set_reverb_delay_stub1",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "PS1 SDK VAB/NRPN wrapper forwarding stack argument to SsUtSetReverbDelay."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80029414",
+    "ghidra_name": "FUN_80029414",
+    "name": "spu_sdk_set_reverb_delay_stub2",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "Duplicate PS1 SDK VAB/NRPN wrapper forwarding stack argument to SsUtSetReverbDelay."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002e054",
+    "ghidra_name": "FUN_8002e054",
+    "name": "spu_sdk_disable_reverb",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "PS1 SDK SPU wrapper calling SpuSetReverb(0) to disable hardware reverb."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002e074",
+    "ghidra_name": "FUN_8002e074",
+    "name": "spu_sdk_enable_reverb",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "PS1 SDK SPU wrapper calling SpuSetReverb(1) to enable hardware reverb."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002e734",
+    "ghidra_name": "FUN_8002e734",
+    "name": "spu_sdk_clear_irq_flag",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "PS1 SDK SPU wrapper clearing SPU transfer state global DAT_800a1870 to 0."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002e744",
+    "ghidra_name": "FUN_8002e744",
+    "name": "spu_sdk_set_irq_flag_two",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "PS1 SDK SPU wrapper setting SPU transfer state global DAT_800a1870 to 2."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002ec24",
+    "ghidra_name": "FUN_8002ec24",
+    "name": "spu_sdk_set_voice_pair_ca",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "addr",
+        "type": "u32"
+      },
+      {
+        "name": "mask",
+        "type": "u32"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "PS1 SDK SPU internal helper forwarding parameters to _SpuSetAnyVoice with registers 0xca/0xcb."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002ef14",
+    "ghidra_name": "FUN_8002ef14",
+    "name": "spu_sdk_get_voice_pair_ca",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "PS1 SDK SPU internal helper querying _SpuGetAnyVoice on registers 0xca/0xcb."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002ef74",
+    "ghidra_name": "FUN_8002ef74",
+    "name": "spu_sdk_set_voice_pair_cc",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "addr",
+        "type": "u32"
+      },
+      {
+        "name": "mask",
+        "type": "u32"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "PS1 SDK SPU internal helper forwarding parameters to _SpuSetAnyVoice with registers 0xcc/0xcd."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002efa4",
+    "ghidra_name": "FUN_8002efa4",
+    "name": "spu_sdk_get_voice_pair_cc",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "PS1 SDK SPU internal helper querying _SpuGetAnyVoice on registers 0xcc/0xcd."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002f564",
+    "ghidra_name": "FUN_8002f564",
+    "name": "spu_sdk_set_wait_mode",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "wait_flag",
+        "type": "s32"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "PS1 SDK SPU helper setting DAT_80055a50 to 1 when wait_flag != 1, else 0."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002f58c",
+    "ghidra_name": "FUN_8002f58c",
+    "name": "spu_sdk_is_wait_mode_enabled",
+    "return_type": "bool",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "PS1 SDK SPU helper returning true when SPU wait flag DAT_80055a50 != 1."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80031ba4",
+    "ghidra_name": "FUN_80031ba4",
+    "name": "spu_sdk_set_mono",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "PS1 SDK SsSetMono implementation setting global audio mono flag DAT_800a18b8 to 1."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80031bb4",
+    "ghidra_name": "FUN_80031bb4",
+    "name": "spu_sdk_set_stereo",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 0,
+    "summary": "PS1 SDK SsSetStereo implementation clearing global audio mono flag DAT_800a18b8 to 0."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80033814",
+    "ghidra_name": "FUN_80033814",
+    "name": "sys_sdk_set_video_mode",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "mode",
+        "type": "u32"
+      }
+    ],
+    "domain": "core_mainloop",
+    "wave": 0,
+    "summary": "PS1 SDK SetVideoMode implementation swapping video mode global DAT_80057614 and returning previous value."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80033828",
+    "ghidra_name": "FUN_80033828",
+    "name": "sys_sdk_get_video_mode",
+    "return_type": "u32",
+    "params": [],
+    "domain": "core_mainloop",
+    "wave": 0,
+    "summary": "PS1 SDK GetVideoMode implementation returning current NTSC/PAL flag DAT_80057614."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80035a14",
+    "ghidra_name": "FUN_80035a14",
+    "name": "cd_sdk_get_last_cmd",
+    "return_type": "u8",
+    "params": [],
+    "domain": "cd_afile_overlays",
+    "wave": 0,
+    "summary": "PS1 SDK CdLastCom accessor returning last CD command byte from DAT_80057669."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80035a24",
+    "ghidra_name": "FUN_80035a24",
+    "name": "cd_sdk_flush",
+    "return_type": "void",
+    "params": [],
+    "domain": "cd_afile_overlays",
+    "wave": 0,
+    "summary": "PS1 SDK CdFlush wrapper invoking internal CD_flush()."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80035a44",
+    "ghidra_name": "FUN_80035a44",
+    "name": "cd_sdk_sync",
+    "return_type": "void",
+    "params": [],
+    "domain": "cd_afile_overlays",
+    "wave": 0,
+    "summary": "PS1 SDK CdSync wrapper invoking internal CD_sync()."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800367c4",
+    "ghidra_name": "FUN_800367c4",
+    "name": "cd_sdk_get_status_byte",
+    "return_type": "u8",
+    "params": [],
+    "domain": "cd_afile_overlays",
+    "wave": 0,
+    "summary": "PS1 SDK CD status byte getter returning DAT_80057658."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800367d4",
+    "ghidra_name": "FUN_800367d4",
+    "name": "cd_sdk_get_last_pos_byte",
+    "return_type": "u8",
+    "params": [],
+    "domain": "cd_afile_overlays",
+    "wave": 0,
+    "summary": "PS1 SDK CD position/status getter returning DAT_80057668."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800367e4",
+    "ghidra_name": "FUN_800367e4",
+    "name": "cd_sdk_get_result_buf",
+    "return_type": "u8 *",
+    "params": [],
+    "domain": "cd_afile_overlays",
+    "wave": 0,
+    "summary": "PS1 SDK CD result buffer pointer getter returning &DAT_80057664."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800367f4",
+    "ghidra_name": "FUN_800367f4",
+    "name": "cd_sdk_ready",
+    "return_type": "void",
+    "params": [],
+    "domain": "cd_afile_overlays",
+    "wave": 0,
+    "summary": "PS1 SDK CdReady wrapper invoking internal CD_ready()."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80036814",
+    "ghidra_name": "FUN_80036814",
+    "name": "cd_sdk_set_sync_cb",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cb",
+        "type": "u32"
+      }
+    ],
+    "domain": "cd_afile_overlays",
+    "wave": 0,
+    "summary": "PS1 SDK CdSyncCallback setter swapping callback pointer in DAT_8005764c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80036834",
+    "ghidra_name": "FUN_80036834",
+    "name": "cd_sdk_set_ready_cb",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cb",
+        "type": "u32"
+      }
+    ],
+    "domain": "cd_afile_overlays",
+    "wave": 0,
+    "summary": "PS1 SDK CdReadyCallback setter swapping callback pointer in DAT_80057650."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80036974",
+    "ghidra_name": "FUN_80036974",
+    "name": "cd_sdk_get_sector2",
+    "return_type": "bool",
+    "params": [],
+    "domain": "cd_afile_overlays",
+    "wave": 0,
+    "summary": "PS1 SDK CdGetSector2 wrapper calling CD_getsector2() and returning true on success (0)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80036a84",
+    "ghidra_name": "FUN_80036a84",
+    "name": "cd_sdk_set_dma_cb",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "cb",
+        "type": "u32"
+      }
+    ],
+    "domain": "cd_afile_overlays",
+    "wave": 0,
+    "summary": "PS1 SDK wrapper registering CD-ROM DMA channel 3 callback via DMACallback(3, cb)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80036ab4",
+    "ghidra_name": "FUN_80036ab4",
+    "name": "cd_sdk_data_sync",
+    "return_type": "void",
+    "params": [],
+    "domain": "cd_afile_overlays",
+    "wave": 0,
+    "summary": "PS1 SDK CdDataSync wrapper invoking internal CD_datasync()."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80037994",
+    "ghidra_name": "FUN_80037994",
+    "name": "gfx_sdk_set_geom_offset",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ofx",
+        "type": "s32"
+      },
+      {
+        "name": "ofy",
+        "type": "s32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "PS1 SDK SetGeomOffset writing shifted screen center offsets into GTE OFX and OFY registers."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800379b4",
+    "ghidra_name": "FUN_800379b4",
+    "name": "gfx_sdk_set_geom_screen",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "proj_dist",
+        "type": "u32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "PS1 SDK SetGeomScreen loading projection distance H into GTE register via gte_ldH."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80038654",
+    "ghidra_name": "FUN_80038654",
+    "name": "gfx_sdk_set_fog_near_dqa",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "dqa",
+        "type": "u32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "PS1 SDK SetFogNear helper loading depth-cue multiplier DQA into GTE register via gte_ldDQA."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80038664",
+    "ghidra_name": "FUN_80038664",
+    "name": "gfx_sdk_set_fog_near_dqb",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "dqb",
+        "type": "u32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "PS1 SDK SetFogNear helper loading depth-cue offset DQB into GTE register via gte_ldDQB."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800386d4",
+    "ghidra_name": "FUN_800386d4",
+    "name": "gfx_sdk_count_leading_bits",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "val",
+        "type": "u32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "PS1 SDK GTE leading-sign counter writing val to LZCS and reading result from LZCR."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800396c4",
+    "ghidra_name": "FUN_800396c4",
+    "name": "gfx_sdk_set_gs_workbase",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "workbase",
+        "type": "u32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "PS1 SDK GsSetWorkBase implementation storing scratchpad/OT packet pointer into DAT_800a4060."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800396d4",
+    "ghidra_name": "FUN_800396d4",
+    "name": "gfx_sdk_get_gs_workbase",
+    "return_type": "u32",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "PS1 SDK GsGetWorkBase implementation returning active GS packet cursor DAT_800a4060."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8003e264",
+    "ghidra_name": "FUN_8003e264",
+    "name": "gfx_sdk_term_prim_stub",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "prim",
+        "type": "u32 *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "PS1 SDK TermPrim GPU ordering-table primitive terminator macro stub."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8003e284",
+    "ghidra_name": "FUN_8003e284",
+    "name": "gfx_sdk_set_semi_trans",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "prim",
+        "type": "s32"
+      },
+      {
+        "name": "enable",
+        "type": "s32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "PS1 SDK SetSemiTrans helper toggling bit 1 on GPU primitive command tag byte (+7)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8003e2b4",
+    "ghidra_name": "FUN_8003e2b4",
+    "name": "gfx_sdk_set_shade_tex",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "prim",
+        "type": "s32"
+      },
+      {
+        "name": "enable",
+        "type": "s32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "PS1 SDK SetShadeTex helper toggling bit 0 on GPU primitive command tag byte (+7)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8003e304",
+    "ghidra_name": "FUN_8003e304",
+    "name": "gfx_sdk_set_poly_ft4_stub",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "prim",
+        "type": "s32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "PS1 SDK SetPolyFT4 GPU primitive tag initializer stub."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8003e324",
+    "ghidra_name": "FUN_8003e324",
+    "name": "gfx_sdk_set_sprt8_stub",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "prim",
+        "type": "s32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "PS1 SDK SetSprt8 GPU primitive tag initializer stub."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8003e344",
+    "ghidra_name": "FUN_8003e344",
+    "name": "gfx_sdk_set_tile_stub",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "prim",
+        "type": "s32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 0,
+    "summary": "PS1 SDK SetTile GPU primitive tag initializer stub."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8003eae4",
+    "ghidra_name": "FUN_8003eae4",
+    "name": "mc_sdk_init_card_and_bu",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "shared_flag",
+        "type": "s32"
+      }
+    ],
+    "domain": "input_memcard",
+    "wave": 0,
+    "summary": "PS1 SDK InitCard wrapper calling InitCARD(shared_flag), StartCARD(), and BIOS _bu_init()."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8003eb14",
+    "ghidra_name": "FUN_8003eb14",
+    "name": "mc_sdk_stop_card",
+    "return_type": "void",
+    "params": [],
+    "domain": "input_memcard",
+    "wave": 0,
+    "summary": "PS1 SDK StopCard wrapper calling BIOS StopCARD()."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80041b7c",
+    "ghidra_name": "FUN_80041b7c",
+    "name": "sys_sdk_bios_b0_call",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "wave": 0,
+    "summary": "PlayStation BIOS 0xB0 vector trampoline stub."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800425dc",
+    "ghidra_name": "FUN_800425dc",
+    "name": "sys_sdk_bios_a0_call",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "wave": 0,
+    "summary": "PlayStation BIOS 0xA0 vector trampoline stub."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800426a4",
+    "ghidra_name": "FUN_800426a4",
+    "name": "sys_sdk_enter_critical_section",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "wave": 0,
+    "summary": "PS1 SDK EnterCriticalSection issuing BIOS syscall(0) to mask interrupts."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800426b4",
+    "ghidra_name": "FUN_800426b4",
+    "name": "sys_sdk_exit_critical_section",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "wave": 0,
+    "summary": "PS1 SDK ExitCriticalSection issuing BIOS syscall(0) to restore interrupts."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80012098",
+    "ghidra_name": "FUN_80012098",
+    "name": "sys_get_highram_used_bytes",
+    "return_type": "s32",
+    "params": [],
+    "domain": "core_mainloop",
+    "wave": 1,
+    "summary": "Computes used bytes in high-RAM arena by subtracting sys_get_highram_free_bytes from DAT_8005e3b0."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001231c",
+    "ghidra_name": "FUN_8001231c",
+    "name": "gfx_init_ot_buffers_small",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "Zeros 0x3ee50 bytes at DAT_801be1b0 and initializes compact double-buffered HmDisplayOtCtx OT/primitive pools at DAT_8005e5e8."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80013328",
+    "ghidra_name": "FUN_80013328",
+    "name": "sys_init_display_timing",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "max_frames",
+        "type": "s16"
+      }
+    ],
+    "domain": "core_mainloop",
+    "wave": 1,
+    "summary": "Initializes frame pacing globals DAT_8005e294, DAT_8005e3ce (clamped <= 0x1f), DAT_8005e28c, and resets draw/sync flags."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001413c",
+    "ghidra_name": "FUN_8001413c",
+    "name": "pad_get_analog_stick_x",
+    "return_type": "u8",
+    "params": [
+      {
+        "name": "port",
+        "type": "s32"
+      }
+    ],
+    "domain": "input_memcard",
+    "wave": 1,
+    "summary": "Reads DualShock stick axis byte from pad buffer DAT_8005e9c9 (stride 0x22) and normalizes digital/analog deadzone."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80014250",
+    "ghidra_name": "FUN_80014250",
+    "name": "pad_get_analog_angle_state",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "port",
+        "type": "s32"
+      }
+    ],
+    "domain": "input_memcard",
+    "wave": 1,
+    "summary": "Returns -1 for non-DualShock pads or calls pad_calc_analog_magnitude on DualShock analog bytes in DAT_8005e9c9."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80015644",
+    "ghidra_name": "FUN_80015644",
+    "name": "gfx_emit_poly_f4_with_tpage",
+    "return_type": "u32 *",
+    "params": [
+      {
+        "name": "ot_ctx",
+        "type": "u32"
+      },
+      {
+        "name": "ot_entry",
+        "type": "u32 *"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "w",
+        "type": "s16"
+      },
+      {
+        "name": "h",
+        "type": "s16"
+      },
+      {
+        "name": "rgb",
+        "type": "u32"
+      },
+      {
+        "name": "semi_trans",
+        "type": "s16"
+      },
+      {
+        "name": "abr_mode",
+        "type": "u8"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "Calls gfx_emit_poly_f4_rect and prepends a DR_TPAGE/ABR blend mode packet onto ot_entry."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80015b24",
+    "ghidra_name": "FUN_80015b24",
+    "name": "gfx_sprite_lookup_part_idx",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_sheet",
+        "type": "s32"
+      },
+      {
+        "name": "table_hdr",
+        "type": "s32"
+      },
+      {
+        "name": "key",
+        "type": "u32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "Searches table_hdr entries at sprite_sheet+0x1c via bcmp to resolve matching sprite part/bank index."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80015e3c",
+    "ghidra_name": "FUN_80015e3c",
+    "name": "gfx_sprite_draw_frame_wrapper",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "Register-forwarding wrapper invoking core sprite frame submission routine FUN_80016280."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80015e78",
+    "ghidra_name": "FUN_80015e78",
+    "name": "gfx_sprite_draw_layer_wrapper",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "Register-forwarding wrapper invoking layered sprite draw routine FUN_800165d8."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80016054",
+    "ghidra_name": "FUN_80016054",
+    "name": "gfx_sprite_draw_save_retaddr",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "Captures caller return address into DAT_8006c84c and forwards to layered sprite draw routine FUN_800165d8."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800171cc",
+    "ghidra_name": "FUN_800171cc",
+    "name": "gfx_sprite_reset_actor_slot",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "actor",
+        "type": "u32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "Calls sprite actor command FUN_80017300 with op=1 and zero bounds to reset/release actor slot."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017200",
+    "ghidra_name": "FUN_80017200",
+    "name": "gfx_sprite_spawn_actor_slot",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "actor",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "z",
+        "type": "s16"
+      },
+      {
+        "name": "flags",
+        "type": "s16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "Calls FUN_80017300 with op=0 to initialize a world/screen sprite actor at (x,y,z)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017240",
+    "ghidra_name": "FUN_80017240",
+    "name": "gfx_sprite_update_actor_slot",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "actor",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "z",
+        "type": "s16"
+      },
+      {
+        "name": "flags",
+        "type": "s16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "Calls FUN_80017300 with op=2 to update sprite actor coordinates and flags."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800179e8",
+    "ghidra_name": "FUN_800179e8",
+    "name": "hud_res_clear_text_ptr_wrap",
+    "return_type": "void",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "wave": 1,
+    "summary": "Tail-calls hud_res_clear_text_ptr (FUN_80018b8c) to clear active dialogue token pointer."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017c04",
+    "ghidra_name": "FUN_80017c04",
+    "name": "hud_res_get_dialog_line_y_wrap",
+    "return_type": "void",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "wave": 1,
+    "summary": "Tail-calls hud_res_get_dialog_line_y (FUN_80019030) to compute line Y offset."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001a808",
+    "ghidra_name": "FUN_8001a808",
+    "name": "hud_res_append_record_name",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "dst_tokens",
+        "type": "u32"
+      },
+      {
+        "name": "record",
+        "type": "s32"
+      },
+      {
+        "name": "flag_mode",
+        "type": "s32"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 1,
+    "summary": "Checks visibility bits 0x100/0x80000 at record+0x34 and appends record name tokens via hud_res_concat_tok_str."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001a870",
+    "ghidra_name": "FUN_8001a870",
+    "name": "hud_res_resolve_macro_name",
+    "return_type": "s16 *",
+    "params": [
+      {
+        "name": "macro_id",
+        "type": "u32"
+      },
+      {
+        "name": "tokens",
+        "type": "s16 *"
+      },
+      {
+        "name": "entry_idx",
+        "type": "s32"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 1,
+    "summary": "Calls FUN_8001a970(macro_id, tokens, entry_idx - 1) and skips 0x0ffd terminator padding if present."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001ae34",
+    "ghidra_name": "FUN_8001ae34",
+    "name": "hud_res_find_active_flag_bit",
+    "return_type": "s32",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "wave": 1,
+    "summary": "Scans festival/flag bitfields DAT_80071a90 and DAT_80071a84 using sys_int_pow(2, DAT_80071a1e + 1) to select active entry."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001b2cc",
+    "ghidra_name": "FUN_8001b2cc",
+    "name": "gfx_start_screen_filter",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "slot",
+        "type": "s32"
+      },
+      {
+        "name": "effect_type",
+        "type": "s32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "Starts screen fade/wipe slot DAT_8005e4c4[slot] with effect_type when DAT_8006c844 bit 0x10000 is clear and pad IO is ready."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001b3cc",
+    "ghidra_name": "FUN_8001b3cc",
+    "name": "gfx_reset_primary_filter_slot",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "Wrapper calling gfx_reset_filter_slot (FUN_8001b4e4) on default filter slot."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001b3ec",
+    "ghidra_name": "FUN_8001b3ec",
+    "name": "gfx_tick_fade_wipe_slot",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "slot",
+        "type": "s32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "Advances brightness wipe timer in DAT_8005e4c0/DAT_8005e4c8[slot] and resets slot upon reaching target byte."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001b530",
+    "ghidra_name": "FUN_8001b530",
+    "name": "gfx_init_3d_scene_defaults",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "Configures default 320x240 geom offset (160,120), H=1000, eye (0,0,0x1000), target (0,0,-0x1000), and zeroed scene state."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001e04c",
+    "ghidra_name": "FUN_8001e04c",
+    "name": "gfx_gte_project_vec3_16",
+    "return_type": "u8",
+    "params": [
+      {
+        "name": "ctx",
+        "type": "u32"
+      },
+      {
+        "name": "pos32",
+        "type": "u16 *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "Packs 3-axis coords from pos32[0,2,4] into a local SVECTOR and projects via FUN_8001dfd4."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001e0b8",
+    "ghidra_name": "FUN_8001e0b8",
+    "name": "gfx_clamp_ot_index_stub",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_idx",
+        "type": "s32"
+      },
+      {
+        "name": "prim_type",
+        "type": "s32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "Clamps ot_idx against DAT_8005e3c0+0x110 and indexes active OT slot at DAT_8005e3c0+0x120."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001e9f8",
+    "ghidra_name": "FUN_8001e9f8",
+    "name": "gfx_quad_floor_point_test",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "v0",
+        "type": "s32"
+      },
+      {
+        "name": "v1",
+        "type": "s32"
+      },
+      {
+        "name": "v2",
+        "type": "s32"
+      },
+      {
+        "name": "v3",
+        "type": "s32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "Tests active probe point against a floor quad by splitting degenerate/valid corners into gfx_point_in_floor_tri checks."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001efa4",
+    "ghidra_name": "FUN_8001efa4",
+    "name": "gfx_init_subcam_defaults",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "Sets initial sub-camera angles (800,600,0) via gfx_set_subcam_angles and resets DAT_8005e308..314."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001f084",
+    "ghidra_name": "FUN_8001f084",
+    "name": "gfx_compute_subcam_heading",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "out_a",
+        "type": "u32 *"
+      },
+      {
+        "name": "out_b",
+        "type": "u32 *"
+      },
+      {
+        "name": "out_angle",
+        "type": "s32 *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "Computes sub-camera horizontal look vector delta via gfx_vec3_copy/sub and yaw angle via ratan2."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001f100",
+    "ghidra_name": "FUN_8001f100",
+    "name": "gfx_apply_subcam_offset",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "delta",
+        "type": "s32 *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "When DAT_8005e2ec equals 2 and delta is non-zero, copies sub-camera offset via gfx_vec3_copy(&DAT_8004928c)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001f190",
+    "ghidra_name": "FUN_8001f190",
+    "name": "gfx_copy_subcam_origin",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "out_pos",
+        "type": "u32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "Copies active sub-camera origin vector from DAT_80049274 into out_pos via gfx_vec3_copy."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001f42c",
+    "ghidra_name": "FUN_8001f42c",
+    "name": "gfx_vec3_distance_and_dir",
+    "return_type": "bool",
+    "params": [
+      {
+        "name": "pos_a",
+        "type": "u32"
+      },
+      {
+        "name": "unused",
+        "type": "s32"
+      },
+      {
+        "name": "pos_b",
+        "type": "s32 *"
+      },
+      {
+        "name": "out_dir",
+        "type": "s32 *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "Computes Euclidean distance between pos_a and pos_b via SquareRoot0 and outputs normalized or fallback direction."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001f664",
+    "ghidra_name": "FUN_8001f664",
+    "name": "gfx_draw_vram_rect_sync",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "vram_src",
+        "type": "u32 *"
+      },
+      {
+        "name": "unused_ot",
+        "type": "u32 *"
+      },
+      {
+        "name": "flags",
+        "type": "u16"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "w",
+        "type": "s16"
+      },
+      {
+        "name": "h",
+        "type": "s16"
+      },
+      {
+        "name": "mode",
+        "type": "u16"
+      },
+      {
+        "name": "sync_flag",
+        "type": "s16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "Flushes DrawSync after building VRAM RECT from (x,y,w,h) during textured region setup."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001fae8",
+    "ghidra_name": "FUN_8001fae8",
+    "name": "spu_key_off_default_voice",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 1,
+    "summary": "Calls spu_check_voice_active (FUN_80021484) to verify and stop idle hardware voice slot."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001fb10",
+    "ghidra_name": "FUN_8001fb10",
+    "name": "spu_stop_voice_23",
+    "return_type": "u32",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 1,
+    "summary": "Mutes and keys off SPU channel 23 (0x17) via spu_stop_voice_channel and returns 0."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001fbbc",
+    "ghidra_name": "FUN_8001fbbc",
+    "name": "spu_stop_bgm_seq",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "vab_slot",
+        "type": "s16"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 1,
+    "summary": "Stops sequence slot 0 for vab_slot via spu_stop_seq_slot and returns 0."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001fea4",
+    "ghidra_name": "FUN_8001fea4",
+    "name": "spu_init_audio_driver",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 1,
+    "summary": "Initializes PS1 SDK SPU/SEQ tables (6x1 at DAT_8006c398), tick mode 1, reserves 22 voices, and resets audio state."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800209d4",
+    "ghidra_name": "FUN_800209d4",
+    "name": "spu_enable_reverb_wrap",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 1,
+    "summary": "Wrapper enabling SPU hardware reverb via spu_sdk_enable_reverb."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800209f4",
+    "ghidra_name": "FUN_800209f4",
+    "name": "spu_disable_reverb_wrap",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 1,
+    "summary": "Wrapper disabling SPU hardware reverb via spu_sdk_disable_reverb."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80020a14",
+    "ghidra_name": "FUN_80020a14",
+    "name": "spu_set_mono_mode",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 1,
+    "summary": "Enables mono output via spu_sdk_set_mono, clears stereo flag DAT_8005e55c, and calls cd_xa_sync_noop."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80020a40",
+    "ghidra_name": "FUN_80020a40",
+    "name": "spu_set_stereo_mode",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 1,
+    "summary": "Enables stereo output via spu_sdk_set_stereo, sets DAT_8005e55c=1, and calls cd_xa_sync_noop."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80020a94",
+    "ghidra_name": "FUN_80020a94",
+    "name": "spu_shutdown_audio",
+    "return_type": "u32",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 1,
+    "summary": "Mutes master volume (SsSetMVol), stops all sequence slots across all VABs, and frees sound bank slots."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80021950",
+    "ghidra_name": "FUN_80021950",
+    "name": "cd_tick_xa_stream",
+    "return_type": "void",
+    "params": [],
+    "domain": "cd_afile_overlays",
+    "wave": 1,
+    "summary": "Polls active CD-XA audio playback (DAT_8005e590) and advances loop or pause/mute commands via CdControl."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002206c",
+    "ghidra_name": "FUN_8002206c",
+    "name": "evt_res_init_derby_odds",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 1,
+    "summary": "Clears 0x108 bytes at DAT_8007ad4c and populates randomized horse race participant lineup and odds."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80022738",
+    "ghidra_name": "FUN_80022738",
+    "name": "evt_res_commit_dialog_close",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 1,
+    "summary": "Unlocks HUD/pad input flags (FUN_80017b18(1), DAT_8005e334=1) and advances dialog box state DAT_8006c904 from 4 to 5."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80022df8",
+    "ghidra_name": "FUN_80022df8",
+    "name": "evt_res_restore_dialog_pad_mask",
+    "return_type": "u32",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 1,
+    "summary": "Restores pad mask DAT_8005e5bc via FUN_8001af70(3, ...) and syncs bit 0x08000000 of DAT_8006c844 from DAT_8005e5c0."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80023030",
+    "ghidra_name": "FUN_80023030",
+    "name": "evt_res_open_yesno_prompt",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "prompt_text",
+        "type": "u32"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 1,
+    "summary": "Resets yes/no state via evt_res_reset_yesno_prompt, binds prompt_text to DAT_8005e340, and sets state DAT_8005e338=1."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80023130",
+    "ghidra_name": "FUN_80023130",
+    "name": "evt_res_open_naming_screen_kana",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "target_buf",
+        "type": "u32"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 1,
+    "summary": "Initializes naming screen targeting target_buf in kana/mode-1 with confirm-page flag DAT_8005e35c=1."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80023170",
+    "ghidra_name": "FUN_80023170",
+    "name": "evt_res_open_naming_screen_alnum",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "target_buf",
+        "type": "u32"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 1,
+    "summary": "Initializes naming screen targeting target_buf in alphanumeric mode (DAT_8005e348=0, DAT_8005e344=1)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800231ac",
+    "ghidra_name": "FUN_800231ac",
+    "name": "evt_res_open_naming_screen_default",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "target_buf",
+        "type": "u32"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 1,
+    "summary": "Initializes naming screen targeting target_buf in default mode (DAT_8005e348=1, DAT_8005e344=1)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800241ec",
+    "ghidra_name": "FUN_800241ec",
+    "name": "evt_res_move_naming_cursor",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cell_idx",
+        "type": "u32"
+      },
+      {
+        "name": "pad_dir",
+        "type": "s16"
+      },
+      {
+        "name": "wrap_mode",
+        "type": "u32"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 1,
+    "summary": "Steps active naming-screen grid cursor cell_idx according to D-pad direction bitmask and row-13 column rules."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80038fe4",
+    "ghidra_name": "FUN_80038fe4",
+    "name": "gfx_sdk_set_geom_screen_wrap",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "PS1 SDK wrapper invoking gfx_sdk_set_geom_screen (FUN_800379b4)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80039674",
+    "ghidra_name": "FUN_80039674",
+    "name": "gfx_sdk_init_geom_defaults",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 1,
+    "summary": "PS1 SDK GsInit3D/geometry setup calling InitGeom, SetFarColor(0,0,0), SetGeomOffset(0,0), and zeroing DAT_800a3f9c/9e."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8003ee94",
+    "ghidra_name": "FUN_8003ee94",
+    "name": "sys_sdk_patch_bios_table",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "wave": 1,
+    "summary": "Enters critical section, patches BIOS vector entries from DAT_8003ef04, and flushes instruction/data cache via FlushCache."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80014e90",
+    "ghidra_name": "FUN_80014e90",
+    "name": "gfx_alloc_tile1_prim",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "rgb",
+        "type": "u32"
+      },
+      {
+        "name": "semi_trans",
+        "type": "s16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 2,
+    "summary": "Allocates 0xc bytes from frame primitive pool FUN_80011f5c and emits a 1x1 TILE_1 primitive into ot_entry."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80014f0c",
+    "ghidra_name": "FUN_80014f0c",
+    "name": "gfx_alloc_line_f2_prim",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "x0",
+        "type": "s16"
+      },
+      {
+        "name": "y0",
+        "type": "s16"
+      },
+      {
+        "name": "x1",
+        "type": "s16"
+      },
+      {
+        "name": "y1",
+        "type": "s16"
+      },
+      {
+        "name": "rgb",
+        "type": "u32"
+      },
+      {
+        "name": "semi_trans",
+        "type": "s16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 2,
+    "summary": "Allocates 0x10 bytes from FUN_80011f5c and emits a LINE_F2 primitive into ot_entry."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80014fac",
+    "ghidra_name": "FUN_80014fac",
+    "name": "gfx_alloc_poly_g4_rect",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "w",
+        "type": "s16"
+      },
+      {
+        "name": "h",
+        "type": "s16"
+      },
+      {
+        "name": "c0",
+        "type": "u32"
+      },
+      {
+        "name": "c1",
+        "type": "u32"
+      },
+      {
+        "name": "c2",
+        "type": "u32"
+      },
+      {
+        "name": "c3",
+        "type": "u32"
+      },
+      {
+        "name": "semi_trans",
+        "type": "s16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 2,
+    "summary": "Allocates primitive storage via FUN_80011f5c and emits a 4-color Gouraud POLY_G4 rectangle into ot_entry."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80015074",
+    "ghidra_name": "FUN_80015074",
+    "name": "gfx_alloc_poly_f4_rect",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "w",
+        "type": "s16"
+      },
+      {
+        "name": "h",
+        "type": "s16"
+      },
+      {
+        "name": "rgb",
+        "type": "u32"
+      },
+      {
+        "name": "semi_trans",
+        "type": "s16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 2,
+    "summary": "Allocates 0x18 bytes from FUN_80011f5c and emits a flat POLY_F4 rectangle into ot_entry."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800151b4",
+    "ghidra_name": "FUN_800151b4",
+    "name": "gfx_alloc_poly_f4_with_tpage",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "w",
+        "type": "s16"
+      },
+      {
+        "name": "h",
+        "type": "s16"
+      },
+      {
+        "name": "rgb",
+        "type": "u32"
+      },
+      {
+        "name": "semi_trans",
+        "type": "s16"
+      },
+      {
+        "name": "abr_mode",
+        "type": "u8"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 2,
+    "summary": "Allocates primitive buffer, builds POLY_F4 + DR_TPAGE via gfx_emit_poly_f4_with_tpage, and advances pool via FUN_80011fd8."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80015ca0",
+    "ghidra_name": "FUN_80015ca0",
+    "name": "gfx_sprite_draw_actor_simple",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "sprite_sheet",
+        "type": "u32"
+      },
+      {
+        "name": "ot_ctx",
+        "type": "u32"
+      },
+      {
+        "name": "actor",
+        "type": "s32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 2,
+    "summary": "Draws sprite actor current cel (+4) at (x,y) via gfx_sprite_draw_layer_wrapper and ticks actor animation via FUN_800158e4."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800160c8",
+    "ghidra_name": "FUN_800160c8",
+    "name": "gfx_sprite_submit_scaled_rot",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "sprite_sheet",
+        "type": "u32"
+      },
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "anim_id",
+        "type": "u8"
+      },
+      {
+        "name": "frame_id",
+        "type": "u8"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "scale",
+        "type": "u32"
+      },
+      {
+        "name": "rot_z",
+        "type": "u32"
+      },
+      {
+        "name": "flags",
+        "type": "u16"
+      },
+      {
+        "name": "r",
+        "type": "s16"
+      },
+      {
+        "name": "g",
+        "type": "s16"
+      },
+      {
+        "name": "b",
+        "type": "s16"
+      },
+      {
+        "name": "semi_trans",
+        "type": "s16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 2,
+    "summary": "Allocates GPU packet memory, submits transformed/colored sprite quad via FUN_800165d8, and commits pool pointer via FUN_80011fd8."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800161ac",
+    "ghidra_name": "FUN_800161ac",
+    "name": "gfx_sprite_submit_basic",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "sprite_sheet",
+        "type": "u32"
+      },
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "anim_id",
+        "type": "u8"
+      },
+      {
+        "name": "frame_id",
+        "type": "u8"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "scale",
+        "type": "u32"
+      },
+      {
+        "name": "flags",
+        "type": "u32"
+      },
+      {
+        "name": "clut_override",
+        "type": "u16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 2,
+    "summary": "Submits uncolored sprite cel via FUN_800165d8 with default RGB (-1) and advances primitive pool via FUN_80011fd8."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80016b7c",
+    "ghidra_name": "FUN_80016b7c",
+    "name": "gfx_sprite_draw_part_offset",
+    "return_type": "s32",
+    "params": [
+      {
+        "name": "sprite_sheet",
+        "type": "s32"
+      },
+      {
+        "name": "part_key",
+        "type": "u16"
+      },
+      {
+        "name": "out_prim",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 2,
+    "summary": "Resolves sprite part index via gfx_sprite_lookup_part_idx and emits its primitive via FUN_8001782c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017284",
+    "ghidra_name": "FUN_80017284",
+    "name": "gfx_sprite_draw_frame_direct",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "sprite_sheet",
+        "type": "u32"
+      },
+      {
+        "name": "part_key",
+        "type": "u32"
+      },
+      {
+        "name": "anim_id",
+        "type": "u8"
+      },
+      {
+        "name": "frame_idx",
+        "type": "u8"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 2,
+    "summary": "Resolves cel ID and part index via gfx_sprite_lookup_cel_id/part_idx and draws into active frame via FUN_8001782c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80019e80",
+    "ghidra_name": "FUN_80019e80",
+    "name": "hud_res_draw_cursor_indicator",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32 *"
+      },
+      {
+        "name": "x",
+        "type": "u16"
+      },
+      {
+        "name": "y",
+        "type": "u16"
+      },
+      {
+        "name": "glyph_id",
+        "type": "s16"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 2,
+    "summary": "Allocates 0x14 + 8 bytes from FUN_80011f5c and links a text cursor sprite/glyph packet when glyph_id != -1."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80019fc4",
+    "ghidra_name": "FUN_80019fc4",
+    "name": "hud_res_free_portrait_slot",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "portrait_id",
+        "type": "s16"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 2,
+    "summary": "Releases active portrait VRAM/sprite allocation via FUN_8001719c and evt_res_clear_portrait_busy when slot changes."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001a018",
+    "ghidra_name": "FUN_8001a018",
+    "name": "hud_res_load_portrait_slot",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "portrait_id",
+        "type": "s16"
+      },
+      {
+        "name": "slot_mode",
+        "type": "s32"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 2,
+    "summary": "Acquires portrait DMA buffer via evt_res_get_portrait_buf_if_idle and loads portrait AFILE entry via FUN_80014cbc."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001a668",
+    "ghidra_name": "FUN_8001a668",
+    "name": "hud_res_append_unflagged_item",
+    "return_type": "s32",
+    "params": [
+      {
+        "name": "item_idx",
+        "type": "u32"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 2,
+    "summary": "Appends name tokens into DAT_8005f0f8 from item/recipe array DAT_800749f4 (0x14 entries) where flag 0x10000 is clear."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001a6fc",
+    "ghidra_name": "FUN_8001a6fc",
+    "name": "hud_res_append_flagged_item",
+    "return_type": "s32",
+    "params": [
+      {
+        "name": "item_idx",
+        "type": "u32"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 2,
+    "summary": "Appends name tokens into DAT_8005f0f8 from item/recipe array DAT_800749f4 (0x14 entries) where flag 0x10000 is set."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001a790",
+    "ghidra_name": "FUN_8001a790",
+    "name": "hud_res_append_tool_name",
+    "return_type": "s32",
+    "params": [
+      {
+        "name": "tool_idx",
+        "type": "u32"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 2,
+    "summary": "Appends name tokens into DAT_8005f0f8 from 10-entry tool/crop table DAT_800742ec via hud_res_append_record_name."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001dcb0",
+    "ghidra_name": "FUN_8001dcb0",
+    "name": "gfx_emit_gte_ot_poly_b",
+    "return_type": "u32 *",
+    "params": [
+      {
+        "name": "prim_ctx",
+        "type": "u32 *"
+      },
+      {
+        "name": "otz_shift",
+        "type": "s32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 2,
+    "summary": "Transforms vertices with GTE, checks culling/bounds, and links primitive into ordering table via FUN_8001e0b8."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001de4c",
+    "ghidra_name": "FUN_8001de4c",
+    "name": "gfx_emit_gte_ot_poly_a",
+    "return_type": "u32 *",
+    "params": [
+      {
+        "name": "prim_ctx",
+        "type": "u32 *"
+      },
+      {
+        "name": "ot_param",
+        "type": "u32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 2,
+    "summary": "Transforms quad/tri vertices through GTE, tests bounds via FUN_8001dca8, and submits packet into active OT via FUN_8001e0b8."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001eae4",
+    "ghidra_name": "FUN_8001eae4",
+    "name": "gfx_floor_cell_hit_test",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "mesh_base",
+        "type": "s32"
+      },
+      {
+        "name": "cell_ptr",
+        "type": "s32 *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 2,
+    "summary": "Tests triangle/quad floor collision cell at cell_ptr against active probe point using gfx_point_in_floor_tri/quad test."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001f8a4",
+    "ghidra_name": "FUN_8001f8a4",
+    "name": "gfx_queue_vram_clut_upload",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "tim_ctx",
+        "type": "s32 *"
+      },
+      {
+        "name": "x_offset",
+        "type": "s32"
+      },
+      {
+        "name": "y_offset",
+        "type": "s32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 2,
+    "summary": "Queues a DR_LOAD DMA packet into the active OT slot to upload CLUT palette data from tim_ctx to VRAM."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001fa0c",
+    "ghidra_name": "FUN_8001fa0c",
+    "name": "gfx_queue_vram_pix_upload",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "tim_ctx",
+        "type": "s32 *"
+      },
+      {
+        "name": "ot_slot",
+        "type": "u32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 2,
+    "summary": "Builds a RECT from tim_ctx+0xc and queues a DR_LOAD packet to upload pixel data to VRAM."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001fe7c",
+    "ghidra_name": "FUN_8001fe7c",
+    "name": "spu_enable_stereo_and_xa",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 2,
+    "summary": "Selects stereo audio output via spu_set_stereo_mode and locates XA streams via cd_locate_xa_streams."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800200e8",
+    "ghidra_name": "FUN_800200e8",
+    "name": "spu_reopen_vab_header_slot",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "vh_addr",
+        "type": "u32"
+      },
+      {
+        "name": "vb_addr",
+        "type": "u32"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 2,
+    "summary": "Stops active audio if needed via spu_shutdown_audio, sets DAT_8005e544=0x1010, and records new VH/VB buffers."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800214fc",
+    "ghidra_name": "FUN_800214fc",
+    "name": "spu_prepare_vab_transfer_bank",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "vab_cmd",
+        "type": "s16"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "wave": 2,
+    "summary": "Resolves VAB bank table offsets in DAT_80049370 and queues AFILE load state in DAT_8005e538..554."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80021668",
+    "ghidra_name": "FUN_80021668",
+    "name": "spu_tick_stream_dma_chunk",
+    "return_type": "u32",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 2,
+    "summary": "Advances asynchronous CD-to-SPU DMA stream transfer across 0x800-byte/sector chunks using FUN_80014988 and SpuWrite."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800223d4",
+    "ghidra_name": "FUN_800223d4",
+    "name": "evt_res_emit_window_tile",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "tile_grid",
+        "type": "u32"
+      },
+      {
+        "name": "draw_fn",
+        "type": "code *"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 2,
+    "summary": "Iterates tile grid descriptors at DAT_800a0728/DAT_800977f8 and invokes draw_fn per active dialogue/UI tile."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80022528",
+    "ghidra_name": "FUN_80022528",
+    "name": "evt_res_draw_window_border_tile",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "sprite_sheet",
+        "type": "u32"
+      },
+      {
+        "name": "tile_idx",
+        "type": "u32"
+      },
+      {
+        "name": "frame_idx",
+        "type": "u8"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 2,
+    "summary": "Draws a 9-slice dialogue window border sprite tile at bank 0x1d into the active OT slot via FUN_80015e3c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800226f0",
+    "ghidra_name": "FUN_800226f0",
+    "name": "evt_res_init_dialog_box_idle",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 2,
+    "summary": "Restores dialog pad mask, resets dialog state DAT_8005e5b4=2, clears DAT_8006c904=0, and enables HUD fade/lock."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80022964",
+    "ghidra_name": "FUN_80022964",
+    "name": "evt_res_suspend_dialog_box",
+    "return_type": "u32",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 2,
+    "summary": "Saves pad state DAT_8006c844/DAT_8005e5bc, switches dialog state DAT_8005e5b4=0xe, and pauses active dialogue window."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80022fe0",
+    "ghidra_name": "FUN_80022fe0",
+    "name": "evt_res_apply_portrait_and_free",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "portrait_req",
+        "type": "s32 *"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 2,
+    "summary": "If portrait_req[0] != -1, releases previous portrait allocation via FUN_8001719c and updates loaded portrait ID."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80023718",
+    "ghidra_name": "FUN_80023718",
+    "name": "evt_res_close_yesno_prompt_v0",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 2,
+    "summary": "Register-entry wrapper clearing yes/no cursor, setting state DAT_8005e338=3, and calling evt_res_commit_dialog_close."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002374c",
+    "ghidra_name": "FUN_8002374c",
+    "name": "evt_res_confirm_yesno_prompt",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 2,
+    "summary": "Advances yes/no prompt state DAT_8005e338 to 4 (confirmed) and triggers evt_res_commit_dialog_close."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80015c50",
+    "ghidra_name": "FUN_80015c50",
+    "name": "gfx_sprite_draw_actor_at",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "sprite_sheet",
+        "type": "u32"
+      },
+      {
+        "name": "actor",
+        "type": "s32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 3,
+    "summary": "Draws sprite actor active animation/cel at (x,y) via FUN_80015ee8 and advances animation timer via FUN_800158e4."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80015d6c",
+    "ghidra_name": "FUN_80015d6c",
+    "name": "gfx_sprite_draw_actor_tinted",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "sprite_sheet",
+        "type": "u32"
+      },
+      {
+        "name": "actor",
+        "type": "s32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "scale",
+        "type": "u32"
+      },
+      {
+        "name": "flags",
+        "type": "u32"
+      },
+      {
+        "name": "clut",
+        "type": "u16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 3,
+    "summary": "Draws scaled/tinted sprite actor frame via FUN_80015f80 and updates actor animation state via FUN_800158e4."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80016c08",
+    "ghidra_name": "FUN_80016c08",
+    "name": "gfx_sprite_emit_char_frame",
+    "return_type": "u32 *",
+    "params": [
+      {
+        "name": "prim_buf",
+        "type": "u32 *"
+      },
+      {
+        "name": "ot_entry",
+        "type": "u32 *"
+      },
+      {
+        "name": "sprite_sheet",
+        "type": "s32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "part_key",
+        "type": "u16"
+      },
+      {
+        "name": "flip_flags",
+        "type": "s32"
+      },
+      {
+        "name": "scale",
+        "type": "s32"
+      },
+      {
+        "name": "r",
+        "type": "s16"
+      },
+      {
+        "name": "g",
+        "type": "s16"
+      },
+      {
+        "name": "b",
+        "type": "s16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 3,
+    "summary": "Emits full character/entity sprite primitive using gfx_sprite_draw_part_offset, applying active display scale/flip/tint."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001929c",
+    "ghidra_name": "FUN_8001929c",
+    "name": "hud_res_measure_line_tokens",
+    "return_type": "s16",
+    "params": [
+      {
+        "name": "tokens",
+        "type": "u16 *"
+      },
+      {
+        "name": "stop_tok",
+        "type": "u16"
+      },
+      {
+        "name": "max_glyphs",
+        "type": "s16"
+      },
+      {
+        "name": "out_count",
+        "type": "u16 *"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 3,
+    "summary": "Counts glyphs and measures pixel line width up to stop_tok or max_glyphs, expanding embedded macros via FUN_8001a284."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001945c",
+    "ghidra_name": "FUN_8001945c",
+    "name": "hud_res_count_line_glyphs",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "tokens",
+        "type": "u16 *"
+      },
+      {
+        "name": "stop_tok",
+        "type": "u16"
+      },
+      {
+        "name": "max_glyphs",
+        "type": "s16"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 3,
+    "summary": "Walks a glyph token string up to stop_tok or 0xFFFF, recursively counting expanded macro tokens via FUN_8001a284."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001acbc",
+    "ghidra_name": "FUN_8001acbc",
+    "name": "hud_res_open_portrait_by_token",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "token",
+        "type": "u16"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 3,
+    "summary": "Resets portrait cache, decodes token via hud_res_decode_portrait_idx, and loads/frees portrait slot."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001ad00",
+    "ghidra_name": "FUN_8001ad00",
+    "name": "hud_res_draw_choice_cursor_offset",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "token",
+        "type": "u16"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 3,
+    "summary": "Decodes cursor glyph token via hud_res_decode_portrait_idx and draws indicator offset by (-4, -0x54)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001ad6c",
+    "ghidra_name": "FUN_8001ad6c",
+    "name": "hud_res_switch_portrait_by_token",
+    "return_type": "bool",
+    "params": [
+      {
+        "name": "token",
+        "type": "u16"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 3,
+    "summary": "Checks if decoded portrait ID differs from hud_res_get_loaded_portrait_id and switches portrait slots when changed."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001add8",
+    "ghidra_name": "FUN_8001add8",
+    "name": "hud_res_draw_choice_cursor_abs",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "token",
+        "type": "u16"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 3,
+    "summary": "Decodes glyph token via hud_res_decode_portrait_idx and renders indicator at exact (x, y) via hud_res_draw_cursor_indicator."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001afe0",
+    "ghidra_name": "FUN_8001afe0",
+    "name": "gfx_reset_ot_sprite_table",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "wave": 3,
+    "summary": "Clears 0x1300 bytes at DAT_8005f2e8 and resets screen color/tint state via FUN_8001b074."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001b028",
+    "ghidra_name": "FUN_8001b028",
+    "name": "gfx_set_screen_tint_rgb",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "r0",
+        "type": "s16"
+      },
+      {
+        "name": "g0",
+        "type": "s16"
+      },
+      {
+        "name": "b0",
+        "type": "s16"
+      },
+      {
+        "name": "r1",
+        "type": "s16"
+      },
+      {
+        "name": "g1",
+        "type": "s16"
+      },
+      {
+        "name": "b1",
+        "type": "s16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 3,
+    "summary": "Forwards six RGB tint/gradient parameters directly to screen overlay configuration helper FUN_8001b074."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001e6fc",
+    "ghidra_name": "FUN_8001e6fc",
+    "name": "gfx_find_floor_collision_cell",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "mesh_hdr",
+        "type": "s32 *"
+      },
+      {
+        "name": "probe_pt",
+        "type": "u32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 3,
+    "summary": "Iterates floor cell index list DAT_80061ed8 and tests each triangle/quad cell via gfx_floor_cell_hit_test."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80020e58",
+    "ghidra_name": "FUN_80020e58",
+    "name": "spu_tick_vab_async_loader",
+    "return_type": "u32",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "wave": 3,
+    "summary": "State machine (DAT_8005e538 cases 0..10) driving queued VAB header/body CD reads and SsVabOpenHead/TransBody."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002238c",
+    "ghidra_name": "FUN_8002238c",
+    "name": "evt_res_draw_window_border_a",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "tile_grid",
+        "type": "u32"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 3,
+    "summary": "Renders dialogue window inner tiles by passing evt_res_draw_window_fill_tile into evt_res_emit_window_tile."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800223b0",
+    "ghidra_name": "FUN_800223b0",
+    "name": "evt_res_draw_window_border_b",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "tile_grid",
+        "type": "u32"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 3,
+    "summary": "Renders dialogue window outer tiles by passing evt_res_draw_window_border_tile into evt_res_emit_window_tile."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800224f0",
+    "ghidra_name": "FUN_800224f0",
+    "name": "evt_res_draw_window_fill_tile",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "sprite_sheet",
+        "type": "u32"
+      },
+      {
+        "name": "tile_idx",
+        "type": "u32"
+      },
+      {
+        "name": "frame_idx",
+        "type": "u8"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 3,
+    "summary": "Draws a dialogue window tile sprite at bank 0x1d into the active OT slot via FUN_80015ee8."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80023064",
+    "ghidra_name": "FUN_80023064",
+    "name": "evt_res_tick_yesno_dialog",
+    "return_type": "u32",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 3,
+    "summary": "Draws backing tint rect via FUN_80015114, steps yes/no window via evt_res_render_yesno_window, and returns prompt status."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80023600",
+    "ghidra_name": "FUN_80023600",
+    "name": "evt_res_tick_yesno_input",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 3,
+    "summary": "Dispatches active yes/no cursor movement and confirm/cancel actions when evt_res_is_dialog_idle_or_choice is set."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80023dc0",
+    "ghidra_name": "FUN_80023dc0",
+    "name": "evt_res_tick_naming_input_v0",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 3,
+    "summary": "Register-entry wrapper driving naming-screen pad navigation, cursor step, and character entry."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80015dd4",
+    "ghidra_name": "FUN_80015dd4",
+    "name": "gfx_sprite_emit_active_char",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "prim_buf",
+        "type": "u32"
+      },
+      {
+        "name": "sprite_sheet",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "wave": 4,
+    "summary": "Reads active frame OT from DAT_8005e3c0+0x118 and emits character sprite frame via gfx_sprite_emit_char_frame."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017d9c",
+    "ghidra_name": "FUN_80017d9c",
+    "name": "hud_res_draw_wrapped_text",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "tokens",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "clip_rect",
+        "type": "u32"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 4,
+    "summary": "Allocates scratch buffer via FUN_80011f5c and draws multiline dialogue text via FUN_80018b98 and FUN_80011fd8."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017fa0",
+    "ghidra_name": "FUN_80017fa0",
+    "name": "hud_res_step_dialog_tokens",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ctx_buf",
+        "type": "char *"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 4,
+    "summary": "Parses and advances active dialogue control tokens (pauses, portraits, choices, choices paging, and newline scroll)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800191b4",
+    "ghidra_name": "FUN_800191b4",
+    "name": "hud_res_wrap_text_to_width",
+    "return_type": "s16 *",
+    "params": [
+      {
+        "name": "tokens",
+        "type": "s16 *"
+      },
+      {
+        "name": "stop_tok",
+        "type": "s16"
+      },
+      {
+        "name": "max_w",
+        "type": "s32"
+      },
+      {
+        "name": "max_lines",
+        "type": "s32"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 4,
+    "summary": "Wraps glyph token stream to line/width bounds using hud_res_count_line_glyphs, returning pointer past fit slice."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80019564",
+    "ghidra_name": "FUN_80019564",
+    "name": "hud_res_draw_text_default",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "tokens",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 4,
+    "summary": "Renders a glyph token string at (x,y) with default 0x1000 scale and palette via FUN_80018b98."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800197fc",
+    "ghidra_name": "FUN_800197fc",
+    "name": "hud_res_draw_text_centered",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "unused_pool",
+        "type": "u32"
+      },
+      {
+        "name": "tokens",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "box_w",
+        "type": "s16"
+      },
+      {
+        "name": "flags",
+        "type": "u32"
+      },
+      {
+        "name": "spacing",
+        "type": "s16"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 4,
+    "summary": "Measures string width with hud_res_measure_tok_str_width and draws horizontally centered text within box_w."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800199f8",
+    "ghidra_name": "FUN_800199f8",
+    "name": "hud_res_draw_text_right_aligned",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "unused_pool",
+        "type": "u32"
+      },
+      {
+        "name": "tokens",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "box_w",
+        "type": "s16"
+      },
+      {
+        "name": "flags",
+        "type": "u32"
+      },
+      {
+        "name": "spacing",
+        "type": "s16"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 4,
+    "summary": "Measures string width with hud_res_measure_tok_str_width and draws right-aligned text anchored to x + box_w."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80022580",
+    "ghidra_name": "FUN_80022580",
+    "name": "evt_res_draw_dialog_frame",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "style",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "w",
+        "type": "s16"
+      },
+      {
+        "name": "h",
+        "type": "s16"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 4,
+    "summary": "Forwards dialogue box bounds (x,y,w,h) to resident 9-slice window renderer FUN_800136d4."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80022ea4",
+    "ghidra_name": "FUN_80022ea4",
+    "name": "evt_res_sync_portrait_on_speaker",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 4,
+    "summary": "Reads current speaker ID from hud_res_get_active_speaker_id, computes affection tier via evt_res_get_npc_affection_tier, and updates DAT_800a06dc."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800245f4",
+    "ghidra_name": "FUN_800245f4",
+    "name": "evt_res_draw_icon_space",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 4,
+    "summary": "Draws blank UI glyph sprite (group 0x2a, id 0) at (x,y) via FUN_80024a4c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002462c",
+    "ghidra_name": "FUN_8002462c",
+    "name": "evt_res_draw_icon_circle",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 4,
+    "summary": "Draws PlayStation Circle button icon sprite (group 0x27, id 0) at (x,y) via FUN_80024a4c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80024664",
+    "ghidra_name": "FUN_80024664",
+    "name": "evt_res_draw_icon_triangle",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 4,
+    "summary": "Draws PlayStation Triangle button icon sprite (group 0x27, id 2) at (x,y) via FUN_80024a4c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002469c",
+    "ghidra_name": "FUN_8002469c",
+    "name": "evt_res_draw_icon_cross",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 4,
+    "summary": "Draws PlayStation Cross button icon sprite (group 0x27, id 1) at (x,y) via FUN_80024a4c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800246d4",
+    "ghidra_name": "FUN_800246d4",
+    "name": "evt_res_draw_icon_square",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 4,
+    "summary": "Draws PlayStation Square button icon sprite (group 0x27, id 3) at (x,y) via FUN_80024a4c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80024780",
+    "ghidra_name": "FUN_80024780",
+    "name": "evt_res_draw_icon_currency",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 4,
+    "summary": "Draws currency/G icon sprite (group 0x29) using register-passed variant index via FUN_80024a4c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800247d0",
+    "ghidra_name": "FUN_800247d0",
+    "name": "evt_res_draw_icon_heart",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 4,
+    "summary": "Draws heart status icon sprite (group 0x28) using register-passed variant index via FUN_80024a4c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80024820",
+    "ghidra_name": "FUN_80024820",
+    "name": "evt_res_draw_icon_star",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 4,
+    "summary": "Draws star icon sprite (group 0xd) using register-passed variant index via FUN_80024a4c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80024870",
+    "ghidra_name": "FUN_80024870",
+    "name": "evt_res_draw_icon_arrow_small",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 4,
+    "summary": "Draws small arrow icon sprite (group 0xc) using register-passed variant index via FUN_80024a4c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800248b0",
+    "ghidra_name": "FUN_800248b0",
+    "name": "evt_res_draw_cursor_hand",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 4,
+    "summary": "Draws standard menu cursor hand sprite (group 0xb, id 1) at (x,y) via FUN_80024a4c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800248e8",
+    "ghidra_name": "FUN_800248e8",
+    "name": "evt_res_draw_icon_badge",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "variant_id",
+        "type": "s16"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 4,
+    "summary": "Draws menu badge/status icon sprite (group 0x18, variant_id) at (x,y) via FUN_80024a4c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80024924",
+    "ghidra_name": "FUN_80024924",
+    "name": "evt_res_draw_icon_note",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 4,
+    "summary": "Draws music note/prompt glyph sprite (group 0x1e, id 0) at (x,y) via FUN_80024a4c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800249d0",
+    "ghidra_name": "FUN_800249d0",
+    "name": "evt_res_draw_icon_dot",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 4,
+    "summary": "Draws dot/bullet icon sprite (group 7) using register-passed variant index via FUN_80024a4c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80024a10",
+    "ghidra_name": "FUN_80024a10",
+    "name": "evt_res_draw_glyph_sprite",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "glyph_id",
+        "type": "s16"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 4,
+    "summary": "Draws character-grid UI glyph sprite (group 0x2b, glyph_id) at (x,y) via FUN_80024a4c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800193f0",
+    "ghidra_name": "FUN_800193f0",
+    "name": "hud_res_measure_wrapped_height",
+    "return_type": "s32",
+    "params": [
+      {
+        "name": "tokens",
+        "type": "u32"
+      },
+      {
+        "name": "max_w",
+        "type": "u32"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 5,
+    "summary": "Computes total line count/span for wrapped token string by pairing hud_res_wrap_text_to_width and hud_res_count_line_glyphs."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80019610",
+    "ghidra_name": "FUN_80019610",
+    "name": "hud_res_draw_tok_centered_clipped",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "unused_pool",
+        "type": "u32"
+      },
+      {
+        "name": "tokens",
+        "type": "u32 *"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "box_w",
+        "type": "s16"
+      },
+      {
+        "name": "flags",
+        "type": "u32"
+      },
+      {
+        "name": "spacing",
+        "type": "s16"
+      },
+      {
+        "name": "max_lines",
+        "type": "s16"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 5,
+    "summary": "Copies tokenized text to stack line buffer and renders centered lines within box_w via hud_res_draw_text_centered."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80019ad0",
+    "ghidra_name": "FUN_80019ad0",
+    "name": "hud_res_draw_tok_right_clipped",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "unused_pool",
+        "type": "u32"
+      },
+      {
+        "name": "tokens",
+        "type": "u32 *"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "box_w",
+        "type": "s16"
+      },
+      {
+        "name": "flags",
+        "type": "u32"
+      },
+      {
+        "name": "spacing",
+        "type": "s16"
+      },
+      {
+        "name": "max_lines",
+        "type": "s16"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 5,
+    "summary": "Copies tokenized text to stack line buffer and renders right-aligned lines within box_w via hud_res_draw_text_right_aligned."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80019e14",
+    "ghidra_name": "FUN_80019e14",
+    "name": "hud_res_draw_cursor_aligned",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s32"
+      },
+      {
+        "name": "y",
+        "type": "s32"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 5,
+    "summary": "Renders choice menu cursor sprite offset by (+8, +6) via evt_res_draw_cursor_hand."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001a11c",
+    "ghidra_name": "FUN_8001a11c",
+    "name": "hud_res_advance_dialog_choice_page",
+    "return_type": "void",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "wave": 5,
+    "summary": "Advances active dialogue token cursor DAT_8005e4a8 past choice marker 0x0ffb and resets step state."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001a19c",
+    "ghidra_name": "FUN_8001a19c",
+    "name": "hud_res_collect_dialog_choice_lines",
+    "return_type": "void",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "wave": 5,
+    "summary": "Scans choice line markers in DAT_80049068/DAT_80049070 against DAT_8005e4a8 to populate interactive choice prompts."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001aaf4",
+    "ghidra_name": "FUN_8001aaf4",
+    "name": "hud_res_draw_preset_label",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "unused_arg",
+        "type": "u32"
+      },
+      {
+        "name": "preset_idx",
+        "type": "s16"
+      },
+      {
+        "name": "max_chars",
+        "type": "s16"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 5,
+    "summary": "Expands preset text string into DAT_8005f0a8 via FUN_8001a970 and draws it via FUN_80017b3c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80022794",
+    "ghidra_name": "FUN_80022794",
+    "name": "evt_res_render_paged_text_window",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "text_tokens",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "w",
+        "type": "s16"
+      },
+      {
+        "name": "h",
+        "type": "s16"
+      },
+      {
+        "name": "scroll_state",
+        "type": "s32 *"
+      },
+      {
+        "name": "lines_per_page",
+        "type": "s32"
+      },
+      {
+        "name": "page_mode",
+        "type": "s32"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 5,
+    "summary": "Draws paged scrolling text window via evt_res_draw_dialog_frame and handles page-advance pad input."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80023a9c",
+    "ghidra_name": "FUN_80023a9c",
+    "name": "evt_res_draw_naming_header_box",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "charset_mode",
+        "type": "s32"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 5,
+    "summary": "Draws naming-screen entered name box using kana/alnum formatter callbacks on DAT_800a0708 and FUN_80017b3c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80023d08",
+    "ghidra_name": "FUN_80023d08",
+    "name": "evt_res_draw_naming_grid_frame",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 5,
+    "summary": "Draws the main 230x86 naming-screen character selection window at (45,64) and its header prompt text."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80024108",
+    "ghidra_name": "FUN_80024108",
+    "name": "evt_res_draw_prompt_label_box",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "label_id",
+        "type": "u32"
+      },
+      {
+        "name": "selected_idx",
+        "type": "u32"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 5,
+    "summary": "Draws prompt option label box, checks idle dialog readiness, and highlights active selection."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002445c",
+    "ghidra_name": "FUN_8002445c",
+    "name": "evt_res_draw_naming_cursor_hi",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "cell_idx",
+        "type": "s32"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "wave": 5,
+    "summary": "Uses DIV/HI modulo arithmetic to compute cell coordinates in naming grid and draws cursor via evt_res_draw_cursor_hand."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017c4c",
+    "ghidra_name": "FUN_80017c4c",
+    "name": "hud_res_draw_box_text_centered",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "tokens",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "box_w",
+        "type": "s16"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 6,
+    "summary": "Renders centered dialogue/HUD text within box_w using current spacing DAT_8005e2ba via hud_res_draw_tok_centered_clipped."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017cf4",
+    "ghidra_name": "FUN_80017cf4",
+    "name": "hud_res_draw_box_text_right",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "tokens",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "box_w",
+        "type": "s16"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 6,
+    "summary": "Renders right-aligned dialogue/HUD text within box_w using current spacing DAT_8005e2ba via hud_res_draw_tok_right_clipped."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80019cbc",
+    "ghidra_name": "FUN_80019cbc",
+    "name": "hud_res_tick_choice_menu_input",
+    "return_type": "s32",
+    "params": [
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "cursor_ptr",
+        "type": "u16 *"
+      },
+      {
+        "name": "choice_cnt",
+        "type": "s16"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 6,
+    "summary": "Handles up/down/confirm D-pad input on an interactive dialogue choice list and draws the aligned cursor."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800229f4",
+    "ghidra_name": "FUN_800229f4",
+    "name": "evt_res_open_affection_dialog",
+    "return_type": "u32",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 6,
+    "summary": "Resolves speaker style via evt_res_get_dialog_speaker_style, streams dialogue text via FUN_80014cbc, and renders window."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80022b20",
+    "ghidra_name": "FUN_80022b20",
+    "name": "evt_res_tick_dialog_page_std",
+    "return_type": "u32",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 6,
+    "summary": "Ticks standard 12-line paged dialogue box via evt_res_render_paged_text_window at (26,164,267,62)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80022d70",
+    "ghidra_name": "FUN_80022d70",
+    "name": "evt_res_tick_dialog_page_compact",
+    "return_type": "u32",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 6,
+    "summary": "Ticks compact 6-line paged dialogue box via evt_res_render_paged_text_window at (26,164,267,62)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800233b4",
+    "ghidra_name": "FUN_800233b4",
+    "name": "evt_res_draw_yesno_options",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 6,
+    "summary": "Renders the yes/no prompt box at (171,32,133,28), preset options via hud_res_draw_preset_label, and selection icons."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002348c",
+    "ghidra_name": "FUN_8002348c",
+    "name": "evt_res_draw_naming_charset_grid",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 6,
+    "summary": "Draws the full naming-screen character grid window at (20,56,279,103) and populates all character tiles via evt_res_draw_glyph_sprite."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80023910",
+    "ghidra_name": "FUN_80023910",
+    "name": "evt_res_tick_yesno_confirm",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 6,
+    "summary": "Draws yes/no prompt label (0x3a7) and handles pad confirm/cancel transitions for DAT_8005e33c."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80024030",
+    "ghidra_name": "FUN_80024030",
+    "name": "evt_res_tick_naming_confirm",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 6,
+    "summary": "Draws naming confirmation prompt (0x3a6) and commits/cancels the entered name upon pad confirm."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800183e0",
+    "ghidra_name": "FUN_800183e0",
+    "name": "hud_res_render_dialogue_box",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32 *"
+      },
+      {
+        "name": "tokens",
+        "type": "u16 *"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "clip_rect",
+        "type": "u32"
+      },
+      {
+        "name": "line_stride",
+        "type": "s16"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 7,
+    "summary": "Core dialogue renderer emitting DR_AREA scissor packets, advancing typewriter delay, and drawing visible glyphs/choices."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80023290",
+    "ghidra_name": "FUN_80023290",
+    "name": "evt_res_render_yesno_window_v0",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 7,
+    "summary": "Register-v0 entry wrapper rendering yes/no prompt options and dispatching confirm/input handling for DAT_8005e338."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800239f8",
+    "ghidra_name": "FUN_800239f8",
+    "name": "evt_res_render_naming_screen",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 7,
+    "summary": "Orchestrates naming-screen rendering (header box, character grid, confirm dialog) and routes input by DAT_8005e344."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017bc8",
+    "ghidra_name": "FUN_80017bc8",
+    "name": "hud_res_render_dialogue_box_wrap",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_entry",
+        "type": "u32"
+      },
+      {
+        "name": "tokens",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "s16"
+      },
+      {
+        "name": "y",
+        "type": "s16"
+      },
+      {
+        "name": "clip_rect",
+        "type": "u32"
+      },
+      {
+        "name": "line_stride",
+        "type": "s16"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "wave": 8,
+    "summary": "Thin wrapper sign-extending bounds arguments into hud_res_render_dialogue_box (FUN_800183e0)."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800231ec",
+    "ghidra_name": "FUN_800231ec",
+    "name": "evt_res_tick_naming_screen",
+    "return_type": "u32",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 8,
+    "summary": "Applies naming-screen dim overlay via FUN_80015114, steps evt_res_render_naming_screen, and returns 1 when complete."
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80022b98",
+    "ghidra_name": "FUN_80022b98",
+    "name": "evt_res_tick_resident_dialog",
+    "return_type": "u32",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "wave": 9,
+    "summary": "Top-level resident dialogue window update drawing dialogue frame, running hud_res_render_dialogue_box_wrap, and handling close state."
+  }
+]

@@ -1,0 +1,180 @@
+{
+  "folders": [
+    {
+      "name": "0. HMBackToNature-Recomp \u2014 Native Recomp (Dev)",
+      "path": "../../../Personal/HMBackToNature-Recomp/Dev"
+    },
+    {
+      "name": "1. Harvest Moon: Back to Nature \u2014 Readable C (SLUS-01115)",
+      "path": "../Corpus/readable"
+    },
+    {
+      "name": "2. Harvest Moon: Back to Nature \u2014 Schemas & Catalog",
+      "path": "./schemas"
+    },
+    {
+      "name": "3. Harvest Moon: Back to Nature \u2014 Stage Docs",
+      "path": "./docs"
+    },
+    {
+      "name": "4. Harvest Moon: Back to Nature \u2014 Pipeline Scripts",
+      "path": "./scripts"
+    }
+  ],
+  "settings": {
+    "clangd.path": "${env:LOCALAPPDATA}/Microsoft/WinGet/Packages/LLVM.clangd_Microsoft.Winget.Source_8wekyb3d8bbwe/clangd_23.1.0/bin/clangd.exe",
+    "clangd.arguments": [
+      "--background-index",
+      "--compile-commands-dir=<REPO_ROOT>/Corpus/readable",
+      "--header-insertion=never",
+      "--limit-results=0",
+      "-j=4"
+    ],
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "files.associations": {
+      "*.h": "c",
+      "*.c": "c"
+    },
+    "python.defaultInterpreterPath": "python",
+    "files.eol": "\n",
+    "files.exclude": {
+      "**/__pycache__": true,
+      "**/.cache": true,
+      "**/[Dd]esktop.ini": true
+    }
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Verify Track Gates (decomp_cli)",
+        "type": "shell",
+        "command": "python",
+        "args": [
+          "-B",
+          "<PROJECTS_PERSONAL>/R&D/Dev/tools/decomp/decomp_cli.py",
+          "verify",
+          "--track",
+          "<REPO_ROOT>"
+        ],
+        "group": {
+          "kind": "test",
+          "isDefault": true
+        },
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "clear": true
+        }
+      },
+      {
+        "label": "Index Stage 1 Call Graph & Clusters",
+        "type": "shell",
+        "command": "python",
+        "args": [
+          "-B",
+          "<PROJECTS_PERSONAL>/R&D/Dev/tools/decomp/decomp_cli.py",
+          "index",
+          "--track",
+          "<REPO_ROOT>"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": false
+        },
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "clear": true
+        }
+      },
+      {
+        "label": "Bundle Stage 2/3 Ghidra Schemas",
+        "type": "shell",
+        "command": "python",
+        "args": [
+          "-B",
+          "<PROJECTS_PERSONAL>/R&D/Dev/tools/decomp/decomp_cli.py",
+          "bundle",
+          "--track",
+          "<REPO_ROOT>"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": false
+        },
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "clear": true
+        }
+      },
+      {
+        "label": "Assemble Stage 4 Readable Tree",
+        "type": "shell",
+        "command": "python",
+        "args": [
+          "-B",
+          "<PROJECTS_PERSONAL>/R&D/Dev/tools/decomp/decomp_cli.py",
+          "assemble",
+          "--track",
+          "<REPO_ROOT>"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "clear": true
+        }
+      },
+      {
+        "label": "Refresh Workspace & compile_commands.json",
+        "type": "shell",
+        "command": "python",
+        "args": [
+          "-B",
+          "<PROJECTS_PERSONAL>/R&D/Dev/tools/decomp/decomp_cli.py",
+          "workspace",
+          "--track",
+          "<REPO_ROOT>"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": false
+        },
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "clear": true
+        }
+      },
+      {
+        "label": "Build Stage D4 MIPS Objects & Parity (zig cc)",
+        "type": "shell",
+        "command": "python",
+        "args": [
+          "-B",
+          "<REPO_ROOT>/Dev/scripts/build_and_verify_d4.py"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": false
+        },
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "clear": true
+        }
+      }
+    ]
+  },
+  "extensions": {
+    "recommendations": [
+      "llvm-vs-code-extensions.vscode-clangd",
+      "ms-python.python"
+    ]
+  }
+}

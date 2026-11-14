@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "project": "harvest-moon-btn",
+  "platform": "ps1",
+  "serial": "SLUS-01115",
+  "standalone_relpath": "decomps/ps1/harvest-moon-btn/standalone",
+  "moved_from": "Sandbox/hmbtn-decomp",
+  "read_only": true,
+  "total_files": 8865,
+  "total_bytes": 757328499,
+  "verified_files": {
+    "disc/files/SLUS_011.15": {
+      "bytes": 323584,
+      "sha256": "34e3b35dcd3fb1cd9a7d4813b8a9ef987915826e3d436f1908ecbe2d4fdf1444"
+    },
+    "disc/files/A_FILE.HDT": {
+      "bytes": 132,
+      "sha256": "0cae44d6bdb29e078a182d7cd9a780c21e35dc54f55eb94c2d9ea8deb20c82dd"
+    },
+    "decompiled/SLUS_011.15/SLUS_011.15_full.c": {
+      "bytes": 1459406,
+      "sha256": "cb0e5f8c483ead8695518aea0e67af1370c8c0c333d9cd2c4159d6d099d08eb6"
+    },
+    "reports/decomp_master_summary.json": {
+      "bytes": 34155,
+      "sha256": "5a3a84dfc5c73e342a47636fecf4cbb52bdb5b964870615a43c5d0e17dd822c9"
+    },
+    "ghidra_project/HarvestMoonBTNUSA.gpr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "overlays/overlays_manifest.json": {
+      "bytes": 12562,
+      "sha256": "9e3578e5a4cbb286981d7179bb7fa6c91f53afcb7811e20d2f17d71ae6256c13"
+    },
+    "decompiled/OVL_part08_id04.EXE/OVL_part08_id04.EXE_full.c": {
+      "bytes": 3472,
+      "sha256": "8a2de108266c41a59bbec878f36b6e78306365e4205812da92d886b3a1d68d5f"
+    },
+    "decompiled/OVL_part10_id05.EXE/OVL_part10_id05.EXE_full.c": {
+      "bytes": 37030,
+      "sha256": "e91118bab00aeee6bedf8d0ad75b43afef9b448c5a19e49dfb26418b9ba7486f"
+    },
+    "decompiled/OVL_part11_id06.EXE/OVL_part11_id06.EXE_full.c": {
+      "bytes": 1487079,
+      "sha256": "8d23e1b4ad84d512c0100eab5de3938b1d5c9c4d4836854c5074921c78106f4c"
+    },
+    "decompiled/OVL_part15_id10.EXE/OVL_part15_id10.EXE_full.c": {
+      "bytes": 166715,
+      "sha256": "48df55d270c6877b64a3516d751437f1238e9a32a6a9853ba417f1dd0ee1ca34"
+    },
+    "decompiled/OVL_part17_id07.EXE/OVL_part17_id07.EXE_full.c": {
+      "bytes": 53266,
+      "sha256": "5cd9ea784f60d031cab11f31058df797091175384543dfa47f528ae30063178e"
+    },
+    "decompiled/OVL_part19_id08.EXE/OVL_part19_id08.EXE_full.c": {
+      "bytes": 69994,
+      "sha256": "735e33f5fc38f6a681edc0985e5c08555b4ed3c25647a5802c42996181bb0d27"
+    },
+    "decompiled/OVL_part21_id09.EXE/OVL_part21_id09.EXE_full.c": {
+      "bytes": 67601,
+      "sha256": "1c7fb19737dee4f91f12c0c7f315e15e86f794d44cc08345306560209d01541c"
+    },
+    "decompiled/OVL_part23_id0a.EXE/OVL_part23_id0a.EXE_full.c": {
+      "bytes": 61240,
+      "sha256": "61211aa2b0c4c5ae72cd7ce74c8d6854ca0fd2137dbd3d6c6c83e4384fc53dbe"
+    },
+    "decompiled/OVL_part25_id0b.EXE/OVL_part25_id0b.EXE_full.c": {
+      "bytes": 63493,
+      "sha256": "56b4f995d778e5e85c0953dce10a045e059d81cb86618d026ae801e4da414c85"
+    },
+    "decompiled/OVL_part27_id0c.EXE/OVL_part27_id0c.EXE_full.c": {
+      "bytes": 48938,
+      "sha256": "63778f569380139b63783b2e7c39398fc0efbf3300b9bc4e97cf5aed79b83235"
+    },
+    "decompiled/OVL_part28_id0d.EXE/OVL_part28_id0d.EXE_full.c": {
+      "bytes": 24791,
+      "sha256": "edf7f2b86b3b54df26637520fbc32acdb1edb02e5a3d62a7a22311544560cc8b"
+    },
+    "decompiled/OVL_part30_id0f.EXE/OVL_part30_id0f.EXE_full.c": {
+      "bytes": 76529,
+      "sha256": "d897048b8a4cef09ccef9a9a537a2d1793a3e98ed7ea3a5c8c61ddef465ff1ec"
+    },
+    "decompiled/OVL_part31_id0e.EXE/OVL_part31_id0e.EXE_full.c": {
+      "bytes": 6309,
+      "sha256": "ec4bbf437cbc6d07ce259a744f8388c88eb87b22e3e12970a62d8c8757d69265"
+    }
+  }
+}

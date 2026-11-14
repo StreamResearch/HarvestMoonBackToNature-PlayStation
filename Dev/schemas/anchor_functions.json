@@ -1,0 +1,3666 @@
+[
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80011278",
+    "name": "hm_crt0_start",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "summary": "CRT0 startup entry clearing BSS and branching into resident boot init and main loop"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80011338",
+    "name": "hm_boot_init",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "summary": "Early boot hardware initialization calling ResetCallback and kernel heap setup"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80011370",
+    "name": "hm_main",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "summary": "Resident engine entrypoint: initializes PS1 subsystems, loads A_FILE overlays, and drives main state loop"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80011c24",
+    "name": "hm_frame_sync_and_poll",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "summary": "Per-frame tick barrier synchronizing VSync, controller pad polling, and CD async queue"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80011f5c",
+    "name": "hm_clamp_fade_level",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "fade_val",
+        "type": "int"
+      }
+    ],
+    "domain": "core_mainloop",
+    "summary": "Clamps brightness fade value to valid hardware range [0..255] before screen scaling"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80011fd8",
+    "name": "hm_step_screen_fade",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "step",
+        "type": "uint"
+      }
+    ],
+    "domain": "core_mainloop",
+    "summary": "Advances active fade-in or fade-out counter toward target brightness level"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800120c8",
+    "name": "hm_apply_screen_brightness",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "summary": "Applies current fade multiplier across GPU display RGB overlay state"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80012298",
+    "name": "hm_init_gpu_display_mode",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "mode",
+        "type": "int"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Configures double-buffered GPU DISPENV and DRAWENV geometry for selected screen resolution"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800129e8",
+    "name": "hm_get_frame_tick",
+    "return_type": "u32",
+    "params": [],
+    "domain": "core_mainloop",
+    "summary": "Returns current monotonic frame tick counter incremented by frame sync loop"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80012a14",
+    "name": "hm_enable_display_mask",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "summary": "Enables live video output via PS1 SDK SetDispMask after initial frame buffer clear"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80012a34",
+    "name": "hm_prng_next",
+    "return_type": "uint",
+    "params": [
+      {
+        "name": "mod_max",
+        "type": "uint"
+      }
+    ],
+    "domain": "core_mainloop",
+    "summary": "Linear-congruential PRNG step advancing global seed and returning modulo-bounded value"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80012a68",
+    "name": "hm_draw_clear_tile_rect",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "x",
+        "type": "short"
+      },
+      {
+        "name": "y",
+        "type": "short"
+      },
+      {
+        "name": "w",
+        "type": "short"
+      },
+      {
+        "name": "h",
+        "type": "short"
+      },
+      {
+        "name": "r",
+        "type": "u8"
+      },
+      {
+        "name": "g",
+        "type": "u8"
+      },
+      {
+        "name": "b",
+        "type": "u8"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Submits a flat colored TILE primitive into the active ordering table to clear a rectangle"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80012ab0",
+    "name": "hm_screen_align_tool",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "x_off",
+        "type": "short"
+      },
+      {
+        "name": "y_off",
+        "type": "short"
+      }
+    ],
+    "domain": "core_mainloop",
+    "summary": "Interactive screen centering alignment helper reading pad directions and updating DISPENV offsets"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80012cb4",
+    "name": "hm_clamp_int_ref",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "min_val",
+        "type": "int"
+      },
+      {
+        "name": "val_ptr",
+        "type": "int *"
+      },
+      {
+        "name": "max_val",
+        "type": "int"
+      }
+    ],
+    "domain": "core_mainloop",
+    "summary": "Clamps integer pointed to by val_ptr into inclusive [min_val..max_val] bounds"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80012d30",
+    "name": "hm_wait_vsync_and_cd_sync",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "summary": "Waits for DrawSync, VSync, and pending CD async reads while pumping audio sequence state"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800132b8",
+    "name": "hm_draw_debug_glyph",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "x",
+        "type": "short"
+      },
+      {
+        "name": "y",
+        "type": "short"
+      },
+      {
+        "name": "glyph_id",
+        "type": "u16"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "summary": "Queues a debug overlay glyph sprite using FntPrint/screen coordinates"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80013394",
+    "name": "hm_poll_pad_input",
+    "return_type": "bool",
+    "params": [],
+    "domain": "input_memcard",
+    "summary": "Reads dual-pad raw buffers, computes newly pressed/held/repeated bitmasks, and reports status"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800134c4",
+    "name": "hm_clear_pad_state",
+    "return_type": "void",
+    "params": [],
+    "domain": "input_memcard",
+    "summary": "Zeroes active controller edge/repeat state buffers to flush stale button presses"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800136d4",
+    "name": "hm_draw_font_string",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_idx",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "short"
+      },
+      {
+        "name": "y",
+        "type": "short"
+      },
+      {
+        "name": "str_ptr",
+        "type": "int"
+      },
+      {
+        "name": "color_mode",
+        "type": "short"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "summary": "Renders an encoded text string to the specified ordering table at screen coordinates"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800139fc",
+    "name": "hm_memcard_reset_state",
+    "return_type": "void",
+    "params": [],
+    "domain": "input_memcard",
+    "summary": "Resets resident Memory Card state machine globals and clears pending card slot flags"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80013a24",
+    "name": "hm_memcard_init_subsystems",
+    "return_type": "void",
+    "params": [],
+    "domain": "input_memcard",
+    "summary": "Initializes PS1 SDK MemCard driver and registers card polling status tables"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80013b04",
+    "name": "hm_memcard_poll_status",
+    "return_type": "void",
+    "params": [],
+    "domain": "input_memcard",
+    "summary": "Polls Memory Card hardware insertion and completion events via MemCardSync"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80013cd0",
+    "name": "hm_memcard_scan_save_slots",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "out_mask",
+        "type": "uint *"
+      },
+      {
+        "name": "card_slot",
+        "type": "u8"
+      }
+    ],
+    "domain": "input_memcard",
+    "summary": "Scans Memory Card directory entries on card_slot and populates valid save slot mask"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80013fc0",
+    "name": "hm_memcard_dispatch_io",
+    "return_type": "uint",
+    "params": [
+      {
+        "name": "op_code",
+        "type": "int"
+      }
+    ],
+    "domain": "input_memcard",
+    "summary": "Dispatches async Memory Card read/write/create/delete commands by operation code"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80014064",
+    "name": "hm_memcard_wait_io_idle",
+    "return_type": "void",
+    "params": [],
+    "domain": "input_memcard",
+    "summary": "Blocks in VSync loop while Memory Card async read/write state machine finishes"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80014494",
+    "name": "hm_memcard_set_target_slot",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "port",
+        "type": "char"
+      },
+      {
+        "name": "slot",
+        "type": "char"
+      },
+      {
+        "name": "file_idx",
+        "type": "int"
+      }
+    ],
+    "domain": "input_memcard",
+    "summary": "Selects active Memory Card port, slot, and save diary index for subsequent I/O"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80014554",
+    "name": "hm_cd_read_named_file",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "filename",
+        "type": "char *"
+      },
+      {
+        "name": "dst_buf",
+        "type": "ulong *"
+      }
+    ],
+    "domain": "cd_afile_overlays",
+    "summary": "Resolves ISO9660 path via CdSearchFile and streams file sectors synchronously into dst_buf"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800145f0",
+    "name": "hm_afile_load_entry_sync",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "entry_idx",
+        "type": "int"
+      },
+      {
+        "name": "sub_idx",
+        "type": "int"
+      },
+      {
+        "name": "dst_buf",
+        "type": "u8 *"
+      },
+      {
+        "name": "size_out",
+        "type": "ulong *"
+      }
+    ],
+    "domain": "cd_afile_overlays",
+    "summary": "Looks up index in A_FILE.BIN TOC table, issues CdRead sectors, and blocks until completion"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80014748",
+    "name": "hm_cd_init_afile_system",
+    "return_type": "uint",
+    "params": [
+      {
+        "name": "load_toc",
+        "type": "int"
+      }
+    ],
+    "domain": "cd_afile_overlays",
+    "summary": "Initializes CD subsystem callbacks and reads master A_FILE.BIN index table into RAM"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800147bc",
+    "name": "hm_cd_poll_async_queue",
+    "return_type": "u32",
+    "params": [],
+    "domain": "cd_afile_overlays",
+    "summary": "Advances pending CD async read queue and invokes completion handlers on CdSync done"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80014854",
+    "name": "hm_cd_get_afile_lba_size",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "entry_idx",
+        "type": "int"
+      },
+      {
+        "name": "sub_idx",
+        "type": "int"
+      },
+      {
+        "name": "mode",
+        "type": "int"
+      }
+    ],
+    "domain": "cd_afile_overlays",
+    "summary": "Computes sector LBA and byte length for an A_FILE.BIN archive entry"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80014988",
+    "name": "hm_cd_enqueue_async_read",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "slot",
+        "type": "short"
+      },
+      {
+        "name": "mode_flags",
+        "type": "uint"
+      },
+      {
+        "name": "entry_idx",
+        "type": "int"
+      },
+      {
+        "name": "dst_buf",
+        "type": "ulong *"
+      },
+      {
+        "name": "callback",
+        "type": "int"
+      }
+    ],
+    "domain": "cd_afile_overlays",
+    "summary": "Enqueues an asynchronous A_FILE.BIN CD sector transfer into the resident CD job ring"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80014b44",
+    "name": "hm_cd_is_queue_busy",
+    "return_type": "u32",
+    "params": [],
+    "domain": "cd_afile_overlays",
+    "summary": "Returns non-zero while resident CD async read queue has active or pending transfers"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80014bcc",
+    "name": "hm_vram_queue_rect_upload",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "src_addr",
+        "type": "u32"
+      },
+      {
+        "name": "vram_x",
+        "type": "uint"
+      },
+      {
+        "name": "vram_y",
+        "type": "uint"
+      },
+      {
+        "name": "w",
+        "type": "int"
+      },
+      {
+        "name": "clut_ptr",
+        "type": "ulong *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Schedules LoadImage DMA transfer of pixel rectangle and optional CLUT into PS1 VRAM"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80014cbc",
+    "name": "hm_afile_read_or_load_overlay",
+    "return_type": "ulong *",
+    "params": [
+      {
+        "name": "entry_idx",
+        "type": "int"
+      },
+      {
+        "name": "sub_idx",
+        "type": "int"
+      },
+      {
+        "name": "mode",
+        "type": "int"
+      },
+      {
+        "name": "dst_buf",
+        "type": "ulong *"
+      },
+      {
+        "name": "flags",
+        "type": "int"
+      },
+      {
+        "name": "extra",
+        "type": "int"
+      }
+    ],
+    "domain": "cd_afile_overlays",
+    "summary": "Loads an A_FILE.BIN archive entry or executable overlay part directly into target RAM"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80015114",
+    "name": "hm_draw_poly_f4_panel",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_idx",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "short"
+      },
+      {
+        "name": "y",
+        "type": "short"
+      },
+      {
+        "name": "w",
+        "type": "short"
+      },
+      {
+        "name": "h",
+        "type": "short"
+      },
+      {
+        "name": "rgba",
+        "type": "u32"
+      },
+      {
+        "name": "semi_trans",
+        "type": "short"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Appends a semi-transparent or opaque flat POLY_F4 quad primitive to the ordering table"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80015704",
+    "name": "hm_sprite_init_0x0e_anim",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "anim_hdr",
+        "type": "HmLzSpriteHeader *"
+      },
+      {
+        "name": "slot_out",
+        "type": "HmSpriteActor *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Initializes 0x0E sprite animation pack descriptor and reports ANI INIT ERROR on invalid magic"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80015840",
+    "name": "hm_sprite_set_anim_state",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "slot_id",
+        "type": "int"
+      },
+      {
+        "name": "anim_idx",
+        "type": "u8"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Assigns active animation sequence index on a 0x0E sprite descriptor slot"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800158e4",
+    "name": "hm_sprite_step_0x0e_frame",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "anim_data",
+        "type": "HmSpriteActor *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Advances frame timer and loops or clamps keyframe cursor for a 0x0E sprite descriptor"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80015bf0",
+    "name": "hm_sprite_play_at_pos",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "slot_ptr",
+        "type": "HmSpriteActor *"
+      },
+      {
+        "name": "anim_id",
+        "type": "int"
+      },
+      {
+        "name": "x",
+        "type": "short"
+      },
+      {
+        "name": "y",
+        "type": "short"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Steps and draws a 0x0E sprite animation slot at screen coordinates (x, y)"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80015d1c",
+    "name": "hm_sprite_flush_active_lists",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "summary": "Flushes queued active sprite slots into GPU ordering tables prior to OT swap"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80015ee8",
+    "name": "hm_sprite_submit_0x0e_quad",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_ptr",
+        "type": "u32"
+      },
+      {
+        "name": "spr_hdr",
+        "type": "HmLzSpriteHeader *"
+      },
+      {
+        "name": "frame_idx",
+        "type": "u8"
+      },
+      {
+        "name": "pal_idx",
+        "type": "u8"
+      },
+      {
+        "name": "x",
+        "type": "short"
+      },
+      {
+        "name": "y",
+        "type": "short"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Builds and links a 0x0E sprite frame primitive at (x, y) into the ordering table"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80015f80",
+    "name": "hm_sprite_submit_scaled_rot",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_ptr",
+        "type": "u32"
+      },
+      {
+        "name": "spr_hdr",
+        "type": "HmLzSpriteHeader *"
+      },
+      {
+        "name": "frame_idx",
+        "type": "u8"
+      },
+      {
+        "name": "pal_idx",
+        "type": "u8"
+      },
+      {
+        "name": "x",
+        "type": "short"
+      },
+      {
+        "name": "y",
+        "type": "short"
+      },
+      {
+        "name": "scale_x",
+        "type": "u32"
+      },
+      {
+        "name": "scale_y",
+        "type": "u32"
+      },
+      {
+        "name": "angle",
+        "type": "u16"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Applies screen fade scaling then submits a transformed 0x0E sprite quad"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80016280",
+    "name": "hm_sprite_build_sprt_packet",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_ptr",
+        "type": "uint *"
+      },
+      {
+        "name": "spr_hdr",
+        "type": "HmLzSpriteHeader *"
+      },
+      {
+        "name": "pal_ptr",
+        "type": "uint *"
+      },
+      {
+        "name": "frame_idx",
+        "type": "int"
+      },
+      {
+        "name": "flags",
+        "type": "u8"
+      },
+      {
+        "name": "alpha",
+        "type": "u8"
+      },
+      {
+        "name": "x",
+        "type": "short"
+      },
+      {
+        "name": "y",
+        "type": "short"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Emits an unscaled PS1 SPRT GPU packet from parsed 0x0E frame dimensions and UV coordinates"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800165d8",
+    "name": "hm_sprite_build_poly_ft4_packet",
+    "return_type": "uint *",
+    "params": [
+      {
+        "name": "ot_ptr",
+        "type": "uint *"
+      },
+      {
+        "name": "spr_hdr",
+        "type": "HmLzSpriteHeader *"
+      },
+      {
+        "name": "frame_idx",
+        "type": "int"
+      },
+      {
+        "name": "flags",
+        "type": "uint"
+      },
+      {
+        "name": "mode",
+        "type": "u8"
+      },
+      {
+        "name": "x",
+        "type": "short"
+      },
+      {
+        "name": "y",
+        "type": "short"
+      },
+      {
+        "name": "sx",
+        "type": "int"
+      },
+      {
+        "name": "sy",
+        "type": "int"
+      },
+      {
+        "name": "rx",
+        "type": "int"
+      },
+      {
+        "name": "ry",
+        "type": "ushort"
+      },
+      {
+        "name": "cx",
+        "type": "short"
+      },
+      {
+        "name": "cy",
+        "type": "ushort"
+      },
+      {
+        "name": "z_off",
+        "type": "short"
+      },
+      {
+        "name": "rot",
+        "type": "short"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Emits a scaled/rotated textured POLY_FT4 packet into the active OT and returns next packet cursor"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001719c",
+    "name": "hm_vram_unpack_0x0d_pack_auto",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "pack_ptr",
+        "type": "u32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Inspects 0x0D pack header and dispatches LZ/RLE VRAM decompression to embedded coords"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017300",
+    "name": "hm_vram_unpack_0x0d_lz_rle",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "src_pack",
+        "type": "char *"
+      },
+      {
+        "name": "vram_x",
+        "type": "short"
+      },
+      {
+        "name": "vram_y",
+        "type": "short"
+      },
+      {
+        "name": "clut_x",
+        "type": "short"
+      },
+      {
+        "name": "clut_y",
+        "type": "short"
+      },
+      {
+        "name": "flags",
+        "type": "int"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Decompresses 0x0D LZ/RLE texture/CLUT payload into staging buffer at DAT_8005ee28 and calls LoadImage"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001782c",
+    "name": "hm_vram_upload_tim_chunk",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "tim_hdr",
+        "type": "char *"
+      },
+      {
+        "name": "buf_ptr",
+        "type": "ulong *"
+      },
+      {
+        "name": "mode",
+        "type": "ushort"
+      },
+      {
+        "name": "dx",
+        "type": "short"
+      },
+      {
+        "name": "dy",
+        "type": "short"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Parses TIM/pixel rectangle header and uploads image/CLUT data to PS1 VRAM via LoadImage"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017a38",
+    "name": "hm_text_set_margins",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "margin_x",
+        "type": "u16"
+      },
+      {
+        "name": "margin_y",
+        "type": "u16"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "summary": "Sets global text wrapping margin X/Y bounds in DAT_8005e2b8 and DAT_8005e2ba"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017b18",
+    "name": "hm_text_set_render_mode",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "mode_flags",
+        "type": "u32"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "summary": "Sets active dialogue/font glyph rendering mode word in DAT_8005e2bc"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80017b3c",
+    "name": "hm_text_draw_dialog_line",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_idx",
+        "type": "u32"
+      },
+      {
+        "name": "msg_ptr",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "short"
+      },
+      {
+        "name": "y",
+        "type": "short"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "summary": "Fades and draws a positioned dialogue line via hm_text_render_glyph_stream"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80018b98",
+    "name": "hm_text_render_glyph_stream",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "ot_idx",
+        "type": "u32"
+      },
+      {
+        "name": "str_ptr",
+        "type": "u32"
+      },
+      {
+        "name": "style_ptr",
+        "type": "ushort *"
+      },
+      {
+        "name": "x",
+        "type": "short"
+      },
+      {
+        "name": "y",
+        "type": "short"
+      },
+      {
+        "name": "w",
+        "type": "int"
+      },
+      {
+        "name": "h",
+        "type": "int"
+      },
+      {
+        "name": "color",
+        "type": "u32"
+      },
+      {
+        "name": "line_h",
+        "type": "int"
+      },
+      {
+        "name": "pad",
+        "type": "int"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "summary": "Decodes control codes, Kanji/ASCII glyph indices, and submits character sprites to OT"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001a284",
+    "name": "hm_font_lookup_kanji_glyph",
+    "return_type": "u16 *",
+    "params": [
+      {
+        "name": "glyph_code",
+        "type": "uint"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "summary": "Maps Shift-JIS/custom font character code into resident glyph tile bitmap table"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001a970",
+    "name": "hm_text_fetch_script_entry",
+    "return_type": "short *",
+    "params": [
+      {
+        "name": "msg_id",
+        "type": "int"
+      },
+      {
+        "name": "out_len",
+        "type": "short *"
+      },
+      {
+        "name": "bank_id",
+        "type": "int"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "summary": "Resolves message ID in loaded dialogue bank offset table and returns text pointer and byte length"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001ac10",
+    "name": "hm_text_draw_box_with_message",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "msg_id",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "u32"
+      },
+      {
+        "name": "y",
+        "type": "u32"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "summary": "Draws framed UI box and renders resolved dialogue script entry at (x, y)"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001af44",
+    "name": "hm_event_flag_get",
+    "return_type": "uint",
+    "params": [
+      {
+        "name": "bit_idx",
+        "type": "uint"
+      }
+    ],
+    "domain": "core_mainloop",
+    "summary": "Tests bit index bit_idx inside global persistent game progress bitfield DAT_8006c870"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001af70",
+    "name": "hm_event_flag_set",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "bit_idx",
+        "type": "uint"
+      },
+      {
+        "name": "value",
+        "type": "short"
+      }
+    ],
+    "domain": "core_mainloop",
+    "summary": "Sets or clears bit index bit_idx inside persistent game progress bitfield DAT_8006c870"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001b074",
+    "name": "hm_gpu_reset_ot_and_sprites",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "summary": "Clears double-buffered reverse ordering tables via ClearOTagR and resets sprite scratch pointers"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001b118",
+    "name": "hm_gpu_swap_buffers_and_draw_ot",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "summary": "Flushes sprite lists, waits DrawSync/VSync, swaps active DISPENV/DRAWENV, and calls DrawOTag"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001b5dc",
+    "name": "hm_gte_init_light_fog_matrices",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "summary": "Loads GTE light, color, far-color, and fog-near matrices for 3D scene rendering"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001bfec",
+    "name": "hm_gte_draw_static_model",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "mesh_node",
+        "type": "int *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Pushes GTE matrix stack, transforms static 3D model primitives, and emits packets to OT"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001c0d4",
+    "name": "hm_gte_draw_animated_model",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "anim_node",
+        "type": "int *"
+      },
+      {
+        "name": "frame",
+        "type": "u32"
+      },
+      {
+        "name": "matrix_ptr",
+        "type": "u32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Evaluates hierarchical bone transforms for animated 3D character/animal mesh and submits polygons"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001c37c",
+    "name": "hm_gte_emit_model_polys",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "poly_count",
+        "type": "int"
+      },
+      {
+        "name": "prim_stream",
+        "type": "int *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Inner GTE loop calling gte_ldv0/gte_stsxy3_g3/gte_stopz to cull and emit textured/Gouraud tris & quads"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001dfd4",
+    "name": "hm_gte_project_svector_to_ot",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "out_screen",
+        "type": "int *"
+      },
+      {
+        "name": "world_pos",
+        "type": "SVECTOR *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Transforms single SVECTOR via GTE perspective projection and returns depth OTZ + screen XY"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001e4c0",
+    "name": "hm_gte_update_camera_matrix",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cam_cfg",
+        "type": "int *"
+      },
+      {
+        "name": "view_mat",
+        "type": "MATRIX *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Computes world-to-camera rotation and translation matrix from camera pitch/yaw/target"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001f1e0",
+    "name": "hm_gte_build_rot_matrix",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "out_mat",
+        "type": "MATRIX *"
+      },
+      {
+        "name": "rx",
+        "type": "int"
+      },
+      {
+        "name": "ry",
+        "type": "int"
+      },
+      {
+        "name": "rz",
+        "type": "uint"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Constructs 3x3 fixed-point GTE rotation matrix using rsin/rcos lookup helpers"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001f278",
+    "name": "hm_clut_lerp_rgb_triple",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "base_val",
+        "type": "int"
+      },
+      {
+        "name": "target_val",
+        "type": "int"
+      },
+      {
+        "name": "out_r",
+        "type": "int *"
+      },
+      {
+        "name": "out_g",
+        "type": "int *"
+      },
+      {
+        "name": "out_b",
+        "type": "int *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Interpolates RGB channel triple for lighting and time-of-day palette tinting"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001f774",
+    "name": "hm_clut_blend_palette",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "dst_clut",
+        "type": "ushort *"
+      },
+      {
+        "name": "src_clut",
+        "type": "ushort *"
+      },
+      {
+        "name": "tint_clut",
+        "type": "ushort *"
+      },
+      {
+        "name": "weight",
+        "type": "u32"
+      },
+      {
+        "name": "count",
+        "type": "u32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Blends 16-bit PS1 CLUT entries between source and tint palettes for dawn/dusk/night shading"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001fabc",
+    "name": "hm_audio_play_sfx",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "sfx_id",
+        "type": "short"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "summary": "Triggers resident sound effect sfx_id with default stereo volume via SPU voice dispatcher"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001fb30",
+    "name": "hm_audio_set_spu_reverb",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "reverb_type",
+        "type": "short"
+      },
+      {
+        "name": "depth_l",
+        "type": "short"
+      },
+      {
+        "name": "depth_r",
+        "type": "short"
+      },
+      {
+        "name": "flags",
+        "type": "short"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "summary": "Configures SPU hardware reverb type and stereo depth via SsUtSetReverbType/Depth"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001fbf0",
+    "name": "hm_audio_play_bgm_seq",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "seq_id",
+        "type": "short"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "summary": "Stops active BGM keys and starts playback of requested SEQ music track"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8001fd10",
+    "name": "hm_audio_tick_seq_fade",
+    "return_type": "void",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "summary": "Updates active BGM volume envelope fade curves once per frame"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80020818",
+    "name": "hm_audio_init_spu_seq_system",
+    "return_type": "u32",
+    "params": [],
+    "domain": "audio_spu_vab",
+    "summary": "Initializes PS1 SDK SPU/SEQ subsystem via SsStart and opens VAB/SEQ slots"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80020b80",
+    "name": "hm_audio_free_vab_and_seq",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "vab_id",
+        "type": "int"
+      },
+      {
+        "name": "seq_slot",
+        "type": "int"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "summary": "Closes active SEQ sequence and releases loaded VAB sound bank memory"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x800212a8",
+    "name": "hm_audio_trigger_spu_voice",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "sfx_id",
+        "type": "int"
+      },
+      {
+        "name": "vol_l",
+        "type": "u32"
+      },
+      {
+        "name": "vol_r",
+        "type": "u32"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "summary": "Allocates free SPU hardware channel via SpuGetAllKeysStatus and triggers SsUtKeyOnV"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80021b90",
+    "name": "hm_audio_start_cd_xa_stream",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "xa_track",
+        "type": "int"
+      }
+    ],
+    "domain": "audio_spu_vab",
+    "summary": "Configures CD-ROM XA audio filtering and begins streaming XA music channel"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80021da8",
+    "name": "hm_dialogue_reset_window_state",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "summary": "Clears all open UI/dialogue box descriptors and resets active text cursor state"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x8002261c",
+    "name": "hm_dialogue_set_window_state",
+    "return_type": "bool",
+    "params": [
+      {
+        "name": "win_id",
+        "type": "int"
+      },
+      {
+        "name": "state",
+        "type": "int"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "summary": "Transitions specified dialogue/menu window slot win_id into open, active, or closing state"
+  },
+  {
+    "program": "SLUS_011.15",
+    "address": "0x80024a4c",
+    "name": "hm_ui_draw_framed_window",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_idx",
+        "type": "u32"
+      },
+      {
+        "name": "style_id",
+        "type": "u8"
+      },
+      {
+        "name": "corner_flags",
+        "type": "u8"
+      },
+      {
+        "name": "w",
+        "type": "short"
+      },
+      {
+        "name": "h",
+        "type": "short"
+      }
+    ],
+    "domain": "ui_inventory_hud",
+    "summary": "Renders 9-slice framed menu/dialogue window border tiles at active window dimensions"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800bbc34",
+    "name": "hm_ovl11_init_overlay_entry",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "summary": "Primary gameplay overlay entry stub resetting core simulation state pointer DAT_80070cc0"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800bbc74",
+    "name": "hm_ovl11_bootstrap_loop",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "summary": "Overlay entry wrapper configuring scratchpad pointer DAT_1f8003fc and entering main loop"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800bbcb8",
+    "name": "hm_ovl11_main_game_loop",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "summary": "Master Harvest Moon simulation frame loop dispatching world updates, clock, UI, and map transitions"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800bc3e8",
+    "name": "hm_ovl11_load_area_resources",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "area_id",
+        "type": "u32"
+      }
+    ],
+    "domain": "core_mainloop",
+    "summary": "Loads map geometry, textures, BGM SEQ, and actors for area_id into simulation state"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800bc9ac",
+    "name": "hm_ovl11_update_bgm_for_area",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "summary": "Selects and triggers area/season-appropriate BGM track and ambient audio parameters"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800bcd28",
+    "name": "hm_ovl11_frame_render_and_sim",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "summary": "Top-level per-frame simulation and scene rendering pass for player, NPCs, livestock, and HUD"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800bcf28",
+    "name": "hm_ovl11_set_game_substate",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "summary": "Commits pending substate transition in DAT_8006c844/DAT_80071a36 control blocks"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800bd3c4",
+    "name": "hm_ovl11_copy_map_slot_a",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "slot_idx",
+        "type": "int"
+      }
+    ],
+    "domain": "cd_afile_overlays",
+    "summary": "Copies loaded map asset bank A chunk via memcpy into resident slot buffer"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800bd488",
+    "name": "hm_ovl11_copy_map_slot_b",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "slot_idx",
+        "type": "int"
+      }
+    ],
+    "domain": "cd_afile_overlays",
+    "summary": "Copies loaded map asset bank B chunk via memcpy into resident slot buffer"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800bd5a8",
+    "name": "hm_ovl11_copy_actor_pack",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "pack_idx",
+        "type": "int"
+      }
+    ],
+    "domain": "cd_afile_overlays",
+    "summary": "Copies staged actor model/texture pack into active overlay RAM slot"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800bd6a8",
+    "name": "hm_ovl11_sync_upload_area_vram",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "bank_id",
+        "type": "short"
+      },
+      {
+        "name": "sub_id",
+        "type": "short"
+      }
+    ],
+    "domain": "cd_afile_overlays",
+    "summary": "Waits DrawSync and copies unpacked area textures/CLUT data into VRAM buffers"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800bdb88",
+    "name": "hm_ovl11_update_camera_projection",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cam_mode",
+        "type": "int"
+      },
+      {
+        "name": "target_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "core_mainloop",
+    "summary": "Computes world-space camera position/angle and calls hm_gte_update_camera_matrix"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800bdce8",
+    "name": "hm_ovl11_raycast_ground_height",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "x",
+        "type": "int"
+      },
+      {
+        "name": "out_norm",
+        "type": "int *"
+      },
+      {
+        "name": "z",
+        "type": "int"
+      }
+    ],
+    "domain": "core_mainloop",
+    "summary": "Samples map heightfield and triggers zone interaction callbacks via 0x800f0fb0"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800beb28",
+    "name": "hm_ovl11_check_actor_collision",
+    "return_type": "bool",
+    "params": [
+      {
+        "name": "actor_a",
+        "type": "u32"
+      },
+      {
+        "name": "x",
+        "type": "u32"
+      },
+      {
+        "name": "z",
+        "type": "u32"
+      },
+      {
+        "name": "out_hit",
+        "type": "uint *"
+      },
+      {
+        "name": "radius",
+        "type": "u32"
+      },
+      {
+        "name": "flags",
+        "type": "uint"
+      }
+    ],
+    "domain": "core_mainloop",
+    "summary": "Resolves 3D cylinder/AABB collision against map obstacles and actors, returning hit status"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800c0a4c",
+    "name": "hm_ovl11_advance_time_and_day",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "summary": "Advances in-game clock minutes/hours, triggers day rollover flags, and checks sleep/faint"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800c1224",
+    "name": "hm_ovl11_grid_tile_to_world",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "grid_x",
+        "type": "short"
+      },
+      {
+        "name": "grid_z",
+        "type": "short"
+      }
+    ],
+    "domain": "core_mainloop",
+    "summary": "Converts farm/map tile coordinates (grid_x, grid_z) into packed world-space bounds"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800c162c",
+    "name": "hm_ovl11_tick_all_world_entities",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "summary": "Main entity tick dispatcher updating farm field, NPCs, tools, weather, and HUD every frame"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800c19b0",
+    "name": "hm_ovl11_update_weather_effects",
+    "return_type": "void",
+    "params": [],
+    "domain": "core_mainloop",
+    "summary": "Updates active weather particle simulation (rain, snow, petals, typhoon) and lighting"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800c2044",
+    "name": "hm_ovl11_render_weather_particles",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "mode",
+        "type": "int"
+      },
+      {
+        "name": "count",
+        "type": "int"
+      },
+      {
+        "name": "ot_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "core_mainloop",
+    "summary": "Draws active raindrop/snowflake/petal 3D particles into ordering table"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800c2678",
+    "name": "hm_ovl11_render_sky_and_fog",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "time_of_day",
+        "type": "int"
+      }
+    ],
+    "domain": "core_mainloop",
+    "summary": "Renders sky gradient, distant fog tint, and ambient light curve for time_of_day"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800c28cc",
+    "name": "hm_ovl11_load_weather_sprites",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "weather_id",
+        "type": "short"
+      },
+      {
+        "name": "slot",
+        "type": "u32"
+      }
+    ],
+    "domain": "core_mainloop",
+    "summary": "Initializes 0x0E weather overlay animation pack for current forecast state"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800c2ce8",
+    "name": "hm_ovl11_apply_time_palette_tint",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "hour",
+        "type": "int"
+      },
+      {
+        "name": "weather_id",
+        "type": "int"
+      }
+    ],
+    "domain": "core_mainloop",
+    "summary": "Blends morning/noon/evening/night CLUT tinting across outdoor map textures"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800c32c8",
+    "name": "hm_ovl11_set_scene_prop_anim_state",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "prop_slot",
+        "type": "short *"
+      },
+      {
+        "name": "state_val",
+        "type": "short"
+      },
+      {
+        "name": "anim_idx",
+        "type": "uint"
+      },
+      {
+        "name": "timer_val",
+        "type": "short"
+      }
+    ],
+    "domain": "core_mainloop",
+    "summary": "Updates seasonal/weather prop animation slot at prop_slot+0x40 via hm_sprite_set_anim_state and event flags"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800c3838",
+    "name": "hm_ovl11_update_water_reflection_fx",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "area_id",
+        "type": "int"
+      },
+      {
+        "name": "frame_tick",
+        "type": "int"
+      },
+      {
+        "name": "mode",
+        "type": "int"
+      }
+    ],
+    "domain": "core_mainloop",
+    "summary": "Animates water/ripple shaders and seasonal ambient particle emitters"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800c401c",
+    "name": "hm_ovl11_update_player_controller",
+    "return_type": "void",
+    "params": [],
+    "domain": "farm_crops_field",
+    "summary": "Primary player character update: reads movement, facing, stamina/fatigue, and tool/action state"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800c580c",
+    "name": "hm_ovl11_execute_player_action",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "action_id",
+        "type": "int"
+      }
+    ],
+    "domain": "farm_crops_field",
+    "summary": "Massive player action/tool switch dispatching hoe, watering can, sickle, hammer, axe, and interactions"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800c70cc",
+    "name": "hm_ovl11_modify_player_stamina",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "delta",
+        "type": "int"
+      },
+      {
+        "name": "fatigue_delta",
+        "type": "u16"
+      },
+      {
+        "name": "flags",
+        "type": "uint"
+      },
+      {
+        "name": "anim_mode",
+        "type": "u16"
+      }
+    ],
+    "domain": "farm_crops_field",
+    "summary": "Applies stamina/fatigue deltas, clamps thresholds, and triggers tired/collapse state"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800c7270",
+    "name": "hm_ovl11_trigger_player_emote",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "actor_ptr",
+        "type": "int"
+      },
+      {
+        "name": "emote_id",
+        "type": "u16"
+      },
+      {
+        "name": "duration",
+        "type": "u8"
+      },
+      {
+        "name": "offset_y",
+        "type": "u16"
+      }
+    ],
+    "domain": "farm_crops_field",
+    "summary": "Spawns floating 0x0E reaction bubble (sweat, heart, note) above player or NPC"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800c7ac0",
+    "name": "hm_ovl11_handle_item_pickup_carry",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "item_id",
+        "type": "int"
+      }
+    ],
+    "domain": "farm_crops_field",
+    "summary": "Handles lifting, holding overhead, throwing, shipping, or gifting held farm item item_id"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800c907c",
+    "name": "hm_ovl11_try_sleep_or_end_day",
+    "return_type": "bool",
+    "params": [
+      {
+        "name": "bed_trigger",
+        "type": "int"
+      },
+      {
+        "name": "flags",
+        "type": "uint"
+      }
+    ],
+    "domain": "farm_crops_field",
+    "summary": "Validates bed interaction/night collapse and advances day transition"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800c9424",
+    "name": "hm_ovl11_process_player_input_actions",
+    "return_type": "u32",
+    "params": [],
+    "domain": "farm_crops_field",
+    "summary": "Translates controller pad inputs into player walk/run, tool use, whistle, and item swap"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800ca24c",
+    "name": "hm_ovl11_update_player_movement",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "player_pos",
+        "type": "short *"
+      }
+    ],
+    "domain": "farm_crops_field",
+    "summary": "Integrates player velocity, slope/collision response, and footsteps on current map"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800cb4e0",
+    "name": "hm_ovl11_add_player_fatigue_penalty",
+    "return_type": "u32",
+    "params": [],
+    "domain": "farm_crops_field",
+    "summary": "Applies standard tool stamina cost and fatigue accumulation when working late or in rain"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800cb540",
+    "name": "hm_ovl11_use_equipped_tool_on_tile",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "target_tile",
+        "type": "short *"
+      }
+    ],
+    "domain": "farm_crops_field",
+    "summary": "Executes equipped tool upgrade tier effect on target farm tile coordinates"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800cbb9c",
+    "name": "hm_ovl11_apply_tool_charge_effect",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "tool_id",
+        "type": "int"
+      },
+      {
+        "name": "charge_tier",
+        "type": "u16"
+      },
+      {
+        "name": "tile_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "farm_crops_field",
+    "summary": "Spawns charge-level upgraded tool AoE across farm soil tiles and plays tool SFX"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800cc0f8",
+    "name": "hm_ovl11_handle_area_door_warp",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "player_pos",
+        "type": "short *"
+      }
+    ],
+    "domain": "farm_crops_field",
+    "summary": "Checks door/exit triggers around player_pos and initiates map warp transition"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800cc4e0",
+    "name": "hm_ovl11_interact_farm_objects",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "facing_tile",
+        "type": "int"
+      },
+      {
+        "name": "item_id",
+        "type": "u32"
+      }
+    ],
+    "domain": "farm_crops_field",
+    "summary": "Checks shipping bin, mailbox, doghouse, stable, and well interactions on farm map"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800cc7cc",
+    "name": "hm_ovl11_interact_field_tile",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "target_tile",
+        "type": "int"
+      }
+    ],
+    "domain": "farm_crops_field",
+    "summary": "Handles foraging, rock smashing, lumber chopping, watering, and harvesting on target_tile"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800cccc0",
+    "name": "hm_ovl11_update_fishing_action",
+    "return_type": "u32",
+    "params": [],
+    "domain": "farm_crops_field",
+    "summary": "Drives fishing rod cast, bobber wait, bite window, and caught fish/trash roll"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800cd0f4",
+    "name": "hm_ovl11_check_tool_hit_livestock",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "tool_id",
+        "type": "int"
+      },
+      {
+        "name": "target_tile",
+        "type": "int"
+      }
+    ],
+    "domain": "farm_crops_field",
+    "summary": "Checks if swung tool or thrown item hits cow, sheep, chicken, horse, or dog"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800ce744",
+    "name": "hm_ovl11_spawn_harvest_pickup",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "item_id",
+        "type": "u32"
+      },
+      {
+        "name": "tile_pos",
+        "type": "u32"
+      }
+    ],
+    "domain": "farm_crops_field",
+    "summary": "Resolves harvested crop/forage item ID and spawns held item into player's hands"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800cecb0",
+    "name": "hm_ovl11_update_crop_tile_meshes",
+    "return_type": "void",
+    "params": [],
+    "domain": "farm_crops_field",
+    "summary": "Updates visible 3D crop growth stages, tilled soil, and watered-tile flags across farm plot"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800cfe40",
+    "name": "hm_ovl11_spawn_soil_splash_fx",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "world_pos",
+        "type": "short *"
+      }
+    ],
+    "domain": "farm_crops_field",
+    "summary": "Spawns dirt, water droplet, or seed scatter particle effect at farm tile world_pos"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800d0408",
+    "name": "hm_ovl11_get_item_category_flags",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "item_id",
+        "type": "int"
+      },
+      {
+        "name": "out_flags",
+        "type": "u32 *"
+      }
+    ],
+    "domain": "farm_crops_field",
+    "summary": "Reads item metadata flags (edible, shippable, tool, seed) for item_id"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800d04d4",
+    "name": "hm_ovl11_add_item_to_rucksack",
+    "return_type": "bool",
+    "params": [
+      {
+        "name": "item_id",
+        "type": "int"
+      },
+      {
+        "name": "qty",
+        "type": "int"
+      },
+      {
+        "name": "out_slot",
+        "type": "short *"
+      },
+      {
+        "name": "mode",
+        "type": "int"
+      },
+      {
+        "name": "extra_ptr",
+        "type": "short *"
+      }
+    ],
+    "domain": "farm_crops_field",
+    "summary": "Finds free or matching rucksack/tool-box slot and inserts item_id with quantity qty"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800d05d0",
+    "name": "hm_ovl11_modify_gold_or_counters",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "delta",
+        "type": "int"
+      },
+      {
+        "name": "mode",
+        "type": "u32"
+      },
+      {
+        "name": "cap",
+        "type": "u32"
+      },
+      {
+        "name": "flags",
+        "type": "u32"
+      }
+    ],
+    "domain": "farm_crops_field",
+    "summary": "Adds or subtracts player gold G or shipping totals while clamping within valid limits"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800d1eb8",
+    "name": "hm_ovl11_step_daily_crop_growth",
+    "return_type": "void",
+    "params": [],
+    "domain": "farm_crops_field",
+    "summary": "Advances daily growth counters, regrowing crops, weed/rock spawns, and greenhouse tiles on new day"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800d2334",
+    "name": "hm_ovl11_update_shipping_and_upgrades",
+    "return_type": "void",
+    "params": [],
+    "domain": "farm_crops_field",
+    "summary": "Credits shipped item revenue on day end and advances blacksmith/carpenter upgrade timers"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800d506c",
+    "name": "hm_ovl11_draw_held_item_icon",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "item_id",
+        "type": "int"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Queues 3D or sprite render of item_id held above player or placed on counter"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800d539c",
+    "name": "hm_ovl11_draw_map_prop_model",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "prop_id",
+        "type": "int"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Draws interactive farm/town 3D prop mesh and links it to scene ordering table"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800d5868",
+    "name": "hm_ovl11_is_entity_slot_active",
+    "return_type": "bool",
+    "params": [
+      {
+        "name": "slot_idx",
+        "type": "short"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Returns true if renderable entity slot slot_idx is currently allocated and visible"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800d6014",
+    "name": "hm_ovl11_get_entity_anim_state",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "slot_idx",
+        "type": "uint"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Returns current animation clip state ID for render entity slot slot_idx"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800d666c",
+    "name": "hm_ovl11_clear_render_entity_slot",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "slot_idx",
+        "type": "short"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Zero-initializes render entity slot struct and detaches active model/sprite buffers"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800d6a94",
+    "name": "hm_ovl11_load_entity_model_pack",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "actor_id",
+        "type": "short"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Loads 3D mesh/skeleton pack for actor_id via CD queue into staging slots"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800d6f78",
+    "name": "hm_ovl11_spawn_render_entity",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "slot_idx",
+        "type": "short"
+      },
+      {
+        "name": "actor_id",
+        "type": "short"
+      },
+      {
+        "name": "model_ptr",
+        "type": "int"
+      },
+      {
+        "name": "x",
+        "type": "short"
+      },
+      {
+        "name": "y",
+        "type": "short"
+      },
+      {
+        "name": "flags",
+        "type": "uint"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Initializes renderable actor instance slot with transform, fade, and initial animation"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800d7b8c",
+    "name": "hm_ovl11_update_all_actor_anims",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "summary": "Advances skeletal animation frames and attachments for all active scene entities"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800d7ef8",
+    "name": "hm_ovl11_interp_entity_heading",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "cur_ang",
+        "type": "short *"
+      },
+      {
+        "name": "target_ang",
+        "type": "ushort *"
+      },
+      {
+        "name": "step_out",
+        "type": "short *"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Computes shortest wrapped angular delta between cur_ang and target_ang for character turning"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800d88d0",
+    "name": "hm_ovl11_submit_character_shadow",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "x",
+        "type": "short"
+      },
+      {
+        "name": "y",
+        "type": "short"
+      },
+      {
+        "name": "z",
+        "type": "short"
+      },
+      {
+        "name": "radius",
+        "type": "short"
+      },
+      {
+        "name": "mode",
+        "type": "short"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Projects ground contact shadow quad beneath character or animal at (x, y, z)"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800d9108",
+    "name": "hm_ovl11_draw_actor_skeleton",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "actor_ptr",
+        "type": "u32"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Transforms and submits animated actor skeleton mesh parts to active OT"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800daf60",
+    "name": "hm_ovl11_set_actor_facing_vec",
+    "return_type": "u16 *",
+    "params": [
+      {
+        "name": "actor_idx",
+        "type": "int"
+      },
+      {
+        "name": "dx",
+        "type": "short"
+      },
+      {
+        "name": "dz",
+        "type": "short"
+      }
+    ],
+    "domain": "render_gte_sprites",
+    "summary": "Updates actor facing angle and velocity table entry in DAT_80071dfc"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dbab0",
+    "name": "hm_ovl11_step_scene_animations",
+    "return_type": "void",
+    "params": [],
+    "domain": "render_gte_sprites",
+    "summary": "Advances environmental props, windmill blades, waterwheels, and flag animations"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dc560",
+    "name": "hm_ovl11_update_barn_and_coop_state",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "area_id",
+        "type": "int"
+      },
+      {
+        "name": "sub_mode",
+        "type": "u16"
+      }
+    ],
+    "domain": "animals_livestock",
+    "summary": "Initializes and ticks barn, chicken coop, and pasture animal placements on map load"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dcc5c",
+    "name": "hm_ovl11_render_livestock_models",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "summary": "Transforms and draws cows, sheep, chickens, horse, and dog meshes in current scene"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800dddfc",
+    "name": "hm_ovl11_update_all_animals",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "summary": "Master animal AI tick updating dog, horse, cows, sheep, and chickens behavior and sound"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800de4c0",
+    "name": "hm_ovl11_step_daily_animal_status",
+    "return_type": "void",
+    "params": [],
+    "domain": "animals_livestock",
+    "summary": "Rolls over daily animal feeding, brushing, milking, shearing, egg laying, and illness/pregnancy"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800df010",
+    "name": "hm_ovl11_feed_or_pet_cow_sheep",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "animal_idx",
+        "type": "int"
+      },
+      {
+        "name": "action_type",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "summary": "Applies brush/milker/shears/medicine/miracle potion action on cow or sheep animal_idx"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e0c24",
+    "name": "hm_ovl11_interact_horse_or_dog",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "pet_id",
+        "type": "int"
+      },
+      {
+        "name": "action_type",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "summary": "Handles petting, brushing, whistling, mounting horse, or picking up dog"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e21e4",
+    "name": "hm_ovl11_update_chicken_ai",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "chicken_ptr",
+        "type": "short *"
+      }
+    ],
+    "domain": "animals_livestock",
+    "summary": "Drives chicken wandering, pecking, feed-box eating, and egg-laying schedule"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e3dc8",
+    "name": "hm_ovl11_draw_livestock_status_panel",
+    "return_type": "u32",
+    "params": [],
+    "domain": "animals_livestock",
+    "summary": "Draws animal status/affection hearts and pregnancy/health icons in barn or menu"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e5b84",
+    "name": "hm_ovl11_spawn_npc_emote_balloon",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "npc_id",
+        "type": "short"
+      },
+      {
+        "name": "emote_id",
+        "type": "ushort"
+      },
+      {
+        "name": "timer",
+        "type": "u8"
+      },
+      {
+        "name": "offset",
+        "type": "int"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "summary": "Displays speech/emotion icon sprite above NPC head using 0x0E balloon animations"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800e6ee0",
+    "name": "hm_ovl11_query_npc_affection",
+    "return_type": "bool",
+    "params": [
+      {
+        "name": "npc_id",
+        "type": "short"
+      },
+      {
+        "name": "x",
+        "type": "short"
+      },
+      {
+        "name": "y",
+        "type": "short"
+      },
+      {
+        "name": "threshold",
+        "type": "uint"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "summary": "Evaluates villager affection/event precondition against NPC state at DAT_80129560"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800ec064",
+    "name": "hm_ovl11_dispatch_npc_gift_reaction",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "npc_id",
+        "type": "u16"
+      },
+      {
+        "name": "item_id",
+        "type": "short"
+      },
+      {
+        "name": "mood",
+        "type": "int"
+      },
+      {
+        "name": "flags",
+        "type": "int"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "summary": "Evaluates villager gift preference tier, adjusts affection points, and selects dialogue reply"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800ec52c",
+    "name": "hm_ovl11_update_npc_schedules",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "npc_id",
+        "type": "short"
+      },
+      {
+        "name": "area_id",
+        "type": "short"
+      },
+      {
+        "name": "time_min",
+        "type": "int"
+      },
+      {
+        "name": "weather",
+        "type": "int"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "summary": "Massive NPC schedule and waypoint router placing villagers by hour, weekday, season, and weather"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800eec1c",
+    "name": "hm_ovl11_tick_npc_ai_and_talk",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "npc_id",
+        "type": "short"
+      },
+      {
+        "name": "area_id",
+        "type": "short"
+      },
+      {
+        "name": "dist",
+        "type": "short"
+      },
+      {
+        "name": "flags",
+        "type": "int"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "summary": "Updates NPC pathing, facing toward player, and dialogue script trigger"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800ef0e8",
+    "name": "hm_ovl11_trigger_cutscene_script",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "event_id",
+        "type": "short"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "summary": "Looks up heart/festival/town cutscene preconditions and activates event script event_id"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800efabc",
+    "name": "hm_ovl11_run_event_script_step",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "script_ctx",
+        "type": "int"
+      },
+      {
+        "name": "opcode",
+        "type": "u32"
+      },
+      {
+        "name": "arg0",
+        "type": "uint"
+      },
+      {
+        "name": "arg1",
+        "type": "u32"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "summary": "Executes scripted cutscene bytecode step controlling camera, NPC walks, flags, and dialogue"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800eff04",
+    "name": "hm_ovl11_get_npc_record_ptr",
+    "return_type": "u8 *",
+    "params": [
+      {
+        "name": "npc_id",
+        "type": "int"
+      },
+      {
+        "name": "field_off",
+        "type": "int"
+      },
+      {
+        "name": "out_flags",
+        "type": "uint *"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "summary": "Returns pointer into villager state table at DAT_80124a18 for npc_id"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800f0fb0",
+    "name": "hm_ovl11_check_event_trigger_zone",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "zone_id",
+        "type": "int"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "summary": "Evaluates area trigger zone_id and launches matching event flag or cutscene"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800f1078",
+    "name": "hm_ovl11_run_dialogue_choice_prompt",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "script_ptr",
+        "type": "ushort *"
+      },
+      {
+        "name": "choice_count",
+        "type": "int"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "summary": "Runs interactive yes/no or multi-choice dialogue prompt and writes selected option"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800f2354",
+    "name": "hm_ovl11_get_villager_heart_level",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "npc_id",
+        "type": "int"
+      },
+      {
+        "name": "mode",
+        "type": "int"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "summary": "Computes villager heart color tier (0..10) from raw affection counter"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800f5888",
+    "name": "hm_ovl11_project_npc_bubble_pos",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "world_pos",
+        "type": "u16 *"
+      },
+      {
+        "name": "screen_out",
+        "type": "u32 *"
+      }
+    ],
+    "domain": "npc_dialogue_events",
+    "summary": "Projects NPC world position via hm_gte_project_svector_to_ot for speech/heart icon placement"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800f67e0",
+    "name": "hm_ovl11_render_hud_clock_and_stamina",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "summary": "Draws in-game HUD clock, season/weekday icon, weather badge, and gold/tool corner widgets"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800f787c",
+    "name": "hm_ovl11_update_shop_or_tv_menu",
+    "return_type": "void",
+    "params": [],
+    "domain": "npc_dialogue_events",
+    "summary": "Drives shop purchase counter, clinic/inn, or TV channel weather/recipe show UI"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800fac0c",
+    "name": "hm_ovl11_run_rucksack_pause_menu",
+    "return_type": "void",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "summary": "Renders and handles input for the player rucksack, tool pocket, and item equip menu"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800fed0c",
+    "name": "hm_ovl11_run_calendar_and_map_menu",
+    "return_type": "void",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "summary": "Renders Mineral Town overview map, festival calendar, and villager location pins"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x800ffb08",
+    "name": "hm_ovl11_run_diary_save_prompt",
+    "return_type": "int",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "summary": "Displays bedside diary menu letting player save to Memory Card, check stats, or sleep"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x801044e4",
+    "name": "hm_ovl11_dispatch_festival_or_minigame",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part11_id06",
+    "summary": "Dispatches transitions out of main town gameplay into festival, credits, or title sub-overlays"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80104ec8",
+    "name": "hm_ovl11_execute_story_cutscene_table",
+    "return_type": "uint",
+    "params": [
+      {
+        "name": "scene_id",
+        "type": "u16"
+      }
+    ],
+    "domain": "overlay_part11_id06",
+    "summary": "Large state machine table executing seasonal festivals, weddings, births, and rival heart scenes"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80109188",
+    "name": "hm_ovl11_query_pasture_tile_grass",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "tile_x",
+        "type": "int"
+      },
+      {
+        "name": "tile_z",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "summary": "Checks pasture tile coordinates for mature fodder grass available for grazing animals"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8010d314",
+    "name": "hm_ovl11_update_horse_and_dog_growth",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "animal_ptr",
+        "type": "int"
+      }
+    ],
+    "domain": "animals_livestock",
+    "summary": "Updates dog/horse maturity stage, race stats, and mounted riding collision"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80114604",
+    "name": "hm_ovl11_draw_earnings_summary_ui",
+    "return_type": "u32",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "summary": "Renders shipping ledger, farm earnings, livestock count, and villager relationship status page"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80115308",
+    "name": "hm_ovl11_draw_memo_and_recipes_ui",
+    "return_type": "u32",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "summary": "Renders kitchen recipe book, shipped items list, and farm memo summary screens"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x8011e5b0",
+    "name": "hm_ovl11_draw_town_map_overlay",
+    "return_type": "void",
+    "params": [],
+    "domain": "ui_inventory_hud",
+    "summary": "Renders layered town map cursor, house tooltips, and current villager portrait icons"
+  },
+  {
+    "program": "OVL_part11_id06.EXE",
+    "address": "0x80120414",
+    "name": "hm_ovl11_check_story_progression_milestones",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "day_state",
+        "type": "int"
+      }
+    ],
+    "domain": "overlay_part11_id06",
+    "summary": "Evaluates farm evaluation, year-3 ending conditions, and multi-day story event flags"
+  },
+  {
+    "program": "OVL_part08_id04.EXE",
+    "address": "0x800b8014",
+    "name": "hm_ovl08_font_test_entry",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part08_id04",
+    "summary": "Entrypoint for Kanji font test/viewer overlay launching main preview loop"
+  },
+  {
+    "program": "OVL_part08_id04.EXE",
+    "address": "0x800b8054",
+    "name": "hm_ovl08_font_test_loop",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part08_id04",
+    "summary": "Interactive frame loop browsing Kanji glyph pages and test strings via pad input"
+  },
+  {
+    "program": "OVL_part08_id04.EXE",
+    "address": "0x800b8134",
+    "name": "hm_ovl08_font_test_draw_grid",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part08_id04",
+    "summary": "Draws Kanji bitmap character grid and codepoint headers onto test screen"
+  },
+  {
+    "program": "OVL_part08_id04.EXE",
+    "address": "0x800b8408",
+    "name": "hm_ovl08_font_test_exit",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part08_id04",
+    "summary": "Cleans up Kanji font test overlay resources before returning to resident caller"
+  },
+  {
+    "program": "OVL_part10_id05.EXE",
+    "address": "0x800b889c",
+    "name": "hm_ovl10_debug_menu_entry",
+    "return_type": "u32",
+    "params": [],
+    "domain": "overlay_part10_id05",
+    "summary": "640x240 developer debug/test menu entrypoint initializing menu state and returning selection"
+  },
+  {
+    "program": "OVL_part10_id05.EXE",
+    "address": "0x800b8c14",
+    "name": "hm_ovl10_debug_menu_loop",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part10_id05",
+    "summary": "Main frame loop for debug menu navigating maps, festivals, cutscenes, and test tools"
+  },
+  {
+    "program": "OVL_part10_id05.EXE",
+    "address": "0x800b9108",
+    "name": "hm_ovl10_debug_dispatch_option",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "menu_idx",
+        "type": "int"
+      }
+    ],
+    "domain": "overlay_part10_id05",
+    "summary": "Dispatches chosen developer menu option menu_idx to load target overlay or test scenario"
+  },
+  {
+    "program": "OVL_part10_id05.EXE",
+    "address": "0x800b9aa8",
+    "name": "hm_ovl10_debug_edit_value",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "row_idx",
+        "type": "int"
+      },
+      {
+        "name": "pad_mask",
+        "type": "uint"
+      }
+    ],
+    "domain": "overlay_part10_id05",
+    "summary": "Adjusts numeric debug fields (season, day, gold, flags) from controller pad input"
+  },
+  {
+    "program": "OVL_part10_id05.EXE",
+    "address": "0x800ba394",
+    "name": "hm_ovl10_debug_draw_list",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "page_idx",
+        "type": "int"
+      },
+      {
+        "name": "cursor_pos",
+        "type": "uint"
+      }
+    ],
+    "domain": "overlay_part10_id05",
+    "summary": "Renders 640x240 debug menu entries and current field values to screen"
+  },
+  {
+    "program": "OVL_part15_id10.EXE",
+    "address": "0x8012e15c",
+    "name": "hm_ovl15_memcard_ui_entry",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part15_id10",
+    "summary": "Slot B Memory Card New Game / Load / Save overlay entrypoint"
+  },
+  {
+    "program": "OVL_part15_id10.EXE",
+    "address": "0x8012e2cc",
+    "name": "hm_ovl15_memcard_ui_loop",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part15_id10",
+    "summary": "Main loop polling Memory Card slot status, pad navigation, and file confirm prompts"
+  },
+  {
+    "program": "OVL_part15_id10.EXE",
+    "address": "0x8012e520",
+    "name": "hm_ovl15_memcard_new_game_setup",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part15_id10",
+    "summary": "Handles new-game farmer/farm/dog naming flow and initializes fresh save struct"
+  },
+  {
+    "program": "OVL_part15_id10.EXE",
+    "address": "0x8012e7c8",
+    "name": "hm_ovl15_memcard_render_slots",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part15_id10",
+    "summary": "Draws save diary cards, farmer stats, season/gold preview, and card error banners"
+  },
+  {
+    "program": "OVL_part15_id10.EXE",
+    "address": "0x8012ea20",
+    "name": "hm_ovl15_memcard_exec_save_load",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "op_mode",
+        "type": "u32"
+      }
+    ],
+    "domain": "overlay_part15_id10",
+    "summary": "Executes Memory Card read, write, or format confirmation for selected diary slot"
+  },
+  {
+    "program": "OVL_part15_id10.EXE",
+    "address": "0x80135c20",
+    "name": "hm_ovl15_name_entry_input",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "max_len",
+        "type": "short"
+      }
+    ],
+    "domain": "overlay_part15_id10",
+    "summary": "Handles kana/alphabet character grid cursor selection for farmer, dog, or horse naming"
+  },
+  {
+    "program": "OVL_part17_id07.EXE",
+    "address": "0x800b7e38",
+    "name": "hm_ovl17_swim_race_entry",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part17_id07",
+    "summary": "Summer Swimming Festival 6-racer minigame overlay entrypoint"
+  },
+  {
+    "program": "OVL_part17_id07.EXE",
+    "address": "0x800b7e80",
+    "name": "hm_ovl17_swim_race_init",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "race_mode",
+        "type": "u32"
+      }
+    ],
+    "domain": "overlay_part17_id07",
+    "summary": "Loads swimming beach sprites/VAB audio and initializes 6 swimmer lanes"
+  },
+  {
+    "program": "OVL_part17_id07.EXE",
+    "address": "0x800b8898",
+    "name": "hm_ovl17_swim_race_loop",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part17_id07",
+    "summary": "Main Swimming Festival loop polling stroke/breath stamina and rendering 6 swimmers"
+  },
+  {
+    "program": "OVL_part17_id07.EXE",
+    "address": "0x800bb0c4",
+    "name": "hm_ovl17_swim_race_award",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "winner_idx",
+        "type": "ushort"
+      }
+    ],
+    "domain": "overlay_part17_id07",
+    "summary": "Awards Swimming Festival Power Berry/medals and settles race outcome"
+  },
+  {
+    "program": "OVL_part19_id08.EXE",
+    "address": "0x800b7ed8",
+    "name": "hm_ovl19_chicken_sumo_entry",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part19_id08",
+    "summary": "Chicken Sumo Festival 2-actor + 3-spectator arena minigame entrypoint"
+  },
+  {
+    "program": "OVL_part19_id08.EXE",
+    "address": "0x800b7f3c",
+    "name": "hm_ovl19_chicken_sumo_init",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "match_round",
+        "type": "u32"
+      }
+    ],
+    "domain": "overlay_part19_id08",
+    "summary": "Loads ring textures, fighter chicken stats, and 3 spectator sprite descriptors"
+  },
+  {
+    "program": "OVL_part19_id08.EXE",
+    "address": "0x800b89d0",
+    "name": "hm_ovl19_chicken_sumo_loop",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part19_id08",
+    "summary": "Runs Chicken Sumo ring physics, crow/scare button timing, and ring-out checks"
+  },
+  {
+    "program": "OVL_part19_id08.EXE",
+    "address": "0x800ba0a0",
+    "name": "hm_ovl19_chicken_sumo_update_bout",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "bout_state",
+        "type": "int"
+      }
+    ],
+    "domain": "overlay_part19_id08",
+    "summary": "Advances bracket rounds and updates winning chicken golden-egg status"
+  },
+  {
+    "program": "OVL_part21_id09.EXE",
+    "address": "0x800b7e3c",
+    "name": "hm_ovl21_horse_race_entry",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part21_id09",
+    "summary": "Horse Race Festival 6-horse 3D/sprite overlay entrypoint"
+  },
+  {
+    "program": "OVL_part21_id09.EXE",
+    "address": "0x800b7ea0",
+    "name": "hm_ovl21_horse_race_init",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "heat_idx",
+        "type": "u32"
+      }
+    ],
+    "domain": "overlay_part21_id09",
+    "summary": "Loads racetrack models, betting odds table, and 6 horse racer descriptors"
+  },
+  {
+    "program": "OVL_part21_id09.EXE",
+    "address": "0x800b8b44",
+    "name": "hm_ovl21_horse_race_loop",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part21_id09",
+    "summary": "Main Horse Race frame loop driving betting screen, sprint stamina, and finish photo"
+  },
+  {
+    "program": "OVL_part21_id09.EXE",
+    "address": "0x800baffc",
+    "name": "hm_ovl21_horse_race_payout",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "race_id",
+        "type": "int"
+      },
+      {
+        "name": "rank_order",
+        "type": "short *"
+      }
+    ],
+    "domain": "overlay_part21_id09",
+    "summary": "Computes medal payouts from betting tickets and winner rank order"
+  },
+  {
+    "program": "OVL_part23_id0a.EXE",
+    "address": "0x800b7ea4",
+    "name": "hm_ovl23_dog_race_entry",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part23_id0a",
+    "summary": "Winter Dog Race Festival 6-racer + 6-HUD overlay entrypoint"
+  },
+  {
+    "program": "OVL_part23_id0a.EXE",
+    "address": "0x800b7f08",
+    "name": "hm_ovl23_dog_race_init",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "race_cfg",
+        "type": "u32"
+      }
+    ],
+    "domain": "overlay_part23_id0a",
+    "summary": "Initializes 6 racing dogs, pace gauges, and spectator camera for Dog Race"
+  },
+  {
+    "program": "OVL_part23_id0a.EXE",
+    "address": "0x800b87f8",
+    "name": "hm_ovl23_dog_race_loop",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part23_id0a",
+    "summary": "Runs Dog Race frame loop tracking player encouragement distance and AI racers"
+  },
+  {
+    "program": "OVL_part23_id0a.EXE",
+    "address": "0x800b9e04",
+    "name": "hm_ovl23_dog_race_hud_bar",
+    "return_type": "u32",
+    "params": [
+      {
+        "name": "dog_state",
+        "type": "short *"
+      },
+      {
+        "name": "x",
+        "type": "short"
+      },
+      {
+        "name": "y",
+        "type": "short"
+      }
+    ],
+    "domain": "overlay_part23_id0a",
+    "summary": "Draws per-dog progress HUD bar and placement badge during race"
+  },
+  {
+    "program": "OVL_part25_id0b.EXE",
+    "address": "0x800b7eb4",
+    "name": "hm_ovl25_tomato_fest_entry",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part25_id0b",
+    "summary": "Tomato Throwing Festival minigame overlay entrypoint"
+  },
+  {
+    "program": "OVL_part25_id0b.EXE",
+    "address": "0x800b7f44",
+    "name": "hm_ovl25_tomato_fest_init",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "match_mode",
+        "type": "u32"
+      }
+    ],
+    "domain": "overlay_part25_id0b",
+    "summary": "Initializes countdown timer DAT_800a03a4, team sprites, and tomato projectile pool"
+  },
+  {
+    "program": "OVL_part25_id0b.EXE",
+    "address": "0x800b8730",
+    "name": "hm_ovl25_tomato_fest_loop",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "team_idx",
+        "type": "int"
+      }
+    ],
+    "domain": "overlay_part25_id0b",
+    "summary": "Steps tomato throw/dodge/hide gameplay, hit detection, and match scoreboard"
+  },
+  {
+    "program": "OVL_part25_id0b.EXE",
+    "address": "0x800ba5bc",
+    "name": "hm_ovl25_tomato_fest_throw",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "actor_ptr",
+        "type": "u8 *"
+      },
+      {
+        "name": "aim_pos",
+        "type": "short *"
+      }
+    ],
+    "domain": "overlay_part25_id0b",
+    "summary": "Spawns thrown tomato arc from actor_ptr toward aim_pos and checks cover hit"
+  },
+  {
+    "program": "OVL_part27_id0c.EXE",
+    "address": "0x800b7eec",
+    "name": "hm_ovl27_title_intro_entry",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part27_id0c",
+    "summary": "Title screen, logo splash, and attract-mode intro demo overlay entrypoint"
+  },
+  {
+    "program": "OVL_part27_id0c.EXE",
+    "address": "0x800b8244",
+    "name": "hm_ovl27_title_intro_loop",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part27_id0c",
+    "summary": "Main title/attract loop handling Press Start, New/Continue choice, and demo timeout"
+  },
+  {
+    "program": "OVL_part27_id0c.EXE",
+    "address": "0x800b845c",
+    "name": "hm_ovl27_title_draw_menu",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part27_id0c",
+    "summary": "Draws animated title logo sprites (0x800b998c/a8c/b98) and menu cursor"
+  },
+  {
+    "program": "OVL_part27_id0c.EXE",
+    "address": "0x800b92e4",
+    "name": "hm_ovl27_title_step_demo_scene",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part27_id0c",
+    "summary": "Advances attract-mode farm showcase camera pans and fade transitions"
+  },
+  {
+    "program": "OVL_part28_id0d.EXE",
+    "address": "0x800b7e24",
+    "name": "hm_ovl28_credits_ending_entry",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part28_id0d",
+    "summary": "Ending sequence and staff credits overlay entrypoint"
+  },
+  {
+    "program": "OVL_part28_id0d.EXE",
+    "address": "0x800b7fd4",
+    "name": "hm_ovl28_credits_ending_loop",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part28_id0d",
+    "summary": "Drives 0xe0 ending script player, vignette transitions, and credits scroll"
+  },
+  {
+    "program": "OVL_part28_id0d.EXE",
+    "address": "0x800b8478",
+    "name": "hm_ovl28_credits_step_script",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part28_id0d",
+    "summary": "Decodes 0xe0 ending script opcodes for portrait vignettes, music sync, and text"
+  },
+  {
+    "program": "OVL_part28_id0d.EXE",
+    "address": "0x800b8e9c",
+    "name": "hm_ovl28_credits_draw_gouraud_quad",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_ptr",
+        "type": "uint *"
+      },
+      {
+        "name": "x0",
+        "type": "short"
+      },
+      {
+        "name": "y0",
+        "type": "short"
+      },
+      {
+        "name": "x1",
+        "type": "short"
+      },
+      {
+        "name": "y1",
+        "type": "short"
+      },
+      {
+        "name": "c0",
+        "type": "u32"
+      },
+      {
+        "name": "c1",
+        "type": "u32"
+      },
+      {
+        "name": "c2",
+        "type": "u32"
+      },
+      {
+        "name": "c3",
+        "type": "u32"
+      },
+      {
+        "name": "z",
+        "type": "short"
+      },
+      {
+        "name": "mode",
+        "type": "u8"
+      }
+    ],
+    "domain": "overlay_part28_id0d",
+    "summary": "Emits Gouraud-shaded POLY_G4 backdrop quad for ending/credits sky gradients"
+  },
+  {
+    "program": "OVL_part30_id0f.EXE",
+    "address": "0x8012f084",
+    "name": "hm_ovl30_flag_browser_entry",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part30_id0f",
+    "summary": "Slot B debug event-flag and memory inspector overlay entrypoint"
+  },
+  {
+    "program": "OVL_part30_id0f.EXE",
+    "address": "0x8012f454",
+    "name": "hm_ovl30_flag_browser_loop",
+    "return_type": "int",
+    "params": [
+      {
+        "name": "mode",
+        "type": "int"
+      }
+    ],
+    "domain": "overlay_part30_id0f",
+    "summary": "Interactive flag/RAM browser loop stepping 0xb4 stride records and pad edits"
+  },
+  {
+    "program": "OVL_part30_id0f.EXE",
+    "address": "0x80133454",
+    "name": "hm_ovl30_flag_browser_toggle",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "entry_idx",
+        "type": "int"
+      },
+      {
+        "name": "bit_idx",
+        "type": "int"
+      }
+    ],
+    "domain": "overlay_part30_id0f",
+    "summary": "Toggles inspected event flag bit or edits typed memory field in debug viewer"
+  },
+  {
+    "program": "OVL_part30_id0f.EXE",
+    "address": "0x80133974",
+    "name": "hm_ovl30_flag_browser_draw_row",
+    "return_type": "void",
+    "params": [
+      {
+        "name": "ot_ptr",
+        "type": "uint *"
+      },
+      {
+        "name": "row_y",
+        "type": "int"
+      },
+      {
+        "name": "addr",
+        "type": "uint"
+      },
+      {
+        "name": "val",
+        "type": "uint"
+      },
+      {
+        "name": "type_fmt",
+        "type": "int"
+      }
+    ],
+    "domain": "overlay_part30_id0f",
+    "summary": "Formats and draws a typed RAM/flag inspection row on screen"
+  },
+  {
+    "program": "OVL_part31_id0e.EXE",
+    "address": "0x800b7fcc",
+    "name": "hm_ovl31_pocket_backup_entry",
+    "return_type": "void",
+    "params": [],
+    "domain": "overlay_part31_id0e",
+    "summary": "PocketStation / Memory Card backup utility overlay entrypoint"
+  },
+  {
+    "program": "OVL_part31_id0e.EXE",
+    "address": "0x800b82e8",
+    "name": "hm_ovl31_pocket_check_card",
+    "return_type": "u32",
+    "params": [],
+    "domain": "overlay_part31_id0e",
+    "summary": "Detects inserted Memory Card or PocketStation unit and validates free blocks"
+  },
+  {
+    "program": "OVL_part31_id0e.EXE",
+    "address": "0x800b8348",
+    "name": "hm_ovl31_pocket_copy_save",
+    "return_type": "u32",
+    "params": [],
+    "domain": "overlay_part31_id0e",
+    "summary": "Copies Harvest Moon BTN save data block to/from target Memory Card slot"
+  },
+  {
+    "program": "OVL_part31_id0e.EXE",
+    "address": "0x800b83b8",
+    "name": "hm_ovl31_pocket_verify_crc",
+    "return_type": "u32",
+    "params": [],
+    "domain": "overlay_part31_id0e",
+    "summary": "Verifies PocketStation/Memory Card save block integrity and completion flag"
+  },
+  {
+    "program": "OVL_part31_id0e.EXE",
+    "address": "0x800b8490",
+    "name": "hm_ovl31_pocket_ui_loop",
+    "return_type": "int",
+    "params": [],
+    "domain": "overlay_part31_id0e",
+    "summary": "Runs interactive Memory Card / PocketStation backup prompt loop"
+  }
+]
