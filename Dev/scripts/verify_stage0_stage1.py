@@ -1,4 +1,4 @@
-# @module: R&D.decomps.ps1.harvest-moon-btn.scripts.verify_stage0_stage1
+# @module: HarvestMoonBackToNature-PlayStation.Dev.scripts.verify_stage0_stage1
 # @purpose: Read-only Stage 0 + Stage 1 verification suite for Harvest Moon: Back to Nature (SLUS-01115)
 # @depends-on: hashlib, json, os, stat, sys, pathlib
 # @exports: sha256_file, run_checks, main
@@ -11,15 +11,13 @@ import stat
 import sys
 from pathlib import Path
 
-RD_ROOT = Path(r"<PROJECTS_PERSONAL>/R&D")
-HMBTN_ROOT = RD_ROOT / "decomps" / "ps1" / "harvest-moon-btn"
-STANDALONE = HMBTN_ROOT / "standalone"
-SCHEMAS = HMBTN_ROOT / "schemas"
-SCRIPTS = HMBTN_ROOT / "scripts"
-DOCS = HMBTN_ROOT / "docs"
-ROADMAP_DOC = RD_ROOT / "reverse-engineering-roadmap" / "08-harvest-moon-btn-ps1-decomp.md"
-HMBTN_SANDBOX = RD_ROOT / "Sandbox" / "hmbtn-decomp"
-KF_SANDBOX = RD_ROOT / "Sandbox" / "kings-field-decomp"
+REPO_ROOT = Path(__file__).resolve().parents[2]
+CORPUS = REPO_ROOT / "Corpus"
+STANDALONE = CORPUS / "standalone"
+SCHEMAS = REPO_ROOT / "Dev" / "schemas"
+SCRIPTS = REPO_ROOT / "Dev" / "scripts"
+DOCS = REPO_ROOT / "Dev" / "docs"
+ROADMAP_DOC = REPO_ROOT / "ROADMAP.md"
 
 
 def sha256_file(path: Path) -> str:
@@ -43,7 +41,7 @@ def run_checks() -> tuple[list[tuple[str, bool, str]], bool]:
     def check(name: str, ok: bool, detail: str) -> None:
         results.append((name, ok, detail))
 
-    # 1. standalone/ exists, all files read-only, Sandbox/hmbtn-decomp moved, Sandbox/kings-field-decomp intact
+    # 1. standalone/ exists, all files read-only, 3-Folder Tier R layout cleanly enforced
     all_files = [p for p in STANDALONE.rglob("*") if p.is_file()] if STANDALONE.is_dir() else []
     writable = [str(p.relative_to(STANDALONE)) for p in all_files if not is_readonly(p)]
     check(
@@ -51,10 +49,12 @@ def run_checks() -> tuple[list[tuple[str, bool, str]], bool]:
         STANDALONE.is_dir() and len(all_files) > 0 and len(writable) == 0,
         f"exists={STANDALONE.is_dir()} files={len(all_files)} writable={len(writable)}",
     )
+    top_dirs = {p.name for p in REPO_ROOT.iterdir() if p.is_dir() and p.name not in (".git", ".agents")}
+    has_tier_r = top_dirs == {"Archive", "Corpus", "Dev"}
     check(
-        "1b_sandbox_isolation",
-        (not HMBTN_SANDBOX.exists()) and KF_SANDBOX.is_dir() and (KF_SANDBOX / "reports" / "decomp_master_summary.json").is_file(),
-        f"hmbtn_sandbox_removed={not HMBTN_SANDBOX.exists()} kf_sandbox_intact={KF_SANDBOX.is_dir()}",
+        "1b_tier_r_3folder_layout",
+        has_tier_r,
+        f"tier_r_3folder={has_tier_r} top_dirs={sorted(top_dirs)}",
     )
 
     # 2. standalone_integrity.json SHA-256 + file/byte counts
@@ -117,17 +117,17 @@ def run_checks() -> tuple[list[tuple[str, bool, str]], bool]:
         f"cg={len(cg_keys)}/{total_ram_funcs} clusters={len(cl_map_keys)} dom_sum={len(dom_keys)} globals={len(gi_keys)} orphans={orphans}",
     )
 
-    # 5. All tracked .py / .md files in harvest-moon-btn track + roadmap doc <= 400 LOC
+    # 5. All tracked .py / .md files in Tier R repo <= 400 LOC
     tracked = [
-        HMBTN_ROOT / "README.md",
+        REPO_ROOT / "README.md",
         ROADMAP_DOC,
         *(DOCS.rglob("*.md") if DOCS.is_dir() else []),
         *(SCRIPTS.rglob("*.py") if SCRIPTS.is_dir() else []),
         *(SCRIPTS.rglob("*.md") if SCRIPTS.is_dir() else []),
         *(SCHEMAS.rglob("*.h") if SCHEMAS.is_dir() else []),
     ]
-    missing = [str(p.relative_to(RD_ROOT)) for p in [HMBTN_ROOT / "README.md", ROADMAP_DOC, DOCS / "01-stage1-callgraph-and-clusters.md"] if not p.is_file()]
-    oversized = [f"{p.relative_to(RD_ROOT)}({len(p.read_text(encoding='utf-8', errors='replace').splitlines())})" for p in tracked if p.is_file() and len(p.read_text(encoding="utf-8", errors="replace").splitlines()) > 400]
+    missing = [str(p.relative_to(REPO_ROOT)) for p in [REPO_ROOT / "README.md", ROADMAP_DOC, DOCS / "stages" / "01-stage1-callgraph-and-clusters.md"] if not p.is_file()]
+    oversized = [f"{p.relative_to(REPO_ROOT)}({len(p.read_text(encoding='utf-8', errors='replace').splitlines())})" for p in tracked if p.is_file() and len(p.read_text(encoding="utf-8", errors="replace").splitlines()) > 400]
     check(
         "5_tracked_line_limits",
         len(missing) == 0 and len(oversized) == 0,

@@ -174,7 +174,7 @@
       "verifiedAtUtc": null
     }
   },
-  "updatedAtUtc": "2026-11-14T22:16:00.000Z",
+  "updatedAtUtc": "2026-11-16T00:46:00.000Z",
   "manifestType": "research-repo",
   "researchAxis": "decomp",
   "currentStudyTier": "S4",
@@ -185,7 +185,7 @@
   "upstreamResearchPath": "<PROJECTS_PERSONAL>/R&D/decomps/ps1/harvest-moon-btn",
   "$schema": "https://schemas.local/manifest.v2.json",
   "appId": "harvest-moon-back-to-nature-play-station",
-  "version": "0.1.0",
+  "version": "0.1.0-hf.1",
   "researchId": "harvest-moon-back-to-nature-play-station",
   "graduatedFromPath": "<PROJECTS_PERSONAL>/R&D/decomps/ps1/harvest-moon-btn",
   "corpusRoot": "Corpus"

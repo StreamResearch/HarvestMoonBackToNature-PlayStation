@@ -4,20 +4,20 @@
   "name": "HarvestMoonBackToNature-PlayStation",
   "projectGroup": "Research",
   "relativePath": "Research/HarvestMoonBackToNature-PlayStation",
-  "containerTier": "Tier R (4-Folder Research)",
+  "containerTier": "Tier R (3-Folder Research)",
   "ecosystemTier": "ResearchTrack",
   "appArchetype": "LAB",
-  "version": "0.1.0",
+  "version": "0.1.0-hf.1",
   "activeMilestone": "0.1.1",
   "goalMajorVersion": "1.0.0",
-  "stateChangedDate": "2026-11-14",
-  "lastVersionDate": "2026-11-14",
+  "stateChangedDate": "2026-11-15",
+  "lastVersionDate": "2026-11-15",
   "productionSubpath": null,
   "supersededBy": null,
   "tasklistDetailLevel": 3,
   "openTaskCount": 3,
   "completedTaskCount": 1,
-  "openReportCount": 1,
+  "openReportCount": 0,
   "gates": {
     "isGate0ScopePassed": true,
     "isGate1PlanPassed": false,
@@ -26,5 +26,5 @@
     "isTessaSynced": true
   },
   "notes": "Graduated from <PROJECTS_PERSONAL>/R&D/decomps/ps1/harvest-moon-btn (D4 / S4); downstream HMBackToNature-Recomp v0.1.1 verified R2 Title Boot & 3-tier controls on reStation v0.1.5 (2026-11-14T21:58:59.410Z).",
-  "updatedAtUtc": "2026-11-14T22:16:00.000Z"
+  "updatedAtUtc": "2026-11-16T00:46:00.000Z"
 }

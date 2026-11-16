@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# @module: R&D.decomps.ps1.harvest-moon-btn.scripts.verify_stage2_stage3
+# @module: HarvestMoonBackToNature-PlayStation.Dev.scripts.verify_stage2_stage3
 # @purpose: Read-only Stage 2 + Stage 3 + Stage 4 verification suite for Harvest Moon: Back to Nature (SLUS-01115)
 # @depends-on: json, re, subprocess, sys, pathlib, decomp.stage2_3_builder, decomp.workspace_gen
 # @exports: run_checks, main
@@ -13,12 +13,13 @@ import subprocess
 import sys
 from pathlib import Path
 
+REPO_ROOT = Path(__file__).resolve().parents[2]
 RD_ROOT = Path(r"<PROJECTS_PERSONAL>/R&D")
-HMBTN_ROOT = RD_ROOT / "decomps" / "ps1" / "harvest-moon-btn"
-SCHEMAS = HMBTN_ROOT / "schemas"
-SCRIPTS = HMBTN_ROOT / "scripts"
-WORK = HMBTN_ROOT / "work"
-READABLE = HMBTN_ROOT / "readable"
+CORPUS = REPO_ROOT / "Corpus"
+SCHEMAS = REPO_ROOT / "Dev" / "schemas"
+SCRIPTS = REPO_ROOT / "Dev" / "scripts"
+WORK = CORPUS / "work"
+READABLE = CORPUS / "readable"
 JAVA_SCRIPT = RD_ROOT / "Dev" / "tools" / "ghidra_scripts" / "GhidraUniversalApplyAndExport.java"
 
 sys.path.insert(0, str(RD_ROOT / "Dev" / "tools"))
@@ -173,7 +174,7 @@ def _check_readable_tree() -> tuple[bool, str, bool, str]:
     walk_path = READABLE / "ARCHITECTURE_WALKTHROUGH.md"
     cdb_path = READABLE / "compile_commands.json"
     clangd_cfg = READABLE / ".clangd"
-    ws_path = HMBTN_ROOT / "HarvestMoonBTN.code-workspace"
+    ws_path = REPO_ROOT / "Dev" / "HarvestMoonBackToNature-PlayStation.code-workspace"
     sym_rows = len(re.findall(r"^\| `0x[0-9a-fA-F]+` \|", sym_path.read_text(encoding="utf-8"), re.M)) if sym_path.is_file() else 0
     docs_ok = (
         sym_path.is_file() and walk_path.is_file() and cdb_path.is_file()
@@ -232,8 +233,8 @@ def run_checks() -> tuple[list[tuple[str, bool, str]], bool]:
     results.append(("7_clangd_zero_errors", ok7, det7))
 
     tracked = [
-        HMBTN_ROOT / "README.md", JAVA_SCRIPT,
-        *(HMBTN_ROOT / "docs").rglob("*.md"), *(SCHEMAS / "types").glob("*.h"),
+        REPO_ROOT / "README.md", JAVA_SCRIPT,
+        *(REPO_ROOT / "Dev" / "docs").rglob("*.md"), *(SCHEMAS / "types").glob("*.h"),
         *(SCRIPTS).glob("*.py"),
     ]
     oversized = [f"{p.name}({len(p.read_text(encoding='utf-8').splitlines())})" for p in tracked if p.is_file() and len(p.read_text(encoding='utf-8').splitlines()) > 400]

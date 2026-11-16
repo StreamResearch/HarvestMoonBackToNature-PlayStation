@@ -18,7 +18,7 @@
 | **Standard 18 Schemas & Clean-Room Paths (`T1`)** | `v0.1.1` | `🟡 In-Dev` | Canonical `generatedAtUtc`/`isPassed`/`unresolvedFieldCount` keys + `MISSING_CORPUS_MEDIA` JSON | `Dev/schemas/*.json`, `Dev/scripts/hmbtn_*.py` |
 | **Multi-TU `d4_harness\` & `verify_track_d4.py` Fix (`T2`–`T3`)** | `v0.1.1` | `🟡 In-Dev` | Split `d4_harness\` (`<= 250` LOC/TU), Pass-2 globbing, fix `== 8` & `stages/` path checks | `Dev/scripts/verify_track_d4.py`, `Dev/scripts/d4_harness/` |
 | **Full Asset/Checksum Parsers & Spec Spokes (`T4`–`T5`)** | `v0.2.0` | `🔵 Planned` | `A_FILE` overlays, `Part 9` `pBAV`/`pQES`, `0x0E` sprites, diary checksums + `spec\*.md` spokes | `Dev/scripts/*.py`, `Dev/docs/specifications/*.md` |
-| **Q12 Host GTE & Multi-Scene Trace Parity (`T6`)** | `v0.3.0` | `🔵 Planned` | Replace `((void)0)` GTE stubs in `ghidra_compat.h` with Q12 host GTE + farm/festival traces | `Dev/scripts/d4_harness/`, `Sandbox/` |
+| **Q12 Host GTE & Multi-Scene Trace Parity (`T6`)** | `v0.3.0` | `🔵 Planned` | Replace `((void)0)` GTE stubs in `ghidra_compat.h` with Q12 host GTE + farm/festival traces | `Dev/scripts/d4_harness/`, `Corpus/work/` |
 | **Certified `S5` Gold Research Container (`T7`–`T8`)** | `v1.0.0` | `🔵 Planned` | `s5_gold_report.json` (`isPassed: true`), `unresolvedFieldCount == 0`, Gold Manual Shelf | `Dev/schemas/s5_gold_report.json` |
 
 ---
@@ -54,12 +54,12 @@
 ## 4. Planned Horizon Capabilities (`v0.2.0` -> `v1.0.0`)
 
 ### 4.1 Complete Container Parsers & `S5` Spec Spokes (`v0.2.0` — `T4`–`T5`)
-- **Flat `Dev/scripts/*.py` (`<= 250` LOC):** Clean-room Python extractors/validators for Slot A/B overlays, `Part 9` `pBAV`/`pQES` audio banks, `0x0E` sprite frames, and memory-card/diary checksum + calendar/affection tables outputting strictly into `Sandbox\{data,logs,extracts}\`.
+- **Flat `Dev/scripts/*.py` (`<= 250` LOC):** Clean-room Python extractors/validators for Slot A/B overlays, `Part 9` `pBAV`/`pQES` audio banks, `0x0E` sprite frames, and memory-card/diary checksum + calendar/affection tables outputting strictly into `--data-dir` / `Corpus\work\`.
 - **Specification Spokes:** Author `150–380`-line `Dev\docs\specifications\*.md` spokes linked from [`SPECIFICATIONS.md`](Dev/docs/SPECIFICATIONS.md) until `spec_coverage.json` reaches `unresolvedFieldCount == 0`.
 
 ### 4.2 Q12 Host GTE & Multi-Scene Behavioral Parity (`v0.3.0` — `T6`)
 - **Real Fixed-Point GTE (`COP2`) Host Model:** Replace no-op `((void)0)` stubs in `ghidra_compat.h` with deterministic Q12 host GTE arithmetic covering isometric camera projection, lighting matrices, and matrix-multiply rounding.
-- **Multi-Scene Golden Traces:** Capture deterministic state/frame traces across Day-1 ranch intro, Mineral Town festival, crop watering/growth, and diary save/load inside `Sandbox\`.
+- **Multi-Scene Golden Traces:** Capture deterministic state/frame traces across Day-1 ranch intro, Mineral Town festival, crop watering/growth, and diary save/load inside `Corpus\work\` (`--data-dir`).
 
 ### 4.3 Certified `S5` Gold Reference Research Container (`v1.0.0` — `T7`–`T8`)
 - **`s5_gold_report.json` (`isPassed: true`):** Full `decomp_cli.py verify --tier S5` certification with `0` unresolved fields, complete multi-scene parity proof, and finished 4-Doc Manual Shelf.

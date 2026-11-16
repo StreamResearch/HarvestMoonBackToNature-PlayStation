@@ -9,7 +9,7 @@
 ## 2. Reproducible Unpack, Build & Parity Commands
 - **Standalone Unpacker (`hmbtn_unpack.py` + `hmbtn_assets.py`):**
 ```powershell
-& 'python' -B '<REPO_ROOT>\Dev\scripts\hmbtn_unpack.py' '<REPO_ROOT>\Corpus\standalone\disc\files' --out-dir '<REPO_ROOT>\Sandbox\extracts\assets' --overlays-dir '<REPO_ROOT>\Sandbox\extracts\overlays'
+& 'python' -B '<REPO_ROOT>\Dev\scripts\hmbtn_unpack.py' '<REPO_ROOT>\Corpus\standalone\disc\files' --out-dir '<REPO_ROOT>\Corpus\work\extracts\assets' --overlays-dir '<REPO_ROOT>\Corpus\work\extracts\overlays'
 ```
 - **Stage D4 Full MIPS Build (`513/513` `.c`) + LP32 Parity Runner (`8/8`):**
 ```powershell
@@ -20,7 +20,7 @@
 & 'python' -B '<REPO_ROOT>\Dev\scripts\verify_track_d4.py'
 & 'python' -B '<PROJECTS_PERSONAL>/R&D\Dev\tools\decomp\decomp_cli.py' verify --track '<REPO_ROOT>'
 ```
-- **Tier R 4-Folder Scaffold Audit (`scaffold_project.ps1 -Research`):**
+- **Tier R 3-Folder Scaffold Audit (`scaffold_project.ps1 -Research`):**
 ```powershell
 powershell -ExecutionPolicy Bypass -File '<USER_PROFILE>' -ProjectName 'HarvestMoonBackToNature-PlayStation' -Group 'Research' -Research -AuditOnly
 ```
@@ -31,8 +31,8 @@ powershell -ExecutionPolicy Bypass -File '<USER_PROFILE>' -ProjectName 'HarvestM
 - Use task **`Build Stage D4 MIPS Objects & Parity (zig cc)`** to rebuild and verify `libharvest_moon_btn_d4.a` (`Corpus/work/d4_build/`).
 
 ## 4. Dual-Track Archival & Downstream Stage 3 (`HMBackToNature-Recomp`)
-- **Clean-Room `.7z` Backup (never include `Corpus/`, `Sandbox/`, `Archive/`, or `.git/`):**
+- **Clean-Room `.7z` Backup (never include `Corpus/`, `Archive/`, or `.git/`):**
 ```powershell
-& 'C:\Program Files\7-Zip\7z.exe' a -t7z -mx=9 '<REPO_ROOT>\Archive\HarvestMoonBackToNature-PlayStation-v0.1.0-d4-s4-graduated.7z' '<REPO_ROOT>\*' '-xr!Corpus\*' '-xr!Sandbox\*' '-xr!Archive\*' '-xr!.git\*' '-xr!__pycache__\*'
+& 'C:\Program Files\7-Zip\7z.exe' a -t7z -mx=9 '<REPO_ROOT>\Archive\HarvestMoonBackToNature-PlayStation-v0.1.0-d4-s4-graduated.7z' '<REPO_ROOT>\*' '-xr!Corpus' '-xr!Corpus\*' '-xr!Archive\*' '-xr!.git\*' '-xr!__pycache__\*'
 ```
 - **Downstream Recomp Sync:** Stage 3 runnable project [`<PROJECTS_PERSONAL>/HMBackToNature-Recomp\`](../HMBackToNature-Recomp/README.md) links here via `upstreamResearchPath` / `downstreamProjects` and mounts `Corpus/readable` + `Dev/` in its 5-root `.code-workspace`.

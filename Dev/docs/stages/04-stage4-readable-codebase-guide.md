@@ -1,10 +1,10 @@
 # Harvest Moon: Back to Nature (USA / `SLUS-01115`) — Stage 4 Readable Codebase Guide
 
-Stage 4 bundles all `2,575 / 2,575` named/typed game functions ([`schemas/functions_catalog.json`](../schemas/functions_catalog.json)), `3,497` mapped globals ([`schemas/globals_map.json`](../schemas/globals_map.json)), and `57` LP32 structs / `4` enums / `21` typedefs into a fresh-clone headless Ghidra `12.2` re-export across all `14` images, assembling a `529`-file clean-room `readable/` C tree with `0` `clangd 23.1.0` errors and `8/8 PASS` in [`verify_stage2_stage3.py`](../scripts/verify_stage2_stage3.py).
+Stage 4 bundles all `2,575 / 2,575` named/typed game functions ([`schemas/functions_catalog.json`](../schemas/functions_catalog.json)), `3,497` mapped globals ([`schemas/globals_map.json`](../schemas/globals_map.json)), and `57` LP32 structs / `4` enums / `21` typedefs into a fresh-clone Ghidra `12.2` `AnalyzeHeadless` re-export across all `14` images, assembling a `529`-file clean-room `readable/` C tree with `0` `clangd 23.1.0` errors and `8/8 PASS` in [`verify_stage2_stage3.py`](../scripts/verify_stage2_stage3.py).
 
 ---
 
-## 1. Slot B Co-Resident Symbol Fix & Headless Ghidra `12.2` Re-Export
+## 1. Slot B Co-Resident Symbol Fix & Ghidra `12.2` AnalyzeHeadless Re-Export
 
 1. **Bundle Compilation (`decomp_cli.py bundle`):**
    `python -B Dev/tools/decomp/decomp_cli.py bundle --track decomps/ps1/harvest-moon-btn` merges the `225` anchors + `6` Stage 3 shards into `schemas/functions_catalog.json` (`2,575` entries, `0` missing) and writes `work/ghidra_stage_bundle.json` (`4` enums, `21` typedefs, `57` structs, `3,497` globals, `2,575` anchors).
@@ -12,8 +12,8 @@ Stage 4 bundles all `2,575 / 2,575` named/typed game functions ([`schemas/functi
    Because `OVL_part15_id10.EXE` and `OVL_part30_id0f.EXE` load into Slot B (`0x8012dde8+`) **above live `OVL_part11_id06.EXE` (`0x800b7e20..0x8012dde7`)**, `GhidraUniversalApplyAndExport.java` passes the resolved export window `win` into `applyGlobals(...)` and includes `OVL_part11_id06.EXE` symbols with `address < win[0]` whenever `win[0] >= 0x80120000` in both `applyGlobals(...)` and `applyAnchors(...)`.
    - `OVL_part15_id10.EXE`: applied `2,094` anchors and `2,803` global labels.
    - `OVL_part30_id0f.EXE`: applied `1,987` anchors and `2,806` global labels.
-3. **Fresh-Clone Headless Run (`<PROGRAMS_DIR>\Ghidra\rd_sandbox`):**
-   Cloned read-only `standalone/ghidra_project/` into `Sandbox\hmbtn-d3-reexport\`, invoked headless Ghidra `12.2` directly via `build_ghidra_headless_cmd` (avoiding `analyzeHeadless.bat` argument splitting on `=`/`;` in `winSpec`), moved results to `work/reexported/`, and deleted temporary `Sandbox\` working directories. All `14/14` images exported `3,828 / 3,828` RAM functions (`1,253` SDK + `2,575` renamed game functions, `0` `DECOMPILE FAILED`).
+3. **Fresh-Clone AnalyzeHeadless Run (`<PROGRAMS_DIR>\Ghidra\rd_workspace`):**
+   Cloned read-only `standalone/ghidra_project/` into temporary `work/hmbtn-d3-reexport/`, invoked Ghidra `12.2` `AnalyzeHeadless` directly via `build_ghidra_headless_cmd` (avoiding `analyzeHeadless.bat` argument splitting on `=`/`;` in `winSpec`), moved results to `work/reexported/`, and deleted temporary `work/` scratch directories. All `14/14` images exported `3,828 / 3,828` RAM functions (`1,253` SDK + `2,575` renamed game functions, `0` `DECOMPILE FAILED`).
 
 ### Before / After Readability Metrics (`funcs/*.c` & `readable/`)
 

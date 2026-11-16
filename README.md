@@ -8,11 +8,10 @@
 - **Target Binary Surface (`14` ELF/Overlay Units):** Resident `SLUS_011.15` (`323,584` B, `t_addr=0x80010000`, `pc0=0x80011278`, `.text=0x80011270..0x80048B10`) + `13` overlays synthesized from `A_FILE.BIN` (`133,935,104` B) across **Slot A** (`0x800B7E20`, `11` overlays incl. Part 11 `.text 0x800BBC34..0x80121780`) and **Slot B** (`0x8012DDE8`, Parts `15` & `30` co-resident with Part 11).
 - **Coverage & D4 Build:** `3,828` total functions (`2,575` named game + `1,253` PS1 SDK SDK across `23` domains), `3,497` mapped globals, `513/513` readable `.c` TUs (`523` `Corpus/readable/` files), `libharvest_moon_btn_d4.a` (`3,463,828` B, `0` errors / `0` warnings), and `8/8` `x86-windows-gnu` LP32 host parity tests.
 
-## Repository Layout (`Tier R` 4-Folder Standard)
+## Repository Layout (`Tier R` 3-Folder Standard)
 - [`Corpus\`](Corpus/) *(gitignored BYO-ROM/extracted artifacts)*: `standalone\` (read-only `19` baseline files), `readable\` (`513` `.c` + `.h` + `compile_commands.json`), `work\` (`libharvest_moon_btn_d4.a`, host runner, stage work)
 - [`Dev\`](Dev/): [`research.manifest.json`](Dev/research.manifest.json), [`HarvestMoonBackToNature-PlayStation.code-workspace`](Dev/HarvestMoonBackToNature-PlayStation.code-workspace), `schemas\`, `scripts\` ([`hmbtn_unpack.py`](Dev/scripts/hmbtn_unpack.py), [`hmbtn_assets.py`](Dev/scripts/hmbtn_assets.py), [`build_and_verify_d4.py`](Dev/scripts/build_and_verify_d4.py)), `docs\`
-- [`Sandbox\`](Sandbox/) *(gitignored)*: `data\`, `logs\`, `extracts\`
-- [`Archive\`](Archive/): `-xr!Corpus\*` `-mx=9` `.7z` snapshots
+- [`Archive\`](Archive/): `-xr!Corpus -xr!Corpus\*` `-mx=9` `.7z` snapshots
 
 ## Research Manual Shelf (`Dev\docs\`)
 - [ARCHITECTURE.md](Dev/docs/ARCHITECTURE.md) — Hardware memory map, `A_FILE.HDT`/`A_FILE.BIN` partition layout, dual-slot overlay topology, and `23` domains
