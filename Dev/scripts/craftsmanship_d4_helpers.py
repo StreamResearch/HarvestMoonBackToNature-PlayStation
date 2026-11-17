@@ -31,7 +31,7 @@ PS1_MMIO_32 = (
 ).split()
 PS1_MISC_STATIC = (
     "Status _index PATCH_OBJ_44 PATCH_OBJ_B4 PATCH_OBJ_C8 PATCHGTE_OBJ_AC PATCHGTE_OBJ_C4 "
-    "g_core_event_script_ctx_reserved_0xfc_idx2 g_core_map_transition_state"
+    "g_core_event_script_ctx_transition_args_idx2 g_core_map_transition_state"
 ).split()
 
 C_KEYWORDS = frozenset({
@@ -42,10 +42,11 @@ C_KEYWORDS = frozenset({
     "ulong", "byte", "bool32", "code", "HmCallbackFn",
 })
 
-GHIDRA_SYM_RE = re.compile(r"\b(?:_?(?:DAT|UNK|PTR|LAB|SUB|switchD)|FUN)_[A-Za-z0-9_]+\b")
+GHIDRA_SYM_RE = re.compile(r"\b(?:(?:_?(?:DAT|UNK|PTR|LAB|SUB|switchD)|FUN)_[A-Za-z0-9_]+|[usif]Ram[0-9a-fA-F]{6,8})\b")
 GHIDRA_LOCAL_RE = re.compile(
     r"\b(?:[ap]*[A-Za-z]Var\d+|[A-Za-z_]*Stack[A-Za-z0-9_]*|stack0x[0-9a-fA-F]+"
-    r"|_?local_[A-Za-z0-9_]+|unaff_[A-Za-z0-9_]+|_?in_[A-Za-z0-9_]+|extraout_[A-Za-z0-9_]+|param_\d+)\b"
+    r"|_?local_[A-Za-z0-9_]+|unaff_[A-Za-z0-9_]+|extraout_[A-Za-z0-9_]+|param_\d+"
+    r"|r0_\d+|_?in_(?:[vatks][0-9]+|gp|sp|fp|ra|hi|lo|zero|stack[A-Za-z0-9_]*|register[0-9A-Za-z_]+|0x[0-9a-fA-F]+))\b"
 )
 UNDEF_TYPE_RE = re.compile(r"\b(undefined(?:1|2|3|4|8)?)\b")
 _GENERIC_G_RE = re.compile(r"\bg_(?:dat|unk)_[0-9A-Za-z_]+\b|\bg_[a-z0-9]+_(?:u8|u16|u32|s8|s16|s32)_[0-9a-fA-F]{8}\b")
@@ -137,7 +138,7 @@ def load_symbol_tables(schemas_dir: Path | None = None) -> dict[str, Any]:
         addr8 = str(g.get("address", "")).lower().removeprefix("0x").zfill(8)
         if sym and name:
             dat_by_sym[sym] = name; addr_by_hex[addr8] = name; known.add(name)
-    return {"overrides": ov, "residentFunctions": res_fns, "spillGlobals": spill, "unindexedGlobals": unidx, "ptrGlobals": ptr_globals, "addrByHex": addr_by_hex, "exactMap": exact_map, "datBySym": dat_by_sym, "knownGlobals": known}
+    return {"schemasDir": sdir, "overrides": ov, "residentFunctions": res_fns, "spillGlobals": spill, "unindexedGlobals": unidx, "ptrGlobals": ptr_globals, "addrByHex": addr_by_hex, "exactMap": exact_map, "datBySym": dat_by_sym, "knownGlobals": known}
 
 
 def map_ghidra_symbol(sym: str, exact_map: dict[str, str], dat_by_sym: dict[str, str]) -> str:
@@ -145,8 +146,10 @@ def map_ghidra_symbol(sym: str, exact_map: dict[str, str], dat_by_sym: dict[str,
     bare = sym.lstrip("_")
     if sym in exact_map: return exact_map[sym]
     if bare in exact_map: return exact_map[bare]
-    for pfx, dst in (("PTR_LAB_", "g_jtbl_ptr_"), ("PTR_DAT_", "g_dat_ptr_"), ("PTR_FUN_", "g_fn_ptr_"), ("PTR_", "g_ptr_"), ("UNK_", "g_unk_"), ("LAB_", "loc_"), ("SUB_", "sub_loc_"), ("switchD_", "jmp_tbl_")):
-        if bare.startswith(pfx): return dst + bare[len(pfx) :]
+    for pfx, dst in (("PTR_LAB_", "g_jtbl_ptr_"), ("PTR_DAT_", "g_dat_ptr_"), ("PTR_FUN_", "g_fn_ptr_"), ("PTR_", "g_ptr_"), ("UNK_", "g_unk_"), ("LAB_", "loc_"), ("SUB_", "sub_loc_"), ("switchD_", "jtbl_")):
+        if bare.startswith(pfx):
+            rest = re.sub(r"^(?:[0-9a-fA-F]{6,8}_?|(?:switchdataD_)?[0-9a-fA-F]{6,8}_?)", "", bare[len(pfx) :]) if pfx in ("switchD_", "PTR_LAB_") else bare[len(pfx) :]
+            return exact_map.get(dst + (rest or "entry"), dst + (rest or "entry"))
     return dat_by_sym.get(bare.upper(), "g_dat_" + bare[4:]) if bare.startswith("DAT_") else sym
 
 
@@ -173,6 +176,7 @@ def rename_local_token(tok: str) -> str:
         rest = tok.lstrip("_")[3:]
         return "reg_" + (rest[9:] if rest.startswith("register_") else rest)
     if tok.startswith(("_local_", "local_")): return ("frame_u_" if tok.startswith("_") else "frame_") + tok.lstrip("_")[6:]
+    if tok.startswith("r0_"): return "reg_" + tok
     if m := re.match(r"^stack0x([0-9a-fA-F]+)$", tok): return f"stk_0x{m.group(1)}"
     if m := re.match(r"^([A-Za-z_]*)Stack([A-Za-z0-9_]*)$", tok):
         return "_".join(p for p in ("stk", m.group(1).strip("_"), m.group(2).lstrip("_")) if p)
@@ -181,20 +185,24 @@ def rename_local_token(tok: str) -> str:
     return tok
 
 
-def _collect_compat_refs(c_texts: list[str], exact_map: dict[str, str], dat_by_sym: dict[str, str], ptr_globals: set[str] | frozenset[str] = frozenset()) -> tuple[set[str], set[str]]:
-    ptr_syms, arr_syms = set(), set()
+def _collect_compat_refs(c_texts: list[str], exact_map: dict[str, str], dat_by_sym: dict[str, str], ptr_globals: set[str] | frozenset[str] = frozenset(), arr_unidx: set[str] | frozenset[str] = frozenset(), scalar_unidx: set[str] | frozenset[str] = frozenset()) -> tuple[set[str], set[str], set[str]]:
+    ptr_syms, arr_syms, sc_syms = set(), set(), set()
     ptr_re = re.compile(r"\b(?:PTR_[A-Za-z0-9_]+|g_(?:jtbl_ptr|dat_ptr|fn_ptr|ptr)_[A-Za-z0-9_]+)\b")
-    arr_re = re.compile(r"\b((?:LAB|SUB|switchD|loc|sub_loc|jmp_tbl)_[A-Za-z0-9_]+)\b")
+    arr_re = re.compile(r"\b((?:LAB|SUB|switchD|loc|sub_loc|jmp_tbl|jtbl)_[A-Za-z0-9_]+)\b")
     tok_re = re.compile(r"\b[A-Za-z_][A-Za-z0-9_]*\b")
     for raw in c_texts:
         noc = mask_non_code(raw)
         ptr_syms.update(map_ghidra_symbol(p, exact_map, dat_by_sym) for p in ptr_re.findall(noc))
-        if ptr_globals: ptr_syms.update(t for t in tok_re.findall(noc) if t in ptr_globals)
+        if ptr_globals or arr_unidx or scalar_unidx:
+            toks = set(tok_re.findall(noc))
+            ptr_syms.update(toks & ptr_globals)
+            arr_syms.update(toks & arr_unidx)
+            sc_syms.update(toks & scalar_unidx)
         for m in arr_re.finditer(noc):
             pre, post = noc[max(0, m.start() - 16) : m.start()], noc[m.end() : m.end() + 4].lstrip()
             if not ((re.search(r"\bgoto\s+$", pre) and post.startswith(";")) or post.startswith(":")):
                 arr_syms.add(map_ghidra_symbol(m.group(1), exact_map, dat_by_sym))
-    return ptr_syms, arr_syms
+    return ptr_syms, arr_syms, sc_syms
 
 
 def build_compat_block(globals_txt: str, readable_dir: Path | None = None, overrides: dict[str, Any] | None = None, c_texts: list[str] | None = None, schemas_dir: Path | None = None) -> str:
@@ -202,18 +210,23 @@ def build_compat_block(globals_txt: str, readable_dir: Path | None = None, overr
     tables = load_symbol_tables(schemas_dir)
     ov = overrides if overrides is not None else tables["overrides"]
     res_fns, spill, unidx = dict(ov.get("residentFunctions") or tables["residentFunctions"]), dict(ov.get("spillGlobals") or tables["spillGlobals"]), dict(ov.get("unindexedGlobals") or tables["unindexedGlobals"])
-    exact_map, dat_by_sym, ptr_globals = {**res_fns, **spill, **unidx}, tables["datBySym"], ({v for k, v in unidx.items() if k.startswith("PTR_")} | tables["ptrGlobals"])
+    exact_map, dat_by_sym = {**res_fns, **spill, **unidx}, tables["datBySym"]
+    ptr_globals = ({v for k, v in unidx.items() if k.startswith("PTR_")} | tables["ptrGlobals"])
+    arr_unidx = {v for k, v in unidx.items() if k.startswith(("LAB_", "SUB_", "switchD_", "loc_", "sub_loc_", "jtbl_"))}
+    scalar_unidx = set(unidx.values()) - ptr_globals - arr_unidx
     lines = [
-        MARKER_BEGIN, "#ifndef HMBTN_PS1_COMPAT_EXTS", "#define HMBTN_PS1_COMPAT_EXTS", "typedef int (*HmCallbackFn)();",
-        "#define SUB84(x, n) ((uint32_t)(((uint64_t)(x)) >> ((n) * 8)))", "#define SUB82(x, n) ((uint16_t)(((uint64_t)(x)) >> ((n) * 8)))",
-        "#define SUB81(x, n) ((uint8_t)(((uint64_t)(x)) >> ((n) * 8)))", "#define ZEXT48(x) ((uint64_t)(uint32_t)(x))",
+        MARKER_BEGIN, "#ifndef HMBTN_PS1_COMPAT_EXTS", "#define HMBTN_PS1_COMPAT_EXTS",
+        "#ifndef HMBTN_CALLBACK_FN_DEFINED", "#define HMBTN_CALLBACK_FN_DEFINED", "typedef int32_t (*HmCallbackFn)();", "#endif",
+        "#define ZEXT48(x) ((uint64_t)(uint32_t)(x))",
         "#define ZEXT44(x) ((uint32_t)(x))", "#define SEXT48(x) ((int64_t)(int32_t)(x))", "#define ABS(x) ((x) < 0 ? -(x) : (x))",
         "#ifdef HM_HOST_PARITY", '#include "hm_gte_cop2.h"', "#else", "#define setCopReg(c, r, ...) ((void)0)", "#endif",
+        "static inline int32_t hm_read_unaligned_s32(const void *p){const uint8_t*b=(const uint8_t*)p;return (int32_t)((uint32_t)b[0]|((uint32_t)b[1]<<8)|((uint32_t)b[2]<<16)|((uint32_t)b[3]<<24));}",
+        "static inline void hm_write_unaligned_u32(void *p,uint32_t v){uint8_t*b=(uint8_t*)p;b[0]=(uint8_t)v;b[1]=(uint8_t)(v>>8);b[2]=(uint8_t)(v>>16);b[3]=(uint8_t)(v>>24);}",
         "static inline uint32_t _gh_get3(const void *p){const uint8_t*b=(const uint8_t*)p;return b[0]|((uint32_t)b[1]<<8)|((uint32_t)b[2]<<16);}",
-        "static inline uint64_t _gh_getN(const void *p,int n){uint64_t v=0;for(int i=0;i<n;i++)v|=((uint64_t)((const uint8_t*)p)[i])<<(i*8);return v;}",
+        "static inline uint64_t _gh_getN(const void *p,int32_t n){uint64_t v=0;for(int32_t i=0;i<n;i++)v|=((uint64_t)((const uint8_t*)p)[i])<<(i*8);return v;}",
         "#define _gh_get5(p) _gh_getN((p),5)", "#define _gh_get6(p) _gh_getN((p),6)", "#define _gh_get7(p) _gh_getN((p),7)",
         "static inline void _gh_set3(void *p,uint32_t v){uint8_t*b=(uint8_t*)p;b[0]=v;b[1]=v>>8;b[2]=v>>16;}",
-        "static inline void _gh_setN(void *p,uint64_t v,int n){for(int i=0;i<n;i++)((uint8_t*)p)[i]=(uint8_t)(v>>(i*8));}",
+        "static inline void _gh_setN(void *p,uint64_t v,int32_t n){for(int32_t i=0;i<n;i++)((uint8_t*)p)[i]=(uint8_t)(v>>(i*8));}",
         "#define _gh_set5(p,v) _gh_setN((p),(v),5)", "#define _gh_set6(p,v) _gh_setN((p),(v),6)", "#define _gh_set7(p,v) _gh_setN((p),(v),7)",
     ]
     seen = {map_ghidra_symbol(exact_map.get(s, s), exact_map, dat_by_sym) for s in re.findall(r"\b([A-Za-z_][A-Za-z0-9_]*)\b(?:\[[^\]]*\])?;", mask_non_code(globals_txt))}
@@ -224,11 +237,14 @@ def build_compat_block(globals_txt: str, readable_dir: Path | None = None, overr
     for fn in sorted(res_fns.values()):
         if fn not in seen: lines.append(f"extern int {fn}();"); seen.add(fn)
     texts = c_texts if c_texts is not None else ([p.read_text(encoding="utf-8", errors="replace") for p in readable_dir.rglob("*.c")] if readable_dir and readable_dir.is_dir() else [])
-    ptr_syms, arr_syms = _collect_compat_refs(texts, exact_map, dat_by_sym, ptr_globals)
+    ptr_syms, arr_syms, sc_syms = _collect_compat_refs(texts, exact_map, dat_by_sym, ptr_globals, arr_unidx, scalar_unidx)
     for s in sorted(ptr_syms):
         if s not in seen: lines.append(f"extern uint8_t *{s};"); seen.add(s)
     for s in sorted(arr_syms):
         if s not in seen: lines.append(f"extern uint8_t {s}[];"); seen.add(s)
+    for s in sorted(sc_syms):
+        if s not in seen:
+            lines.append(f"extern {'uint16_t' if s.endswith(('_sub_flag', '_high_bits')) else 'uint32_t'} {s};"); seen.add(s)
     return "\n".join([*lines, "#endif", MARKER_END]) + "\n"
 
 

@@ -2,7 +2,7 @@
 
 **Findings ID:** `d4-craftsmanship-and-mips-abi-normalization` · **Parent Hub:** [Dev/docs/FINDINGS.md](../FINDINGS.md) · **Normalizer:** [craftsmanship_d4_normalizer.py](../../scripts/craftsmanship_d4_normalizer.py) · **Overrides:** [d4_symbol_overrides.json](../../schemas/d4_symbol_overrides.json)
 
-This empirical report documents the PlayStation 1 `MIPS32` little-endian `LP32` ABI constraints discovered while lifting *Harvest Moon: Back to Nature* (`SLUS-01115`), the pre-assembly decompiler P-code rewrites, and the declarative `D4.craftsmanship` normalization pass that eliminated `81,097 + 8,339 + 4,389` raw decompiler artifacts across all `513` `.c` translation units (`129` `sdk`, `52` `src`, `332` `overlays`).
+This empirical report documents the PlayStation 1 `MIPS32` little-endian `LP32` ABI constraints discovered while lifting *Harvest Moon: Back to Nature* (`SLUS-01115`), the pre-assembly decompiler P-code rewrites, and the strict `T5` source-first `D4.craftsmanship` normalization pass across all `512` `.c` translation units (`129` `sdk`, `52` `src`, `331` `overlays`).
 
 ---
 
@@ -10,11 +10,11 @@ This empirical report documents the PlayStation 1 `MIPS32` little-endian `LP32` 
 
 | Pipeline Step | Responsible Script / Schema | Primary Input -> Output |
 | :--- | :--- | :--- |
-| **1. Pre-Assembly Lowering** | [patch_ps1_reexport_and_compat.py](../../scripts/patch_ps1_reexport_and_compat.py) | `Corpus/work/reexported/*` -> C11-valid `.c` + promoted `functions.json` |
-| **2. Chunked Assembly** | `RD_DECOMP_TOOLS/stage4_assembler.py` | Reexported lifts -> `513` `.c` chunks (`<= 400` lines/multi-fn TU) + `9` `.h` + `compile_commands.json` |
+| **1. Pre-Assembly Lowering & Un-Fold** | [patch_ps1_reexport_and_compat.py](../../scripts/patch_ps1_reexport_and_compat.py) + [craftsmanship_d4_unfold_chunk.py](../../scripts/craftsmanship_d4_unfold_chunk.py) | `Corpus/work/reexported/*` + `55` standalone un-folded bodies -> C11-valid `.c` |
+| **2. Chunked Assembly** | `RD_DECOMP_TOOLS/stage4_assembler.py` | Reexported lifts -> `512` `.c` chunks (`<= 400` lines/multi-fn TU) + `9` `.h` + `compile_commands.json` |
 | **3. Compat Header Synthesis** | [craftsmanship_d4_helpers.py](../../scripts/craftsmanship_d4_helpers.py) | `harvestmoonbtn_globals.h` + `d4_symbol_overrides.json` -> `HMBTN_PS1_COMPAT_EXTS` in `ghidra_compat.h` |
-| **4. `D4.craftsmanship` Scrub** | [craftsmanship_d4_normalizer.py](../../scripts/craftsmanship_d4_normalizer.py) | `513` `.c` + `3` `.h` -> `0` `_GHIDRA_CRAFT_RE`, `0` `FUN_80*`/`DAT_80*`/`param_*`, uniform `@symbol` Doxygen |
-| **5. `D4` Compile & Parity** | [build_and_verify_d4.py](../../scripts/build_and_verify_d4.py) + [d4_synthetic_corpus.py](../../scripts/d4_synthetic_corpus.py) | Pass 1 `514` MIPS ELF32 `.o` -> `.a` + Pass 2 `12/12` `-DHM_HOST_PARITY` host assertions |
+| **4. `D4.craftsmanship` & Format Scrub** | [craftsmanship_d4_normalizer.py](../../scripts/craftsmanship_d4_normalizer.py) + `craftsmanship_d4_{ast_cleaner,type_gates}.py` | `512` `.c` + `3` `.h` -> `0` craft/strict hits, uniform `@symbol` Doxygen, `Dev/.clang-format` |
+| **5. `D4` Compile & Parity** | [build_and_verify_d4.py](../../scripts/build_and_verify_d4.py) + [d4_synthetic_corpus.py](../../scripts/d4_synthetic_corpus.py) | Pass 1 `513` MIPS ELF32 `.o` -> `.a` (`3,669,114` B) + Pass 2 `12/12` `-DHM_HOST_PARITY` assertions |
 
 ---
 
@@ -24,7 +24,7 @@ This empirical report documents the PlayStation 1 `MIPS32` little-endian `LP32` 
 | :--- | :--- | :--- |
 | **`LP32` Word & Pointer Width** | `sizeof(int) == sizeof(long) == sizeof(void *) == 4` | Host x64 builds (`LP64`/`LLP64`) widen pointers to 8 bytes; `stage2_globals_builder.py` validates all `3,497` globals with `pointer_bytes=4` (`0` overlap), and Pass 2 compiles strictly for 32-bit `x86-windows-gnu` with `(uintptr_t)` pointer casts (`sys_get_highram_free_bytes`). |
 | **Zig LLVM `mips1` & Aliasing** | `-target mipsel-freestanding-eabi -mcpu=mips1` triggers LLVM `MipsISD::Sync` crash; `-O1` TBAA drops punned stack reads | Pass 1 uses `-mcpu=mips2 -msoft-float -ffreestanding -fno-builtin -fno-strict-aliasing -std=gnu11 -O1`, and Pass 2 also sets `-fno-strict-aliasing` so stack puns (`hm_gte_project_svector_to_ot`) match PS1 hardware. |
-| **Windows `zig ar` CLI Limit** | Archiving `514` absolute object paths exceeds Windows command-line buffer (`WinError 206`) | `build_and_verify_d4.py` chunks archiving into `80`-object batches using relative paths from `cwd=obj_root` followed by `zig ar s`. |
+| **Windows `zig ar` CLI Limit** | Archiving `513` absolute object paths exceeds Windows command-line buffer (`WinError 206`) | `build_and_verify_d4.py` chunks archiving into `80`-object batches using relative paths from `cwd=obj_root` followed by `zig ar s`. |
 | **MinGW `<string.h>` Collision** | PS1 SDK `harvestmoonbtn_functions.h` declares `strcat`/`strcmp`/`memcpy` with conflicting attributes | `d4_harness/` omits `harvestmoonbtn_functions.h`, and `d4_synthetic_corpus.py` filters `LIBC_SYMS` (`19` CRT names) out of generated `host_stubs.c`. |
 | **Recursive Include Cycles** | `ghidra_compat.h` included before `harvestmoonbtn_types.h` cannot include `*_types.h` back | `verify_track_d4.py` enforces zero `*_types.h` includes inside `ghidra_compat.h` (`D4.compat_hygiene`); `HmCallbackFn`, `48` `hm_res_*` externs, `PS1_MMIO_16` (`36` regs), `PS1_MMIO_32` (`26` regs), and `#ifdef HM_HOST_PARITY` live inside `HMBTN_PS1_COMPAT_EXTS`. |
 
@@ -50,40 +50,39 @@ Before `stage4_assembler` partitions raw `Corpus/work/reexported/<binary>/` lift
 | **Unaligned Stack Store** | `undefined1 buf[4]; buf = val;` | `u8 buf[4]; *(uint32_t *)(void *)(buf) = (uint32_t)(val);` |
 | **Indirect Callback Cast** | `(*(code *)ptr)(arg);` / `(*(code *)(uintptr_t)(ptr))();` | `((HmCallbackFn)(uintptr_t)(ptr))(arg);` |
 | **Null Pointer & Sign** | `(void *)0x0` / `x + -1` | `NULL` / `x - 1` |
-| **Uninitialized `v0` Arg** | `int in_v0; if (in_v0 < 1)` (`0x8001E390`) | `int reg_v0 = 0; if (reg_v0 < 1)` |
+| **Uninitialized `v0` Arg** | `int in_v0; if (in_v0 < 1)` (`0x8001E390`) | `s32 active_tri_count = (s32)g_gfx_floor_mesh_sample_height_gte_state;` |
 
 ---
 
 ## 4. Post-Assembly `D4.craftsmanship` Normalization ([craftsmanship_d4_normalizer.py](../../scripts/craftsmanship_d4_normalizer.py))
 
-Although pre-assembly lowering compiled `513/513` `.c` files with `0` errors, the readable C corpus still failed `D4.craftsmanship` due to **`81,097` `_GHIDRA_CRAFT_RE` hits**, **`8,339` non-regex stack/width locals**, and **`4,389` `param_<N>` placeholders**. Running `craftsmanship_d4_normalizer.py` after assembly drives every metric cleanly to **zero**:
+Although pre-assembly lowering compiled all C translation units with `0` errors, the readable C corpus previously failed strict `D4.craftsmanship` due to **`81,097` `_GHIDRA_CRAFT_RE` hits**, `71,024` mechanical locals, `4,447` `param_N`/`arg_N` placeholders, `55` folded functions, and `39` placeholder struct fields. Running the modular `craftsmanship_d4_*` pipeline + `Dev/.clang-format` drives every metric cleanly to **zero**:
 
 | Artifact Category | Pre-Clean Count | Post-Clean Count | Deterministic Replacement Rule |
 | :--- | ---: | ---: | :--- |
-| **`_GHIDRA_CRAFT_RE` Primary Hits** | `81,097` | **`0`** | `/* WARNING: */` (`4,044`) & `// Function:` removed; `(void *)0x0` -> `NULL` (`52`); `(*(code *)` -> `((HmCallbackFn)(uintptr_t)(...))` (`380`); `uVar*`/`iVar*`/`puVar*`/`local_*`/`unaff_*`/`in_*`/`extraout_*` renamed |
-| **Non-Regex Width & Stack Locals** | `8,339` | **`0`** | `sVar*`/`bVar*`/`cVar*`/`wVar*`/`plVar*`/`ppuVar*`/`CVar*`/`p[A-Z]Var*`/`*Stack*` (`auStack*`/`VStack*`)/`stack0x*`/`_local_*`/`_in_*` renamed per-function |
-| **`param_<N>` Placeholders** | `4,389` | **`0`** | Numbered `param_\d+` parameters renamed to `arg_1..arg_N` while strictly preserving semantic names (`param_flag`, `param_b`, struct fields after `.`/`->`) |
-| **`undefined[1248]?` Pseudo-Types** | `4,634` `.c` + `445` `.h` | **`0`** | Replaced with `u8`, `u16`, `u32`, `u64` in `.c` code spans and `harvestmoonbtn_{globals,functions}.h` (preserving `primitives_and_sdk.h` `21` typedefs) |
-| **Uncataloged Overlay `FUN_800*`** | `48` (`491` sites) | **`0`** | Mapped via `d4_symbol_overrides.json` -> `hm_res_<domain>_<desc>_<addr>` across `.c`, `ghidra_compat.h`, and `d4_synthetic_corpus.py` |
-| **Raw `DAT_`/`UNK_`/`PTR_`/`LAB_`/`SUB_`/`switchD_`** | `2,040` (`96`/`284`/`216`/`1,245`/`37`/`162`)* | **`0`** | `globals_map.json` (`1,850` suffix-free + `1,647` disambiguated) + `1,022` `unindexedGlobals` (`706` suffix-free + `316` disambiguated; zero `g_dat_*`/`g_unk_*`), `loc_*`, `sub_loc_*`, `jmp_tbl_*` |
-| **Caller-Semantic Global Naming (`3,497` + `1,022`)** | `4,519` generic/suffixed globals | **`0` generic/unsorted** | `stage2_globals_builder.py` + `semanticConfig` derive domain+caller stems and strip `_[0-9a-f]{8}` when unique (`2,556` suffix-free, `1,963` collision-disambiguated) |
-| **Spill Globals (`PS1_MISC_STATIC`)** | `10` globals | **`0`** | `_local_30/38/48/resc`, `_in_stack_00000014`, `_sStack00000010`, `stack0xffffff{bc,cc,e4}`, `register0x00000074` -> `g_spill_*` / `g_cop_reg_74` |
+| **`_GHIDRA_CRAFT_RE` Primary Hits** | `81,097` | **`0`** | `/* WARNING: */`, `// Function:`, `/* Possible/Probable */` removed; `(type *)0x0` -> `NULL`; `(*(code *)` -> `((HmCallbackFn)(uintptr_t)(...))` |
+| **Mechanical, Uninit & Macro Lowering** | `79,363` + `358` + `394` | **`0`** | AST context-derived locals + auto-initialized read-before-write ABI/reg/stack decls, `CONCAT*`/`SUB*` bit ops, `hm_read_unaligned_s32` / `(1U << (u * 8)) - 1U` |
+| **`param_<N>` / `arg_N` Placeholders** | `4,447` | **`0`** | Mapped via `functions_catalog.json` + `sdkParamMaps` (`4,389` SDK + `58` game + `9` catalog) with zero remaining placeholders |
+| **`undefined*` & Mixed Raw Int Types** | `11,738` | **`0`** | Standardized to `u8`/`s8`/`u16`/`s16`/`u32`/`s32`/`u64`/`s64` (`standardize_c_types`); exact `LP32` sizes preserved (`4e / 21t / 57s`, `0` placeholder struct fields) |
+| **Uncataloged Overlay `FUN_800*`** | `48` (`491` sites) | **`0`** | Mapped via `d4_symbol_overrides.json` -> suffix-free `hm_res_*` exports across `.c`, `ghidra_compat.h`, and `d4_synthetic_corpus.py` |
+| **Raw `DAT_`/`UNK_`/`PTR_`/`LAB_`/`SUB_`/`switchD_`** | `2,040` (`96`/`284`/`216`/`1,245`/`37`/`162`)* | **`0`** | `globals_map.json` (`3,497`: `2,002` base + `1,495` `_N`, `100%` suffix-free) + `1,064` `unindexedGlobals` (`0` `_word`/`_half`/`_byte`), `lbl_*` / `jmp_tbl_*` |
+| **Caller-Semantic Global Naming (`3,497` + `1,064`)** | `4,561` generic/suffixed globals | **`0` suffixed** | `stage2_globals_builder.py` (`193` manual overrides) + `semanticConfig` derive domain+caller stems with `100%` `_[0-9a-f]{8}` removal |
+| **Spill & Struct-Member Aliasing (`PS1_MISC_STATIC`)** | `10` + `130+` direct | **`0`** | `PS1_MISC_STATIC` -> `g_spill_*`/`g_cop_reg_74`; direct non-array `struct_member` globals alias `parent.field` across C code, Doxygen, and headers |
 
 *\*Note: Verified across all `3,828` reexported function bodies (`96` `DAT_` + `284` `UNK_` + `216` `PTR_` + `1,245` `LAB_` + `37` `SUB_` + `162` `switchD_` = `2,040`), alongside `487` code `FUN_*` calls + `37` `FUN_*` references inside Doxygen prose (`524` total).*
 
-### Spill Globals & Local/Label Prefix Tables ([d4_symbol_overrides.json](../../schemas/d4_symbol_overrides.json))
+### Spill Globals, ABI Rules & AST Context Naming ([d4_symbol_overrides.json](../../schemas/d4_symbol_overrides.json))
 
-| Legacy Ghidra Pattern | Clean Replacement Family | Scope & Collision Guard |
+| Legacy Ghidra Pattern | Final `T5` AST Replacement | Scope & Collision Guard |
 | :--- | :--- | :--- |
 | `_local_30`, `_local_38`, `_local_48`, `_local_resc` | `g_spill_slot_30`, `g_spill_slot_38`, `g_spill_slot_48`, `g_spill_res_c` | Global spill aliases in `PS1_MISC_STATIC` |
 | `_in_stack_00000014`, `_sStack00000010` | `g_spill_arg_14`, `g_spill_short_10` | Unresolved caller stack-arg spill slots |
 | `stack0xffffffbc`, `stack0xffffffcc`, `stack0xffffffe4` | `g_spill_frame_bc`, `g_spill_frame_cc`, `g_spill_frame_e4` | Negative frame-offset stack temporaries |
 | `register0x00000074` | `g_cop_reg_74` | Coprocessor register spill global |
-| `uVar*` / `iVar*` / `puVar*` / `piVar*` | `uval_*` / `ival_*` / `uptr_*` / `iptr_*` | Per-function; ignores `.`/`->` members |
-| `sVar*`/`psVar*` / `bVar*`/`cVar*` | `sval_*` / `bval_*` / `cval_*` | Per-function collision-safe suffixing |
-| `*Stack*` / `stack0x*` / `local_*` / `_local_*` | `stk_*` / `frame_*` | Per-function stack buffer locals |
-| `unaff_*` / `in_*` / `extraout_*` / `param_<N>` | `saved_*` / `reg_*` / `carry_*` / `arg_<N>` | Preserves valid `param_flag` / `param_b` |
-| `LAB_*` / `SUB_*` / `switchD_*` | `loc_*` / `sub_loc_*` / `jmp_tbl_*` | Synchronized across `goto` and labels |
+| `uVar*`/`iVar*`/`puVar*`/`piVar*`/`sVar*`/`bVar*` | RHS call/field/type stems (`queue_busy`, `word_cursor`, `work_word`, `work_acc`) | Context-derived per-function names avoiding C keywords & generic `val*` |
+| `*Stack*` / `stack0x*` / `local_*` / `frame_res*` | `local_buf`, `fmt_args`, `caller_slot`, `frame_slot` | Auto-initialized `= {0}` / `= NULL` / `= 0` if read before write |
+| `unaff_*` / `in_*` / `extraout_*` / `param_<N>` | `abiContextRules` (`disp_ctx`, `vsync_cb_ptr`) or `saved_ctx`/`abi_reg`/`gte_reg`/param | Read-before-write ABI temporaries initialized at declaration |
+| `LAB_*` / `SUB_*` / `code_r0x*` / `switchD_*` | `lbl_step_*`, `lbl_done`, `jmp_tbl_*` | Synchronized across `goto`, labels, and jump tables |
 
 ### Uniform Doxygen Headers & Formatting Hygiene
 - **All `3,828` Functions (`1,253` SDK + `2,575` Game):** `sdk/*.c` `// Function:` headers promote to compact 4-line blocks (`/** ... @symbol <fn> @address 0x<hex> (SLUS_011.15) */` so multi-fn SDK files stay `<= 400` lines); `src/` & `overlays/` keep full `@symbol` + `@address` + `@domain` + `@wave` headers while removing duplicate `// Function:`, `@callers none`, `@callees none`, and `/* WARNING: */` lines, and scrubbing raw tokens inside Doxygen prose.
@@ -115,7 +114,7 @@ Although pre-assembly lowering compiled `513/513` `.c` files with `0` errors, th
 | **`HmCallbackFn` & `48` `hm_res_*`** | `1` typedef + `48` `extern int hm_res_*();` | Cleanly types indirect function-pointer calls & uncataloged resident calls |
 | **`PS1_MMIO_16` Hardware Regs** | `36` `extern volatile uint16_t` | `SPU_MAIN_VOL_*`, `VOICE_00_*`, `JOY_MCD_*`, `TMR_*`, `I_STAT` / `I_MASK` |
 | **`PS1_MMIO_32` Hardware Regs** | `26` `extern volatile uint32_t` | `CDROM_REG0..3`, `DMA_*`, `GPU_REG0..1`, `SPU_VOICE_KEY_*`, `COMMON_DELAY` |
-| **Ghidra Width / Bit Intrinsics** | `SUB8*`, `ZEXT*`, `SEXT*`, `_gh_get*`/`set*` | Portable 3-, 5-, 6-, and 7-byte unaligned load/store and 64-bit shift macros |
+| **Ghidra Width & Unaligned Helpers** | `ZEXT*`, `SEXT*`, `hm_read_unaligned_s32`, `hm_write_unaligned_u32` | Portable 3-, 5-, 6-, and 7-byte unaligned load/store and width extensions |
 | **`HM_HOST_PARITY` GTE Switch** | `#ifdef HM_HOST_PARITY` | Includes `hm_gte_cop2.h` in Pass 2; falls back to `setCopReg(...) ((void)0)` otherwise |
 
 ---
@@ -130,7 +129,7 @@ Although pre-assembly lowering compiled `513/513` `.c` files with `0` errors, th
 | **`farm_npc_and_sim.h`** | `HmCalendarClock`, `HmToolId`, `HmFieldPlotCell`, `HmAnimalRecord`, `HmNpcActor` | `0x80070cf2`, `0x80071a1e`, `0x8007a5c4`, `0x800742ec`, `0x800749f4` |
 | **`ui_diary_and_overlays.h`** | `HmSaveSlotSummary` | `0x801376e0` (`HmSaveSlotSummary[3]`) |
 
-2. **`513`-TU Scope Breakdown (`3,828` Functions + `3` Support Headers):** Normalization covers every resident and overlay translation unit under `Corpus/readable/` alongside `harvestmoonbtn_globals.h`, `harvestmoonbtn_functions.h`, and `ghidra_compat.h`:
+2. **`512`-TU Scope Breakdown (`3,828` Functions + `3` Support Headers):** Normalization covers every resident and overlay translation unit under `Corpus/readable/` alongside `harvestmoonbtn_globals.h`, `harvestmoonbtn_functions.h`, and `ghidra_compat.h`:
 
 | Directory / Overlay Partition | `.c` Files | Functions | Role in Normalized Build |
 | :--- | ---: | ---: | :--- |
@@ -144,7 +143,7 @@ Although pre-assembly lowering compiled `513/513` `.c` files with `0` errors, th
 | `src/ui_inventory_hud/` | `8` | `59` | HUD counters, rucksack & pause overlays |
 | `overlays/OVL_part08_id04.EXE/` | `1` | `5` | Kanji font test/viewer overlay (`hm_ovl08_font_test_*`) |
 | `overlays/OVL_part10_id05.EXE/` | `7` | `23` | `640x240` developer debug & PocketStation menu (`hm_ovl10_debug_*`) |
-| `overlays/OVL_part11_id06.EXE/` | `225` | `1,541` | Main farm simulation, tools & map logic (`hm_ovl11_*`, `p11_*`) |
+| `overlays/OVL_part11_id06.EXE/` | `224` | `1,541` | Main farm simulation, tools & map logic (`hm_ovl11_*`, `p11_*`) |
 | `overlays/OVL_part15_id10.EXE/` | `26` | `138` | Slot B Memory Card New Game / Load / Save diary UI (`hm_ovl15_*`) |
 | `overlays/OVL_part17_id07.EXE/` | `9` | `61` | Summer Swimming Festival 6-racer minigame (`hm_ovl17_swim_race_*`) |
 | `overlays/OVL_part19_id08.EXE/` | `11` | `76` | Chicken Sumo Festival arena minigame (`hm_ovl19_chicken_sumo_*`) |
@@ -155,7 +154,7 @@ Although pre-assembly lowering compiled `513/513` `.c` files with `0` errors, th
 | `overlays/OVL_part28_id0d.EXE/` | `4` | `27` | Ending sequence & staff credits overlay (`hm_ovl28_credits_*`) |
 | `overlays/OVL_part30_id0f.EXE/` | `12` | `30` | Slot B debug event-flag & memory inspector (`hm_ovl30_flag_browser_*`) |
 | `overlays/OVL_part31_id0e.EXE/` | `1` | `6` | PocketStation / Memory Card backup utility (`hm_ovl31_pocket_*`) |
-| **Total (`Corpus/readable/`)** | **`513`** | **`3,828`** | Zero raw Ghidra craft or `param_*` leaks |
+| **Total (`Corpus/readable/`)** | **`512`** | **`3,828`** | Zero raw Ghidra craft, suffix, or `arg_N` leaks |
 3. **Catalog, Shard & Standard 18 Scrub:** Replaced `pbVar1` -> `tile_byte_ptr` and `puVar4` -> `slot_word_ptr` inside [functions_catalog.json](../../schemas/functions_catalog.json) and Stage 3 shards (`stage3_02_p11_ui_core.json`, `stage3_03_p11_farm_gfx.json`), and dropped banned `"unresolvedFields"` from [spec_coverage.json](../../schemas/spec_coverage.json).
 4. **Verification Commands:**
    ```powershell

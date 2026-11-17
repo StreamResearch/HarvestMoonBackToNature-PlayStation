@@ -15,7 +15,7 @@
     "address": "0x800bcb5c",
     "ghidra_name": "FUN_800bcb5c",
     "name": "p11_core_select_area_bgm_id",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [],
     "domain": "core_mainloop",
     "wave": 1,
@@ -30,11 +30,11 @@
     "params": [
       {
         "name": "area_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "skip_read",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "cd_afile_overlays",
@@ -72,7 +72,7 @@
     "params": [
       {
         "name": "entry_idx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "cd_afile_overlays",
@@ -83,7 +83,7 @@
     "program": "OVL_part11_id06.EXE",
     "address": "0x800bd238",
     "ghidra_name": "FUN_800bd238",
-    "name": "p11_cd_load_splash_vram_pack_stub",
+    "name": "p11_cd_load_splash_vram_pack",
     "return_type": "void",
     "params": [],
     "domain": "cd_afile_overlays",
@@ -99,7 +99,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Resets global scene slot handle g_core_scene_slot_word to 0xffffffff before raycast or minigame dispatch"
+    "summary": "Resets global scene slot handle g_core_scene_slot_value to 0xffffffff before raycast or minigame dispatch"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -121,7 +121,7 @@
     "params": [
       {
         "name": "entry_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "async_mode",
@@ -201,7 +201,7 @@
     "params": [
       {
         "name": "bank_idx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "cd_afile_overlays",
@@ -235,11 +235,11 @@
     "address": "0x800bde84",
     "ghidra_name": "FUN_800bde84",
     "name": "p11_core_find_active_trigger_zone",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "map_zones_ptr",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "pos_xyz",
@@ -255,11 +255,11 @@
     "address": "0x800bdf98",
     "ghidra_name": "FUN_800bdf98",
     "name": "p11_core_probe_push_tile_path",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "x",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "y",
@@ -267,7 +267,7 @@
       },
       {
         "name": "z",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "w",
@@ -283,7 +283,7 @@
       },
       {
         "name": "stop_on_block",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -299,7 +299,7 @@
     "params": [
       {
         "name": "pos_x",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "unused_y",
@@ -307,7 +307,7 @@
       },
       {
         "name": "pos_z",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "unused_w",
@@ -319,7 +319,7 @@
       },
       {
         "name": "out_pos",
-        "type": "int *"
+        "type": "s32 *"
       },
       {
         "name": "out_dir",
@@ -350,11 +350,11 @@
         "type": "u32"
       },
       {
-        "name": "arg3",
+        "name": "unused_y",
         "type": "u32"
       },
       {
-        "name": "arg4",
+        "name": "unused_w",
         "type": "u32"
       },
       {
@@ -366,11 +366,11 @@
         "type": "u32 *"
       },
       {
-        "name": "arg7",
+        "name": "probe_radius",
         "type": "u32"
       },
       {
-        "name": "arg8",
+        "name": "col_flags",
         "type": "u32"
       }
     ],
@@ -394,11 +394,11 @@
         "type": "u32"
       },
       {
-        "name": "arg3",
+        "name": "unused_y",
         "type": "u32"
       },
       {
-        "name": "arg4",
+        "name": "unused_w",
         "type": "u32"
       },
       {
@@ -410,11 +410,11 @@
         "type": "u32"
       },
       {
-        "name": "arg7",
+        "name": "probe_radius",
         "type": "u32"
       },
       {
-        "name": "arg8",
+        "name": "col_flags",
         "type": "u32"
       }
     ],
@@ -514,7 +514,7 @@
       },
       {
         "name": "prop_ptr",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -535,7 +535,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Iterates 36 NPC actor slots at g_core_actor_collision_word (stride 0x1D4) checking +-200 XZ and +-20 Y proximity unless player flag 0x8 is set"
+    "summary": "Iterates 36 NPC actor slots at g_core_actor_collision_value (stride 0x1D4) checking +-200 XZ and +-20 Y proximity unless player flag 0x8 is set"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -566,7 +566,7 @@
       },
       {
         "name": "area_ctx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -582,7 +582,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Calls resident ground tile lookup hm_res_map_get_tile_attr_8001ef98 and returns bit 7 (*tile_byte_ptr >> 7) of the returned tile attribute byte"
+    "summary": "Calls resident ground tile lookup hm_res_map_get_tile_attr and returns bit 7 (*tile_byte_ptr >> 7) of the returned tile attribute byte"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -593,7 +593,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Calls resident lookup hm_res_map_get_tile_attr_8001ef98 and classifies ground tile bits 0x04, 0x40, and 0x02 into status codes 0..3"
+    "summary": "Calls resident lookup hm_res_map_get_tile_attr and classifies ground tile bits 0x04, 0x40, and 0x02 into status codes 0..3"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -604,13 +604,13 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Calls hm_res_map_get_tile_attr_8001ef98, caches low 16 bits in g_core_query_ground_tile_mask_word, and returns packed mask checking ground flag bit 0x2000"
+    "summary": "Calls hm_res_map_get_tile_attr, caches low 16 bits in g_core_query_ground_tile_mask_value, and returns packed mask checking ground flag bit 0x2000"
   },
   {
     "program": "OVL_part11_id06.EXE",
     "address": "0x800bf4b4",
     "ghidra_name": "FUN_800bf4b4",
-    "name": "p11_core_noop_tile_query_stub",
+    "name": "p11_core_query_tile_height_pair",
     "return_type": "u32",
     "params": [],
     "domain": "core_mainloop",
@@ -634,7 +634,7 @@
       },
       {
         "name": "is_greenhouse",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -673,7 +673,7 @@
     "address": "0x800bf8b8",
     "ghidra_name": "FUN_800bf8b8",
     "name": "p11_core_roll_tomorrow_weather",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [],
     "domain": "core_mainloop",
     "wave": 1,
@@ -700,7 +700,7 @@
     "address": "0x800bfb28",
     "ghidra_name": "FUN_800bfb28",
     "name": "p11_core_resolve_daily_weather",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [],
     "domain": "core_mainloop",
     "wave": 2,
@@ -720,7 +720,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Checks 5 tracked NPC indices in g_core_tracked_at_tile_word against g_npc_actor_tbl_base to test match with (pos_xy[0], pos_xy[1])"
+    "summary": "Checks 5 tracked NPC indices in g_core_tracked_at_tile_value against g_npc_actor_tbl_base to test match with (pos_xy[0], pos_xy[1])"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -764,7 +764,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 1,
-    "summary": "Initializes 40 14-byte color blend slots at g_core_all_color_blend_slots_weather_word via p11_core_init_color_blend_slot and points g_core_weather_lighting_apply_all_lut32 to g_core_all_color_blend_slots_word"
+    "summary": "Initializes 40 14-byte color blend slots at g_core_all_color_blend_slots_weather_value via p11_core_init_color_blend_slot and points g_core_weather_lighting_apply_all_lut32 to g_core_all_color_blend_slots_value"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -786,7 +786,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Initializes g_core_ambient_light_rgb_lerp_start_cfg_8007af80..88 from g_core_weather_lighting_apply_all_lut32[0..2] and zeroes light interpolation deltas and counters g_core_ambient_light_rgb_lerp_start_state_8007af8c..a0"
+    "summary": "Initializes g_core_ambient_light_rgb_lerp_start_cfg_diary_serialize..88 from g_core_weather_lighting_apply_all_lut32[0..2] and zeroes light interpolation deltas and counters g_core_ambient_light_rgb_lerp_start_state_1..a0"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -813,7 +813,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Applies active ambient RGB g_core_ambient_light_rgb_lerp_start_cfg_8007af80..88 via hm_res_gfx_lerp_rgb_fade_8001316c if nonzero and steps linear interpolation up to g_core_ambient_light_rgb_lerp_start_state_8007af9c frames"
+    "summary": "Applies active ambient RGB g_core_ambient_light_rgb_lerp_start_cfg_diary_serialize..88 via hm_res_gfx_lerp_rgb_fade if nonzero and steps linear interpolation up to g_core_ambient_light_rgb_lerp_start_state_5 frames"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -824,16 +824,16 @@
     "params": [
       {
         "name": "duration_frames",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "target_rgb",
-        "type": "int *"
+        "type": "s32 *"
       }
     ],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Configures ambient light interpolation over duration_frames toward target_rgb, resetting step counter g_core_ambient_light_rgb_lerp_start_state_8007af98"
+    "summary": "Configures ambient light interpolation over duration_frames toward target_rgb, resetting step counter g_core_ambient_light_rgb_lerp_start_state_4"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -860,7 +860,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 4,
-    "summary": "Iterates all 40 weather particle slots in g_core_all_color_blend_slots_weather_word calling 0x800c009c and staggers particle[4] respawn countdowns."
+    "summary": "Iterates all 40 weather particle slots in g_core_all_color_blend_slots_weather_value calling 0x800c009c and staggers particle[4] respawn countdowns."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -936,7 +936,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 22,
-    "summary": "Fast-forwards pending time steps g_core_fast_forward_time_calendar_clear_state_80128b58 while g_core_fast_forward_time_overlay_calendar_state != 0, then refreshes morning NPCs, weather, daily animal state, and ambient lighting."
+    "summary": "Fast-forwards pending time steps g_core_fast_forward_time_calendar_clear_state_2 while g_core_fast_forward_time_overlay_calendar_state != 0, then refreshes morning NPCs, weather, daily animal state, and ambient lighting."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -970,11 +970,11 @@
     "address": "0x800c087c",
     "ghidra_name": "FUN_800c087c",
     "name": "p11_core_schedule_wakeup_fade_delay",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "extra_minutes",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -1029,7 +1029,7 @@
     "program": "OVL_part11_id06.EXE",
     "address": "0x800c0a40",
     "ghidra_name": "FUN_800c0a40",
-    "name": "p11_core_set_core_submode_80128b5c",
+    "name": "p11_core_set_fast_forward_trigger",
     "return_type": "void",
     "params": [
       {
@@ -1055,7 +1055,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Sets g_core_fast_forward_time_overlay_calendar_state = 1 and stores transition argument event_arg into g_core_fast_forward_time_calendar_clear_state_80128b58"
+    "summary": "Sets g_core_fast_forward_time_overlay_calendar_state = 1 and stores transition argument event_arg into g_core_fast_forward_time_calendar_clear_state_2"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1086,7 +1086,7 @@
     "params": [
       {
         "name": "event_id",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -1152,7 +1152,7 @@
     "address": "0x800c1280",
     "ghidra_name": "FUN_800c1280",
     "name": "p11_core_find_special_tile_index",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "grid_x",
@@ -1165,7 +1165,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Scans 18 (x, z) tile coordinate pairs at g_core_grid_tile_world_find_override_word (stride 6) and returns 1-based match index or 0"
+    "summary": "Scans 18 (x, z) tile coordinate pairs at g_core_grid_tile_world_find_override_value (stride 6) and returns 1-based match index or 0"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1183,7 +1183,7 @@
     "address": "0x800c141c",
     "ghidra_name": "FUN_800c141c",
     "name": "p11_core_override_festival_area_bgm",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "default_bgm_id",
@@ -1192,7 +1192,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 1,
-    "summary": "When default_bgm_id is in 0x34..0x37 and today is a festival via hm_ovl11_grid_tile_to_world, returns override BGM from g_core_grid_tile_world_find_override_word"
+    "summary": "When default_bgm_id is in 0x34..0x37 and today is a festival via hm_ovl11_grid_tile_to_world, returns override BGM from g_core_grid_tile_world_find_override_value"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1312,7 +1312,7 @@
     "params": [
       {
         "name": "actor_ptr",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "cmd_ptr",
@@ -1352,7 +1352,7 @@
     "params": [
       {
         "name": "actor_ctx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -1384,7 +1384,7 @@
     "params": [
       {
         "name": "actor_ptr",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -1400,7 +1400,7 @@
     "params": [
       {
         "name": "npc_ptr",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -1416,7 +1416,7 @@
     "params": [
       {
         "name": "npc_ptr",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -1443,7 +1443,7 @@
     "params": [
       {
         "name": "player_ptr",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -1459,7 +1459,7 @@
     "params": [
       {
         "name": "handler_id",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -1475,7 +1475,7 @@
     "params": [
       {
         "name": "npc_ptr",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -1491,7 +1491,7 @@
     "params": [
       {
         "name": "npc_ptr",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -1519,7 +1519,7 @@
     "address": "0x800c3828",
     "ghidra_name": "FUN_800c3828",
     "name": "p11_core_get_water_shader_phase",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
@@ -1534,7 +1534,7 @@
     "params": [
       {
         "name": "emitter_ctx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "target_info",
@@ -1554,7 +1554,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "When *g_core_event_script_ctx == 0x13, increments g_core_player_state_state_0x70 up to 15 and decrements +0x02/+0x04 across 37 NPCs"
+    "summary": "When *g_core_event_script_ctx == 0x13, increments g_core_player_state_action_sub_vars up to 15 and decrements +0x02/+0x04 across 37 NPCs"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1576,11 +1576,11 @@
     "params": [
       {
         "name": "prop_ptr",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "door_desc",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -1596,11 +1596,11 @@
     "params": [
       {
         "name": "actor_ptr",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "trigger_info",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -1644,7 +1644,7 @@
     "params": [
       {
         "name": "slots_base",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "slot_count",
@@ -1664,11 +1664,11 @@
     "params": [
       {
         "name": "slot_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "page_idx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -1684,7 +1684,7 @@
     "params": [
       {
         "name": "item_id",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -1700,11 +1700,11 @@
     "params": [
       {
         "name": "src_slot",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "dst_slot",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -1760,12 +1760,12 @@
     "params": [
       {
         "name": "bag_size",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Navigates storage/fridge/cabinet pocket cursor (g_npc_dlg_menu_icon_cache_shop_counter_80126e44) and page index (g_npc_dlg_menu_icon_cache_shop_counter_80126e4a) and draws slot highlight brackets."
+    "summary": "Navigates storage/fridge/cabinet pocket cursor (g_npc_dlg_menu_icon_cache_shop_counter_tv_storage) and page index (g_npc_dlg_menu_icon_cache_shop_counter_1) and draws slot highlight brackets."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1808,15 +1808,15 @@
       },
       {
         "name": "slot_start",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "slot_count",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "icon_x",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -1832,11 +1832,11 @@
     "params": [
       {
         "name": "ot_ptr",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "slot_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "slot_ptr",
@@ -1876,12 +1876,12 @@
       },
       {
         "name": "capacity_x8",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Formats selected item count (g_npc_dlg_menu_icon_cache_shop_counter_80126e4a+1) and storage capacity (capacity_x8 >> 3) separated by slash text at Y=0x6e."
+    "summary": "Formats selected item count (g_npc_dlg_menu_icon_cache_shop_counter_1+1) and storage capacity (capacity_x8 >> 3) separated by slash text at Y=0x6e."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1937,7 +1937,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 4,
-    "summary": "Draws background slot via 0x800f7010 then emits centered SPRT + DR_TPAGE primitives for cached VRAM icon g_ui_dlg_item_icon_vram_upload_half_80129648..62."
+    "summary": "Draws background slot via 0x800f7010 then emits centered SPRT + DR_TPAGE primitives for cached VRAM icon g_ui_dlg_item_icon_vram_upload_count_tv_menu..62."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1964,12 +1964,12 @@
       },
       {
         "name": "scale_q12",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Allocates and submits a POLY_FT4 primitive (code 0x2c) from g_ui_dlg_item_icon_vram_upload_half_80129648 sprite table scaled by scale_q12 >> 12"
+    "summary": "Allocates and submits a POLY_FT4 primitive (code 0x2c) from g_ui_dlg_item_icon_vram_upload_count_tv_menu sprite table scaled by scale_q12 >> 12"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2020,7 +2020,7 @@
       },
       {
         "name": "sync_flag",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -2047,7 +2047,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Resets g_ui_inventory_subpanel_state_open_calendar_state_80126f7c and g_ui_inventory_subpanel_state_open_calendar_state_80126f84 to 0 and sets g_ui_inventory_subpanel_state_open_calendar_state_80126f88 = 1"
+    "summary": "Resets g_ui_inventory_subpanel_state_open_calendar_state_rucksack_panel and g_ui_inventory_subpanel_state_open_calendar_state_1 to 0 and sets g_ui_inventory_subpanel_state_open_calendar_state_2 = 1"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2069,7 +2069,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 9,
-    "summary": "Steps the farm calendar overlay state machine g_ui_inventory_subpanel_state_open_calendar_state_80126f7c, updating calendar input/render or closing back via hm_ovl11_set_game_substate."
+    "summary": "Steps the farm calendar overlay state machine g_ui_inventory_subpanel_state_open_calendar_state_rucksack_panel, updating calendar input/render or closing back via hm_ovl11_set_game_substate."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2102,7 +2102,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Moves calendar day cursor g_ui_inventory_subpanel_state_open_calendar_state_80126f84 within [0,29] via +/-1 and +/-7 D-pad wrapping and renders cursor via p11_ui_draw_calendar_cursor."
+    "summary": "Moves calendar day cursor g_ui_inventory_subpanel_state_open_calendar_state_1 within [0,29] via +/-1 and +/-7 D-pad wrapping and renders cursor via p11_ui_draw_calendar_cursor."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2142,7 +2142,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Scans 18 villager birthday entries at g_ui_calendar_season_birthdays_show_word and draws birthday badges via 0x800fa590 for matching season_idx."
+    "summary": "Scans 18 villager birthday entries at g_ui_calendar_season_birthdays_show_value and draws birthday badges via 0x800fa590 for matching season_idx."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2309,7 +2309,7 @@
     "params": [
       {
         "name": "icon_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "ot_ptr",
@@ -2457,7 +2457,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Zeroes g_ui_calendar_cursor_state_open_tick_state..e8 and sets g_ui_calendar_cursor_state_rucksack_state_80126fec = 0xff for calendar cursor state"
+    "summary": "Zeroes g_ui_calendar_cursor_state_open_tick_state..e8 and sets g_ui_calendar_cursor_state_rucksack_state_2 = 0xff for calendar cursor state"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2506,11 +2506,11 @@
     "params": [
       {
         "name": "src_slot",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "dst_slot",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -2606,7 +2606,7 @@
     "params": [
       {
         "name": "slot_idx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -2622,11 +2622,11 @@
     "params": [
       {
         "name": "src_slot",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "dst_slot",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -2662,12 +2662,12 @@
     "params": [
       {
         "name": "slot_idx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Maps rucksack slot_idx (0 -> g_core_player_state_state_0x70_idx10, 9 -> g_player_equipped_tool_slot, else 6-byte stride) to its u16 slot pointer"
+    "summary": "Maps rucksack slot_idx (0 -> g_core_player_state_action_sub_vars_idx10, 9 -> g_player_equipped_tool_slot, else 6-byte stride) to its u16 slot pointer"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2682,7 +2682,7 @@
       },
       {
         "name": "slot_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "slot_ptr",
@@ -2746,7 +2746,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Populates g_ui_snapshot_status_summary_trigger_open_counter..74 and g_ui_snapshot_status_summary_screen_word..e8 status summary cache with upgrades, recipes, family/pets, animal/memo counts, rating, and shipped items"
+    "summary": "Populates g_ui_snapshot_status_summary_trigger_open_counter..74 and g_ui_snapshot_status_summary_screen_value..e8 status summary cache with upgrades, recipes, family/pets, animal/memo counts, rating, and shipped items"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2757,7 +2757,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Sets g_ui_snapshot_status_summary_trigger_open_counter = 1 and plays warning SFX via hm_res_cd_wait_load_sync_800132f0(10, 0, 2) once when flag is zero"
+    "summary": "Sets g_ui_snapshot_status_summary_trigger_open_counter = 1 and plays warning SFX via hm_res_cd_wait_load_sync(10, 0, 2) once when flag is zero"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2823,7 +2823,7 @@
     "params": [
       {
         "name": "icon_bank",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "frame_idx",
@@ -2844,7 +2844,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Submits a status sprite quad from g_ui_open_status_screen_overview_sprite_word[icon_bank] at (x, y) alongside its text label at (x+0x18, y+4)."
+    "summary": "Submits a status sprite quad from g_ui_open_status_screen_overview_sprite_value[icon_bank] at (x, y) alongside its text label at (x+0x18, y+4)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2855,7 +2855,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Draws 4 farm record counters from g_ui_status_record_counts_half at X=0xd4 using p11_ui_draw_sprite_with_label."
+    "summary": "Draws 4 farm record counters from g_ui_status_record_counts_count at X=0xd4 using p11_ui_draw_sprite_with_label."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2866,7 +2866,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Draws 5 farm animal total counts from g_ui_status_animal_counts_half at X=0x8c using p11_ui_draw_sprite_with_label."
+    "summary": "Draws 5 farm animal total counts from g_ui_status_animal_counts_count at X=0x8c using p11_ui_draw_sprite_with_label."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2892,7 +2892,7 @@
       },
       {
         "name": "icon_bank",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "frame_idx",
@@ -2939,7 +2939,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Renders 21 shipped-item sprites in a 3x7 grid from g_ui_shipped_items_page_word_80127278 alongside capped 999 counts via p11_ui_draw_capped_999_count."
+    "summary": "Renders 21 shipped-item sprites in a 3x7 grid from g_ui_shipped_items_page_value_1 alongside capped 999 counts via p11_ui_draw_capped_999_count."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3005,7 +3005,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Draws livestock cow page header badge (1) and 7-row scrollable list (0x800fcd40) for g_ui_snapshot_status_summary_barn_counter_80127226 cows."
+    "summary": "Draws livestock cow page header badge (1) and 7-row scrollable list (0x800fcd40) for g_ui_snapshot_status_summary_barn_counter_cow_list cows."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3036,7 +3036,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Draws livestock sheep page header badge (2) and 7-row scrollable list (0x800fced4) for g_ui_snapshot_status_summary_barn_counter_8012722a sheep."
+    "summary": "Draws livestock sheep page header badge (2) and 7-row scrollable list (0x800fced4) for g_ui_snapshot_status_summary_barn_counter_sheep_list sheep."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3071,7 +3071,7 @@
       },
       {
         "name": "draw_row_cb",
-        "type": "code *"
+        "type": "s32 (*)()"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -3087,12 +3087,12 @@
     "params": [
       {
         "name": "tab_idx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Submits animal page header icon from g_ui_animal_page_badge_word_8012ce28 at (0xba, 0x14) with unit string at (0xd2, 0x1a)."
+    "summary": "Submits animal page header icon from g_ui_animal_page_badge_value_2 at (0xba, 0x14) with unit string at (0xd2, 0x1a)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3103,7 +3103,7 @@
     "params": [
       {
         "name": "star_flag",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "badge_id",
@@ -3201,7 +3201,7 @@
     "params": [
       {
         "name": "earnings_pair",
-        "type": "int *"
+        "type": "s32 *"
       },
       {
         "name": "y",
@@ -3221,7 +3221,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 14,
-    "summary": "Renders the 5 Harvest Sprite status rows from g_core_player_state_pad_0x3a_idx3 with face icons, star tiers, EXP progress bars, and percentages."
+    "summary": "Renders the 5 Harvest Sprite status rows from g_core_player_state_tool_exp_and_timers_idx3 with face icons, star tiers, EXP progress bars, and percentages."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3244,7 +3244,7 @@
     "address": "0x800fdedc",
     "ghidra_name": "FUN_800fdedc",
     "name": "p11_ui_find_tool_or_sprite_rank_idx",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "base_id",
@@ -3275,7 +3275,7 @@
     "program": "OVL_part11_id06.EXE",
     "address": "0x800fdfd8",
     "ghidra_name": "FUN_800fdfd8",
-    "name": "p11_ui_matches_farm_status_800719fe",
+    "name": "p11_ui_matches_tool_sprite_rank",
     "return_type": "bool",
     "params": [
       {
@@ -3389,14 +3389,14 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Formats tool upgrade percentage relative to g_ui_tool_upgrade_tier_stars_exp_word thresholds (or MAX/empty strings) and draws text at (x, y)."
+    "summary": "Formats tool upgrade percentage relative to g_ui_tool_upgrade_tier_stars_exp_value thresholds (or MAX/empty strings) and draws text at (x, y)."
   },
   {
     "program": "OVL_part11_id06.EXE",
     "address": "0x800fe54c",
     "ghidra_name": "FUN_800fe54c",
     "name": "p11_ui_read_slot_s16_value",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "slot_ptr",
@@ -3444,7 +3444,7 @@
       },
       {
         "name": "table_idx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -3541,7 +3541,7 @@
     "params": [
       {
         "name": "count",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "frame_idx",
@@ -3587,7 +3587,7 @@
     "address": "0x800fead4",
     "ghidra_name": "FUN_800fead4",
     "name": "p11_ui_count_shipped_or_memo_entries",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
@@ -3598,7 +3598,7 @@
     "address": "0x800feb14",
     "ghidra_name": "FUN_800feb14",
     "name": "p11_ui_count_active_coop_chickens",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
@@ -3609,7 +3609,7 @@
     "address": "0x800feb68",
     "ghidra_name": "FUN_800feb68",
     "name": "p11_ui_count_barn_cows",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
@@ -3620,7 +3620,7 @@
     "address": "0x800febb0",
     "ghidra_name": "FUN_800febb0",
     "name": "p11_ui_count_barn_sheep",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
@@ -3668,7 +3668,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Draws festival index panel, navigates 2-column x 5/6-row D-pad cursor (g_ui_calendar_map_ctx_festival_counter_801273b6/b8), and shows descriptions via 0x800ff27c."
+    "summary": "Draws festival index panel, navigates 2-column x 5/6-row D-pad cursor (g_ui_calendar_map_ctx_festival_counter_list/b8), and shows descriptions via 0x800ff27c."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3774,7 +3774,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Clears kitchen cooking UI state g_ovl11_ui_menu_mode..7424 and zeroes 8 u16 ingredient slots backwards from g_ui_kitchen_cooking_state_ingredient_half"
+    "summary": "Clears kitchen cooking UI state g_ovl11_ui_menu_mode..7424 and zeroes 8 u16 ingredient slots backwards from g_ui_kitchen_cooking_state_ingredient_count"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3823,7 +3823,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Scans 32-byte-strided table at g_ui_cookable_ingredient_id_word up to 0xe2 sentinel to test whether item_id is listed"
+    "summary": "Scans 32-byte-strided table at g_ui_cookable_ingredient_id_value up to 0xe2 sentinel to test whether item_id is listed"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3921,7 +3921,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Searches 32-byte-strided table at g_ui_lookup_ingredient_sprite_tag_eval_word (starting ID 0x88 up to 0xe2), returning entry tag or 0x2206"
+    "summary": "Searches 32-byte-strided table at g_ui_lookup_ingredient_sprite_tag_eval_value (starting ID 0x88 up to 0xe2), returning entry tag or 0x2206"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4005,7 +4005,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Copies 8 u16 ingredient IDs and header g_ui_kitchen_cooking_state_recipe_utensil_counter for (recipe_idx & 0xff) from g_ui_cook_saved_recipe_detail_ingredient_half into g_ui_recipe_ingredient_slots_kitchen_staged_cfg"
+    "summary": "Copies 8 u16 ingredient IDs and header g_ui_kitchen_cooking_state_recipe_utensil_counter for (recipe_idx & 0xff) from g_ui_cook_saved_recipe_detail_ingredient_count into g_ui_recipe_ingredient_slots_kitchen_staged_cfg"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4027,12 +4027,12 @@
     "params": [
       {
         "name": "recipe_slot",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Displays recipe dialogue text from g_ui_recipe_detail_panel_kitchen_selected_word[recipe_slot] via hm_dialogue_set_window_state and sets substate 3 on close"
+    "summary": "Displays recipe dialogue text from g_ui_recipe_detail_panel_kitchen_selected_value[recipe_slot] via hm_dialogue_set_window_state and sets substate 3 on close"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4139,7 +4139,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Displays cooking confirm prompt 0x3bf; on choice 1 plays SFX hm_res_cd_wait_load_sync_800132f0(10,0,2) and sets g_ovl11_ui_menu_mode = p11_ui_start_cooking_dish_sequence"
+    "summary": "Displays cooking confirm prompt 0x3bf; on choice 1 plays SFX hm_res_cd_wait_load_sync(10,0,2) and sets g_ovl11_ui_menu_mode = p11_ui_start_cooking_dish_sequence"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4290,7 +4290,7 @@
     "params": [
       {
         "name": "recipe_ptr",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -4306,7 +4306,7 @@
     "params": [
       {
         "name": "recipe_ptr",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -4322,7 +4322,7 @@
     "params": [
       {
         "name": "recipe_ptr",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "out_score",
@@ -4358,7 +4358,7 @@
     "params": [
       {
         "name": "entry_ptr",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "item_id",
@@ -4481,7 +4481,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Clears g_ui_betting_menu_idle_state_open_state..2c, g_ui_betting_menu_state_poll_state_8012cf1c, g_ui_betting_menu_state_poll_state_8012cf24 and zeroes 6 u16 wager slots backwards from g_ui_betting_menu_state_half"
+    "summary": "Clears g_ui_betting_menu_idle_state_open_state..2c, g_ui_betting_menu_state_poll_state_bet_racer, g_ui_betting_menu_state_poll_state_1 and zeroes 6 u16 wager slots backwards from g_ui_betting_menu_state_count"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4525,7 +4525,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "When g_ui_betting_menu_idle_state_open_state == 3, adjusts g_ui_villager_heart_level_earnings_seasonal_cfg and gold g_core_player_state_gold from g_ui_open_festival_betting_menu_commit_lut32 and commits 6 wagers from g_ui_open_festival_betting_menu_commit_word"
+    "summary": "When g_ui_betting_menu_idle_state_open_state == 3, adjusts g_ui_villager_heart_level_earnings_seasonal_cfg and gold g_core_player_state_gold from g_ui_open_festival_betting_menu_commit_lut32 and commits 6 wagers from g_ui_open_festival_betting_menu_commit_value"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4558,7 +4558,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Draws medal balance frame at (0xe3, 0x10), header g_ui_betting_medal_box_word, and formatted medal total g_ui_open_festival_betting_menu_commit_lut32 with suffix g_ui_betting_medal_box_apply_half."
+    "summary": "Draws medal balance frame at (0xe3, 0x10), header g_ui_betting_medal_box_value, and formatted medal total g_ui_open_festival_betting_menu_commit_lut32 with suffix g_ui_betting_medal_box_apply_count."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4596,7 +4596,7 @@
     ],
     "domain": "overlay_part11_id06",
     "wave": 5,
-    "summary": "Draws one festival race betting row: entry code, racer name string, odds g_ovl11_ovl_betting_racer_row_all_table, and current wager g_ui_open_festival_betting_menu_commit_word."
+    "summary": "Draws one festival race betting row: entry code, racer name string, odds g_ovl11_ovl_betting_racer_row_all_table, and current wager g_ui_open_festival_betting_menu_commit_value."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4607,7 +4607,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Compares 6 s16 wagers between g_ui_open_festival_betting_menu_commit_word and g_ui_festival_bet_pool_empty_open_table + idx*0x54, returning 1 if all match"
+    "summary": "Compares 6 s16 wagers between g_ui_open_festival_betting_menu_commit_value and g_ui_festival_bet_pool_empty_open_table + idx*0x54, returning 1 if all match"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4649,7 +4649,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Resets farm upgrade flags g_farm_weather_festival..40, g_ovl11_fade_swap_bgm_livestock_evt_counter, g_core_event_script_ctx_transition_mode, and 5 slots at g_npc_evt_record_scheduled_milestone_schedule_half_8007ad1a for new game init"
+    "summary": "Resets farm upgrade flags g_farm_weather_festival..40, g_ovl11_fade_swap_bgm_livestock_evt_counter, g_core_event_script_ctx_transition_mode, and 5 slots at g_npc_evt_record_scheduled_milestone_schedule_count_1 for new game init"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4682,7 +4682,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Zeroes 0x680 u32 words (0x1A00 bytes) starting at g_cd_sync_upload_area_vram_hud_word"
+    "summary": "Zeroes 0x680 u32 words (0x1A00 bytes) starting at g_cd_sync_upload_area_vram_hud_value"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4764,7 +4764,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 1,
-    "summary": "Initializes all 10 24-byte cutscene slots at g_ovl11_ovl_all_cutscene_slots_alloc_word via p11_ovl_init_cutscene_slot_ctx and calls p11_evt_reset_cutscene_icon_slots"
+    "summary": "Initializes all 10 24-byte cutscene slots at g_ovl11_ovl_all_cutscene_slots_alloc_value via p11_ovl_init_cutscene_slot_ctx and calls p11_evt_reset_cutscene_icon_slots"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4775,12 +4775,12 @@
     "params": [
       {
         "name": "actor_data",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "overlay_part11_id06",
     "wave": 1,
-    "summary": "Finds first free slot in g_ovl11_ovl_all_cutscene_slots_alloc_word, initializes it via p11_ovl_init_cutscene_slot_ctx, and stores actor_data and *(s16 *)(actor_data+8)"
+    "summary": "Finds first free slot in g_ovl11_ovl_all_cutscene_slots_alloc_value, initializes it via p11_ovl_init_cutscene_slot_ctx, and stores actor_data and *(s16 *)(actor_data+8)"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4791,7 +4791,7 @@
     "params": [
       {
         "name": "map_ctx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "overlay_part11_id06",
@@ -4843,7 +4843,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 4,
-    "summary": "Ticks 10 door animation slots at g_ovl11_ovl_all_cutscene_slots_alloc_word when unpaused, counting down hold state 3 to 4 and stepping swings via 0x80107044."
+    "summary": "Ticks 10 door animation slots at g_ovl11_ovl_all_cutscene_slots_alloc_value when unpaused, counting down hold state 3 to 4 and stepping swings via 0x80107044."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4854,12 +4854,12 @@
     "params": [
       {
         "name": "target_id",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Scans 10 24-byte slot records at g_ovl11_ovl_all_cutscene_slots_alloc_word comparing *(s16 *)(slot[5] + 10) == target_id, returning *slot or 0"
+    "summary": "Scans 10 24-byte slot records at g_ovl11_ovl_all_cutscene_slots_alloc_value comparing *(s16 *)(slot[5] + 10) == target_id, returning *slot or 0"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4870,7 +4870,7 @@
     "params": [
       {
         "name": "npc_id",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "overlay_part11_id06",
@@ -4882,11 +4882,11 @@
     "address": "0x80107418",
     "ghidra_name": "FUN_80107418",
     "name": "p11_ovl_find_matching_schedule_entry",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "sched_hdr",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "overlay_part11_id06",
@@ -4918,7 +4918,7 @@
     "params": [
       {
         "name": "cond_type",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "packed_arg",
@@ -4938,11 +4938,11 @@
     "params": [
       {
         "name": "npc_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "scene_id",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "overlay_part11_id06",
@@ -4958,7 +4958,7 @@
     "params": [
       {
         "name": "npc_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "check_mode",
@@ -5010,7 +5010,7 @@
     "params": [
       {
         "name": "cond_id",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "overlay_part11_id06",
@@ -5026,11 +5026,11 @@
     "params": [
       {
         "name": "start_hour",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "end_hour",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "overlay_part11_id06",
@@ -5062,7 +5062,7 @@
     "params": [
       {
         "name": "item_id",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "season_val",
@@ -5094,16 +5094,16 @@
       },
       {
         "name": "out_msg_id",
-        "type": "int *"
+        "type": "s32 *"
       },
       {
         "name": "force_door",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "overlay_part11_id06",
     "wave": 16,
-    "summary": "Resolves NPC talk dialogue ID (checking g_ovl11_ovl_resolve_talk_door_half overrides, p11_ovl_lookup_npc_dialogue_id, and flag 0x76) or falls back to p11_ovl_trigger_door_open_or_close."
+    "summary": "Resolves NPC talk dialogue ID (checking g_ovl11_ovl_resolve_talk_door_count overrides, p11_ovl_lookup_npc_dialogue_id, and flag 0x76) or falls back to p11_ovl_trigger_door_open_or_close."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5154,7 +5154,7 @@
     "params": [
       {
         "name": "timer_ctx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "overlay_part11_id06",
@@ -5204,7 +5204,7 @@
     "program": "OVL_part11_id06.EXE",
     "address": "0x80107f38",
     "ghidra_name": "FUN_80107f38",
-    "name": "p11_ovl_activate_anim_state_8012d044",
+    "name": "p11_ovl_activate_tv_anim_state",
     "return_type": "void",
     "params": [],
     "domain": "overlay_part11_id06",
@@ -5264,7 +5264,7 @@
     "params": [
       {
         "name": "shop_row",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -5280,7 +5280,7 @@
     "params": [
       {
         "name": "shop_row",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -5303,7 +5303,7 @@
     "address": "0x80115f38",
     "ghidra_name": "FUN_80115f38",
     "name": "p11_ui_find_last_flagged_coop_bird",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
@@ -5373,7 +5373,7 @@
     "params": [
       {
         "name": "menu_ctx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -5389,7 +5389,7 @@
     "params": [
       {
         "name": "menu_ctx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -5429,7 +5429,7 @@
     "params": [
       {
         "name": "animal_ptr",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "ot_ptr",
@@ -5453,7 +5453,7 @@
     "address": "0x801170d8",
     "ghidra_name": "FUN_801170d8",
     "name": "p11_ui_read_s16_to_int",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "val_ptr",
@@ -5497,7 +5497,7 @@
     "address": "0x80117178",
     "ghidra_name": "FUN_80117178",
     "name": "p11_ui_count_or_find_animal_by_kind",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "animal_kind",
@@ -5525,7 +5525,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 9,
-    "summary": "Initializes Saturday/festival stall shop state g_ui_saturday_shop_state_word=1, selects slot via p11_ui_find_char_2_in_empty_str, and resets yes/no cursor."
+    "summary": "Initializes Saturday/festival stall shop state g_ui_saturday_shop_state_value=1, selects slot via p11_ui_find_text_sentinel_len, and resets yes/no cursor."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5547,12 +5547,12 @@
     "program": "OVL_part11_id06.EXE",
     "address": "0x8011760c",
     "ghidra_name": "FUN_8011760c",
-    "name": "p11_ui_find_char_2_in_empty_str",
-    "return_type": "int",
+    "name": "p11_ui_find_text_sentinel_len",
+    "return_type": "s32",
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Scans up to 9 bytes from empty string literal for 0x02, returning match index or -1"
+    "summary": "Scans up to 9 bytes in string buffer for 0x02 sentinel byte, returning match offset or -1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5590,7 +5590,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Checks cost of item 'rstuvwxyg'[entry_idx] via hm_ovl11_get_entity_anim_state, deducts gold, and sets g_anim_tv_recipe_broadcast_unlock_buy_byte[entry_idx] = 3 and flag entry_idx+0x67"
+    "summary": "Checks cost of item 'rstuvwxyg'[entry_idx] via hm_ovl11_get_entity_anim_state, deducts gold, and sets g_anim_tv_recipe_broadcast_unlock_buy_flag[entry_idx] = 3 and flag entry_idx+0x67"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5634,7 +5634,7 @@
     "params": [
       {
         "name": "choice_idx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -5673,7 +5673,7 @@
     "address": "0x801186fc",
     "ghidra_name": "FUN_801186fc",
     "name": "p11_ui_find_first_unbuilt_house_upgrade",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
@@ -5688,11 +5688,11 @@
     "params": [
       {
         "name": "state_var",
-        "type": "int *"
+        "type": "s32 *"
       },
       {
         "name": "base_state",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "menu_id",
@@ -5703,11 +5703,11 @@
         "type": "u32 *"
       },
       {
-        "name": "arg5",
+        "name": "unused_pad_a",
         "type": "u32"
       },
       {
-        "name": "arg6",
+        "name": "unused_pad_b",
         "type": "u32"
       },
       {
@@ -5715,12 +5715,12 @@
         "type": "u32"
       },
       {
-        "name": "arg8",
+        "name": "unused_pad_c",
         "type": "u32"
       },
       {
         "name": "row_ptr",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -5736,7 +5736,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Dispatches g_ui_tick_shop_hud_state_word_800bb248[g_ui_hud_menu_not_state_tick_state] handler, calls p11_ui_init_shop_hud_defaults on completion, and ticks g_ui_tick_shop_hud_state_word_800bb228[g_ui_hud_inventory_ctx]"
+    "summary": "Dispatches g_ui_tick_shop_hud_state_value_2[g_ui_hud_menu_not_state_tick_state] handler, calls p11_ui_init_shop_hud_defaults on completion, and ticks g_ui_tick_shop_hud_state_value_1[g_ui_hud_inventory_ctx]"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5747,7 +5747,7 @@
     "params": [
       {
         "name": "menu_id",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -5783,7 +5783,7 @@
     "address": "0x80118c28",
     "ghidra_name": "FUN_80118c28",
     "name": "p11_ui_lookup_item_carry_flag",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "item_id",
@@ -5792,7 +5792,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Searches 14 4-byte (s16 key, s16 val) pairs at g_ui_lookup_item_carry_flag_word for item_id, returning paired value or 0"
+    "summary": "Searches 14 4-byte (s16 key, s16 val) pairs at g_ui_lookup_item_carry_flag_value for item_id, returning paired value or 0"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5838,7 +5838,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Resets g_ui_hud_menu_not_state_tick_state = 0, g_ui_shop_hud_defaults_word = 1, g_ovl11_shop_ctx_flags = 0, g_ui_hud_item_slots = 1, g_ui_hud_inventory_ctx = 0 and returns 1"
+    "summary": "Resets g_ui_hud_menu_not_state_tick_state = 0, g_ui_shop_hud_defaults_value = 1, g_ovl11_shop_ctx_flags = 0, g_ui_hud_item_slots = 1, g_ui_hud_inventory_ctx = 0 and returns 1"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6113,7 +6113,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Initializes single-entry shop context g_ui_hud_slot_mask..40 with label g_ui_blacksmith_shop_menu_poultry_setup_word and anim state 0x6c"
+    "summary": "Initializes single-entry shop context g_ui_hud_slot_mask..40 with label g_ui_blacksmith_shop_menu_poultry_setup_value and anim state 0x6c"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6168,7 +6168,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Clears g_ui_hud_selected_idx and configures a 2-option menu (g_ui_setup_two_option_dialog_half, g_ui_setup_two_option_dialog_word) with confirm/cancel IDs 0xb and 0x10"
+    "summary": "Clears g_ui_hud_selected_idx and configures a 2-option menu (g_ui_setup_two_option_dialog_count, g_ui_setup_two_option_dialog_value) with confirm/cancel IDs 0xb and 0x10"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6190,11 +6190,11 @@
     "params": [
       {
         "name": "state_ptr",
-        "type": "int *"
+        "type": "s32 *"
       },
       {
         "name": "base_state",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "npc_id",
@@ -6214,11 +6214,11 @@
     "params": [
       {
         "name": "state_var",
-        "type": "int *"
+        "type": "s32 *"
       },
       {
         "name": "base_state",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "item_qty_or_arg",
@@ -6238,11 +6238,11 @@
     "params": [
       {
         "name": "state_var",
-        "type": "int *"
+        "type": "s32 *"
       },
       {
         "name": "base_state",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "list_ctx",
@@ -6257,12 +6257,12 @@
         "type": "u32"
       },
       {
-        "name": "arg6",
+        "name": "unused_pad",
         "type": "u32"
       },
       {
         "name": "menu_id",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -6278,11 +6278,11 @@
     "params": [
       {
         "name": "state_var",
-        "type": "int *"
+        "type": "s32 *"
       },
       {
         "name": "base_state",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "menu_id",
@@ -6293,11 +6293,11 @@
         "type": "u32 *"
       },
       {
-        "name": "arg5",
+        "name": "unused_pad_a",
         "type": "u32"
       },
       {
-        "name": "arg6",
+        "name": "unused_pad_b",
         "type": "u32"
       },
       {
@@ -6305,12 +6305,12 @@
         "type": "u32"
       },
       {
-        "name": "arg8",
+        "name": "unused_pad_c",
         "type": "u32"
       },
       {
         "name": "row_ptr",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -6326,15 +6326,15 @@
     "params": [
       {
         "name": "state_ptr",
-        "type": "int *"
+        "type": "s32 *"
       },
       {
         "name": "base_state",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "ctx_ptr",
-        "type": "int *"
+        "type": "s32 *"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -6444,7 +6444,7 @@
     "params": [
       {
         "name": "show_medals",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -6460,7 +6460,7 @@
     "params": [
       {
         "name": "header_str",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "suffix_str",
@@ -6505,7 +6505,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Calls hm_res_ui_draw_icon_row_8001abf0(menu_ctx, &g_ui_betting_medal_box_apply_half) to apply UI window/text style A"
+    "summary": "Calls hm_res_ui_draw_icon_row(menu_ctx, &g_ui_betting_medal_box_apply_count) to apply UI window/text style A"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6521,7 +6521,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Calls hm_res_ui_draw_icon_row_8001abf0(menu_ctx, &g_ui_apply_menu_style_b_half) to apply UI window/text style B"
+    "summary": "Calls hm_res_ui_draw_icon_row(menu_ctx, &g_ui_apply_menu_style_b_count) to apply UI window/text style B"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6552,7 +6552,7 @@
     "params": [
       {
         "name": "cost_amount",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -6588,15 +6588,15 @@
     "params": [
       {
         "name": "base_a",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "base_b",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "offset",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -6679,7 +6679,7 @@
     "params": [
       {
         "name": "box_mode",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "ot_ptr",
@@ -6783,7 +6783,7 @@
     "params": [
       {
         "name": "list_ctx",
-        "type": "int *"
+        "type": "s32 *"
       },
       {
         "name": "x",
@@ -6819,11 +6819,11 @@
     "address": "0x8011d890",
     "ghidra_name": "FUN_8011d890",
     "name": "p11_ui_step_10slot_circular_cursor",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "opt0",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "opt1",
@@ -6847,7 +6847,7 @@
     "address": "0x8011d934",
     "ghidra_name": "FUN_8011d934",
     "name": "p11_ui_count_nonzero_stack_slots",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "opt0",
@@ -6875,7 +6875,7 @@
     "address": "0x8011d98c",
     "ghidra_name": "FUN_8011d98c",
     "name": "p11_ui_read_caller_s16_at_0x28",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
@@ -6886,7 +6886,7 @@
     "address": "0x8011d9b4",
     "ghidra_name": "FUN_8011d9b4",
     "name": "p11_ui_read_caller_s16_at_0x46",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
@@ -6897,7 +6897,7 @@
     "address": "0x8011d9dc",
     "ghidra_name": "FUN_8011d9dc",
     "name": "p11_ui_calc_rucksack_item_capacity",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "item_id",
@@ -6905,7 +6905,7 @@
       },
       {
         "name": "skip_held",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -6917,7 +6917,7 @@
     "address": "0x8011dad4",
     "ghidra_name": "FUN_8011dad4",
     "name": "p11_ui_add_item_to_rucksack_or_storage",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "item_id",
@@ -6929,12 +6929,12 @@
       },
       {
         "name": "to_cabinet",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
     "wave": 13,
-    "summary": "Deposits qty units of item_id into cabinet/fridge table g_npc_map_palette_slices_tick_shop_half (if to_cabinet or insufficient bag space) or player rucksack slots, returning leftover qty."
+    "summary": "Deposits qty units of item_id into cabinet/fridge table g_npc_map_palette_slices_tick_shop_count (if to_cabinet or insufficient bag space) or player rucksack slots, returning leftover qty."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6966,7 +6966,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Populates menu row descriptor entry_ctx with label_ptr, badge_id, optional price_or_val, and default sublabel g_ui_blacksmith_shop_menu_poultry_setup_word"
+    "summary": "Populates menu row descriptor entry_ctx with label_ptr, badge_id, optional price_or_val, and default sublabel g_ui_blacksmith_shop_menu_poultry_setup_value"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6984,7 +6984,7 @@
     "address": "0x8011de70",
     "ghidra_name": "FUN_8011de70",
     "name": "p11_ui_get_item_mod5_tier",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "item_id",
@@ -7013,14 +7013,14 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Reads u16 icon ID from g_ui_lookup_sprite_icon_table_801282e4[slot_idx] when alt_table == 0, else g_ui_lookup_sprite_icon_table_801282f0[slot_idx]"
+    "summary": "Reads u16 icon ID from g_ui_lookup_sprite_icon_table_1[slot_idx] when alt_table == 0, else g_ui_lookup_sprite_icon_table_2[slot_idx]"
   },
   {
     "program": "OVL_part11_id06.EXE",
     "address": "0x8011df04",
     "ghidra_name": "FUN_8011df04",
     "name": "p11_ui_map_special_item_to_rank",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "item_id",
@@ -7045,7 +7045,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Walks a 7x7 world grid around farm center calling hm_ovl11_update_camera_projection and storing matching pointers into g_farm_cache_field_tile_pointers_spr_word."
+    "summary": "Walks a 7x7 world grid around farm center calling hm_ovl11_update_camera_projection and storing matching pointers into g_farm_cache_field_tile_pointers_spr_value."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7075,7 +7075,7 @@
     "program": "OVL_part11_id06.EXE",
     "address": "0x8011e1e8",
     "ghidra_name": "FUN_8011e1e8",
-    "name": "p11_ui_noop_farm_grid_stub",
+    "name": "p11_ui_eval_farm_grid_row",
     "return_type": "u32",
     "params": [],
     "domain": "ui_inventory_hud",
@@ -7091,7 +7091,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Iterates 7x7 g_farm_greenhouse_grid, maps tile IDs 0x167..0x16b and crop 0x36 growth states, and calls p11_ui_noop_farm_grid_stub"
+    "summary": "Iterates 7x7 g_farm_greenhouse_grid, maps tile IDs 0x167..0x16b and crop 0x36 growth states, and calls p11_ui_eval_farm_grid_row"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7124,7 +7124,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Updates town map node cursor via 8-way graph g_ui_town_map_cursor_word, draws map markers (p11_ui_draw_town_map_markers), and opens/closes node info."
+    "summary": "Updates town map node cursor via 8-way graph g_ui_town_map_cursor_value, draws map markers (p11_ui_draw_town_map_markers), and opens/closes node info."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7173,7 +7173,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Scans (id, pin) byte pairs at g_ui_lookup_town_map_pin_word up to 0xff sentinel, returning pin byte or 0xffffffff"
+    "summary": "Scans (id, pin) byte pairs at g_ui_lookup_town_map_pin_value up to 0xff sentinel, returning pin byte or 0xffffffff"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7200,7 +7200,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Zeroes shipping bin popup UI globals g_ui_shipping_bin_popup_show_tv_state_8012db10 and g_ui_shipping_bin_popup_show_tv_state_8012db14"
+    "summary": "Zeroes shipping bin popup UI globals g_ui_shipping_bin_popup_show_tv_state_broadcast and g_ui_shipping_bin_popup_show_tv_state_1"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7211,12 +7211,12 @@
     "params": [
       {
         "name": "item_grade",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Activates shipping popup g_ui_shipping_bin_popup_show_tv_state_8012db10 = 1 if idle and clamps item_grade to 0..9 in g_ui_shipping_bin_popup_show_tv_state_8012db14"
+    "summary": "Activates shipping popup g_ui_shipping_bin_popup_show_tv_state_broadcast = 1 if idle and clamps item_grade to 0..9 in g_ui_shipping_bin_popup_show_tv_state_1"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7234,11 +7234,11 @@
     "address": "0x8011f1d0",
     "ghidra_name": "FUN_8011f1d0",
     "name": "p11_ui_advance_tv_channel_episode",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "channel_idx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -7250,7 +7250,7 @@
     "address": "0x8011f4f4",
     "ghidra_name": "FUN_8011f4f4",
     "name": "p11_ui_count_memo_flags_alt",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
@@ -7265,7 +7265,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Clears status book state g_ui_status_book_state_open_tick_state..4c and g_ui_status_book_state_open_exit_counter while setting g_ui_status_book_state_select_apply_half..56 to 0xffff"
+    "summary": "Clears status book state g_ui_status_book_state_open_tick_state..4c and g_ui_status_book_state_open_exit_counter while setting g_ui_status_book_state_select_apply_count..56 to 0xffff"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7325,14 +7325,14 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Selects top two affection entries from g_core_player_state_state_0x70[0..5], rolls random event via hm_prng_next(0x13), and writes 3 portrait pointers"
+    "summary": "Selects top two affection entries from g_core_player_state_action_sub_vars[0..5], rolls random event via hm_prng_next(0x13), and writes 3 portrait pointers"
   },
   {
     "program": "OVL_part11_id06.EXE",
     "address": "0x8011fb80",
     "ghidra_name": "FUN_8011fb80",
     "name": "p11_ui_apply_goddess_wish_or_fortune",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "option_id",
@@ -7440,7 +7440,7 @@
     "params": [
       {
         "name": "record_ptr",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "delta",
@@ -7460,7 +7460,7 @@
     "params": [
       {
         "name": "player_ptr",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -7472,16 +7472,16 @@
     "address": "0x80120358",
     "ghidra_name": "FUN_80120358",
     "name": "p11_ovl_roll_timed_weather_or_spawn",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "out_duration",
-        "type": "int *"
+        "type": "s32 *"
       }
     ],
     "domain": "overlay_part11_id06",
     "wave": 1,
-    "summary": "Matches g_farm_cal_day_minutes against 4 intervals at g_ovl11_ovl_roll_timed_weather_word, sets *out_duration via hm_prng_next, and returns interval value"
+    "summary": "Matches g_farm_cal_day_minutes against 4 intervals at g_ovl11_ovl_roll_timed_weather_value, sets *out_duration via hm_prng_next, and returns interval value"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7492,7 +7492,7 @@
     "params": [
       {
         "name": "pause_anim",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "overlay_part11_id06",
@@ -7508,7 +7508,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Sets g_core_event_script_ctx_reserved_0xfc_idx2 = 3, g_core_map_transition_state = 0x17, and zeroes g_ovl11_ovl_trigger_map_transition_debug_state"
+    "summary": "Sets g_core_event_script_ctx_transition_args_idx2 = 3, g_core_map_transition_state = 0x17, and zeroes g_ovl11_ovl_trigger_map_transition_debug_state"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7550,7 +7550,7 @@
     ],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Maps item_or_crop_id (adjusting for winter/fall season g_farm_calendar_clock) via g_ovl11_ovl_build_season_icon_word into 8 UV bytes and CLUT u16"
+    "summary": "Maps item_or_crop_id (adjusting for winter/fall season g_farm_calendar_clock) via g_ovl11_ovl_build_season_icon_value into 8 UV bytes and CLUT u16"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7574,7 +7574,7 @@
     ],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Writes 8 UV bytes (mirrored via g_ovl11_ovl_apply_grid_cell_word bitset) and CLUT/tpage to field polygon at g_farm_cache_field_tile_pointers_spr_word[grid_z*45+grid_x]"
+    "summary": "Writes 8 UV bytes (mirrored via g_ovl11_ovl_apply_grid_cell_value bitset) and CLUT/tpage to field polygon at g_farm_cache_field_tile_pointers_spr_value[grid_z*45+grid_x]"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7592,11 +7592,11 @@
     "address": "0x80121204",
     "ghidra_name": "FUN_80121204",
     "name": "p11_ovl_get_seasonal_sprite_id",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Computes (season*30 + day + 20) % 120 threshold index in g_ovl11_ovl_seasonal_sprite_id_word and returns 0x1bd + index"
+    "summary": "Computes (season*30 + day + 20) % 120 threshold index in g_ovl11_ovl_seasonal_sprite_id_value and returns 0x1bd + index"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7607,7 +7607,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 4,
-    "summary": "Iterates all 25 seasonal sprite effect slots at g_ovl11_ovl_tick_all_seasonal_clear_word (stride 0x18) calling 0x801213d8 when pause bit 0x400 is clear."
+    "summary": "Iterates all 25 seasonal sprite effect slots at g_ovl11_ovl_tick_all_seasonal_clear_value (stride 0x18) calling 0x801213d8 when pause bit 0x400 is clear."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7618,7 +7618,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 1,
-    "summary": "Clears +0x14 timer across 25 24-byte entries at g_ovl11_ovl_tick_all_seasonal_clear_word via p11_ovl_clear_actor_timer_0x14"
+    "summary": "Clears +0x14 timer across 25 24-byte entries at g_ovl11_ovl_tick_all_seasonal_clear_value via p11_ovl_clear_actor_timer_0x14"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7677,7 +7677,7 @@
     "params": [
       {
         "name": "actor_ctx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "overlay_part11_id06",

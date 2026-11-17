@@ -19,8 +19,12 @@ if str(SCRIPT_DIR) not in sys.path:
 
 from craftsmanship_d4_helpers import (  # noqa: E402
     C_KEYWORDS, DEFAULT_SCHEMAS_DIR, GHIDRA_LOCAL_RE, GHIDRA_SYM_RE, MARKER_BEGIN, MARKER_END,
-    UNDEF_TYPE_RE, build_compat_block, code_spans, find_craftsmanship_artifacts,
-    load_symbol_tables, map_code, map_ghidra_symbol, mask_non_code, rename_local_token, rewrite_code_casts,
+    UNDEF_TYPE_RE, build_compat_block, code_spans, load_symbol_tables, map_code,
+    map_ghidra_symbol, mask_non_code, rename_local_token, rewrite_code_casts,
+)
+from craftsmanship_d4_ast_cleaner import clean_function_ast, rewrite_signature_params  # noqa: E402
+from craftsmanship_d4_type_gates import (  # noqa: E402
+    build_struct_aliases, build_struct_field_lookup, find_strict_craftsmanship_artifacts, standardize_c_types,
 )
 
 DEV_DIR = SCRIPT_DIR.parent
@@ -33,37 +37,35 @@ _STAGE2_ADDR_RE = re.compile(r"\b(_?)g_[A-Za-z0-9_]*_([0-9a-f]{8})\b")
 
 
 def _rewrite_stage2_addrs(text: str, addr_by_hex: dict[str, str] | None) -> str:
-    if not addr_by_hex:
-        return text
-    return _STAGE2_ADDR_RE.sub(lambda m: (m.group(1) + addr_by_hex[m.group(2)]) if m.group(2) in addr_by_hex else m.group(0), text)
+    if addr_by_hex:
+        text = _STAGE2_ADDR_RE.sub(lambda m: addr_by_hex[m.group(2)] if m.group(2) in addr_by_hex else m.group(0), text)
+    return re.sub(r"\b_(g_[A-Za-z0-9_]+)\b", r"\1", text)
 
 
 def _setup_logger(log_dir: Path | None) -> logging.Logger:
-    logger = logging.getLogger("craftsmanship_d4_normalizer")
-    logger.handlers.clear()
-    logger.setLevel(logging.INFO)
+    logger = logging.getLogger("craftsmanship_d4_normalizer"); logger.handlers.clear(); logger.setLevel(logging.INFO)
     if log_dir is not None:
         log_dir.mkdir(parents=True, exist_ok=True)
         fh = logging.FileHandler(log_dir / "craftsmanship_d4_normalizer.log", encoding="utf-8")
-        fh.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(message)s"))
-        logger.addHandler(fh)
+        fh.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")); logger.addHandler(fh)
     else:
         logger.addHandler(logging.NullHandler())
     return logger
 
 
-def _rewrite_doxygen_blocks(text: str, exact_map: dict[str, str], dat_by_sym: dict[str, str], spill_re: re.Pattern[str] | None = None, addr_by_hex: dict[str, str] | None = None) -> str:
+def _rewrite_doxygen_blocks(text: str, exact_map: dict[str, str], dat_by_sym: dict[str, str], spill_re: re.Pattern[str] | None = None, addr_by_hex: dict[str, str] | None = None, alias_re: re.Pattern[str] | None = None, struct_aliases: dict[str, str] | None = None) -> str:
     def _clean_doc(m: re.Match[str]) -> str:
         doc = _rewrite_stage2_addrs(m.group(0).replace("pbVar1", "tile_byte_ptr").replace("puVar4", "slot_word_ptr"), addr_by_hex)
         if spill_re is not None: doc = spill_re.sub(lambda sm: exact_map[sm.group(0)], doc)
-        return GHIDRA_SYM_RE.sub(lambda sm: map_ghidra_symbol(sm.group(0), exact_map, dat_by_sym), doc)
+        doc = GHIDRA_SYM_RE.sub(lambda sm: map_ghidra_symbol(sm.group(0), exact_map, dat_by_sym), doc)
+        return alias_re.sub(lambda sm: struct_aliases[sm.group(0)], doc) if (alias_re and struct_aliases) else doc
 
     return _DOXY_RE.sub(_clean_doc, text)
 
 
-def _normalize_headers_and_warnings(text: str, is_sdk: bool, exact_map: dict[str, str], dat_by_sym: dict[str, str], spill_re: re.Pattern[str] | None = None, addr_by_hex: dict[str, str] | None = None) -> str:
-    text = re.sub(r"^[ \t]*/\*\s*WARNING:.*?\*/[ \t]*\r?\n", "", text, flags=re.M | re.S)
-    text = re.sub(r"/\*\s*WARNING:.*?\*/", "", text, flags=re.S)
+def _normalize_headers_and_warnings(text: str, is_sdk: bool, exact_map: dict[str, str], dat_by_sym: dict[str, str], spill_re: re.Pattern[str] | None = None, addr_by_hex: dict[str, str] | None = None, alias_re: re.Pattern[str] | None = None, struct_aliases: dict[str, str] | None = None) -> str:
+    text = re.sub(r"^[ \t]*/\*\s*(?:WARNING:|(?:Possible|Probable)\b).*?\*/[ \t]*\r?\n", "", text, flags=re.M | re.S)
+    text = re.sub(r"/\*\s*(?:WARNING:|(?:Possible|Probable)\b).*?\*/", "", text, flags=re.S)
     text = re.sub(r"^[ \t]*\*\s*@(?:callers|callees)\s+none[ \t]*\r?\n", "", text, flags=re.M)
 
     out, pos = [], 0
@@ -88,84 +90,71 @@ def _normalize_headers_and_warnings(text: str, is_sdk: bool, exact_map: dict[str
                 out.extend((chunk, doc))
         pos = m.end()
     out.append(text[pos:])
-    return _rewrite_doxygen_blocks("".join(out), exact_map, dat_by_sym, spill_re, addr_by_hex)
+    return _rewrite_doxygen_blocks("".join(out), exact_map, dat_by_sym, spill_re, addr_by_hex, alias_re, struct_aliases)
 
 
 def _find_top_level_braces(text: str) -> list[tuple[int, int]]:
     blocks, depth, open_pos = [], 0, -1
     for s, e, is_c in code_spans(text):
-        if not is_c:
-            continue
-        for idx in range(s, e):
-            ch = text[idx]
-            if ch == "{":
-                if depth == 0:
-                    open_pos = idx
+        for idx in (range(s, e) if is_c else ()):
+            if text[idx] == "{":
+                if depth == 0: open_pos = idx
                 depth += 1
-            elif ch == "}" and depth > 0:
+            elif text[idx] == "}" and depth > 0:
                 depth -= 1
                 if depth == 0 and open_pos >= 0:
-                    blocks.append((open_pos, idx))
-                    open_pos = -1
+                    blocks.append((open_pos, idx)); open_pos = -1
     return blocks
 
 
-def _rename_fn_locals_and_format(seg: str, reserved_globals: set[str]) -> str:
+def _rename_fn_locals_and_format(seg: str, addr_hex: str, tables: dict[str, Any], struct_roots: set[str], field_by_struct: dict[str, dict[int, tuple[str, int, bool]]], struct_aliases: dict[str, str] | None = None) -> str:
+    reserved_globals = tables["knownGlobals"]
     used = set(reserved_globals) | C_KEYWORDS
     for s, e, is_c in code_spans(seg):
         if is_c:
             used.update(re.findall(r"\b[A-Za-z_][A-Za-z0-9_]*\b", seg[s:e]))
-
     local_map: dict[str, str] = {}
     for s, e, is_c in code_spans(seg):
         if not is_c:
             continue
         sub = seg[s:e]
         for m in GHIDRA_LOCAL_RE.finditer(sub):
-            if re.search(r"(?:\.|->)\s*$", sub[: m.start()]):
-                continue
             tok = m.group(0)
-            if tok not in local_map:
+            if tok not in local_map and not re.search(r"(?:\.|->)\s*$", sub[: m.start()]):
                 base, idx = rename_local_token(tok), 2
                 cand = base
                 while cand in used:
                     cand = f"{base}_{idx}"; idx += 1
                 used.add(cand); local_map[tok] = cand
-
     if local_map:
-        def _apply_locals(c: str) -> str:
-            out, pos = [], 0
-            for m in GHIDRA_LOCAL_RE.finditer(c):
-                tok = m.group(0)
-                if tok in local_map and not re.search(r"(?:\.|->)\s*$", c[: m.start()]):
-                    out.extend((c[pos : m.start()], local_map[tok]))
-                else:
-                    out.append(c[pos : m.end()])
-                pos = m.end()
-            out.append(c[pos:])
-            return "".join(out)
-
-        seg = map_code(seg, _apply_locals)
-
+        pat = re.compile(r"\b(" + "|".join(re.escape(k) for k in sorted(local_map, key=len, reverse=True)) + r")\b")
+        seg = map_code(seg, lambda c: pat.sub(lambda m: local_map[m.group(1)] if not re.search(r"(?:\.|->)\s*$", c[: m.start()]) else m.group(1), c))
+    seg = clean_function_ast(seg, addr_hex, tables["overrides"], reserved_globals, struct_roots, field_by_struct, struct_aliases)
     cur_open = mask_non_code(seg).find("{")
     head_masked = mask_non_code(seg[:cur_open])
-    if re.search(r"\bgfx_floor_mesh_sample_height_v0\s*\(", head_masked):
-        seg = re.sub(r"\bint\s+reg_v0\s*;", "int reg_v0 = 0;", seg, count=1)
-
     is_void = bool(re.search(r"(?:^|\n)[ \t]*(?:static[ \t]+|inline[ \t]+)*void[ \t]+(?!\s*\*)[A-Za-z_]", head_masked))
     seg = re.sub(r"\)[ \t]*\n(?:[ \t]*\n)*[ \t]*\{$", ") {", seg[: cur_open + 1]) + seg[cur_open + 1 :]
-    return re.sub(r"\n[ \t]*return;[ \t]*\n\}$", "\n}", seg) if is_void else seg
+    if is_void:
+        seg = map_code(seg, lambda c: re.sub(r"\breturn\s+0\s*;", "return;", c))
+        seg = re.sub(r"\n[ \t]*return;[ \t]*\n\}$", "\n}", seg)
+    return seg
 
 
-def normalize_c_text(text: str, *, is_sdk: bool, exact_map: dict[str, str], dat_by_sym: dict[str, str], reserved_globals: set[str], spill_re: re.Pattern[str] | None = None, addr_by_hex: dict[str, str] | None = None) -> str:
+def normalize_c_text(
+    text: str, *, is_sdk: bool, exact_map: dict[str, str], dat_by_sym: dict[str, str],
+    reserved_globals: set[str], spill_re: re.Pattern[str] | None = None, addr_by_hex: dict[str, str] | None = None,
+    tables: dict[str, Any] | None = None, struct_roots: set[str] | None = None,
+    field_by_struct: dict[str, dict[int, tuple[str, int, bool]]] | None = None,
+    struct_aliases: dict[str, str] | None = None, alias_re: re.Pattern[str] | None = None,
+) -> str:
     """Normalize a single C source file across headers, types, casts, globals, locals, and layout."""
+    t_eff, s_roots, f_map = tables or {"overrides": {}, "knownGlobals": reserved_globals}, struct_roots or set(), field_by_struct or {}
     spill_pat = spill_re or (re.compile(r"\b(?:" + "|".join(re.escape(k) for k in sorted(exact_map)) + r")\b") if exact_map else None)
-    cur = _normalize_headers_and_warnings(text, is_sdk, exact_map, dat_by_sym, spill_pat, addr_by_hex)
+    cur = _normalize_headers_and_warnings(text, is_sdk, exact_map, dat_by_sym, spill_pat, addr_by_hex, alias_re, struct_aliases)
 
     def _clean_code(seg: str) -> str:
         seg = _rewrite_stage2_addrs(re.sub(r"\(\s*void\s*\*\s*\)\s*0x0\b", "NULL", seg), addr_by_hex)
-        seg = UNDEF_TYPE_RE.sub(lambda m: _UNDEF_MAP[m.group(1)], seg)
-        seg = rewrite_code_casts(seg)
+        seg = rewrite_code_casts(UNDEF_TYPE_RE.sub(lambda m: _UNDEF_MAP[m.group(1)], seg))
         if spill_pat is not None:
             seg = spill_pat.sub(lambda m: exact_map[m.group(0)], seg)
         seg = GHIDRA_SYM_RE.sub(lambda m: map_ghidra_symbol(m.group(0), exact_map, dat_by_sym), seg)
@@ -177,44 +166,50 @@ def normalize_c_text(text: str, *, is_sdk: bool, exact_map: dict[str, str], dat_
         out, pos = [], 0
         for open_i, close_i in blocks:
             seg_start = max(pos, cur.rfind("*/", pos, open_i) + 2 if "*/" in cur[pos:open_i] else pos)
-            out.append(cur[pos:seg_start])
-            out.append(_rename_fn_locals_and_format(cur[seg_start : close_i + 1], reserved_globals))
+            addr_m = re.search(r"@address\s+(0x[0-9a-fA-F]+)", cur[pos : open_i])
+            out.extend((cur[pos:seg_start], _rename_fn_locals_and_format(cur[seg_start : close_i + 1], addr_m.group(1).lower() if addr_m else "", t_eff, s_roots, f_map, struct_aliases)))
             pos = close_i + 1
         out.append(cur[pos:])
         cur = "".join(out)
-    return re.sub(r"\n{3,}", "\n\n", cur).rstrip() + "\n"
+    return re.sub(r"\n{3,}", "\n\n", standardize_c_types(cur)).rstrip() + "\n"
 
 
-def _normalize_globals_header(text: str, exact_map: dict[str, str], dat_by_sym: dict[str, str], spill_pat: re.Pattern[str] | None, addr_by_hex: dict[str, str] | None = None) -> str:
+def _normalize_globals_header(text: str, exact_map: dict[str, str], dat_by_sym: dict[str, str], spill_pat: re.Pattern[str] | None, addr_by_hex: dict[str, str] | None = None, struct_aliases: dict[str, str] | None = None) -> str:
     def _clean(seg: str) -> str:
         seg = _rewrite_stage2_addrs(UNDEF_TYPE_RE.sub(lambda m: _UNDEF_MAP[m.group(1)], seg), addr_by_hex)
         if spill_pat is not None:
             seg = spill_pat.sub(lambda m: exact_map[m.group(0)], seg)
         return GHIDRA_SYM_RE.sub(lambda m: map_ghidra_symbol(m.group(0), exact_map, dat_by_sym), seg)
 
-    cleaned = map_code(text, _clean)
+    cleaned = re.sub(r"/\* Auto-generated globals \([^)]+\) \*/", "/* Mapped global declarations (SLUS_011.15 & overlays). */", standardize_c_types(map_code(text, _clean)))
     seen_ext, deduped = set(), []
     for ln in cleaned.splitlines():
         if m := _EXTERN_NAME_RE.match(ln):
-            if m.group(1) in seen_ext:
+            nm = m.group(1)
+            if nm in seen_ext:
                 continue
-            seen_ext.add(m.group(1))
+            seen_ext.add(nm)
+            if struct_aliases and nm in struct_aliases:
+                deduped.append(f"/* alias -> {struct_aliases[nm]}: {ln.split('/*')[0].strip()} */")
+                continue
         deduped.append(ln)
     return "\n".join(deduped) + "\n"
 
 
-def _normalize_functions_header(text: str, exact_map: dict[str, str], dat_by_sym: dict[str, str], addr_by_hex: dict[str, str] | None = None) -> str:
+def _normalize_functions_header(text: str, exact_map: dict[str, str], dat_by_sym: dict[str, str], addr_by_hex: dict[str, str] | None = None, sdk_maps: dict[str, Any] | None = None) -> str:
     def _clean(seg: str) -> str:
         seg = _rewrite_stage2_addrs(re.sub(r"\(\s*void\s*\*\s*\)\s*0x0\b", "NULL", seg), addr_by_hex)
         seg = UNDEF_TYPE_RE.sub(lambda m: _UNDEF_MAP[m.group(1)], seg)
         seg = re.sub(r"\bparam_(\d+)\b", r"arg_\1", seg)
         return GHIDRA_SYM_RE.sub(lambda m: map_ghidra_symbol(m.group(0), exact_map, dat_by_sym), seg)
 
-    return map_code(text, _clean)
+    cleaned = standardize_c_types(map_code(text, _clean))
+    sm = sdk_maps or {}
+    return "\n".join(rewrite_signature_params(ln, sm)[0] if (";" in ln and "(" in ln and not ln.lstrip().startswith(("#", "/", "*"))) else ln for ln in cleaned.splitlines()) + "\n"
 
 
 def normalize_readable_tree(readable_dir: Path, schemas_dir: Path | None = None, logger: logging.Logger | None = None, *, dry_run: bool = False, verify_clean: bool = False) -> dict[str, Any]:
-    """Normalize or audit an assembled readable/ C tree for D4 craftsmanship compliance."""
+    """Normalize or verify an assembled readable/ C tree for D4 craftsmanship compliance."""
     log = logger or logging.getLogger("craftsmanship_d4_normalizer")
     inc_dir = readable_dir / "include"
     c_files = sorted(readable_dir.rglob("*.c"))
@@ -223,50 +218,48 @@ def normalize_readable_tree(readable_dir: Path, schemas_dir: Path | None = None,
     if verify_clean:
         violations = {}
         for fp in [*c_files, *hdr_files]:
-            hits = find_craftsmanship_artifacts(fp.read_text(encoding="utf-8", errors="replace"), allow_undef_typedefs=(fp.name == "ghidra_compat.h"))
+            is_c, is_gh = (fp.suffix == ".c"), (fp.name == "ghidra_compat.h")
+            hits = find_strict_craftsmanship_artifacts(fp.read_text(encoding="utf-8", errors="replace"), allow_undef_typedefs=is_gh, check_raw_types=(is_c or fp.name in ("harvestmoonbtn_globals.h", "harvestmoonbtn_functions.h")))
             if hits:
                 violations[fp.relative_to(readable_dir).as_posix()] = hits[:12]
         log.info("craftsmanship verify-clean: scanned=%d violations=%d", len(c_files) + len(hdr_files), len(violations))
         return {"mode": "verify-clean", "filesScanned": len(c_files) + len(hdr_files), "violationFileCount": len(violations), "violations": violations, "isPassed": not violations}
 
     tables = load_symbol_tables(schemas_dir)
+    sdir = schemas_dir or DEFAULT_SCHEMAS_DIR
+    struct_roots, field_by_struct = build_struct_field_lookup(sdir)
+    struct_aliases = build_struct_aliases(sdir, field_by_struct)
+    alias_re = re.compile(r"\b(?:" + "|".join(re.escape(k) for k in sorted(struct_aliases, key=len, reverse=True)) + r")\b") if struct_aliases else None
     exact_map, dat_by_sym, addr_by_hex, reserved = tables["exactMap"], tables["datBySym"], tables["addrByHex"], tables["knownGlobals"]
     spill_pat = re.compile(r"\b(?:" + "|".join(re.escape(k) for k in sorted(exact_map)) + r")\b") if exact_map else None
 
     modified, norm_c_texts, g_txt_norm = 0, [], ""
-    for hp in hdr_files:
-        if hp.name == "ghidra_compat.h":
-            continue
+    sdk_maps = (tables.get("overrides") or {}).get("sdkParamMaps") or {}
+    for hp in (p for p in hdr_files if p.name != "ghidra_compat.h"):
         orig = hp.read_text(encoding="utf-8", errors="replace")
-        new = _normalize_globals_header(orig, exact_map, dat_by_sym, spill_pat, addr_by_hex) if hp.name == "harvestmoonbtn_globals.h" else _normalize_functions_header(orig, exact_map, dat_by_sym, addr_by_hex)
-        if hp.name == "harvestmoonbtn_globals.h":
-            g_txt_norm = new
+        new = _normalize_globals_header(orig, exact_map, dat_by_sym, spill_pat, addr_by_hex, struct_aliases) if hp.name == "harvestmoonbtn_globals.h" else _normalize_functions_header(orig, exact_map, dat_by_sym, addr_by_hex, sdk_maps)
+        if hp.name == "harvestmoonbtn_globals.h": g_txt_norm = new
         if new != orig:
             modified += 1
-            if not dry_run:
-                hp.write_text(new, encoding="utf-8", newline="\n")
+            if not dry_run: hp.write_text(new, encoding="utf-8", newline="\n")
 
     remaining: dict[str, list[str]] = {}
     for cp in c_files:
         orig = cp.read_text(encoding="utf-8", errors="replace")
-        new = normalize_c_text(orig, is_sdk=("sdk" in cp.parts), exact_map=exact_map, dat_by_sym=dat_by_sym, reserved_globals=reserved, spill_re=spill_pat, addr_by_hex=addr_by_hex)
+        new = normalize_c_text(orig, is_sdk=("sdk" in cp.parts), exact_map=exact_map, dat_by_sym=dat_by_sym, reserved_globals=reserved, spill_re=spill_pat, addr_by_hex=addr_by_hex, tables=tables, struct_roots=struct_roots, field_by_struct=field_by_struct, struct_aliases=struct_aliases, alias_re=alias_re)
         norm_c_texts.append(new)
-        if hits := find_craftsmanship_artifacts(new):
-            remaining[cp.relative_to(readable_dir).as_posix()] = hits[:10]
+        if hits := find_strict_craftsmanship_artifacts(new, check_raw_types=True): remaining[cp.relative_to(readable_dir).as_posix()] = hits[:10]
         if new != orig:
             modified += 1
-            if not dry_run:
-                cp.write_text(new, encoding="utf-8", newline="\n")
+            if not dry_run: cp.write_text(new, encoding="utf-8", newline="\n")
 
     compat_p = inc_dir / "ghidra_compat.h"
     if compat_p.is_file():
         c_orig = compat_p.read_text(encoding="utf-8", errors="replace")
-        c_base = re.sub(re.escape(MARKER_BEGIN) + r".*?" + re.escape(MARKER_END) + r"\n?", "", c_orig, flags=re.S)
-        c_new = c_base.rstrip() + "\n\n" + build_compat_block(g_txt_norm, readable_dir, tables["overrides"], norm_c_texts, schemas_dir)
+        c_new = re.sub(re.escape(MARKER_BEGIN) + r".*?" + re.escape(MARKER_END) + r"\n?", "", c_orig, flags=re.S).rstrip() + "\n\n" + build_compat_block(g_txt_norm, readable_dir, tables["overrides"], norm_c_texts, schemas_dir)
         if c_new != c_orig:
             modified += 1
-            if not dry_run:
-                compat_p.write_text(c_new, encoding="utf-8", newline="\n")
+            if not dry_run: compat_p.write_text(c_new, encoding="utf-8", newline="\n")
 
     log.info("craftsmanship normalize: scanned=%d modified=%d remaining=%d dry_run=%s", len(c_files) + len(hdr_files), modified, len(remaining), dry_run)
     return {"mode": "dry-run" if dry_run else "normalize", "filesScanned": len(c_files) + len(hdr_files), "filesModified": modified, "remainingArtifacts": len(remaining), "remainingSample": remaining, "isPassed": not remaining}

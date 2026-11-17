@@ -55,7 +55,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Initializes 5 pairs of cutscene portrait/icon tracking slots at g_npc_evt_cutscene_icon_slots_word to 0xffff."
+    "summary": "Initializes 5 pairs of cutscene portrait/icon tracking slots at g_npc_evt_cutscene_icon_slots_value to 0xffff."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -197,15 +197,15 @@
         "type": "s32"
       },
       {
-        "name": "arg1",
+        "name": "param_mode",
         "type": "s32"
       },
       {
-        "name": "arg2",
+        "name": "param_a",
         "type": "u32"
       },
       {
-        "name": "arg3",
+        "name": "param_b",
         "type": "u32"
       }
     ],
@@ -239,7 +239,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Reads NPC or animal map/zone IDs from g_npc_tracked_at_tile_calendar_actor_table_80076244/g_npc_actor_schedule_location_table into script VM variables g_ovl11_script_vm_vars."
+    "summary": "Reads NPC or animal map/zone IDs from g_npc_tracked_at_tile_calendar_actor_table_event_flags/g_npc_actor_schedule_location_table into script VM variables g_ovl11_script_vm_vars."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -301,7 +301,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Checks if target (season, day) avoids festivals, birthdays, and spouse schedule conflicts at g_npc_trigger_cutscene_script_evt_scheduled_counter/g_npc_evt_scheduled_date_available_ovl_half."
+    "summary": "Checks if target (season, day) avoids festivals, birthdays, and spouse schedule conflicts at g_npc_trigger_cutscene_script_evt_scheduled_counter/g_npc_evt_scheduled_date_available_ovl_count."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -325,7 +325,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Clamps NPC/game property value against min/max bounds in descriptor table g_npc_clamp_property_value_table_80124a20/g_npc_clamp_property_value_table_80124a24."
+    "summary": "Clamps NPC/game property value against min/max bounds in descriptor table g_npc_clamp_property_value_table_1/g_npc_clamp_property_value_table_2."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -384,7 +384,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Sums all 25 shipped produce counts in g_npc_evt_sum_shipped_items_generate_word plus shipped fish count g_npc_evt_sum_shipped_items_record_cfg16."
+    "summary": "Sums all 25 shipped produce counts in g_npc_evt_sum_shipped_items_generate_value plus shipped fish count g_npc_evt_sum_shipped_items_record_cfg16."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -411,7 +411,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Finds highest-affection bachelorette index 0..4 in g_npc_find_top_bachelorette_candidate_word/g_npc_actor0_affection, returning -1 if below 500."
+    "summary": "Finds highest-affection bachelorette index 0..4 in g_npc_find_top_bachelorette_candidate_value/g_npc_actor0_affection, returning -1 if below 500."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -463,7 +463,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Resolves portrait_id in g_gfx_clear_render_entity_slot_spr_table_800a0494 and uploads its texture and CLUT to VRAM via LoadImage/DrawSync into g_npc_dlg_submit_portrait_sprt_upload_state_80070c90."
+    "summary": "Resolves portrait_id in g_gfx_clear_render_entity_slot_spr_table_alloc_model and uploads its texture and CLUT to VRAM via LoadImage/DrawSync into g_npc_dlg_submit_portrait_sprt_upload_state_sprite_vram."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -474,7 +474,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Copies seasonal/spouse NPC schedule overrides from g_npc_apply_schedule_overrides_word_80124de4, g_npc_apply_schedule_overrides_word_80124e00, g_npc_apply_schedule_overrides_half, and g_npc_apply_schedule_overrides_word_80124e3c."
+    "summary": "Copies seasonal/spouse NPC schedule overrides from g_npc_apply_schedule_overrides_value_1, g_npc_apply_schedule_overrides_value_2, g_npc_apply_schedule_overrides_count, and g_npc_apply_schedule_overrides_value_3."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -502,7 +502,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Copies 0xe10 bytes of active event script bytecode into g_npc_evt_copy_script_bytecode_dispatch_cfg and resets g_npc_evt_copy_script_bytecode_dispatch_state_80129618."
+    "summary": "Copies 0xe10 bytes of active event script bytecode into g_npc_evt_copy_script_bytecode_dispatch_cfg and resets g_npc_evt_copy_script_bytecode_dispatch_state_pending_event."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -777,7 +777,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Deletes slot_idx from inbox g_npc_evt_advance_daily_mailbox_read_counter or pending mail g_npc_evt_queue_mail_notification_advance_half via memmove and clears tail slot."
+    "summary": "Deletes slot_idx from inbox g_npc_evt_advance_daily_mailbox_read_counter or pending mail g_npc_evt_queue_mail_notification_advance_count via memmove and clears tail slot."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -948,7 +948,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Zeroes 22 bytes at g_npc_evt_daily_shipping_totals_field_cfg8 and 10 bytes at g_npc_evt_daily_shipping_totals_byte for daily shipping/tracking counters."
+    "summary": "Zeroes 22 bytes at g_npc_evt_daily_shipping_totals_field_cfg8 and 10 bytes at g_npc_evt_daily_shipping_totals_flag for daily shipping/tracking counters."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -959,7 +959,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Flushes staged basket shipping counts g_npc_evt_stage_item_into_commit_half and revenue g_npc_evt_stage_item_into_commit_state into g_npc_evt_sum_shipped_items_generate_word (cap 999) and g_npc_show_dog_affection_msg_evt_state."
+    "summary": "Flushes staged basket shipping counts g_npc_evt_stage_item_into_commit_count and revenue g_npc_evt_stage_item_into_commit_state into g_npc_evt_sum_shipped_items_generate_value (cap 999) and g_npc_show_dog_affection_msg_evt_state."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1146,7 +1146,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Resets secondary prop slot at g_npc_active_script_entity_ptr+0x18 to type 1 at (-1200, 0, 2900) and updates g_npc_evt_horse_prop_anchor_primary_word."
+    "summary": "Resets secondary prop slot at g_npc_active_script_entity_ptr+0x18 to type 1 at (-1200, 0, 2900) and updates g_npc_evt_horse_prop_anchor_primary_value."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1157,7 +1157,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Resets primary prop slot g_npc_active_script_entity_ptr to type 1 at (-5000, 0, 2300) and updates g_npc_evt_horse_prop_anchor_primary_word."
+    "summary": "Resets primary prop slot g_npc_active_script_entity_ptr to type 1 at (-5000, 0, 2300) and updates g_npc_evt_horse_prop_anchor_primary_value."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1168,7 +1168,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Clears bit 0x2000000 in g_npc_event_progress_flags, clears bit 1 on g_npc_active_script_entity_ptr+0x1c, and zeroes g_gfx_hud_villager_timers_evt_word."
+    "summary": "Clears bit 0x2000000 in g_npc_event_progress_flags, clears bit 1 on g_npc_active_script_entity_ptr+0x1c, and zeroes g_gfx_hud_villager_timers_evt_value."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1286,7 +1286,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Copies festival prop position overrides from g_npc_evt_apply_festival_prop_word/cc0/d60 into g_farm_field_plot_slot_flags using g_farm_weather_festival."
+    "summary": "Copies festival prop position overrides from g_npc_evt_apply_festival_prop_value/cc0/d60 into g_farm_field_plot_slot_flags using g_farm_weather_festival."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1383,7 +1383,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Clears frame-lock bytes across all 72 dynamic icon cache slots at g_npc_dlg_clear_icon_cache_lru_half."
+    "summary": "Clears frame-lock bytes across all 72 dynamic icon cache slots at g_npc_dlg_clear_icon_cache_lru_count."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1458,7 +1458,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Extracts cutscene pack slot offsets matching flag mask 0x3c00 into g_npc_evt_populate_cutscene_offset_bind_word; raises SystemError('A', 999) on overflow."
+    "summary": "Extracts cutscene pack slot offsets matching flag mask 0x3c00 into g_npc_evt_populate_cutscene_offset_bind_value; raises SystemError('A', 999) on overflow."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1469,7 +1469,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Clears 10 cutscene sprite slots ending at g_npc_evt_cutscene_sprites_props_word, clears g_npc_evt_cutscene_prop_slots_alloc_lut32 props, and sets g_npc_dlg_active_cutscene_portrait_evt_counter to 1."
+    "summary": "Clears 10 cutscene sprite slots ending at g_npc_evt_cutscene_sprites_props_value, clears g_npc_evt_cutscene_prop_slots_alloc_lut32 props, and sets g_npc_dlg_active_cutscene_portrait_evt_counter to 1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1497,7 +1497,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Opens script dialogue box with weather-2 typhoon text ID remap table g_npc_dlg_show_script_message_word and saves player choice to g_ovl11_script_vm_vars."
+    "summary": "Opens script dialogue box with weather-2 typhoon text ID remap table g_npc_dlg_show_script_message_value and saves player choice to g_ovl11_script_vm_vars."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1511,15 +1511,15 @@
         "type": "s16"
       },
       {
-        "name": "arg1",
+        "name": "skip_season_offset",
         "type": "s16"
       },
       {
-        "name": "arg2",
+        "name": "scene_flag_bit13",
         "type": "s32"
       },
       {
-        "name": "arg3",
+        "name": "scene_flag_bit14",
         "type": "s32"
       }
     ],
@@ -1757,7 +1757,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Starts animation anim_id on NPC slot (or player at 0x29 via g_farm_player_controller_movement_evt_half) and returns 1 when finished."
+    "summary": "Starts animation anim_id on NPC slot (or player at 0x29 via g_farm_player_controller_movement_evt_count) and returns 1 when finished."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1809,7 +1809,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Fetches dynamic script text entry via hm_text_fetch_script_entry into g_npc_dlg_show_script_text_word and opens text prompt."
+    "summary": "Fetches dynamic script text entry via hm_text_fetch_script_entry into g_npc_dlg_show_script_text_value and opens text prompt."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1905,7 +1905,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Plays or cancels custom cutscene sprite animation on player struct g_npc_evt_bind_cutscene_pack_play_word with facing g_player_facing_dir."
+    "summary": "Plays or cancels custom cutscene sprite animation on player struct g_npc_evt_bind_cutscene_pack_play_value with facing g_player_facing_dir."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2013,7 +2013,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Zeroes velocity, target offsets, and clears active cutscene flags on g_npc_actor_position_dbg_table_80076228..4e for NPC npc_id."
+    "summary": "Zeroes velocity, target offsets, and clears active cutscene flags on g_npc_actor_position_dbg_table_page_villager..4e for NPC npc_id."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2029,7 +2029,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Resolves active cutscene graph node inside g_npc_livestock_status_panel_evt_bind_word (0x10 stride) and stores its 1-based index into g_ovl11_script_vm_vars."
+    "summary": "Resolves active cutscene graph node inside g_npc_livestock_status_panel_evt_bind_value (0x10 stride) and stores its 1-based index into g_ovl11_script_vm_vars."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2109,7 +2109,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Computes festival arena spawn coords g_core_event_script_ctx_reserved_0x0c..88/g_core_spawn_pos_y from g_npc_evt_save_restore_player_setup_word..54 tables and script VM vars."
+    "summary": "Computes festival arena spawn coords g_core_event_script_ctx_script_work_vars..88/g_core_spawn_pos_y from g_npc_evt_save_restore_player_setup_value..54 tables and script VM vars."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2218,7 +2218,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Looks up base gift affection delta in g_npc_gift_affection_delta_word, applies wrapping/birthday bonus, and multiplies by 5 on festivals."
+    "summary": "Looks up base gift affection delta in g_npc_gift_affection_delta_value, applies wrapping/birthday bonus, and multiplies by 5 on festivals."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2354,7 +2354,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Routes mail immediately to p11_evt_enqueue_inbox_letter or queues into 20-slot pending buffer g_npc_evt_queue_mail_notification_advance_half."
+    "summary": "Routes mail immediately to p11_evt_enqueue_inbox_letter or queues into 20-slot pending buffer g_npc_evt_queue_mail_notification_advance_count."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2381,7 +2381,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Logs shipped fish/crop into g_npc_evt_sum_shipped_items_record_cfg16, g_npc_show_dog_affection_msg_evt_state revenue, and g_npc_evt_sum_shipped_items_generate_word bin counters; unlocks flag 0x5f at 200 fish."
+    "summary": "Logs shipped fish/crop into g_npc_evt_sum_shipped_items_record_cfg16, g_npc_show_dog_affection_msg_evt_state revenue, and g_npc_evt_sum_shipped_items_generate_value bin counters; unlocks flag 0x5f at 200 fish."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2408,7 +2408,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Returns shipped count from g_npc_evt_sum_shipped_items_generate_word for item_id via p11_evt_map_item_to_shipping_bin_idx, or -1 if invalid."
+    "summary": "Returns shipped count from g_npc_evt_sum_shipped_items_generate_value for item_id via p11_evt_map_item_to_shipping_bin_idx, or -1 if invalid."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2424,7 +2424,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Adds item_id to portable basket buffer (capacity 30 in g_npc_evt_stage_item_into_commit_counter), accumulating g_npc_evt_stage_item_into_commit_state gold and g_npc_evt_stage_item_into_commit_half bin."
+    "summary": "Adds item_id to portable basket buffer (capacity 30 in g_npc_evt_stage_item_into_commit_counter), accumulating g_npc_evt_stage_item_into_commit_state gold and g_npc_evt_stage_item_into_commit_count bin."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2553,7 +2553,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Syncs field prop slots 2..3 using g_farm_field_deliver_newborn_animals_evt_half and FUN_800d0bc8 status into p11_evt_set_field_prop_slot_item."
+    "summary": "Syncs field prop slots 2..3 using g_farm_field_deliver_newborn_animals_evt_count and p11_field_check_breeding_slot_status status into p11_evt_set_field_prop_slot_item."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2678,7 +2678,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Scans pack slot flags for 0x8000 CLUT entries and uploads palettes to VRAM at (g_npc_evt_unpack_cutscene_script_upload_counter_80129410, g_npc_evt_unpack_cutscene_script_upload_counter_80129412)."
+    "summary": "Scans pack slot flags for 0x8000 CLUT entries and uploads palettes to VRAM at (g_npc_evt_unpack_cutscene_script_upload_counter_pack_cluts, g_npc_evt_unpack_cutscene_script_upload_counter_1)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2698,7 +2698,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Finds a free slot in the 10-entry g_npc_evt_cutscene_prop_slots_alloc_word sprite array, initializes anim, and assigns prop_id in g_npc_evt_cutscene_prop_slots_alloc_lut32."
+    "summary": "Finds a free slot in the 10-entry g_npc_evt_cutscene_prop_slots_alloc_value sprite array, initializes anim, and assigns prop_id in g_npc_evt_cutscene_prop_slots_alloc_lut32."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2729,7 +2729,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Initializes cutscene map object sprite slot via FUN_800e36cc using g_anim_upload_afile_snapshot_slot_evt_state and (object_id - 0x15f)."
+    "summary": "Initializes cutscene map object sprite slot via p11_animl_save_snapshot_vram using g_anim_upload_afile_snapshot_slot_evt_state and (object_id - 0x15f)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2753,7 +2753,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Allocates and links SPRT and DR_TPAGE GPU primitives into ot_entry for portrait rect cached at g_npc_dlg_submit_portrait_sprt_upload_state_80070c90..ac."
+    "summary": "Allocates and links SPRT and DR_TPAGE GPU primitives into ot_entry for portrait rect cached at g_npc_dlg_submit_portrait_sprt_upload_state_sprite_vram..ac."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2805,7 +2805,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Sets or clears NPC freeze/pause bit 0x800 on actor record (or invokes FUN_800cf36c(0) when npc_id is 0x2c)."
+    "summary": "Sets or clears NPC freeze/pause bit 0x800 on actor record (or invokes p11_field_clear_world_entity_slots(0) when npc_id is 0x2c)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2909,7 +2909,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Opens or reads back player/farm/dog/horse naming screen buffer g_npc_evt_pet_horse_naming_animal_word into g_anim_dog_state_idx8/g_ui_evt_pet_horse_naming_snapshot_word."
+    "summary": "Opens or reads back player/farm/dog/horse naming screen buffer g_npc_evt_pet_horse_naming_animal_value into g_anim_dog_state_idx8/g_ui_evt_pet_horse_naming_snapshot_value."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3045,7 +3045,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Tests whether clock g_farm_cal_hour:g_npc_evt_clock_time_table reached (hour, minute), or sets clock via FUN_800c08e8."
+    "summary": "Tests whether clock g_farm_cal_hour:g_npc_evt_clock_time_table reached (hour, minute), or sets clock via p11_core_trigger_instant_transition."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3089,7 +3089,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Handles Harvest Sprite treat/gift reaction, updates g_npc_give_harvest_sprite_treat_row_half/g_npc_give_harvest_sprite_treat_dbg_word chore bits, and awards affection."
+    "summary": "Handles Harvest Sprite treat/gift reaction, updates g_npc_give_harvest_sprite_treat_row_count/g_npc_give_harvest_sprite_treat_dbg_value chore bits, and awards affection."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3165,7 +3165,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Commits newborn calf/lamb/chick name from g_npc_evt_pet_horse_naming_animal_word into barn g_anim_livestock_barn_tbl_idx0_scene_id or coop g_anim_chicken_coop_tbl_idx0_age_days record."
+    "summary": "Commits newborn calf/lamb/chick name from g_npc_evt_pet_horse_naming_animal_value into barn g_anim_livestock_barn_tbl_idx0_scene_id or coop g_anim_chicken_coop_tbl_idx0_age_days record."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3185,7 +3185,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Dispatches dialogue trigger_type against g_npc_evt_copy_script_bytecode_dispatch_state_8012961c, verifying held item (case 3) or offered item (case 4)."
+    "summary": "Dispatches dialogue trigger_type against g_npc_evt_copy_script_bytecode_dispatch_state_1, verifying held item (case 3) or offered item (case 4)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3201,7 +3201,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Initializes all 37 NPC records in g_npc_actor_tbl_base from schedule bytecode g_npc_all_daily_schedules_word for day_seed."
+    "summary": "Initializes all 37 NPC records in g_npc_actor_tbl_base from schedule bytecode g_npc_all_daily_schedules_value for day_seed."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3335,7 +3335,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Projects cutscene portrait anchor g_npc_dlg_active_cutscene_portrait_cfg_80070cb0..b8 and submits SPRT/DR_TPAGE draw when g_npc_dlg_active_cutscene_portrait_evt_counter is 0."
+    "summary": "Projects cutscene portrait anchor g_npc_dlg_active_cutscene_portrait_cfg_1..b8 and submits SPRT/DR_TPAGE draw when g_npc_dlg_active_cutscene_portrait_evt_counter is 0."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3351,7 +3351,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Binds unpacked cutscene sprite animations from g_npc_evt_unpack_cutscene_script_bind_word+g_npc_evt_populate_cutscene_offset_bind_word onto player, NPCs, or prop sprite slots."
+    "summary": "Binds unpacked cutscene sprite animations from g_npc_evt_unpack_cutscene_script_bind_value+g_npc_evt_populate_cutscene_offset_bind_value onto player, NPCs, or prop sprite slots."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3362,7 +3362,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Copies active NPC sprite blocks from g_npc_evt_copy_actor_sprites_word into cutscene backup g_npc_evt_bind_cutscene_pack_copy_table and loads weather sprites."
+    "summary": "Copies active NPC sprite blocks from g_npc_evt_copy_actor_sprites_value into cutscene backup g_npc_evt_bind_cutscene_pack_copy_table and loads weather sprites."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3710,7 +3710,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Submits a 320x240 fullscreen colored overlay quad to g_gfx_active_disp_ctx_ptr OT via FUN_80015074."
+    "summary": "Submits a 320x240 fullscreen colored overlay quad to g_gfx_active_disp_ctx_ptr OT via gfx_alloc_poly_f4_rect."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3890,7 +3890,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Broadcasts festival script step across all villagers 1..36 (excluding 0x1b, 0x21), branching by gender via FUN_800c3548."
+    "summary": "Broadcasts festival script step across all villagers 1..36 (excluding 0x1b, 0x21), branching by gender via p11_core_dispatch_scene_fx_callback."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3938,7 +3938,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Renders randomized fireworks flash bursts via FUN_800151b4 and plays fireworks SFX 0x46/0x47 driven by VM timer."
+    "summary": "Renders randomized fireworks flash bursts via gfx_alloc_poly_f4_with_tpage and plays fireworks SFX 0x46/0x47 driven by VM timer."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3990,7 +3990,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Maps farm evaluation score from g_npc_dlg_eval_dialogue_ids_half_801249f8/fa/fc tables into three script dialogue ID VM variables."
+    "summary": "Maps farm evaluation score from g_npc_dlg_eval_dialogue_ids_count_1/fa/fc tables into three script dialogue ID VM variables."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4060,7 +4060,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Allocates primary script queue entry via FUN_800dbc04 when scene allows (or script_id >= 300) and stores script_id."
+    "summary": "Allocates primary script queue entry via p11_gfx_show_hud_prompt_mode1 when scene allows (or script_id >= 300) and stores script_id."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4080,7 +4080,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Allocates secondary script queue entry via FUN_800dbc28 when scene allows (or script_id >= 300) and stores script_id."
+    "summary": "Allocates secondary script queue entry via p11_gfx_show_hud_prompt_mode2 when scene allows (or script_id >= 300) and stores script_id."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4102,7 +4102,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Expires same-day old inbox mail, promotes pending mail from g_npc_evt_queue_mail_notification_advance_half, and generates today's new letters."
+    "summary": "Expires same-day old inbox mail, promotes pending mail from g_npc_evt_queue_mail_notification_advance_count, and generates today's new letters."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4178,7 +4178,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Checks held item spatial bounds against (max_w, max_h) and deposits item into shipping/bin prop via FUN_8012135c."
+    "summary": "Checks held item spatial bounds against (max_w, max_h) and deposits item into shipping/bin prop via p11_ovl_spawn_seasonal_fx_sprite."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4202,7 +4202,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Handles fodder/feed prop 0x174 trigger bit 0x20 or deposits fodder via p11_evt_add_fodder_count and FUN_8012135c."
+    "summary": "Handles fodder/feed prop 0x174 trigger bit 0x20 or deposits fodder via p11_evt_add_fodder_count and p11_ovl_spawn_seasonal_fx_sprite."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4221,7 +4221,7 @@
       },
       {
         "name": "icon_selector_cb",
-        "type": "code *"
+        "type": "s32 (*)()"
       }
     ],
     "domain": "npc_dialogue_events",
@@ -4269,7 +4269,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Draws cached item icon sprite via FUN_800f8f3c, loading item_id into free g_npc_dlg_cached_item_empty_lru_half cache slot on cache miss."
+    "summary": "Draws cached item icon sprite via p11_ui_draw_scaled_icon_poly_ft4, loading item_id into free g_npc_dlg_cached_item_empty_lru_count cache slot on cache miss."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4372,7 +4372,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Iterates 10 cutscene prop/sprite slots via g_npc_evt_cutscene_prop_slots_alloc_lut32 and g_npc_evt_cutscene_prop_slots_alloc_word when unpaused, updating animation and rendering via 0x800e48cc and 0x800e4608."
+    "summary": "Iterates 10 cutscene prop/sprite slots via g_npc_evt_cutscene_prop_slots_alloc_lut32 and g_npc_evt_cutscene_prop_slots_alloc_value when unpaused, updating animation and rendering via 0x800e48cc and 0x800e4608."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4388,7 +4388,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Parses loaded cutscene pack header into VRAM coords g_npc_evt_unpack_cutscene_script_upload_counter_80129410/12, copies bytecode payload (SystemError 'S' if > 0xce0), and unpacks tables via 0x800e4aec..ba4."
+    "summary": "Parses loaded cutscene pack header into VRAM coords g_npc_evt_unpack_cutscene_script_upload_counter_pack_cluts/12, copies bytecode payload (SystemError 'S' if > 0xce0), and unpacks tables via 0x800e4aec..ba4."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4464,7 +4464,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Choreographs Harvest Goddess and seasonal festival multi-NPC formations using g_npc_evt_choreograph_goddess_festival_word_80124920/48/70 tables and helpers 0x800e5adc, 0x800e5b84, 0x800edf3c, 0x800f07ec."
+    "summary": "Choreographs Harvest Goddess and seasonal festival multi-NPC formations using g_npc_evt_choreograph_goddess_festival_value_1/48/70 tables and helpers 0x800e5adc, 0x800e5b84, 0x800edf3c, 0x800f07ec."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4480,7 +4480,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Positions and animates 5 bachelorettes or Harvest Sprites during festival scenes from g_npc_evt_choreograph_bachelorettes_festival_word/90/a4 tables according to VM variable mode_var."
+    "summary": "Positions and animates 5 bachelorettes or Harvest Sprites during festival scenes from g_npc_evt_choreograph_bachelorettes_festival_value/90/a4 tables according to VM variable mode_var."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4539,7 +4539,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Scans 4 newborn animal delivery slots via 0x800f0380, clears barn pregnancy bits in g_anim_barn_slot0_flags, registers newborn via FUN_800d0dbc, and refreshes via FUN_800d079c."
+    "summary": "Scans 4 newborn animal delivery slots via 0x800f0380, clears barn pregnancy bits in g_anim_barn_slot0_flags, registers newborn via p11_field_clear_breeding_pair_entry, and refreshes via p11_field_sync_outdoor_animals_from_tables."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4614,7 +4614,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Selects per-map icon handler for map ID *(s16 *)(g_core_event_script_ctx + 10) and renders prop bubble icons (0x800f5bc0) over g_npc_evt_map_prop_bubble_word, g_npc_active_script_entity_ptr, and g_npc_evt_scene_props_map_spawn_lut32."
+    "summary": "Selects per-map icon handler for map ID *(s16 *)(g_core_event_script_ctx + 10) and renders prop bubble icons (0x800f5bc0) over g_npc_evt_map_prop_bubble_value, g_npc_active_script_entity_ptr, and g_npc_evt_scene_props_map_spawn_lut32."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4702,7 +4702,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 5,
-    "summary": "Checks player proximity (FUN_800be208) against special props 100 and 0x65 via 0x800f44b4, resetting carried/dropped prop state via 0x800f4cec/cac/fc8."
+    "summary": "Checks player proximity (p11_core_probe_actor_ray_with_budget) against special props 100 and 0x65 via 0x800f44b4, resetting carried/dropped prop state via 0x800f4cec/cac/fc8."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4754,7 +4754,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 5,
-    "summary": "Translates UI sprite coordinates by (+0xc, +0x18) and submits sprite draw via FUN_800248b0."
+    "summary": "Translates UI sprite coordinates by (+0xc, +0x18) and submits sprite draw via evt_res_draw_cursor_hand."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4842,7 +4842,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 6,
-    "summary": "Saves (restore_flag==0) or restores (restore_flag!=0) held item and rucksack tools (g_player_held_item/c0/f0) in backup buffer g_npc_evt_save_restore_player_word_80129500..40 for cutscenes or mini-games."
+    "summary": "Saves (restore_flag==0) or restores (restore_flag!=0) held item and rucksack tools (g_player_held_item/c0/f0) in backup buffer g_npc_evt_save_restore_player_value_1..40 for cutscenes or mini-games."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4990,7 +4990,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 8,
-    "summary": "Spawns 4 festival chicken actors (hm_ovl11_spawn_harvest_pickup(0x109), flag 0x40000) using g_npc_evt_spawn_clear_festival_word positions, or releases entries in g_anim_chicken_coop_tbl via 0x800e2904."
+    "summary": "Spawns 4 festival chicken actors (hm_ovl11_spawn_harvest_pickup(0x109), flag 0x40000) using g_npc_evt_spawn_clear_festival_value positions, or releases entries in g_anim_chicken_coop_tbl via 0x800e2904."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5030,7 +5030,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 8,
-    "summary": "Queries or picks an actor via FUN_80116980(target_id, 1, ...), stores the result into VM variable g_ovl11_script_vm_vars[out_var], and returns true if != -1."
+    "summary": "Queries or picks an actor via p11_ui_run_animal_picker_dialog(target_id, 1, ...), stores the result into VM variable g_ovl11_script_vm_vars[out_var], and returns true if != -1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5041,7 +5041,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 9,
-    "summary": "Synchronizes barn and coop animal states by invoking FUN_800d09e0(1) followed by FUN_800d09e0(0)."
+    "summary": "Synchronizes barn and coop animal states by invoking p11_field_deliver_newborn_animals(1) followed by p11_field_deliver_newborn_animals(0)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5113,7 +5113,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 11,
-    "summary": "Plays held item g_core_player_state_state_0x70_idx10 animation via 0x800d7338 and optionally applies stamina/fatigue cost via 0x800c4f44 on g_core_player_state."
+    "summary": "Plays held item g_core_player_state_action_sub_vars_idx10 animation via 0x800d7338 and optionally applies stamina/fatigue cost via 0x800c4f44 on g_core_player_state."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5178,7 +5178,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 12,
-    "summary": "Awards year-milestone item/Power Berry 0x103 via hm_ovl11_query_npc_affection and 0x800e6f34, and advances stored milestone year g_npc_evt_grant_year_milestone_execute_byte."
+    "summary": "Awards year-milestone item/Power Berry 0x103 via hm_ovl11_query_npc_affection and 0x800e6f34, and advances stored milestone year g_npc_evt_grant_year_milestone_execute_flag."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5200,7 +5200,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 13,
-    "summary": "Drives open mailbox letter UI state g_npc_dlg_tick_mailbox_reader_evt_state_80126c90/94: advances to next letter via 0x800f2724, triggers year gift 0x800f3840, or closes on button 0x20."
+    "summary": "Drives open mailbox letter UI state g_npc_dlg_tick_mailbox_reader_evt_state_open_read/94: advances to next letter via 0x800f2724, triggers year gift 0x800f3840, or closes on button 0x20."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5211,7 +5211,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 14,
-    "summary": "Dispatches queued event script buffer g_npc_evt_copy_script_bytecode_dispatch_cfg via hm_ovl11_run_dialogue_choice_prompt when g_npc_evt_copy_script_bytecode_dispatch_state_8012961c != 0 and g_core_engine_flags1 bit 0x800 is clear."
+    "summary": "Dispatches queued event script buffer g_npc_evt_copy_script_bytecode_dispatch_cfg via hm_ovl11_run_dialogue_choice_prompt when g_npc_evt_copy_script_bytecode_dispatch_state_1 != 0 and g_core_engine_flags1 bit 0x800 is clear."
   },
   {
     "program": "OVL_part11_id06.EXE",

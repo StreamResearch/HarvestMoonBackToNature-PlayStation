@@ -21,10 +21,11 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 from craftsmanship_d4_helpers import (  # noqa: E402
-    MARKER_BEGIN, MARKER_END, build_compat_block, code_spans as _code_spans,
+    MARKER_BEGIN, MARKER_END, build_compat_block, code_spans as _code_spans, load_symbol_tables,
     map_code as _map_code, mask_non_code as _mask_non_code, match_back as _match_back, match_fwd as _match_fwd,
 )
 from craftsmanship_d4_normalizer import normalize_readable_tree  # noqa: E402
+from craftsmanship_d4_unfold_chunk import format_and_rechunk_readable, restore_unfolded_functions  # noqa: E402
 
 
 def _resolve_tools_root(tools_dir: Path | None = None) -> Path:
@@ -80,8 +81,8 @@ def _rewrite_undef_and_structs(code: str, stack_arrs: dict[str, int]) -> str:
         code = re.sub(rf"(?<!\*)\b{re.escape(var)}\s*=\s*([^=;][^;]*);", _sub_arr, code)
     code = re.sub(r"\bswitchD_([0-9A-Fa-f]+)::switchdataD_([0-9A-Fa-f]+)\b", r"switchD_\1_switchdataD_\2", code)
     code = re.sub(r"\(u_long\)\s*(CVar\d+)\b", r"(*(u_long *)&(\1))", code)
-    code = re.sub(r"\bg_core_minigame_state(?:_80070cc4)?\s*=\s*0\s*;", lambda m: f"*(uint32_t *)&{m.group(0).split('=')[0].strip()} = 0;", code)
-    code = re.sub(r"\b(g_farm_field_plot_slot(?:_8007a5c4)?)\s*=\s*(&[A-Za-z0-9_]+)\s*;", r"*(uint32_t *)&(\1) = (uint32_t)(uintptr_t)\2;", code)
+    code = re.sub(r"(?<!&\s)(?<!&)\bg_core_minigame_state(?:_80070cc4)?\s*=\s*0\s*;", lambda m: f"*(uint32_t *)&{m.group(0).split('=')[0].strip()} = 0;", code)
+    code = re.sub(r"(?<!&)\b(g_farm_field_plot_slot(?:_8007a5c4)?)\s*=\s*(&[A-Za-z0-9_]+)\s*;", r"*(uint32_t *)&(\1) = (uint32_t)(uintptr_t)\2;", code)
     code = re.sub(r"(?<!&)\b(g_gfx_camera_iso_state(?:_80061de8)?)\b(?!\s*[.\[])", r"(*(uint32_t *)&\1)", code)
     return code
 
@@ -231,6 +232,7 @@ def main(argv: list[str] | None = None) -> int:
     import decomp.stage4_assembler as s4
     import decomp.workspace_gen as wg
 
+    unfolded = restore_unfolded_functions(REEXPORT_DIR, CORPUS_DIR / "standalone", load_symbol_tables(DEV_DIR / "schemas"))
     changed, prom = _patch_work_reexported()
     if READABLE_DIR.exists():
         shutil.rmtree(READABLE_DIR, onexc=lambda fn, p, _: (os.chmod(p, stat.S_IWRITE | stat.S_IREAD), fn(p)))
@@ -240,12 +242,14 @@ def main(argv: list[str] | None = None) -> int:
     wg.generate_track_workspace(PROJ_ROOT)
     if ws_saved is not None:
         ws_p.write_bytes(ws_saved)
+    if (cl_p := READABLE_DIR / ".clangd").is_file() and "-Wno-int-conversion" not in (cl_t := cl_p.read_text(encoding="utf-8", errors="replace")):
+        cl_p.write_text(cl_t.replace("\n\nIndex:", "\n    - -Wno-int-conversion\n    - -Wno-incompatible-pointer-types\n    - -Wno-incompatible-function-pointer-types\n    - -Wno-implicit-function-declaration\n    - -Wno-pointer-sign\n    - -ferror-limit=0\n\nIndex:"), encoding="utf-8", newline="\n")
 
     globals_h = READABLE_DIR / "include" / "harvestmoonbtn_globals.h"
     g_txt = globals_h.read_text(encoding="utf-8", errors="replace")
     g_txt = re.sub(r"/\* (0x[0-9a-fA-F]+) \[[^\]]+\] (?:struct_member|submember|field): (extern [^;]+;) \*/", r"\2 /* \1 */", g_txt)
     g_txt = re.sub(r"extern uint16_t (PTR_DAT_[0-9A-Za-z_]+);", r"extern uint8_t *\1;", g_txt)
-    for addr_hex, fx_type in (("0x800a15e8", "u8"), ("0x800a10a8", "u16"), ("0x800b7a44", "long *"), ("0x800b7a48", "u8 *"), ("0x800b7e08", "char *"), ("0x8006c854", "u16 *"), ("0x80061ef8", "int *"), ("0x80061efc", "int *"), ("0x80061f00", "int *")):
+    for addr_hex, fx_type in (("0x800a15e8", "u8"), ("0x800a10a8", "u16"), ("0x800b7a44", "s32 *"), ("0x800b7a48", "u8 *"), ("0x800b7e08", "char *"), ("0x8006c854", "u16 *"), ("0x80061ef8", "s32 *"), ("0x80061efc", "s32 *"), ("0x80061f00", "s32 *")):
         sp = "" if fx_type.endswith("*") else " "
         g_txt = re.sub(rf"extern [^*;]+?\b([A-Za-z_][A-Za-z0-9_]*)(?:\[\d+\])?; /\* {addr_hex}\b[^\n]*\*/", rf"extern {fx_type}{sp}\1; /* {addr_hex} */", g_txt)
     g_txt = re.sub(r"extern uint8_t (UNK_8007a6(?:5c|60|62|64|70|74|78|80|84|88|90|94|98|e6|e8|ea));", r"extern uint16_t \1;", g_txt)
@@ -257,8 +261,9 @@ def main(argv: list[str] | None = None) -> int:
     c_txt = c_txt.rstrip() + "\n\n" + build_compat_block(g_txt, READABLE_DIR)
     compat_h.write_text(c_txt, encoding="utf-8", newline="\n")
     norm_res = normalize_readable_tree(READABLE_DIR, DEV_DIR / "schemas", logger)
+    fmt_res = format_and_rechunk_readable(READABLE_DIR, DEV_DIR / ".clang-format")
 
-    out = json.dumps({"reexportedModified": changed, "voidPromoted": prom, "readableFiles": res.get("readableFiles"), "normalizedFiles": norm_res.get("filesModified"), "remainingArtifacts": norm_res.get("remainingArtifacts")}, indent=2)
+    out = json.dumps({"restoredUnfolded": unfolded, "reexportedModified": changed, "voidPromoted": prom, "readableFiles": res.get("readableFiles"), "normalizedFiles": norm_res.get("filesModified"), "remainingArtifacts": norm_res.get("remainingArtifacts"), **fmt_res}, indent=2)
     logger.info("patch_ps1_reexport_and_compat complete: %s", out)
     print(out)
     return 0 if norm_res.get("isPassed") else 1

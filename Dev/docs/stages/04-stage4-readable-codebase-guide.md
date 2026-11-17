@@ -1,6 +1,6 @@
 # Harvest Moon: Back to Nature (USA / `SLUS-01115`) — Stage 4 Readable Codebase Guide
 
-Stage 4 bundles all `2,575 / 2,575` named/typed game functions ([functions_catalog.json](../../schemas/functions_catalog.json)), `3,497` mapped globals ([globals_map.json](../../schemas/globals_map.json)), and `57` LP32 structs / `4` enums / `21` typedefs across `14` images into `Corpus/readable/` (`526` non-cache files: `513` `.c`, `9` `.h`, `2` `.md`, `2` IDE configs), then executes [craftsmanship_d4_normalizer.py](../../scripts/craftsmanship_d4_normalizer.py) so every file hits `0` `clangd` errors and `0` `D4.craftsmanship` artifacts in [verify_stage2_stage3.py](../../scripts/verify_stage2_stage3.py).
+Stage 4 bundles all `2,575 / 2,575` named/typed game functions ([functions_catalog.json](../../schemas/functions_catalog.json)), `3,497` mapped globals ([globals_map.json](../../schemas/globals_map.json)), and `57` LP32 structs / `4` enums / `21` typedefs across `14` images into `Corpus/readable/` (`525` non-cache files: `512` `.c`, `9` `.h`, `2` `.md`, `2` IDE configs), restores `55` folded bodies from read-only `Corpus/standalone/decompiled/`, formats via `Dev/.clang-format`, and executes [craftsmanship_d4_normalizer.py](../../scripts/craftsmanship_d4_normalizer.py) so every file hits `0` `clangd` errors and `0` strict `D4.craftsmanship` artifacts in [verify_stage2_stage3.py](../../scripts/verify_stage2_stage3.py).
 
 ---
 
@@ -20,7 +20,7 @@ Stage 4 bundles all `2,575 / 2,575` named/typed game functions ([functions_catal
 
 ---
 
-## 2. `readable/` Codebase Layout (`526` Files: `513` `.c`, `9` `.h`, `2` `.md`, `2` Configs)
+## 2. `readable/` Codebase Layout (`525` Files: `512` `.c`, `9` `.h`, `2` `.md`, `2` Configs)
 
 | Subtree | Files | Functions | Contents |
 | :--- | ---: | ---: | :--- |
@@ -28,16 +28,16 @@ Stage 4 bundles all `2,575 / 2,575` named/typed game functions ([functions_catal
 | `readable/include/` | `9` `.h` | — | `harvestmoonbtn_types.h`, `types/*.h` (`5`), `harvestmoonbtn_globals.h` (`3,497`), `harvestmoonbtn_functions.h`, `ghidra_compat.h` |
 | `readable/sdk/` | `129` `.c` | `1,253` | `sdk_01.c`..`sdk_129.c` (PS1 SDK routines in `SLUS_011.15` w/ Doxygen `@symbol`) |
 | `readable/src/<domain>/` | `52` `.c` | `428` | `7` resident domains (`audio_spu_vab`, `cd_afile_overlays`, `core_mainloop`, `input_memcard`, `npc_dialogue_events`, `render_gte_sprites`, `ui_inventory_hud`) |
-| `readable/overlays/<OVL>/` | `332` `.c` | `2,147` | `13` `OVL_part*_id*.EXE` folders (`OVL_part11_id06.EXE` alone = `225` `.c` files / `1,541` funcs) |
-| **Total Non-Cache Files** | **`526` (`513` `.c`)** | **`3,828 / 3,828`** | **`0` `_GHIDRA_CRAFT_RE`, `0` `FUN_80*`/`DAT_80*`/`param_*`, `0` `DECOMPILE FAILED`** |
+| `readable/overlays/<OVL>/` | `331` `.c` | `2,147` | `13` `OVL_part*_id*.EXE` folders (`OVL_part11_id06.EXE` = `224` `.c` files / `1,541` funcs) |
+| **Total Non-Cache Files** | **`525` (`512` `.c`)** | **`3,828 / 3,828`** | **`0` `_GHIDRA_CRAFT_RE` / strict-gate hits, `0` `FUN_80*`/`DAT_80*`/`arg_N`/`_80*`, `0` `DECOMPILE FAILED`** |
 
-### Resident Domains (`readable/src/`: `52` `.c`) & Overlays (`readable/overlays/`: `332` `.c`)
+### Resident Domains (`readable/src/`: `52` `.c`) & Overlays (`readable/overlays/`: `331` `.c`)
 
 | Resident Domain (`src/`) | Funcs | `.c` Files | Overlay Binary (Slot) | Funcs | `.c` Files |
 | :--- | ---: | ---: | :--- | ---: | ---: |
 | `audio_spu_vab` | `71` | `6` | `OVL_part08_id04.EXE` (Slot A — Kanji font test/viewer) | `5` | `1` |
 | `cd_afile_overlays` | `25` | `3` | `OVL_part10_id05.EXE` (Slot A — Debug & PocketStation menu) | `23` | `7` |
-| `core_mainloop` | `38` | `5` | `OVL_part11_id06.EXE` (Slot A — Core Farm Engine) | `1,541` | `225` |
+| `core_mainloop` | `38` | `5` | `OVL_part11_id06.EXE` (Slot A — Core Farm Engine) | `1,541` | `224` |
 | `input_memcard` | `20` | `3` | `OVL_part15_id10.EXE` (Slot B — Save/Load/Diary) | `138` | `26` |
 | `npc_dialogue_events` | `83` | `9` | `OVL_part17_id07.EXE` (Slot A — Swimming Festival) | `61` | `9` |
 | `render_gte_sprites` | `132` | `18` | `OVL_part19_id08.EXE` (Slot A — Chicken Sumo) | `76` | `11` |

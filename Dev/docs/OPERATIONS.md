@@ -50,11 +50,11 @@ python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track HarvestMoonBackToN
 python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track HarvestMoonBackToNature-PlayStation --tier S4 --no-clangd
 python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track HarvestMoonBackToNature-PlayStation --no-clangd
 ```
-- `craftsmanship_d4_normalizer.py` also supports `--dry-run` to preview changes without touching `Corpus/readable/`, and `--verify-clean` exits `0` only when all `513` `.c` files and `3` headers carry zero Ghidra artifacts.
+- `craftsmanship_d4_normalizer.py` also supports `--dry-run` to preview changes without touching `Corpus/readable/`, and `--verify-clean` exits `0` only when all `512` `.c` files and `3` headers carry zero Ghidra or strict `T5` craftsmanship artifacts.
 
 ## 3. Workspace & `clangd` Inspection
 - Open [HarvestMoonBackToNature-PlayStation.code-workspace](../HarvestMoonBackToNature-PlayStation.code-workspace) in VS Code (`python.defaultInterpreterPath: "python"`, relative sibling `../../Personal/R&D/Dev/tools/decomp/decomp_cli.py` tasks).
-- `Corpus/readable/compile_commands.json` configures `-target mipsel-unknown-none-elf -ffreestanding -std=gnu11` with `ghidra_compat.h` forced-included for `0`-error navigation across all `513` `.c` translation units (`129` `sdk`, `52` `src`, `332` `overlays`).
+- `Corpus/readable/compile_commands.json` configures `-target mipsel-unknown-none-elf -ffreestanding -std=gnu11` with `ghidra_compat.h` forced-included for `0`-error navigation across all `512` `.c` translation units (`129` `sdk`, `52` `src`, `331` `overlays`), formatted cleanly via `Dev/.clang-format` (`4`-space K&R).
 
 ## 4. Dual-Track Archival & Pre-Public Hygiene Scrub Runbook
 

@@ -8,7 +8,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Invokes pending one-shot VSync callback g_core_engine_state_vsync_cb, clears it, then triggers post-swap handlers FUN_80014b44 and FUN_8001b118."
+    "summary": "Invokes pending one-shot VSync callback g_core_engine_state_vsync_cb, clears it, then triggers post-swap handlers hm_cd_is_queue_busy and hm_gpu_swap_buffers_and_draw_ot."
   },
   {
     "program": "SLUS_011.15",
@@ -153,7 +153,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Copies 0x10000 or active context primitive buffer bytes from g_cd_main_copy_word into backup buffer g_gfx_disp_ctx_buf0_prim_buf_end when slot is zero."
+    "summary": "Copies 0x10000 or active context primitive buffer bytes from g_cd_main_copy_value into backup buffer g_gfx_disp_ctx_buf0_prim_buf_end when slot is zero."
   },
   {
     "program": "SLUS_011.15",
@@ -274,7 +274,7 @@
     ],
     "domain": "input_memcard",
     "wave": 0,
-    "summary": "Checks PadGetState == 6 on port 0x00 or 0x10 and aligns DualShock actuators using table g_io_pad_align_actuator_word."
+    "summary": "Checks PadGetState == 6 on port 0x00 or 0x10 and aligns DualShock actuators using table g_io_pad_align_actuator_value."
   },
   {
     "program": "SLUS_011.15",
@@ -544,25 +544,25 @@
     "program": "SLUS_011.15",
     "address": "0x80015880",
     "ghidra_name": "FUN_80015880",
-    "name": "gfx_sprite_set_hdr_noop",
+    "name": "gfx_sprite_set_header_and_ctx",
     "return_type": "void",
     "params": [
       {
-        "name": "sprite_ctx",
-        "type": "s32"
+        "name": "actor",
+        "type": "HmSpriteActor *"
       },
       {
-        "name": "arg1",
-        "type": "u32"
+        "name": "spr_hdr",
+        "type": "HmLzSpriteHeader *"
       },
       {
-        "name": "arg2",
+        "name": "user_ctx",
         "type": "u32"
       }
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "No-op stub left after removing sprite header configuration hook."
+    "summary": "Assigns compressed sprite header pointer spr_hdr and user context word user_ctx on HmSpriteActor."
   },
   {
     "program": "SLUS_011.15",
@@ -602,7 +602,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Clamps text color palette index to <= 6 and stores it into g_ui_dialogue_box_ctx_pad_0x0c."
+    "summary": "Clamps text color palette index to <= 6 and stores it into g_ui_dialogue_box_ctx_box_flags."
   },
   {
     "program": "SLUS_011.15",
@@ -613,7 +613,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Returns active text color palette index from g_ui_dialogue_box_ctx_pad_0x0c."
+    "summary": "Returns active text color palette index from g_ui_dialogue_box_ctx_box_flags."
   },
   {
     "program": "SLUS_011.15",
@@ -684,7 +684,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Returns currently cached portrait slot ID from g_ui_dialogue_box_ctx_pad_0x24."
+    "summary": "Returns currently cached portrait slot ID from g_ui_dialogue_box_ctx_held_item_state."
   },
   {
     "program": "SLUS_011.15",
@@ -700,7 +700,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Updates both g_ui_dialogue_box_ctx_pad_0x24 and g_ui_dialogue_box_ctx_pad_0x1c with the active dialogue portrait ID."
+    "summary": "Updates both g_ui_dialogue_box_ctx_held_item_state and g_ui_dialogue_box_ctx_pad_0x1c with the active dialogue portrait ID."
   },
   {
     "program": "SLUS_011.15",
@@ -742,7 +742,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Computes dialogue window text Y coordinate using g_ui_dialogue_box_ctx_pad_0x34_off_2, minus (12 + g_ui_text_margins_hud_box_counter_8005e2ba) if previous token was newline -2."
+    "summary": "Computes dialogue window text Y coordinate using g_ui_dialogue_box_ctx_pad_0x34_off_2, minus (12 + g_ui_text_margins_hud_box_counter_1) if previous token was newline -2."
   },
   {
     "program": "SLUS_011.15",
@@ -794,7 +794,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Emits a 12x12 font SPRT + DR_TPAGE packet using glyph UV lookup and CLUT table g_ui_emit_font_glyph_sprt_word, linking into ot_entry."
+    "summary": "Emits a 12x12 font SPRT + DR_TPAGE packet using glyph UV lookup and CLUT table g_ui_emit_font_glyph_sprt_value, linking into ot_entry."
   },
   {
     "program": "SLUS_011.15",
@@ -856,7 +856,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Maps 1-based choice index (1..4, else 0) through lookup table g_ui_hud_map_choice_result_word."
+    "summary": "Maps 1-based choice index (1..4, else 0) through lookup table g_ui_hud_map_choice_result_value."
   },
   {
     "program": "SLUS_011.15",
@@ -904,7 +904,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Translates an ASCII byte to an internal 16-bit font glyph token via character class table g_ui_hud_ascii_glyph_tok_byte and punctuation switch."
+    "summary": "Translates an ASCII byte to an internal 16-bit font glyph token via character class table g_ui_hud_ascii_glyph_tok_flag and punctuation switch."
   },
   {
     "program": "SLUS_011.15",
@@ -935,7 +935,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Resets active dialogue portrait globals g_ui_dialogue_box_ctx_choice_index, g_ui_dialogue_box_ctx_pad_0x1c to 0xFFFF and g_ui_dialogue_box_ctx_pad_0x24 to 0xFFFD."
+    "summary": "Resets active dialogue portrait globals g_ui_dialogue_box_ctx_choice_index, g_ui_dialogue_box_ctx_pad_0x1c to 0xFFFF and g_ui_dialogue_box_ctx_held_item_state to 0xFFFD."
   },
   {
     "program": "SLUS_011.15",
@@ -968,7 +968,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Iterates screen fade/filter slots in g_gfx_tick_screen_filter_slots_start_word and invokes active handlers via table g_rodata_spu_dispatch_tbl."
+    "summary": "Iterates screen fade/filter slots in g_gfx_tick_screen_filter_slots_start_value and invokes active handlers via table g_rodata_spu_dispatch_tbl."
   },
   {
     "program": "SLUS_011.15",
@@ -1004,7 +1004,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Clears filter slot entry g_gfx_tick_screen_filter_slots_start_word[slot] and resets auxiliary color flags g_gfx_tick_fade_wipe_slot_filter_byte_8005e8a6/g_gfx_tick_fade_wipe_slot_filter_byte_8005e8a7."
+    "summary": "Clears filter slot entry g_gfx_tick_screen_filter_slots_start_value[slot] and resets auxiliary color flags g_gfx_tick_fade_wipe_slot_filter_flag_1/g_gfx_tick_fade_wipe_slot_filter_flag_2."
   },
   {
     "program": "SLUS_011.15",
@@ -1155,7 +1155,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Tests world point offset from camera eye g_gfx_frustum_cull_point_planes_build_state_80061ec8 against six view frustum planes using GTE vector/matrix products."
+    "summary": "Tests world point offset from camera eye g_gfx_frustum_cull_point_planes_build_state_1 against six view frustum planes using GTE vector/matrix products."
   },
   {
     "program": "SLUS_011.15",
@@ -1227,7 +1227,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Builds 6 camera frustum clipping planes at g_gfx_frustum_cull_point_planes_build_half from eye and target vectors using GTE RotMatrix and CrossProduct12."
+    "summary": "Builds 6 camera frustum clipping planes at g_gfx_frustum_cull_point_planes_build_count from eye and target vectors using GTE RotMatrix and CrossProduct12."
   },
   {
     "program": "SLUS_011.15",
@@ -1441,7 +1441,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Tests whether active probe point g_gfx_floor_mesh_sample_height_v0_lut32_8005e518 lies inside 2D projected triangle (v0, v1, v2) and computes g_gfx_point_floor_tri_regs_state_8005e514."
+    "summary": "Tests whether active probe point g_gfx_floor_mesh_sample_height_v0_lut32_gte_camera lies inside 2D projected triangle (v0, v1, v2) and computes g_gfx_point_floor_tri_regs_state_2."
   },
   {
     "program": "SLUS_011.15",
@@ -1452,7 +1452,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Register-arg entry point for 2D floor triangle point-in-triangle test against g_gfx_point_floor_tri_regs_const_8005e500..50c."
+    "summary": "Register-arg entry point for 2D floor triangle point-in-triangle test against g_gfx_point_floor_tri_regs_const_1..50c."
   },
   {
     "program": "SLUS_011.15",
@@ -1476,7 +1476,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Updates sub-camera rotation angles g_gfx_subcam_defaults_angles_compute_state_8005e2f8..300 and marks g_gfx_subcam_defaults_angles_apply_half dirty when any angle changed."
+    "summary": "Updates sub-camera rotation angles g_gfx_subcam_defaults_angles_compute_state_heading..300 and marks g_gfx_subcam_defaults_angles_apply_count dirty when any angle changed."
   },
   {
     "program": "SLUS_011.15",
@@ -1578,7 +1578,7 @@
     "params": [],
     "domain": "audio_spu_vab",
     "wave": 0,
-    "summary": "Initializes master audio volume fade state g_audio_spu_master_fade_word..1c to full 0x7f0000 fixed-point volume."
+    "summary": "Initializes master audio volume fade state g_audio_spu_master_fade_value..1c to full 0x7f0000 fixed-point volume."
   },
   {
     "program": "SLUS_011.15",
@@ -1589,7 +1589,7 @@
     "params": [],
     "domain": "audio_spu_vab",
     "wave": 0,
-    "summary": "Advances fixed-point master volume ramp g_audio_spu_master_fade_tick_state_80061f10 by step g_audio_spu_master_fade_tick_start_state, clamps [0..0x7f0000], and calls SsSetMVol."
+    "summary": "Advances fixed-point master volume ramp g_audio_spu_master_fade_tick_state_1 by step g_audio_spu_master_fade_tick_start_state, clamps [0..0x7f0000], and calls SsSetMVol."
   },
   {
     "program": "SLUS_011.15",
@@ -1605,7 +1605,7 @@
     ],
     "domain": "audio_spu_vab",
     "wave": 0,
-    "summary": "Computes master audio fade increment g_audio_spu_master_fade_start_state / frames into g_audio_spu_master_fade_tick_start_state and activates fade g_audio_spu_master_fade_tick_state_80061f0c."
+    "summary": "Computes master audio fade increment g_audio_spu_master_fade_start_state / frames into g_audio_spu_master_fade_tick_start_state and activates fade g_audio_spu_master_fade_tick_state_seq_start."
   },
   {
     "program": "SLUS_011.15",
@@ -1616,7 +1616,7 @@
     "params": [],
     "domain": "audio_spu_vab",
     "wave": 0,
-    "summary": "Zeros 24-entry audio bank state table ending at g_audio_spu_clear_vab_slot_word."
+    "summary": "Zeros 24-entry audio bank state table ending at g_audio_spu_clear_vab_slot_value."
   },
   {
     "program": "SLUS_011.15",
@@ -1627,7 +1627,7 @@
     "params": [],
     "domain": "audio_spu_vab",
     "wave": 0,
-    "summary": "Resets VAB transfer queue slots g_audio_spu_seq_vab_slots_free_state_8005e540..560 and SEQ handle/status arrays g_audio_spu_seq_vab_slots_play_word_8006bfc8..c088."
+    "summary": "Resets VAB transfer queue slots g_audio_spu_seq_vab_slots_free_state_tick_async..560 and SEQ handle/status arrays g_audio_spu_seq_vab_slots_play_value_slot_volume..c088."
   },
   {
     "program": "SLUS_011.15",
@@ -1647,7 +1647,7 @@
     ],
     "domain": "audio_spu_vab",
     "wave": 0,
-    "summary": "Stops active sequences if needed, sets transfer mode g_audio_spu_open_vab_header_reopen_state_8005e544=0x1010, and records VH/VB buffers g_audio_spu_open_vab_header_reopen_state_8005e548."
+    "summary": "Stops active sequences if needed, sets transfer mode g_audio_spu_open_vab_header_reopen_state_slot_free=0x1010, and records VH/VB buffers g_audio_spu_open_vab_header_reopen_state_1."
   },
   {
     "program": "SLUS_011.15",
@@ -1663,7 +1663,7 @@
     ],
     "domain": "audio_spu_vab",
     "wave": 0,
-    "summary": "Queues a VAB bank ID (shifted << 1) into g_audio_spu_seq_vab_slots_enqueue_word_8006bf48 at queue tail g_audio_spu_seq_vab_slots_enqueue_state."
+    "summary": "Queues a VAB bank ID (shifted << 1) into g_audio_spu_seq_vab_slots_enqueue_value_slot_slot at queue tail g_audio_spu_seq_vab_slots_enqueue_state."
   },
   {
     "program": "SLUS_011.15",
@@ -1683,7 +1683,7 @@
     ],
     "domain": "audio_spu_vab",
     "wave": 0,
-    "summary": "Queues VAB ID (<< 1) plus flag=1 and extra payload into g_audio_spu_seq_vab_slots_enqueue_word_8006bf48/68/88 queue arrays."
+    "summary": "Queues VAB ID (<< 1) plus flag=1 and extra payload into g_audio_spu_seq_vab_slots_enqueue_value_slot_slot/68/88 queue arrays."
   },
   {
     "program": "SLUS_011.15",
@@ -1743,7 +1743,7 @@
     ],
     "domain": "audio_spu_vab",
     "wave": 0,
-    "summary": "Calls SsSeqSetVol with symmetric (vol, vol) when sequence slot status in g_audio_spu_seq_vab_slots_play_word_8006c088 equals 0 (playing)."
+    "summary": "Calls SsSeqSetVol with symmetric (vol, vol) when sequence slot status in g_audio_spu_seq_vab_slots_play_value_1 equals 0 (playing)."
   },
   {
     "program": "SLUS_011.15",
@@ -1811,7 +1811,7 @@
     ],
     "domain": "audio_spu_vab",
     "wave": 0,
-    "summary": "Stops an open sequence handle in g_audio_spu_seq_vab_slots_play_word_8006bfc8 via SsSeqStop and sets status g_audio_spu_seq_vab_slots_play_word_8006c088 to -1."
+    "summary": "Stops an open sequence handle in g_audio_spu_seq_vab_slots_play_value_slot_volume via SsSeqStop and sets status g_audio_spu_seq_vab_slots_play_value_1 to -1."
   },
   {
     "program": "SLUS_011.15",
@@ -1831,7 +1831,7 @@
     ],
     "domain": "audio_spu_vab",
     "wave": 0,
-    "summary": "Pauses playing sequence handle via SsSeqPause and updates slot status g_audio_spu_seq_vab_slots_play_word_8006c088 to 1."
+    "summary": "Pauses playing sequence handle via SsSeqPause and updates slot status g_audio_spu_seq_vab_slots_play_value_1 to 1."
   },
   {
     "program": "SLUS_011.15",
@@ -1851,7 +1851,7 @@
     ],
     "domain": "audio_spu_vab",
     "wave": 0,
-    "summary": "Resumes paused sequence handle via SsSeqReplay and restores slot status g_audio_spu_seq_vab_slots_play_word_8006c088 to 0."
+    "summary": "Resumes paused sequence handle via SsSeqReplay and restores slot status g_audio_spu_seq_vab_slots_play_value_1 to 0."
   },
   {
     "program": "SLUS_011.15",
@@ -1895,7 +1895,7 @@
     ],
     "domain": "audio_spu_vab",
     "wave": 0,
-    "summary": "Loads tone/note/pan parameters from SFX table g_audio_spu_trigger_sfx_preset_voice_half_800495d0 (stride 0xe) and triggers playback via SsUtKeyOn/SsUtSetVVol."
+    "summary": "Loads tone/note/pan parameters from SFX table g_audio_spu_trigger_sfx_preset_voice_count_1 (stride 0xe) and triggers playback via SsUtKeyOn/SsUtSetVVol."
   },
   {
     "program": "SLUS_011.15",
@@ -1931,7 +1931,7 @@
     ],
     "domain": "audio_spu_vab",
     "wave": 0,
-    "summary": "Reads tone preset from g_audio_spu_trigger_sfx_preset_voice_half_800495d0 and triggers playback explicitly on hardware voice voice_id via SsUtKeyOnV."
+    "summary": "Reads tone preset from g_audio_spu_trigger_sfx_preset_voice_count_1 and triggers playback explicitly on hardware voice voice_id via SsUtKeyOnV."
   },
   {
     "program": "SLUS_011.15",
@@ -2086,7 +2086,7 @@
     "params": [],
     "domain": "audio_spu_vab",
     "wave": 0,
-    "summary": "Returns currently active VAB queue entry from g_audio_spu_seq_vab_slots_enqueue_word_8006bf48[g_audio_spu_seq_vab_slots_free_state_8005e554]."
+    "summary": "Returns currently active VAB queue entry from g_audio_spu_seq_vab_slots_enqueue_value_slot_slot[g_audio_spu_seq_vab_slots_free_state_active_slot]."
   },
   {
     "program": "SLUS_011.15",
@@ -2102,7 +2102,7 @@
     ],
     "domain": "audio_spu_vab",
     "wave": 0,
-    "summary": "Queries SpuGetAllKeysStatus and resets/keys off voice_id slot in g_audio_spu_seq_vab_slots_trigger_word_8006c0c8/g_audio_spu_seq_vab_slots_trigger_word_8006c128 if stopped."
+    "summary": "Queries SpuGetAllKeysStatus and resets/keys off voice_id slot in g_audio_spu_seq_vab_slots_trigger_value_voice_voice/g_audio_spu_seq_vab_slots_trigger_value_1 if stopped."
   },
   {
     "program": "SLUS_011.15",
@@ -2142,7 +2142,7 @@
     ],
     "domain": "audio_spu_vab",
     "wave": 0,
-    "summary": "Initializes SPU stream transfer destination g_audio_spu_start_stream_transfer_tick_state_8006c7d0, byte size g_audio_spu_start_stream_transfer_tick_cfg from g_audio_spu_tick_vab_async_prepare_table, and sector count g_audio_spu_start_stream_transfer_tick_state_8006c7c4."
+    "summary": "Initializes SPU stream transfer destination g_audio_spu_start_stream_transfer_tick_state_2, byte size g_audio_spu_start_stream_transfer_tick_cfg from g_audio_spu_tick_vab_async_prepare_table, and sector count g_audio_spu_start_stream_transfer_tick_state_dma_chunk."
   },
   {
     "program": "SLUS_011.15",
@@ -2190,7 +2190,7 @@
     ],
     "domain": "audio_spu_vab",
     "wave": 0,
-    "summary": "Scans g_audio_spu_seq_vab_slots_trigger_word_8006c0c8/g_audio_spu_seq_vab_slots_trigger_word_8006c128 across [min_voice..max_voice] to select the best free or oldest SPU voice."
+    "summary": "Scans g_audio_spu_seq_vab_slots_trigger_value_voice_voice/g_audio_spu_seq_vab_slots_trigger_value_1 across [min_voice..max_voice] to select the best free or oldest SPU voice."
   },
   {
     "program": "SLUS_011.15",
@@ -2288,7 +2288,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Returns portrait buffer pointer g_npc_entity_model_pack_livestock_dlg_word if portrait DMA flag g_core_evt_portrait_buf_if_clear_flag is zero, else NULL."
+    "summary": "Returns portrait buffer pointer g_npc_entity_model_pack_livestock_dlg_value if portrait DMA flag g_core_evt_portrait_buf_if_clear_flag is zero, else NULL."
   },
   {
     "program": "SLUS_011.15",
@@ -2368,7 +2368,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Maps dialogue style index g_npc_dialogue_window_state_evt_state_8005e5ac (< 5, else 0) through g_npc_evt_dialog_speaker_style_word to return window style ID."
+    "summary": "Maps dialogue style index g_npc_dialogue_window_state_evt_state_dialog_speaker (< 5, else 0) through g_npc_evt_dialog_speaker_style_value to return window style ID."
   },
   {
     "program": "SLUS_011.15",
@@ -2384,7 +2384,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Reads NPC affection score from g_npc_actor0_affection (stride 0x1d4) via table g_npc_evt_affection_tier_word and returns tier 0..3."
+    "summary": "Reads NPC affection score from g_npc_actor0_affection (stride 0x1d4) via table g_npc_evt_affection_tier_value and returns tier 0..3."
   },
   {
     "program": "SLUS_011.15",
@@ -2406,7 +2406,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Resets player/farm naming screen state globals g_npc_evt_naming_state_open_screen_state_8005e344..35c to initial values."
+    "summary": "Resets player/farm naming screen state globals g_npc_evt_naming_state_open_screen_state_kana_alnum..35c to initial values."
   },
   {
     "program": "SLUS_011.15",
@@ -2439,7 +2439,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Clears prompt cursor state, advances g_core_vblank_frame_flag to 3 (closing), and notifies FUN_80022738."
+    "summary": "Clears prompt cursor state, advances g_core_vblank_frame_flag to 3 (closing), and notifies evt_res_commit_dialog_close."
   },
   {
     "program": "SLUS_011.15",
@@ -2482,7 +2482,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Converts active naming buffer g_npc_evt_open_naming_screen_alnum_state into bordered glyph string in out_tokens using table g_npc_evt_format_naming_kana_half."
+    "summary": "Converts active naming buffer g_npc_evt_open_naming_screen_alnum_state into bordered glyph string in out_tokens using table g_npc_evt_format_naming_kana_count."
   },
   {
     "program": "SLUS_011.15",
@@ -2549,7 +2549,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Maps naming grid index cell_idx (% 0xe) to pixel coordinates and draws the cursor via FUN_800248b0."
+    "summary": "Maps naming grid index cell_idx (% 0xe) to pixel coordinates and draws the cursor via evt_res_draw_cursor_hand."
   },
   {
     "program": "SLUS_011.15",
@@ -2888,7 +2888,7 @@
     "params": [],
     "domain": "cd_afile_overlays",
     "wave": 0,
-    "summary": "PS1 SDK CD result buffer pointer getter returning &g_sdk_cw_result_word."
+    "summary": "PS1 SDK CD result buffer pointer getter returning &g_sdk_cw_result_value."
   },
   {
     "program": "SLUS_011.15",
@@ -3293,7 +3293,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 1,
-    "summary": "Initializes frame pacing globals g_core_wait_vsync_sync_debug_display_state_8005e294, g_core_wait_vsync_sync_debug_display_counter_8005e3ce (clamped <= 0x1f), g_core_wait_vsync_sync_display_state, and resets draw/sync flags."
+    "summary": "Initializes frame pacing globals g_core_wait_vsync_sync_debug_display_state_glyph_timing, g_core_wait_vsync_sync_debug_display_counter_1 (clamped <= 0x1f), g_core_wait_vsync_sync_display_state, and resets draw/sync flags."
   },
   {
     "program": "SLUS_011.15",
@@ -3309,7 +3309,7 @@
     ],
     "domain": "input_memcard",
     "wave": 1,
-    "summary": "Reads DualShock stick axis byte from pad buffer g_io_memcard_dispatch_pad_analog_byte (stride 0x22) and normalizes digital/analog deadzone."
+    "summary": "Reads DualShock stick axis byte from pad buffer g_io_memcard_dispatch_pad_analog_flag (stride 0x22) and normalizes digital/analog deadzone."
   },
   {
     "program": "SLUS_011.15",
@@ -3325,7 +3325,7 @@
     ],
     "domain": "input_memcard",
     "wave": 1,
-    "summary": "Returns -1 for non-DualShock pads or calls pad_calc_analog_magnitude on DualShock analog bytes in g_io_memcard_dispatch_pad_analog_byte."
+    "summary": "Returns -1 for non-DualShock pads or calls pad_calc_analog_magnitude on DualShock analog bytes in g_io_memcard_dispatch_pad_analog_flag."
   },
   {
     "program": "SLUS_011.15",
@@ -3408,7 +3408,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Register-forwarding wrapper invoking core sprite frame submission routine FUN_80016280."
+    "summary": "Register-forwarding wrapper invoking core sprite frame submission routine hm_sprite_build_sprt_packet."
   },
   {
     "program": "SLUS_011.15",
@@ -3419,7 +3419,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Register-forwarding wrapper invoking layered sprite draw routine FUN_800165d8."
+    "summary": "Register-forwarding wrapper invoking layered sprite draw routine hm_sprite_build_poly_ft4_packet."
   },
   {
     "program": "SLUS_011.15",
@@ -3430,7 +3430,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Captures caller return address into g_ovl15_diary_serialize_save_payload_deserialize_state_8006c84c and forwards to layered sprite draw routine FUN_800165d8."
+    "summary": "Captures caller return address into g_ovl15_diary_serialize_save_payload_deserialize_state_sprite_retaddr and forwards to layered sprite draw routine hm_sprite_build_poly_ft4_packet."
   },
   {
     "program": "SLUS_011.15",
@@ -3446,7 +3446,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Calls sprite actor command FUN_80017300 with op=1 and zero bounds to reset/release actor slot."
+    "summary": "Calls sprite actor command hm_vram_unpack_0x0d_lz_rle with op=1 and zero bounds to reset/release actor slot."
   },
   {
     "program": "SLUS_011.15",
@@ -3478,7 +3478,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Calls FUN_80017300 with op=0 to initialize a world/screen sprite actor at (x,y,z)."
+    "summary": "Calls hm_vram_unpack_0x0d_lz_rle with op=0 to initialize a world/screen sprite actor at (x,y,z)."
   },
   {
     "program": "SLUS_011.15",
@@ -3510,7 +3510,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Calls FUN_80017300 with op=2 to update sprite actor coordinates and flags."
+    "summary": "Calls hm_vram_unpack_0x0d_lz_rle with op=2 to update sprite actor coordinates and flags."
   },
   {
     "program": "SLUS_011.15",
@@ -3521,7 +3521,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Tail-calls hud_res_clear_text_ptr (FUN_80018b8c) to clear active dialogue token pointer."
+    "summary": "Tail-calls hud_res_clear_text_ptr (hud_res_clear_text_ptr) to clear active dialogue token pointer."
   },
   {
     "program": "SLUS_011.15",
@@ -3532,7 +3532,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Tail-calls hud_res_get_dialog_line_y (FUN_80019030) to compute line Y offset."
+    "summary": "Tail-calls hud_res_get_dialog_line_y (hud_res_get_dialog_line_y) to compute line Y offset."
   },
   {
     "program": "SLUS_011.15",
@@ -3580,7 +3580,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Calls FUN_8001a970(macro_id, tokens, entry_idx - 1) and skips 0x0ffd terminator padding if present."
+    "summary": "Calls hm_text_fetch_script_entry(macro_id, tokens, entry_idx - 1) and skips 0x0ffd terminator padding if present."
   },
   {
     "program": "SLUS_011.15",
@@ -3591,7 +3591,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Scans festival/flag bitfields g_core_player_state_state_0x8c_idx2 and g_core_player_state_state_0x70_idx10 using sys_int_pow(2, g_player_equipped_tool + 1) to select active entry."
+    "summary": "Scans festival/flag bitfields g_core_player_state_mount_and_interact_vars_idx2 and g_core_player_state_action_sub_vars_idx10 using sys_int_pow(2, g_player_equipped_tool + 1) to select active entry."
   },
   {
     "program": "SLUS_011.15",
@@ -3611,7 +3611,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Starts screen fade/wipe slot g_gfx_tick_screen_filter_slots_start_word[slot] with effect_type when g_core_engine_flags0 bit 0x10000 is clear and pad IO is ready."
+    "summary": "Starts screen fade/wipe slot g_gfx_tick_screen_filter_slots_start_value[slot] with effect_type when g_core_engine_flags0 bit 0x10000 is clear and pad IO is ready."
   },
   {
     "program": "SLUS_011.15",
@@ -3622,7 +3622,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Wrapper calling gfx_reset_filter_slot (FUN_8001b4e4) on default filter slot."
+    "summary": "Wrapper calling gfx_reset_filter_slot (gfx_reset_filter_slot) on default filter slot."
   },
   {
     "program": "SLUS_011.15",
@@ -3669,7 +3669,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Packs 3-axis coords from pos32[0,2,4] into a local SVECTOR and projects via FUN_8001dfd4."
+    "summary": "Packs 3-axis coords from pos32[0,2,4] into a local SVECTOR and projects via hm_gte_project_svector_to_ot."
   },
   {
     "program": "SLUS_011.15",
@@ -3728,7 +3728,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Sets initial sub-camera angles (800,600,0) via gfx_set_subcam_angles and resets g_gfx_subcam_defaults_word_8005e308..314."
+    "summary": "Sets initial sub-camera angles (800,600,0) via gfx_set_subcam_angles and resets g_gfx_subcam_defaults_value_4..314."
   },
   {
     "program": "SLUS_011.15",
@@ -3768,7 +3768,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "When g_gfx_subcam_defaults_apply_flag equals 2 and delta is non-zero, copies sub-camera offset via gfx_vec3_copy(&g_gfx_apply_subcam_offset_word)."
+    "summary": "When g_gfx_subcam_defaults_apply_flag equals 2 and delta is non-zero, copies sub-camera offset via gfx_vec3_copy(&g_gfx_apply_subcam_offset_value)."
   },
   {
     "program": "SLUS_011.15",
@@ -3784,7 +3784,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Copies active sub-camera origin vector from g_gfx_subcam_defaults_compute_copy_word into out_pos via gfx_vec3_copy."
+    "summary": "Copies active sub-camera origin vector from g_gfx_subcam_defaults_compute_copy_value into out_pos via gfx_vec3_copy."
   },
   {
     "program": "SLUS_011.15",
@@ -3871,7 +3871,7 @@
     "params": [],
     "domain": "audio_spu_vab",
     "wave": 1,
-    "summary": "Calls spu_check_voice_active (FUN_80021484) to verify and stop idle hardware voice slot."
+    "summary": "Calls spu_check_voice_active (spu_check_voice_active) to verify and stop idle hardware voice slot."
   },
   {
     "program": "SLUS_011.15",
@@ -3909,7 +3909,7 @@
     "params": [],
     "domain": "audio_spu_vab",
     "wave": 1,
-    "summary": "Initializes PS1 SDK SPU/SEQ tables (6x1 at g_cd_spu_driver_word_8006c398), tick mode 1, reserves 22 voices, and resets audio state."
+    "summary": "Initializes PS1 SDK SPU/SEQ tables (6x1 at g_cd_spu_driver_value_2), tick mode 1, reserves 22 voices, and resets audio state."
   },
   {
     "program": "SLUS_011.15",
@@ -3997,7 +3997,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Unlocks HUD/pad input flags (FUN_80017b18(1), g_npc_evt_dialog_fade_flag_tick_state=1) and advances dialog box state g_core_submode_state from 4 to 5."
+    "summary": "Unlocks HUD/pad input flags (hm_text_set_render_mode(1), g_npc_evt_dialog_fade_flag_tick_state=1) and advances dialog box state g_core_submode_state from 4 to 5."
   },
   {
     "program": "SLUS_011.15",
@@ -4008,7 +4008,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Restores pad mask g_npc_evt_restore_dialog_pad_const via FUN_8001af70(3, ...) and syncs bit 0x08000000 of g_core_engine_flags0 from g_npc_evt_dialog_box_idle_suspend_state."
+    "summary": "Restores pad mask g_npc_evt_restore_dialog_pad_const via hm_event_flag_set(3, ...) and syncs bit 0x08000000 of g_core_engine_flags0 from g_npc_evt_dialog_box_idle_suspend_state."
   },
   {
     "program": "SLUS_011.15",
@@ -4056,7 +4056,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Initializes naming screen targeting target_buf in alphanumeric mode (g_npc_evt_naming_state_open_screen_state_8005e348=0, g_npc_evt_naming_state_open_screen_state_8005e344=1)."
+    "summary": "Initializes naming screen targeting target_buf in alphanumeric mode (g_npc_evt_naming_state_open_screen_state_1=0, g_npc_evt_naming_state_open_screen_state_kana_alnum=1)."
   },
   {
     "program": "SLUS_011.15",
@@ -4072,7 +4072,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Initializes naming screen targeting target_buf in default mode (g_npc_evt_naming_state_open_screen_state_8005e348=1, g_npc_evt_naming_state_open_screen_state_8005e344=1)."
+    "summary": "Initializes naming screen targeting target_buf in default mode (g_npc_evt_naming_state_open_screen_state_1=1, g_npc_evt_naming_state_open_screen_state_kana_alnum=1)."
   },
   {
     "program": "SLUS_011.15",
@@ -4107,7 +4107,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "PS1 SDK wrapper invoking gfx_sdk_set_geom_screen (FUN_800379b4)."
+    "summary": "PS1 SDK wrapper invoking gfx_sdk_set_geom_screen (gfx_sdk_set_geom_screen)."
   },
   {
     "program": "SLUS_011.15",
@@ -4118,7 +4118,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "PS1 SDK GsInit3D/geometry setup calling InitGeom, SetFarColor(0,0,0), SetGeomOffset(0,0), and zeroing g_sdk_gs_buff_offset_geom_half_800a3f9c/9e."
+    "summary": "PS1 SDK GsInit3D/geometry setup calling InitGeom, SetFarColor(0,0,0), SetGeomOffset(0,0), and zeroing g_sdk_gs_buff_offset_geom_count_defaults/9e."
   },
   {
     "program": "SLUS_011.15",
@@ -4129,7 +4129,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 1,
-    "summary": "Enters critical section, patches BIOS vector entries from g_core_patch_bios_table_word_8003ef04, and flushes instruction/data cache via FlushCache."
+    "summary": "Enters critical section, patches BIOS vector entries from g_core_patch_bios_table_value_1, and flushes instruction/data cache via FlushCache."
   },
   {
     "program": "SLUS_011.15",
@@ -4161,7 +4161,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Allocates 0xc bytes from frame primitive pool FUN_80011f5c and emits a 1x1 TILE_1 primitive into ot_entry."
+    "summary": "Allocates 0xc bytes from frame primitive pool hm_clamp_fade_level and emits a 1x1 TILE_1 primitive into ot_entry."
   },
   {
     "program": "SLUS_011.15",
@@ -4201,7 +4201,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Allocates 0x10 bytes from FUN_80011f5c and emits a LINE_F2 primitive into ot_entry."
+    "summary": "Allocates 0x10 bytes from hm_clamp_fade_level and emits a LINE_F2 primitive into ot_entry."
   },
   {
     "program": "SLUS_011.15",
@@ -4253,7 +4253,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Allocates primitive storage via FUN_80011f5c and emits a 4-color Gouraud POLY_G4 rectangle into ot_entry."
+    "summary": "Allocates primitive storage via hm_clamp_fade_level and emits a 4-color Gouraud POLY_G4 rectangle into ot_entry."
   },
   {
     "program": "SLUS_011.15",
@@ -4293,7 +4293,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Allocates 0x18 bytes from FUN_80011f5c and emits a flat POLY_F4 rectangle into ot_entry."
+    "summary": "Allocates 0x18 bytes from hm_clamp_fade_level and emits a flat POLY_F4 rectangle into ot_entry."
   },
   {
     "program": "SLUS_011.15",
@@ -4337,7 +4337,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Allocates primitive buffer, builds POLY_F4 + DR_TPAGE via gfx_emit_poly_f4_with_tpage, and advances pool via FUN_80011fd8."
+    "summary": "Allocates primitive buffer, builds POLY_F4 + DR_TPAGE via gfx_emit_poly_f4_with_tpage, and advances pool via hm_step_screen_fade."
   },
   {
     "program": "SLUS_011.15",
@@ -4369,7 +4369,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Draws sprite actor current cel (+4) at (x,y) via gfx_sprite_draw_layer_wrapper and ticks actor animation via FUN_800158e4."
+    "summary": "Draws sprite actor current cel (+4) at (x,y) via gfx_sprite_draw_layer_wrapper and ticks actor animation via hm_sprite_step_0x0e_frame."
   },
   {
     "program": "SLUS_011.15",
@@ -4433,7 +4433,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Allocates GPU packet memory, submits transformed/colored sprite quad via FUN_800165d8, and commits pool pointer via FUN_80011fd8."
+    "summary": "Allocates GPU packet memory, submits transformed/colored sprite quad via hm_sprite_build_poly_ft4_packet, and commits pool pointer via hm_step_screen_fade."
   },
   {
     "program": "SLUS_011.15",
@@ -4481,7 +4481,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Submits uncolored sprite cel via FUN_800165d8 with default RGB (-1) and advances primitive pool via FUN_80011fd8."
+    "summary": "Submits uncolored sprite cel via hm_sprite_build_poly_ft4_packet with default RGB (-1) and advances primitive pool via hm_step_screen_fade."
   },
   {
     "program": "SLUS_011.15",
@@ -4513,7 +4513,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Resolves sprite part index via gfx_sprite_lookup_part_idx and emits its primitive via FUN_8001782c."
+    "summary": "Resolves sprite part index via gfx_sprite_lookup_part_idx and emits its primitive via hm_vram_upload_tim_chunk."
   },
   {
     "program": "SLUS_011.15",
@@ -4549,7 +4549,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Resolves cel ID and part index via gfx_sprite_lookup_cel_id/part_idx and draws into active frame via FUN_8001782c."
+    "summary": "Resolves cel ID and part index via gfx_sprite_lookup_cel_id/part_idx and draws into active frame via hm_vram_upload_tim_chunk."
   },
   {
     "program": "SLUS_011.15",
@@ -4577,7 +4577,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 2,
-    "summary": "Allocates 0x14 + 8 bytes from FUN_80011f5c and links a text cursor sprite/glyph packet when glyph_id != -1."
+    "summary": "Allocates 0x14 + 8 bytes from hm_clamp_fade_level and links a text cursor sprite/glyph packet when glyph_id != -1."
   },
   {
     "program": "SLUS_011.15",
@@ -4593,7 +4593,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 2,
-    "summary": "Releases active portrait VRAM/sprite allocation via FUN_8001719c and evt_res_clear_portrait_busy when slot changes."
+    "summary": "Releases active portrait VRAM/sprite allocation via hm_vram_unpack_0x0d_pack_auto and evt_res_clear_portrait_busy when slot changes."
   },
   {
     "program": "SLUS_011.15",
@@ -4613,7 +4613,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 2,
-    "summary": "Acquires portrait DMA buffer via evt_res_get_portrait_buf_if_idle and loads portrait AFILE entry via FUN_80014cbc."
+    "summary": "Acquires portrait DMA buffer via evt_res_get_portrait_buf_if_idle and loads portrait AFILE entry via hm_afile_read_or_load_overlay."
   },
   {
     "program": "SLUS_011.15",
@@ -4629,7 +4629,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 2,
-    "summary": "Appends name tokens into g_ui_font_lookup_kanji_glyph_hud_word from item/recipe array g_anim_livestock_barn_tbl (0x14 entries) where flag 0x10000 is clear."
+    "summary": "Appends name tokens into g_ui_font_lookup_kanji_glyph_hud_value from item/recipe array g_anim_livestock_barn_tbl (0x14 entries) where flag 0x10000 is clear."
   },
   {
     "program": "SLUS_011.15",
@@ -4645,7 +4645,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 2,
-    "summary": "Appends name tokens into g_ui_font_lookup_kanji_glyph_hud_word from item/recipe array g_anim_livestock_barn_tbl (0x14 entries) where flag 0x10000 is set."
+    "summary": "Appends name tokens into g_ui_font_lookup_kanji_glyph_hud_value from item/recipe array g_anim_livestock_barn_tbl (0x14 entries) where flag 0x10000 is set."
   },
   {
     "program": "SLUS_011.15",
@@ -4661,7 +4661,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 2,
-    "summary": "Appends name tokens into g_ui_font_lookup_kanji_glyph_hud_word from 10-entry tool/crop table g_anim_chicken_coop_tbl via hud_res_append_record_name."
+    "summary": "Appends name tokens into g_ui_font_lookup_kanji_glyph_hud_value from 10-entry tool/crop table g_anim_chicken_coop_tbl via hud_res_append_record_name."
   },
   {
     "program": "SLUS_011.15",
@@ -4681,7 +4681,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Transforms vertices with GTE, checks culling/bounds, and links primitive into ordering table via FUN_8001e0b8."
+    "summary": "Transforms vertices with GTE, checks culling/bounds, and links primitive into ordering table via gfx_clamp_ot_index_stub."
   },
   {
     "program": "SLUS_011.15",
@@ -4701,7 +4701,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Transforms quad/tri vertices through GTE, tests bounds via FUN_8001dca8, and submits packet into active OT via FUN_8001e0b8."
+    "summary": "Transforms quad/tri vertices through GTE, tests bounds via gfx_prim_cull_stub_zero, and submits packet into active OT via gfx_clamp_ot_index_stub."
   },
   {
     "program": "SLUS_011.15",
@@ -4796,7 +4796,7 @@
     ],
     "domain": "audio_spu_vab",
     "wave": 2,
-    "summary": "Stops active audio if needed via spu_shutdown_audio, sets g_audio_spu_open_vab_header_reopen_state_8005e544=0x1010, and records new VH/VB buffers."
+    "summary": "Stops active audio if needed via spu_shutdown_audio, sets g_audio_spu_open_vab_header_reopen_state_slot_free=0x1010, and records new VH/VB buffers."
   },
   {
     "program": "SLUS_011.15",
@@ -4823,7 +4823,7 @@
     "params": [],
     "domain": "audio_spu_vab",
     "wave": 2,
-    "summary": "Advances asynchronous CD-to-SPU DMA stream transfer across 0x800-byte/sector chunks using FUN_80014988 and SpuWrite."
+    "summary": "Advances asynchronous CD-to-SPU DMA stream transfer across 0x800-byte/sector chunks using hm_cd_enqueue_async_read and SpuWrite."
   },
   {
     "program": "SLUS_011.15",
@@ -4838,12 +4838,12 @@
       },
       {
         "name": "draw_fn",
-        "type": "code *"
+        "type": "s32 (*)()"
       }
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Iterates tile grid descriptors at g_gfx_sprite_ot_ctx/g_npc_weather_particles_interact_swimmer_word and invokes draw_fn per active dialogue/UI tile."
+    "summary": "Iterates tile grid descriptors at g_gfx_sprite_ot_ctx/g_npc_weather_particles_interact_swimmer_value and invokes draw_fn per active dialogue/UI tile."
   },
   {
     "program": "SLUS_011.15",
@@ -4875,7 +4875,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Draws a 9-slice dialogue window border sprite tile at bank 0x1d into the active OT slot via FUN_80015e3c."
+    "summary": "Draws a 9-slice dialogue window border sprite tile at bank 0x1d into the active OT slot via gfx_sprite_draw_frame_wrapper."
   },
   {
     "program": "SLUS_011.15",
@@ -4913,7 +4913,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "If portrait_req[0] != -1, releases previous portrait allocation via FUN_8001719c and updates loaded portrait ID."
+    "summary": "If portrait_req[0] != -1, releases previous portrait allocation via hm_vram_unpack_0x0d_pack_auto and updates loaded portrait ID."
   },
   {
     "program": "SLUS_011.15",
@@ -4963,7 +4963,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 3,
-    "summary": "Draws sprite actor active animation/cel at (x,y) via FUN_80015ee8 and advances animation timer via FUN_800158e4."
+    "summary": "Draws sprite actor active animation/cel at (x,y) via hm_sprite_submit_0x0e_quad and advances animation timer via hm_sprite_step_0x0e_frame."
   },
   {
     "program": "SLUS_011.15",
@@ -5003,7 +5003,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 3,
-    "summary": "Draws scaled/tinted sprite actor frame via FUN_80015f80 and updates actor animation state via FUN_800158e4."
+    "summary": "Draws scaled/tinted sprite actor frame via hm_sprite_submit_scaled_rot and updates actor animation state via hm_sprite_step_0x0e_frame."
   },
   {
     "program": "SLUS_011.15",
@@ -5087,7 +5087,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 3,
-    "summary": "Counts glyphs and measures pixel line width up to stop_tok or max_glyphs, expanding embedded macros via FUN_8001a284."
+    "summary": "Counts glyphs and measures pixel line width up to stop_tok or max_glyphs, expanding embedded macros via hm_font_lookup_kanji_glyph."
   },
   {
     "program": "SLUS_011.15",
@@ -5111,7 +5111,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 3,
-    "summary": "Walks a glyph token string up to stop_tok or 0xFFFF, recursively counting expanded macro tokens via FUN_8001a284."
+    "summary": "Walks a glyph token string up to stop_tok or 0xFFFF, recursively counting expanded macro tokens via hm_font_lookup_kanji_glyph."
   },
   {
     "program": "SLUS_011.15",
@@ -5210,7 +5210,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 3,
-    "summary": "Clears 0x1300 bytes at g_gfx_ot_sprite_table_gpu_swap_clearotagr_arg and resets screen color/tint state via FUN_8001b074."
+    "summary": "Clears 0x1300 bytes at g_gfx_ot_sprite_table_gpu_swap_clearotagr_arg and resets screen color/tint state via hm_gpu_reset_ot_and_sprites."
   },
   {
     "program": "SLUS_011.15",
@@ -5246,7 +5246,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 3,
-    "summary": "Forwards six RGB tint/gradient parameters directly to screen overlay configuration helper FUN_8001b074."
+    "summary": "Forwards six RGB tint/gradient parameters directly to screen overlay configuration helper hm_gpu_reset_ot_and_sprites."
   },
   {
     "program": "SLUS_011.15",
@@ -5341,7 +5341,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Draws a dialogue window tile sprite at bank 0x1d into the active OT slot via FUN_80015ee8."
+    "summary": "Draws a dialogue window tile sprite at bank 0x1d into the active OT slot via hm_sprite_submit_0x0e_quad."
   },
   {
     "program": "SLUS_011.15",
@@ -5352,7 +5352,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Draws backing tint rect via FUN_80015114, steps yes/no window via evt_res_render_yesno_window, and returns prompt status."
+    "summary": "Draws backing tint rect via hm_draw_poly_f4_panel, steps yes/no window via evt_res_render_yesno_window, and returns prompt status."
   },
   {
     "program": "SLUS_011.15",
@@ -5434,7 +5434,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 4,
-    "summary": "Allocates scratch buffer via FUN_80011f5c and draws multiline dialogue text via FUN_80018b98 and FUN_80011fd8."
+    "summary": "Allocates scratch buffer via hm_clamp_fade_level and draws multiline dialogue text via hm_text_render_glyph_stream and hm_step_screen_fade."
   },
   {
     "program": "SLUS_011.15",
@@ -5506,7 +5506,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 4,
-    "summary": "Renders a glyph token string at (x,y) with default 0x1000 scale and palette via FUN_80018b98."
+    "summary": "Renders a glyph token string at (x,y) with default 0x1000 scale and palette via hm_text_render_glyph_stream."
   },
   {
     "program": "SLUS_011.15",
@@ -5630,7 +5630,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Forwards dialogue box bounds (x,y,w,h) to resident 9-slice window renderer FUN_800136d4."
+    "summary": "Forwards dialogue box bounds (x,y,w,h) to resident 9-slice window renderer hm_draw_font_string."
   },
   {
     "program": "SLUS_011.15",
@@ -5665,7 +5665,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Draws blank UI glyph sprite (group 0x2a, id 0) at (x,y) via FUN_80024a4c."
+    "summary": "Draws blank UI glyph sprite (group 0x2a, id 0) at (x,y) via hm_ui_draw_framed_window."
   },
   {
     "program": "SLUS_011.15",
@@ -5689,7 +5689,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Draws PlayStation Circle button icon sprite (group 0x27, id 0) at (x,y) via FUN_80024a4c."
+    "summary": "Draws PlayStation Circle button icon sprite (group 0x27, id 0) at (x,y) via hm_ui_draw_framed_window."
   },
   {
     "program": "SLUS_011.15",
@@ -5713,7 +5713,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Draws PlayStation Triangle button icon sprite (group 0x27, id 2) at (x,y) via FUN_80024a4c."
+    "summary": "Draws PlayStation Triangle button icon sprite (group 0x27, id 2) at (x,y) via hm_ui_draw_framed_window."
   },
   {
     "program": "SLUS_011.15",
@@ -5737,7 +5737,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Draws PlayStation Cross button icon sprite (group 0x27, id 1) at (x,y) via FUN_80024a4c."
+    "summary": "Draws PlayStation Cross button icon sprite (group 0x27, id 1) at (x,y) via hm_ui_draw_framed_window."
   },
   {
     "program": "SLUS_011.15",
@@ -5761,7 +5761,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Draws PlayStation Square button icon sprite (group 0x27, id 3) at (x,y) via FUN_80024a4c."
+    "summary": "Draws PlayStation Square button icon sprite (group 0x27, id 3) at (x,y) via hm_ui_draw_framed_window."
   },
   {
     "program": "SLUS_011.15",
@@ -5785,7 +5785,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Draws currency/G icon sprite (group 0x29) using register-passed variant index via FUN_80024a4c."
+    "summary": "Draws currency/G icon sprite (group 0x29) using register-passed variant index via hm_ui_draw_framed_window."
   },
   {
     "program": "SLUS_011.15",
@@ -5809,7 +5809,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Draws heart status icon sprite (group 0x28) using register-passed variant index via FUN_80024a4c."
+    "summary": "Draws heart status icon sprite (group 0x28) using register-passed variant index via hm_ui_draw_framed_window."
   },
   {
     "program": "SLUS_011.15",
@@ -5833,7 +5833,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Draws star icon sprite (group 0xd) using register-passed variant index via FUN_80024a4c."
+    "summary": "Draws star icon sprite (group 0xd) using register-passed variant index via hm_ui_draw_framed_window."
   },
   {
     "program": "SLUS_011.15",
@@ -5857,7 +5857,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Draws small arrow icon sprite (group 0xc) using register-passed variant index via FUN_80024a4c."
+    "summary": "Draws small arrow icon sprite (group 0xc) using register-passed variant index via hm_ui_draw_framed_window."
   },
   {
     "program": "SLUS_011.15",
@@ -5881,7 +5881,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Draws standard menu cursor hand sprite (group 0xb, id 1) at (x,y) via FUN_80024a4c."
+    "summary": "Draws standard menu cursor hand sprite (group 0xb, id 1) at (x,y) via hm_ui_draw_framed_window."
   },
   {
     "program": "SLUS_011.15",
@@ -5909,7 +5909,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Draws menu badge/status icon sprite (group 0x18, variant_id) at (x,y) via FUN_80024a4c."
+    "summary": "Draws menu badge/status icon sprite (group 0x18, variant_id) at (x,y) via hm_ui_draw_framed_window."
   },
   {
     "program": "SLUS_011.15",
@@ -5933,7 +5933,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Draws music note/prompt glyph sprite (group 0x1e, id 0) at (x,y) via FUN_80024a4c."
+    "summary": "Draws music note/prompt glyph sprite (group 0x1e, id 0) at (x,y) via hm_ui_draw_framed_window."
   },
   {
     "program": "SLUS_011.15",
@@ -5957,7 +5957,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Draws dot/bullet icon sprite (group 7) using register-passed variant index via FUN_80024a4c."
+    "summary": "Draws dot/bullet icon sprite (group 7) using register-passed variant index via hm_ui_draw_framed_window."
   },
   {
     "program": "SLUS_011.15",
@@ -5985,7 +5985,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Draws character-grid UI glyph sprite (group 0x2b, glyph_id) at (x,y) via FUN_80024a4c."
+    "summary": "Draws character-grid UI glyph sprite (group 0x2b, glyph_id) at (x,y) via hm_ui_draw_framed_window."
   },
   {
     "program": "SLUS_011.15",
@@ -6147,7 +6147,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Scans choice line markers in g_ui_hud_collect_dialog_choice_word_80049068/g_ui_hud_collect_dialog_choice_word_80049070 against g_ui_dialogue_box_ctx_text_cursor to populate interactive choice prompts."
+    "summary": "Scans choice line markers in g_ui_hud_collect_dialog_choice_value_1/g_ui_hud_collect_dialog_choice_value_2 against g_ui_dialogue_box_ctx_text_cursor to populate interactive choice prompts."
   },
   {
     "program": "SLUS_011.15",
@@ -6179,7 +6179,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Expands preset text string into g_ui_hud_preset_label_cfg via FUN_8001a970 and draws it via FUN_80017b3c."
+    "summary": "Expands preset text string into g_ui_hud_preset_label_cfg via hm_text_fetch_script_entry and draws it via hm_text_draw_dialog_line."
   },
   {
     "program": "SLUS_011.15",
@@ -6243,7 +6243,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 5,
-    "summary": "Draws naming-screen entered name box using kana/alnum formatter callbacks on g_npc_evt_naming_charset_grid_header_word and FUN_80017b3c."
+    "summary": "Draws naming-screen entered name box using kana/alnum formatter callbacks on g_npc_evt_naming_charset_grid_header_value and hm_text_draw_dialog_line."
   },
   {
     "program": "SLUS_011.15",
@@ -6322,7 +6322,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Renders centered dialogue/HUD text within box_w using current spacing g_ui_text_margins_hud_box_counter_8005e2ba via hud_res_draw_tok_centered_clipped."
+    "summary": "Renders centered dialogue/HUD text within box_w using current spacing g_ui_text_margins_hud_box_counter_1 via hud_res_draw_tok_centered_clipped."
   },
   {
     "program": "SLUS_011.15",
@@ -6354,7 +6354,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Renders right-aligned dialogue/HUD text within box_w using current spacing g_ui_text_margins_hud_box_counter_8005e2ba via hud_res_draw_tok_right_clipped."
+    "summary": "Renders right-aligned dialogue/HUD text within box_w using current spacing g_ui_text_margins_hud_box_counter_1 via hud_res_draw_tok_right_clipped."
   },
   {
     "program": "SLUS_011.15",
@@ -6393,7 +6393,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 6,
-    "summary": "Resolves speaker style via evt_res_get_dialog_speaker_style, streams dialogue text via FUN_80014cbc, and renders window."
+    "summary": "Resolves speaker style via evt_res_get_dialog_speaker_style, streams dialogue text via hm_afile_read_or_load_overlay, and renders window."
   },
   {
     "program": "SLUS_011.15",
@@ -6517,7 +6517,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 7,
-    "summary": "Orchestrates naming-screen rendering (header box, character grid, confirm dialog) and routes input by g_npc_evt_naming_state_open_screen_state_8005e344."
+    "summary": "Orchestrates naming-screen rendering (header box, character grid, confirm dialog) and routes input by g_npc_evt_naming_state_open_screen_state_kana_alnum."
   },
   {
     "program": "SLUS_011.15",
@@ -6553,7 +6553,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 8,
-    "summary": "Thin wrapper sign-extending bounds arguments into hud_res_render_dialogue_box (FUN_800183e0)."
+    "summary": "Thin wrapper sign-extending bounds arguments into hud_res_render_dialogue_box (hud_res_render_dialogue_box)."
   },
   {
     "program": "SLUS_011.15",
@@ -6564,7 +6564,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 8,
-    "summary": "Applies naming-screen dim overlay via FUN_80015114, steps evt_res_render_naming_screen, and returns 1 when complete."
+    "summary": "Applies naming-screen dim overlay via hm_draw_poly_f4_panel, steps evt_res_render_naming_screen, and returns 1 when complete."
   },
   {
     "program": "SLUS_011.15",

@@ -8,8 +8,12 @@
 
 #ifndef HMBTN_SDK_COMPAT_FWD
 #define HMBTN_SDK_COMPAT_FWD
-typedef int f();
-typedef void (*MemCB)(long, long);
+typedef s32 f();
+typedef void (*MemCB)(s32, s32);
+#ifndef HMBTN_CALLBACK_FN_DEFINED
+#define HMBTN_CALLBACK_FN_DEFINED
+typedef s32 (*HmCallbackFn)();
+#endif
 typedef struct __jmp_buf_tag __jmp_buf_tag;
 typedef struct DIRENTRY {
   char name[20];

@@ -105,17 +105,17 @@ static int test_field_tool_stamina_and_fishing_sim(void) {
         && p11_field_calc_fishing_reel_power(60) == 0x39
         && p11_field_calc_fishing_reel_power(1200) == 0x7f;
 
-    uint8_t pstate[0x120];
-    memset(pstate, 0, sizeof(pstate));
-    *(s16 *)(pstate + 0x84) = 6;
-    p11_field_add_tool_experience(pstate, 500);
-    int xp1 = (*(u16 *)(pstate + 0x42) == 500u);
-    p11_field_add_tool_experience(pstate, 70000);
-    int xp2 = (*(u16 *)(pstate + 0x42) == 0xFFFFu);
-    *(u16 *)(pstate + 0x36) = 8u;
-    *(u16 *)(pstate + 0x42) = 100u;
-    p11_field_add_tool_experience(pstate, 50);
-    int xp3 = (*(u16 *)(pstate + 0x42) == 100u);
+    HmPlayerState pstate;
+    memset(&pstate, 0, sizeof(pstate));
+    *(s16 *)&pstate.action_sub_vars[10] = 6;
+    p11_field_add_tool_experience(&pstate, 500);
+    int xp1 = (pstate.tool_exp_and_timers[4] == 500u);
+    p11_field_add_tool_experience(&pstate, 70000);
+    int xp2 = (pstate.tool_exp_and_timers[4] == 0xFFFFu);
+    pstate.action_flags = 8u;
+    pstate.tool_exp_and_timers[4] = 100u;
+    p11_field_add_tool_experience(&pstate, 50);
+    int xp3 = (pstate.tool_exp_and_timers[4] == 100u);
 
     g_hm_prng_seed = 0x12345678u;
     u32 exp_seed = 0x12345678u * 0x41c64e6du + 0x3039u;

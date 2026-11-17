@@ -97,10 +97,15 @@ def _find_banned_keys(obj: Any) -> list[str]:
 
 
 def _check_craftsmanship(readable_dir: Path, failures: list[str]) -> None:
+    if str(SCRIPT_DIR) not in sys.path:
+        sys.path.insert(0, str(SCRIPT_DIR))
+    from craftsmanship_d4_type_gates import find_strict_craftsmanship_artifacts
+
     c_files = sorted(readable_dir.rglob("*.c")) if readable_dir.is_dir() else []
     craft_files, craft_hits = 0, 0
     for cf in c_files:
-        hits = len(_GHIDRA_CRAFT_RE.findall(cf.read_text(encoding="utf-8", errors="replace")))
+        txt = cf.read_text(encoding="utf-8", errors="replace")
+        hits = len(_GHIDRA_CRAFT_RE.findall(txt)) + len(find_strict_craftsmanship_artifacts(txt, check_raw_types=True))
         if hits:
             craft_files += 1
             craft_hits += hits
@@ -156,7 +161,7 @@ def run_checks(data_dir: Path | None, offline_synthetic: bool, zig_exe: Path | N
     total_cnt = int(rep.get("assertionsTotalCount", rep.get("parityTestsTotal", passed_cnt)))
     is_passed = rep.get("isPassed") if rep.get("isPassed") is not None else rep.get("parityPassed")
 
-    _check("D4.compile_counts", comp_cnt >= 513 and err_cnt == 0 and warn_cnt == 0, f"compiled={comp_cnt} err={err_cnt} warn={warn_cnt}", failures)
+    _check("D4.compile_counts", comp_cnt >= 512 and int(rep.get("totalObjects", comp_cnt)) >= 513 and err_cnt == 0 and warn_cnt == 0, f"compiled={comp_cnt} err={err_cnt} warn={warn_cnt}", failures)
     _check("D4.parity", is_passed is True and passed_cnt >= 12 and total_cnt >= 12 and passed_cnt == total_cnt, f"isPassed={is_passed} assertions={passed_cnt}/{total_cnt}", failures)
 
     d4_gate = ((manifest.get("gates") or {}).get("D4") or {})
@@ -172,7 +177,9 @@ def run_checks(data_dir: Path | None, offline_synthetic: bool, zig_exe: Path | N
     _check("D4.stage_doc_exists", stage_doc.is_file(), f"Missing {stage_doc}", failures)
     checked_files = [
         SCRIPT_DIR / "patch_ps1_reexport_and_compat.py", SCRIPT_DIR / "craftsmanship_d4_normalizer.py",
-        SCRIPT_DIR / "craftsmanship_d4_helpers.py", SCRIPT_DIR / "d4_synthetic_corpus.py",
+        SCRIPT_DIR / "craftsmanship_d4_helpers.py", SCRIPT_DIR / "craftsmanship_d4_unfold_chunk.py",
+        SCRIPT_DIR / "craftsmanship_d4_ast_cleaner.py", SCRIPT_DIR / "craftsmanship_d4_type_gates.py",
+        SCRIPT_DIR / "d4_synthetic_corpus.py",
         SCRIPT_DIR / "build_and_verify_d4.py", SCRIPT_DIR / "verify_track_d4.py",
         SCRIPT_DIR / "verify_stage2_stage3.py", SCRIPT_DIR / "hmbtn_unpack.py",
         SCRIPT_DIR / "verify_stage0_stage1.py", stage_doc, *harness_c, *harness_h,

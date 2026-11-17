@@ -44,7 +44,7 @@ Each diary save occupies **4 PlayStation Memory Card blocks** (`4 x 8,192 = 32,7
 | `+0x00` | `2` | `u16` | `slot_valid` | Farm Year (`g_farm_cal_year`) |
 | `+0x02` | `2` | `u16` | `year` | Season ID (`0=Spring, 1=Summer, 2=Fall, 3=Winter`) |
 | `+0x04` | `4` | `u32` | `save_flags` | Packed `day` (`u16` low) + `day_of_week` (`u16` high) |
-| `+0x08` | `4` | `s16+u16` | `season_or_day, _pad` | Auxiliary diary stamp |
+| `+0x08` | `4` | `s16+u16` | `season_or_day, summary_flags` | Auxiliary diary stamp |
 | `+0x0C` | `4` | `s32` | `gold` | Player money (`G`) |
 | `+0x10` | `4` | `u32` | `play_time` | Elapsed frames / play timer |
 | `+0x14` | `4` | `u32` | `farm_rating` | Farm completion / rating value |
@@ -60,8 +60,8 @@ Each diary save occupies **4 PlayStation Memory Card blocks** (`4 x 8,192 = 32,7
 | `+0x00..+0x03` | `4` | `u8[4]` | `state, prev_state, sub_state, card_flag` | Save/load/trade FSM state registers |
 | `+0x04..+0x0B` | `8` | `u16[4]` | `cursor_item, selected_slot, active_port, menu_mode` | Active UI selection (`slot 0..2`, `port 0..1`) |
 | `+0x0C..+0x17` | `12` | `s32, u16[4]` | `card_result, confirm_cursor, retry_limit, prompt_id, card_busy` | Async Memory Card retry & status |
-| `+0x18..+0x14B` | `308` | `u32[77]` | `_work_0x18` | Filename pointers & icon staging offsets |
-| `+0x14C..+0x15B` | `16` | `u8 *, u32[3]` | `save_buf_ptr, _pad_0x150` | Pointer to `0x80137AB0` payload staging buffer |
+| `+0x18..+0x14B` | `308` | `u32[77]` | `slot_and_card_work` | Filename pointers & icon staging offsets |
+| `+0x14C..+0x15B` | `16` | `u8 *, u32[3]` | `save_buf_ptr, transfer_tail` | Pointer to `0x80137AB0` payload staging buffer |
 
 ### Memory Card Status Codes & Verified `ovl15_diary_*` Routines
 - **Status Codes (`0x80135E9C`, `0x80136288`, `0x80136558`):** `0` = success, `2` = I/O failure, `3` = async busy, `4` = card missing/timeout, `5` = unformatted card, `8` = new card inserted, `9` = file missing, `0xB` = insufficient blocks (`< 4` free), `0xC` = invalid port/command, `0xE` = summary XOR checksum mismatch.
@@ -127,7 +127,7 @@ New game boot initializes `year = 0`, `season = 0` (`Spring`), `day = 1`, `day_o
 | Struct | Offset | Size | Field | Description |
 | :--- | :--- | ---: | :--- | :--- |
 | `HmAnimalRecord` (`0xB4` x `10`) | `+0x00..+0x0B` | `12` | `flags, species_id, age_days, affection, health_state, product_timer` | Chicken coop entity state (`0x800742EC`) |
-| `HmAnimalRecord` | `+0x0C..+0x3B` | `48` | `name_chars[12], _meta_0x18[12], pos_x/y/z` | Animal name, metadata, and 3D coords |
+| `HmAnimalRecord` | `+0x0C..+0x3B` | `48` | `name_chars[12], care_and_breed_stats[12], pos_x/y/z` | Animal name, care/breed counters, and 3D coords |
 | `HmNpcActor` (`0xB8` x `20`) | `+0x00..+0x0B` | `12` | `npc_id, flags, scene_id, facing_dir, affection, schedule_slot` | Barn livestock / actor record (`0x800749F4`) |
 | `HmNpcActor` | `+0x0C..+0x1B` | `16` | `anim_state, pos_x, pos_y, pos_z` | Animation state & world coordinates |
 

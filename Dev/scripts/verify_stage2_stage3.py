@@ -151,6 +151,10 @@ def _check_readable_tree(readable_dir: Path, offline_synthetic: bool) -> tuple[b
     ws_clean = ws_path.is_file() and not LEAK_RE.search(ws_path.read_text(encoding="utf-8"))
     if offline_synthetic and not readable_dir.is_dir():
         return True, "offline-synthetic (5 types/*.h, 0 FUN_80*, 0 craft, 0 fail)", ws_clean, f"offline-synthetic ws={ws_path.is_file()} ws_clean={ws_clean}"
+    if str(SCRIPTS) not in sys.path:
+        sys.path.insert(0, str(SCRIPTS))
+    from craftsmanship_d4_type_gates import find_strict_craftsmanship_artifacts
+
     inc = readable_dir / "include"
     req = [inc / "harvestmoonbtn_types.h", inc / "harvestmoonbtn_globals.h", inc / "harvestmoonbtn_functions.h", inc / "ghidra_compat.h"]
     types_h = sorted((inc / "types").glob("*.h")) if (inc / "types").is_dir() else []
@@ -158,11 +162,14 @@ def _check_readable_tree(readable_dir: Path, offline_synthetic: bool) -> tuple[b
     c_files = sorted(readable_dir.rglob("*.c"))
     r_funcs = fun_defs = r_fail = doc_game = game_funcs = single_gt400 = craft_hits = 0
     oversized: list[str] = []
+    for hp in (inc / "harvestmoonbtn_globals.h", inc / "harvestmoonbtn_functions.h"):
+        if hp.is_file():
+            craft_hits += len(find_strict_craftsmanship_artifacts(hp.read_text(encoding="utf-8", errors="replace"), check_raw_types=True))
     for cf in c_files:
         txt = cf.read_text(encoding="utf-8", errors="replace")
         lc = len(txt.splitlines())
         r_fail += txt.count("DECOMPILE FAILED")
-        craft_hits += len(_CRAFT_RE.findall(txt))
+        craft_hits += len(_CRAFT_RE.findall(txt)) + len(find_strict_craftsmanship_artifacts(txt, check_raw_types=True))
         doxy = list(DOXY_FUNC_RE.finditer(txt))
         hdrs = [(m.group(1), m.group(2)) for m in doxy] if doxy else [(fn, "") for fn in FUNC_HDR_RE.findall(txt) if fn not in _C_KW]
         if lc > 400:

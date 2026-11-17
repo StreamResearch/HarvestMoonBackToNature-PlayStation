@@ -23,7 +23,7 @@ This routing index links the four specification spokes (`Dev/docs/specifications
 | :--- | :--- | :--- |
 | [`dual-slot-overlay-and-afile-streaming.md`](findings/dual-slot-overlay-and-afile-streaming.md) | [`hmbtn_unpack.py`](../scripts/hmbtn_unpack.py), [`d4_symbol_overrides.json`](../schemas/d4_symbol_overrides.json) | `SLUS_011.15` arena geometry, `22` `0x800145F0` load calls, `Slot A` + `Part 11` / `Slot B` co-residency, `48` `hm_res_*` exports |
 | [`farm-simulation-rng-and-event-bitsets.md`](findings/farm-simulation-rng-and-event-bitsets.md) | [`hm_gte_cop2.h`](../scripts/d4_harness/hm_gte_cop2.h), [`parity_sim_and_gte_tests.c`](../scripts/d4_harness/parity_sim_and_gte_tests.c) | `0x41C64E6D` LCG PRNG, `0x8006C870` event bitsets, tool/stamina/fishing math, `37` NPC daily step, `Q12` `COP2` GTE |
-| [`d4-craftsmanship-and-mips-abi-normalization.md`](findings/d4-craftsmanship-and-mips-abi-normalization.md) | [`craftsmanship_d4_normalizer.py`](../scripts/craftsmanship_d4_normalizer.py), [`patch_ps1_reexport_and_compat.py`](../scripts/patch_ps1_reexport_and_compat.py) | `MIPS32 LE LP32` ABI, pre-assembly P-code lowering, `0`-artifact `D4.craftsmanship` normalization across `513` `.c` files |
+| [`d4-craftsmanship-and-mips-abi-normalization.md`](findings/d4-craftsmanship-and-mips-abi-normalization.md) | [`craftsmanship_d4_normalizer.py`](../scripts/craftsmanship_d4_normalizer.py), [`craftsmanship_d4_ast_cleaner.py`](../scripts/craftsmanship_d4_ast_cleaner.py), [`patch_ps1_reexport_and_compat.py`](../scripts/patch_ps1_reexport_and_compat.py) | `MIPS32 LE LP32` ABI, un-folded restoration, AST param/local typing, `0`-artifact `D4.craftsmanship` across `512` `.c` files |
 
 ---
 
@@ -56,7 +56,7 @@ This routing index links the four specification spokes (`Dev/docs/specifications
 | :--- | :--- | :--- | :--- |
 | `D0` / `S0` | Corpus & SHA-256 | Verified | [`standalone_integrity.json`](../schemas/standalone_integrity.json) + [`hmbtn_unpack.py`](../scripts/hmbtn_unpack.py) |
 | `D1`–`D3` / `S1`–`S3` | Schemas, Specs & Catalog | Verified | [`spec_coverage.json`](../schemas/spec_coverage.json) (`0` unresolved) + `Dev/scripts/tests/` |
-| `D4` / `S4` | ELF32 MIPS, Craftsmanship & `12/12` Parity | Verified | [`d4_build_report.json`](../schemas/d4_build_report.json) (`513/513`, `0` err, `12/12` parity) + [`s4_verify_report.json`](../schemas/s4_verify_report.json) |
+| `D4` / `S4` | ELF32 MIPS, Craftsmanship & `12/12` Parity | Verified | [`d4_build_report.json`](../schemas/d4_build_report.json) (`512/512` `.c`, `513` `.o`, `0` err, `12/12` parity) + [`s4_verify_report.json`](../schemas/s4_verify_report.json) |
 | `R1`–`R3` | Downstream Native Recomp | Goal `R3` | Linked via `recompProjectPath` (`HMBackToNature-Recomp`) + clean-room `.decomp` exporter |
 
 Run all isolated parser and clean-room contract tests (`0` retail media required):

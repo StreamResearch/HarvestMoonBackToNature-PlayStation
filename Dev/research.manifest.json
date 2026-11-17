@@ -100,7 +100,7 @@
     "globalsTotal": 3497,
     "globalsMapped": 3497,
     "domainsCount": 23,
-    "readableFiles": 523,
+    "readableFiles": 522,
     "workspaceReady": true
   },
   "gates": {
@@ -122,7 +122,7 @@
     },
     "D4": {
       "passed": true,
-      "verifiedAtUtc": "2026-11-17T09:03:23.076Z",
+      "verifiedAtUtc": "2026-11-17T20:15:52.885Z",
       "report": "schemas/d4_build_report.json"
     },
     "R0": {
@@ -178,7 +178,7 @@
       "verifiedAtUtc": null
     }
   },
-  "updatedAtUtc": "2026-11-17T09:03:23.620Z",
+  "updatedAtUtc": "2026-11-17T20:15:53.427Z",
   "manifestType": "research-repo",
   "researchAxis": "decomp",
   "currentStudyTier": "S4",

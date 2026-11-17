@@ -33,13 +33,13 @@ typedef enum HmOverlayId {
 typedef struct HmDisplayOtCtx {
     DRAWENV draw;            /* +0x00 */
     DISPENV disp;            /* +0x5C */
-    u32     _pad_0x70[5];    /* +0x70 */
+    u32     disp_env_ext[5]; /* +0x70 */
     u32     sub_ot_meta[20]; /* +0x84 */
-    u32     _pad_0xd4;       /* +0xD4 */
+    u32     ot_table_guard;  /* +0xD4 */
     u32     *sub_ot[4];      /* +0xD8 */
-    u32     _pad_0xe8;       /* +0xE8 */
+    u32     sub_ot_tail;     /* +0xE8 */
     s32     sub_ot_len[4];   /* +0xEC */
-    u32     _pad_0xfc;       /* +0xFC */
+    u32     sub_ot_len_tail; /* +0xFC */
     s32     sub_ot_shift[4]; /* +0x100 */
     s32     main_ot_len;     /* +0x110 */
     s32     main_ot_shift;   /* +0x114 */

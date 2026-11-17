@@ -15,7 +15,7 @@
     "return_type": "void",
     "params": [],
     "domain": "core_mainloop",
-    "summary": "Early boot hardware initialization calling ResetCallback and kernel heap setup"
+    "summary": "Executes active VSync frame callback g_core_engine_state.vsync_cb and runs post-swap CD/GPU synchronization via hm_cd_is_queue_busy and hm_gpu_swap_buffers_and_draw_ot."
   },
   {
     "program": "SLUS_011.15",
@@ -39,11 +39,11 @@
     "program": "SLUS_011.15",
     "address": "0x80011f5c",
     "name": "hm_clamp_fade_level",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "fade_val",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -57,7 +57,7 @@
     "params": [
       {
         "name": "step",
-        "type": "uint"
+        "type": "u32"
       }
     ],
     "domain": "core_mainloop",
@@ -80,7 +80,7 @@
     "params": [
       {
         "name": "mode",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "render_gte_sprites",
@@ -102,17 +102,17 @@
     "return_type": "void",
     "params": [],
     "domain": "render_gte_sprites",
-    "summary": "Enables live video output via PS1 SDK SetDispMask after initial frame buffer clear"
+    "summary": "Enables live video output via PS1 GPU SetDispMask after initial frame buffer clear"
   },
   {
     "program": "SLUS_011.15",
     "address": "0x80012a34",
     "name": "hm_prng_next",
-    "return_type": "uint",
+    "return_type": "u32",
     "params": [
       {
         "name": "mod_max",
-        "type": "uint"
+        "type": "u32"
       }
     ],
     "domain": "core_mainloop",
@@ -126,19 +126,19 @@
     "params": [
       {
         "name": "x",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "y",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "w",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "h",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "r",
@@ -164,11 +164,11 @@
     "params": [
       {
         "name": "x_off",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "y_off",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "core_mainloop",
@@ -182,15 +182,15 @@
     "params": [
       {
         "name": "min_val",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "val_ptr",
-        "type": "int *"
+        "type": "s32 *"
       },
       {
         "name": "max_val",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -213,11 +213,11 @@
     "params": [
       {
         "name": "x",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "y",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "glyph_id",
@@ -234,7 +234,7 @@
     "return_type": "bool",
     "params": [],
     "domain": "input_memcard",
-    "summary": "Reads dual-pad raw buffers, computes newly pressed/held/repeated bitmasks, and reports status"
+    "summary": "Checks frame-sync mode and display vsync counter thresholds before controller polling"
   },
   {
     "program": "SLUS_011.15",
@@ -257,19 +257,19 @@
       },
       {
         "name": "x",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "y",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "str_ptr",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "color_mode",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -291,7 +291,7 @@
     "return_type": "void",
     "params": [],
     "domain": "input_memcard",
-    "summary": "Initializes PS1 SDK MemCard driver and registers card polling status tables"
+    "summary": "Initializes PS1 Memory Card driver and registers card polling status tables"
   },
   {
     "program": "SLUS_011.15",
@@ -310,7 +310,7 @@
     "params": [
       {
         "name": "out_mask",
-        "type": "uint *"
+        "type": "u32 *"
       },
       {
         "name": "card_slot",
@@ -324,11 +324,11 @@
     "program": "SLUS_011.15",
     "address": "0x80013fc0",
     "name": "hm_memcard_dispatch_io",
-    "return_type": "uint",
+    "return_type": "u32",
     "params": [
       {
         "name": "op_code",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "input_memcard",
@@ -337,11 +337,11 @@
   {
     "program": "SLUS_011.15",
     "address": "0x80014064",
-    "name": "hm_memcard_wait_io_idle",
+    "name": "hm_pad_init_direct_and_actuators",
     "return_type": "void",
     "params": [],
     "domain": "input_memcard",
-    "summary": "Blocks in VSync loop while Memory Card async read/write state machine finishes"
+    "summary": "Initializes DualShock direct pad RX buffers via PadInitDirect, binds port actuators, and starts polling"
   },
   {
     "program": "SLUS_011.15",
@@ -359,7 +359,7 @@
       },
       {
         "name": "file_idx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "input_memcard",
@@ -377,7 +377,7 @@
       },
       {
         "name": "dst_buf",
-        "type": "ulong *"
+        "type": "u32 *"
       }
     ],
     "domain": "cd_afile_overlays",
@@ -391,11 +391,11 @@
     "params": [
       {
         "name": "entry_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "sub_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "dst_buf",
@@ -403,7 +403,7 @@
       },
       {
         "name": "size_out",
-        "type": "ulong *"
+        "type": "u32 *"
       }
     ],
     "domain": "cd_afile_overlays",
@@ -413,11 +413,11 @@
     "program": "SLUS_011.15",
     "address": "0x80014748",
     "name": "hm_cd_init_afile_system",
-    "return_type": "uint",
+    "return_type": "u32",
     "params": [
       {
         "name": "load_toc",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "cd_afile_overlays",
@@ -440,15 +440,15 @@
     "params": [
       {
         "name": "entry_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "sub_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "mode",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "cd_afile_overlays",
@@ -462,23 +462,23 @@
     "params": [
       {
         "name": "slot",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "mode_flags",
-        "type": "uint"
+        "type": "u32"
       },
       {
         "name": "entry_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "dst_buf",
-        "type": "ulong *"
+        "type": "u32 *"
       },
       {
         "name": "callback",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "cd_afile_overlays",
@@ -505,19 +505,19 @@
       },
       {
         "name": "vram_x",
-        "type": "uint"
+        "type": "u32"
       },
       {
         "name": "vram_y",
-        "type": "uint"
+        "type": "u32"
       },
       {
         "name": "w",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "clut_ptr",
-        "type": "ulong *"
+        "type": "u32 *"
       }
     ],
     "domain": "render_gte_sprites",
@@ -527,31 +527,31 @@
     "program": "SLUS_011.15",
     "address": "0x80014cbc",
     "name": "hm_afile_read_or_load_overlay",
-    "return_type": "ulong *",
+    "return_type": "u32 *",
     "params": [
       {
         "name": "entry_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "sub_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "mode",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "dst_buf",
-        "type": "ulong *"
+        "type": "u32 *"
       },
       {
         "name": "flags",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "extra",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "cd_afile_overlays",
@@ -569,19 +569,19 @@
       },
       {
         "name": "x",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "y",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "w",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "h",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "rgba",
@@ -589,7 +589,7 @@
       },
       {
         "name": "semi_trans",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "render_gte_sprites",
@@ -621,7 +621,7 @@
     "params": [
       {
         "name": "slot_id",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "anim_idx",
@@ -657,15 +657,15 @@
       },
       {
         "name": "anim_id",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "x",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "y",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "render_gte_sprites",
@@ -704,11 +704,11 @@
       },
       {
         "name": "x",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "y",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "render_gte_sprites",
@@ -738,11 +738,11 @@
       },
       {
         "name": "x",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "y",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "scale_x",
@@ -768,7 +768,7 @@
     "params": [
       {
         "name": "ot_ptr",
-        "type": "uint *"
+        "type": "u32 *"
       },
       {
         "name": "spr_hdr",
@@ -776,11 +776,11 @@
       },
       {
         "name": "pal_ptr",
-        "type": "uint *"
+        "type": "u32 *"
       },
       {
         "name": "frame_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "flags",
@@ -792,11 +792,11 @@
       },
       {
         "name": "x",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "y",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "render_gte_sprites",
@@ -806,11 +806,11 @@
     "program": "SLUS_011.15",
     "address": "0x800165d8",
     "name": "hm_sprite_build_poly_ft4_packet",
-    "return_type": "uint *",
+    "return_type": "u32 *",
     "params": [
       {
         "name": "ot_ptr",
-        "type": "uint *"
+        "type": "u32 *"
       },
       {
         "name": "spr_hdr",
@@ -818,11 +818,11 @@
       },
       {
         "name": "frame_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "flags",
-        "type": "uint"
+        "type": "u32"
       },
       {
         "name": "mode",
@@ -830,43 +830,43 @@
       },
       {
         "name": "x",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "y",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "sx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "sy",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "rx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "ry",
-        "type": "ushort"
+        "type": "u16"
       },
       {
         "name": "cx",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "cy",
-        "type": "ushort"
+        "type": "u16"
       },
       {
         "name": "z_off",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "rot",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "render_gte_sprites",
@@ -898,33 +898,33 @@
       },
       {
         "name": "vram_x",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "vram_y",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "clut_x",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "clut_y",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "flags",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "render_gte_sprites",
-    "summary": "Decompresses 0x0D LZ/RLE texture/CLUT payload into staging buffer at DAT_8005ee28 and calls LoadImage"
+    "summary": "Decompresses 0x0D LZ/RLE texture/CLUT payload into texture staging buffer and calls LoadImage"
   },
   {
     "program": "SLUS_011.15",
     "address": "0x8001782c",
     "name": "hm_vram_upload_tim_chunk",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "tim_hdr",
@@ -932,19 +932,19 @@
       },
       {
         "name": "buf_ptr",
-        "type": "ulong *"
+        "type": "u32 *"
       },
       {
         "name": "mode",
-        "type": "ushort"
+        "type": "u16"
       },
       {
         "name": "dx",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "dy",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "render_gte_sprites",
@@ -966,7 +966,7 @@
       }
     ],
     "domain": "npc_dialogue_events",
-    "summary": "Sets global text wrapping margin X/Y bounds in DAT_8005e2b8 and DAT_8005e2ba"
+    "summary": "Sets global text wrapping margin X/Y bounds"
   },
   {
     "program": "SLUS_011.15",
@@ -980,7 +980,7 @@
       }
     ],
     "domain": "npc_dialogue_events",
-    "summary": "Sets active dialogue/font glyph rendering mode word in DAT_8005e2bc"
+    "summary": "Sets active dialogue/font glyph rendering mode word"
   },
   {
     "program": "SLUS_011.15",
@@ -998,11 +998,11 @@
       },
       {
         "name": "x",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "y",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "npc_dialogue_events",
@@ -1024,23 +1024,23 @@
       },
       {
         "name": "style_ptr",
-        "type": "ushort *"
+        "type": "u16 *"
       },
       {
         "name": "x",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "y",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "w",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "h",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "color",
@@ -1048,11 +1048,11 @@
       },
       {
         "name": "line_h",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "pad",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "npc_dialogue_events",
@@ -1066,7 +1066,7 @@
     "params": [
       {
         "name": "glyph_code",
-        "type": "uint"
+        "type": "u32"
       }
     ],
     "domain": "npc_dialogue_events",
@@ -1076,19 +1076,19 @@
     "program": "SLUS_011.15",
     "address": "0x8001a970",
     "name": "hm_text_fetch_script_entry",
-    "return_type": "short *",
+    "return_type": "s16 *",
     "params": [
       {
         "name": "msg_id",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "out_len",
-        "type": "short *"
+        "type": "s16 *"
       },
       {
         "name": "bank_id",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "npc_dialogue_events",
@@ -1120,15 +1120,15 @@
     "program": "SLUS_011.15",
     "address": "0x8001af44",
     "name": "hm_event_flag_get",
-    "return_type": "uint",
+    "return_type": "u32",
     "params": [
       {
         "name": "bit_idx",
-        "type": "uint"
+        "type": "u32"
       }
     ],
     "domain": "core_mainloop",
-    "summary": "Tests bit index bit_idx inside global persistent game progress bitfield DAT_8006c870"
+    "summary": "Tests bit index bit_idx inside global persistent game progress bitfield g_hm_event_flags_bitset"
   },
   {
     "program": "SLUS_011.15",
@@ -1138,15 +1138,15 @@
     "params": [
       {
         "name": "bit_idx",
-        "type": "uint"
+        "type": "u32"
       },
       {
         "name": "value",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "core_mainloop",
-    "summary": "Sets or clears bit index bit_idx inside persistent game progress bitfield DAT_8006c870"
+    "summary": "Sets or clears bit index bit_idx inside persistent game progress bitfield g_hm_event_flags_bitset"
   },
   {
     "program": "SLUS_011.15",
@@ -1183,7 +1183,7 @@
     "params": [
       {
         "name": "mesh_node",
-        "type": "int *"
+        "type": "s32 *"
       }
     ],
     "domain": "render_gte_sprites",
@@ -1193,11 +1193,11 @@
     "program": "SLUS_011.15",
     "address": "0x8001c0d4",
     "name": "hm_gte_draw_animated_model",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "anim_node",
-        "type": "int *"
+        "type": "s32 *"
       },
       {
         "name": "frame",
@@ -1219,11 +1219,11 @@
     "params": [
       {
         "name": "poly_count",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "prim_stream",
-        "type": "int *"
+        "type": "s32 *"
       }
     ],
     "domain": "render_gte_sprites",
@@ -1237,7 +1237,7 @@
     "params": [
       {
         "name": "out_screen",
-        "type": "int *"
+        "type": "s32 *"
       },
       {
         "name": "world_pos",
@@ -1255,7 +1255,7 @@
     "params": [
       {
         "name": "cam_cfg",
-        "type": "int *"
+        "type": "s32 *"
       },
       {
         "name": "view_mat",
@@ -1277,15 +1277,15 @@
       },
       {
         "name": "rx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "ry",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "rz",
-        "type": "uint"
+        "type": "u32"
       }
     ],
     "domain": "render_gte_sprites",
@@ -1299,23 +1299,23 @@
     "params": [
       {
         "name": "base_val",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "target_val",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "out_r",
-        "type": "int *"
+        "type": "s32 *"
       },
       {
         "name": "out_g",
-        "type": "int *"
+        "type": "s32 *"
       },
       {
         "name": "out_b",
-        "type": "int *"
+        "type": "s32 *"
       }
     ],
     "domain": "render_gte_sprites",
@@ -1329,15 +1329,15 @@
     "params": [
       {
         "name": "dst_clut",
-        "type": "ushort *"
+        "type": "u16 *"
       },
       {
         "name": "src_clut",
-        "type": "ushort *"
+        "type": "u16 *"
       },
       {
         "name": "tint_clut",
-        "type": "ushort *"
+        "type": "u16 *"
       },
       {
         "name": "weight",
@@ -1359,7 +1359,7 @@
     "params": [
       {
         "name": "sfx_id",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "audio_spu_vab",
@@ -1373,19 +1373,19 @@
     "params": [
       {
         "name": "reverb_type",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "depth_l",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "depth_r",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "flags",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "audio_spu_vab",
@@ -1399,7 +1399,7 @@
     "params": [
       {
         "name": "seq_id",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "audio_spu_vab",
@@ -1421,7 +1421,7 @@
     "return_type": "u32",
     "params": [],
     "domain": "audio_spu_vab",
-    "summary": "Initializes PS1 SDK SPU/SEQ subsystem via SsStart and opens VAB/SEQ slots"
+    "summary": "Initializes PS1 SPU/SEQ subsystem via SsStart and opens VAB/SEQ slots"
   },
   {
     "program": "SLUS_011.15",
@@ -1431,11 +1431,11 @@
     "params": [
       {
         "name": "vab_id",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "seq_slot",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "audio_spu_vab",
@@ -1445,11 +1445,11 @@
     "program": "SLUS_011.15",
     "address": "0x800212a8",
     "name": "hm_audio_trigger_spu_voice",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "sfx_id",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "vol_l",
@@ -1471,7 +1471,7 @@
     "params": [
       {
         "name": "xa_track",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "audio_spu_vab",
@@ -1494,11 +1494,11 @@
     "params": [
       {
         "name": "win_id",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "state",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "npc_dialogue_events",
@@ -1524,11 +1524,11 @@
       },
       {
         "name": "w",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "h",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "ui_inventory_hud",
@@ -1541,7 +1541,7 @@
     "return_type": "void",
     "params": [],
     "domain": "core_mainloop",
-    "summary": "Primary gameplay overlay entry stub resetting core simulation state pointer DAT_80070cc0"
+    "summary": "Primary gameplay overlay entry stub resetting core overlay stack depth g_core_ovl_stack_depth"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1550,7 +1550,7 @@
     "return_type": "void",
     "params": [],
     "domain": "core_mainloop",
-    "summary": "Overlay entry wrapper configuring scratchpad pointer DAT_1f8003fc and entering main loop"
+    "summary": "Overlay entry wrapper configuring scratchpad pointer g_spad_saved_sp and entering main loop"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1600,7 +1600,7 @@
     "return_type": "void",
     "params": [],
     "domain": "core_mainloop",
-    "summary": "Commits pending substate transition in DAT_8006c844/DAT_80071a36 control blocks"
+    "summary": "Commits pending substate transition in g_core_engine_flags0 and g_core_player_state.action_flags"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1610,7 +1610,7 @@
     "params": [
       {
         "name": "slot_idx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "cd_afile_overlays",
@@ -1624,7 +1624,7 @@
     "params": [
       {
         "name": "slot_idx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "cd_afile_overlays",
@@ -1638,7 +1638,7 @@
     "params": [
       {
         "name": "pack_idx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "cd_afile_overlays",
@@ -1652,11 +1652,11 @@
     "params": [
       {
         "name": "bank_id",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "sub_id",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "cd_afile_overlays",
@@ -1670,11 +1670,11 @@
     "params": [
       {
         "name": "cam_mode",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "target_ptr",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -1684,19 +1684,19 @@
     "program": "OVL_part11_id06.EXE",
     "address": "0x800bdce8",
     "name": "hm_ovl11_raycast_ground_height",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "x",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "out_norm",
-        "type": "int *"
+        "type": "s32 *"
       },
       {
         "name": "z",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -1722,7 +1722,7 @@
       },
       {
         "name": "out_hit",
-        "type": "uint *"
+        "type": "u32 *"
       },
       {
         "name": "radius",
@@ -1730,7 +1730,7 @@
       },
       {
         "name": "flags",
-        "type": "uint"
+        "type": "u32"
       }
     ],
     "domain": "core_mainloop",
@@ -1749,15 +1749,15 @@
     "program": "OVL_part11_id06.EXE",
     "address": "0x800c1224",
     "name": "hm_ovl11_grid_tile_to_world",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "grid_x",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "grid_z",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "core_mainloop",
@@ -1789,15 +1789,15 @@
     "params": [
       {
         "name": "mode",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "count",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "ot_ptr",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -1811,7 +1811,7 @@
     "params": [
       {
         "name": "time_of_day",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -1825,7 +1825,7 @@
     "params": [
       {
         "name": "weather_id",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "slot",
@@ -1843,11 +1843,11 @@
     "params": [
       {
         "name": "hour",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "weather_id",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -1861,19 +1861,19 @@
     "params": [
       {
         "name": "prop_slot",
-        "type": "short *"
+        "type": "s16 *"
       },
       {
         "name": "state_val",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "anim_idx",
-        "type": "uint"
+        "type": "u32"
       },
       {
         "name": "timer_val",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "core_mainloop",
@@ -1887,15 +1887,15 @@
     "params": [
       {
         "name": "area_id",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "frame_tick",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "mode",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "core_mainloop",
@@ -1917,8 +1917,8 @@
     "return_type": "u32",
     "params": [
       {
-        "name": "action_id",
-        "type": "int"
+        "name": "player_state",
+        "type": "HmPlayerState *"
       }
     ],
     "domain": "farm_crops_field",
@@ -1932,7 +1932,7 @@
     "params": [
       {
         "name": "delta",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "fatigue_delta",
@@ -1940,7 +1940,7 @@
       },
       {
         "name": "flags",
-        "type": "uint"
+        "type": "u32"
       },
       {
         "name": "anim_mode",
@@ -1958,7 +1958,7 @@
     "params": [
       {
         "name": "actor_ptr",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "emote_id",
@@ -1984,7 +1984,7 @@
     "params": [
       {
         "name": "item_id",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "farm_crops_field",
@@ -1998,11 +1998,11 @@
     "params": [
       {
         "name": "bed_trigger",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "flags",
-        "type": "uint"
+        "type": "u32"
       }
     ],
     "domain": "farm_crops_field",
@@ -2025,7 +2025,7 @@
     "params": [
       {
         "name": "player_pos",
-        "type": "short *"
+        "type": "s16 *"
       }
     ],
     "domain": "farm_crops_field",
@@ -2048,7 +2048,7 @@
     "params": [
       {
         "name": "target_tile",
-        "type": "short *"
+        "type": "s16 *"
       }
     ],
     "domain": "farm_crops_field",
@@ -2062,7 +2062,7 @@
     "params": [
       {
         "name": "tool_id",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "charge_tier",
@@ -2070,7 +2070,7 @@
       },
       {
         "name": "tile_ptr",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "farm_crops_field",
@@ -2084,7 +2084,7 @@
     "params": [
       {
         "name": "player_pos",
-        "type": "short *"
+        "type": "s16 *"
       }
     ],
     "domain": "farm_crops_field",
@@ -2098,7 +2098,7 @@
     "params": [
       {
         "name": "facing_tile",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "item_id",
@@ -2112,11 +2112,11 @@
     "program": "OVL_part11_id06.EXE",
     "address": "0x800cc7cc",
     "name": "hm_ovl11_interact_field_tile",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "target_tile",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "farm_crops_field",
@@ -2139,11 +2139,11 @@
     "params": [
       {
         "name": "tool_id",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "target_tile",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "farm_crops_field",
@@ -2153,7 +2153,7 @@
     "program": "OVL_part11_id06.EXE",
     "address": "0x800ce744",
     "name": "hm_ovl11_spawn_harvest_pickup",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "item_id",
@@ -2184,7 +2184,7 @@
     "params": [
       {
         "name": "world_pos",
-        "type": "short *"
+        "type": "s16 *"
       }
     ],
     "domain": "farm_crops_field",
@@ -2198,7 +2198,7 @@
     "params": [
       {
         "name": "item_id",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "out_flags",
@@ -2216,23 +2216,23 @@
     "params": [
       {
         "name": "item_id",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "qty",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "out_slot",
-        "type": "short *"
+        "type": "s16 *"
       },
       {
         "name": "mode",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "extra_ptr",
-        "type": "short *"
+        "type": "s16 *"
       }
     ],
     "domain": "farm_crops_field",
@@ -2246,7 +2246,7 @@
     "params": [
       {
         "name": "delta",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "mode",
@@ -2290,7 +2290,7 @@
     "params": [
       {
         "name": "item_id",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "render_gte_sprites",
@@ -2304,7 +2304,7 @@
     "params": [
       {
         "name": "prop_id",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "render_gte_sprites",
@@ -2318,7 +2318,7 @@
     "params": [
       {
         "name": "slot_idx",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "render_gte_sprites",
@@ -2328,11 +2328,11 @@
     "program": "OVL_part11_id06.EXE",
     "address": "0x800d6014",
     "name": "hm_ovl11_get_entity_anim_state",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "slot_idx",
-        "type": "uint"
+        "type": "u32"
       }
     ],
     "domain": "render_gte_sprites",
@@ -2346,7 +2346,7 @@
     "params": [
       {
         "name": "slot_idx",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "render_gte_sprites",
@@ -2360,7 +2360,7 @@
     "params": [
       {
         "name": "actor_id",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "render_gte_sprites",
@@ -2374,27 +2374,27 @@
     "params": [
       {
         "name": "slot_idx",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "actor_id",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "model_ptr",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "x",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "y",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "flags",
-        "type": "uint"
+        "type": "u32"
       }
     ],
     "domain": "render_gte_sprites",
@@ -2417,15 +2417,15 @@
     "params": [
       {
         "name": "cur_ang",
-        "type": "short *"
+        "type": "s16 *"
       },
       {
         "name": "target_ang",
-        "type": "ushort *"
+        "type": "u16 *"
       },
       {
         "name": "step_out",
-        "type": "short *"
+        "type": "s16 *"
       }
     ],
     "domain": "render_gte_sprites",
@@ -2439,23 +2439,23 @@
     "params": [
       {
         "name": "x",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "y",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "z",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "radius",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "mode",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "render_gte_sprites",
@@ -2483,19 +2483,19 @@
     "params": [
       {
         "name": "actor_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "dx",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "dz",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "render_gte_sprites",
-    "summary": "Updates actor facing angle and velocity table entry in DAT_80071dfc"
+    "summary": "Updates actor facing angle and velocity entry in g_farm_field_grid"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2514,7 +2514,7 @@
     "params": [
       {
         "name": "area_id",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "sub_mode",
@@ -2555,15 +2555,15 @@
     "program": "OVL_part11_id06.EXE",
     "address": "0x800df010",
     "name": "hm_ovl11_feed_or_pet_cow_sheep",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "animal_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "action_type",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "animals_livestock",
@@ -2573,15 +2573,15 @@
     "program": "OVL_part11_id06.EXE",
     "address": "0x800e0c24",
     "name": "hm_ovl11_interact_horse_or_dog",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "pet_id",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "action_type",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "animals_livestock",
@@ -2595,7 +2595,7 @@
     "params": [
       {
         "name": "chicken_ptr",
-        "type": "short *"
+        "type": "s16 *"
       }
     ],
     "domain": "animals_livestock",
@@ -2618,11 +2618,11 @@
     "params": [
       {
         "name": "npc_id",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "emote_id",
-        "type": "ushort"
+        "type": "u16"
       },
       {
         "name": "timer",
@@ -2630,7 +2630,7 @@
       },
       {
         "name": "offset",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "npc_dialogue_events",
@@ -2644,23 +2644,23 @@
     "params": [
       {
         "name": "npc_id",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "x",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "y",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "threshold",
-        "type": "uint"
+        "type": "u32"
       }
     ],
     "domain": "npc_dialogue_events",
-    "summary": "Evaluates villager affection/event precondition against NPC state at DAT_80129560"
+    "summary": "Evaluates villager affection/event precondition against NPC state in g_ovl11_script_vm_vars"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2674,15 +2674,15 @@
       },
       {
         "name": "item_id",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "mood",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "flags",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "npc_dialogue_events",
@@ -2692,23 +2692,23 @@
     "program": "OVL_part11_id06.EXE",
     "address": "0x800ec52c",
     "name": "hm_ovl11_update_npc_schedules",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "npc_id",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "area_id",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "time_min",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "weather",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "npc_dialogue_events",
@@ -2718,23 +2718,23 @@
     "program": "OVL_part11_id06.EXE",
     "address": "0x800eec1c",
     "name": "hm_ovl11_tick_npc_ai_and_talk",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "npc_id",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "area_id",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "dist",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "flags",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "npc_dialogue_events",
@@ -2748,7 +2748,7 @@
     "params": [
       {
         "name": "event_id",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "npc_dialogue_events",
@@ -2762,18 +2762,18 @@
     "params": [
       {
         "name": "script_ctx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "opcode",
         "type": "u32"
       },
       {
-        "name": "arg0",
-        "type": "uint"
+        "name": "flag_val",
+        "type": "u32"
       },
       {
-        "name": "arg1",
+        "name": "extra_val",
         "type": "u32"
       }
     ],
@@ -2788,19 +2788,19 @@
     "params": [
       {
         "name": "npc_id",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "field_off",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "out_flags",
-        "type": "uint *"
+        "type": "u32 *"
       }
     ],
     "domain": "npc_dialogue_events",
-    "summary": "Returns pointer into villager state table at DAT_80124a18 for npc_id"
+    "summary": "Returns pointer into villager state table for npc_id"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2810,7 +2810,7 @@
     "params": [
       {
         "name": "zone_id",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "npc_dialogue_events",
@@ -2824,11 +2824,11 @@
     "params": [
       {
         "name": "script_ptr",
-        "type": "ushort *"
+        "type": "u16 *"
       },
       {
         "name": "choice_count",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "npc_dialogue_events",
@@ -2842,11 +2842,11 @@
     "params": [
       {
         "name": "npc_id",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "mode",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "npc_dialogue_events",
@@ -2910,7 +2910,7 @@
     "program": "OVL_part11_id06.EXE",
     "address": "0x800ffb08",
     "name": "hm_ovl11_run_diary_save_prompt",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [],
     "domain": "ui_inventory_hud",
     "summary": "Displays bedside diary menu letting player save to Memory Card, check stats, or sleep"
@@ -2928,7 +2928,7 @@
     "program": "OVL_part11_id06.EXE",
     "address": "0x80104ec8",
     "name": "hm_ovl11_execute_story_cutscene_table",
-    "return_type": "uint",
+    "return_type": "u32",
     "params": [
       {
         "name": "scene_id",
@@ -2942,15 +2942,15 @@
     "program": "OVL_part11_id06.EXE",
     "address": "0x80109188",
     "name": "hm_ovl11_query_pasture_tile_grass",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "tile_x",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "tile_z",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "animals_livestock",
@@ -2964,7 +2964,7 @@
     "params": [
       {
         "name": "animal_ptr",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "animals_livestock",
@@ -3001,11 +3001,11 @@
     "program": "OVL_part11_id06.EXE",
     "address": "0x80120414",
     "name": "hm_ovl11_check_story_progression_milestones",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "day_state",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "overlay_part11_id06",
@@ -3073,7 +3073,7 @@
     "params": [
       {
         "name": "menu_idx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "overlay_part10_id05",
@@ -3083,15 +3083,15 @@
     "program": "OVL_part10_id05.EXE",
     "address": "0x800b9aa8",
     "name": "hm_ovl10_debug_edit_value",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "row_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "pad_mask",
-        "type": "uint"
+        "type": "u32"
       }
     ],
     "domain": "overlay_part10_id05",
@@ -3101,15 +3101,15 @@
     "program": "OVL_part10_id05.EXE",
     "address": "0x800ba394",
     "name": "hm_ovl10_debug_draw_list",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "page_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "cursor_pos",
-        "type": "uint"
+        "type": "u32"
       }
     ],
     "domain": "overlay_part10_id05",
@@ -3173,7 +3173,7 @@
     "params": [
       {
         "name": "max_len",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "overlay_part15_id10",
@@ -3219,7 +3219,7 @@
     "params": [
       {
         "name": "winner_idx",
-        "type": "ushort"
+        "type": "u16"
       }
     ],
     "domain": "overlay_part17_id07",
@@ -3265,7 +3265,7 @@
     "params": [
       {
         "name": "bout_state",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "overlay_part19_id08",
@@ -3311,11 +3311,11 @@
     "params": [
       {
         "name": "race_id",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "rank_order",
-        "type": "short *"
+        "type": "s16 *"
       }
     ],
     "domain": "overlay_part21_id09",
@@ -3361,15 +3361,15 @@
     "params": [
       {
         "name": "dog_state",
-        "type": "short *"
+        "type": "s16 *"
       },
       {
         "name": "x",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "y",
-        "type": "short"
+        "type": "s16"
       }
     ],
     "domain": "overlay_part23_id0a",
@@ -3396,7 +3396,7 @@
       }
     ],
     "domain": "overlay_part25_id0b",
-    "summary": "Initializes countdown timer DAT_800a03a4, team sprites, and tomato projectile pool"
+    "summary": "Initializes tomato festival countdown timer, team sprites, and projectile pool"
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -3406,7 +3406,7 @@
     "params": [
       {
         "name": "team_idx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "overlay_part25_id0b",
@@ -3424,7 +3424,7 @@
       },
       {
         "name": "aim_pos",
-        "type": "short *"
+        "type": "s16 *"
       }
     ],
     "domain": "overlay_part25_id0b",
@@ -3501,23 +3501,23 @@
     "params": [
       {
         "name": "ot_ptr",
-        "type": "uint *"
+        "type": "u32 *"
       },
       {
         "name": "x0",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "y0",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "x1",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "y1",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "c0",
@@ -3537,7 +3537,7 @@
       },
       {
         "name": "z",
-        "type": "short"
+        "type": "s16"
       },
       {
         "name": "mode",
@@ -3560,11 +3560,11 @@
     "program": "OVL_part30_id0f.EXE",
     "address": "0x8012f454",
     "name": "hm_ovl30_flag_browser_loop",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [
       {
         "name": "mode",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "overlay_part30_id0f",
@@ -3578,11 +3578,11 @@
     "params": [
       {
         "name": "entry_idx",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "bit_idx",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "overlay_part30_id0f",
@@ -3596,23 +3596,23 @@
     "params": [
       {
         "name": "ot_ptr",
-        "type": "uint *"
+        "type": "u32 *"
       },
       {
         "name": "row_y",
-        "type": "int"
+        "type": "s32"
       },
       {
         "name": "addr",
-        "type": "uint"
+        "type": "u32"
       },
       {
         "name": "val",
-        "type": "uint"
+        "type": "u32"
       },
       {
         "name": "type_fmt",
-        "type": "int"
+        "type": "s32"
       }
     ],
     "domain": "overlay_part30_id0f",
@@ -3658,7 +3658,7 @@
     "program": "OVL_part31_id0e.EXE",
     "address": "0x800b8490",
     "name": "hm_ovl31_pocket_ui_loop",
-    "return_type": "int",
+    "return_type": "s32",
     "params": [],
     "domain": "overlay_part31_id0e",
     "summary": "Runs interactive Memory Card / PocketStation backup prompt loop"

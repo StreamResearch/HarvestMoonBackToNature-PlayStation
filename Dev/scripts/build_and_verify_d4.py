@@ -109,12 +109,32 @@ def _collect_defined_fns(files: list[Path]) -> set[str]:
     return found
 
 
+def _resolve_parity_sources(readable_dir: Path) -> list[Path]:
+    sym_p = readable_dir / "SYMBOL_MAP.md"
+    if not sym_p.is_file():
+        return [readable_dir / rel for rel in _PARITY_RELS]
+    targets = {
+        "sys_run_vsync_cb_and_swap", "sys_set_vsync_stride", "sys_get_vsync_stride", "sys_set_draw_enable",
+        "sys_set_frame_sync_flag", "sys_get_highram_free_bytes", "sys_get_highram_arena_ptr", "hm_prng_next",
+        "hm_event_flag_get", "hm_event_flag_set", "hm_cd_init_afile_system", "cd_stop_xa_stream", "cd_send_xa_seek_cmd",
+        "hm_gte_project_svector_to_ot", "gfx_gte_rtps_get_otz", "p11_field_get_tool_family_index",
+        "p11_field_calc_effective_stamina_cost", "p11_field_calc_fishing_tension_decay",
+        "p11_field_calc_fishing_reel_power", "p11_field_add_tool_experience",
+    }
+    rels = []
+    for ln in sym_p.read_text(encoding="utf-8", errors="replace").splitlines():
+        if m := re.match(r"^\| `0x[0-9a-fA-F]+` \| `[^`]+` \| `[^`]+` \| \d+ \| `([^`]+)` \| \[`([^`]+)`\]", ln):
+            if m.group(1) in targets and m.group(2) not in rels:
+                rels.append(m.group(2))
+    return [readable_dir / rel for rel in rels] if rels else [readable_dir / rel for rel in _PARITY_RELS]
+
+
 def build_and_verify(zig_exe: Path, readable_dir: Path, work_dir: Path, standalone_dir: Path, game_id: str, logger: logging.Logger, report_out: Path, archive_base: Path) -> dict[str, Any]:
     """Compile MIPS ELF32 objects (Pass 1) and run globbed d4_harness LP32 tests (Pass 2)."""
     build_root = work_dir / "d4_build"
     obj_root, host_root = build_root / "obj", build_root / "host_parity"
     shutil.rmtree(build_root, ignore_errors=True); obj_root.mkdir(parents=True, exist_ok=True); host_root.mkdir(parents=True, exist_ok=True)
-    c_files, parity_sources = sorted(readable_dir.rglob("*.c")), [readable_dir / rel for rel in _PARITY_RELS]
+    c_files, parity_sources = sorted(readable_dir.rglob("*.c")), _resolve_parity_sources(readable_dir)
     globals_defs_c, host_stubs_c = _generate_globals_and_stubs(readable_dir, host_root, _collect_defined_fns(parity_sources))
     env, inc, compat = _zig_env(work_dir), str(readable_dir / "include"), str(readable_dir / "include/ghidra_compat.h")
     cflags = [str(zig_exe), "cc", "-target", "mipsel-freestanding-eabi", "-mcpu=mips2", "-msoft-float", "-ffreestanding", "-fno-builtin", "-fno-strict-aliasing", "-std=gnu11", "-O1", "-g0", "-Wno-everything", f"-I{inc}", "-include", compat]

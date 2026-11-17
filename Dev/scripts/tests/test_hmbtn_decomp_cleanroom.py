@@ -113,6 +113,9 @@ class TestHmbtnDecompCleanroom(unittest.TestCase):
             SCRIPTS_DIR / "hmbtn_save_diary.py",
             SCRIPTS_DIR / "craftsmanship_d4_helpers.py",
             SCRIPTS_DIR / "craftsmanship_d4_normalizer.py",
+            SCRIPTS_DIR / "craftsmanship_d4_unfold_chunk.py",
+            SCRIPTS_DIR / "craftsmanship_d4_ast_cleaner.py",
+            SCRIPTS_DIR / "craftsmanship_d4_type_gates.py",
             SCRIPTS_DIR / "patch_ps1_reexport_and_compat.py",
             TESTS_DIR / "test_hmbtn_parsers.py",
             TESTS_DIR / "test_hmbtn_decomp_cleanroom.py",
@@ -135,6 +138,9 @@ class TestHmbtnDecompCleanroom(unittest.TestCase):
             SCRIPTS_DIR / "hmbtn_save_diary.py",
             SCRIPTS_DIR / "craftsmanship_d4_helpers.py",
             SCRIPTS_DIR / "craftsmanship_d4_normalizer.py",
+            SCRIPTS_DIR / "craftsmanship_d4_unfold_chunk.py",
+            SCRIPTS_DIR / "craftsmanship_d4_ast_cleaner.py",
+            SCRIPTS_DIR / "craftsmanship_d4_type_gates.py",
             SCRIPTS_DIR / "patch_ps1_reexport_and_compat.py",
             TESTS_DIR / "test_hmbtn_parsers.py",
             TESTS_DIR / "test_hmbtn_decomp_cleanroom.py",
@@ -147,7 +153,7 @@ class TestHmbtnDecompCleanroom(unittest.TestCase):
             self.assertIsNone(win_path_re.search(txt), f"workstation path found in {fp.name}")
         self.assertEqual(validate_cleanroom_tree(DOCS_DIR / "specifications"), [])
         self.assertEqual(validate_cleanroom_tree(TESTS_DIR), [])
-        for rel in ("functions_catalog.json", "shards/stage3_02_p11_ui_core.json", "shards/stage3_03_p11_farm_gfx.json"):
+        for rel in ("anchor_functions.json", "functions_catalog.json", "shards/stage3_02_p11_ui_core.json", "shards/stage3_03_p11_farm_gfx.json"):
             for it in json.loads((SCHEMAS_DIR / rel).read_text(encoding="utf-8")):
                 sm = it.get("summary", "")
                 self.assertIsNone(re.search(r"\b(?:pbVar1|puVar4|FUN_80[0-9a-fA-F]+|_?(?:DAT|PTR|UNK|LAB|SUB|switchD)_[A-Za-z0-9_]+)\b", sm), f"Raw Ghidra summary token in {rel}: {sm}")
@@ -199,7 +205,7 @@ class TestHmbtnDecompCleanroom(unittest.TestCase):
             for sub in ("include", "sdk", "src/render_gte_sprites", "overlays"):
                 (rdir / sub).mkdir(parents=True, exist_ok=True)
             (rdir / "include" / "harvestmoonbtn_types.h").write_text("#pragma once\n#include <stdint.h>\ntypedef uint8_t u8; typedef uint16_t u16; typedef uint32_t u32; typedef uint64_t u64; typedef int32_t s32; typedef struct S { int local_x; int param_1; } S;\n", encoding="utf-8")
-            (rdir / "include" / "harvestmoonbtn_globals.h").write_text('#pragma once\n#include "harvestmoonbtn_types.h"\nextern undefined4 DAT_8005e384;\nextern u8 UNK_8003ef10;\n', encoding="utf-8")
+            (rdir / "include" / "harvestmoonbtn_globals.h").write_text('#pragma once\n#include "harvestmoonbtn_types.h"\nextern undefined4 DAT_8005e384;\nextern u8 UNK_8003ef10;\nextern u32 g_gfx_floor_mesh_sample_height_gte_state;\n', encoding="utf-8")
             (rdir / "include" / "harvestmoonbtn_functions.h").write_text('#pragma once\n#include "harvestmoonbtn_types.h"\nundefined4 demo_fn(undefined2 param_1, int param_flag);\n', encoding="utf-8")
             (rdir / "include" / "ghidra_compat.h").write_text("#pragma once\n#include <stdint.h>\n#include <stddef.h>\ntypedef int code();\n", encoding="utf-8")
             (rdir / "sdk" / "sdk_01.c").write_text('#include "../include/harvestmoonbtn_types.h"\n// Function: sdk_stub @ 0x80011270 (size=0x8, sdk=true)\nvoid sdk_stub(void)\n\n{\n  return;\n}\n', encoding="utf-8")
@@ -218,13 +224,14 @@ class TestHmbtnDecompCleanroom(unittest.TestCase):
             self.assertNotIn("g_core_engine_state_8005e384", norm_src)
             self.assertIn("g_core_patch_bios_table_region", norm_src)
             self.assertIn("g_core_overlay_jtbl_ptr", norm_src)
-            self.assertIn("int reg_v0 = 0;", norm_src)
-            self.assertIn("obj.local_x = (int)arg_1 - 1;", norm_src)
+            self.assertIn("active_tri_count = (s32)g_gfx_floor_mesh_sample_height_gte_state;", norm_src)
+            self.assertNotIn("arg_1", norm_src)
             self.assertIn("obj.param_1 = param_flag;", norm_src)
             self.assertIn("((HmCallbackFn)(uintptr_t)(", norm_src)
-            self.assertIn("hm_res_sys_wait_vblank_80011ef0()", norm_src)
+            self.assertIn("hm_res_sys_wait_vblank()", norm_src)
+            self.assertNotIn("_80011ef0", norm_src)
             compat_txt = (rdir / "include" / "ghidra_compat.h").read_text(encoding="utf-8")
-            self.assertIn("typedef int (*HmCallbackFn)();", compat_txt)
+            self.assertIn("typedef int32_t (*HmCallbackFn)();", compat_txt)
             self.assertIn("HM_HOST_PARITY", compat_txt)
             if zig := shutil.which("zig"):
                 obj_out = root / "test.o"

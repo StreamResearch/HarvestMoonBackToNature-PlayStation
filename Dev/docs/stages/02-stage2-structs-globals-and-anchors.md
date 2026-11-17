@@ -21,14 +21,14 @@ Parsed cleanly with `parse_type_headers(..., pointer_bytes=4)` (`RD_DECOMP_TOOLS
 - **LP32 Sizing:** `pointer_bytes = 4`, verified across every field offset (`/* +0xHEX */`) and trailing struct total (`/* 0xHEX */`).
 - **Exhaustive Global Size Check:** [stage2_globals_builder.py](../../scripts/stage2_globals_builder.py) and `build_ghidra_stage_bundle()` verify `elem_sz * cnt == int(g["size"])` across all `3,497 / 3,497` globals with `0` unresolved base types.
 - **Clamping & Non-Overlap:** All non-member standalone spans in each `(memory_region, program_scope)` bucket are strictly disjoint (`addr + size <= next_standalone_addr`). Sub-word `DAT_*` accesses falling inside a placed struct, array, or wider manual scalar are automatically reclassified as `kind: "struct_member"` with `parent_address` so `stage4_assembler.py` emits commented extern declarations without Ghidra symbol collisions.
-- **Identifier Safety:** `0` raw `DAT_` names, `0` duplicate names (`3,497` globally unique caller-semantic `g_*` identifiers: `1,850` suffix-free + `1,647` disambiguated with `_<8-hex-addr>`), `0` invalid C identifiers.
+- **Identifier Safety:** `0` raw `DAT_` names, `0` duplicate names (`3,497` globally unique caller-semantic, suffix-free `g_*` identifiers: `0` trailing `_[0-9a-f]{8}` addresses, `0` `_word`/`_half`/`_byte` mechanical stems), `0` invalid C identifiers.
 - **Syntax Check Note:** Use `clangd --check` when `clangd` is installed on `PATH`; `parse_type_headers` + `build_ghidra_stage_bundle` validation passes standalone with `0` errors.
 
 ## 3. Globals Mapping & Top High-Fanout Curated Structures
 
-Built from [globals_manual_overrides.json](../../schemas/shards/globals_manual_overrides.json) (`186` curated entries covering special regions, parent structs/arrays, runtime/parity anchors, and top-150+ fanout symbols) plus deterministic caller-semantic + width inference:
+Built from [globals_manual_overrides.json](../../schemas/shards/globals_manual_overrides.json) (`193` curated entries covering special regions, parent structs/arrays, runtime/parity anchors, and top-150+ fanout symbols) plus deterministic caller-semantic + width inference:
 
-- **Totals:** `3,497` mapped (`2,986` `standalone` + `511` `struct_member`); confidence `159` high, `491` medium, `2,847` low (`1,850` suffix-free + `1,647` disambiguated).
+- **Totals:** `3,497` mapped (`2,986` `standalone` + `511` `struct_member`); confidence `166` high, `491` medium, `2,840` low (`100%` suffix-free via `stage2_globals_builder.py` ordinal/semantic disambiguation).
 - **Program Scope Partitioning:** `resident`: `1,877` | `OVL_part11_id06.EXE`: `836` | `OVL_part21_id09.EXE`: `109` | `OVL_part30_id0f.EXE`: `97` | `OVL_part15_id10.EXE`: `93` | `OVL_part19_id08.EXE`: `92` | `OVL_part25_id0b.EXE`: `91` | `OVL_part10_id05.EXE`: `81` | `OVL_part17_id07.EXE`: `77` | `OVL_part23_id0a.EXE`: `63` | `OVL_part28_id0d.EXE`: `43` | `OVL_part27_id0c.EXE`: `31` | `OVL_part08_id04.EXE`: `4` | `OVL_part31_id0e.EXE`: `3`.
 
 ### Key Placed Structures & High-Fanout Roots

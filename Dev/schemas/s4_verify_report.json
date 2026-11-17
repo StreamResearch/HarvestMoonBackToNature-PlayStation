@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "gameId": "harvest-moon-btn",
-  "generatedAtUtc": "2026-11-17T09:05:00.000Z",
+  "generatedAtUtc": "2026-11-17T20:15:52.885Z",
   "compilerErrorCount": 0,
   "compilerWarningCount": 0,
   "compilerErrors": 0,
@@ -33,6 +33,9 @@
     "Dev/scripts/hmbtn_save_diary.py",
     "Dev/scripts/craftsmanship_d4_helpers.py",
     "Dev/scripts/craftsmanship_d4_normalizer.py",
+    "Dev/scripts/craftsmanship_d4_unfold_chunk.py",
+    "Dev/scripts/craftsmanship_d4_ast_cleaner.py",
+    "Dev/scripts/craftsmanship_d4_type_gates.py",
     "Dev/scripts/d4_synthetic_corpus.py"
   ]
 }

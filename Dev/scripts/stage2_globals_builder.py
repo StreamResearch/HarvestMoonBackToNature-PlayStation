@@ -21,7 +21,8 @@ RESIDENT_REGIONS = frozenset({
     "bios_kernel_low", "scratchpad_1f800000", "mmio_1f801000", "high_ram_arena",
 })
 C_IDENT_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
-_HEX_SFX_RE = re.compile(r"_[0-9a-f]{8}$")
+_HEX_SFX_RE = re.compile(r"_[0-9a-fA-F]{6,8}$")
+_SIZE_NOISE_RE = re.compile(r"_(?:word|half|byte|sword|shalf|sbyte)(?:_\d+)?$")
 _GENERIC_GLOBAL_RE = re.compile(r"^g_[a-z0-9]+_(?:u8|u16|u32|s8|s16|s32|ptr|arr|tbl|state|flag|flags|idx|cnt|buf)_[0-9a-f]{8}$")
 
 
@@ -115,7 +116,7 @@ def infer_standalone(entry: dict[str, Any], domain: str, max_gap: int, fn_by_key
     rclean = cfg.get("roleClean", {}).get(role_tag, role_tag)
     stem = ("_".join(toks if toks[-1] == rclean else [*toks, rclean])) if toks else (rclean if rclean != role_tag else f"work_{role_tag}")
     ev = f"{region}; {entry.get('func_ref_count', 0)} funcs/{entry.get('ref_count', 0)} refs" + (f"; sdk={','.join(roles[:3])}" if roles else "")
-    return (sanitize_ident(f"g_{dtag}_{stem}_{addr_hex}"), c_type, size, conf, ev)
+    return (sanitize_ident(f"g_{dtag}_{stem}"), c_type, size, conf, ev)
 
 
 def lookup_field(c_type: str, offset: int, structs_by_name: dict[str, dict[str, Any]], type_sizes: dict[str, tuple[int, int]], pb: int = 4, parse_spec: Any = None) -> tuple[str, str | None, int] | None:
@@ -185,7 +186,7 @@ def build_globals_map(track_dir: Path = TRACK_DIR, tools_dir: Path | None = None
                 elif field and field[1] and field[2] <= max(1, min(root_end, nxt_a) - addr): ctype, sz = field[1], field[2]
                 else: ctype, sz, _ = scalar_for_gap(addr, max(1, min(root_end, nxt_a) - addr), set(rec.get("deref_patterns") or ()), rec.get("init_u32"), cfg.get("ptrDerefMap"))
                 p_short = _HEX_SFX_RE.sub("", sanitize_ident(p_ov["name"]))[2:26]
-                name = sanitize_ident(ov["name"]) if (ov and ov.get("name")) else sanitize_ident(f"g_{p_short}_{field[0] if field else f'off_{addr - int(p_hex, 16):x}'}_{addr_hex[2:].zfill(8)}")
+                name = sanitize_ident(ov["name"]) if (ov and ov.get("name")) else sanitize_ident(f"g_{p_short}_{field[0] if field else f'off_{addr - int(p_hex, 16):x}'}")
                 records.append({"address": addr_hex, "symbol": rec["symbol"], "program_scope": scope, "referencing_programs": progs, "name": name, "c_type": ctype, "size": sz, "kind": "struct_member", "parent_address": p_hex, "domain": dom, "confidence": ov.get("confidence", "high") if ov else "medium", "evidence": ov.get("evidence", f"Member +0x{addr - int(p_hex, 16):x} of {p_hex}") if ov else f"Member +0x{addr - int(p_hex, 16):x} of {p_ov['name']}"})
             else:
                 max_gap = (next_st[i] - addr) if next_st[i] is not None else 0x100000
@@ -198,13 +199,32 @@ def build_globals_map(track_dir: Path = TRACK_DIR, tools_dir: Path | None = None
                     name, ctype, sz, conf, ev = infer_standalone(rec, dom, max_gap, fn_by_key, cfg)
                 records.append({"address": addr_hex, "symbol": rec["symbol"], "program_scope": scope, "referencing_programs": progs, "name": name, "c_type": ctype, "size": sz, "kind": "standalone", "parent_address": None, "domain": dom, "confidence": conf, "evidence": ev})
 
-    cands = [_HEX_SFX_RE.sub("", r["name"]) for r in records]
-    counts = Counter(cands)
-    used = set(fn_by_key.values()) | {s["name"] for s in parsed["structs"]} | {t["name"] for t in parsed["typedefs"]} | {e["name"] for e in parsed["enums"]}
-    for rec, base in zip(records, cands):
-        if counts[base] == 1 and base not in used: rec["name"] = base; used.add(base)
-        else: used.add(rec["name"])
     records.sort(key=lambda r: (int(r["address"], 16), r["program_scope"]))
+    cands = [_HEX_SFX_RE.sub("", r["name"]) for r in records]
+    manual_mask = [bool((overrides.get(r["address"]) or {}).get("name")) for r in records]
+    counts, gi_by_addr = Counter(cands), {r["address"].lower(): r for r in gi.values()}
+    used = set(fn_by_key.values()) | {s["name"] for s in parsed["structs"]} | {t["name"] for t in parsed["typedefs"]} | {e["name"] for e in parsed["enums"]}
+    for base, is_man in zip(cands, manual_mask):
+        if is_man: used.add(base)
+    ordinals: Counter[str] = Counter()
+    for rec, base, is_man in zip(records, cands, manual_mask):
+        cand = base
+        if not is_man and (counts[base] > 1 or cand in used):
+            refs = [fn_by_key.get(r, "") for r in (gi_by_addr.get(rec["address"], {}).get("referencing_functions") or [])]
+            extras = [t for fn in refs[1:4] for t in _fn_tokens(fn, cfg["stopWords"]) if t not in base.split("_")][:2]
+            if extras:
+                alt = sanitize_ident(f"{base}_{'_'.join(extras)}")
+                if counts[alt] == 0 and alt not in used:
+                    cand = alt
+            if cand in used or (cand == base and counts[base] > 1):
+                ordinals[base] += 1
+                idx = ordinals[base]
+                while sanitize_ident(f"{base}_{idx}") in used:
+                    idx += 1
+                ordinals[base] = idx
+                cand = sanitize_ident(f"{base}_{idx}")
+        rec["name"] = cand
+        used.add(cand)
     validate_globals_map(records, gi, buckets, type_sizes, s23.parse_type_spec)
     return records
 
@@ -214,7 +234,7 @@ def validate_globals_map(records: list[dict[str, Any]], gi: dict[str, Any], buck
     seen, by_b, reg = set(), defaultdict(list), {r["address"].lower(): r.get("memory_region", "") for r in gi.values()}
     for r in records:
         nm = r["name"]
-        if not nm.startswith("g_") or "DAT_" in nm or not C_IDENT_RE.match(nm) or _GENERIC_GLOBAL_RE.match(nm) or nm in seen:
+        if not nm.startswith("g_") or "DAT_" in nm or not C_IDENT_RE.match(nm) or _GENERIC_GLOBAL_RE.match(nm) or _HEX_SFX_RE.search(nm) or _SIZE_NOISE_RE.search(nm) or nm in seen:
             raise ValueError(f"Invalid/duplicate global name: {nm!r}")
         seen.add(nm)
         if calc_type_size(r["c_type"], type_sizes, parse_spec=parse_spec) != int(r["size"]):

@@ -1,7 +1,7 @@
 [
   {
     "address": "0x0000df80",
-    "name": "g_bios_kernel_work_ptr_0000df80",
+    "name": "g_bios_kernel_work_ptr",
     "c_type": "void *",
     "domain": "input_memcard",
     "confidence": "medium",
@@ -9,7 +9,7 @@
   },
   {
     "address": "0x1f8003fc",
-    "name": "g_spad_saved_sp_1f8003fc",
+    "name": "g_spad_saved_sp",
     "c_type": "u32 *",
     "domain": "core_mainloop",
     "confidence": "high",
@@ -17,7 +17,7 @@
   },
   {
     "address": "0x1f801c0a",
-    "name": "g_hw_spu_voice0_adsr2_1f801c0a",
+    "name": "g_hw_spu_voice0_adsr2",
     "c_type": "s16",
     "domain": "audio_spu_vab",
     "confidence": "high",
@@ -25,7 +25,7 @@
   },
   {
     "address": "0x8001021c",
-    "name": "g_rodata_spu_dispatch_tbl_8001021c",
+    "name": "g_rodata_spu_dispatch_tbl",
     "c_type": "void *",
     "domain": "sdk",
     "confidence": "high",
@@ -33,7 +33,7 @@
   },
   {
     "address": "0x80010358",
-    "name": "g_rodata_card_dispatch_tbl_80010358",
+    "name": "g_rodata_card_dispatch_tbl",
     "c_type": "void *",
     "domain": "sdk",
     "confidence": "high",
@@ -41,1416 +41,11 @@
   },
   {
     "address": "0x80048b40",
-    "name": "g_cd_afile_toc_head_80048b40",
+    "name": "g_cd_afile_toc_head",
     "c_type": "HmAfileTocEntry",
     "domain": "cd_afile_overlays",
     "confidence": "high",
     "evidence": "A_FILE.BIN resident archive TOC entry base (stride 0x28 in SLUS_011.15@800147bc)"
-  },
-  {
-    "address": "0x80055a44",
-    "name": "g_sdk_spu_transfer_mode_80055a44",
-    "c_type": "s32",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "PS1 SDK _spu_t arg1 transfer mode/shift configuration"
-  },
-  {
-    "address": "0x80055b04",
-    "name": "g_sdk_spu_malloc_rec_ptr_80055b04",
-    "c_type": "u32 *",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "PS1 SDK _SpuInit / SpuInitMalloc voice allocation table pointer"
-  },
-  {
-    "address": "0x8005764c",
-    "name": "g_cd_sync_callback_8005764c",
-    "c_type": "void *",
-    "domain": "cd_afile_overlays",
-    "confidence": "high",
-    "evidence": "CD subsystem active sync callback function pointer"
-  },
-  {
-    "address": "0x80057650",
-    "name": "g_cd_ready_callback_80057650",
-    "c_type": "void *",
-    "domain": "cd_afile_overlays",
-    "confidence": "high",
-    "evidence": "CD subsystem ready callback function pointer"
-  },
-  {
-    "address": "0x80057669",
-    "name": "g_cd_ctrl_ready_flag_80057669",
-    "c_type": "u8",
-    "domain": "cd_afile_overlays",
-    "confidence": "high",
-    "evidence": "CD control status / ready state flag byte"
-  },
-  {
-    "address": "0x80057928",
-    "name": "g_cd_read_state_80057928",
-    "c_type": "u8",
-    "domain": "cd_afile_overlays",
-    "confidence": "high",
-    "evidence": "CD sector read / AFILE transfer status byte (next neighbor 0x80057929)"
-  },
-  {
-    "address": "0x8005dd16",
-    "name": "g_sdk_graph_debug_level_8005dd16",
-    "c_type": "u8",
-    "domain": "sdk",
-    "confidence": "high",
-    "evidence": "PS1 SDK ResetGraph/SetGraphDebug verbosity level"
-  },
-  {
-    "address": "0x8005dd1a",
-    "name": "g_sdk_disp_height_mode_8005dd1a",
-    "c_type": "s16",
-    "domain": "sdk",
-    "confidence": "high",
-    "evidence": "PS1 SDK display height / video standard flag passed to SYS_OBJ_*"
-  },
-  {
-    "address": "0x8005e144",
-    "name": "g_mcx_cmd_phase_8005e144",
-    "c_type": "s32",
-    "domain": "input_memcard",
-    "confidence": "high",
-    "evidence": "PocketStation MCX command state phase (init=1)"
-  },
-  {
-    "address": "0x8005e148",
-    "name": "g_mcx_async_status_8005e148",
-    "c_type": "s32",
-    "domain": "input_memcard",
-    "confidence": "high",
-    "evidence": "PocketStation MCX async transaction status"
-  },
-  {
-    "address": "0x8005e15c",
-    "name": "g_mcx_port_chan_state_8005e15c",
-    "c_type": "s32",
-    "domain": "input_memcard",
-    "confidence": "high",
-    "evidence": "PocketStation MCX SIO port/channel state"
-  },
-  {
-    "address": "0x8005e338",
-    "name": "g_core_vblank_frame_flag_8005e338",
-    "c_type": "s32",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "VSync / mainloop timing synchronization flag in SLUS_011.15@8002301c"
-  },
-  {
-    "address": "0x8005e384",
-    "name": "g_core_engine_state_8005e384",
-    "c_type": "HmEngineState",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "Core engine main-loop & memory arena context (0x48 bytes ending at 0x8005e3cc)"
-  },
-  {
-    "address": "0x8005e3a8",
-    "name": "g_io_active_pad_buf_ptr_8005e3a8",
-    "c_type": "HmPadState *",
-    "kind": "struct_member",
-    "domain": "input_memcard",
-    "confidence": "high",
-    "evidence": "HmEngineState+0x24 pad_p1 active controller buffer pointer (75 funcs/200 refs)"
-  },
-  {
-    "address": "0x8005e3b0",
-    "name": "g_gfx_highram_arena_ptr_8005e3b0",
-    "c_type": "u8 *",
-    "kind": "struct_member",
-    "domain": "render_gte_sprites",
-    "confidence": "high",
-    "evidence": "HmEngineState+0x2c prim_arena / high-RAM VRAM staging pointer (58 funcs/177 refs)"
-  },
-  {
-    "address": "0x8005e3c0",
-    "name": "g_gfx_active_disp_ctx_ptr_8005e3c0",
-    "c_type": "HmDisplayOtCtx *",
-    "kind": "struct_member",
-    "domain": "render_gte_sprites",
-    "confidence": "high",
-    "evidence": "HmEngineState+0x3c disp_ot_ctx (top fanout 294 funcs/546 refs -> 0x8005e5e8/0x8005e71c)"
-  },
-  {
-    "address": "0x8005e3f0",
-    "name": "g_cd_afile_request_8005e3f0",
-    "c_type": "HmAfileRequest",
-    "domain": "cd_afile_overlays",
-    "confidence": "high",
-    "evidence": "A_FILE.BIN async/sync CD request block (0x44 bytes)"
-  },
-  {
-    "address": "0x8005e444",
-    "name": "g_ui_dialogue_box_ctx_8005e444",
-    "c_type": "HmDialogueBoxCtx",
-    "domain": "npc_dialogue_events",
-    "confidence": "high",
-    "evidence": "Dialogue & choice text window state block (0x78 bytes in SLUS_011.15@800183e0)"
-  },
-  {
-    "address": "0x8005e5e8",
-    "name": "g_gfx_disp_ctx_buf0_8005e5e8",
-    "c_type": "HmDisplayOtCtx",
-    "domain": "render_gte_sprites",
-    "confidence": "high",
-    "evidence": "Double-buffered DRAWENV+DISPENV+OT context 0 (0x134 bytes, init in FUN_8001231c)"
-  },
-  {
-    "address": "0x8005e71c",
-    "name": "g_gfx_disp_ctx_buf1_8005e71c",
-    "c_type": "HmDisplayOtCtx",
-    "domain": "render_gte_sprites",
-    "confidence": "high",
-    "evidence": "Double-buffered DRAWENV+DISPENV+OT context 1 (0x134 bytes, init in FUN_8001231c)"
-  },
-  {
-    "address": "0x80061de8",
-    "name": "g_gfx_camera_iso_state_80061de8",
-    "c_type": "HmCameraIsoState",
-    "domain": "render_gte_sprites",
-    "confidence": "high",
-    "evidence": "Isometric camera & view matrix state (0xa0 bytes ending before 0x80061ea8)"
-  },
-  {
-    "address": "0x8006c844",
-    "name": "g_core_engine_flags0_8006c844",
-    "c_type": "u32",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "High-fanout (101 funcs/241 refs) engine global bitflags word 0"
-  },
-  {
-    "address": "0x8006c848",
-    "name": "g_core_engine_flags1_8006c848",
-    "c_type": "u32",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "Engine global bitflags word 1"
-  },
-  {
-    "address": "0x8006c858",
-    "name": "g_gfx_sprite_desc_tbl_ptr_8006c858",
-    "c_type": "u8 *",
-    "domain": "render_gte_sprites",
-    "confidence": "high",
-    "evidence": "Pointer to stride-0x28 item/tile/sprite asset descriptor table"
-  },
-  {
-    "address": "0x8006c868",
-    "name": "g_npc_active_cutscene_actor_ptr_8006c868",
-    "c_type": "void *",
-    "domain": "npc_dialogue_events",
-    "confidence": "high",
-    "evidence": "Active cutscene / special actor pointer"
-  },
-  {
-    "address": "0x8006c904",
-    "name": "g_core_submode_state_8006c904",
-    "c_type": "u8",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "Mainloop sub-mode byte flag"
-  },
-  {
-    "address": "0x80070c88",
-    "name": "g_core_scene_flags_80070c88",
-    "c_type": "u32",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "Gameplay / scene state bitmask"
-  },
-  {
-    "address": "0x80070cc0",
-    "name": "g_core_ovl_stack_depth_80070cc0",
-    "c_type": "s32",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "Overlay / mode stack depth index"
-  },
-  {
-    "address": "0x80070cc4",
-    "name": "g_core_minigame_state_80070cc4",
-    "c_type": "HmMinigameState",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "Festival / minigame & boot step shared control block (0x28 bytes ending at 0x80070cec)"
-  },
-  {
-    "address": "0x80070cf0",
-    "name": "g_farm_cal_year_80070cf0",
-    "c_type": "s16",
-    "domain": "farm_crops_field",
-    "confidence": "high",
-    "evidence": "Calendar year counter immediately preceding HmCalendarClock"
-  },
-  {
-    "address": "0x80070cf2",
-    "name": "g_farm_calendar_clock_80070cf2",
-    "c_type": "HmCalendarClock",
-    "domain": "farm_crops_field",
-    "confidence": "high",
-    "evidence": "Top fanout (87 funcs/205 refs) global calendar & weather block (0x16 bytes ending at 0x80070d08)"
-  },
-  {
-    "address": "0x80070cf4",
-    "name": "g_farm_cal_day_80070cf4",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "farm_crops_field",
-    "confidence": "high",
-    "evidence": "HmCalendarClock+0x02 day of month (0..29)"
-  },
-  {
-    "address": "0x80070cf6",
-    "name": "g_farm_cal_weekday_80070cf6",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "farm_crops_field",
-    "confidence": "high",
-    "evidence": "HmCalendarClock+0x04 day of week (0=Sun..6=Sat)"
-  },
-  {
-    "address": "0x80070cf8",
-    "name": "g_farm_cal_hour_80070cf8",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "farm_crops_field",
-    "confidence": "high",
-    "evidence": "HmCalendarClock+0x06 current in-game hour (0..23)"
-  },
-  {
-    "address": "0x80070d02",
-    "name": "g_farm_cal_day_minutes_80070d02",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "farm_crops_field",
-    "confidence": "high",
-    "evidence": "HmCalendarClock+0x10 elapsed minutes in day"
-  },
-  {
-    "address": "0x80070d06",
-    "name": "g_farm_weather_festival_80070d06",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "farm_crops_field",
-    "confidence": "high",
-    "evidence": "HmCalendarClock+0x14 festival / scheduled weather ticks"
-  },
-  {
-    "address": "0x80070d08",
-    "name": "g_farm_upgrade_flags0_80070d08",
-    "c_type": "u16",
-    "domain": "farm_crops_field",
-    "confidence": "high",
-    "evidence": "Farm expansion / greenhouse / hurricane flags 0"
-  },
-  {
-    "address": "0x80070d0a",
-    "name": "g_farm_upgrade_flags1_80070d0a",
-    "c_type": "u16",
-    "domain": "farm_crops_field",
-    "confidence": "high",
-    "evidence": "Farm expansion / tool / festival flags 1"
-  },
-  {
-    "address": "0x80070d0c",
-    "name": "g_farm_upgrade_flags2_80070d0c",
-    "c_type": "u16",
-    "domain": "farm_crops_field",
-    "confidence": "high",
-    "evidence": "Farm expansion / house upgrade flags 2"
-  },
-  {
-    "address": "0x80070d30",
-    "name": "g_npc_event_progress_flags_80070d30",
-    "c_type": "u32",
-    "domain": "npc_dialogue_events",
-    "confidence": "high",
-    "evidence": "Festival / story / farm progression bitmask"
-  },
-  {
-    "address": "0x800719f8",
-    "name": "g_ui_unlocked_recipes_flags_800719f8",
-    "c_type": "u32",
-    "domain": "ui_inventory_hud",
-    "confidence": "high",
-    "evidence": "Unlocked tools / recipes / progress flags before HmPlayerState"
-  },
-  {
-    "address": "0x80071a00",
-    "name": "g_core_player_state_80071a00",
-    "c_type": "HmPlayerState",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "Main player state struct (0x120 bytes ending exactly before 0x80071b20)"
-  },
-  {
-    "address": "0x80071a1e",
-    "name": "g_player_equipped_tool_80071a1e",
-    "c_type": "s16",
-    "kind": "struct_member",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "HmPlayerState+0x1e equipped_tool"
-  },
-  {
-    "address": "0x80071a36",
-    "name": "g_player_action_flags_80071a36",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "HmPlayerState+0x36 action_flags"
-  },
-  {
-    "address": "0x80071a38",
-    "name": "g_player_facing_dir_80071a38",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "HmPlayerState+0x38 facing_dir"
-  },
-  {
-    "address": "0x80071a64",
-    "name": "g_player_pad_held_80071a64",
-    "c_type": "u32",
-    "kind": "struct_member",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "HmPlayerState+0x64 demo_pad_held"
-  },
-  {
-    "address": "0x80071a68",
-    "name": "g_player_pad_edge_80071a68",
-    "c_type": "u32",
-    "kind": "struct_member",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "HmPlayerState+0x68 demo_pad_edge"
-  },
-  {
-    "address": "0x80071a6c",
-    "name": "g_player_status_flags_80071a6c",
-    "c_type": "u32",
-    "kind": "struct_member",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "HmPlayerState+0x6c flags (58 funcs/273 refs)"
-  },
-  {
-    "address": "0x80071a88",
-    "name": "g_player_held_item_80071a88",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "HmPlayerState+0x88 held/rucksack slot"
-  },
-  {
-    "address": "0x80071ac0",
-    "name": "g_player_rucksack_tools_80071ac0",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "HmPlayerState+0xc0 rucksack / tool inventory base"
-  },
-  {
-    "address": "0x80071afc",
-    "name": "g_player_interact_target_80071afc",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "HmPlayerState+0xfc current interaction target id"
-  },
-  {
-    "address": "0x80071b00",
-    "name": "g_player_pos_x_80071b00",
-    "c_type": "s32",
-    "kind": "struct_member",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "HmPlayerState+0x100 pos_x"
-  },
-  {
-    "address": "0x80071b04",
-    "name": "g_player_pos_y_80071b04",
-    "c_type": "s32",
-    "kind": "struct_member",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "HmPlayerState+0x104 pos_y"
-  },
-  {
-    "address": "0x80071b08",
-    "name": "g_player_pos_z_80071b08",
-    "c_type": "s32",
-    "kind": "struct_member",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "HmPlayerState+0x108 pos_z"
-  },
-  {
-    "address": "0x80071b0c",
-    "name": "g_player_vel_x_80071b0c",
-    "c_type": "s32",
-    "kind": "struct_member",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "HmPlayerState+0x10c vel_x"
-  },
-  {
-    "address": "0x80071dfc",
-    "name": "g_farm_field_grid_80071dfc",
-    "c_type": "u8[8640]",
-    "domain": "farm_crops_field",
-    "confidence": "high",
-    "evidence": "Outdoor farm field grid (24 * 0x168 = 0x21c0 bytes, row stride 0xb4 shorts)"
-  },
-  {
-    "address": "0x80074124",
-    "name": "g_farm_greenhouse_grid_80074124",
-    "c_type": "u8[336]",
-    "domain": "farm_crops_field",
-    "confidence": "high",
-    "evidence": "Greenhouse crop grid (row stride 0x1c shorts = 0x38 bytes, safely before 0x800742ac)"
-  },
-  {
-    "address": "0x800742ac",
-    "name": "g_anim_shipping_pet_state_800742ac",
-    "c_type": "u8[64]",
-    "domain": "animals_livestock",
-    "confidence": "high",
-    "evidence": "64-byte state block memset(..., 0x40) right before chicken array at 0x800742ec"
-  },
-  {
-    "address": "0x800742ec",
-    "name": "g_anim_chicken_coop_tbl_800742ec",
-    "c_type": "HmAnimalRecord[10]",
-    "domain": "animals_livestock",
-    "confidence": "high",
-    "evidence": "10 HmAnimalRecord * 0xb4 bytes = 0x708 bytes (init in FUN_800ce96c, ends at 0x800749f4)"
-  },
-  {
-    "address": "0x800749f4",
-    "name": "g_anim_livestock_barn_tbl_800749f4",
-    "c_type": "HmNpcActor[20]",
-    "domain": "animals_livestock",
-    "confidence": "high",
-    "evidence": "20 * 0xb8 bytes = 0xe60 bytes (ends at 0x80075854)"
-  },
-  {
-    "address": "0x80074a28",
-    "name": "g_anim_barn_slot0_flags_80074a28",
-    "c_type": "u32",
-    "kind": "struct_member",
-    "domain": "animals_livestock",
-    "confidence": "high",
-    "evidence": "Member +0x34 of barn record array slot 0"
-  },
-  {
-    "address": "0x800759e4",
-    "name": "g_anim_horse_state_800759e4",
-    "c_type": "u8[240]",
-    "domain": "animals_livestock",
-    "confidence": "high",
-    "evidence": "0xf0-byte horse/pet actor record right before 0x80075ad4"
-  },
-  {
-    "address": "0x80075ad4",
-    "name": "g_anim_dog_state_80075ad4",
-    "c_type": "u8[240]",
-    "domain": "animals_livestock",
-    "confidence": "high",
-    "evidence": "0xf0-byte dog actor record memset(..., 0xf0)"
-  },
-  {
-    "address": "0x80076220",
-    "name": "g_npc_actor_tbl_base_80076220",
-    "c_type": "s16",
-    "domain": "npc_dialogue_events",
-    "confidence": "high",
-    "evidence": "NPC record table base (stride 0xea shorts = 0x1d4 bytes)"
-  },
-  {
-    "address": "0x80076224",
-    "name": "g_npc_actor0_affection_80076224",
-    "c_type": "u16",
-    "domain": "npc_dialogue_events",
-    "confidence": "high",
-    "evidence": "NPC record +0x04 affection score (capped at 60000)"
-  },
-  {
-    "address": "0x8007a5c4",
-    "name": "g_farm_field_plot_slot_8007a5c4",
-    "c_type": "HmFieldPlotCell",
-    "domain": "farm_crops_field",
-    "confidence": "high",
-    "evidence": "Interactive farm plot cell record (0x18 bytes ending at 0x8007a5dc)"
-  },
-  {
-    "address": "0x8007a60c",
-    "name": "g_npc_active_script_entity_ptr_8007a60c",
-    "c_type": "void *",
-    "domain": "npc_dialogue_events",
-    "confidence": "high",
-    "evidence": "Active scripted NPC / entity pointer"
-  },
-  {
-    "address": "0x8007ad00",
-    "name": "g_farm_current_weather_8007ad00",
-    "c_type": "s16",
-    "domain": "farm_crops_field",
-    "confidence": "high",
-    "evidence": "Active weather enum/index (0=sunny, 1=rain, 2=snow, 3+=storm)"
-  },
-  {
-    "address": "0x8009f78c",
-    "name": "g_gfx_active_map_desc_8009f78c",
-    "c_type": "u8[3024]",
-    "domain": "render_gte_sprites",
-    "confidence": "high",
-    "evidence": "0xbd0-byte active map/scene descriptor copied in FUN_800bcf54 (ends 0x800a035c)"
-  },
-  {
-    "address": "0x800a0378",
-    "name": "g_core_event_script_ctx_800a0378",
-    "c_type": "HmEventScriptCtx",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "Scene/event script dispatcher block (0x11c bytes ending at 0x800a0494)"
-  },
-  {
-    "address": "0x800a039c",
-    "name": "g_gfx_cam_offset_x_800a039c",
-    "c_type": "s16",
-    "kind": "struct_member",
-    "domain": "render_gte_sprites",
-    "confidence": "high",
-    "evidence": "HmEventScriptCtx+0x24 camera/map scroll X offset"
-  },
-  {
-    "address": "0x800a039e",
-    "name": "g_gfx_cam_offset_y_800a039e",
-    "c_type": "s16",
-    "kind": "struct_member",
-    "domain": "render_gte_sprites",
-    "confidence": "high",
-    "evidence": "HmEventScriptCtx+0x26 camera/map scroll Y offset"
-  },
-  {
-    "address": "0x800a03a0",
-    "name": "g_gfx_cam_offset_z_800a03a0",
-    "c_type": "s16",
-    "kind": "struct_member",
-    "domain": "render_gte_sprites",
-    "confidence": "high",
-    "evidence": "HmEventScriptCtx+0x28 camera/map scroll Z offset"
-  },
-  {
-    "address": "0x800a03a4",
-    "name": "g_core_spawn_pos_x_800a03a4",
-    "c_type": "s16",
-    "kind": "struct_member",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "HmEventScriptCtx+0x2c scene entry spawn X"
-  },
-  {
-    "address": "0x800a03a6",
-    "name": "g_core_spawn_pos_y_800a03a6",
-    "c_type": "s16",
-    "kind": "struct_member",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "HmEventScriptCtx+0x2e scene entry spawn Y"
-  },
-  {
-    "address": "0x800a03a8",
-    "name": "g_core_spawn_pos_z_800a03a8",
-    "c_type": "s16",
-    "kind": "struct_member",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "HmEventScriptCtx+0x30 scene entry spawn Z"
-  },
-  {
-    "address": "0x800a0490",
-    "name": "g_core_map_transition_state_800a0490",
-    "c_type": "s32",
-    "kind": "struct_member",
-    "domain": "core_mainloop",
-    "confidence": "high",
-    "evidence": "HmEventScriptCtx+0x118 script/map transition state"
-  },
-  {
-    "address": "0x800a0728",
-    "name": "g_gfx_sprite_ot_ctx_800a0728",
-    "c_type": "u32",
-    "domain": "render_gte_sprites",
-    "confidence": "medium",
-    "evidence": "Sprite / OT draw staging structure"
-  },
-  {
-    "address": "0x800a0804",
-    "name": "g_audio_ss_seq_active_mask_800a0804",
-    "c_type": "s32",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "PS1 SDK SsSeq active sequence mask/count"
-  },
-  {
-    "address": "0x800a080c",
-    "name": "g_audio_ss_seq_tempo_state_800a080c",
-    "c_type": "s32",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "PS1 SDK SsSeq active sequence tempo/tick state"
-  },
-  {
-    "address": "0x800a0810",
-    "name": "g_audio_ss_seq_track_ptr_tbl_800a0810",
-    "c_type": "void *",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "PS1 SDK SsSeq track pointer table (stride 0xb0 per track, 45 funcs)"
-  },
-  {
-    "address": "0x800a1098",
-    "name": "g_audio_spu_key_off_mask_800a1098",
-    "c_type": "u16",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "PS1 SDK SpuSetKey off voice bitmask"
-  },
-  {
-    "address": "0x800a109a",
-    "name": "g_audio_spu_key_on_mask_800a109a",
-    "c_type": "u16",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "PS1 SDK SpuSetKey on voice bitmask"
-  },
-  {
-    "address": "0x800a109e",
-    "name": "g_audio_ss_vm_master_vol_l_800a109e",
-    "c_type": "s16",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "PS1 SDK SsVm left master/reverb volume shadow"
-  },
-  {
-    "address": "0x800a10a2",
-    "name": "g_audio_ss_vm_master_vol_r_800a10a2",
-    "c_type": "s16",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "PS1 SDK SsVm right master/reverb volume shadow"
-  },
-  {
-    "address": "0x800a10a8",
-    "name": "g_audio_ss_vm_voices_800a10a8",
-    "c_type": "u8[1344]",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "PS1 SDK SsVm 24-voice state table (24 * 0x38 = 0x540 bytes, ends exactly at 0x800a15e8)"
-  },
-  {
-    "address": "0x800a10aa",
-    "name": "g_audio_vm_v0_note_800a10aa",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "SsVm voice[0]+0x02 note"
-  },
-  {
-    "address": "0x800a10ac",
-    "name": "g_audio_vm_v0_prog_800a10ac",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "SsVm voice[0]+0x04 program/tone"
-  },
-  {
-    "address": "0x800a10b0",
-    "name": "g_audio_vm_v0_voll_800a10b0",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "SsVm voice[0]+0x08 volume left"
-  },
-  {
-    "address": "0x800a10b2",
-    "name": "g_audio_vm_v0_volr_800a10b2",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "SsVm voice[0]+0x0a volume right"
-  },
-  {
-    "address": "0x800a10b6",
-    "name": "g_audio_vm_v0_seq_num_800a10b6",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "SsVm voice[0]+0x0e sequence id"
-  },
-  {
-    "address": "0x800a10b8",
-    "name": "g_audio_vm_v0_pitch_800a10b8",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "SsVm voice[0]+0x10 SPU pitch"
-  },
-  {
-    "address": "0x800a10ba",
-    "name": "g_audio_vm_v0_setup_arg1_800a10ba",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "SsVm voice[0]+0x12 passed to _SsVmVSetUp arg1"
-  },
-  {
-    "address": "0x800a10bc",
-    "name": "g_audio_vm_v0_adsr1_800a10bc",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "SsVm voice[0]+0x14 ADSR1"
-  },
-  {
-    "address": "0x800a10be",
-    "name": "g_audio_vm_v0_adsr2_800a10be",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "SsVm voice[0]+0x16 ADSR2"
-  },
-  {
-    "address": "0x800a10c0",
-    "name": "g_audio_vm_v0_setup_arg0_800a10c0",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "SsVm voice[0]+0x18 passed to _SsVmVSetUp arg0"
-  },
-  {
-    "address": "0x800a10c5",
-    "name": "g_audio_vm_v0_priority_800a10c5",
-    "c_type": "u8",
-    "kind": "struct_member",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "SsVm voice[0]+0x1d priority byte"
-  },
-  {
-    "address": "0x800a15e8",
-    "name": "g_audio_ss_vm_voice_flags_800a15e8",
-    "c_type": "u8[24]",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "PS1 SDK SsVm 24-voice allocation flag array"
-  },
-  {
-    "address": "0x800a17d0",
-    "name": "g_audio_spu_prev_key_off_800a17d0",
-    "c_type": "u16",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "Shadow SpuSetKey off bitmask"
-  },
-  {
-    "address": "0x800a17d2",
-    "name": "g_audio_spu_prev_key_on_800a17d2",
-    "c_type": "u16",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "Shadow SpuSetKey on bitmask"
-  },
-  {
-    "address": "0x800a18b8",
-    "name": "g_audio_vm_noise_mask_800a18b8",
-    "c_type": "u16",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "SsVm noise voice mask"
-  },
-  {
-    "address": "0x800a18bc",
-    "name": "g_audio_vab_hdr_tbl_ptr_800a18bc",
-    "c_type": "void *",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "PS1 SDK VAB header pointer table"
-  },
-  {
-    "address": "0x800a18c4",
-    "name": "g_audio_vab_prog_tbl_ptr_800a18c4",
-    "c_type": "void *",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "PS1 SDK VAB program attribute pointer table"
-  },
-  {
-    "address": "0x800a18c8",
-    "name": "g_audio_vab_tone_tbl_ptr_800a18c8",
-    "c_type": "void *",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "PS1 SDK VAB tone attribute pointer table"
-  },
-  {
-    "address": "0x800a18cc",
-    "name": "g_audio_ss_vm_voice_count_800a18cc",
-    "c_type": "s8",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "PS1 SDK SsVm allocated voice count (35 funcs/60 refs)"
-  },
-  {
-    "address": "0x800a18dd",
-    "name": "g_audio_ss_vm_rev_type_800a18dd",
-    "c_type": "u8",
-    "domain": "audio_spu_vab",
-    "confidence": "medium",
-    "evidence": "SsVm reverb mode byte (next neighbor 0x800a18df)"
-  },
-  {
-    "address": "0x800a18df",
-    "name": "g_audio_ss_vm_rev_depth_800a18df",
-    "c_type": "u8",
-    "domain": "audio_spu_vab",
-    "confidence": "medium",
-    "evidence": "SsVm reverb/noise state byte"
-  },
-  {
-    "address": "0x800a18e4",
-    "name": "g_audio_ss_vm_vab_slot_800a18e4",
-    "c_type": "s16",
-    "domain": "audio_spu_vab",
-    "confidence": "medium",
-    "evidence": "SsVm active VAB slot index"
-  },
-  {
-    "address": "0x800a18e8",
-    "name": "g_audio_spu_noise_clk_800a18e8",
-    "c_type": "u16",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "PS1 SDK SpuSetNoiseClock parameter"
-  },
-  {
-    "address": "0x800a18ea",
-    "name": "g_audio_vm_reverb_mask_800a18ea",
-    "c_type": "u16",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "SsVm active reverb voice mask"
-  },
-  {
-    "address": "0x800a18ec",
-    "name": "g_audio_vm_free_voices_800a18ec",
-    "c_type": "s16",
-    "domain": "audio_spu_vab",
-    "confidence": "medium",
-    "evidence": "SsVm voice status/free mask"
-  },
-  {
-    "address": "0x800a18f0",
-    "name": "g_audio_vm_noise_voice_800a18f0",
-    "c_type": "s16",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "Current voice passed to vmNoiseOn"
-  },
-  {
-    "address": "0x800a18f8",
-    "name": "g_audio_vab_open_status_800a18f8",
-    "c_type": "u32",
-    "domain": "audio_spu_vab",
-    "confidence": "high",
-    "evidence": "PS1 SDK VAB open/transfer status table"
-  },
-  {
-    "address": "0x800a3ea8",
-    "name": "g_cd_sync_result_buf_800a3ea8",
-    "c_type": "u8[8]",
-    "domain": "cd_afile_overlays",
-    "confidence": "high",
-    "evidence": "CD CdSync 8-byte result status buffer"
-  },
-  {
-    "address": "0x800a3eb0",
-    "name": "g_cd_ready_result_buf_800a3eb0",
-    "c_type": "u8[8]",
-    "domain": "cd_afile_overlays",
-    "confidence": "high",
-    "evidence": "CD CdReady 8-byte result status buffer"
-  },
-  {
-    "address": "0x800a3fb0",
-    "name": "g_ui_hud_money_state_800a3fb0",
-    "c_type": "u32",
-    "domain": "ui_inventory_hud",
-    "confidence": "medium",
-    "evidence": "HUD / UI gold & counter layout state"
-  },
-  {
-    "address": "0x800b7608",
-    "name": "g_io_mcrd_event_state_800b7608",
-    "c_type": "u32",
-    "domain": "input_memcard",
-    "confidence": "high",
-    "evidence": "PS1 MemCard SDK pending command/event state"
-  },
-  {
-    "address": "0x800b760c",
-    "name": "g_io_mcrd_busy_800b760c",
-    "c_type": "s32",
-    "domain": "input_memcard",
-    "confidence": "high",
-    "evidence": "PS1 MemCard SDK busy/result flag"
-  },
-  {
-    "address": "0x800b7618",
-    "name": "g_io_mcrd_active_chan_800b7618",
-    "c_type": "s32",
-    "domain": "input_memcard",
-    "confidence": "high",
-    "evidence": "PS1 MemCard SDK channel arg passed to _card_clear/_card_info/_card_load"
-  },
-  {
-    "address": "0x800b7a28",
-    "name": "g_io_mcx_callback_800b7a28",
-    "c_type": "void *",
-    "domain": "input_memcard",
-    "confidence": "high",
-    "evidence": "PocketStation MCX completion callback pointer"
-  },
-  {
-    "address": "0x800b7a2c",
-    "name": "g_io_mcx_cmd_arg_800b7a2c",
-    "c_type": "s32",
-    "domain": "input_memcard",
-    "confidence": "high",
-    "evidence": "PocketStation MCX active command argument/retry"
-  },
-  {
-    "address": "0x800b7a30",
-    "name": "g_io_mcx_cmd_buf_ptr_800b7a30",
-    "c_type": "u8 *",
-    "domain": "input_memcard",
-    "confidence": "high",
-    "evidence": "Pointer to MCX command buffer (&g_io_mcx_cmd_buf_800b7a3c) passed to _mcxStartFastDsr"
-  },
-  {
-    "address": "0x800b7a38",
-    "name": "g_io_mcx_fast_dsr_len_800b7a38",
-    "c_type": "s32",
-    "domain": "input_memcard",
-    "confidence": "high",
-    "evidence": "Byte length passed to _mcxStartFastDsr arg2"
-  },
-  {
-    "address": "0x800b7a3c",
-    "name": "g_io_mcx_cmd_buf_800b7a3c",
-    "c_type": "u32",
-    "domain": "input_memcard",
-    "confidence": "high",
-    "evidence": "MCX command packet header passed to MCXCMD25_OBJ_234"
-  },
-  {
-    "address": "0x800b7a40",
-    "name": "g_io_mcx_cmd_payload_800b7a40",
-    "c_type": "u32",
-    "domain": "input_memcard",
-    "confidence": "medium",
-    "evidence": "MCX command payload word"
-  },
-  {
-    "address": "0x800b7b80",
-    "name": "g_io_mcx_dsr_result_800b7b80",
-    "c_type": "s32",
-    "domain": "input_memcard",
-    "confidence": "high",
-    "evidence": "MCX DSR async result code"
-  },
-  {
-    "address": "0x800b7b84",
-    "name": "g_io_mcx_last_err_800b7b84",
-    "c_type": "s32",
-    "domain": "input_memcard",
-    "confidence": "high",
-    "evidence": "MCX last status / error code"
-  },
-  {
-    "address": "0x800bd84c",
-    "name": "g_ovl17_festival_state_800bd84c",
-    "c_type": "s32",
-    "domain": "overlay_part17_id07",
-    "confidence": "medium",
-    "evidence": "OVL_part17_id07 slot A state variable"
-  },
-  {
-    "address": "0x800bd870",
-    "name": "g_ovl17_festival_ctx_800bd870",
-    "c_type": "u32",
-    "domain": "overlay_part17_id07",
-    "confidence": "medium",
-    "evidence": "OVL_part17_id07 address-taken festival context struct"
-  },
-  {
-    "address": "0x800bf4d0",
-    "name": "g_ovl19_event_actor_tbl_800bf4d0",
-    "c_type": "u32",
-    "domain": "overlay_part19_id08",
-    "confidence": "medium",
-    "evidence": "OVL_part19_id08 indexed event actor array base"
-  },
-  {
-    "address": "0x800bf87c",
-    "name": "g_ovl23_cutscene_ctx_800bf87c",
-    "c_type": "u32",
-    "domain": "overlay_part23_id0a",
-    "confidence": "medium",
-    "evidence": "OVL_part23_id0a cutscene state struct"
-  },
-  {
-    "address": "0x800c0448",
-    "name": "g_ovl21_event_slot_tbl_800c0448",
-    "c_type": "u32",
-    "domain": "overlay_part21_id09",
-    "confidence": "medium",
-    "evidence": "OVL_part21_id09 indexed event/race table"
-  },
-  {
-    "address": "0x800c0dd0",
-    "name": "g_ovl21_event_state_ptr_800c0dd0",
-    "c_type": "void *",
-    "domain": "overlay_part21_id09",
-    "confidence": "medium",
-    "evidence": "OVL_part21_id09 high-ref state/timer struct pointer (68 refs)"
-  },
-  {
-    "address": "0x801231f4",
-    "name": "g_ovl11_saved_pad_mask_801231f4",
-    "c_type": "u32",
-    "domain": "overlay_part11_id06",
-    "confidence": "high",
-    "evidence": "OVL_part11 latched pad mask for input edge checks"
-  },
-  {
-    "address": "0x801273dc",
-    "name": "g_ovl11_ui_menu_mode_801273dc",
-    "c_type": "s32",
-    "domain": "overlay_part11_id06",
-    "confidence": "high",
-    "evidence": "OVL_part11 menu/UI state machine step"
-  },
-  {
-    "address": "0x801273e4",
-    "name": "g_ovl11_ui_menu_substate_801273e4",
-    "c_type": "s32",
-    "domain": "overlay_part11_id06",
-    "confidence": "high",
-    "evidence": "OVL_part11 menu/UI substate"
-  },
-  {
-    "address": "0x80128c4c",
-    "name": "g_ovl11_tool_anim_tbl_ptr_80128c4c",
-    "c_type": "u32 *",
-    "domain": "overlay_part11_id06",
-    "confidence": "medium",
-    "evidence": "OVL_part11 tool/item interaction array/pointer"
-  },
-  {
-    "address": "0x80128c54",
-    "name": "g_ovl11_active_tool_state_80128c54",
-    "c_type": "s32",
-    "domain": "overlay_part11_id06",
-    "confidence": "medium",
-    "evidence": "OVL_part11 active tool action state"
-  },
-  {
-    "address": "0x80129560",
-    "name": "g_ovl11_script_vm_vars_80129560",
-    "c_type": "s32",
-    "domain": "npc_dialogue_events",
-    "confidence": "high",
-    "evidence": "High-fanout (55 funcs/142 refs) dialogue/event script VM register/variable array base"
-  },
-  {
-    "address": "0x8012d524",
-    "name": "g_ovl11_shop_ctx_flags_8012d524",
-    "c_type": "u32",
-    "domain": "ui_inventory_hud",
-    "confidence": "medium",
-    "evidence": "Shop/shipping menu context flags"
-  },
-  {
-    "address": "0x8012d52c",
-    "name": "g_ui_hud_inventory_ctx_8012d52c",
-    "c_type": "HmHudInventoryCtx",
-    "domain": "ui_inventory_hud",
-    "confidence": "high",
-    "evidence": "Rucksack / HUD inventory menu state (0x80 bytes ending at 0x8012d5ac in 80113cd0)"
-  },
-  {
-    "address": "0x8012d538",
-    "name": "g_ui_hud_slot_mask_8012d538",
-    "c_type": "u32",
-    "kind": "struct_member",
-    "domain": "ui_inventory_hud",
-    "confidence": "high",
-    "evidence": "HmHudInventoryCtx+0x0c slot_mask"
-  },
-  {
-    "address": "0x8012d540",
-    "name": "g_ui_hud_item_slots_8012d540",
-    "c_type": "u32",
-    "kind": "struct_member",
-    "domain": "ui_inventory_hud",
-    "confidence": "medium",
-    "evidence": "HmHudInventoryCtx+0x14 _hud_state[0]"
-  },
-  {
-    "address": "0x8012d548",
-    "name": "g_ui_hud_selected_idx_8012d548",
-    "c_type": "u32",
-    "kind": "struct_member",
-    "domain": "ui_inventory_hud",
-    "confidence": "high",
-    "evidence": "HmHudInventoryCtx+0x1c (30 funcs/78 refs)"
-  },
-  {
-    "address": "0x8012d54c",
-    "name": "g_ui_hud_page_idx_8012d54c",
-    "c_type": "u32",
-    "kind": "struct_member",
-    "domain": "ui_inventory_hud",
-    "confidence": "medium",
-    "evidence": "HmHudInventoryCtx+0x20"
-  },
-  {
-    "address": "0x8012d550",
-    "name": "g_ui_hud_scroll_top_8012d550",
-    "c_type": "u32",
-    "kind": "struct_member",
-    "domain": "ui_inventory_hud",
-    "confidence": "medium",
-    "evidence": "HmHudInventoryCtx+0x24"
-  },
-  {
-    "address": "0x8012d554",
-    "name": "g_ui_hud_qty_val_8012d554",
-    "c_type": "u32",
-    "kind": "struct_member",
-    "domain": "ui_inventory_hud",
-    "confidence": "medium",
-    "evidence": "HmHudInventoryCtx+0x28"
-  },
-  {
-    "address": "0x8012d558",
-    "name": "g_ui_hud_panel_x_8012d558",
-    "c_type": "u32",
-    "kind": "struct_member",
-    "domain": "ui_inventory_hud",
-    "confidence": "medium",
-    "evidence": "HmHudInventoryCtx+0x2c"
-  },
-  {
-    "address": "0x8012d570",
-    "name": "g_ui_hud_icon_base_8012d570",
-    "c_type": "u32",
-    "kind": "struct_member",
-    "domain": "ui_inventory_hud",
-    "confidence": "medium",
-    "evidence": "HmHudInventoryCtx+0x44"
-  },
-  {
-    "address": "0x8012d584",
-    "name": "g_ui_hud_slot_color_r_8012d584",
-    "c_type": "u8",
-    "kind": "struct_member",
-    "domain": "ui_inventory_hud",
-    "confidence": "high",
-    "evidence": "HmHudInventoryCtx+0x58 sprite/text R byte"
-  },
-  {
-    "address": "0x8012d585",
-    "name": "g_ui_hud_slot_color_g_8012d585",
-    "c_type": "u8",
-    "kind": "struct_member",
-    "domain": "ui_inventory_hud",
-    "confidence": "high",
-    "evidence": "HmHudInventoryCtx+0x59 sprite/text G byte"
-  },
-  {
-    "address": "0x8012d58e",
-    "name": "g_ui_hud_slot_u_8012d58e",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "ui_inventory_hud",
-    "confidence": "medium",
-    "evidence": "HmHudInventoryCtx+0x62 sprite texcoord U"
-  },
-  {
-    "address": "0x8012d590",
-    "name": "g_ui_hud_slot_v_8012d590",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "ui_inventory_hud",
-    "confidence": "medium",
-    "evidence": "HmHudInventoryCtx+0x64 sprite texcoord V"
-  },
-  {
-    "address": "0x8012d5a2",
-    "name": "g_ui_hud_confirm_flag_8012d5a2",
-    "c_type": "u8",
-    "kind": "struct_member",
-    "domain": "ui_inventory_hud",
-    "confidence": "high",
-    "evidence": "HmHudInventoryCtx+0x76 confirm flag"
-  },
-  {
-    "address": "0x8012d5a3",
-    "name": "g_ui_hud_cancel_flag_8012d5a3",
-    "c_type": "u8",
-    "kind": "struct_member",
-    "domain": "ui_inventory_hud",
-    "confidence": "high",
-    "evidence": "HmHudInventoryCtx+0x77 cancel flag"
-  },
-  {
-    "address": "0x8012d5a4",
-    "name": "g_ui_hud_total_cost_8012d5a4",
-    "c_type": "u32",
-    "kind": "struct_member",
-    "domain": "ui_inventory_hud",
-    "confidence": "medium",
-    "evidence": "HmHudInventoryCtx+0x78 transaction count"
-  },
-  {
-    "address": "0x8012d5a8",
-    "name": "g_ui_hud_sprite_prim_8012d5a8",
-    "c_type": "u32",
-    "kind": "struct_member",
-    "domain": "ui_inventory_hud",
-    "confidence": "medium",
-    "evidence": "HmHudInventoryCtx+0x7c sprite prim state"
-  },
-  {
-    "address": "0x8012d798",
-    "name": "g_ui_shop_menu_ctx_8012d798",
-    "c_type": "HmShopMenuCtx",
-    "domain": "ui_inventory_hud",
-    "confidence": "high",
-    "evidence": "Shop/vendor menu state block (0x7c bytes ending before 0x8012d814)"
-  },
-  {
-    "address": "0x80134014",
-    "name": "g_ovl30_debug_menu_state_80134014",
-    "c_type": "s32",
-    "domain": "overlay_part30_id0f",
-    "confidence": "high",
-    "evidence": "OVL_part30_id0f debug/test menu state (12 funcs/62 refs)"
-  },
-  {
-    "address": "0x80134ad8",
-    "name": "g_ovl30_debug_menu_ctx_80134ad8",
-    "c_type": "HmDebugMenuCtx",
-    "domain": "overlay_part30_id0f",
-    "confidence": "high",
-    "evidence": "Developer debug menu state context (0x44 bytes in OVL_part30_id0f.EXE)"
-  },
-  {
-    "address": "0x80137584",
-    "name": "g_ovl15_diary_save_blob_80137584",
-    "c_type": "HmDiarySaveBlob",
-    "domain": "overlay_part15_id10",
-    "confidence": "high",
-    "evidence": "Top Slot-B global (81 funcs/196 refs): diary save/load overlay state block (0x15c bytes ending at 0x801376e0)"
-  },
-  {
-    "address": "0x80137588",
-    "name": "g_ovl15_diary_cursor_item_80137588",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "overlay_part15_id10",
-    "confidence": "high",
-    "evidence": "HmDiarySaveBlob+0x04 cursor_item"
-  },
-  {
-    "address": "0x8013758c",
-    "name": "g_ovl15_diary_active_port_8013758c",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "overlay_part15_id10",
-    "confidence": "high",
-    "evidence": "HmDiarySaveBlob+0x08 active_port"
-  },
-  {
-    "address": "0x8013758e",
-    "name": "g_ovl15_diary_menu_mode_8013758e",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "overlay_part15_id10",
-    "confidence": "high",
-    "evidence": "HmDiarySaveBlob+0x0a menu_mode"
-  },
-  {
-    "address": "0x80137594",
-    "name": "g_ovl15_diary_confirm_cursor_80137594",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "overlay_part15_id10",
-    "confidence": "high",
-    "evidence": "HmDiarySaveBlob+0x10 confirm_cursor"
-  },
-  {
-    "address": "0x8013759a",
-    "name": "g_ovl15_diary_card_busy_8013759a",
-    "c_type": "u16",
-    "kind": "struct_member",
-    "domain": "overlay_part15_id10",
-    "confidence": "high",
-    "evidence": "HmDiarySaveBlob+0x16 card_busy (44 funcs/53 refs)"
-  },
-  {
-    "address": "0x801376e0",
-    "name": "g_ovl15_diary_save_slots_801376e0",
-    "c_type": "HmSaveSlotSummary[3]",
-    "domain": "overlay_part15_id10",
-    "confidence": "high",
-    "evidence": "Memory Card 3-slot save summary array (3 * 0x3c = 0xb4 bytes)"
-  },
-  {
-    "address": "0x801be1b0",
-    "name": "g_gfx_highram_vram_arena_801be1b0",
-    "c_type": "u8 *",
-    "domain": "render_gte_sprites",
-    "confidence": "high",
-    "evidence": "High-RAM staging arena (0x3ee50 bytes cleared in FUN_8001231c)"
   },
   {
     "address": "0x80049a80",
@@ -1459,6 +54,94 @@
     "domain": "cd_afile_overlays",
     "confidence": "high",
     "evidence": "XA sector-offset channel LUT indexed by track in cd_send_xa_seek_cmd (0x80021b90)"
+  },
+  {
+    "address": "0x80055a44",
+    "name": "g_sdk_spu_transfer_mode",
+    "c_type": "s32",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "PS1 SDK _spu_t arg1 transfer mode/shift configuration"
+  },
+  {
+    "address": "0x80055b04",
+    "name": "g_sdk_spu_malloc_rec_ptr",
+    "c_type": "u32 *",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "PS1 SDK _SpuInit / SpuInitMalloc voice allocation table pointer"
+  },
+  {
+    "address": "0x8005764c",
+    "name": "g_cd_sync_callback",
+    "c_type": "void *",
+    "domain": "cd_afile_overlays",
+    "confidence": "high",
+    "evidence": "CD subsystem active sync callback function pointer"
+  },
+  {
+    "address": "0x80057650",
+    "name": "g_cd_ready_callback",
+    "c_type": "void *",
+    "domain": "cd_afile_overlays",
+    "confidence": "high",
+    "evidence": "CD subsystem ready callback function pointer"
+  },
+  {
+    "address": "0x80057669",
+    "name": "g_cd_ctrl_ready_flag",
+    "c_type": "u8",
+    "domain": "cd_afile_overlays",
+    "confidence": "high",
+    "evidence": "CD control status / ready state flag byte"
+  },
+  {
+    "address": "0x80057928",
+    "name": "g_cd_read_state",
+    "c_type": "u8",
+    "domain": "cd_afile_overlays",
+    "confidence": "high",
+    "evidence": "CD sector read / AFILE transfer status byte (next neighbor 0x80057929)"
+  },
+  {
+    "address": "0x8005dd16",
+    "name": "g_sdk_graph_debug_level",
+    "c_type": "u8",
+    "domain": "sdk",
+    "confidence": "high",
+    "evidence": "PS1 SDK ResetGraph/SetGraphDebug verbosity level"
+  },
+  {
+    "address": "0x8005dd1a",
+    "name": "g_sdk_disp_height_mode",
+    "c_type": "s16",
+    "domain": "sdk",
+    "confidence": "high",
+    "evidence": "PS1 SDK display height / video standard flag passed to SYS_OBJ_*"
+  },
+  {
+    "address": "0x8005e144",
+    "name": "g_mcx_cmd_phase",
+    "c_type": "s32",
+    "domain": "input_memcard",
+    "confidence": "high",
+    "evidence": "PocketStation MCX command state phase (init=1)"
+  },
+  {
+    "address": "0x8005e148",
+    "name": "g_mcx_async_status",
+    "c_type": "s32",
+    "domain": "input_memcard",
+    "confidence": "high",
+    "evidence": "PocketStation MCX async transaction status"
+  },
+  {
+    "address": "0x8005e15c",
+    "name": "g_mcx_port_chan_state",
+    "c_type": "s32",
+    "domain": "input_memcard",
+    "confidence": "high",
+    "evidence": "PocketStation MCX SIO port/channel state"
   },
   {
     "address": "0x8005e274",
@@ -1501,6 +184,73 @@
     "evidence": "Active XA audio playback flag cleared by cd_stop_xa_stream and set by cd_send_xa_seek_cmd"
   },
   {
+    "address": "0x8005e338",
+    "name": "g_core_vblank_frame_flag",
+    "c_type": "s32",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "VSync / mainloop timing synchronization flag in SLUS_011.15@8002301c"
+  },
+  {
+    "address": "0x8005e384",
+    "name": "g_core_engine_state",
+    "c_type": "HmEngineState",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "Core engine main-loop & memory arena context (0x48 bytes ending at 0x8005e3cc)"
+  },
+  {
+    "address": "0x8005e3a8",
+    "name": "g_io_active_pad_buf_ptr",
+    "c_type": "HmPadState *",
+    "kind": "struct_member",
+    "domain": "input_memcard",
+    "confidence": "high",
+    "evidence": "HmEngineState+0x24 pad_p1 active controller buffer pointer (75 funcs/200 refs)"
+  },
+  {
+    "address": "0x8005e3b0",
+    "name": "g_gfx_highram_arena_ptr",
+    "c_type": "u8 *",
+    "kind": "struct_member",
+    "domain": "render_gte_sprites",
+    "confidence": "high",
+    "evidence": "HmEngineState+0x2c prim_arena / high-RAM VRAM staging pointer (58 funcs/177 refs)"
+  },
+  {
+    "address": "0x8005e3c0",
+    "name": "g_gfx_active_disp_ctx_ptr",
+    "c_type": "HmDisplayOtCtx *",
+    "kind": "struct_member",
+    "domain": "render_gte_sprites",
+    "confidence": "high",
+    "evidence": "HmEngineState+0x3c disp_ot_ctx (top fanout 294 funcs/546 refs -> 0x8005e5e8/0x8005e71c)"
+  },
+  {
+    "address": "0x8005e3ec",
+    "name": "g_io_pad_com_active",
+    "c_type": "u32",
+    "domain": "input_memcard",
+    "confidence": "high",
+    "evidence": "SLUS_011.15@80014064 PadStartCom active flag"
+  },
+  {
+    "address": "0x8005e3f0",
+    "name": "g_cd_afile_request",
+    "c_type": "HmAfileRequest",
+    "domain": "cd_afile_overlays",
+    "confidence": "high",
+    "evidence": "A_FILE.BIN async/sync CD request block (0x44 bytes)"
+  },
+  {
+    "address": "0x8005e444",
+    "name": "g_ui_dialogue_box_ctx",
+    "c_type": "HmDialogueBoxCtx",
+    "domain": "npc_dialogue_events",
+    "confidence": "high",
+    "evidence": "Dialogue & choice text window state block (0x78 bytes in SLUS_011.15@800183e0)"
+  },
+  {
     "address": "0x8005e584",
     "name": "g_cd_xa_target_lba",
     "c_type": "u32",
@@ -1533,6 +283,94 @@
     "evidence": "CD-XA readiness guard checked prior to seek dispatch in cd_send_xa_seek_cmd"
   },
   {
+    "address": "0x8005e5e8",
+    "name": "g_gfx_disp_ctx_buf0",
+    "c_type": "HmDisplayOtCtx",
+    "domain": "render_gte_sprites",
+    "confidence": "high",
+    "evidence": "Double-buffered DRAWENV+DISPENV+OT context 0 (0x134 bytes, init in FUN_8001231c)"
+  },
+  {
+    "address": "0x8005e71c",
+    "name": "g_gfx_disp_ctx_buf1",
+    "c_type": "HmDisplayOtCtx",
+    "domain": "render_gte_sprites",
+    "confidence": "high",
+    "evidence": "Double-buffered DRAWENV+DISPENV+OT context 1 (0x134 bytes, init in FUN_8001231c)"
+  },
+  {
+    "address": "0x8005e9c8",
+    "name": "g_io_pad_raw_rx_p1",
+    "c_type": "u8",
+    "domain": "input_memcard",
+    "confidence": "high",
+    "evidence": "SLUS_011.15@80014064 PadInitDirect P1 RX buffer base"
+  },
+  {
+    "address": "0x8005e9ea",
+    "name": "g_io_pad_raw_rx_p2",
+    "c_type": "u8",
+    "domain": "input_memcard",
+    "confidence": "high",
+    "evidence": "SLUS_011.15@80014064 PadInitDirect P2 RX buffer base"
+  },
+  {
+    "address": "0x8005ea18",
+    "name": "g_io_pad_actuator_p1",
+    "c_type": "u8",
+    "domain": "input_memcard",
+    "confidence": "high",
+    "evidence": "SLUS_011.15@80014064 PadSetAct port 0 actuator buffer"
+  },
+  {
+    "address": "0x8005ea20",
+    "name": "g_io_pad_actuator_p2",
+    "c_type": "u8",
+    "domain": "input_memcard",
+    "confidence": "high",
+    "evidence": "SLUS_011.15@80014064 PadSetAct port 1 actuator buffer"
+  },
+  {
+    "address": "0x80061de8",
+    "name": "g_gfx_camera_iso_state",
+    "c_type": "HmCameraIsoState",
+    "domain": "render_gte_sprites",
+    "confidence": "high",
+    "evidence": "Isometric camera & view matrix state (0xa0 bytes ending before 0x80061ea8)"
+  },
+  {
+    "address": "0x8006c844",
+    "name": "g_core_engine_flags0",
+    "c_type": "u32",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "High-fanout (101 funcs/241 refs) engine global bitflags word 0"
+  },
+  {
+    "address": "0x8006c848",
+    "name": "g_core_engine_flags1",
+    "c_type": "u32",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "Engine global bitflags word 1"
+  },
+  {
+    "address": "0x8006c858",
+    "name": "g_gfx_sprite_desc_tbl_ptr",
+    "c_type": "u8 *",
+    "domain": "render_gte_sprites",
+    "confidence": "high",
+    "evidence": "Pointer to stride-0x28 item/tile/sprite asset descriptor table"
+  },
+  {
+    "address": "0x8006c868",
+    "name": "g_npc_active_cutscene_actor_ptr",
+    "c_type": "void *",
+    "domain": "npc_dialogue_events",
+    "confidence": "high",
+    "evidence": "Active cutscene / special actor pointer"
+  },
+  {
     "address": "0x8006c870",
     "name": "g_hm_event_flags_bitset",
     "c_type": "u32",
@@ -1541,11 +379,1229 @@
     "evidence": "Base of packed 32-bit scenario/event bitset read and mutated by hm_event_flag_get / hm_event_flag_set"
   },
   {
+    "address": "0x8006c904",
+    "name": "g_core_submode_state",
+    "c_type": "u8",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "Mainloop sub-mode byte flag"
+  },
+  {
+    "address": "0x80070c88",
+    "name": "g_core_scene_flags",
+    "c_type": "u32",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "Gameplay / scene state bitmask"
+  },
+  {
+    "address": "0x80070cc0",
+    "name": "g_core_ovl_stack_depth",
+    "c_type": "s32",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "Overlay / mode stack depth index"
+  },
+  {
+    "address": "0x80070cc4",
+    "name": "g_core_minigame_state",
+    "c_type": "HmMinigameState",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "Festival / minigame & boot step shared control block (0x28 bytes ending at 0x80070cec)"
+  },
+  {
+    "address": "0x80070cf0",
+    "name": "g_farm_cal_year",
+    "c_type": "s16",
+    "domain": "farm_crops_field",
+    "confidence": "high",
+    "evidence": "Calendar year counter immediately preceding HmCalendarClock"
+  },
+  {
+    "address": "0x80070cf2",
+    "name": "g_farm_calendar_clock",
+    "c_type": "HmCalendarClock",
+    "domain": "farm_crops_field",
+    "confidence": "high",
+    "evidence": "Top fanout (87 funcs/205 refs) global calendar & weather block (0x16 bytes ending at 0x80070d08)"
+  },
+  {
+    "address": "0x80070cf4",
+    "name": "g_farm_cal_day",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "farm_crops_field",
+    "confidence": "high",
+    "evidence": "HmCalendarClock+0x02 day of month (0..29)"
+  },
+  {
+    "address": "0x80070cf6",
+    "name": "g_farm_cal_weekday",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "farm_crops_field",
+    "confidence": "high",
+    "evidence": "HmCalendarClock+0x04 day of week (0=Sun..6=Sat)"
+  },
+  {
+    "address": "0x80070cf8",
+    "name": "g_farm_cal_hour",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "farm_crops_field",
+    "confidence": "high",
+    "evidence": "HmCalendarClock+0x06 current in-game hour (0..23)"
+  },
+  {
+    "address": "0x80070d02",
+    "name": "g_farm_cal_day_minutes",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "farm_crops_field",
+    "confidence": "high",
+    "evidence": "HmCalendarClock+0x10 elapsed minutes in day"
+  },
+  {
+    "address": "0x80070d06",
+    "name": "g_farm_weather_festival",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "farm_crops_field",
+    "confidence": "high",
+    "evidence": "HmCalendarClock+0x14 festival / scheduled weather ticks"
+  },
+  {
+    "address": "0x80070d08",
+    "name": "g_farm_upgrade_flags0",
+    "c_type": "u16",
+    "domain": "farm_crops_field",
+    "confidence": "high",
+    "evidence": "Farm expansion / greenhouse / hurricane flags 0"
+  },
+  {
+    "address": "0x80070d0a",
+    "name": "g_farm_upgrade_flags1",
+    "c_type": "u16",
+    "domain": "farm_crops_field",
+    "confidence": "high",
+    "evidence": "Farm expansion / tool / festival flags 1"
+  },
+  {
+    "address": "0x80070d0c",
+    "name": "g_farm_upgrade_flags2",
+    "c_type": "u16",
+    "domain": "farm_crops_field",
+    "confidence": "high",
+    "evidence": "Farm expansion / house upgrade flags 2"
+  },
+  {
+    "address": "0x80070d30",
+    "name": "g_npc_event_progress_flags",
+    "c_type": "u32",
+    "domain": "npc_dialogue_events",
+    "confidence": "high",
+    "evidence": "Festival / story / farm progression bitmask"
+  },
+  {
+    "address": "0x800719f8",
+    "name": "g_ui_unlocked_recipes_flags",
+    "c_type": "u32",
+    "domain": "ui_inventory_hud",
+    "confidence": "high",
+    "evidence": "Unlocked tools / recipes / progress flags before HmPlayerState"
+  },
+  {
+    "address": "0x80071a00",
+    "name": "g_core_player_state",
+    "c_type": "HmPlayerState",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "Main player state struct (0x120 bytes ending exactly before 0x80071b20)"
+  },
+  {
+    "address": "0x80071a1e",
+    "name": "g_player_equipped_tool",
+    "c_type": "s16",
+    "kind": "struct_member",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "HmPlayerState+0x1e equipped_tool"
+  },
+  {
+    "address": "0x80071a36",
+    "name": "g_player_action_flags",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "HmPlayerState+0x36 action_flags"
+  },
+  {
+    "address": "0x80071a38",
+    "name": "g_player_facing_dir",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "HmPlayerState+0x38 facing_dir"
+  },
+  {
+    "address": "0x80071a64",
+    "name": "g_player_pad_held",
+    "c_type": "u32",
+    "kind": "struct_member",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "HmPlayerState+0x64 demo_pad_held"
+  },
+  {
+    "address": "0x80071a68",
+    "name": "g_player_pad_edge",
+    "c_type": "u32",
+    "kind": "struct_member",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "HmPlayerState+0x68 demo_pad_edge"
+  },
+  {
+    "address": "0x80071a6c",
+    "name": "g_player_status_flags",
+    "c_type": "u32",
+    "kind": "struct_member",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "HmPlayerState+0x6c flags (58 funcs/273 refs)"
+  },
+  {
+    "address": "0x80071a88",
+    "name": "g_player_held_item",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "HmPlayerState+0x88 held/rucksack slot"
+  },
+  {
+    "address": "0x80071ac0",
+    "name": "g_player_rucksack_tools",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "HmPlayerState+0xc0 rucksack / tool inventory base"
+  },
+  {
+    "address": "0x80071afc",
+    "name": "g_player_interact_target",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "HmPlayerState+0xfc current interaction target id"
+  },
+  {
+    "address": "0x80071b00",
+    "name": "g_player_pos_x",
+    "c_type": "s32",
+    "kind": "struct_member",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "HmPlayerState+0x100 pos_x"
+  },
+  {
+    "address": "0x80071b04",
+    "name": "g_player_pos_y",
+    "c_type": "s32",
+    "kind": "struct_member",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "HmPlayerState+0x104 pos_y"
+  },
+  {
+    "address": "0x80071b08",
+    "name": "g_player_pos_z",
+    "c_type": "s32",
+    "kind": "struct_member",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "HmPlayerState+0x108 pos_z"
+  },
+  {
+    "address": "0x80071b0c",
+    "name": "g_player_vel_x",
+    "c_type": "s32",
+    "kind": "struct_member",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "HmPlayerState+0x10c vel_x"
+  },
+  {
+    "address": "0x80071dfc",
+    "name": "g_farm_field_grid",
+    "c_type": "u8[8640]",
+    "domain": "farm_crops_field",
+    "confidence": "high",
+    "evidence": "Outdoor farm field grid (24 * 0x168 = 0x21c0 bytes, row stride 0xb4 shorts)"
+  },
+  {
+    "address": "0x80074124",
+    "name": "g_farm_greenhouse_grid",
+    "c_type": "u8[336]",
+    "domain": "farm_crops_field",
+    "confidence": "high",
+    "evidence": "Greenhouse crop grid (row stride 0x1c shorts = 0x38 bytes, safely before 0x800742ac)"
+  },
+  {
+    "address": "0x800742ac",
+    "name": "g_anim_shipping_pet_state",
+    "c_type": "u8[64]",
+    "domain": "animals_livestock",
+    "confidence": "high",
+    "evidence": "64-byte state block memset(..., 0x40) right before chicken array at 0x800742ec"
+  },
+  {
+    "address": "0x800742ec",
+    "name": "g_anim_chicken_coop_tbl",
+    "c_type": "HmAnimalRecord[10]",
+    "domain": "animals_livestock",
+    "confidence": "high",
+    "evidence": "10 HmAnimalRecord * 0xb4 bytes = 0x708 bytes (init in FUN_800ce96c, ends at 0x800749f4)"
+  },
+  {
+    "address": "0x800749f4",
+    "name": "g_anim_livestock_barn_tbl",
+    "c_type": "HmNpcActor[20]",
+    "domain": "animals_livestock",
+    "confidence": "high",
+    "evidence": "20 * 0xb8 bytes = 0xe60 bytes (ends at 0x80075854)"
+  },
+  {
+    "address": "0x80074a28",
+    "name": "g_anim_barn_slot0_flags",
+    "c_type": "u32",
+    "kind": "struct_member",
+    "domain": "animals_livestock",
+    "confidence": "high",
+    "evidence": "Member +0x34 of barn record array slot 0"
+  },
+  {
+    "address": "0x800759e4",
+    "name": "g_anim_horse_state",
+    "c_type": "u8[240]",
+    "domain": "animals_livestock",
+    "confidence": "high",
+    "evidence": "0xf0-byte horse/pet actor record right before 0x80075ad4"
+  },
+  {
+    "address": "0x80075ad4",
+    "name": "g_anim_dog_state",
+    "c_type": "u8[240]",
+    "domain": "animals_livestock",
+    "confidence": "high",
+    "evidence": "0xf0-byte dog actor record memset(..., 0xf0)"
+  },
+  {
+    "address": "0x80076220",
+    "name": "g_npc_actor_tbl_base",
+    "c_type": "s16",
+    "domain": "npc_dialogue_events",
+    "confidence": "high",
+    "evidence": "NPC record table base (stride 0xea shorts = 0x1d4 bytes)"
+  },
+  {
+    "address": "0x80076224",
+    "name": "g_npc_actor0_affection",
+    "c_type": "u16",
+    "domain": "npc_dialogue_events",
+    "confidence": "high",
+    "evidence": "NPC record +0x04 affection score (capped at 60000)"
+  },
+  {
+    "address": "0x8007a5c4",
+    "name": "g_farm_field_plot_slot",
+    "c_type": "HmFieldPlotCell",
+    "domain": "farm_crops_field",
+    "confidence": "high",
+    "evidence": "Interactive farm plot cell record (0x18 bytes ending at 0x8007a5dc)"
+  },
+  {
+    "address": "0x8007a60c",
+    "name": "g_npc_active_script_entity_ptr",
+    "c_type": "void *",
+    "domain": "npc_dialogue_events",
+    "confidence": "high",
+    "evidence": "Active scripted NPC / entity pointer"
+  },
+  {
+    "address": "0x8007ad00",
+    "name": "g_farm_current_weather",
+    "c_type": "s16",
+    "domain": "farm_crops_field",
+    "confidence": "high",
+    "evidence": "Active weather enum/index (0=sunny, 1=rain, 2=snow, 3+=storm)"
+  },
+  {
     "address": "0x8007aff4",
     "name": "g_sys_highram_reserved_base",
     "c_type": "u32",
     "domain": "core_mainloop",
     "confidence": "high",
     "evidence": "High-RAM base pointer subtracted alongside 0x49000 in sys_get_highram_free_bytes"
+  },
+  {
+    "address": "0x8009f78c",
+    "name": "g_gfx_active_map_desc",
+    "c_type": "u8[3024]",
+    "domain": "render_gte_sprites",
+    "confidence": "high",
+    "evidence": "0xbd0-byte active map/scene descriptor copied in FUN_800bcf54 (ends 0x800a035c)"
+  },
+  {
+    "address": "0x800a0378",
+    "name": "g_core_event_script_ctx",
+    "c_type": "HmEventScriptCtx",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "Scene/event script dispatcher block (0x11c bytes ending at 0x800a0494)"
+  },
+  {
+    "address": "0x800a039c",
+    "name": "g_gfx_cam_offset_x",
+    "c_type": "s16",
+    "kind": "struct_member",
+    "domain": "render_gte_sprites",
+    "confidence": "high",
+    "evidence": "HmEventScriptCtx+0x24 camera/map scroll X offset"
+  },
+  {
+    "address": "0x800a039e",
+    "name": "g_gfx_cam_offset_y",
+    "c_type": "s16",
+    "kind": "struct_member",
+    "domain": "render_gte_sprites",
+    "confidence": "high",
+    "evidence": "HmEventScriptCtx+0x26 camera/map scroll Y offset"
+  },
+  {
+    "address": "0x800a03a0",
+    "name": "g_gfx_cam_offset_z",
+    "c_type": "s16",
+    "kind": "struct_member",
+    "domain": "render_gte_sprites",
+    "confidence": "high",
+    "evidence": "HmEventScriptCtx+0x28 camera/map scroll Z offset"
+  },
+  {
+    "address": "0x800a03a4",
+    "name": "g_core_spawn_pos_x",
+    "c_type": "s16",
+    "kind": "struct_member",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "HmEventScriptCtx+0x2c scene entry spawn X"
+  },
+  {
+    "address": "0x800a03a6",
+    "name": "g_core_spawn_pos_y",
+    "c_type": "s16",
+    "kind": "struct_member",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "HmEventScriptCtx+0x2e scene entry spawn Y"
+  },
+  {
+    "address": "0x800a03a8",
+    "name": "g_core_spawn_pos_z",
+    "c_type": "s16",
+    "kind": "struct_member",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "HmEventScriptCtx+0x30 scene entry spawn Z"
+  },
+  {
+    "address": "0x800a0490",
+    "name": "g_core_map_transition_state",
+    "c_type": "s32",
+    "kind": "struct_member",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "HmEventScriptCtx+0x118 script/map transition state"
+  },
+  {
+    "address": "0x800a0728",
+    "name": "g_gfx_sprite_ot_ctx",
+    "c_type": "u32",
+    "domain": "render_gte_sprites",
+    "confidence": "medium",
+    "evidence": "Sprite / OT draw staging structure"
+  },
+  {
+    "address": "0x800a0804",
+    "name": "g_audio_ss_seq_active_mask",
+    "c_type": "s32",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "PS1 SDK SsSeq active sequence mask/count"
+  },
+  {
+    "address": "0x800a080c",
+    "name": "g_audio_ss_seq_tempo_state",
+    "c_type": "s32",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "PS1 SDK SsSeq active sequence tempo/tick state"
+  },
+  {
+    "address": "0x800a0810",
+    "name": "g_audio_ss_seq_track_ptr_tbl",
+    "c_type": "void *",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "PS1 SDK SsSeq track pointer table (stride 0xb0 per track, 45 funcs)"
+  },
+  {
+    "address": "0x800a1098",
+    "name": "g_audio_spu_key_off_mask",
+    "c_type": "u16",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "PS1 SDK SpuSetKey off voice bitmask"
+  },
+  {
+    "address": "0x800a109a",
+    "name": "g_audio_spu_key_on_mask",
+    "c_type": "u16",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "PS1 SDK SpuSetKey on voice bitmask"
+  },
+  {
+    "address": "0x800a109e",
+    "name": "g_audio_ss_vm_master_vol_l",
+    "c_type": "s16",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "PS1 SDK SsVm left master/reverb volume shadow"
+  },
+  {
+    "address": "0x800a10a2",
+    "name": "g_audio_ss_vm_master_vol_r",
+    "c_type": "s16",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "PS1 SDK SsVm right master/reverb volume shadow"
+  },
+  {
+    "address": "0x800a10a8",
+    "name": "g_audio_ss_vm_voices",
+    "c_type": "u8[1344]",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "PS1 SDK SsVm 24-voice state table (24 * 0x38 = 0x540 bytes, ends exactly at 0x800a15e8)"
+  },
+  {
+    "address": "0x800a10aa",
+    "name": "g_audio_vm_v0_note",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "SsVm voice[0]+0x02 note"
+  },
+  {
+    "address": "0x800a10ac",
+    "name": "g_audio_vm_v0_prog",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "SsVm voice[0]+0x04 program/tone"
+  },
+  {
+    "address": "0x800a10b0",
+    "name": "g_audio_vm_v0_voll",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "SsVm voice[0]+0x08 volume left"
+  },
+  {
+    "address": "0x800a10b2",
+    "name": "g_audio_vm_v0_volr",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "SsVm voice[0]+0x0a volume right"
+  },
+  {
+    "address": "0x800a10b6",
+    "name": "g_audio_vm_v0_seq_num",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "SsVm voice[0]+0x0e sequence id"
+  },
+  {
+    "address": "0x800a10b8",
+    "name": "g_audio_vm_v0_pitch",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "SsVm voice[0]+0x10 SPU pitch"
+  },
+  {
+    "address": "0x800a10ba",
+    "name": "g_audio_vm_v0_setup_arg1",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "SsVm voice[0]+0x12 passed to _SsVmVSetUp arg1"
+  },
+  {
+    "address": "0x800a10bc",
+    "name": "g_audio_vm_v0_adsr1",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "SsVm voice[0]+0x14 ADSR1"
+  },
+  {
+    "address": "0x800a10be",
+    "name": "g_audio_vm_v0_adsr2",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "SsVm voice[0]+0x16 ADSR2"
+  },
+  {
+    "address": "0x800a10c0",
+    "name": "g_audio_vm_v0_setup_arg0",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "SsVm voice[0]+0x18 passed to _SsVmVSetUp arg0"
+  },
+  {
+    "address": "0x800a10c5",
+    "name": "g_audio_vm_v0_priority",
+    "c_type": "u8",
+    "kind": "struct_member",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "SsVm voice[0]+0x1d priority byte"
+  },
+  {
+    "address": "0x800a15e8",
+    "name": "g_audio_ss_vm_voice_flags",
+    "c_type": "u8[24]",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "PS1 SDK SsVm 24-voice allocation flag array"
+  },
+  {
+    "address": "0x800a17d0",
+    "name": "g_audio_spu_prev_key_off",
+    "c_type": "u16",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "Shadow SpuSetKey off bitmask"
+  },
+  {
+    "address": "0x800a17d2",
+    "name": "g_audio_spu_prev_key_on",
+    "c_type": "u16",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "Shadow SpuSetKey on bitmask"
+  },
+  {
+    "address": "0x800a18b8",
+    "name": "g_audio_vm_noise_mask",
+    "c_type": "u16",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "SsVm noise voice mask"
+  },
+  {
+    "address": "0x800a18bc",
+    "name": "g_audio_vab_hdr_tbl_ptr",
+    "c_type": "void *",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "PS1 SDK VAB header pointer table"
+  },
+  {
+    "address": "0x800a18c4",
+    "name": "g_audio_vab_prog_tbl_ptr",
+    "c_type": "void *",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "PS1 SDK VAB program attribute pointer table"
+  },
+  {
+    "address": "0x800a18c8",
+    "name": "g_audio_vab_tone_tbl_ptr",
+    "c_type": "void *",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "PS1 SDK VAB tone attribute pointer table"
+  },
+  {
+    "address": "0x800a18cc",
+    "name": "g_audio_ss_vm_voice_count",
+    "c_type": "s8",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "PS1 SDK SsVm allocated voice count (35 funcs/60 refs)"
+  },
+  {
+    "address": "0x800a18dd",
+    "name": "g_audio_ss_vm_rev_type",
+    "c_type": "u8",
+    "domain": "audio_spu_vab",
+    "confidence": "medium",
+    "evidence": "SsVm reverb mode byte (next neighbor 0x800a18df)"
+  },
+  {
+    "address": "0x800a18df",
+    "name": "g_audio_ss_vm_rev_depth",
+    "c_type": "u8",
+    "domain": "audio_spu_vab",
+    "confidence": "medium",
+    "evidence": "SsVm reverb/noise state byte"
+  },
+  {
+    "address": "0x800a18e4",
+    "name": "g_audio_ss_vm_vab_slot",
+    "c_type": "s16",
+    "domain": "audio_spu_vab",
+    "confidence": "medium",
+    "evidence": "SsVm active VAB slot index"
+  },
+  {
+    "address": "0x800a18e8",
+    "name": "g_audio_spu_noise_clk",
+    "c_type": "u16",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "PS1 SDK SpuSetNoiseClock parameter"
+  },
+  {
+    "address": "0x800a18ea",
+    "name": "g_audio_vm_reverb_mask",
+    "c_type": "u16",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "SsVm active reverb voice mask"
+  },
+  {
+    "address": "0x800a18ec",
+    "name": "g_audio_vm_free_voices",
+    "c_type": "s16",
+    "domain": "audio_spu_vab",
+    "confidence": "medium",
+    "evidence": "SsVm voice status/free mask"
+  },
+  {
+    "address": "0x800a18f0",
+    "name": "g_audio_vm_noise_voice",
+    "c_type": "s16",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "Current voice passed to vmNoiseOn"
+  },
+  {
+    "address": "0x800a18f8",
+    "name": "g_audio_vab_open_status",
+    "c_type": "u32",
+    "domain": "audio_spu_vab",
+    "confidence": "high",
+    "evidence": "PS1 SDK VAB open/transfer status table"
+  },
+  {
+    "address": "0x800a3ea8",
+    "name": "g_cd_sync_result_buf",
+    "c_type": "u8[8]",
+    "domain": "cd_afile_overlays",
+    "confidence": "high",
+    "evidence": "CD CdSync 8-byte result status buffer"
+  },
+  {
+    "address": "0x800a3eb0",
+    "name": "g_cd_ready_result_buf",
+    "c_type": "u8[8]",
+    "domain": "cd_afile_overlays",
+    "confidence": "high",
+    "evidence": "CD CdReady 8-byte result status buffer"
+  },
+  {
+    "address": "0x800a3fb0",
+    "name": "g_ui_hud_money_state",
+    "c_type": "u32",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "HUD / UI gold & counter layout state"
+  },
+  {
+    "address": "0x800b7608",
+    "name": "g_io_mcrd_event_state",
+    "c_type": "u32",
+    "domain": "input_memcard",
+    "confidence": "high",
+    "evidence": "PS1 MemCard SDK pending command/event state"
+  },
+  {
+    "address": "0x800b760c",
+    "name": "g_io_mcrd_busy",
+    "c_type": "s32",
+    "domain": "input_memcard",
+    "confidence": "high",
+    "evidence": "PS1 MemCard SDK busy/result flag"
+  },
+  {
+    "address": "0x800b7618",
+    "name": "g_io_mcrd_active_chan",
+    "c_type": "s32",
+    "domain": "input_memcard",
+    "confidence": "high",
+    "evidence": "PS1 MemCard SDK channel arg passed to _card_clear/_card_info/_card_load"
+  },
+  {
+    "address": "0x800b7a28",
+    "name": "g_io_mcx_callback",
+    "c_type": "void *",
+    "domain": "input_memcard",
+    "confidence": "high",
+    "evidence": "PocketStation MCX completion callback pointer"
+  },
+  {
+    "address": "0x800b7a2c",
+    "name": "g_io_mcx_cmd_arg",
+    "c_type": "s32",
+    "domain": "input_memcard",
+    "confidence": "high",
+    "evidence": "PocketStation MCX active command argument/retry"
+  },
+  {
+    "address": "0x800b7a30",
+    "name": "g_io_mcx_cmd_buf_ptr",
+    "c_type": "u8 *",
+    "domain": "input_memcard",
+    "confidence": "high",
+    "evidence": "Pointer to MCX command buffer (&g_io_mcx_cmd_buf_800b7a3c) passed to _mcxStartFastDsr"
+  },
+  {
+    "address": "0x800b7a38",
+    "name": "g_io_mcx_fast_dsr_len",
+    "c_type": "s32",
+    "domain": "input_memcard",
+    "confidence": "high",
+    "evidence": "Byte length passed to _mcxStartFastDsr arg2"
+  },
+  {
+    "address": "0x800b7a3c",
+    "name": "g_io_mcx_cmd_buf",
+    "c_type": "u32",
+    "domain": "input_memcard",
+    "confidence": "high",
+    "evidence": "MCX command packet header passed to MCXCMD25_OBJ_234"
+  },
+  {
+    "address": "0x800b7a40",
+    "name": "g_io_mcx_cmd_payload",
+    "c_type": "u32",
+    "domain": "input_memcard",
+    "confidence": "medium",
+    "evidence": "MCX command payload word"
+  },
+  {
+    "address": "0x800b7b80",
+    "name": "g_io_mcx_dsr_result",
+    "c_type": "s32",
+    "domain": "input_memcard",
+    "confidence": "high",
+    "evidence": "MCX DSR async result code"
+  },
+  {
+    "address": "0x800b7b84",
+    "name": "g_io_mcx_last_err",
+    "c_type": "s32",
+    "domain": "input_memcard",
+    "confidence": "high",
+    "evidence": "MCX last status / error code"
+  },
+  {
+    "address": "0x800bd84c",
+    "name": "g_ovl17_festival_state",
+    "c_type": "s32",
+    "domain": "overlay_part17_id07",
+    "confidence": "medium",
+    "evidence": "OVL_part17_id07 slot A state variable"
+  },
+  {
+    "address": "0x800bd870",
+    "name": "g_ovl17_festival_ctx",
+    "c_type": "u32",
+    "domain": "overlay_part17_id07",
+    "confidence": "medium",
+    "evidence": "OVL_part17_id07 address-taken festival context struct"
+  },
+  {
+    "address": "0x800bf4d0",
+    "name": "g_ovl19_event_actor_tbl",
+    "c_type": "u32",
+    "domain": "overlay_part19_id08",
+    "confidence": "medium",
+    "evidence": "OVL_part19_id08 indexed event actor array base"
+  },
+  {
+    "address": "0x800bf87c",
+    "name": "g_ovl23_cutscene_ctx",
+    "c_type": "u32",
+    "domain": "overlay_part23_id0a",
+    "confidence": "medium",
+    "evidence": "OVL_part23_id0a cutscene state struct"
+  },
+  {
+    "address": "0x800c0448",
+    "name": "g_ovl21_event_slot_tbl",
+    "c_type": "u32",
+    "domain": "overlay_part21_id09",
+    "confidence": "medium",
+    "evidence": "OVL_part21_id09 indexed event/race table"
+  },
+  {
+    "address": "0x800c0dd0",
+    "name": "g_ovl21_event_state_ptr",
+    "c_type": "void *",
+    "domain": "overlay_part21_id09",
+    "confidence": "medium",
+    "evidence": "OVL_part21_id09 high-ref state/timer struct pointer (68 refs)"
+  },
+  {
+    "address": "0x801231f4",
+    "name": "g_ovl11_saved_pad_mask",
+    "c_type": "u32",
+    "domain": "overlay_part11_id06",
+    "confidence": "high",
+    "evidence": "OVL_part11 latched pad mask for input edge checks"
+  },
+  {
+    "address": "0x801273dc",
+    "name": "g_ovl11_ui_menu_mode",
+    "c_type": "s32",
+    "domain": "overlay_part11_id06",
+    "confidence": "high",
+    "evidence": "OVL_part11 menu/UI state machine step"
+  },
+  {
+    "address": "0x801273e4",
+    "name": "g_ovl11_ui_menu_substate",
+    "c_type": "s32",
+    "domain": "overlay_part11_id06",
+    "confidence": "high",
+    "evidence": "OVL_part11 menu/UI substate"
+  },
+  {
+    "address": "0x801287f0",
+    "name": "g_core_game_field_lut32",
+    "c_type": "u32 *",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "Pointer/table base indexed directly as array in core mainloop / overlay field lookup"
+  },
+  {
+    "address": "0x80128c4c",
+    "name": "g_ovl11_tool_anim_tbl_ptr",
+    "c_type": "u32 *",
+    "domain": "overlay_part11_id06",
+    "confidence": "medium",
+    "evidence": "OVL_part11 tool/item interaction array/pointer"
+  },
+  {
+    "address": "0x80128c54",
+    "name": "g_ovl11_active_tool_state",
+    "c_type": "s32",
+    "domain": "overlay_part11_id06",
+    "confidence": "medium",
+    "evidence": "OVL_part11 active tool action state"
+  },
+  {
+    "address": "0x80128cf4",
+    "name": "g_farm_execute_player_action_try_field_lut32",
+    "c_type": "u32 *",
+    "domain": "farm_crops_field",
+    "confidence": "high",
+    "evidence": "Pointer/table base indexed directly as array in farm player action lookup"
+  },
+  {
+    "address": "0x80129560",
+    "name": "g_ovl11_script_vm_vars",
+    "c_type": "s32",
+    "domain": "npc_dialogue_events",
+    "confidence": "high",
+    "evidence": "High-fanout (55 funcs/142 refs) dialogue/event script VM register/variable array base"
+  },
+  {
+    "address": "0x8012d524",
+    "name": "g_ovl11_shop_ctx_flags",
+    "c_type": "u32",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Shop/shipping menu context flags"
+  },
+  {
+    "address": "0x8012d52c",
+    "name": "g_ui_hud_inventory_ctx",
+    "c_type": "HmHudInventoryCtx",
+    "domain": "ui_inventory_hud",
+    "confidence": "high",
+    "evidence": "Rucksack / HUD inventory menu state (0x80 bytes ending at 0x8012d5ac in 80113cd0)"
+  },
+  {
+    "address": "0x8012d538",
+    "name": "g_ui_hud_slot_mask",
+    "c_type": "u32",
+    "kind": "struct_member",
+    "domain": "ui_inventory_hud",
+    "confidence": "high",
+    "evidence": "HmHudInventoryCtx+0x0c slot_mask"
+  },
+  {
+    "address": "0x8012d540",
+    "name": "g_ui_hud_item_slots",
+    "c_type": "u32",
+    "kind": "struct_member",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "HmHudInventoryCtx+0x14 panel_work_vars[0]"
+  },
+  {
+    "address": "0x8012d548",
+    "name": "g_ui_hud_selected_idx",
+    "c_type": "u32",
+    "kind": "struct_member",
+    "domain": "ui_inventory_hud",
+    "confidence": "high",
+    "evidence": "HmHudInventoryCtx+0x1c (30 funcs/78 refs)"
+  },
+  {
+    "address": "0x8012d54c",
+    "name": "g_ui_hud_page_idx",
+    "c_type": "u32",
+    "kind": "struct_member",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "HmHudInventoryCtx+0x20"
+  },
+  {
+    "address": "0x8012d550",
+    "name": "g_ui_hud_scroll_top",
+    "c_type": "u32",
+    "kind": "struct_member",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "HmHudInventoryCtx+0x24"
+  },
+  {
+    "address": "0x8012d554",
+    "name": "g_ui_hud_qty_val",
+    "c_type": "u32",
+    "kind": "struct_member",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "HmHudInventoryCtx+0x28"
+  },
+  {
+    "address": "0x8012d558",
+    "name": "g_ui_hud_panel_x",
+    "c_type": "u32",
+    "kind": "struct_member",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "HmHudInventoryCtx+0x2c"
+  },
+  {
+    "address": "0x8012d570",
+    "name": "g_ui_hud_icon_base",
+    "c_type": "u32",
+    "kind": "struct_member",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "HmHudInventoryCtx+0x44"
+  },
+  {
+    "address": "0x8012d584",
+    "name": "g_ui_hud_slot_color_r",
+    "c_type": "u8",
+    "kind": "struct_member",
+    "domain": "ui_inventory_hud",
+    "confidence": "high",
+    "evidence": "HmHudInventoryCtx+0x58 sprite/text R byte"
+  },
+  {
+    "address": "0x8012d585",
+    "name": "g_ui_hud_slot_color_g",
+    "c_type": "u8",
+    "kind": "struct_member",
+    "domain": "ui_inventory_hud",
+    "confidence": "high",
+    "evidence": "HmHudInventoryCtx+0x59 sprite/text G byte"
+  },
+  {
+    "address": "0x8012d58e",
+    "name": "g_ui_hud_slot_u",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "HmHudInventoryCtx+0x62 sprite texcoord U"
+  },
+  {
+    "address": "0x8012d590",
+    "name": "g_ui_hud_slot_v",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "HmHudInventoryCtx+0x64 sprite texcoord V"
+  },
+  {
+    "address": "0x8012d5a2",
+    "name": "g_ui_hud_confirm_flag",
+    "c_type": "u8",
+    "kind": "struct_member",
+    "domain": "ui_inventory_hud",
+    "confidence": "high",
+    "evidence": "HmHudInventoryCtx+0x76 confirm flag"
+  },
+  {
+    "address": "0x8012d5a3",
+    "name": "g_ui_hud_cancel_flag",
+    "c_type": "u8",
+    "kind": "struct_member",
+    "domain": "ui_inventory_hud",
+    "confidence": "high",
+    "evidence": "HmHudInventoryCtx+0x77 cancel flag"
+  },
+  {
+    "address": "0x8012d5a4",
+    "name": "g_ui_hud_total_cost",
+    "c_type": "u32",
+    "kind": "struct_member",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "HmHudInventoryCtx+0x78 transaction count"
+  },
+  {
+    "address": "0x8012d5a8",
+    "name": "g_ui_hud_sprite_prim",
+    "c_type": "u32",
+    "kind": "struct_member",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "HmHudInventoryCtx+0x7c sprite prim state"
+  },
+  {
+    "address": "0x8012d798",
+    "name": "g_ui_shop_menu_ctx",
+    "c_type": "HmShopMenuCtx",
+    "domain": "ui_inventory_hud",
+    "confidence": "high",
+    "evidence": "Shop/vendor menu state block (0x7c bytes ending before 0x8012d814)"
+  },
+  {
+    "address": "0x80134014",
+    "name": "g_ovl30_debug_menu_state",
+    "c_type": "s32",
+    "domain": "overlay_part30_id0f",
+    "confidence": "high",
+    "evidence": "OVL_part30_id0f debug/test menu state (12 funcs/62 refs)"
+  },
+  {
+    "address": "0x80134ad8",
+    "name": "g_ovl30_debug_menu_ctx",
+    "c_type": "HmDebugMenuCtx",
+    "domain": "overlay_part30_id0f",
+    "confidence": "high",
+    "evidence": "Developer debug menu state context (0x44 bytes in OVL_part30_id0f.EXE)"
+  },
+  {
+    "address": "0x80137584",
+    "name": "g_ovl15_diary_save_blob",
+    "c_type": "HmDiarySaveBlob",
+    "domain": "overlay_part15_id10",
+    "confidence": "high",
+    "evidence": "Top Slot-B global (81 funcs/196 refs): diary save/load overlay state block (0x15c bytes ending at 0x801376e0)"
+  },
+  {
+    "address": "0x80137588",
+    "name": "g_ovl15_diary_cursor_item",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "overlay_part15_id10",
+    "confidence": "high",
+    "evidence": "HmDiarySaveBlob+0x04 cursor_item"
+  },
+  {
+    "address": "0x8013758c",
+    "name": "g_ovl15_diary_active_port",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "overlay_part15_id10",
+    "confidence": "high",
+    "evidence": "HmDiarySaveBlob+0x08 active_port"
+  },
+  {
+    "address": "0x8013758e",
+    "name": "g_ovl15_diary_menu_mode",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "overlay_part15_id10",
+    "confidence": "high",
+    "evidence": "HmDiarySaveBlob+0x0a menu_mode"
+  },
+  {
+    "address": "0x80137594",
+    "name": "g_ovl15_diary_confirm_cursor",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "overlay_part15_id10",
+    "confidence": "high",
+    "evidence": "HmDiarySaveBlob+0x10 confirm_cursor"
+  },
+  {
+    "address": "0x8013759a",
+    "name": "g_ovl15_diary_card_busy",
+    "c_type": "u16",
+    "kind": "struct_member",
+    "domain": "overlay_part15_id10",
+    "confidence": "high",
+    "evidence": "HmDiarySaveBlob+0x16 card_busy (44 funcs/53 refs)"
+  },
+  {
+    "address": "0x801376e0",
+    "name": "g_ovl15_diary_save_slots",
+    "c_type": "HmSaveSlotSummary[3]",
+    "domain": "overlay_part15_id10",
+    "confidence": "high",
+    "evidence": "Memory Card 3-slot save summary array (3 * 0x3c = 0xb4 bytes)"
+  },
+  {
+    "address": "0x801be1b0",
+    "name": "g_gfx_highram_vram_arena",
+    "c_type": "u8 *",
+    "domain": "render_gte_sprites",
+    "confidence": "high",
+    "evidence": "High-RAM staging arena (0x3ee50 bytes cleared in FUN_8001231c)"
   }
 ]

@@ -53,41 +53,41 @@ typedef struct HmCalendarClock {
 
 /* Player actor & state block at 0x80071a00 (0x80071a6c is flags at +0x6C) */
 typedef struct HmPlayerState {
-    u32 actor_id;           /* +0x00 */
-    u32 model_ctx_0;        /* +0x04 */
-    u32 model_ctx_1;        /* +0x08 */
-    u32 model_ctx_2;        /* +0x0C */
-    u16 state_0x10;         /* +0x10 */
-    s16 stamina;            /* +0x12 */
-    s16 fatigue;            /* +0x14 */
-    u16 _pad_0x16[4];       /* +0x16 */
-    s16 equipped_tool;      /* +0x1E */
-    s16 _pad_0x20;          /* +0x20 */
-    s16 held_item_id;       /* +0x22 */
-    u16 _pad_0x24[2];       /* +0x24 */
-    u16 tool_charge;        /* +0x28 */
-    u16 _pad_0x2a[2];       /* +0x2A */
-    s16 target_scene_anim;  /* +0x2E */
-    u16 _pad_0x30[3];       /* +0x30 */
-    u16 action_flags;       /* +0x36 */
-    u16 facing_dir;         /* +0x38 */
-    u16 _pad_0x3a[17];      /* +0x3A */
-    s32 gold;               /* +0x5C */
-    s32 shipping_or_medals; /* +0x60 */
-    u32 demo_pad_held;      /* +0x64 */
-    u32 demo_pad_edge;      /* +0x68 */
-    u32 flags;              /* +0x6C */
-    u16 _state_0x70[13];    /* +0x70 */
-    s16 hold_state;         /* +0x8A */
-    u16 _state_0x8c[58];    /* +0x8C */
-    s32 pos_x;              /* +0x100 */
-    s32 pos_y;              /* +0x104 */
-    s32 pos_z;              /* +0x108 */
-    s32 vel_x;              /* +0x10C */
-    s32 vel_y;              /* +0x110 */
-    s32 vel_z;              /* +0x114 */
-    s32 move_speed;         /* +0x118 */
-    u32 _pad_0x11c;         /* +0x11C */
+    u32 actor_id;                    /* +0x00 */
+    u32 model_ctx_0;                 /* +0x04 */
+    u32 model_ctx_1;                 /* +0x08 */
+    u32 model_ctx_2;                 /* +0x0C */
+    u16 action_state;                /* +0x10 */
+    s16 stamina;                     /* +0x12 */
+    s16 fatigue;                     /* +0x14 */
+    u16 fatigue_and_status[4];       /* +0x16 */
+    s16 equipped_tool;               /* +0x1E */
+    s16 prev_equipped_tool;          /* +0x20 */
+    s16 held_item_id;                /* +0x22 */
+    u16 held_item_state[2];          /* +0x24 */
+    u16 tool_charge;                 /* +0x28 */
+    u16 charge_step_vars[2];         /* +0x2A */
+    s16 target_scene_anim;           /* +0x2E */
+    u16 anim_frame_vars[3];          /* +0x30 */
+    u16 action_flags;                /* +0x36 */
+    u16 facing_dir;                  /* +0x38 */
+    u16 tool_exp_and_timers[17];     /* +0x3A */
+    s32 gold;                        /* +0x5C */
+    s32 shipping_or_medals;          /* +0x60 */
+    u32 demo_pad_held;               /* +0x64 */
+    u32 demo_pad_edge;               /* +0x68 */
+    u32 flags;                       /* +0x6C */
+    u16 action_sub_vars[13];         /* +0x70 */
+    s16 hold_state;                  /* +0x8A */
+    u16 mount_and_interact_vars[58]; /* +0x8C */
+    s32 pos_x;                       /* +0x100 */
+    s32 pos_y;                       /* +0x104 */
+    s32 pos_z;                       /* +0x108 */
+    s32 vel_x;                       /* +0x10C */
+    s32 vel_y;                       /* +0x110 */
+    s32 vel_z;                       /* +0x114 */
+    s32 move_speed;                  /* +0x118 */
+    u32 step_flags_tail;             /* +0x11C */
 } HmPlayerState; /* 0x120 */
 
 /* Farm plot / interactive object cell (0x8007a5c4, stride 0x18 x 0xC5) */
@@ -118,33 +118,33 @@ typedef struct HmCropSpec {
 
 /* Livestock / pet record (0x800742ec, stride 0xB4 x 10 in 800ce96c) */
 typedef struct HmAnimalRecord {
-    u16 flags;            /* +0x00 */
-    s16 species_id;       /* +0x02 */
-    s16 age_days;         /* +0x04 */
-    s16 affection;        /* +0x06 */
-    s16 health_state;     /* +0x08 */
-    u16 product_timer;    /* +0x0A */
-    u8  name_chars[12];   /* +0x0C */
-    u16 _meta_0x18[12];   /* +0x18 */
-    s32 pos_x;            /* +0x30 */
-    s32 pos_y;            /* +0x34 */
-    s32 pos_z;            /* +0x38 */
-    u32 _anim_and_ai[30]; /* +0x3C */
+    u16 flags;                    /* +0x00 */
+    s16 species_id;               /* +0x02 */
+    s16 age_days;                 /* +0x04 */
+    s16 affection;                /* +0x06 */
+    s16 health_state;             /* +0x08 */
+    u16 product_timer;            /* +0x0A */
+    u8  name_chars[12];           /* +0x0C */
+    u16 care_and_breed_stats[12]; /* +0x18 */
+    s32 pos_x;                    /* +0x30 */
+    s32 pos_y;                    /* +0x34 */
+    s32 pos_z;                    /* +0x38 */
+    u32 anim_and_ai_vars[30];     /* +0x3C */
 } HmAnimalRecord; /* 0xB4 */
 
 /* NPC / villager actor record (0x800749f4, stride 0xB8 x 20 in 800d0fb4) */
 typedef struct HmNpcActor {
-    u16 npc_id;       /* +0x00 */
-    u16 flags;        /* +0x02 */
-    s16 scene_id;     /* +0x04 */
-    s16 facing_dir;   /* +0x06 */
-    s16 affection;    /* +0x08 */
-    s16 schedule_slot;/* +0x0A */
-    u32 anim_state;   /* +0x0C */
-    s32 pos_x;        /* +0x10 */
-    s32 pos_y;        /* +0x14 */
-    s32 pos_z;        /* +0x18 */
-    u32 _runtime[39]; /* +0x1C */
+    u16 npc_id;               /* +0x00 */
+    u16 flags;                /* +0x02 */
+    s16 scene_id;             /* +0x04 */
+    s16 facing_dir;           /* +0x06 */
+    s16 affection;            /* +0x08 */
+    s16 schedule_slot;        /* +0x0A */
+    u32 anim_state;           /* +0x0C */
+    s32 pos_x;                /* +0x10 */
+    s32 pos_y;                /* +0x14 */
+    s32 pos_z;                /* +0x18 */
+    u32 ai_and_render_vars[39];/* +0x1C */
 } HmNpcActor; /* 0xB8 */
 
 #endif /* HMBTN_FARM_NPC_AND_SIM_H */

@@ -307,10 +307,10 @@ typedef struct HmTilemapLayer {
     u16 trigger_flags; /* +0x00 */
     s16 action_type;   /* +0x02 */
     s16 target_scene;  /* +0x04 */
-    s16 param0;        /* +0x06 */
+    s16 trigger_arg0;  /* +0x06 */
     s16 required_dir;  /* +0x08 */
-    s16 param1;        /* +0x0A */
-    s16 _pad_0x0c;     /* +0x0C */
+    s16 trigger_arg1;  /* +0x0A */
+    s16 zone_flags;    /* +0x0C */
     s16 min_x;         /* +0x0E */
     s16 min_y;         /* +0x10 */
     s16 min_z;         /* +0x12 */

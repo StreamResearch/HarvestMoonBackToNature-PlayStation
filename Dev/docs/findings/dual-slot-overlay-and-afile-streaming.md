@@ -115,55 +115,55 @@ Because Sony PS1 overlays lack dynamic ELF relocation tables, the retail linker 
 
 ## 5. Complete Registry of All `48` `hm_res_*` Resident Helper Exports (`491` Call Sites)
 
-Static auditing of `Corpus/readable/overlays/**/*.c` uncovered `48` internal `SLUS_011.15` resident helpers invoked across `491` overlay call sites that lay inside sub-entries or outside Stage 3 shards. [d4_symbol_overrides.json](../../schemas/d4_symbol_overrides.json) maps all `48` to deterministic `hm_res_<domain>_<desc>_<addr>` exports declared in `ghidra_compat.h`:
+Static auditing of `Corpus/readable/overlays/**/*.c` uncovered `48` internal `SLUS_011.15` resident helpers invoked across `491` overlay call sites that lay inside sub-entries or outside Stage 3 shards. [d4_symbol_overrides.json](../../schemas/d4_symbol_overrides.json) maps all `48` to deterministic suffix-free `hm_res_<domain>_<desc>` exports declared in `ghidra_compat.h`:
 
 | Address | Mapped `hm_res_*` Symbol | Sites | Domain / Verified Overlay Usage |
 | :--- | :--- | ---: | :--- |
-| `0x80011EF0` | `hm_res_sys_wait_vblank_80011ef0` | `32` | System: wait VBlank barrier |
-| `0x80011F08` | `hm_res_sys_poll_frame_80011f08` | `5` | System: poll frame sync tick |
-| `0x800121D4` | `hm_res_sys_reset_state_800121d4` | `2` | System: reset core display/loop state |
-| `0x8001316C` | `hm_res_gfx_lerp_rgb_fade_8001316c` | `6` | Graphics: ambient RGB fade interpolation |
-| `0x800132F0` | `hm_res_cd_wait_load_sync_800132f0` | `34` | CD-ROM: blocking transfer sync |
-| `0x80013400` | `hm_res_cd_poll_stream_80013400` | `1` | CD-ROM: stream poll check |
-| `0x80013AEC` | `hm_res_pad_reset_port_80013aec` | `2` | Input: reset controller port state |
-| `0x80015814` | `hm_res_spr_anim_step_a_80015814` | `17` | Sprites `0x0E`: advance slot anim A |
-| `0x80015828` | `hm_res_spr_anim_step_b_80015828` | `17` | Sprites `0x0E`: advance slot anim B |
-| `0x8001585C` | `hm_res_spr_bind_ctx_8001585c` | `29` | Sprites `0x0E`: bind actor context |
-| `0x80015868` | `hm_res_spr_set_header_80015868` | `21` | Sprites `0x0E`: set `HmLzSpriteHeader` |
-| `0x80015894` | `hm_res_spr_bind_anim_tbl_80015894` | `3` | Sprites `0x0E`: bind animation table |
-| `0x8001589C` | `hm_res_spr_lookup_frame_8001589c` | `6` | Sprites `0x0E`: query keyframe status |
-| `0x800158D8` | `hm_res_spr_reset_slot_800158d8` | `4` | Sprites `0x0E`: clear sprite descriptor |
-| `0x80015A18` | `hm_res_spr_submit_ot_fx_80015a18` | `2` | Sprites `0x0E`: submit OT effect sprite |
-| `0x80017A08` | `hm_res_ui_bind_font_slot_80017a08` | `24` | UI: bind font glyph slot |
-| `0x80017F30` | `hm_res_ui_format_actor_text_80017f30` | `2` | UI: format actor/farm string token |
-| `0x800183B8` | `hm_res_ui_set_kanji_origin_800183b8` | `1` | UI: set Kanji render origin |
-| `0x8001AAB8` | `hm_res_ui_alloc_text_slot_8001aab8` | `2` | UI: allocate text window buffer |
-| `0x8001ABF0` | `hm_res_ui_draw_icon_row_8001abf0` | `7` | UI: draw HUD icon strip |
-| `0x8001AF34` | `hm_res_evt_clear_flags_8001af34` | `1` | Events: zero `0x8006C870` flag table |
-| `0x8001BB88` | `hm_res_gte_reset_regs_8001bb88` | `1` | GTE: reset COP2 matrix/color regs |
-| `0x8001BBD8` | `hm_res_gte_push_matrix_8001bbd8` | `1` | GTE: push active matrix stack |
-| `0x8001BFA8` | `hm_res_gfx_init_mesh_ctx_8001bfa8` | `9` | Graphics: init 3D mesh render context |
-| `0x8001E334` | `hm_res_gfx_reset_world_spr_8001e334` | `8` | Graphics: reset world sprite queue |
-| `0x8001E340` | `hm_res_gfx_flush_mesh_ctx_8001e340` | `5` | Graphics: flush 3D mesh context |
-| `0x8001EF8C` | `hm_res_map_clear_tile_ptr_8001ef8c` | `2` | Map: clear collision tile pointer |
-| `0x8001EF98` | `hm_res_map_get_tile_attr_8001ef98` | `8` | Map: read tile height/surface attribute |
-| `0x8001F2EC` | `hm_res_npc_emit_actor_quad_8001f2ec` | `3` | NPC: emit actor shadow/marker quad |
-| `0x8001FBE4` | `hm_res_spu_bind_arena_8001fbe4` | `3` | Audio: bind SPU staging buffer |
-| `0x8001FD74` | `hm_res_pad_poll_trigger_8001fd74` | `15` | Input: poll debounced button edge |
-| `0x8001FE34` | `hm_res_spu_set_bgm_vol_8001fe34` | `23` | Audio: set SPU BGM volume |
-| `0x8001FE6C` | `hm_res_spu_get_bgm_vol_8001fe6c` | `21` | Audio: read SPU BGM volume |
-| `0x8002194C` | `hm_res_xa_pause_stream_8002194c` | `2` | Audio: pause active CD-XA stream |
-| `0x80021B64` | `hm_res_xa_is_playing_80021b64` | `4` | Audio: query CD-XA active flag |
-| `0x800225B8` | `hm_res_dlg_is_busy_800225b8` | `17` | Dialogue: check active typewriter busy |
-| `0x800226A4` | `hm_res_dlg_poll_advance_800226a4` | `119` | Dialogue: advance active text/prompt |
-| `0x80023060` | `hm_res_title_poll_demo_80023060` | `1` | Title: poll attract demo timer |
-| `0x800231E8` | `hm_res_dlg_get_choice_800231e8` | `7` | Dialogue: read player prompt selection |
-| `0x8002470C` | `hm_res_ui_set_cursor_mode_8002470c` | `2` | UI: set menu cursor state |
-| `0x80024770` | `hm_res_ui_draw_arrow_up_80024770` | `3` | UI: draw up scroll indicator |
-| `0x800247C0` | `hm_res_ui_draw_arrow_dn_800247c0` | `2` | UI: draw down scroll indicator |
-| `0x80024810` | `hm_res_ui_draw_arrow_lt_80024810` | `4` | UI: draw left page indicator |
-| `0x80024860` | `hm_res_ui_draw_arrow_rt_80024860` | `4` | UI: draw right page indicator |
-| `0x8002495C` | `hm_res_ui_set_prompt_pos_8002495c` | `6` | UI: position confirmation prompt |
-| `0x800249C0` | `hm_res_ui_draw_prompt_arrow_800249c0` | `1` | UI: draw prompt selection arrow |
-| `0x800378F4` | `hm_res_math_mul_div_800378f4` | `1` | Math: fixed-point multiply/divide |
-| `0x8003E2E4` | `hm_res_end_slideshow_step_8003e2e4` | `1` | Credits: step ending vignette frame |
+| `0x80011EF0` | `hm_res_sys_wait_vblank` | `32` | System: wait VBlank barrier |
+| `0x80011F08` | `hm_res_sys_poll_frame` | `5` | System: poll frame sync tick |
+| `0x800121D4` | `hm_res_sys_reset_state` | `2` | System: reset core display/loop state |
+| `0x8001316C` | `hm_res_gfx_lerp_rgb_fade` | `6` | Graphics: ambient RGB fade interpolation |
+| `0x800132F0` | `hm_res_cd_wait_load_sync` | `34` | CD-ROM: blocking transfer sync |
+| `0x80013400` | `hm_res_cd_poll_stream` | `1` | CD-ROM: stream poll check |
+| `0x80013AEC` | `hm_res_pad_reset_port` | `2` | Input: reset controller port state |
+| `0x80015814` | `hm_res_spr_anim_step_a` | `17` | Sprites `0x0E`: advance slot anim A |
+| `0x80015828` | `hm_res_spr_anim_step_b` | `17` | Sprites `0x0E`: advance slot anim B |
+| `0x8001585C` | `hm_res_spr_bind_ctx` | `29` | Sprites `0x0E`: bind actor context |
+| `0x80015868` | `hm_res_spr_set_header` | `21` | Sprites `0x0E`: set `HmLzSpriteHeader` |
+| `0x80015894` | `hm_res_spr_bind_anim_tbl` | `3` | Sprites `0x0E`: bind animation table |
+| `0x8001589C` | `hm_res_spr_lookup_frame` | `6` | Sprites `0x0E`: query keyframe status |
+| `0x800158D8` | `hm_res_spr_reset_slot` | `4` | Sprites `0x0E`: clear sprite descriptor |
+| `0x80015A18` | `hm_res_spr_submit_ot_fx` | `2` | Sprites `0x0E`: submit OT effect sprite |
+| `0x80017A08` | `hm_res_ui_bind_font_slot` | `24` | UI: bind font glyph slot |
+| `0x80017F30` | `hm_res_ui_format_actor_text` | `2` | UI: format actor/farm string token |
+| `0x800183B8` | `hm_res_ui_set_kanji_origin` | `1` | UI: set Kanji render origin |
+| `0x8001AAB8` | `hm_res_ui_alloc_text_slot` | `2` | UI: allocate text window buffer |
+| `0x8001ABF0` | `hm_res_ui_draw_icon_row` | `7` | UI: draw HUD icon strip |
+| `0x8001AF34` | `hm_res_evt_clear_flags` | `1` | Events: zero `0x8006C870` flag table |
+| `0x8001BB88` | `hm_res_gte_reset_regs` | `1` | GTE: reset COP2 matrix/color regs |
+| `0x8001BBD8` | `hm_res_gte_push_matrix` | `1` | GTE: push active matrix stack |
+| `0x8001BFA8` | `hm_res_gfx_init_mesh_ctx` | `9` | Graphics: init 3D mesh render context |
+| `0x8001E334` | `hm_res_gfx_reset_world_spr` | `8` | Graphics: reset world sprite queue |
+| `0x8001E340` | `hm_res_gfx_flush_mesh_ctx` | `5` | Graphics: flush 3D mesh context |
+| `0x8001EF8C` | `hm_res_map_clear_tile_ptr` | `2` | Map: clear collision tile pointer |
+| `0x8001EF98` | `hm_res_map_get_tile_attr` | `8` | Map: read tile height/surface attribute |
+| `0x8001F2EC` | `hm_res_npc_emit_actor_quad` | `3` | NPC: emit actor shadow/marker quad |
+| `0x8001FBE4` | `hm_res_spu_bind_arena` | `3` | Audio: bind SPU staging buffer |
+| `0x8001FD74` | `hm_res_pad_poll_trigger` | `15` | Input: poll debounced button edge |
+| `0x8001FE34` | `hm_res_spu_set_bgm_vol` | `23` | Audio: set SPU BGM volume |
+| `0x8001FE6C` | `hm_res_spu_get_bgm_vol` | `21` | Audio: read SPU BGM volume |
+| `0x8002194C` | `hm_res_xa_pause_stream` | `2` | Audio: pause active CD-XA stream |
+| `0x80021B64` | `hm_res_xa_is_playing` | `4` | Audio: query CD-XA active flag |
+| `0x800225B8` | `hm_res_dlg_is_busy` | `17` | Dialogue: check active typewriter busy |
+| `0x800226A4` | `hm_res_dlg_poll_advance` | `119` | Dialogue: advance active text/prompt |
+| `0x80023060` | `hm_res_title_poll_demo` | `1` | Title: poll attract demo timer |
+| `0x800231E8` | `hm_res_dlg_get_choice` | `7` | Dialogue: read player prompt selection |
+| `0x8002470C` | `hm_res_ui_set_cursor_mode` | `2` | UI: set menu cursor state |
+| `0x80024770` | `hm_res_ui_draw_arrow_up` | `3` | UI: draw up scroll indicator |
+| `0x800247C0` | `hm_res_ui_draw_arrow_dn` | `2` | UI: draw down scroll indicator |
+| `0x80024810` | `hm_res_ui_draw_arrow_lt` | `4` | UI: draw left page indicator |
+| `0x80024860` | `hm_res_ui_draw_arrow_rt` | `4` | UI: draw right page indicator |
+| `0x8002495C` | `hm_res_ui_set_prompt_pos` | `6` | UI: position confirmation prompt |
+| `0x800249C0` | `hm_res_ui_draw_prompt_arrow` | `1` | UI: draw prompt selection arrow |
+| `0x800378F4` | `hm_res_math_mul_div` | `1` | Math: fixed-point multiply/divide |
+| `0x8003E2E4` | `hm_res_end_slideshow_step` | `1` | Credits: step ending vignette frame |

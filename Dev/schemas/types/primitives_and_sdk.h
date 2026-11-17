@@ -161,7 +161,7 @@ typedef struct SpuVoiceAttr {
     u16       sl;          /* +0x38 */
     u16       adsr1;       /* +0x3A */
     u16       adsr2;       /* +0x3C */
-    u16       _pad_0x3e;   /* +0x3E */
+    u16       adsr_pad;    /* +0x3E */
 } SpuVoiceAttr; /* 0x40 */
 
 #endif /* HMBTN_PRIMITIVES_AND_SDK_H */
