@@ -1,6 +1,6 @@
-# HarvestMoonBackToNature-PlayStation
+# HarvestMoonBackToNature-PlayStation (`v0.2.0` — Beta)
 
-> **Standalone Clean-Room Research Repository (`v0.2.0`)** for *Harvest Moon: Back to Nature* (North American `SLUS-01115`, `ps1` / `native_ghidra_c`, ABI `ps1-mipsel` LP32).
+> **Release Status:** **Beta (Pre-1.0 — `v0.2.0`)** · Public Clean-Room Research Repository for *Harvest Moon: Back to Nature* (`SLUS-01115`). All pre-1.0 projects and research containers across the ecosystem are in **Beta** unless explicitly specified otherwise prior to `v1.0.0` Gold Reference.
 
 ## 1. Overview
 - **Research ID:** `harvest-moon-btn` (`axis=decomp` / `goalStudyTier=S5`)

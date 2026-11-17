@@ -1,7 +1,7 @@
 # Features & Verified Deliverables — HarvestMoonBackToNature-PlayStation
 
-> **Container Layout:** 3-Folder Clean-Room Research Repository · **Current Baseline:** `v0.2.0` (`D4 / S4 / R2`) · **Active Horizon:** `v0.3.0` -> `v1.0.0` (`S5` Gold) -> `v2.0.0` (`D5` Byte-Match)
-> **Legend:** `🟢 Live` (Shipped in `v0.1.0`–`v0.2.0`) · `🟡 In-Dev` (Active `v0.3.0`) · `🔵 Planned` (`v1.0.0` -> `v2.0.0`)
+> **Container Layout:** 3-Folder Clean-Room Research Repository · **Release Status:** **Beta (Pre-1.0 — `v0.2.0`)** (`D4 / S4 / R2`) · **Active Horizon:** `v0.3.0` -> `v1.0.0` (`S5` Gold) -> `v2.0.0` (`D5` Byte-Match)
+> **Legend:** `🟢 Live` (Shipped in `v0.1.0`–`v0.2.0` Beta) · `🟡 In-Dev` (Active `v0.3.0`) · `🔵 Planned` (`v1.0.0` -> `v2.0.0`)
 > **Links:** [README.md](README.md) · [ROADMAP.md](ROADMAP.md) · [CHANGELOG.md](CHANGELOG.md) · [SECURITY.md](SECURITY.md) · [active.state](active.state) · [SPECIFICATIONS.md](Dev/docs/SPECIFICATIONS.md) · [OPERATIONS.md](Dev/docs/OPERATIONS.md)
 
 ---
@@ -42,7 +42,7 @@
 ### 2.4 Clean-Room `.decomp` Exporter, Manual Shelf & Public Hygiene Baseline (`T2`–`T6`)
 - **Clean-Room `.decomp` Bundle Export:** [export_decomp_bundle.py](Dev/scripts/export_decomp_bundle.py) (`<= 250` SLOC) and [decomp_recipe.json](Dev/schemas/decomp_recipe.json) emit self-validated `.decomp` archives (`46` entries, `888,085` B, `violations: []`) targeting `reStation` (`0.2.x`, `targetDecompTier: "D5"`, `preloadRomDir: "data/rom"`), alongside [decomp_local.example.json](Dev/schemas/decomp_local.example.json) and `.gitignore` rules for `*.decomp` and `/Dev/data/`.
 - **Manual Shelf, `S5` Spec Spokes & Downstream `R2`:** Four `152–177`-line `Dev/docs/specifications/*.md` spokes linked from [SPECIFICATIONS.md](Dev/docs/SPECIFICATIONS.md) achieve `68/68` mapped fields (`unresolvedFieldCount: 0` in [spec_coverage.json](Dev/schemas/spec_coverage.json)), paired with the 4-Doc Manual Shelf ([ARCHITECTURE.md](Dev/docs/ARCHITECTURE.md), [FINDINGS.md](Dev/docs/FINDINGS.md), [OPERATIONS.md](Dev/docs/OPERATIONS.md)) and read-only `R1`–`R2` contracts consumed by downstream `HMBackToNature-Recomp`.
-- **Public-Repo Security & Portability:** Root [SECURITY.md](SECURITY.md), `## License & Legal` in [README.md](README.md), scrubbed workstation paths/PII/UUIDs, portable `--tools-dir` / `RD_DECOMP_TOOLS` discovery, and human-gated `active.state` (`isPublicRepo: false`, `requireHumanReviewBeforePush: true`) prepare the repository for `T7` pre-public review.
+- **Public-Repo Security & Portability:** Root [SECURITY.md](SECURITY.md), `## License & Legal` in [README.md](README.md), scrubbed workstation paths/PII/UUIDs, portable `--tools-dir` / `RD_DECOMP_TOOLS` discovery, full-history `git-filter-repo` scrub (`0` leaks across `148` blobs), and Stream-approved Beta public release (`isPublicRepo: true`, `requireHumanReviewBeforePush: true` in [active.state](active.state)).
 
 ---
 

@@ -8,17 +8,17 @@
   "ecosystemTier": "ResearchTrack",
   "appArchetype": "LAB",
   "version": "0.2.0",
-  "activeMilestone": "0.2.0",
+  "activeMilestone": "0.3.0",
   "goalMajorVersion": "1.0.0",
   "stateChangedDate": "2026-11-15",
   "lastVersionDate": "2026-11-17",
   "productionSubpath": null,
   "supersededBy": null,
   "tasklistDetailLevel": 3,
-  "openTaskCount": 1,
-  "completedTaskCount": 8,
-  "openReportCount": 1,
-  "isPublicRepo": false,
+  "openTaskCount": 0,
+  "completedTaskCount": 9,
+  "openReportCount": 0,
+  "isPublicRepo": true,
   "requireHumanReviewBeforePush": true,
   "gates": {
     "isGate0ScopePassed": true,
@@ -27,7 +27,7 @@
     "isInspecterVerified": true,
     "isTessaSynced": true
   },
-  "notes": "Graduated PS1 SLUS-01115 D4/S4 research container; v0.2.0 T0-T6 implemented & verified (integrity gate, Standard 18 reports, modular d4_harness/, .decomp exporter, clean-room call_graph/ABI headers/public scrub, 4 modular parsers & spec spokes); T7 pre-rewrite backups, full-history scrub & human-gated pre-public review pending. Next: v0.3.0 (Q12 GTE parity) -> v1.0.0 (S5 Gold) -> v2.0.0 (D5 1:1 byte-match). Downstream HMBackToNature-Recomp v0.1.1 verified R2 Title Boot on reStation v0.1.5.",
+  "notes": "v0.2.0 (Beta — Pre-1.0 Public Clean-Room Research Container; GitHub public + requireHumanReviewBeforePush: true). PS1 SLUS-01115 D4/S4 verified (integrity gate, Standard 18 reports, modular d4_harness/, .decomp exporter, clean-room call_graph/ABI headers/public scrub, 4 modular parsers & 68/68 spec spokes, full-history git-filter-repo scrub & pre-public review closed). Next: v0.3.0 (Q12 GTE parity) -> v1.0.0 (S5 Gold) -> v2.0.0 (D5 1:1 byte-match). Downstream HMBackToNature-Recomp v0.1.1 verified R2 Title Boot on reStation v0.1.5.",
   "discordPost": {
     "isEnabled": true,
     "serverName": null,
@@ -38,5 +38,5 @@
     "secretEnvKey": "DISCORD_WEBHOOK_FOUNDATION",
     "autoPostOnRelease": true
   },
-  "updatedAtUtc": "2026-11-17T04:32:57Z"
+  "updatedAtUtc": "2026-11-17T05:31:46Z"
 }

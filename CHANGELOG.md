@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.2.0] - 2026-11-17
+## [0.2.0] - 2026-11-17 (Beta)
 
 ### Added
 - **Clean-Room `.decomp` Exporter (`reStation 0.2.x`):** Added [export_decomp_bundle.py](Dev/scripts/export_decomp_bundle.py) (`<= 250` SLOC), [decomp_recipe.json](Dev/schemas/decomp_recipe.json), and [decomp_local.example.json](Dev/schemas/decomp_local.example.json) targeting `reStation` (`0.2.x`, `targetDecompTier: "D5"`, `preloadRomDir: "data/rom"`), validated at `46` entries (`888,085` B, `violations: []`) with `--verify-cleanroom`.
@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **D4 Track Verifier & `.gitignore` Gaps:** Fixed [verify_track_d4.py](Dev/scripts/verify_track_d4.py) to prefer canonical Standard 18 report keys, validate all `514` `.o` ELF32 MIPS headers instead of slicing `[:32]`, remove the hardcoded `== 8` assertion cap, verify `d4_harness/*.c` SLOC limits, and reference [05-stage4-d4-mips-build-and-parity.md](Dev/docs/stages/05-stage4-d4-mips-build-and-parity.md) (`513/513` compiled, `8/8` parity); updated [.gitignore](.gitignore) to exclude `*.decomp` and `/Dev/data/`.
 
 ### Security
-- **Clean-Room & Pre-Public Push Controls:** Enforced zero retail/BIOS/PII leakage across tracked schemas, C headers, Python scripts, VS Code workspace configuration, and Markdown documentation; locked `"isPublicRepo": false` and `"requireHumanReviewBeforePush": true` in [active.state](active.state) ahead of human-gated pre-rewrite backups and full-history `git-filter-repo` review.
+- **Clean-Room, Full-History Scrub & Public Release Gate (`Beta` / Pre-1.0):** Enforced zero retail/BIOS/PII leakage across tracked schemas, C headers, Python scripts, VS Code workspace configuration, and Markdown documentation; cut pre-rewrite `.7z` and `git bundle` backups, ran full-history `git-filter-repo` (`0` leaks across `148` unique blobs), and closed `0.2.0.2026-11-17_0440.-.pre-public-human-review-gate.md` with Stream approval (`isPublicRepo: true`, `requireHumanReviewBeforePush: true` in [active.state](active.state)) for **Beta (Pre-1.0)** public release.
 
 ## [0.1.0-hf.1] - 2026-11-15
 ### Changed

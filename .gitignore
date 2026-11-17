@@ -1,3 +1,4 @@
+Dev/docs/*/
 # Tier R Clean-Room Research Ignore Rules
 /Corpus/
 /Archive/
@@ -46,3 +47,11 @@ Thumbs.db
 ehthumbs.db
 .DS_Store
 ._*
+
+# Tier R Research Spokes (keep specifications, findings, stages tracked)
+!Dev/docs/specifications/
+!Dev/docs/specifications/**
+!Dev/docs/findings/
+!Dev/docs/findings/**
+!Dev/docs/stages/
+!Dev/docs/stages/**
