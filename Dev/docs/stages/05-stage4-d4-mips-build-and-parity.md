@@ -30,7 +30,7 @@ Re-running `stage4_assembler` on raw `work/reexported/<binary>/` output requires
 
 Modular C translation units under `Dev/scripts/d4_harness/*.c` (`<= 250` code-only SLOC/TU, discovered via Pass-2 globbing) link directly against lifted `core_mainloop_01.c` and `cd_afile_overlays_01.c` using 32-bit `LP32` pointer width and verify:
 
-1. `retail_psx_exe_header` — `SLUS_011.15` (`PS-X EXE`, `pc0 = 0x80012224`, `t_addr = 0x80010000`, `t_size = 321,536 B`).
+1. `retail_psx_exe_header` — `SLUS_011.15` (`PS-X EXE`, `pc0 = 0x80011278`, `t_addr = 0x80010000`, `t_size = 321,536 B`).
 2. `retail_afile_hdt_table` — `A_FILE.HDT` 33 monotonic LE sector offsets ending at `65,398` sectors (`133,935,104 B` in `A_FILE.BIN`).
 3. `cd_init_afile_aligned_span` — `hm_cd_init_afile_system` 4-byte aligned entry span & `ResetCallback`/`DrawSync` sequence.
 4. `vsync_stride_roundtrip` — `sys_set_vsync_stride` / `sys_get_vsync_stride` byte subpiece persistence.

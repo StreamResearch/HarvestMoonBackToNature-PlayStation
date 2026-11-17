@@ -37,6 +37,7 @@ python -B Dev/scripts/hmbtn_overlays.py --data-dir Corpus --log-dir Dev/logs
 python -B Dev/scripts/hmbtn_sound.py --data-dir Corpus --log-dir Dev/logs
 python -B Dev/scripts/hmbtn_sprites.py --data-dir Corpus --log-dir Dev/logs
 python -B Dev/scripts/hmbtn_save_diary.py --data-dir Corpus --log-dir Dev/logs
+# Pass --data-dir Corpus to isolate build reports under Corpus/work/ (omit --data-dir to refresh Dev/schemas/d4_build_report.json)
 python -B Dev/scripts/build_and_verify_d4.py --data-dir Corpus --log-dir Dev/logs
 python -B Dev/scripts/verify_track_d4.py --data-dir Corpus --log-dir Dev/logs
 ```

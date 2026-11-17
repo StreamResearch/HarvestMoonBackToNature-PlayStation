@@ -38,6 +38,7 @@ __pycache__/
 *.tmp
 *.decomp
 /Dev/data/
+/Dev/logs/
 
 # Extraneous OS / Drive Desktop Metadata
 desktop.ini
