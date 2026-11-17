@@ -1,56 +1,52 @@
-# Stage 4 (D4): Compilable MIPS ELF32 Build & Clean-Room Host Parity
+# Stage 4 (`D4`): Compilable MIPS ELF32 Build, `D4.craftsmanship` & `12/12` Q12 GTE Parity
 
 > **Game:** *Harvest Moon: Back to Nature* (`SLUS-01115`, NTSC-U, PlayStation 1)  
-> **Stage:** `D4` (`zig cc` MIPS ELF32 Compilation + LP32 Host Logic & Retail Media Parity)  
+> **Stage:** `D4` (`zig cc` MIPS ELF32 Compilation + Zero-Artifact Craftsmanship + `12/12` LP32 Q12 Host Parity)  
 > **Boundary:** 100% clean-room self-contained work derived strictly from owned retail `SLUS-01115` media.
 
 ---
 
-## 1. Lift Normalization (`patch_ps1_reexport_and_compat.py`)
+## 1. Lift Lowering & `D4.craftsmanship` Normalization
 
-Re-running `stage4_assembler` on raw `work/reexported/<binary>/` output requires C11 normalization across the main executable (`SLUS_011.15`) and all 13 overlay executables (`OVL_part08..OVL_part31`):
-
-1. **Subpieces (`._off_sz_`):** All 1,624 subpieces (`1`, `2`, `4` bytes) are rewritten via a balanced lvalue walk *before* Stage 4 assembly into explicit byte-offset dereferences (`*((uint{8,16,32}_t *)((uint8_t *)&(expr) + off))`).
-2. **Unaligned Stack Buffers (`undefined1 [2|4]`):** MIPS `LWL`/`LWR`/`SWL`/`SWR` local stack stores are normalized into `*(uint{16,32}_t *)(void *)(buf) = ...;`.
-3. **Indirect Calls, Jumps, & Struct Compatibility:** Integer callback dereferences become `(*(code *)(uintptr_t)(expr))(...)`; Ghidra switch labels (`switchD_*::switchdataD_*`) use C-valid underscores; incomplete PS1 GPU/GTE/SPU structs (`DIRENTRY`, `DR_AREA`, `DR_LOAD`, `DR_OFFSET`, `GsF_LIGHT`, `GsOT`, `ProgAtr`, `SpuReverbAttr`, `VagAtr`, `MATRIX.m[3][3]`) are completed in `Dev/schemas/`.
-4. **Cross-Overlay Signature Reconciliation:** Functions returning values at callsites while prototyped `void` are promoted across `functions.json` and `.c` definitions; callsite argument counts (including string-literal arguments via masked spans) match declarations cleanly.
-5. **PS1 MMIO & Compatibility Block:** Unmapped PS1 hardware registers (`SPU_*`, `DMA_*`, `CDROM_REG*`, `JOY_MCD_*`, `TMR_*`, `GPU_REG*`, `I_STAT`/`I_MASK`) and `SUB8*`/`ZEXT*`/`_gh_get*` helpers live in an idempotent marker block in `readable/include/ghidra_compat.h` without recursive `*_types.h` includes.
+1. **Pre-Assembly Lowering ([patch_ps1_reexport_and_compat.py](../../scripts/patch_ps1_reexport_and_compat.py)):** Normalizes raw `Corpus/work/reexported/<binary>/` lifts before `stage4_assembler`: rewrites `1,624` `._off_sz_` subpieces (`1/2/4` B) via balanced lvalue walk, converts `undefined1 [2|4]` stack buffers, maps `switchD_*::switchdataD_*` & `(u_long)CVar*`, promotes cross-overlay `void` functions used in value contexts, and reconciles callsite arities.
+2. **Compat Extensions ([craftsmanship_d4_helpers.py](../../scripts/craftsmanship_d4_helpers.py)):** Generates `HMBTN_PS1_COMPAT_EXTS` inside `ghidra_compat.h` (`HmCallbackFn`, all `48` `extern int hm_res_*();` exports, `PS1_MMIO_16`/`32`, `g_spill_*` / `g_cop_reg_74`, and `#ifdef HM_HOST_PARITY` `#include "hm_gte_cop2.h"` without recursive `*_types.h` includes).
+3. **Post-Assembly Zero-Artifact Pass ([craftsmanship_d4_normalizer.py](../../scripts/craftsmanship_d4_normalizer.py)):** Using [d4_symbol_overrides.json](../../schemas/d4_symbol_overrides.json), drives `_GHIDRA_CRAFT_RE` (`81,097`), non-regex width/stack locals (`8,339`), `param_<N>` (`4,389`), `undefined*`, raw `FUN_`/`DAT_`/`UNK_`/`PTR_`/`LAB_`/`SUB_`/`switchD_`, `(*(code *)...)`, `(void *)0x0`, `/* WARNING: */`, `// Function:`, and `@callers/@callees none` to **`0`** across all `513` `.c` files and `3` headers while emitting clean `@symbol`/`@address` Doxygen blocks across all `3,828` functions.
 
 ---
 
-## 2. Two-Pass Build & Verification (`build_and_verify_d4.py`)
+## 2. Two-Pass Build & `12/12` Parity (`build_and_verify_d4.py` + `d4_synthetic_corpus.py`)
 
 ### Pass 1 — MIPS ELF32 Static Build (`mipsel-freestanding-eabi`, `-mcpu=mips2`)
+- **Compiler:** `zig cc -target mipsel-freestanding-eabi -mcpu=mips2 -msoft-float -ffreestanding -fno-builtin -std=gnu11 -O1 -g0` (`-mcpu=mips1` triggers an LLVM `MipsISD::Sync` backend crash in Zig; `-mcpu=mips2 -msoft-float` emits valid little-endian R3000A O32 ELF32 objects `EI_CLASS=1`, `EI_DATA=1`, `ET_REL=1`, `EM_MIPS=8`).
+- **Artifacts:** All `513` `.c` translation units (`129` `sdk`, `52` `src`, `332` `overlays`) + `globals_defs.c` (`514` `.o` objects) compile with `0` errors / `0` warnings and archive in `80`-file chunks into `Corpus/work/d4_build/libharvest_moon_btn_d4.a`.
 
-- **Compiler:** `zig cc -target mipsel-freestanding-eabi -mcpu=mips2 -msoft-float -ffreestanding -fno-builtin -std=gnu11 -O1 -g0`
-- Note: `-mcpu=mips1` triggers an LLVM `MipsISD::Sync` backend crash in Zig 0.17.0 compiler-rt; `-mcpu=mips2 -msoft-float` targets little-endian R3000-compatible O32 MIPS ELF32 relocatables (`EI_CLASS = 1`, `EI_DATA = 1`, `ET_REL = 1`, `EM_MIPS = 8`).
-- **Artifacts:** All 513 readable translation units + `globals_defs.c` compile to `work/d4_build/obj/**/*.o` and link into `work/d4_build/libharvest_moon_btn_d4.a`.
-
-### Pass 2 — LP32 Native Host Parity (`x86-windows-gnu`, Modular `d4_harness/*.c`)
-
-Modular C translation units under `Dev/scripts/d4_harness/*.c` (`<= 250` code-only SLOC/TU, discovered via Pass-2 globbing) link directly against lifted `core_mainloop_01.c` and `cd_afile_overlays_01.c` using 32-bit `LP32` pointer width and verify:
+### Pass 2 — LP32 Host & `Q12` GTE Parity (`x86-windows-gnu`, `-DHM_HOST_PARITY`)
+Modular `<= 250`-SLOC C TUs under `Dev/scripts/d4_harness/` (including [hm_gte_cop2.h](../../scripts/d4_harness/hm_gte_cop2.h) and [parity_sim_and_gte_tests.c](../../scripts/d4_harness/parity_sim_and_gte_tests.c)) compile with `-DHM_HOST_PARITY -I Dev/scripts/d4_harness` and link directly against `core_mainloop_01.c`, `cd_afile_overlays_01.c`, `render_gte_sprites_07.c`, and `ovl_part11_id06_06.c` (with offline fixtures & `hm_res_*` stubs from [d4_synthetic_corpus.py](../../scripts/d4_synthetic_corpus.py)):
 
 1. `retail_psx_exe_header` — `SLUS_011.15` (`PS-X EXE`, `pc0 = 0x80011278`, `t_addr = 0x80010000`, `t_size = 321,536 B`).
-2. `retail_afile_hdt_table` — `A_FILE.HDT` 33 monotonic LE sector offsets ending at `65,398` sectors (`133,935,104 B` in `A_FILE.BIN`).
+2. `retail_afile_hdt_table` — `A_FILE.HDT` `33` monotonic LE byte offsets ending at `133,935,104 B` (`65,398` sectors).
 3. `cd_init_afile_aligned_span` — `hm_cd_init_afile_system` 4-byte aligned entry span & `ResetCallback`/`DrawSync` sequence.
-4. `vsync_stride_roundtrip` — `sys_set_vsync_stride` / `sys_get_vsync_stride` byte subpiece persistence.
+4. `vsync_stride_roundtrip` — `sys_set_vsync_stride` / `sys_get_vsync_stride` sub-word persistence.
 5. `draw_and_sync_flags` — `sys_set_draw_enable` / `sys_set_frame_sync_flag` state mutations.
-6. `vsync_oneshot_callback_and_swap` — `sys_run_vsync_cb_and_swap` fires one-shot VSync callback once before NULL clear while invoking queue/swap every tick.
-7. `highram_arena_accounting` — `sys_get_highram_arena_ptr` / `sys_get_highram_free_bytes` exact R3000A arithmetic delta (`0x00127000`).
-8. `cd_xa_seek_and_stop_fsm` — `cd_send_xa_seek_cmd` & `cd_stop_xa_stream` XA state machine & CdControl/SPU transitions.
+6. `vsync_oneshot_callback_and_swap` — `sys_run_vsync_cb_and_swap` one-shot callback clear & queue/swap dispatch.
+7. `highram_arena_accounting` — `sys_get_highram_arena_ptr` / `sys_get_highram_free_bytes` delta (`0x00127000`).
+8. `cd_xa_seek_and_stop_fsm` — `cd_send_xa_seek_cmd` & `cd_stop_xa_stream` XA state & `CdControl`/SPU transitions.
+9. `gte_rtps_q12_projection_and_flag` — Lifted `hm_gte_project_svector_to_ot` & `gfx_gte_rtps_get_otz` screen XY/OTZ and `Z=0` `FLAG` (`0x80000000`) rejection.
+10. `gte_nclip_winding_and_avsz3` — `hm_gte_cop2.h` `gte_nclip_b` CW vs. CCW sign and `gte_avsz3_b` OTZ shift.
+11. `field_tool_stamina_and_fishing_sim` — Lifted `p11_field_*` tool families, weather/late-night stamina, fishing tension/reel clamp, saturated XP, plus `0x41C64E6D` LCG & `32`-bit event bitset invariants.
+12. `save_diary_3tier_xor_parity` — `127+1` block XOR packing, `+0x238` / `+0x27F` parities, and single-bit tamper rejection.
 
 ---
 
 ## 3. Reproducible Commands
 
 ```powershell
-# Assemble + normalize readable C tree and IDE metadata (when Corpus/work/reexported exists)
+# Assemble, lower, normalize D4.craftsmanship, and verify 0 artifacts on live Corpus
 python -B Dev/scripts/patch_ps1_reexport_and_compat.py --data-dir Corpus --log-dir Dev/logs
+python -B Dev/scripts/craftsmanship_d4_normalizer.py --verify-clean --data-dir Corpus --log-dir Dev/logs
 
-# Pass 1 (MIPS ELF32 objects + archive) & Pass 2 (LP32 parity tests; supports --offline-synthetic)
+# Pass 1 (MIPS ELF32) + Pass 2 (12/12 -DHM_HOST_PARITY) + independent D4 & CLI gates
 python -B Dev/scripts/build_and_verify_d4.py --offline-synthetic --data-dir "$env:TEMP\hmbtn-d4" --log-dir Dev/logs
-
-# Independent verifier + engine D4/clangd check
-python -B Dev/scripts/verify_track_d4.py --offline-synthetic --log-dir Dev/logs
-python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track . --tier D4 --no-clangd
+python -B Dev/scripts/verify_track_d4.py --offline-synthetic --data-dir "$env:TEMP\hmbtn-d4" --log-dir Dev/logs
+python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track . --tier D4
 ```

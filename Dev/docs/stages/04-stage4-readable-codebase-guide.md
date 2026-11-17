@@ -1,81 +1,69 @@
 # Harvest Moon: Back to Nature (USA / `SLUS-01115`) — Stage 4 Readable Codebase Guide
 
-Stage 4 bundles all `2,575 / 2,575` named/typed game functions ([schemas/functions_catalog.json](../../schemas/functions_catalog.json)), `3,497` mapped globals ([schemas/globals_map.json](../../schemas/globals_map.json)), and `57` LP32 structs / `4` enums / `21` typedefs into a fresh-clone Ghidra `12.2` `AnalyzeHeadless` re-export across all `14` images, assembling a clean-room `Corpus/readable/` C tree with `0` `clangd` errors and full verification PASS in [verify_stage2_stage3.py](../../scripts/verify_stage2_stage3.py).
+Stage 4 bundles all `2,575 / 2,575` named/typed game functions ([functions_catalog.json](../../schemas/functions_catalog.json)), `3,497` mapped globals ([globals_map.json](../../schemas/globals_map.json)), and `57` LP32 structs / `4` enums / `21` typedefs across `14` images into `Corpus/readable/` (`526` non-cache files: `513` `.c`, `9` `.h`, `2` `.md`, `2` IDE configs), then executes [craftsmanship_d4_normalizer.py](../../scripts/craftsmanship_d4_normalizer.py) so every file hits `0` `clangd` errors and `0` `D4.craftsmanship` artifacts in [verify_stage2_stage3.py](../../scripts/verify_stage2_stage3.py).
 
 ---
 
-## 1. Slot B Co-Resident Symbol Fix & Ghidra `12.2` AnalyzeHeadless Re-Export
+## 1. Slot B Co-Resident Symbol Fix & `D4.craftsmanship` Normalization
 
-1. **Bundle Compilation (`decomp_cli.py bundle`):**
-   `python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" bundle --track .` merges the `225` anchors + `6` Stage 3 shards into `schemas/functions_catalog.json` (`2,575` entries, `0` missing) and writes `Corpus/work/ghidra_stage_bundle.json` (`4` enums, `21` typedefs, `57` structs, `3,497` globals, `2,575` anchors).
-2. **Slot B Co-Resident Resolution in `GhidraUniversalApplyAndExport.java` (`394` LOC):**
-   Because `OVL_part15_id10.EXE` and `OVL_part30_id0f.EXE` load into Slot B (`0x8012dde8+`) **above live `OVL_part11_id06.EXE` (`0x800b7e20..0x8012dde7`)**, `GhidraUniversalApplyAndExport.java` passes the resolved export window `win` into `applyGlobals(...)` and includes `OVL_part11_id06.EXE` symbols with `address < win[0]` whenever `win[0] >= 0x80120000` in both `applyGlobals(...)` and `applyAnchors(...)`.
-   - `OVL_part15_id10.EXE`: applied `2,094` anchors and `2,803` global labels.
-   - `OVL_part30_id0f.EXE`: applied `1,987` anchors and `2,806` global labels.
-3. **Fresh-Clone AnalyzeHeadless Run (Temporary `work/` Workspace):**
-   Cloned read-only `Corpus/standalone/ghidra_project/` into temporary `Corpus/work/hmbtn-d3-reexport/`, invoked Ghidra `12.2` `AnalyzeHeadless` directly via `build_ghidra_headless_cmd` (avoiding `analyzeHeadless.bat` argument splitting on `=`/`;` in `winSpec`), moved results to `Corpus/work/reexported/`, and deleted temporary scratch directories. All `14/14` images exported `3,828 / 3,828` RAM functions (`1,253` SDK + `2,575` renamed game functions, `0` `DECOMPILE FAILED`).
+1. **Bundle Compilation (`decomp_cli.py bundle`):** Merges `225` anchors + `6` Stage 3 shards into `functions_catalog.json` (`2,575` entries, `0` missing) and writes `Corpus/work/ghidra_stage_bundle.json` (`4e / 21t / 57s / 3,497g / 2,575a`).
+2. **Slot B Co-Resident Resolution (`GhidraUniversalApplyAndExport.java`):** Because `OVL_part15_id10.EXE` and `OVL_part30_id0f.EXE` load in Slot B (`0x8012DDE8+`) **above live `OVL_part11_id06.EXE` (`0x800B7E20..0x8012DDE7`)**, `win[0] >= 0x80120000` resolves `Part 11` symbols below `win[0]` (`Part 15`: `2,094` anchors / `2,803` globals; `Part 30`: `1,987` anchors / `2,806` globals).
+3. **`D4.craftsmanship` Zero-Artifact Pass ([craftsmanship_d4_normalizer.py](../../scripts/craftsmanship_d4_normalizer.py)):** Pre-assembly lowering ([patch_ps1_reexport_and_compat.py](../../scripts/patch_ps1_reexport_and_compat.py)) + post-assembly normalization eliminates `81,097` `_GHIDRA_CRAFT_RE` hits, `8,339` width/stack locals, `4,389` `param_<N>` tokens, and `4,634` `.c` + `445` `.h` `undefined*` types, maps `48` `FUN_800*` -> `hm_res_*` (`491` overlay calls) + `10` spill globals via [d4_symbol_overrides.json](../../schemas/d4_symbol_overrides.json), and standardizes clean `@symbol` / `@address` / `@domain` / `@wave` Doxygen headers on all `3,828` functions.
 
-### Before / After Readability Metrics (`funcs/*.c` & `readable/`)
-
-| Metric | `standalone/decompiled/` | `work/reexported/` | `readable/` (Final `.c` Tree) | Delta (`standalone -> readable`) |
-| --- | ---: | ---: | ---: | --- |
-| `FUN_80*` tokens | `13,840` | `487` | `524` | `-13,316` (`-96.21%`) |
-| `DAT_80*` tokens | `21,133` | `95` | `899` (`0` in `sdk/`+`src/`) | `-20,234` (`-95.75%`) |
-| All `DAT_*` tokens | `21,241` | `96` | `900` | `-20,341` (`-95.76%`) |
-| `param_1` tokens | `11,373` | `2,041` | `2,041` | `-9,332` (`-82.05%`) |
-| Struct `->` / `.` accesses | `5,440` | `11,538` | `11,447` | `+6,007` (`+110.42%`) |
-| `DECOMPILE FAILED` markers | `0` | `0` | **`0`** | `0` failed |
-| Renamed game functions | `0` | `2,575` | `2,575` | `2,575 / 2,575` (`100%`) |
+| Metric (`standalone` -> Final `D4.craftsmanship` `readable/`) | `standalone/decompiled/` | Pre-Clean `readable/` | Final `readable/` (`v0.2.1`) |
+| :--- | ---: | ---: | ---: |
+| `FUN_80*` tokens (defs + calls + docs) | `13,840` | `524` (`48` unique) | **`0`** |
+| `DAT_80*` / `UNK_*` / `PTR_*` / `LAB_*` / `SUB_*` / `switchD_*` | `21,241` | `1,912` | **`0`** |
+| `param_<N>` parameter placeholders | `11,373` | `4,389` | **`0`** |
+| `_GHIDRA_CRAFT_RE` + `undefined*` + width/stack locals | `> 90,000` | `94,515` | **`0`** |
+| `DECOMPILE FAILED` markers / renamed game funcs | `0` / `0` | `0` / `2,575` | **`0` / `2,575` (`100%`)** |
 
 ---
 
-## 2. `readable/` Codebase Layout (`529` Total Files: `516` `.c`, `9` `.h`, `2` `.md`, `2` IDE Configs)
-
-`decomp_cli.py assemble` (`RD_DECOMP_TOOLS/stage4_assembler.py`) emits `<= 400`-line chunked `.c` files (multi-function chunks strictly `<= 400` LOC) sorted by wave and RAM address, with `@address` / `@domain` / `@wave` / `@callers` / `@callees` docstrings on all `2,575 / 2,575` game functions:
+## 2. `readable/` Codebase Layout (`526` Files: `513` `.c`, `9` `.h`, `2` `.md`, `2` Configs)
 
 | Subtree | Files | Functions | Contents |
-| --- | ---: | ---: | --- |
+| :--- | ---: | ---: | :--- |
 | `readable/` docs & IDE | `2` `.md`, `2` cfg | — | `SYMBOL_MAP.md` (`3,828` rows), `ARCHITECTURE_WALKTHROUGH.md`, `compile_commands.json`, `.clangd` |
-| `readable/include/` | `9` `.h` | — | `harvestmoonbtn_types.h`, `types/*.h` (`5`), `harvestmoonbtn_globals.h` (`3,497` decls), `harvestmoonbtn_functions.h`, `ghidra_compat.h` |
-| `readable/sdk/` | `129` `.c` | `1,253` | `sdk_01.c`..`sdk_129.c` (PS1 SDK routines in `SLUS_011.15`) |
-| `readable/src/<domain>/` | `53` `.c` | `428` | `7` resident domains (`audio_spu_vab`, `cd_afile_overlays`, `core_mainloop`, `input_memcard`, `npc_dialogue_events`, `render_gte_sprites`, `ui_inventory_hud`) |
-| `readable/overlays/<OVL>/` | `334` `.c` | `2,147` | `13` `OVL_part*_id*.EXE` folders (`OVL_part11_id06.EXE` alone = `226` files / `1,541` funcs) |
-| **Total** | **`529` files** | **`3,828 / 3,828`** | **`2,575` game docstrings, `0` `FUN_80*` defs, `0` `DECOMPILE FAILED`** |
+| `readable/include/` | `9` `.h` | — | `harvestmoonbtn_types.h`, `types/*.h` (`5`), `harvestmoonbtn_globals.h` (`3,497`), `harvestmoonbtn_functions.h`, `ghidra_compat.h` |
+| `readable/sdk/` | `129` `.c` | `1,253` | `sdk_01.c`..`sdk_129.c` (PS1 SDK routines in `SLUS_011.15` w/ Doxygen `@symbol`) |
+| `readable/src/<domain>/` | `52` `.c` | `428` | `7` resident domains (`audio_spu_vab`, `cd_afile_overlays`, `core_mainloop`, `input_memcard`, `npc_dialogue_events`, `render_gte_sprites`, `ui_inventory_hud`) |
+| `readable/overlays/<OVL>/` | `332` `.c` | `2,147` | `13` `OVL_part*_id*.EXE` folders (`OVL_part11_id06.EXE` alone = `225` `.c` files / `1,541` funcs) |
+| **Total Non-Cache Files** | **`526` (`513` `.c`)** | **`3,828 / 3,828`** | **`0` `_GHIDRA_CRAFT_RE`, `0` `FUN_80*`/`DAT_80*`/`param_*`, `0` `DECOMPILE FAILED`** |
 
-### Resident Domains (`readable/src/`) & Overlays (`readable/overlays/`)
+### Resident Domains (`readable/src/`: `52` `.c`) & Overlays (`readable/overlays/`: `332` `.c`)
 
-| Resident Domain | Funcs | Files | Overlay Binary (Slot) | Funcs | Files |
-| --- | ---: | ---: | --- | ---: | ---: |
+| Resident Domain (`src/`) | Funcs | `.c` Files | Overlay Binary (Slot) | Funcs | `.c` Files |
+| :--- | ---: | ---: | :--- | ---: | ---: |
 | `audio_spu_vab` | `71` | `6` | `OVL_part08_id04.EXE` (Slot A — Boot stub) | `5` | `1` |
 | `cd_afile_overlays` | `25` | `3` | `OVL_part10_id05.EXE` (Slot A — PocketStation/PDA) | `23` | `7` |
-| `core_mainloop` | `38` | `5` | `OVL_part11_id06.EXE` (Slot A — Core Farm Engine) | `1,541` | `226` |
+| `core_mainloop` | `38` | `5` | `OVL_part11_id06.EXE` (Slot A — Core Farm Engine) | `1,541` | `225` |
 | `input_memcard` | `20` | `3` | `OVL_part15_id10.EXE` (Slot B — Save/Load/Diary) | `138` | `26` |
-| `npc_dialogue_events` | `83` | `10` | `OVL_part17_id07.EXE` (Slot A — Event/Submode) | `61` | `9` |
-| `render_gte_sprites` | `132` | `18` | `OVL_part19_id08.EXE` (Slot A — Festival Minigame) | `76` | `11` |
-| `ui_inventory_hud` | `59` | `8` | `OVL_part21_id09.EXE` (Slot A — Event/Submode) | `67` | `10` |
-| — | — | — | `OVL_part23_id0a.EXE` (Slot A — Horse Race) | `55` | `9` |
-| — | — | — | `OVL_part25_id0b.EXE` (Slot A — Tutorial/Event) | `65` | `10` |
-| — | — | — | `OVL_part27_id0c.EXE` (Slot A — Intro/Event) | `53` | `8` |
-| — | — | — | `OVL_part28_id0d.EXE` (Slot A — Credits/Slideshow) | `27` | `4` |
-| — | — | — | `OVL_part30_id0f.EXE` (Slot B — Developer debug menu) | `30` | `12` |
-| — | — | — | `OVL_part31_id0e.EXE` (Slot A — Memory card utility) | `6` | `1` |
+| `npc_dialogue_events` | `83` | `9` | `OVL_part17_id07.EXE` (Slot A — Swimming Festival) | `61` | `9` |
+| `render_gte_sprites` | `132` | `18` | `OVL_part19_id08.EXE` (Slot A — Chicken Sumo) | `76` | `11` |
+| `ui_inventory_hud` | `59` | `8` | `OVL_part21_id09.EXE` (Slot A — Festival Submode) | `67` | `10` |
+| — | — | — | `OVL_part23_id0a.EXE` (Slot A — Horse Race) | `55` | `8` |
+| — | — | — | `OVL_part25_id0b.EXE` (Slot A — Tomato Festival) | `65` | `10` |
+| — | — | — | `OVL_part27_id0c.EXE` (Slot A — Opening Intro) | `53` | `8` |
+| — | — | — | `OVL_part28_id0d.EXE` (Slot A — Credits & Slideshow) | `27` | `4` |
+| — | — | — | `OVL_part30_id0f.EXE` (Slot B — Developer inspection menu) | `30` | `12` |
+| — | — | — | `OVL_part31_id0e.EXE` (Slot A — Memory Card backup utility) | `6` | `1` |
 
 ---
 
-## 3. IDE Workspace, `clangd 23.1.0` Compatibility & Verification Suite
+## 3. IDE Workspace, `clangd` Compatibility & Verification Suite
 
-- **[HarvestMoonBackToNature-PlayStation.code-workspace](../../HarvestMoonBackToNature-PlayStation.code-workspace):** Configures `clangd` (`--compile-commands-dir`, `--header-insertion=never`, `C_Cpp.intelliSenseEngine: disabled`) across `Corpus/readable`, `Dev/schemas`, `Dev/docs`, and `Dev/scripts`, plus integrated VS Code tasks for `verify`, `index`, `bundle`, `assemble`, and `workspace`.
-- **`readable/include/` Compatibility Layer:** Without touching `Dev/schemas/types/*`, `Corpus/readable/include/ghidra_compat.h` aligns `typedef int32_t code;`, `typedef int f();`, `MemCB`, `__jmp_buf_tag`, and opaque PS1 SDK forward structs (`DIRENTRY`, `DR_AREA`, `DR_LOAD`, `DR_OFFSET`, `GsF_LIGHT`, `GsOT`, `ProgAtr`, `SpuReverbAttr`, `VagAtr`), while `harvestmoonbtn_functions.h` sanitizes `2MBYTE_OBJ_B4` -> `fn_2MBYTE_OBJ_B4`.
-- **`clangd --check` (`0` Errors):** Verified `0` diagnostics on `harvestmoonbtn_types.h`, `audio_spu_vab_01.c`, `input_memcard_01.c`, `ovl_part15_id10_01.c`, and `ovl_part30_id0f_01.c`.
+- **[HarvestMoonBackToNature-PlayStation.code-workspace](../../HarvestMoonBackToNature-PlayStation.code-workspace):** Configures `clangd` (`--compile-commands-dir`, `--header-insertion=never`, `C_Cpp.intelliSenseEngine: disabled`) and tasks across `Corpus/readable`, `Dev/schemas`, `Dev/docs`, and `Dev/scripts`.
+- **`ghidra_compat.h` (`HMBTN_PS1_COMPAT_EXTS`):** Defines `typedef int (*HmCallbackFn)();`, declares all `48` `extern int hm_res_*();` exports, guards `#ifdef HM_HOST_PARITY` (`#include "hm_gte_cop2.h"`), and keeps zero recursive `*_types.h` includes.
 
 ```powershell
-# 1. Verify Stage 2 + Stage 3 + Stage 4 invariants (offline-synthetic or live Corpus)
+# 1. Verify Stage 2 + Stage 3 + Stage 4 + D4.craftsmanship invariants (offline or live Corpus)
 python -B Dev/scripts/verify_stage2_stage3.py --offline-synthetic --log-dir Dev/logs
+python -B Dev/scripts/craftsmanship_d4_normalizer.py --verify-clean --data-dir Corpus --log-dir Dev/logs
 
-# 2. Verify D3 manifest gate via universal /decomp CLI
-python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track . --tier D3
-
-# 3. Rebuild bundle, readable/, compile_commands.json, and workspace
+# 2. Rebuild bundle, readable/, compat/normalizer, and verify D4 from repo root
 python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" bundle --track .
 python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" assemble --track .
+python -B Dev/scripts/patch_ps1_reexport_and_compat.py --data-dir Corpus --log-dir Dev/logs
+python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track . --tier D4
 ```

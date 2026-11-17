@@ -1,30 +1,59 @@
-# HarvestMoonBackToNature-PlayStation — Empirical Findings & Discovery Log
+# HarvestMoonBackToNature-PlayStation — Empirical Findings & Discovery Hub
 
-**Version:** `0.2.0` (`2026-11-16`) · **Axis:** `decomp` · **Serial:** `SLUS-01115`
+**Version:** `0.2.1` (`2026-11-17`) · **Axis:** `decomp` (`D4 / S4 / R2`) · **Serial:** `SLUS-01115`
 
-## 1. Executive Synthesis
-- Clean-room static analysis and Stage 4 C lifting of *Harvest Moon: Back to Nature* (`SLUS-01115`) achieved full **`D4 / S4`** verification in standalone repository `HarvestMoonBackToNature-PlayStation`.
-- Baseline files under `Corpus/standalone/` carry verified SHA-256 digests (`SLUS_011.15` `323,584` B, `A_FILE.HDT` `132` B, `A_FILE.BIN` `133,935,104` B, `STR/01..04.XA`, and `13` synthesized overlay EXEs) hashed end-to-end without skipping `> 64 MiB` payloads.
+---
 
-## 2. Empirical Hardware & Lifting Discoveries
-1. **PS-X EXE Entry & Arena Geometry (`SLUS_011.15`):** Header reports `pc0 = 0x80011278`, `t_addr = 0x80010000`, `t_size = 0x4E800` (`321,536 = 323,584 - 0x800`), not older placeholder guesses (`0x80012224`); `sys_get_highram_free_bytes()` computes free arena relative to `g_core_ro_u32_8007aff4` (`0x801F0000 - 0x800C9000 = 0x00127000`).
-2. **`A_FILE.HDT` Byte-Offset Invariant:** All `33` `uint32` entries store exact **byte offsets** (`0` to `133,935,104`), aligned on `0x800`-byte CD sectors (`65,398` sectors * `2048` B = `133,935,104` B). `hm_cd_init_afile_system(0)` computes sector-aligned span (`((end - start) + 3) & ~3` / `((end - start + 0x7FF) >> 11)`) after invoking `ResetCallback` and `DrawSync`.
-3. **Dual-Slot Overlay Co-Residency (`0x800B7E20` + `0x8012DDE8`):** Eleven overlays target Slot A (`0x800B7E20`), while Parts `15` (`138` functions) and `30` (`30` functions) target Slot B (`0x8012DDE8`) while **Part 11** (`0x800BBC34..0x80121780`) remains resident in Slot A. Both executables were linked with resident `SLUS_011.15` + Part 11 + Slot B payload so cross-slot calls resolve directly.
-4. **Ghidra-to-C Clean-Room Compatibility Hazards Resolved ([patch_ps1_reexport_and_compat.py](../scripts/patch_ps1_reexport_and_compat.py)):**
-   - Replaced split sub-member expressions (`._off_sz_`), `undefined1 [2|4]` stack temporaries, `switchD_*::switchdataD_*` jump labels, `(u_long)CVar*` literal casts, and `void`-in-value-context expressions.
-   - Completed PS1 GPU/GTE/SPU structs (`DIRENTRY`, `DR_AREA`, `DR_LOAD`, `DR_OFFSET`, `GsF_LIGHT`, `GsOT`, `MATRIX.m[3][3]`, `ProgAtr`, `SpuReverbAttr`, `VagAtr`) in [harvestmoonbtn_types.h](../schemas/harvestmoonbtn_types.h) using neutral PS1 ABI notes (`4` enums, `21` typedefs, `57` structs).
-   - Windows `zig ar` CLI length limit (`WinError 206`) avoided by chunking `514` `.o` objects into 80-file relative-path batches with `cwd=obj_root` + ranlib `s`.
-   - Host Pass 2 linking avoids MinGW `<string.h>` conflicts with PS1 SDK prototypes (`strcat`, `strcmp`, etc.) by keeping `d4_harness/` independent of `harvestmoonbtn_functions.h` and filtering CRT symbols out of `host_stubs.c`.
-5. **Clean-Room `call_graph.json` String Exclusion (`v0.2.0`):** Downstream Stage 2/3/4 tools (`stage2_anchors_builder.py`, `stage2_globals_builder.py`, `verify_stage0_stage1.py`, `verify_stage2_stage3.py`, and external R&D verifiers) never read `call_graph.json["functions"][k]["strings"]`. [stage1_indexer.py](../scripts/stage1_indexer.py) now consumes `strings` strictly in memory for `classify_domain()` and serializes `"strings": []` across all `3,828` nodes (`106` non-empty arrays removed) while retaining `meta.strings_json_counts`.
+## 1. Empirical Findings Routing Table
 
-## 3. Empirical Validation Ledger (`D4` / `S4` Parity & MIPS)
+This hub indexes the three deep empirical findings spokes under `Dev/docs/findings/` alongside the stage documentation under `Dev/docs/stages/`, consolidating verified PlayStation 1 (`SLUS-01115`) hardware layouts, simulation algorithms, and `D4.craftsmanship` lifting breakthroughs.
+
+| Findings Spoke | Primary Scope | Verified Artifacts & Targets |
+| :--- | :--- | :--- |
+| [dual-slot-overlay-and-afile-streaming.md](findings/dual-slot-overlay-and-afile-streaming.md) | `SLUS_011.15` memory geometry, `A_FILE.HDT/BIN` (`32` partitions), `22` `0x800145F0` callers, `Slot A` + `Part 11` / `Slot B` co-residency, `48` `hm_res_*` exports | `hmbtn_unpack.py`, `hmbtn_overlays.py`, `d4_symbol_overrides.json` |
+| [farm-simulation-rng-and-event-bitsets.md](findings/farm-simulation-rng-and-event-bitsets.md) | `0x41C64E6D` LCG PRNG, bit-addressed event/heart flags, `HmCalendarClock`, `HmPlayerState`, tool/stamina/fishing math, `37` NPC affection, `Q12` `COP2` GTE | `ovl_part11_id06_06.c`, `render_gte_sprites_07.c`, `hm_gte_cop2.h`, `parity_sim_and_gte_tests.c` |
+| [d4-craftsmanship-and-mips-abi-normalization.md](findings/d4-craftsmanship-and-mips-abi-normalization.md) | PS1 `MIPS32 LE` `LP32` ABI, pre-assembly P-code lowering (`._off_sz_`, `undefined1 [2|4]`), `D4.craftsmanship` `0`-artifact pass (`513` `.c` files) | `craftsmanship_d4_normalizer.py`, `craftsmanship_d4_helpers.py`, `patch_ps1_reexport_and_compat.py` |
+
+- **Stage Pipeline Guides (`Dev/docs/stages/`):** [01 Call Graph & Clusters](stages/01-stage1-callgraph-and-clusters.md) · [02 Structs, Globals & Anchors](stages/02-stage2-structs-globals-and-anchors.md) · [03 Function Naming](stages/03-stage3-function-naming.md) · [04 Readable Codebase Guide](stages/04-stage4-readable-codebase-guide.md) · [05 D4 MIPS Build & Parity](stages/05-stage4-d4-mips-build-and-parity.md).
+
+---
+
+## 2. Executive Synthesis (`v0.2.1`)
+
+- **Clean-Room Media & Full SHA-256 Gate:** Baseline files in gitignored `Corpus/standalone/` (`SLUS_011.15` `323,584` B, `A_FILE.HDT` `132` B, `A_FILE.BIN` `133,935,104` B, `STR/01..04.XA`, and `13` synthesized overlay EXEs) are verified end-to-end with zero size-skip caps ([standalone_integrity.json](../schemas/standalone_integrity.json)).
+- **Dual-Slot Architecture & `48` Uncataloged Resident Helpers:** Eleven overlays target **Slot A** (`0x800B7E20`) while **Parts 15 & 30** execute simultaneously in **Slot B** (`0x8012DDE8`) above co-resident **Part 11** (`0x800BBC34..0x80121780`). Across overlay C sources, `48` previously uncataloged `FUN_800*` calls (`491` sites) resolve to `hm_res_*` declarations in [d4_symbol_overrides.json](../schemas/d4_symbol_overrides.json).
+- **Zero-Artifact `D4.craftsmanship` Restoration (`513/513` C Files):** Pre-assembly lowering ([patch_ps1_reexport_and_compat.py](../scripts/patch_ps1_reexport_and_compat.py)) paired with post-assembly normalization ([craftsmanship_d4_normalizer.py](../scripts/craftsmanship_d4_normalizer.py)) reduces `81,097` `_GHIDRA_CRAFT_RE` hits, `8,339` stack/width locals, and `4,389` `param_<N>` placeholders to **`0`** while compiling all `513` `.c` TUs (`129` `sdk`, `52` `src`, `332` `overlays`) with `0` errors and `0` warnings.
+- **Deterministic `Q12` `COP2` Host GTE & `12/12` Parity:** [hm_gte_cop2.h](../scripts/d4_harness/hm_gte_cop2.h) (`-DHM_HOST_PARITY`) models PS1 fixed-point `Q12` (`4096 = 1.0`) GTE registers and `RTPS`/`MVMVA`/`NCLIP`/`AVSZ3`/`FLAG` arithmetic, allowing [parity_sim_and_gte_tests.c](../scripts/d4_harness/parity_sim_and_gte_tests.c) to link directly against lifted `render_gte_sprites_07.c` and `ovl_part11_id06_06.c` alongside core/media tests for `12/12` parity.
+
+---
+
+## 3. Consolidated Hardware & Format Highlights
+
+| Subsystem | Key Empirical Finding | Source Evidence |
+| :--- | :--- | :--- |
+| **PS-X Boot & Arena** | `pc0 = 0x80011278`, `t_addr = 0x80010000`, `t_size = 0x4E800` (`321,536` B); high-RAM free delta `0x00127000` (`0x801F0000 - 0x800C9000`) | [hmbtn_overlays.py](../scripts/hmbtn_overlays.py), [parity_core_sys_tests.c](../scripts/d4_harness/parity_core_sys_tests.c) |
+| **`A_FILE.HDT` Invariant** | `33` LE `uint32` byte offsets (all `0x800` sector-aligned, terminating at `133,935,104` B = `65,398` sectors) across `32` partitions | [afile-and-overlays.md](specifications/afile-and-overlays.md) |
+| **Audio (`Part 9` + `XA`)** | `39` `pBAV` VABp soundbanks + `36` big-endian `pQES` SEQ tracks indexed by `g_audio_tbl_80049370`; `4` `2,336`-B Mode 2 Form 2 `STR/*.XA` files | [sound-vab-seq-xa.md](specifications/sound-vab-seq-xa.md) |
+| **Sprites & `.TIM` VRAM** | `52` chained `0x0E` packs (`5` subtables + `0x100D` VRAM tail) across Parts `14,18,20,22,24,26`; `12` `4bpp` `.TIM`s in Part `16` | [sprites-0x0e-and-tim.md](specifications/sprites-0x0e-and-tim.md) |
+| **Diary Save & XOR** | `BASLUS-01115-FARM0..3` (`0x8000` B): `251` x `128`-B parity blocks -> `+0x0238` combined XOR -> `+0x027F` summary XOR; `201`-block (`25,527`-B) stream | [save-diary-calendar-affection.md](specifications/save-diary-calendar-affection.md) |
+| **Sim & `COP2` Math** | `0x41C64E6D` LCG (`0x80012A34`), `0x8006C870` event bitset, tool/stamina/fishing math (`0x800CB0B0..0x800CD5BC`), `37` NPC affection, `Q12` `FLAG` `0x80000000` | [farm-simulation-rng-and-event-bitsets.md](findings/farm-simulation-rng-and-event-bitsets.md) |
+| **Clean-Room Hygiene** | `call_graph.json` emits `"strings": []` (`106` non-empty arrays cleared); `Dev/schemas/types/*.h` (`4e / 21t / 57s`) scrubbed of vendor prose & raw `DAT_80*` | [stage1_indexer.py](../scripts/stage1_indexer.py), [d4-craftsmanship-and-mips-abi-normalization.md](findings/d4-craftsmanship-and-mips-abi-normalization.md) |
+
+---
+
+## 4. Empirical Validation Ledger (`v0.2.1` — `D4 / S4 / R2`)
+
 | Verification Check | Measured Result | Reference Artifact |
-| --- | --- | --- |
-| MIPS ELF32 Build (`zig cc -target mipsel-freestanding-eabi`) | `513/513` `.c` + `1` stub, `0` errors / `0` warnings, `3,463,828` B `.a` | [d4_build_report.json](../schemas/d4_build_report.json) |
-| `clangd --check` (header + `.c` TU) | `rc = 0`, `errors = 0` (`harvestmoonbtn_types.h`, `audio_spu_vab_01.c`) | `Corpus/readable/compile_commands.json` |
-| Parity Checks (Media, Kernel, VSync, High-RAM, CD-XA) | Modular `d4_harness/*.c` (`<= 250` SLOC/TU) LP32 host parity PASS | [build_and_verify_d4.py](../scripts/build_and_verify_d4.py) |
-| Clean-Room & Specification Parity (`v0.2.0`) | `call_graph.json` `0` non-empty `strings`; `spec_coverage.json` `unresolvedFieldCount: 0` | [SPECIFICATIONS.md](SPECIFICATIONS.md) |
+| :--- | :--- | :--- |
+| **MIPS ELF32 Static Build (`Pass 1`)** | `513/513` `.c` + `globals_defs.c` = `514` ELF32 MIPS `.o`, `0` errors / `0` warnings -> `libharvest_moon_btn_d4.a` | [d4_build_report.json](../schemas/d4_build_report.json) |
+| **Host LP32 + Q12 GTE Parity (`Pass 2`)** | `12/12` assertions (`8` media/kernel/CD-XA + `4` `Q12` `COP2` `RTPS`/`NCLIP`/`AVSZ3`, farm sim, save `3`-tier XOR) | [build_and_verify_d4.py](../scripts/build_and_verify_d4.py), [parity_sim_and_gte_tests.c](../scripts/d4_harness/parity_sim_and_gte_tests.c) |
+| **`D4.craftsmanship` & `clangd` Audit** | `0` `_GHIDRA_CRAFT_RE` hits, `0` `FUN_80*`/`DAT_80*`/`param_*`, `0` `clangd` errors across `513` `.c` + `9` `.h` | [verify_stage2_stage3.py](../scripts/verify_stage2_stage3.py), [verify_track_d4.py](../scripts/verify_track_d4.py) |
+| **Specification & Unit-Test Parity** | `68/68` fields mapped (`unresolvedFieldCount: 0`), `4` modular parsers, `Dev/scripts/tests/` isolated suite PASS | [spec_coverage.json](../schemas/spec_coverage.json), [SPECIFICATIONS.md](SPECIFICATIONS.md) |
 
-## 4. Open Questions & Next Horizons (`v0.3.0 -> v1.0.0 -> v2.0.0`)
-- **`v0.3.0` (`Q12` Host GTE):** Replace `((void)0)` stubs in `ghidra_compat.h` with deterministic fixed-point Q12 `COP2` host arithmetic and capture multi-scene traces in `--data-dir` / `Corpus/work/`.
-- **`v2.0.0` (`D5`):** Track `1:1` byte-matching retail `SLUS_011.15` & overlay ELF/linker script parity with fail-closed `"status": "MISSING_TOOLCHAIN"` fallback.
+---
+
+## 5. Open Horizons (`v0.3.0 -> v1.0.0 -> v2.0.0`)
+
+- **`v0.3.0` (`T8` Multi-Scene Behavioral Traces):** Expand deterministic host GTE & simulation execution into full fixed-seed Day-1 ranch intro, Mineral Town festival, crop growth, and diary save/load traces captured strictly inside `--data-dir` / `Corpus/work/`.
+- **`v1.0.0` (`S5` Gold Reference):** Certify `Dev/schemas/s5_gold_report.json` (`isPassed: true`, `unresolvedFieldCount == 0`), complete multi-scene parity proof, and finalize the `S5` Gold Manual Shelf.
+- **`v2.0.0` (`D5` Retail Byte-Match):** Optional per-TU PS1 C toolchain (`maspsx`) instruction-exact matching of `SLUS_011.15` and `13` overlays into `Dev/schemas/d5_byte_match.json` with fail-closed `"status": "MISSING_TOOLCHAIN"` fallback.
