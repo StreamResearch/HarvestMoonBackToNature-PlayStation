@@ -48,8 +48,8 @@ Stage 3 merges the `225` typed Stage 2 seed anchors ([schemas/anchor_functions.j
 | `overlay_part25_id0b` (Slot A) | 4 | 61 | 65 | `ovl25_update_*` (`7`), `ovl25_draw_*` (`7`), `ovl25_tutorial_*` (`6`), `hm_ovl25_*` (`4`) |
 | `overlay_part27_id0c` (Slot A) | 4 | 49 | 53 | `ovl27_draw_*` (`19`), `ovl27_intro_*` (`8`), `hm_ovl27_*` (`4`) |
 | `overlay_part28_id0d` (Slot A) | 4 | 23 | 27 | `ovl28_credits_*` (`17`), `hm_ovl28_*` (`4`), `ovl28_cg_*` (`4`) — Credits & ending slideshow |
-| `overlay_part30_id0f` (Slot B) | 4 | 26 | 30 | `ovl30_dbg_*` (`26`), `hm_ovl30_*` (`4`) — `Developer debug menu` |
-| `overlay_part31_id0e` (Slot A) | 5 | 1 | 6 | `hm_ovl31_*` (`5`), `ovl31_mc_*` (`1`) — `Memory card utility` |
+| `overlay_part30_id0f` (Slot B) | 4 | 26 | 30 | `ovl30_dbg_*` (`26`), `hm_ovl30_*` (`4`) — Developer debug menu |
+| `overlay_part31_id0e` (Slot A) | 5 | 1 | 6 | `hm_ovl31_*` (`5`), `ovl31_mc_*` (`1`) — Memory card utility |
 | **Total Non-SDK** | **225** | **2,350** | **2,575** | `SLUS_011.15`: `428` (`79` anchors + `349` Stage 3) / `13` Overlays: `2,147` (`146` anchors + `2,001` Stage 3) |
 
 ---

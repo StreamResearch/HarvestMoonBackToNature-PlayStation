@@ -133,6 +133,21 @@ class TestHmbtnDecompCleanroom(unittest.TestCase):
             self.assertIsNone(win_path_re.search(txt), f"workstation path found in {fp.name}")
         self.assertEqual(validate_cleanroom_tree(DOCS_DIR / "specifications"), [])
         self.assertEqual(validate_cleanroom_tree(TESTS_DIR), [])
+        vendor_word = "Psy" + "Q"
+        banner_1 = "--- " + "DEBUG " + "WINDOW ---"
+        banner_2 = "Ez " + "Memory" + "Card " + "Util"
+        banner_3 = "ez " + "memcard"
+        banner_4 = "debug " + "window"
+        for jp in [SCHEMAS_DIR / "anchor_functions.json", SCHEMAS_DIR / "functions_catalog.json", SCHEMAS_DIR / "globals_map.json", *(SCHEMAS_DIR / "shards").glob("*.json")]:
+            jtxt = jp.read_text(encoding="utf-8")
+            self.assertNotIn(vendor_word, jtxt, f"Vendor SDK name found in {jp.name}")
+        for mdp in (DOCS_DIR / "stages").glob("*.md"):
+            mtxt = mdp.read_text(encoding="utf-8")
+            mlow = mtxt.lower()
+            self.assertNotIn(banner_1, mtxt, f"Retail debug banner string in {mdp.name}")
+            self.assertNotIn(banner_2, mtxt, f"Retail memcard string in {mdp.name}")
+            self.assertNotIn(banner_3, mlow, f"Abbreviated memcard string in {mdp.name}")
+            self.assertNotIn(banner_4, mlow, f"Abbreviated debug window string in {mdp.name}")
 
     def test_cleanroom_validator_rejects_synthetic_violations(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

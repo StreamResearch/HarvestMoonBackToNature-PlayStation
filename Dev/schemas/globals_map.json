@@ -28610,7 +28610,7 @@
     "parent_address": null,
     "domain": "input_memcard",
     "confidence": "high",
-    "evidence": "PS1 SDK LIBMCRD pending command/event state"
+    "evidence": "PS1 MemCard SDK pending command/event state"
   },
   {
     "address": "0x800b760c",
@@ -28626,7 +28626,7 @@
     "parent_address": null,
     "domain": "input_memcard",
     "confidence": "high",
-    "evidence": "PS1 SDK LIBMCRD busy/result flag"
+    "evidence": "PS1 MemCard SDK busy/result flag"
   },
   {
     "address": "0x800b7610",
@@ -28674,7 +28674,7 @@
     "parent_address": null,
     "domain": "input_memcard",
     "confidence": "high",
-    "evidence": "PS1 SDK LIBMCRD channel arg passed to _card_clear/_card_info/_card_load"
+    "evidence": "PS1 MemCard SDK channel arg passed to _card_clear/_card_info/_card_load"
   },
   {
     "address": "0x800b761c",
