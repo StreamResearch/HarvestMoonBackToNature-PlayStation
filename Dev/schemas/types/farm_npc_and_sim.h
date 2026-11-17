@@ -3,7 +3,7 @@
 
 #include "render_and_gte.h"
 
-/* Calendar season IDs (DAT_80070cf2 in 800c0a4c) */
+/* Calendar season IDs (g_farm_calendar_clock_80070cf2 @ 0x80070cf2 in 800c0a4c) */
 typedef enum HmSeason {
     HM_SEASON_SPRING = 0,
     HM_SEASON_SUMMER = 1,
@@ -19,7 +19,7 @@ typedef enum HmWeather {
     HM_WEATHER_TYPHOON = 3
 } HmWeather;
 
-/* Equipped tool IDs (DAT_80071a1e in 800c7ac0 / 80112284) */
+/* Equipped tool IDs (0x80071a1e in 800c7ac0 / 80112284) */
 typedef enum HmToolId {
     HM_TOOL_NONE         = 0,
     HM_TOOL_SICKLE       = 1,
@@ -90,7 +90,7 @@ typedef struct HmPlayerState {
     u32 _pad_0x11c;         /* +0x11C */
 } HmPlayerState; /* 0x120 */
 
-/* Farm plot / interactive object cell (DAT_8007a5c4, stride 0x18 x 0xC5) */
+/* Farm plot / interactive object cell (0x8007a5c4, stride 0x18 x 0xC5) */
 typedef struct HmFieldPlotCell {
     s16 map_id;       /* +0x00 */
     u16 obj_type_id;  /* +0x02 */
@@ -116,7 +116,7 @@ typedef struct HmCropSpec {
     u16 sell_price;    /* +0x0A */
 } HmCropSpec; /* 0x0C */
 
-/* Livestock / pet record (DAT_800742ec, stride 0xB4 x 10 in 800ce96c) */
+/* Livestock / pet record (0x800742ec, stride 0xB4 x 10 in 800ce96c) */
 typedef struct HmAnimalRecord {
     u16 flags;            /* +0x00 */
     s16 species_id;       /* +0x02 */
@@ -132,7 +132,7 @@ typedef struct HmAnimalRecord {
     u32 _anim_and_ai[30]; /* +0x3C */
 } HmAnimalRecord; /* 0xB4 */
 
-/* NPC / villager actor record (DAT_800749f4, stride 0xB8 x 20 in 800d0fb4) */
+/* NPC / villager actor record (0x800749f4, stride 0xB8 x 20 in 800d0fb4) */
 typedef struct HmNpcActor {
     u16 npc_id;       /* +0x00 */
     u16 flags;        /* +0x02 */

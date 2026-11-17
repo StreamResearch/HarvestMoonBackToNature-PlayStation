@@ -81,7 +81,7 @@ typedef struct HmShopMenuCtx {
     u32 close_flag;     /* +0x78 */
 } HmShopMenuCtx; /* 0x7C */
 
-/* Memory Card save slot summary (DAT_801376e0, stride 0x3C x 3 in 8012e15c) */
+/* Memory Card save slot summary (0x801376e0, stride 0x3C x 3 in 8012e15c) */
 typedef struct HmSaveSlotSummary {
     u16 slot_valid;     /* +0x00 */
     u16 year;           /* +0x02 */

@@ -8,7 +8,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Remaps directional/face pad bits (0x1000..0x8000) in DAT_801231f4 and DAT_801231f8 based on mode DAT_8007ad04 and DAT_80128cf8, and injects 0x20 when stick threshold DAT_8005e3a8+0x34 > 0x55."
+    "summary": "Remaps directional/face pad bits (0x1000..0x8000) in g_ovl11_saved_pad_mask_801231f4 and g_farm_state_801231f8 based on mode g_farm_val_u16_8007ad04 and g_farm_u32_80128cf8, and injects 0x20 when stick threshold g_io_active_pad_buf_ptr_8005e3a8+0x34 > 0x55."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -24,7 +24,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 6,
-    "summary": "Probes actor interaction ahead via FUN_800cb114, checks tile attributes one step ahead using offset table 0x80123110 via hm_ovl11_update_camera_projection, and updates g_farm_state_80128c50."
+    "summary": "Probes actor interaction ahead via p11_field_probe_actor_interaction_ahead, checks tile attributes one step ahead using offset table 0x80123110 via hm_ovl11_update_camera_projection, and updates g_farm_state_80128c50."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -40,7 +40,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Determines active area grid via FUN_800c9d64, resolves world-to-tile offsets through PTR_FUN_80123234, iterates 9 pattern offsets via FUN_800d5960, checks obstacle via FUN_800d806c, and applies tool action via FUN_800d81bc."
+    "summary": "Determines active area grid via p11_field_get_active_plot_grid_kind, resolves world-to-tile offsets through g_fn_ptr_80123234, iterates 9 pattern offsets via p11_spr_find_tool_pattern_cell_offset, checks obstacle via p11_spr_is_tile_blocked_or_oob, and applies tool action via p11_spr_plant_seed_on_tilled_tile."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -56,7 +56,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 5,
-    "summary": "Executes a hoe swing at the player's target coordinates: checks collision via FUN_800c9d64, queues tile till dispatch via FUN_800c5048 using table 0x8012319c, and updates tool state."
+    "summary": "Executes a hoe swing at the player's target coordinates: checks collision via p11_field_get_active_plot_grid_kind, queues tile till dispatch via p11_field_set_tool_effect_anim_params using table 0x8012319c, and updates tool state."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -72,7 +72,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 5,
-    "summary": "Consumes watering can water capacity (+0x88) based on charge level from 0x801231a8, computes target farm tiles via PTR_FUN_80123234, and queues watering dispatch via FUN_800c5048."
+    "summary": "Consumes watering can water capacity (+0x88) based on charge level from 0x801231a8, computes target farm tiles via g_fn_ptr_80123234, and queues watering dispatch via p11_field_set_tool_effect_anim_params."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -88,7 +88,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 5,
-    "summary": "Performs a sickle cut against colliding objects via FUN_800f46a4 or field tiles via PTR_FUN_80123234 and FUN_800c5048, adding tool experience when successful."
+    "summary": "Performs a sickle cut against colliding objects via p11_evt_try_throw_held_item_at_prop or field tiles via g_fn_ptr_80123234 and p11_field_set_tool_effect_anim_params, adding tool experience when successful."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -112,7 +112,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 3,
-    "summary": "Selects equipped held slot (+0x84) or rucksack slot (+0x90 + slot_idx*6), triggers hold emote 0x15/0x47 via hm_ovl11_trigger_player_emote, transfers item via FUN_800d7348, sets flag 0x8000, and plays SFX 7."
+    "summary": "Selects equipped held slot (+0x84) or rucksack slot (+0x90 + slot_idx*6), triggers hold emote 0x15/0x47 via hm_ovl11_trigger_player_emote, transfers item via p11_spr_copy_item_slot_6b, sets flag 0x8000, and plays SFX 7."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -164,7 +164,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Stores active tool effect timer (0x28), coordinates, kind, and payload across DAT_80128cb4..DAT_80128cc8."
+    "summary": "Stores active tool effect timer (0x28), coordinates, kind, and payload across g_farm_state_80128cb4..g_farm_state_80128cc8."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -180,7 +180,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 10,
-    "summary": "Processes one queued tile index per frame in 0x80128cb4..0x80128cb8 for hoe tilling (FUN_800d8428), watering (FUN_800d8320), or sickle cutting (FUN_800d876c) until finished."
+    "summary": "Processes one queued tile index per frame in 0x80128cb4..0x80128cb8 for hoe tilling (p11_spr_till_field_plot_tile), watering (p11_spr_water_field_or_greenhouse_tile), or sickle cutting (p11_spr_sickle_cut_field_tile) until finished."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -196,7 +196,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 5,
-    "summary": "Swings the axe at colliding actors via FUN_800f482c or field grid stumps/branches via FUN_800d8c6c, incrementing charge hit counters in 0x80128c64 and tool experience."
+    "summary": "Swings the axe at colliding actors via p11_evt_try_feed_silo_or_deliver_prop or field grid stumps/branches via p11_spr_harvest_or_cut_field_tile, incrementing charge hit counters in 0x80128c64 and tool experience."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -212,7 +212,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 5,
-    "summary": "Swings the hammer at colliding actors via FUN_800f474c or field grid rocks/boulders via hm_ovl11_submit_character_shadow (0x800d88d0), updating hit counters and tool experience."
+    "summary": "Swings the hammer at colliding actors via p11_evt_try_place_held_item_in_bin or field grid rocks/boulders via hm_ovl11_submit_character_shadow (0x800d88d0), updating hit counters and tool experience."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -228,7 +228,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Resolves targeted tile in DAT_80071dfc (outdoor) or DAT_80074124 (greenhouse) via FUN_800c9d64/FUN_800ce034, maps flower seed IDs 0x13b..0x13d to crop types 0x3a/0x3e/0x3f, resets growth/water bytes, and sets base soil 0x167."
+    "summary": "Resolves targeted tile in g_farm_field_grid_80071dfc (outdoor) or g_farm_greenhouse_grid_80074124 (greenhouse) via p11_field_get_active_plot_grid_kind/p11_field_get_forward_offset_pos, maps flower seed IDs 0x13b..0x13d to crop types 0x3a/0x3e/0x3f, resets growth/water bytes, and sets base soil 0x167."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -244,7 +244,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 6,
-    "summary": "Tests all four cardinal facing directions from the player's position via FUN_800ce034, ground collision (0xc080), and actor probe FUN_800cb114 to commit the first unobstructed placement."
+    "summary": "Tests all four cardinal facing directions from the player's position via p11_field_get_forward_offset_pos, ground collision (0xc080), and actor probe p11_field_probe_actor_interaction_ahead to commit the first unobstructed placement."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -260,7 +260,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 3,
-    "summary": "Updates held item state at player_state+0x8a via FUN_800d58d0 and FUN_800ccf14; on action 0x31 swaps packed item data from DAT_80128c58/DAT_80128c5c, loads model pack via hm_ovl11_load_entity_model_pack, and updates +0x6c flags."
+    "summary": "Updates held item state at player_state+0x8a via p11_spr_invoke_item_action_callback and p11_field_clear_held_item_slot_and_entity; on action 0x31 swaps packed item data from g_farm_state_80128c58/g_farm_state_80128c5c, loads model pack via hm_ovl11_load_entity_model_pack, and updates +0x6c flags."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -276,7 +276,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 6,
-    "summary": "Completes picking up or swapping a carried item/tool, triggers throw-in-water state if item is 0x66, or calls FUN_800c69b8 to eat an edible item before returning to idle."
+    "summary": "Completes picking up or swapping a carried item/tool, triggers throw-in-water state if item is 0x66, or calls p11_field_start_eat_held_item to eat an edible item before returning to idle."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -404,7 +404,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Maps player movement state at player_state+0x3c (1, 2, 4) to directional animation index 0x36 or facing+0x3b, calls FUN_8001b2cc(0, 0) on state 4, and updates sprite anim at player_state+0x260 via hm_sprite_set_anim_state."
+    "summary": "Maps player movement state at player_state+0x3c (1, 2, 4) to directional animation index 0x36 or facing+0x3b, calls gfx_start_screen_filter(0, 0) on state 4, and updates sprite anim at player_state+0x260 via hm_sprite_set_anim_state."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -424,7 +424,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "When carry bit 0x100 in player_state+0x6c is clear selects idle/run anim 0x1c or 10 and updates facing byte +0x265; when mounted/carrying and state != 0x39 plays facing+0x3f and steps FUN_8010c1fc."
+    "summary": "When carry bit 0x100 in player_state+0x6c is clear selects idle/run anim 0x1c or 10 and updates facing byte +0x265; when mounted/carrying and state != 0x39 plays facing+0x3f and steps p11_pet_dog_update_carried_anim."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -464,7 +464,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 5,
-    "summary": "Activates animal care tools (IDs 0x1a..0x1d: brush, milker, clippers, bell), checks livestock collision via FUN_800c7650, sets action state 0x4d+, and plays SFX."
+    "summary": "Activates animal care tools (IDs 0x1a..0x1d: brush, milker, clippers, bell), checks livestock collision via p11_field_dispatch_tool_on_targeted_animal, sets action state 0x4d+, and plays SFX."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -504,7 +504,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 6,
-    "summary": "Dispatches special tools (0x1e..0x21 teleport/bell/basket/pedometer, 0x38..0x39 fishing rods via FUN_800cdd7c, and 0x12d item) and copies the active tool into +0xf0."
+    "summary": "Dispatches special tools (0x1e..0x21 teleport/bell/basket/pedometer, 0x38..0x39 fishing rods via p11_field_start_fishing_cast_state, and 0x12d item) and copies the active tool into +0xf0."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -515,7 +515,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Dispatches active tool interaction (DAT_80128c54 & 0x206) against targeted animal pointer DAT_80128c4c: calls FUN_8010b57c(&DAT_80075ad4, 0) for bit 0x200 or hm_ovl11_feed_or_pet_cow_sheep for bits 2 or 4."
+    "summary": "Dispatches active tool interaction (g_ovl11_active_tool_state_80128c54 & 0x206) against targeted animal pointer g_ovl11_tool_anim_tbl_ptr_80128c4c: calls p11_pet_dog_dispatch_state(&g_anim_dog_state_80075ad4, 0) for bit 0x200 or hm_ovl11_feed_or_pet_cow_sheep for bits 2 or 4."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -531,7 +531,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 7,
-    "summary": "Handles tool button press and hold-to-charge (+0x18) by dispatching farm tools, animal care tools, seed bags, and special items via FUN_800c72f8..FUN_800c7524."
+    "summary": "Handles tool button press and hold-to-charge (+0x18) by dispatching farm tools, animal care tools, seed bags, and special items via p11_field_activate_farm_tool_action..p11_field_activate_special_tool_or_item."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -551,7 +551,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 6,
-    "summary": "When button 0x80 is pressed while carrying an item (flag 0x10000000 and +0x8a != 0), invokes FUN_800cb850(1) to eat or use the held item."
+    "summary": "When button 0x80 is pressed while carrying an item (flag 0x10000000 and +0x8a != 0), invokes p11_field_handle_held_item_use_or_throw(1) to eat or use the held item."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -562,7 +562,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 4,
-    "summary": "Queries FUN_800c3138 for the active scene descriptor and returns true when a descriptor exists and its field +0x1a type is not 2."
+    "summary": "Queries p11_core_check_nearby_npc_greetings for the active scene descriptor and returns true when a descriptor exists and its field +0x1a type is not 2."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -598,7 +598,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Queries script interactable trigger at world_pos via FUN_800bde84(DAT_800a0378), stores pointer in DAT_80128cf0, and returns matched type 0x26, 0x2a, 0x2b, or 0x2c (0 otherwise)."
+    "summary": "Queries script interactable trigger at world_pos via p11_core_find_active_trigger_zone(g_core_event_script_ctx_800a0378), stores pointer in g_farm_state_80128cf0, and returns matched type 0x26, 0x2a, 0x2b, or 0x2c (0 otherwise)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -642,7 +642,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Tests if held item player_state+0x8a is chicken feed via FUN_800d756c: shows dialogue 0x1a4 if false, or triggers feed emote 0x5a via hm_ovl11_trigger_player_emote when facing matches interact_ctx+8."
+    "summary": "Tests if held item player_state+0x8a is chicken feed via p11_spr_is_item_chicken_feed: shows dialogue 0x1a4 if false, or triggers feed emote 0x5a via hm_ovl11_trigger_player_emote when facing matches interact_ctx+8."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -662,7 +662,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Tests if held item player_state+0x8a is livestock fodder via FUN_800d7504: shows dialogue 0x1a2 if false, or triggers fodder placement emote 0x5b via hm_ovl11_trigger_player_emote when facing matches interact_ctx+8."
+    "summary": "Tests if held item player_state+0x8a is livestock fodder via p11_spr_is_item_livestock_fodder: shows dialogue 0x1a2 if false, or triggers fodder placement emote 0x5b via hm_ovl11_trigger_player_emote when facing matches interact_ctx+8."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -682,7 +682,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Tests if held item player_state+0x8a is pet food via FUN_800d753c: shows dialogue 0x1a3 if false, or triggers bowl-fill emote 0x59 via hm_ovl11_trigger_player_emote when facing matches interact_ctx+8."
+    "summary": "Tests if held item player_state+0x8a is pet food via p11_spr_is_item_pet_feed: shows dialogue 0x1a3 if false, or triggers bowl-fill emote 0x59 via hm_ovl11_trigger_player_emote when facing matches interact_ctx+8."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -698,7 +698,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 6,
-    "summary": "Deposits held lumber (0x3f/0x13d) into the lumber store via FUN_800f3898 or withdraws one piece of lumber into hands if empty-handed and lumber stock exists."
+    "summary": "Deposits held lumber (0x3f/0x13d) into the lumber store via p11_evt_add_fodder_count or withdraws one piece of lumber into hands if empty-handed and lumber stock exists."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -718,7 +718,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 3,
-    "summary": "Handles shipping bin drop at player_state+0x8a == 0x69: checks player facing (+0x38) against bin_ctx+8 (including diagonal directions 6 and 7), sets flag 0x4000, plays SFX 7, triggers emote 0x5e, and spawns bin entry via FUN_800d0ea4."
+    "summary": "Handles shipping bin drop at player_state+0x8a == 0x69: checks player facing (+0x38) against bin_ctx+8 (including diagonal directions 6 and 7), sets flag 0x4000, plays SFX 7, triggers emote 0x5e, and spawns bin entry via p11_field_mark_animal_daily_checked."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -738,7 +738,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 3,
-    "summary": "Handles basket/secondary shipping bin interaction at player_state+0x8a == 0x68: validates player facing (+0x38) against bin_ctx+8, sets flag 0x4000, plays SFX 7, triggers emote 0x5f, and calls FUN_800d0ea4(..., 1) or shows dialogue 0x1e4."
+    "summary": "Handles basket/secondary shipping bin interaction at player_state+0x8a == 0x68: validates player facing (+0x38) against bin_ctx+8, sets flag 0x4000, plays SFX 7, triggers emote 0x5f, and calls p11_field_mark_animal_daily_checked(..., 1) or shows dialogue 0x1e4."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -754,7 +754,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 3,
-    "summary": "Validates held item at player_state+0x8a against sprite descriptor table DAT_8006c858 (flags 0x9000 or invalid slot -1): opens prompt 0x20a if empty, else triggers discard emote 0x61 and plays SFX 9."
+    "summary": "Validates held item at player_state+0x8a against sprite descriptor table g_gfx_sprite_desc_tbl_ptr_8006c858 (flags 0x9000 or invalid slot -1): opens prompt 0x20a if empty, else triggers discard emote 0x61 and plays SFX 9."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -778,7 +778,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 16,
-    "summary": "Checks whether player position matches a zone entry via FUN_800bf1d0, validates trigger ID (+0x04) and facing (+0x08), and fires dialogue 0x16 or event zone 3 with flag 0x46."
+    "summary": "Checks whether player position matches a zone entry via p11_core_find_nearby_npc_actor, validates trigger ID (+0x04) and facing (+0x08), and fires dialogue 0x16 or event zone 3 with flag 0x46."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -794,7 +794,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 6,
-    "summary": "Withdraws animal fodder (0x68) from the barn silo when empty-handed, deposits held fodder via FUN_800f397c, or displays the fodder count message 0x19c."
+    "summary": "Withdraws animal fodder (0x68) from the barn silo when empty-handed, deposits held fodder via p11_evt_add_chicken_feed_count, or displays the fodder count message 0x19c."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -810,7 +810,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 6,
-    "summary": "Withdraws chicken feed (0x69) from the coop dispenser when empty-handed, deposits held chicken feed via FUN_800f3af0, or displays the feed count message 0x19f."
+    "summary": "Withdraws chicken feed (0x69) from the coop dispenser when empty-handed, deposits held chicken feed via p11_evt_add_festival_medal_count, or displays the feed count message 0x19f."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -834,7 +834,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Checks fodder/item type (0x125 -> 2, 0xe8 -> 1, else 0) via FUN_800d7504 and deposits via FUN_800d0f20(bin_slot, kind); on success clears carry bits 0xc000 on +0x6c, triggers emote 0x66, and returns 1, else shows dialogue."
+    "summary": "Checks fodder/item type (0x125 -> 2, 0xe8 -> 1, else 0) via p11_spr_is_item_livestock_fodder and deposits via p11_field_assign_pregnant_or_isolated_slot(bin_slot, kind); on success clears carry bits 0xc000 on +0x6c, triggers emote 0x66, and returns 1, else shows dialogue."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -854,7 +854,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 18,
-    "summary": "Handles farm UI and action pad shortcuts when DAT_800a0490 is 0: dispatches overlay shortcuts 0x100/0x800/0x10 via FUN_8011e588/FUN_800fbe4c/FUN_800faad4 and ground raycast/pickup 0x40 via FUN_800bdce8 and hm_ovl11_handle_item_pickup_carry."
+    "summary": "Handles farm UI and action pad shortcuts when g_core_map_transition_state_800a0490 is 0: dispatches overlay shortcuts 0x100/0x800/0x10 via p11_ui_open_town_map_overlay/p11_ui_trigger_stamina_warning_sfx/p11_ui_open_rucksack_pause_menu and ground raycast/pickup 0x40 via hm_ovl11_raycast_ground_height and hm_ovl11_handle_item_pickup_carry."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -870,7 +870,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 14,
-    "summary": "Attempts to pick up an item or entity ahead via FUN_800c7878, and if an item ID is returned equips it into player hands via hm_ovl11_use_equipped_tool_on_tile."
+    "summary": "Attempts to pick up an item or entity ahead via p11_field_pickup_target_into_hands, and if an item ID is returned equips it into player hands via hm_ovl11_use_equipped_tool_on_tile."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -890,7 +890,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 15,
-    "summary": "Handles pressing action button 0x40: either uses/gives/throws the currently carried item via FUN_800cb850(0) or picks up a target via FUN_800c8cc8 when bit 0x2000 is set."
+    "summary": "Handles pressing action button 0x40: either uses/gives/throws the currently carried item via p11_field_handle_held_item_use_or_throw(0) or picks up a target via p11_field_try_pickup_front_target when bit 0x2000 is set."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -906,7 +906,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 3,
-    "summary": "Scans 8 rucksack item slots (+0x90 stride 6) and hands slot (+0x84), clears carry flags, packs/rotates slots via FUN_800c9dc0 and FUN_800c9e3c(0), then transfers the equipped item via FUN_800d7348, triggers emote 0x15/0x47, and plays SFX 7."
+    "summary": "Scans 8 rucksack item slots (+0x90 stride 6) and hands slot (+0x84), clears carry flags, packs/rotates slots via p11_field_compact_rucksack_items and p11_field_sync_rucksack_items_equipped(0), then transfers the equipped item via p11_spr_copy_item_slot_6b, triggers emote 0x15/0x47, and plays SFX 7."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -922,7 +922,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 7,
-    "summary": "Cycles a non-empty rucksack slot into the player's hands with action 10 and SFX 7 via FUN_800c9de8, or stows the currently held item if FUN_800d5810 permits."
+    "summary": "Cycles a non-empty rucksack slot into the player's hands with action 10 and SFX 7 via p11_field_sync_rucksack_tools_equipped, or stows the currently held item if p11_spr_is_item_edible_or_holdable permits."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1006,7 +1006,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Selects directional velocity table DAT_801230b0..DAT_801230f0 by movement state player_state+0x3c (2 or 4) and carry bit 0x100 on +0x6c, adding delta XZ into player_state+0x110 and +0x118."
+    "summary": "Selects directional velocity table g_farm_u16_801230b0..g_farm_u32_801230f0 by movement state player_state+0x3c (2 or 4) and carry bit 0x100 on +0x6c, adding delta XZ into player_state+0x110 and +0x118."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1017,7 +1017,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 5,
-    "summary": "Reads directional and run-button masks from g_ovl11_saved_pad_mask_801231f4, updates player facing via FUN_800c9888, applies walk/run velocities via FUN_800c9938, and sets action state 1/2/4."
+    "summary": "Reads directional and run-button masks from g_ovl11_saved_pad_mask_801231f4, updates player facing via p11_field_map_pad_dpad_to_cardinal_dir, applies walk/run velocities via p11_field_apply_step_velocity_from_dir, and sets action state 1/2/4."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1028,7 +1028,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 3,
-    "summary": "Preloads entity model packs via hm_ovl11_load_entity_model_pack for the 2 hand slots at DAT_80071a84, 8 rucksack tool slots at DAT_80071ac0, and 8 rucksack item slots at DAT_80071a90 (stride 6 bytes each)."
+    "summary": "Preloads entity model packs via hm_ovl11_load_entity_model_pack for the 2 hand slots at g_core_player_state_8007_state_0x70_idx10_80071a84, 8 rucksack tool slots at g_player_rucksack_tools_80071ac0, and 8 rucksack item slots at g_core_player_state_8007_state_0x8c_idx2_80071a90 (stride 6 bytes each)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1039,7 +1039,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 4,
-    "summary": "Resets tool animation pointers and pad masks, initializes debug/minigame rucksack item and tool slots when engine flag 0x8000 is set, and resets player position via FUN_800cd0c0."
+    "summary": "Resets tool animation pointers and pad masks, initializes debug/minigame rucksack item and tool slots when engine flag 0x8000 is set, and resets player position via p11_field_get_house_upgrade_spawn_xz."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1050,7 +1050,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Zeroes player velocity globals DAT_80071b10/14/18 and clears lock bit 0x40000000 in DAT_80071a6c."
+    "summary": "Zeroes player velocity globals g_core_player_state_8007_vel_y_80071b10/14/18 and clears lock bit 0x40000000 in g_player_status_flags_80071a6c."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1072,7 +1072,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Compacts the 8-slot rucksack tools array at DAT_80071ac0 by calling FUN_800cadbc(&DAT_80071ac0, 8)."
+    "summary": "Compacts the 8-slot rucksack tools array at g_player_rucksack_tools_80071ac0 by calling p11_field_compact_inventory_slots(&g_player_rucksack_tools_80071ac0, 8)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1083,7 +1083,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Compacts the 8-slot rucksack items array at DAT_80071a90 by calling FUN_800cadbc(&DAT_80071a90, 8)."
+    "summary": "Compacts the 8-slot rucksack items array at g_core_player_state_8007_state_0x8c_idx2_80071a90 by calling p11_field_compact_inventory_slots(&g_core_player_state_8007_state_0x8c_idx2_80071a90, 8)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1099,7 +1099,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Synchronizes the 8-slot rucksack tool array DAT_80071ac0 with the equipped tool slot at 0x80071a8a via FUN_800cae64(..., clear_mode != 0) and returns 1."
+    "summary": "Synchronizes the 8-slot rucksack tool array g_player_rucksack_tools_80071ac0 with the equipped tool slot at 0x80071a8a via p11_field_rotate_rucksack_ring_buffer(..., clear_mode != 0) and returns 1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1115,7 +1115,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Synchronizes the 8-slot rucksack item array DAT_80071a90 with equipped item DAT_80071a84 via FUN_800cae64(..., clear_mode != 0) and returns 1."
+    "summary": "Synchronizes the 8-slot rucksack item array g_core_player_state_8007_state_0x8c_idx2_80071a90 with equipped item g_core_player_state_8007_state_0x70_idx10_80071a84 via p11_field_rotate_rucksack_ring_buffer(..., clear_mode != 0) and returns 1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1143,7 +1143,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 3,
-    "summary": "Sets DAT_800a0728 sprite animation state to 0x18 via hm_sprite_set_anim_state, zeroes DAT_800a072d, and submits the 0x0e sprite quad at (screen_x, screen_y) using hm_sprite_submit_0x0e_quad."
+    "summary": "Sets g_gfx_sprite_ot_ctx_800a0728 sprite animation state to 0x18 via hm_sprite_set_anim_state, zeroes g_npc_val_u8_800a072d, and submits the 0x0e sprite quad at (screen_x, screen_y) using hm_sprite_submit_0x0e_quad."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1191,7 +1191,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 4,
-    "summary": "Submits either the main player character sprite with tool-charge palette overrides (modes 0x17..0x1f) via FUN_80016c08 or the alternate overlay sprite at +0x290 via FUN_80016054."
+    "summary": "Submits either the main player character sprite with tool-charge palette overrides (modes 0x17..0x1f) via gfx_sprite_emit_char_frame or the alternate overlay sprite at +0x290 via gfx_sprite_draw_save_retaddr."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1223,7 +1223,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Syncs carried/targeted animal actor DAT_80128cf4 facing (+0x22) and sprite anim state (+0x78) from player_state movement (+0x3c) and carry anim (+0x264) via hm_sprite_set_anim_state."
+    "summary": "Syncs carried/targeted animal actor g_farm_u32_idx_80128cf4 facing (+0x22) and sprite anim state (+0x78) from player_state movement (+0x3c) and carry anim (+0x264) via hm_sprite_set_anim_state."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1250,7 +1250,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 6,
-    "summary": "Applies player velocity lookahead, triggers fence/obstacle vaulting or push checks via FUN_800cb114, and computes diagonal wall-sliding velocities from table 0x80123270."
+    "summary": "Applies player velocity lookahead, triggers fence/obstacle vaulting or push checks via p11_field_probe_actor_interaction_ahead, and computes diagonal wall-sliding velocities from table 0x80123270."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1261,7 +1261,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 7,
-    "summary": "Resolves player wall collisions via FUN_800ca708, applies jump/dive arc gravity and ground landing checks, clamps spawn pos via FUN_800db054, and projects camera target matrix."
+    "summary": "Resolves player wall collisions via p11_field_resolve_player_wall_slide, applies jump/dive arc gravity and ground landing checks, clamps spawn pos via p11_spr_clamp_pos_to_camera_bounds, and projects camera target matrix."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1309,7 +1309,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Cycles 6-byte inventory records forward or backward between slot_array (up to slot_count) and equipped_slot using FUN_800cadbc compaction and memmove."
+    "summary": "Cycles 6-byte inventory records forward or backward between slot_array (up to slot_count) and equipped_slot using p11_field_compact_inventory_slots compaction and memmove."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1365,7 +1365,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 5,
-    "summary": "Queries actor/wall collision ahead of the player via FUN_800be208, handles push/vault interaction and animal/item hit flags in 0x80128c54/0x80128c4c, and returns collision status."
+    "summary": "Queries actor/wall collision ahead of the player via p11_core_probe_actor_ray_with_budget, handles push/vault interaction and animal/item hit flags in 0x80128c54/0x80128c4c, and returns collision status."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1376,7 +1376,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 6,
-    "summary": "Attempts to stash the carried item into the rucksack via FUN_800c9d98 when flag 0x10000000 is set, or calls hm_ovl11_add_player_fatigue_penalty to reset action state."
+    "summary": "Attempts to stash the carried item into the rucksack via p11_field_compact_rucksack_tools when flag 0x10000000 is set, or calls hm_ovl11_add_player_fatigue_penalty to reset action state."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1392,7 +1392,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 5,
-    "summary": "Clears and copies item_slot into player temp slot 0x80071af0 via FUN_800d7328/FUN_800d7348 and enters action state 0x30 to present/hold the item."
+    "summary": "Clears and copies item_slot into player temp slot 0x80071af0 via p11_spr_zero_item_slot_6b/p11_spr_copy_item_slot_6b and enters action state 0x30 to present/hold the item."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1408,7 +1408,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Samples forward tool target via FUN_800ce034(player_state, pos, 0), resets DAT_80128c60 to 0, and returns action code 3."
+    "summary": "Samples forward tool target via p11_field_get_forward_offset_pos(player_state, pos, 0), resets g_farm_u32_80128c60 to 0, and returns action code 3."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1440,7 +1440,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 8,
-    "summary": "Drops an active world entity (+0x8a with flag 0x100) ahead of the player via FUN_800cf044, clears its entity VRAM slot via hm_ovl11_clear_render_entity_slot, and zeroes +0x8a."
+    "summary": "Drops an active world entity (+0x8a with flag 0x100) ahead of the player via p11_field_drop_carried_entity_at_pos, clears its entity VRAM slot via hm_ovl11_clear_render_entity_slot, and zeroes +0x8a."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1451,7 +1451,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Returns true when bit 0x20000000 is clear in player status flags DAT_80071a6c."
+    "summary": "Returns true when bit 0x20000000 is clear in player status flags g_player_status_flags_80071a6c."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1467,7 +1467,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Saves previous facing direction DAT_80071a38 into DAT_80071a3a and updates DAT_80071a38 to facing_dir."
+    "summary": "Saves previous facing direction g_player_facing_dir_80071a38 into g_core_player_state_8007_pad_0x3a_80071a3a and updates g_player_facing_dir_80071a38 to facing_dir."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1483,7 +1483,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 10,
-    "summary": "Tests collision bit 0x200 at a thrown item's landing spot via FUN_800be208 when the dog state is 0x15f; if hit, registers the shipped item via FUN_800f3bcc and cleans up."
+    "summary": "Tests collision bit 0x200 at a thrown item's landing spot via p11_core_probe_actor_ray_with_budget when the dog state is 0x15f; if hit, registers the shipped item via p11_evt_record_shipped_item and cleans up."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1494,7 +1494,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Clears all 3 projectile/thrown item slots in DAT_80128bb0 (stride 0x34) by invoking FUN_800cbf40 on each slot."
+    "summary": "Clears all 3 projectile/thrown item slots in g_farm_u32_80128bb0 (stride 0x34) by invoking p11_field_zero_thrown_item_slot on each slot."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1534,7 +1534,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Allocates a free thrown-item slot in DAT_80128bb0 (3 slots), sets parabolic velocity from DAT_80123130/DAT_80123134 by facing_dir with overrides for item IDs 0x65 and 0x186, and returns the slot pointer."
+    "summary": "Allocates a free thrown-item slot in g_farm_u32_80128bb0 (3 slots), sets parabolic velocity from g_farm_u32_80123130/g_farm_u32_80123134 by facing_dir with overrides for item IDs 0x65 and 0x186, and returns the slot pointer."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1583,7 +1583,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Reads interact target descriptor from DAT_800a0378 into DAT_80071afc and syncs horse carry/saddle state DAT_80075a10/14 when held item is 0x106 or 0x107."
+    "summary": "Reads interact target descriptor from g_core_event_script_ctx_800a0378 into g_player_interact_target_80071afc and syncs horse carry/saddle state g_anim_horse_state_80075_idx44_80075a10/14 when held item is 0x106 or 0x107."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1599,7 +1599,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Checks if item_slot is non-empty via FUN_800d72e8(item_slot, -1), clears its render entity via hm_ovl11_clear_render_entity_slot, and resets the item slot via FUN_800d7328."
+    "summary": "Checks if item_slot is non-empty via p11_spr_add_item_slot_quantity(item_slot, -1), clears its render entity via hm_ovl11_clear_render_entity_slot, and resets the item slot via p11_spr_zero_item_slot_6b."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1635,7 +1635,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 3,
-    "summary": "Computes emote sub-index from player_state+0x3c - 0x3b, optionally reloads CD overlay asset via FUN_800bd8dc, initializes sprite anim struct at player_state+0x260 from DAT_8007bff8 + DAT_801231fc[idx], and resets anim state to 0."
+    "summary": "Computes emote sub-index from player_state+0x3c - 0x3b, optionally reloads CD overlay asset via p11_cd_load_crop_sprite_bank, initializes sprite anim struct at player_state+0x260 from g_cd_tbl_8007bff8 + g_farm_u32_801231fc[idx], and resets anim state to 0."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1651,7 +1651,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 6,
-    "summary": "Clears player action-lock bit 0x1000, invokes FUN_800bd168, and resets the player's action state via hm_ovl11_add_player_fatigue_penalty."
+    "summary": "Clears player action-lock bit 0x1000, invokes p11_core_init_farm_sprite_anim, and resets the player's action state via hm_ovl11_add_player_fatigue_penalty."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1667,7 +1667,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Reads house upgrade level DAT_80070d06 and writes corresponding (x, 0, z) spawn offset from DAT_80125f18/DAT_80125f1a into out_pos."
+    "summary": "Reads house upgrade level g_farm_weather_festival_80070d06 and writes corresponding (x, 0, z) spawn offset from g_farm_tbl_80125f18/g_farm_tbl_80125f1a into out_pos."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1683,7 +1683,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Adjusts tool stamina base_cost for bad weather (DAT_8007ad00), late hours (DAT_80070cf8 < 6 or 22..23), zero stamina, Power Berry half-cost bit 0x200, or invulnerability flag 8."
+    "summary": "Adjusts tool stamina base_cost for bad weather (g_farm_current_weather_8007ad00), late hours (g_farm_cal_hour_80070cf8 < 6 or 22..23), zero stamina, Power Berry half-cost bit 0x200, or invulnerability flag 8."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1694,7 +1694,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "When DAT_80071a6c bit 0x400000 is clear, scans 4 hour entries in DAT_801232a4 against DAT_80070cf8 and triggers audio/chime event via FUN_800d622c."
+    "summary": "When g_player_status_flags_80071a6c bit 0x400000 is clear, scans 4 hour entries in g_farm_u32_801232a4 against g_farm_cal_hour_80070cf8 and triggers audio/chime event via p11_spr_apply_stamina_fatigue_happiness."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1773,7 +1773,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Tests player warp trigger on DAT_80071a00 via FUN_800cd4e4 (defaulting -1 to 0), latches minute DAT_80070d02 into DAT_80071a2c, and calls area transition FUN_800c087c."
+    "summary": "Tests player warp trigger on g_core_player_state_80071a00 via p11_field_get_fatigue_tint_alpha (defaulting -1 to 0), latches minute g_farm_cal_day_minutes_80070d02 into g_core_player_state_8007_pad_0x2a_idx1_80071a2c, and calls area transition p11_core_schedule_wakeup_fade_delay."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1805,7 +1805,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "When cutscene control bit 8 is set in player_state+0x6c, clears DAT_801231f8 and loads scripted pad mask DAT_801232b4[player_state+0x30] into DAT_801231f4."
+    "summary": "When cutscene control bit 8 is set in player_state+0x6c, clears g_farm_state_801231f8 and loads scripted pad mask g_farm_tbl_801232b4[player_state+0x30] into g_ovl11_saved_pad_mask_801231f4."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1825,7 +1825,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 16,
-    "summary": "Evaluates stamina (+0x12 vs +0x14 thresholds) and fatigue (+0x16 at 50/80/100) threshold crossings in flags +0x36, triggering collapse/sweat animations or calling FUN_800de3a0."
+    "summary": "Evaluates stamina (+0x12 vs +0x14 thresholds) and fatigue (+0x16 at 50/80/100) threshold crossings in flags +0x36, triggering collapse/sweat animations or calling p11_animl_run_pet_event_wait_loop."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1841,7 +1841,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 17,
-    "summary": "Checks engine/player busy flags, raycasts ground exit trigger via FUN_800bdce8(&DAT_8009f78c, player_state+0x100, 1), validates door/area entry via FUN_80107c80 and FUN_8001af44, and triggers prompt FUN_800cd670 or warp in DAT_800a0490."
+    "summary": "Checks engine/player busy flags, raycasts ground exit trigger via hm_ovl11_raycast_ground_height(&g_gfx_active_map_desc_8009f78c, player_state+0x100, 1), validates door/area entry via p11_ovl_resolve_npc_talk_or_door and hm_event_flag_get, and triggers prompt p11_field_start_scripted_walk_turn or warp in g_core_map_transition_state_800a0490."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1873,7 +1873,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Copies player position (+0x100..0x108) into 10 particle entries (+0x120 stride 0x10), zeroes counter +0x32, and initializes 5 particle anim structs (+0x2d4 stride 0x34) from DAT_8009a3f8 via hm_sprite_init_0x0e_anim."
+    "summary": "Copies player position (+0x100..0x108) into 10 particle entries (+0x120 stride 0x10), zeroes counter +0x32, and initializes 5 particle anim structs (+0x2d4 stride 0x34) from g_farm_tbl_8009a3f8 via hm_sprite_init_0x0e_anim."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1889,7 +1889,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 3,
-    "summary": "Iterates over 5 particle slots starting at player_state+0x120 (stride 0x10) and renders/steps each active mode-0 particle via FUN_800ce0f0; always returns 0."
+    "summary": "Iterates over 5 particle slots starting at player_state+0x120 (stride 0x10) and renders/steps each active mode-0 particle via p11_field_render_and_step_particle_slot; always returns 0."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1921,7 +1921,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 3,
-    "summary": "Iterates over 10 ambient particle slots at player_state+0x1c0 (stride 0x10) whose state at player_state+0x3d4+i*4 is not 5 and renders each mode-1 particle via FUN_800ce0f0; always returns 0."
+    "summary": "Iterates over 10 ambient particle slots at player_state+0x1c0 (stride 0x10) whose state at player_state+0x3d4+i*4 is not 5 and renders each mode-1 particle via p11_field_render_and_step_particle_slot; always returns 0."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1945,7 +1945,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Offsets player world coordinates (+0x100..+0x108) along facing +0x38 using reach table DAT_801281f0 or DAT_80128200 (halved when reach_mode == 4) into out_pos."
+    "summary": "Offsets player world coordinates (+0x100..+0x108) along facing +0x38 using reach table g_farm_u16_801281f0 or g_farm_u32_80128200 (halved when reach_mode == 4) into out_pos."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1973,7 +1973,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Projects particle world pos + (0x96, -100, -0x96) via hm_ovl11_project_npc_bubble_pos, draws sprite primitive from player_state+0x2d4 or DAT_80128d00 via FUN_80016054, and advances frame via hm_sprite_step_0x0e_frame when mode_flag == 0."
+    "summary": "Projects particle world pos + (0x96, -100, -0x96) via hm_ovl11_project_npc_bubble_pos, draws sprite primitive from player_state+0x2d4 or g_farm_u32_80128d00 via gfx_sprite_draw_save_retaddr, and advances frame via hm_sprite_step_0x0e_frame when mode_flag == 0."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1989,7 +1989,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 5,
-    "summary": "Starts the player go-to-bed sequence (action state 0x4a), sets event flag 9, computes bed destination offsets via FUN_800ce2ec, and arms day-end fade globals."
+    "summary": "Starts the player go-to-bed sequence (action state 0x4a), sets event flag 9, computes bed destination offsets via p11_field_get_barn_or_coop_spawn_pos, and arms day-end fade globals."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2005,7 +2005,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Selects map spawn preset 0..2 from active map ID *(DAT_800a0378+4) (0x54..0x5b) and writes DAT_801232bc/DAT_801232be (x, 0, z) into out_pos."
+    "summary": "Selects map spawn preset 0..2 from active map ID *(g_core_event_script_ctx_800a0378+4) (0x54..0x5b) and writes g_farm_u16_801232bc/g_farm_u16_801232be (x, 0, z) into out_pos."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2021,7 +2021,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Interpolates a 17-step jump arc between DAT_80128ce0 and DAT_80128cd0 via hm_clut_lerp_rgb_triple, updates player position (+0x100..+0x108) and DAT_800a03a4..a8, and clears DAT_8006c844 bit 0x400000 on completion."
+    "summary": "Interpolates a 17-step jump arc between g_farm_u32_80128ce0 and g_farm_ro_u32_80128cd0 via hm_clut_lerp_rgb_triple, updates player position (+0x100..+0x108) and g_core_spawn_pos_x_800a03a4..a8, and clears g_core_engine_flags0_8006c844 bit 0x400000 on completion."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2085,7 +2085,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 6,
-    "summary": "Iterates height offsets in table 0x801232c8 via FUN_8001e334 and hm_ovl11_update_camera_projection until a passable ground elevation is found, updating world_pos[1]."
+    "summary": "Iterates height offsets in table 0x801232c8 via hm_res_gfx_reset_world_spr_8001e334 and hm_ovl11_update_camera_projection until a passable ground elevation is found, updating world_pos[1]."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2096,7 +2096,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Resets DAT_80123154 to 0, then in winter (DAT_80070cf2 == 3) checks sprite asset 0x187 via FUN_800d688c, sets DAT_80123154 = 1, and initializes DAT_80128d00 via hm_sprite_init_0x0e_anim."
+    "summary": "Resets g_farm_u32_80123154 to 0, then in winter (g_farm_calendar_clock_80070cf2 == 3) checks sprite asset 0x187 via p11_spr_find_area_prop_sprite_data, sets g_farm_u32_80123154 = 1, and initializes g_farm_u32_80128d00 via hm_sprite_init_0x0e_anim."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2107,7 +2107,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Advances attract-mode/demo input buffer DAT_8006c854 up to 0x738 frames when flags 0x8000/0x10000 in DAT_8006c844 are active, then sets DAT_800a0490 = 0x1a."
+    "summary": "Advances attract-mode/demo input buffer g_ovl27_state_8006c854 up to 0x738 frames when flags 0x8000/0x10000 in g_core_engine_flags0_8006c844 are active, then sets g_core_map_transition_state_800a0490 = 0x1a."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2156,7 +2156,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 12,
-    "summary": "Handles picking up a carryable world entity (checking FUN_800d589c), locking it for player carry or dismounting/claiming a horse state via FUN_800e6eac and hm_ovl11_query_pasture_tile_grass."
+    "summary": "Handles picking up a carryable world entity (checking p11_spr_has_item_flag_0x8100), locking it for player carry or dismounting/claiming a horse state via p11_npc_adjust_affection_wrapper and hm_ovl11_query_pasture_tile_grass."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2204,7 +2204,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 7,
-    "summary": "Places a carried chicken, cow/sheep, horse, or ground item back into the world via FUN_800cefcc, assigning basket/fish/truffle states or clearing invalid dropped items."
+    "summary": "Places a carried chicken, cow/sheep, horse, or ground item back into the world via p11_field_place_entity_and_project_ground, assigning basket/fish/truffle states or clearing invalid dropped items."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2220,7 +2220,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Obtains current area mask from FUN_800d2e20 and scans the 17-entry table DAT_80123758 (stride 0x18) to check if entity_type is permitted in the active zone."
+    "summary": "Obtains current area mask from p11_field_get_season_bitmask and scans the 17-entry table g_farm_u32_80123758 (stride 0x18) to check if entity_type is permitted in the active zone."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2236,7 +2236,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Clears carried flag 0x20000 in entity_rec+0x34 if the player's carried item at DAT_80071a88+2 no longer matches *entity_rec."
+    "summary": "Clears carried flag 0x20000 in entity_rec+0x34 if the player's carried item at g_player_held_item_80071a88+2 no longer matches *entity_rec."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2252,7 +2252,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Stores pending animal alert category alert_kind into DAT_80128d68."
+    "summary": "Stores pending animal alert category alert_kind into g_farm_state_80128d68."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2276,7 +2276,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Writes dog position (DAT_80075b0c/10/14) and area state (DAT_80075b00/04) in g_anim_dog_state_80075ad4 and resets player emote/state via FUN_80107dd0(player_state+0xa8)."
+    "summary": "Writes dog position (g_anim_dog_state_80075ad_idx56_80075b0c/10/14) and area state (g_anim_dog_state_80075ad_idx44_80075b00/04) in g_anim_dog_state_80075ad4 and resets player emote/state via p11_ovl_reset_entity_state_pair(player_state+0xa8)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2292,7 +2292,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Loops over the 6 world actor/prop slots at DAT_80075bc4 (stride 0xb0) and clears matching slots via FUN_800d3200, respecting bit 0x20000 and wild-dog flag 0x1000000 in DAT_80070d30."
+    "summary": "Loops over the 6 world actor/prop slots at g_farm_u32_80075bc4 (stride 0xb0) and clears matching slots via p11_field_zero_world_entity_slot, respecting bit 0x20000 and wild-dog flag 0x1000000 in g_npc_event_progress_flags_80070d30."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2303,7 +2303,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 9,
-    "summary": "Calls FUN_800cf748 and FUN_800cf848, then in sunny weather iterates 17 seasonal forage entries in 0x80123758 matched by FUN_800d2e20 and spawns them via hm_ovl11_spawn_harvest_pickup."
+    "summary": "Calls p11_field_spawn_wild_critters_stub and p11_field_spawn_map_forage_pickups, then in sunny weather iterates 17 seasonal forage entries in 0x80123758 matched by p11_field_get_season_bitmask and spawns them via hm_ovl11_spawn_harvest_pickup."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2368,7 +2368,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 3,
-    "summary": "Checks if outdoor livestock or chickens exist via FUN_800d3230(0/1), weather DAT_8007ad00 is clear (0), season DAT_80070cf2 is not winter (3), and rolls 1-in-10 chance via hm_prng_next to set wild dog bit 0x800000 in DAT_80070d30."
+    "summary": "Checks if outdoor livestock or chickens exist via p11_field_find_outdoor_animal_slot(0/1), weather g_farm_current_weather_8007ad00 is clear (0), season g_farm_calendar_clock_80070cf2 is not winter (3), and rolls 1-in-10 chance via hm_prng_next to set wild dog bit 0x800000 in g_npc_event_progress_flags_80070d30."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2408,7 +2408,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Tests cows/sheep in DAT_800749f4 (bits 1/2) and chickens in DAT_800742ec (bit 4) via FUN_800cfad0(..., target_area), returning 1 on the first matching animal."
+    "summary": "Tests cows/sheep in g_anim_livestock_barn_tbl_800749f4 (bits 1/2) and chickens in g_anim_chicken_coop_tbl_800742ec (bit 4) via p11_field_test_animal_health_bitmask(..., target_area), returning 1 on the first matching animal."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2419,7 +2419,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 9,
-    "summary": "Removes event-flagged livestock and chickens from the active field via FUN_800df0f8 and FUN_800e2904, dropping any carried chicken first and incrementing weather/state counters."
+    "summary": "Removes event-flagged livestock and chickens from the active field via p11_barn_cow_zero_actor and p11_coop_chicken_zero_actor, dropping any carried chicken first and incrementing weather/state counters."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2430,7 +2430,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 5,
-    "summary": "Spawns up to three actor entities (type 0x109, state 0x30) at coordinates from table 0x801239d0 via FUN_800e1f9c."
+    "summary": "Spawns up to three actor entities (type 0x109, state 0x30) at coordinates from table 0x801239d0 via p11_coop_chicken_spawn_in_world."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2446,7 +2446,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 5,
-    "summary": "Projects an animal actor's position via hm_ovl11_project_npc_bubble_pos, draws its emote/carried icons and main sprite, submits its shadow via FUN_800d037c, and advances its animation frame."
+    "summary": "Projects an animal actor's position via hm_ovl11_project_npc_bubble_pos, draws its emote/carried icons and main sprite, submits its shadow via p11_field_submit_entity_shadow_if_enabled, and advances its animation frame."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2470,7 +2470,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 5,
-    "summary": "Projects an NPC or large livestock actor, submits its 3D/billboard sprite quad via FUN_80015dd4 and emotion icon via FUN_80107e2c, projects ground shadow when flag 0x1000000 is set, and steps animation."
+    "summary": "Projects an NPC or large livestock actor, submits its 3D/billboard sprite quad via gfx_sprite_emit_active_char and emotion icon via p11_ovl_draw_countdown_fx_quad, projects ground shadow when flag 0x1000000 is set, and steps animation."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2498,7 +2498,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 4,
-    "summary": "Calls FUN_800c9e90 to draw a shadow quad at screen coordinates when bit 12 (0x1000) of entity_flags is clear, passing bit 31 as the shadow size selector."
+    "summary": "Calls p11_field_draw_cursor_or_marker_quad to draw a shadow quad at screen coordinates when bit 12 (0x1000) of entity_flags is clear, passing bit 31 as the shadow size selector."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2538,7 +2538,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "When animal affection at animal_rec+0x16 is >= 10, displays heart emote (0x25, 0x2d) on animal_rec+0xa8 via FUN_80107de0."
+    "summary": "When animal affection at animal_rec+0x16 is >= 10, displays heart emote (0x25, 0x2d) on animal_rec+0xa8 via p11_ovl_set_entity_state_pair."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2574,7 +2574,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Compares X (+0x38 vs +0x58) and Z (+0x40 vs +0x60) signs via FUN_800d0600 and indexes into the 3x3 direction lookup table DAT_80123a00."
+    "summary": "Compares X (+0x38 vs +0x58) and Z (+0x40 vs +0x60) signs via p11_field_compare_axis_sign and indexes into the 3x3 direction lookup table g_farm_tbl_80123a00."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2590,7 +2590,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Compares |dx| vs |dz| between current pos (+0x38, +0x3c) and target (+0x58, +0x5c), queries octant via FUN_800d062c, and writes the best cardinal direction (0..3) into entity_rec+0x22."
+    "summary": "Compares |dx| vs |dz| between current pos (+0x38, +0x3c) and target (+0x58, +0x5c), queries octant via p11_field_get_target_octant_direction, and writes the best cardinal direction (0..3) into entity_rec+0x22."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2614,7 +2614,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Places an outdoor animal record at its pasture/yard slot by dispatching to FUN_800d29b0 for barn livestock (is_barn == 1) or FUN_800d2a88(animal_rec, slot_idx) for coop poultry."
+    "summary": "Places an outdoor animal record at its pasture/yard slot by dispatching to p11_field_place_barn_animal_in_pasture for barn livestock (is_barn == 1) or p11_field_place_coop_chicken_in_yard(animal_rec, slot_idx) for coop poultry."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2630,7 +2630,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 3,
-    "summary": "Synchronizes outdoor animal placement via FUN_800d075c across the 20 barn livestock entries in DAT_800749f4 (state 5) or 10 chicken coop entries in DAT_800742ec (state 4), plus the 2 special slots referenced by DAT_80076200/DAT_80076202."
+    "summary": "Synchronizes outdoor animal placement via p11_field_place_animal_in_outdoor_zone across the 20 barn livestock entries in g_anim_livestock_barn_tbl_800749f4 (state 5) or 10 chicken coop entries in g_anim_chicken_coop_tbl_800742ec (state 4), plus the 2 special slots referenced by g_farm_tbl_80076200/g_farm_ro_u16_80076202."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2646,7 +2646,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Scans pregnancy tracking slots DAT_80076200 (indices 0..1 for cows gated by DAT_80070d08, or indices 2..3 for sheep gated by DAT_80070d0a) and returns the first free (-1) pair."
+    "summary": "Scans pregnancy tracking slots g_farm_tbl_80076200 (indices 0..1 for cows gated by g_farm_upgrade_flags0_80070d08, or indices 2..3 for sheep gated by g_farm_upgrade_flags1_80070d0a) and returns the first free (-1) pair."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2662,7 +2662,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 8,
-    "summary": "Processes completed pregnancy/incubation slots in 0x80076200, waking newborn cows/sheep via FUN_800de924/FUN_800e04fc or respawning hatched chicks at incubator coordinates."
+    "summary": "Processes completed pregnancy/incubation slots in 0x80076200, waking newborn cows/sheep via p11_barn_cow_init_barn_slot/p11_barn_sheep_init_barn_slot or respawning hatched chicks at incubator coordinates."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2678,7 +2678,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Returns 2 if barn/coop breeding slot slot_idx is locked by upgrade flags DAT_80070d08/DAT_80070d0a, else returns 1 if DAT_80076200[slot_idx*2] is occupied."
+    "summary": "Returns 2 if barn/coop breeding slot slot_idx is locked by upgrade flags g_farm_upgrade_flags0_80070d08/g_farm_upgrade_flags1_80070d0a, else returns 1 if g_farm_tbl_80076200[slot_idx*2] is occupied."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2689,7 +2689,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Scans up to 10 (or 20 if DAT_80070d08 != 0) records in DAT_800749f4 (stride 0xb8) for an empty un-reserved slot (*rec == 0 and bit 0x2000000 clear)."
+    "summary": "Scans up to 10 (or 20 if g_farm_upgrade_flags0_80070d08 != 0) records in g_anim_livestock_barn_tbl_800749f4 (stride 0xb8) for an empty un-reserved slot (*rec == 0 and bit 0x2000000 clear)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2700,7 +2700,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Scans up to 5 (or 10 if DAT_80070d0a != 0) records in DAT_800742ec (stride 0xb4) for an empty un-reserved slot (*rec == 0 and bit 0x2000000 clear)."
+    "summary": "Scans up to 5 (or 10 if g_farm_upgrade_flags1_80070d0a != 0) records in g_anim_chicken_coop_tbl_800742ec (stride 0xb4) for an empty un-reserved slot (*rec == 0 and bit 0x2000000 clear)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2716,7 +2716,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Finds index 0..19 of animal_rec inside DAT_800749f4 (stride 0xb8), or returns -1 if not found."
+    "summary": "Finds index 0..19 of animal_rec inside g_anim_livestock_barn_tbl_800749f4 (stride 0xb8), or returns -1 if not found."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2772,7 +2772,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Formats animal name (+4) and remaining days/hearts (+0xb2) into DAT_80128d70 via hm_text_fetch_script_entry and opens animal status dialogue (0x6bd..0x6c4) via hm_dialogue_set_window_state."
+    "summary": "Formats animal name (+4) and remaining days/hearts (+0xb2) into g_farm_u32_80128d70 via hm_text_fetch_script_entry and opens animal status dialogue (0x6bd..0x6c4) via hm_dialogue_set_window_state."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2792,7 +2792,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Sets daily interaction byte at slot_idx in DAT_800712f8 (barn) or DAT_8007130e (coop) to 1."
+    "summary": "Sets daily interaction byte at slot_idx in g_farm_state_800712f8 (barn) or g_farm_val_u16_8007130e (coop) to 1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2812,7 +2812,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Returns 1 if daily check byte slot_idx is non-zero in DAT_800712f8 (is_barn == 1) or DAT_8007130e (coop), else 0."
+    "summary": "Returns 1 if daily check byte slot_idx is non-zero in g_farm_state_800712f8 (is_barn == 1) or g_farm_val_u16_8007130e (coop), else 0."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2832,7 +2832,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Checks slot availability via FUN_800d0bc8, allocates free barn animal via FUN_800d0cd8, sets bit 0x2000000, records slot ID in DAT_80076200/DAT_80076202 via FUN_800e2934, and returns 0 or error message ID."
+    "summary": "Checks slot availability via p11_field_check_breeding_slot_status, allocates free barn animal via p11_field_find_free_coop_chicken_slot, sets bit 0x2000000, records slot ID in g_farm_tbl_80076200/g_farm_ro_u16_80076202 via p11_coop_chicken_get_slot_index, and returns 0 or error message ID."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2852,7 +2852,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 5,
-    "summary": "Checks whether horse, dog, 20 barn livestock, and 10 coop chickens are parked on outdoor return/coop tiles via FUN_800be208 and teleports them back inside the barn, coop, or house yard."
+    "summary": "Checks whether horse, dog, 20 barn livestock, and 10 coop chickens are parked on outdoor return/coop tiles via p11_core_probe_actor_ray_with_budget and teleports them back inside the barn, coop, or house yard."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2868,7 +2868,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Stores selected animal slot index slot_idx into DAT_8007621e."
+    "summary": "Stores selected animal slot index slot_idx into g_farm_val_u16_8007621e."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2892,7 +2892,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 18,
-    "summary": "Steps animal/pickup movement: evaluates water probe FUN_800d1e1c, selects cardinal heading via FUN_800d196c from forward/left/right probes (FUN_800be208, FUN_800d2db8, FUN_800d24fc), seeks target or jumps via FUN_800d2594, and runs zone transitions via FUN_800d2b40."
+    "summary": "Steps animal/pickup movement: evaluates water probe p11_field_check_actor_water_or_zone, selects cardinal heading via p11_field_choose_entity_move_dir from forward/left/right probes (p11_core_probe_actor_ray_with_budget, p11_field_is_tile_or_wall_blocked, p11_field_probe_entity_collision), seeks target or jumps via p11_field_step_entity_jump_arc, and runs zone transitions via p11_field_apply_entity_zone_transition."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2908,7 +2908,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Sets entity seek arrival distance threshold DAT_80123754 to radius."
+    "summary": "Sets entity seek arrival distance threshold g_farm_state_80123754 to radius."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2932,7 +2932,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 7,
-    "summary": "Computes a farm animal or pickup actor's next cardinal direction from turn_mode (0..7) and tests wall/actor collisions via FUN_800d2db8, FUN_800be208, and FUN_800d24fc."
+    "summary": "Computes a farm animal or pickup actor's next cardinal direction from turn_mode (0..7) and tests wall/actor collisions via p11_field_is_tile_or_wall_blocked, p11_core_probe_actor_ray_with_budget, and p11_field_probe_entity_collision."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2956,7 +2956,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Rolls 0..100 via hm_prng_next against 4-entry directional probability table DAT_801232d4 indexed by (entity_kind, cur_dir, probe_state), returning direction 0..3 or 4 if none matched."
+    "summary": "Rolls 0..100 via hm_prng_next against 4-entry directional probability table g_farm_u32_801232d4 indexed by (entity_kind, cur_dir, probe_state), returning direction 0..3 or 4 if none matched."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2992,7 +2992,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Computes delta to target (+0x58, +0x60 vs +0x38, +0x40), clears arrive bit 0x2000 in +0x34 when within DAT_80123754 tolerance, or returns movement bitmask from DAT_80123a18 using FUN_800d1cd0."
+    "summary": "Computes delta to target (+0x58, +0x60 vs +0x38, +0x40), clears arrive bit 0x2000 in +0x34 when within g_farm_state_80123754 tolerance, or returns movement bitmask from g_farm_tbl_80123a18 using p11_field_compare_seek_axis."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3008,7 +3008,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 5,
-    "summary": "Probes zone flag 0x10 at the actor's current position via FUN_800be208 and toggles status bit 0x200000 on +0x34 accordingly."
+    "summary": "Probes zone flag 0x10 at the actor's current position via p11_core_probe_actor_ray_with_budget and toggles status bit 0x200000 on +0x34 accordingly."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3019,7 +3019,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 7,
-    "summary": "Updates the 3 wild critter/rabbit/butterfly slots at 0x80075fe4 by calling FUN_800e276c, FUN_800e1f70, FUN_800e1ec0, and toggling visibility timer at +0xa8."
+    "summary": "Updates the 3 wild critter/rabbit/butterfly slots at 0x80075fe4 by calling p11_coop_chicken_tick_ai, p11_coop_chicken_clear_sprite_flags, p11_coop_chicken_update_sprite_frame, and toggling visibility timer at +0xa8."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3030,7 +3030,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 7,
-    "summary": "Updates all 6 ground pickup slots at 0x80075bc4 via FUN_800d3048, integrates motion via FUN_800d2f1c, and updates sprite frames via FUN_800d2e6c while uncarried."
+    "summary": "Updates all 6 ground pickup slots at 0x80075bc4 via p11_field_tick_ground_pickup_slot, integrates motion via p11_field_sync_entity_velocity_to_pos, and updates sprite frames via p11_field_update_pickup_sprite_anim while uncarried."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3070,7 +3070,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 3,
-    "summary": "Extracts packed 3-byte entity collision bounds from entity_rec+0x2e..0x31, tests world collision via FUN_800bdf98, and sets bit 0x1000000 in entity_rec+0x34 when hit returns 2 and set_hit_flag == 1."
+    "summary": "Extracts packed 3-byte entity collision bounds from entity_rec+0x2e..0x31, tests world collision via p11_core_probe_push_tile_path, and sets bit 0x1000000 in entity_rec+0x34 when hit returns 2 and set_hit_flag == 1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3114,7 +3114,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "While *timer_ptr < 300, updates entity target to player coordinates (DAT_80071b00/04/08/0c) via hm_ovl11_modify_gold_or_counters when lock bit 0x2000 is set, and increments *timer_ptr when state matches active_state."
+    "summary": "While *timer_ptr < 300, updates entity target to player coordinates (g_player_pos_x_80071b00/04/08/0c) via hm_ovl11_modify_gold_or_counters when lock bit 0x2000 is set, and increments *timer_ptr when state matches active_state."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3125,7 +3125,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 3,
-    "summary": "When DAT_80128d68 != -1 and FUN_800cbdfc returns non-zero, dispatches pending animal state update via FUN_800d2764((int)DAT_80128d68) and resets DAT_80128d68 to -1."
+    "summary": "When g_farm_state_80128d68 != -1 and p11_field_is_player_input_unlocked returns non-zero, dispatches pending animal state update via p11_field_update_animal_fence_alerts((int)g_farm_state_80128d68) and resets g_farm_state_80128d68 to -1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3141,7 +3141,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Evaluates outdoor pasture/pet status for area_kind (0: horse + 20 barn livestock in DAT_800749f4, 1: horse via hm_ovl11_query_pasture_tile_grass, 2: dog DAT_80075ad4 via FUN_8010b57c) and clears alert counters DAT_80128d60/62/64 when calm."
+    "summary": "Evaluates outdoor pasture/pet status for area_kind (0: horse + 20 barn livestock in g_anim_livestock_barn_tbl_800749f4, 1: horse via hm_ovl11_query_pasture_tile_grass, 2: dog g_anim_dog_state_80075ad4 via p11_pet_dog_dispatch_state) and clears alert counters g_farm_u16_80128d60/62/64 when calm."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3157,7 +3157,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Dispatches item_id in range 0xa1..0x165 via jump table PTR_LAB_800b8840 to execute item consumption/spawn behavior."
+    "summary": "Dispatches item_id in range 0xa1..0x165 via jump table g_jtbl_ptr_800b8840 to execute item consumption/spawn behavior."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3177,7 +3177,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Computes barn stall/pasture position from DAT_80123a2c/30/34 for slot_idx (-1, -2, or 0..19 in rows of 5), writes +0x38..+0x40, sets facing 1 or 3, and sets zone 5."
+    "summary": "Computes barn stall/pasture position from g_farm_u32_80123a2c/30/34 for slot_idx (-1, -2, or 0..19 in rows of 5), writes +0x38..+0x40, sets facing 1 or 3, and sets zone 5."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3197,7 +3197,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Computes yard grid coordinates from DAT_80123a8c/90/94 using slot_idx/5 and slot_idx%5 (400-unit spacing), writes position (+0x38..+0x40), rolls random facing via hm_prng_next(4), and sets zone 4."
+    "summary": "Computes yard grid coordinates from g_farm_u32_80123a8c/90/94 using slot_idx/5 and slot_idx%5 (400-unit spacing), writes position (+0x38..+0x40), rolls random facing via hm_prng_next(4), and sets zone 4."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3213,7 +3213,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 17,
-    "summary": "Tests zone transition flags 0x4000000..0x20000000 on entity_rec+0x34, resolves exit coordinates across farm/barn/greenhouse/coop via FUN_800be118, updates entity position, and clears velocity/lock flag 0x2000."
+    "summary": "Tests zone transition flags 0x4000000..0x20000000 on entity_rec+0x34, resolves exit coordinates across farm/barn/greenhouse/coop via p11_core_lookup_field_spawn_rect, updates entity position, and clears velocity/lock flag 0x2000."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3256,7 +3256,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Converts current season DAT_80070cf2 (0..3) into a 1-hot bitmask (1, 2, 4, or 8)."
+    "summary": "Converts current season g_farm_calendar_clock_80070cf2 (0..3) into a 1-hot bitmask (1, 2, 4, or 8)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3272,7 +3272,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 6,
-    "summary": "Looks up sprite/palette indices via FUN_800d3424 for a ground pickup slot, applies any changed sprite state, advances animation via hm_ovl11_spawn_soil_splash_fx, and marks visibility."
+    "summary": "Looks up sprite/palette indices via p11_field_get_critter_spawn_zone_rect for a ground pickup slot, applies any changed sprite state, advances animation via hm_ovl11_spawn_soil_splash_fx, and marks visibility."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3288,7 +3288,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Adds velocity (+0x48) into position (+0x38) with zero Y override via FUN_800d03b4(entity_rec+0x38, entity_rec+0x48, 0)."
+    "summary": "Adds velocity (+0x48) into position (+0x38) with zero Y override via p11_field_integrate_vec3_velocity(entity_rec+0x38, entity_rec+0x48, 0)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3304,7 +3304,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 6,
-    "summary": "Finds a free slot among the 6 ground pickup slots at 0x80075bc4, initializes it via FUN_800d3390, stamps calendar day/time from 0x80070cf0..0x80070cf4, and configures fish/truffle variants."
+    "summary": "Finds a free slot among the 6 ground pickup slots at 0x80075bc4, initializes it via p11_field_alloc_and_init_pickup_slot, stamps calendar day/time from 0x80070cf0..0x80070cf4, and configures fish/truffle variants."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3320,7 +3320,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 4,
-    "summary": "Updates an active ground pickup slot by running FUN_800d3574, dispatching its state handler from PTR_FUN_800b8ec0, and expiring non-locked items after 300 ticks."
+    "summary": "Updates an active ground pickup slot by running p11_crop_init_world_entity_or_weather_sprite, dispatching its state handler from g_fn_ptr_800b8ec0, and expiring non-locked items after 300 ticks."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3340,7 +3340,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Runs AI state entry callback from DAT_800b8e6c[next_state], and if PTR_FUN_800b8ec0[next_state] is non-null and entry succeeds, commits next_state (+0x26), resets timers (+0x28..+0x2c), and zeroes velocity via hm_ovl11_get_item_category_flags."
+    "summary": "Runs AI state entry callback from g_farm_tbl_800b8e6c[next_state], and if g_fn_ptr_800b8ec0[next_state] is non-null and entry succeeds, commits next_state (+0x26), resets timers (+0x28..+0x2c), and zeroes velocity via hm_ovl11_get_item_category_flags."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3360,7 +3360,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Records hit animal kind and slot index in DAT_80128d78 and DAT_80128d7a."
+    "summary": "Records hit animal kind and slot index in g_farm_u16_80128d78 and g_farm_val_u16_80128d7a."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3392,7 +3392,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Thin wrapper invoking FUN_800d3d60(building_kind) to locate a random active outdoor animal slot index."
+    "summary": "Thin wrapper invoking p11_field_pick_random_grazing_animal(building_kind) to locate a random active outdoor animal slot index."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3408,7 +3408,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "For wild dog entity (0x15b), when morning outside (FUN_800c0824 == 1, DAT_80070d30 bit 0x1000000 set, DAT_80070cf8 >= 7), picks a random outdoor animal via FUN_800d3d60 and subtracts 10 affection from DAT_80074a0a/DAT_80074302."
+    "summary": "For wild dog entity (0x15b), when morning outside (p11_core_get_overlay_busy_flag == 1, g_npc_event_progress_flags_80070d30 bit 0x1000000 set, g_farm_cal_hour_80070cf8 >= 7), picks a random outdoor animal via p11_field_pick_random_grazing_animal and subtracts 10 affection from g_anim_livestock_barn_tb_idx0_pos_y_p2_80074a0a/g_anim_chicken_coop_tbl_idx0_name_chars_idx10_80074302."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3428,7 +3428,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 5,
-    "summary": "Zeroes an empty 0xb0-byte ground pickup slot, assigns item_id, initializes its sprite state via FUN_800d3404, and clears its sub-state at +0x54 via FUN_80107dd0."
+    "summary": "Zeroes an empty 0xb0-byte ground pickup slot, assigns item_id, initializes its sprite state via p11_field_set_pickup_item_id, and clears its sub-state at +0x54 via p11_ovl_reset_entity_state_pair."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3448,7 +3448,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 4,
-    "summary": "Stores item_id into the ground pickup slot header and invokes FUN_800d3574 to initialize its sprite and runtime state."
+    "summary": "Stores item_id into the ground pickup slot header and invokes p11_crop_init_world_entity_or_weather_sprite to initialize its sprite and runtime state."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3476,7 +3476,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Reads packed u16 pair from DAT_80123aac/DAT_80123aae indexed by (group_idx, entry_idx) into out_val_a and optional out_val_b, returning 0."
+    "summary": "Reads packed u16 pair from g_farm_u16_80123aac/g_farm_u16_80123aae indexed by (group_idx, entry_idx) into out_val_a and optional out_val_b, returning 0."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3492,7 +3492,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Dispatches initial AI state by entity type *entity_rec (0x108..0x17b) via FUN_800d3c04/c54/ca4/ce8/d2c or SystemError('E', 100) on unknown type, then commits state via FUN_800d3104."
+    "summary": "Dispatches initial AI state by entity type *entity_rec (0x108..0x17b) via p11_crop_roll_npc_or_critter_state_a/c54/ca4/ce8/d2c or SystemError('E', 100) on unknown type, then commits state via p11_field_transition_world_entity_ai."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3508,7 +3508,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 3,
-    "summary": "Selects seasonal field foliage/prop sprite table offsets in DAT_80098bf8, DAT_8009a3f8, or DAT_8009cbf8 by entity_rec[0] (0x108..0x17b) and DAT_80070cf2, loads weather sprites 0x28..0x2c via hm_ovl11_load_weather_sprites, or initializes 0x0e anim via hm_sprite_init_0x0e_anim."
+    "summary": "Selects seasonal field foliage/prop sprite table offsets in g_farm_u32_80098bf8, g_farm_tbl_8009a3f8, or g_cd_u32_8009cbf8 by entity_rec[0] (0x108..0x17b) and g_farm_calendar_clock_80070cf2, loads weather sprites 0x28..0x2c via hm_ovl11_load_weather_sprites, or initializes 0x0e anim via hm_sprite_init_0x0e_anim."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3604,7 +3604,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Returns wild dog AI state 0x13 if hour DAT_80070cf8 < 7 or timer entity_rec+0xac <= 0, else active chase state 0x14."
+    "summary": "Returns wild dog AI state 0x13 if hour g_farm_cal_hour_80070cf8 < 7 or timer entity_rec+0xac <= 0, else active chase state 0x14."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3620,7 +3620,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Collects active outdoor animals (zone == 1, flags & 0x20400 == 0) from barn DAT_800749f4 (is_coop == 0, 20 slots) or coop DAT_800742ec (10 slots) and returns a random index via hm_prng_next or -1."
+    "summary": "Collects active outdoor animals (zone == 1, flags & 0x20400 == 0) from barn g_anim_livestock_barn_tbl_800749f4 (is_coop == 0, 20 slots) or coop g_anim_chicken_coop_tbl_800742ec (10 slots) and returns a random index via hm_prng_next or -1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3664,7 +3664,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Searches barn livestock DAT_800749f4 (types 0/1) and chicken coop DAT_800742ec (type 2) matching zone_id within search_radius of (origin_x, origin_z), returning the slot index or -1."
+    "summary": "Searches barn livestock g_anim_livestock_barn_tbl_800749f4 (types 0/1) and chicken coop g_anim_chicken_coop_tbl_800742ec (type 2) matching zone_id within search_radius of (origin_x, origin_z), returning the slot index or -1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3680,7 +3680,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Selects dialogue ID (0x261..0x277) from entity type *entity_rec and sub-state entity_rec[0x18] (tracking first-time event flags 0x9e/0x9f and DAT_80076210), opens message via hm_dialogue_set_window_state, and returns -1."
+    "summary": "Selects dialogue ID (0x261..0x277) from entity type *entity_rec and sub-state entity_rec[0x18] (tracking first-time event flags 0x9e/0x9f and g_farm_val_u16_80076210), opens message via hm_dialogue_set_window_state, and returns -1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3696,7 +3696,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Drives world entity action animation from script table DAT_80123bcc via hm_ovl11_add_item_to_rucksack, sets bit 0x800 during playback, and sets +0x2c = 300 on completion (-1)."
+    "summary": "Drives world entity action animation from script table g_gfx_u32_80123bcc via hm_ovl11_add_item_to_rucksack, sets bit 0x800 during playback, and sets +0x2c = 300 on completion (-1)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3712,7 +3712,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 19,
-    "summary": "Looks up move speed via FUN_800d3bb0, steps entity movement via FUN_800d12b8 (mask 0x9010 for 0x15b, else 0x8031), sets moving flag at entity_rec[0x12], and clears bit 0x800 of entity_rec+0x34."
+    "summary": "Looks up move speed via p11_field_get_entity_walk_speed, steps entity movement via p11_field_step_entity_path_movement (mask 0x9010 for 0x15b, else 0x8031), sets moving flag at entity_rec[0x12], and clears bit 0x800 of entity_rec+0x34."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3728,7 +3728,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Steps action script table DAT_80123bd4 via hm_ovl11_add_item_to_rucksack with random initial timer hm_prng_next(0x3c), dispatches sub-phase via PTR_LAB_800b9484 jump table, and despawns via FUN_800d3200 when finished."
+    "summary": "Steps action script table g_gfx_u32_80123bd4 via hm_ovl11_add_item_to_rucksack with random initial timer hm_prng_next(0x3c), dispatches sub-phase via g_jtbl_ptr_800b9484 jump table, and despawns via p11_field_zero_world_entity_slot when finished."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3744,7 +3744,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Steps action script table DAT_80123bec via hm_ovl11_add_item_to_rucksack, applies speed-12 facing velocity on phase 2 via hm_ovl11_get_item_category_flags, and despawns entity via FUN_800d3200 when done."
+    "summary": "Steps action script table g_gfx_u32_80123bec via hm_ovl11_add_item_to_rucksack, applies speed-12 facing velocity on phase 2 via hm_ovl11_get_item_category_flags, and despawns entity via p11_field_zero_world_entity_slot when done."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3760,7 +3760,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Steps action script table DAT_80123bf8 via hm_ovl11_add_item_to_rucksack, sets active bit 0x800 on start, and despawns entity via FUN_800d3200 when phase reaches -1."
+    "summary": "Steps action script table g_gfx_u32_80123bf8 via hm_ovl11_add_item_to_rucksack, sets active bit 0x800 on start, and despawns entity via p11_field_zero_world_entity_slot when phase reaches -1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3776,7 +3776,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Drives world entity action animation from script table DAT_80123c08 via hm_ovl11_add_item_to_rucksack, toggling active bit 0x800 and resetting +0x2c to 300 on completion (-1)."
+    "summary": "Drives world entity action animation from script table g_gfx_u32_80123c08 via hm_ovl11_add_item_to_rucksack, toggling active bit 0x800 and resetting +0x2c to 300 on completion (-1)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3792,7 +3792,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Drives world entity action animation from script table DAT_80123c14 via hm_ovl11_add_item_to_rucksack, toggling active bit 0x800 and resetting +0x2c to 300 on completion (-1)."
+    "summary": "Drives world entity action animation from script table g_gfx_u32_80123c14 via hm_ovl11_add_item_to_rucksack, toggling active bit 0x800 and resetting +0x2c to 300 on completion (-1)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3808,7 +3808,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Drives world entity action animation from script table DAT_80123c20 via hm_ovl11_add_item_to_rucksack, toggling active bit 0x800 and resetting +0x2c to 300 on completion (-1)."
+    "summary": "Drives world entity action animation from script table g_gfx_u32_80123c20 via hm_ovl11_add_item_to_rucksack, toggling active bit 0x800 and resetting +0x2c to 300 on completion (-1)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3824,7 +3824,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Drives world entity action animation from script table DAT_80123c2c via hm_ovl11_add_item_to_rucksack, toggling active bit 0x800 and resetting +0x2c to 300 on completion (-1)."
+    "summary": "Drives world entity action animation from script table g_gfx_u32_80123c2c via hm_ovl11_add_item_to_rucksack, toggling active bit 0x800 and resetting +0x2c to 300 on completion (-1)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3840,7 +3840,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Drives world entity action animation from script table DAT_80123c38 via hm_ovl11_add_item_to_rucksack, toggling active bit 0x800 and resetting +0x2c to 300 on completion (-1)."
+    "summary": "Drives world entity action animation from script table g_gfx_u32_80123c38 via hm_ovl11_add_item_to_rucksack, toggling active bit 0x800 and resetting +0x2c to 300 on completion (-1)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3856,7 +3856,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Drives world entity action animation from script table DAT_80123c44 via hm_ovl11_add_item_to_rucksack, toggling active bit 0x800 and resetting +0x2c to 300 on completion (-1)."
+    "summary": "Drives world entity action animation from script table g_gfx_u32_80123c44 via hm_ovl11_add_item_to_rucksack, toggling active bit 0x800 and resetting +0x2c to 300 on completion (-1)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3872,7 +3872,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Steps action script table DAT_80123c50 via hm_ovl11_add_item_to_rucksack, applies speed-0x3c jump/arc velocity in phases 2 and 3 (adjusting Y velocity -0x10 on phase 2), and despawns via FUN_800d3200 when done."
+    "summary": "Steps action script table g_gfx_u32_80123c50 via hm_ovl11_add_item_to_rucksack, applies speed-0x3c jump/arc velocity in phases 2 and 3 (adjusting Y velocity -0x10 on phase 2), and despawns via p11_field_zero_world_entity_slot when done."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3888,7 +3888,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Steps action script table DAT_80123c60 via hm_ovl11_add_item_to_rucksack, applies speed-0x3c jump/arc velocity in phases 2 and 3 (adjusting Y velocity -0x10 on phase 2), and despawns via FUN_800d3200 when done."
+    "summary": "Steps action script table g_gfx_u32_80123c60 via hm_ovl11_add_item_to_rucksack, applies speed-0x3c jump/arc velocity in phases 2 and 3 (adjusting Y velocity -0x10 on phase 2), and despawns via p11_field_zero_world_entity_slot when done."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3904,7 +3904,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Steps action script table DAT_80123c70 via hm_ovl11_add_item_to_rucksack, sets speed-0x3c forward velocity on phase 2 via hm_ovl11_get_item_category_flags, and despawns via FUN_800d3200 when done."
+    "summary": "Steps action script table g_gfx_u32_80123c70 via hm_ovl11_add_item_to_rucksack, sets speed-0x3c forward velocity on phase 2 via hm_ovl11_get_item_category_flags, and despawns via p11_field_zero_world_entity_slot when done."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3920,7 +3920,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Drives world entity action animation from script table DAT_80123c7c via hm_ovl11_add_item_to_rucksack, toggling active bit 0x800 and resetting +0x2c to 300 on completion (-1)."
+    "summary": "Drives world entity action animation from script table g_gfx_u32_80123c7c via hm_ovl11_add_item_to_rucksack, toggling active bit 0x800 and resetting +0x2c to 300 on completion (-1)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3936,7 +3936,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 20,
-    "summary": "Runs wild dog predator AI state machine: sets bit 0x1000000 in DAT_80070d30, initializes spawn/target at (-0x1324, 0, -0x2198) via hm_ovl11_modify_gold_or_counters, walks via FUN_800d425c, picks outdoor barn/coop target via FUN_800d3d60, and switches state to 0x13 or 0x14."
+    "summary": "Runs wild dog predator AI state machine: sets bit 0x1000000 in g_npc_event_progress_flags_80070d30, initializes spawn/target at (-0x1324, 0, -0x2198) via hm_ovl11_modify_gold_or_counters, walks via p11_spr_step_entity_walk_speed, picks outdoor barn/coop target via p11_field_pick_random_grazing_animal, and switches state to 0x13 or 0x14."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3952,7 +3952,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 20,
-    "summary": "Scans for an active outdoor barn/coop animal within 800 units via FUN_800d3e40, locks onto its live coordinates via hm_ovl11_modify_gold_or_counters, pursues via FUN_800d425c, and transitions state to 0x13 if hour < 7 or 7 when bit 0x2000 clears."
+    "summary": "Scans for an active outdoor barn/coop animal within 800 units via p11_field_find_nearby_outdoor_animal, locks onto its live coordinates via hm_ovl11_modify_gold_or_counters, pursues via p11_spr_step_entity_walk_speed, and transitions state to 0x13 if hour < 7 or 7 when bit 0x2000 clears."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3968,7 +3968,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 19,
-    "summary": "Executes entity animation/action table 0x80123c94 via hm_ovl11_add_item_to_rucksack, initializes emote/state via FUN_80107de0, plays SFX 0x1a when facing 0, and steps movement via FUN_800d12b8(entity_rec, 0x18, 0x9010)."
+    "summary": "Executes entity animation/action table 0x80123c94 via hm_ovl11_add_item_to_rucksack, initializes emote/state via p11_ovl_set_entity_state_pair, plays SFX 0x1a when facing 0, and steps movement via p11_field_step_entity_path_movement(entity_rec, 0x18, 0x9010)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4000,7 +4000,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Reads descriptor flags in DAT_8006c858[item_id*0x28] and returns 0 if bit 0x4000 is set, 1 if bits 0x8100 are set, or 2 otherwise."
+    "summary": "Reads descriptor flags in g_gfx_sprite_desc_tbl_ptr_8006c858[item_id*0x28] and returns 0 if bit 0x4000 is set, 1 if bits 0x8100 are set, or 2 otherwise."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4016,7 +4016,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Extracts equipment category 0..3 from bits 0x10000000..0x40000000 of DAT_8006c858[item_id*0x28 + 0x18]."
+    "summary": "Extracts equipment category 0..3 from bits 0x10000000..0x40000000 of g_gfx_sprite_desc_tbl_ptr_8006c858[item_id*0x28 + 0x18]."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4032,7 +4032,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Returns true when the sign bit (0x80000000) is set on item descriptor dword DAT_8006c858[item_id*0x28 + 0x18]."
+    "summary": "Returns true when the sign bit (0x80000000) is set on item descriptor dword g_gfx_sprite_desc_tbl_ptr_8006c858[item_id*0x28 + 0x18]."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4048,7 +4048,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Returns the signed category/tier byte at offset +2 in item descriptor DAT_8006c858[item_id*0x28]."
+    "summary": "Returns the signed category/tier byte at offset +2 in item descriptor g_gfx_sprite_desc_tbl_ptr_8006c858[item_id*0x28]."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4064,7 +4064,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Returns true when mask 0x8100 is non-zero in the leading flags word of DAT_8006c858[item_id*0x28]."
+    "summary": "Returns true when mask 0x8100 is non-zero in the leading flags word of g_gfx_sprite_desc_tbl_ptr_8006c858[item_id*0x28]."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4080,7 +4080,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Reads descriptor entry DAT_8006c858[item_slot[0]*0x28], chooses parameter byte from puVar4[0x10] or item_slot[1] (if bit 0x800 set), and invokes callback pointer at +0x1c or returns -1."
+    "summary": "Reads descriptor entry g_gfx_sprite_desc_tbl_ptr_8006c858[item_slot[0]*0x28], chooses parameter byte from slot_word_ptr[0x10] or item_slot[1] (if bit 0x800 set), and invokes callback pointer at +0x1c or returns -1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4116,7 +4116,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Looks up a 13x13 tool area pattern in DAT_8006c858/DAT_8006c85c, rotates it by facing_dir via FUN_800d6488, and outputs relative tile offsets (out_dx, out_dz) for step_index + 1."
+    "summary": "Looks up a 13x13 tool area pattern in g_gfx_sprite_desc_tbl_ptr_8006c858/g_gfx_u32_idx_8006c85c, rotates it by facing_dir via p11_spr_rotate_13x13_tool_pattern, and outputs relative tile offsets (out_dx, out_dz) for step_index + 1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4132,7 +4132,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Looks up crop growth index at DAT_8006c858[crop_item_id*0x28 + 3] and returns mature stage count from DAT_8006c864[idx*0x10 + 2], or -1 if invalid."
+    "summary": "Looks up crop growth index at g_gfx_sprite_desc_tbl_ptr_8006c858[crop_item_id*0x28 + 3] and returns mature stage count from g_gfx_u32_idx_8006c864[idx*0x10 + 2], or -1 if invalid."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4148,7 +4148,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Looks up crop growth index at DAT_8006c858[crop_item_id*0x28 + 3] and returns post-harvest regrow stage at DAT_8006c864[idx*0x10 + 4], or -1 if non-regrowing."
+    "summary": "Looks up crop growth index at g_gfx_sprite_desc_tbl_ptr_8006c858[crop_item_id*0x28 + 3] and returns post-harvest regrow stage at g_gfx_u32_idx_8006c864[idx*0x10 + 4], or -1 if non-regrowing."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4164,7 +4164,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Looks up crop growth index at DAT_8006c858[crop_item_id*0x28 + 3] and returns harvested produce item ID at DAT_8006c864[idx*0x10 + 0xe], or 0."
+    "summary": "Looks up crop growth index at g_gfx_sprite_desc_tbl_ptr_8006c858[crop_item_id*0x28 + 3] and returns harvested produce item ID at g_gfx_u32_idx_8006c864[idx*0x10 + 0xe], or 0."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4184,7 +4184,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Looks up sub-entry index at DAT_8006c858[item_id*0x28 + 4 + slot_idx*2] into DAT_8006c860 and tests flag bit 0x8000."
+    "summary": "Looks up sub-entry index at g_gfx_sprite_desc_tbl_ptr_8006c858[item_id*0x28 + 4 + slot_idx*2] into g_gfx_ro_u32_8006c860 and tests flag bit 0x8000."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4204,7 +4204,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Looks up sub-entry index at DAT_8006c858[item_id*0x28 + 4 + slot_idx*2] into DAT_8006c860 and tests flag bit 0x2000."
+    "summary": "Looks up sub-entry index at g_gfx_sprite_desc_tbl_ptr_8006c858[item_id*0x28 + 4 + slot_idx*2] into g_gfx_ro_u32_8006c860 and tests flag bit 0x2000."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4224,7 +4224,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Looks up sub-entry index at DAT_8006c858[item_id*0x28 + 4 + slot_idx*2] into DAT_8006c860 and tests flag bit 0x4000."
+    "summary": "Looks up sub-entry index at g_gfx_sprite_desc_tbl_ptr_8006c858[item_id*0x28 + 4 + slot_idx*2] into g_gfx_ro_u32_8006c860 and tests flag bit 0x4000."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4244,7 +4244,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Reads 8-byte entry in DAT_8006c860 referenced by DAT_8006c858[item_id*0x28 + 4 + slot_idx*2] and returns halfword 0 when mask 0xe000 is non-zero, or -1."
+    "summary": "Reads 8-byte entry in g_gfx_ro_u32_8006c860 referenced by g_gfx_sprite_desc_tbl_ptr_8006c858[item_id*0x28 + 4 + slot_idx*2] and returns halfword 0 when mask 0xe000 is non-zero, or -1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4264,7 +4264,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Reads 8-byte entry in DAT_8006c860 referenced by DAT_8006c858[item_id*0x28 + 4 + slot_idx*2] and returns halfword +2 when mask 0xe000 is non-zero, or -1."
+    "summary": "Reads 8-byte entry in g_gfx_ro_u32_8006c860 referenced by g_gfx_sprite_desc_tbl_ptr_8006c858[item_id*0x28 + 4 + slot_idx*2] and returns halfword +2 when mask 0xe000 is non-zero, or -1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4284,7 +4284,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Looks up sub-entry index at DAT_8006c858[item_id*0x28 + 4 + slot_idx*2] into DAT_8006c860 and tests flag bit 0x800."
+    "summary": "Looks up sub-entry index at g_gfx_sprite_desc_tbl_ptr_8006c858[item_id*0x28 + 4 + slot_idx*2] into g_gfx_ro_u32_8006c860 and tests flag bit 0x800."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4300,7 +4300,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Returns shipping price at DAT_8006c858[(item_id&0xffff)*0x28 + 0x12], adding +10 bonus for item 0x97 (Apple/Honey event bit 0x400000 in DAT_80070d30)."
+    "summary": "Returns shipping price at g_gfx_sprite_desc_tbl_ptr_8006c858[(item_id&0xffff)*0x28 + 0x12], adding +10 bonus for item 0x97 (Apple/Honey event bit 0x400000 in g_npc_event_progress_flags_80070d30)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4316,7 +4316,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Checks descriptor flags word (*desc & 0x8100 == 0x8000) and sub-byte != 1 in DAT_8006c858 for item_id."
+    "summary": "Checks descriptor flags word (*desc & 0x8100 == 0x8000) and sub-byte != 1 in g_gfx_sprite_desc_tbl_ptr_8006c858 for item_id."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4352,7 +4352,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Decodes 3-bit NPC gift preference tier from packed table DAT_8006c86c indexed by descriptor gift group DAT_8006c858[item_id*0x28 + 0xe] and npc_id, adjusting tiers <5 when bits 0x180 are set."
+    "summary": "Decodes 3-bit NPC gift preference tier from packed table g_ovl15_state_8006c86c indexed by descriptor gift group g_gfx_sprite_desc_tbl_ptr_8006c858[item_id*0x28 + 0xe] and npc_id, adjusting tiers <5 when bits 0x180 are set."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4368,7 +4368,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Looks up crop growth index at DAT_8006c858[crop_item_id*0x28 + 3] and returns first u16 in DAT_8006c864[idx*0x10], or -1 if invalid."
+    "summary": "Looks up crop growth index at g_gfx_sprite_desc_tbl_ptr_8006c858[crop_item_id*0x28 + 3] and returns first u16 in g_gfx_u32_idx_8006c864[idx*0x10], or -1 if invalid."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4392,7 +4392,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Clamps and applies deltas to player stamina DAT_80071a12, fatigue DAT_80071a16 (0..100, capped at 99 at 6:00 when DAT_80070cf8 == 6), and DAT_80071a58, returning 1."
+    "summary": "Clamps and applies deltas to player stamina g_core_player_state_8007_stamina_80071a12, fatigue g_core_player_state_8007_pad_0x16_80071a16 (0..100, capped at 99 at 6:00 when g_farm_cal_hour_80070cf8 == 6), and g_core_player_state_8007_pad_0x3a_idx15_80071a58, returning 1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4475,7 +4475,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Finds a zero entry in the 9-slot table DAT_800a0494 + bank_idx*9, stores item_id, and returns the slot index or -1."
+    "summary": "Finds a zero entry in the 9-slot table g_gfx_tbl_800a0494 + bank_idx*9, stores item_id, and returns the slot index or -1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4491,7 +4491,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Scans 9 sprite pack entries in DAT_800a04b8 + bank_idx*0x10e (stride 0x1e) and returns 0 if any active entry has VRAM X (+0x18) >= 0x3f0, else 1."
+    "summary": "Scans 9 sprite pack entries in g_gfx_tbl_800a04b8 + bank_idx*0x10e (stride 0x1e) and returns 0 if any active entry has VRAM X (+0x18) >= 0x3f0, else 1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4507,7 +4507,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Finds the first unused slot row 0..7 in DAT_800a04b8 + bank_idx*0x10e where *entry != row*8 or entry[0xc] >= 0x3f0."
+    "summary": "Finds the first unused slot row 0..7 in g_gfx_tbl_800a04b8 + bank_idx*0x10e where *entry != row*8 or entry[0xc] >= 0x3f0."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4523,7 +4523,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Looks up area pack index *(DAT_800a0378+10), scans PTR_DAT_80126254/PTR_DAT_80125528 for prop_id, and returns &DAT_800957f8 + offset or NULL."
+    "summary": "Looks up area pack index *(g_core_event_script_ctx_800a0378+10), scans g_dat_ptr_80126254/g_dat_ptr_80125528 for prop_id, and returns &g_gfx_tbl_800957f8 + offset or NULL."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4607,7 +4607,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Builds a SPRT + DR_MODE primitive pair from DAT_800a04b8[bank_idx, slot_idx], links both into ot_head via AddPrim, and returns advanced prim_buf + 0x20."
+    "summary": "Builds a SPRT + DR_MODE primitive pair from g_gfx_tbl_800a04b8[bank_idx, slot_idx], links both into ot_head via AddPrim, and returns advanced prim_buf + 0x20."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4707,7 +4707,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Classifies held item ID *item_slot using DAT_8006c858 descriptor bits (0x400 -> 4, 0x1800 -> 3, 0x40 -> 1, 0x100 -> 0) and special item IDs (0x3a..0x65 -> 5, default -> 2)."
+    "summary": "Classifies held item ID *item_slot using g_gfx_sprite_desc_tbl_ptr_8006c858 descriptor bits (0x400 -> 4, 0x1800 -> 3, 0x40 -> 1, 0x100 -> 0) and special item IDs (0x3a..0x65 -> 5, default -> 2)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4793,7 +4793,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Iterates all 45x25 tiles in DAT_80071dfc, maps soil state (0x167..0x16b) or grass tile 0x36 connectivity mask to mesh variant ID, and updates tile visuals via FUN_800d759c."
+    "summary": "Iterates all 45x25 tiles in g_farm_field_grid_80071dfc, maps soil state (0x167..0x16b) or grass tile 0x36 connectivity mask to mesh variant ID, and updates tile visuals via p11_spr_noop_outdoor_tile_mesh_stub."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4809,7 +4809,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 6,
-    "summary": "Scans the 45x25 outdoor farm field grid in world coordinates (-0x1068..+X, 0x5dc..-Z, step 400), probing collision flags via FUN_800bdb88 and caching matching cell pointers in 0x8009e5f8."
+    "summary": "Scans the 45x25 outdoor farm field grid in world coordinates (-0x1068..+X, 0x5dc..-Z, step 400), probing collision flags via hm_ovl11_update_camera_projection and caching matching cell pointers in 0x8009e5f8."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4820,7 +4820,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Initializes all 7x7 tiles of DAT_80074124 (greenhouse grid) to empty soil 0x167 with zero growth/water bytes."
+    "summary": "Initializes all 7x7 tiles of g_farm_greenhouse_grid_80074124 (greenhouse grid) to empty soil 0x167 with zero growth/water bytes."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4848,7 +4848,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Checks tile bounds (tile_x, tile_z) against DAT_80123e04/DAT_80123e06 and tests tile collision bit 8 in DAT_8009e5f8 when require_tillable != 0; returns 1 if blocked."
+    "summary": "Checks tile bounds (tile_x, tile_z) against g_gfx_u16_80123e04/g_gfx_u16_80123e06 and tests tile collision bit 8 in g_farm_u32_8009e5f8 when require_tillable != 0; returns 1 if blocked."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4904,7 +4904,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Plants seed_item_id onto tilled soil (0x168/0x169) returned by hm_ovl11_set_actor_facing_vec, rolls 1/25 chance for special flower 0x179 vs 0x178 on seed 0x33, clears stage bytes, and updates mesh via PTR_FUN_80123dfc."
+    "summary": "Plants seed_item_id onto tilled soil (0x168/0x169) returned by hm_ovl11_set_actor_facing_vec, rolls 1/25 chance for special flower 0x179 vs 0x178 on seed 0x33, clears stage bytes, and updates mesh via g_fn_ptr_80123dfc."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4928,7 +4928,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Marks tilled soil (0x168 -> 0x169, 0x16a -> 0x16b) as watered on non-winter or indoor tiles via hm_ovl11_set_actor_facing_vec and updates tile appearance through PTR_FUN_80123dfc."
+    "summary": "Marks tilled soil (0x168 -> 0x169, 0x16a -> 0x16b) as watered on non-winter or indoor tiles via hm_ovl11_set_actor_facing_vec and updates tile appearance through g_fn_ptr_80123dfc."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4952,7 +4952,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 9,
-    "summary": "Validates tillability via FUN_800d5f44 on outdoor/greenhouse farm plots, sets soil state (0x168 dry or 0x169 watered in rain), rolls item drop via FUN_800cf95c, and updates crop tile mesh."
+    "summary": "Validates tillability via p11_spr_has_recipe_ingredient_bit_0x800 on outdoor/greenhouse farm plots, sets soil state (0x168 dry or 0x169 watered in rain), rolls item drop via p11_field_roll_spawn_bug_or_forage_drop, and updates crop tile mesh."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4968,7 +4968,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Validates harvestable mature crop on tile_ptr via FUN_800d5868/89c/c3c, advances regrowing crops via FUN_800d5c90 or resets tile to base soil, and maps flower IDs 0x3a..0x40 to 0x13a..0x13d by season DAT_80070cf2."
+    "summary": "Validates harvestable mature crop on tile_ptr via hm_ovl11_is_entity_slot_active/89c/c3c, advances regrowing crops via p11_spr_get_crop_regrow_stage or resets tile to base soil, and maps flower IDs 0x3a..0x40 to 0x13a..0x13d by season g_farm_calendar_clock_80070cf2."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4992,7 +4992,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 9,
-    "summary": "Checks cuttable field contents via FUN_800d5d38, harvests fodder grass (0x36 -> FUN_800f397c) or clears weeds/dead crops via FUN_800dac08 and FUN_800dacd4, and rolls forage drop via FUN_800cf95c."
+    "summary": "Checks cuttable field contents via p11_spr_has_recipe_ingredient_bit_0x8000, harvests fodder grass (0x36 -> p11_evt_add_chicken_feed_count) or clears weeds/dead crops via p11_spr_spawn_grid_tile_effect and p11_spr_cut_single_grass_tile, and rolls forage drop via p11_field_roll_spawn_bug_or_forage_drop."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5024,7 +5024,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 4,
-    "summary": "Checks tool tier and charge requirements on a farm field cell (rocks, boulders, stumps, logs, branches, grass) and clears multi-tile obstacles via FUN_800da390 and FUN_800dac08 while awarding wood."
+    "summary": "Checks tool tier and charge requirements on a farm field cell (rocks, boulders, stumps, logs, branches, grass) and clears multi-tile obstacles via p11_spr_clear_field_tile_to_soil and p11_spr_spawn_grid_tile_effect while awarding wood."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5040,7 +5040,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Iterates all 45x25 tiles in DAT_80071dfc (row stride 0xb4, tile stride 8) and sets bit 0x10 (rain/watered) or 0x20 (clear) on every tile via FUN_800da454."
+    "summary": "Iterates all 45x25 tiles in g_farm_field_grid_80071dfc (row stride 0xb4, tile stride 8) and sets bit 0x10 (rain/watered) or 0x20 (clear) on every tile via p11_spr_try_wilt_blue_magic_flower."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5051,7 +5051,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Sweeps all 45x25 tiles in DAT_80071dfc and clears render/growth/water state flags via FUN_800da49c(..., 0x10), FUN_800da518(..., 8), and FUN_800da454(..., 0x10)."
+    "summary": "Sweeps all 45x25 tiles in g_farm_field_grid_80071dfc and clears render/growth/water state flags via p11_spr_try_wither_crop_tile_by_chance(..., 0x10), p11_spr_try_wither_grown_grass_tile(..., 8), and p11_spr_try_wilt_blue_magic_flower(..., 0x10)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5067,7 +5067,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Projects a +/-0xe10 window around camera/spawn anchor (DAT_800a03a4, DAT_800a03a8) into clamped [0..0x2d] x [0..0x19] field tile bounds."
+    "summary": "Projects a +/-0xe10 window around camera/spawn anchor (g_core_spawn_pos_x_800a03a4, g_core_spawn_pos_z_800a03a8) into clamped [0..0x2d] x [0..0x19] field tile bounds."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5078,7 +5078,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 3,
-    "summary": "Computes visible field bounds via FUN_800d92fc, dispatches seasonal crop sprite mapper (FUN_800d95ec/81c/b14/LAB_800d9e10) over DAT_80071dfc tiles, projects each tile via hm_ovl11_project_npc_bubble_pos, and submits crop quads via hm_sprite_submit_0x0e_quad."
+    "summary": "Computes visible field bounds via p11_spr_compute_visible_field_tile_bounds, dispatches seasonal crop sprite mapper (p11_spr_map_spring_crop_tile_sprite/81c/b14/loc_800d9e10) over g_farm_field_grid_80071dfc tiles, projects each tile via hm_ovl11_project_npc_bubble_pos, and submits crop quads via hm_sprite_submit_0x0e_quad."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5110,7 +5110,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Maps Spring crop/flower/forage IDs (0x22..0x34, 0x3a..0x64, 0x16d..0x175) and growth_stage to sprite index, flags, and vertical offset via FUN_800d9efc."
+    "summary": "Maps Spring crop/flower/forage IDs (0x22..0x34, 0x3a..0x64, 0x16d..0x175) and growth_stage to sprite index, flags, and vertical offset via p11_spr_emit_crop_sprite_if_grown."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5142,7 +5142,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Maps Summer crop/flower/forage IDs (0x22..0x35, 0x3a..0x40, 0x16d..0x175) and growth_stage to sprite index, flags, and vertical offset via FUN_800d9efc."
+    "summary": "Maps Summer crop/flower/forage IDs (0x22..0x35, 0x3a..0x40, 0x16d..0x175) and growth_stage to sprite index, flags, and vertical offset via p11_spr_emit_crop_sprite_if_grown."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5174,7 +5174,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Maps Fall crop/flower/forage IDs (0x27..0x35, 0x3a..0x40, 0x16d..0x179) and growth_stage to sprite index, flags, and vertical offset via FUN_800d9efc."
+    "summary": "Maps Fall crop/flower/forage IDs (0x27..0x35, 0x3a..0x40, 0x16d..0x179) and growth_stage to sprite index, flags, and vertical offset via p11_spr_emit_crop_sprite_if_grown."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5217,7 +5217,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 3,
-    "summary": "Iterates over the 7x7 greenhouse grid DAT_80074124, projects each tile via hm_ovl11_project_npc_bubble_pos, maps crop IDs (0x22..0x3f, 0x175..0x179) and growth byte DAT_80074128 via FUN_800d9efc, and submits quads to DAT_8005e3c0 via hm_sprite_submit_0x0e_quad."
+    "summary": "Iterates over the 7x7 greenhouse grid g_farm_greenhouse_grid_80074124, projects each tile via hm_ovl11_project_npc_bubble_pos, maps crop IDs (0x22..0x3f, 0x175..0x179) and growth byte g_farm_greenhouse_grid_8_idx4_80074128 via p11_spr_emit_crop_sprite_if_grown, and submits quads to g_gfx_active_disp_ctx_ptr_8005e3c0 via hm_sprite_submit_0x0e_quad."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5249,7 +5249,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Checks season DAT_80070cf2 (Spring 1/128, Summer 1/64, Fall 1/128) and if tile_ptr[0] is empty soil (0x167..0x169), rolls hm_prng_next to spawn forage item 0x40 on the tile."
+    "summary": "Checks season g_farm_calendar_clock_80070cf2 (Spring 1/128, Summer 1/64, Fall 1/128) and if tile_ptr[0] is empty soil (0x167..0x169), rolls hm_prng_next to spawn forage item 0x40 on the tile."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5309,7 +5309,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "If tile_ptr[0] is grown grass (0x36 with non-zero stage) and hm_prng_next(chance_denom) == 0, regresses its stage via FUN_800d5c90(0x36) and sets bit 0x8000 on tile_ptr[3]."
+    "summary": "If tile_ptr[0] is grown grass (0x36 with non-zero stage) and hm_prng_next(chance_denom) == 0, regresses its stage via p11_spr_get_crop_regrow_stage(0x36) and sets bit 0x8000 on tile_ptr[3]."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5325,7 +5325,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Reads sprite frame count (clamped to 0x2c) from PTR_DAT_80125528[pack_idx] and initializes consecutive 0x30-byte slots in DAT_80070400 from DAT_800957f8 offsets via hm_sprite_init_0x0e_anim."
+    "summary": "Reads sprite frame count (clamped to 0x2c) from g_dat_ptr_80125528[pack_idx] and initializes consecutive 0x30-byte slots in g_gfx_tbl_80070400 from g_gfx_tbl_800957f8 offsets via hm_sprite_init_0x0e_anim."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5357,7 +5357,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Evaluates 3x3 grass (0x36) bitmasks across the 9 neighboring tiles around (tile_x, tile_z) using DAT_80123e14 and hm_ovl11_set_actor_facing_vec, computes autotile variants 0..7, and updates meshes via PTR_FUN_80123dfc."
+    "summary": "Evaluates 3x3 grass (0x36) bitmasks across the 9 neighboring tiles around (tile_x, tile_z) using g_gfx_u32_80123e14 and hm_ovl11_set_actor_facing_vec, computes autotile variants 0..7, and updates meshes via g_fn_ptr_80123dfc."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5385,7 +5385,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 3,
-    "summary": "Converts outdoor field (is_greenhouse == 0) or greenhouse (7x7) tile coordinates (grid_x, grid_z) into world space and spawns effect_id via FUN_8012135c."
+    "summary": "Converts outdoor field (is_greenhouse == 0) or greenhouse (7x7) tile coordinates (grid_x, grid_z) into world space and spawns effect_id via p11_ovl_spawn_seasonal_fx_sprite."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5409,7 +5409,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Cuts grown grass tile 0x36 at (tile_x, tile_z) by resetting growth byte via FUN_800d5c90(0x36), setting bit 0x8000 on tile[3], and refreshing the tile mesh via PTR_FUN_80123dfc."
+    "summary": "Cuts grown grass tile 0x36 at (tile_x, tile_z) by resetting growth byte via p11_spr_get_crop_regrow_stage(0x36), setting bit 0x8000 on tile[3], and refreshing the tile mesh via g_fn_ptr_80123dfc."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5441,7 +5441,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Scans DAT_80071dfc (45x25) or greenhouse DAT_80074124 (7x7) from a random start via hm_prng_next matching crop ID, soil ID, and stage byte per wildcard mask match_flags (bits 0..2), returning first or total count (bit 3)."
+    "summary": "Scans g_farm_field_grid_80071dfc (45x25) or greenhouse g_farm_greenhouse_grid_80074124 (7x7) from a random start via hm_prng_next matching crop ID, soil ID, and stage byte per wildcard mask match_flags (bits 0..2), returning first or total count (bit 3)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5468,7 +5468,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Resets player/camera XZ clamp bounds DAT_80128de8..DAT_80128df4 to the default outdoor farm perimeter."
+    "summary": "Resets player/camera XZ clamp bounds g_gfx_val_u16_80128de8..g_gfx_state_80128df4 to the default outdoor farm perimeter."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5488,7 +5488,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Copies min_vec[0..2] and max_vec[0..2] into world camera/entity boundary globals DAT_80128de8..DAT_80128df4."
+    "summary": "Copies min_vec[0..2] and max_vec[0..2] into world camera/entity boundary globals g_gfx_val_u16_80128de8..g_gfx_state_80128df4."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5504,7 +5504,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Clamps pos_vec[0] (X) and pos_vec[2] (Z) against active bounding box DAT_80128de8..DAT_80128df4."
+    "summary": "Clamps pos_vec[0] (X) and pos_vec[2] (Z) against active bounding box g_gfx_val_u16_80128de8..g_gfx_state_80128df4."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5515,7 +5515,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Zeroes the 0xb4-byte VRAM scroll/anim table and marks all 8 slot IDs starting at DAT_800a03b0 (stride 0x16) as unused (0xffff)."
+    "summary": "Zeroes the 0xb4-byte VRAM scroll/anim table and marks all 8 slot IDs starting at g_core_event_script_ctx_reserved_0x0c_idx11_800a03b0 (stride 0x16) as unused (0xffff)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5531,7 +5531,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Avoids duplicate IDs in DAT_800a03b0 (8 slots stride 0x16), finds an unused (-1) slot, zeroes it via memset, and copies VRAM RECT/frame fields from slot_desc."
+    "summary": "Avoids duplicate IDs in g_core_event_script_ctx_reserved_0x0c_idx11_800a03b0 (8 slots stride 0x16), finds an unused (-1) slot, zeroes it via memset, and copies VRAM RECT/frame fields from slot_desc."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5547,7 +5547,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Checks DAT_800a03b0 for matching slot_id, clears its 0x16 bytes via memset, and resets its ID to 0xffff."
+    "summary": "Checks g_core_event_script_ctx_reserved_0x0c_idx11_800a03b0 for matching slot_id, clears its 0x16 bytes via memset, and resets its ID to 0xffff."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5563,7 +5563,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Iterates up to 8 VRAM/tile animation descriptors at script_ctx+0x8a8 (stride 0x12) when zone != 0xf or weather DAT_8007ad00 is storm/snow, dispatching active entries (!= -1) to FUN_800db140."
+    "summary": "Iterates up to 8 VRAM/tile animation descriptors at script_ctx+0x8a8 (stride 0x12) when zone != 0xf or weather g_farm_current_weather_8007ad00 is storm/snow, dispatching active entries (!= -1) to p11_spr_register_vram_anim_slot."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5579,7 +5579,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Uploads the current VRAM RECT via MoveImage unless suppressed by zone 0x5b without event flag 0x45, increments frame counter (+10), and loads the next frame descriptor from DAT_800a0378+0x8a8."
+    "summary": "Uploads the current VRAM RECT via MoveImage unless suppressed by zone 0x5b without event flag 0x45, increments frame counter (+10), and loads the next frame descriptor from g_core_event_script_ctx_800a0378+0x8a8."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5606,7 +5606,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Loops over 8 world prop slots at DAT_800a03b0 (stride 0x16) when DAT_8006c844 pause bit 0x8000000 is clear, dispatching active slots (!= 0xffff) to FUN_800db4e0 or FUN_800db354 (if bit 0x8000 set)."
+    "summary": "Loops over 8 world prop slots at g_core_event_script_ctx_reserved_0x0c_idx11_800a03b0 (stride 0x16) when g_core_engine_flags0_8006c844 pause bit 0x8000000 is clear, dispatching active slots (!= 0xffff) to p11_spr_step_vram_scroll_slot or p11_spr_step_vram_moveimage_slot (if bit 0x8000 set)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5617,7 +5617,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Rotates camera distance DAT_800a0384 by yaw DAT_800a0390 around DAT_800a4008 matrix via GTE PushMatrix/RotMatrix/RotTrans/PopMatrix into DAT_800a039c..a0."
+    "summary": "Rotates camera distance g_core_event_script_ctx_reserved_0x0c_800a0384 by yaw g_core_event_script_ctx_reserved_0x0c_idx3_800a0390 around g_gfx_state_800a4008 matrix via GTE PushMatrix/RotMatrix/RotTrans/PopMatrix into g_gfx_cam_offset_x_800a039c..a0."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5628,7 +5628,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Updates camera eye position (DAT_800a039c/9e/a0 + spawn DAT_800a03a4/a8) via FUN_8001b9f8 and camera target position DAT_800a03a4/a6/a8 via FUN_8001ba40."
+    "summary": "Updates camera eye position (g_gfx_cam_offset_x_800a039c/9e/a0 + spawn g_core_spawn_pos_x_800a03a4/a8) via gfx_cam_set_eye and camera target position g_core_spawn_pos_x_800a03a4/a6/a8 via gfx_cam_set_target."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5639,7 +5639,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Sets default camera orbit distance (-0x2328), pitch/height (-0x1194), and yaw (-0x200) globals DAT_800a0384..DAT_800a0394."
+    "summary": "Sets default camera orbit distance (-0x2328), pitch/height (-0x1194), and yaw (-0x200) globals g_core_event_script_ctx_reserved_0x0c_800a0384..g_core_event_script_ctx_reserved_0x0c_idx4_800a0394."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5650,7 +5650,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Configures 3 PS1 SDK flat lights (DAT_80128db8/c8/d8) via GsSetFlatLight, sets ambient light (0x800, 0x800, 0x800) via GsSetAmbient, and enables light mode 0 via GsSetLightMode."
+    "summary": "Configures 3 PS1 SDK flat lights (g_gfx_u32_80128db8/c8/d8) via GsSetFlatLight, sets ambient light (0x800, 0x800, 0x800) via GsSetAmbient, and enables light mode 0 via GsSetLightMode."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5661,7 +5661,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Steps particle/effect update pools FUN_80038fe4(1000) and FUN_800379b4(1000) once per frame."
+    "summary": "Steps particle/effect update pools gfx_sdk_set_geom_screen_wrap(1000) and gfx_sdk_set_geom_screen(1000) once per frame."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5672,7 +5672,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 3,
-    "summary": "Adds camera offsets DAT_800a039c/9e/a0 to spawn anchor DAT_800a03a4/a6/a8 into a local camera vector pair and draws DAT_80128818 via hm_gte_draw_animated_model."
+    "summary": "Adds camera offsets g_gfx_cam_offset_x_800a039c/9e/a0 to spawn anchor g_core_spawn_pos_x_800a03a4/a6/a8 into a local camera vector pair and draws g_gfx_u32_80128818 via hm_gte_draw_animated_model."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5683,7 +5683,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Zeroes camera offset and target anchor globals DAT_800a039c..DAT_800a03a8."
+    "summary": "Zeroes camera offset and target anchor globals g_gfx_cam_offset_x_800a039c..g_core_spawn_pos_z_800a03a8."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5694,7 +5694,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Zeroes DAT_800742ac and resets 5 HUD prompt slots, clears DAT_8006c868, fills 0x80-byte + 8-byte timer blocks at DAT_8007aef7/aeff with 0xff, zeroes DAT_8007af7f, and sets default icon timers at DAT_8007ae79..aea4."
+    "summary": "Zeroes g_anim_shipping_pet_state_800742ac and resets 5 HUD prompt slots, clears g_npc_active_cutscene_actor_ptr_8006c868, fills 0x80-byte + 8-byte timer blocks at g_gfx_u8_8007aef7/aeff with 0xff, zeroes g_gfx_u8_8007af7f, and sets default icon timers at g_gfx_val_u8_8007ae79..aea4."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5710,7 +5710,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Scans the 5 HUD prompt slots starting at DAT_800742b0 (stride 0xc) for active entry matching prompt_id, returning 1 if found."
+    "summary": "Scans the 5 HUD prompt slots starting at g_anim_shipping_pet_stat_idx4_800742b0 (stride 0xc) for active entry matching prompt_id, returning 1 if found."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5726,7 +5726,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Invokes FUN_800dbd78(prompt_id, 0, 0) to trigger a default HUD/screen prompt banner."
+    "summary": "Invokes p11_gfx_alloc_hud_prompt_slot(prompt_id, 0, 0) to trigger a default HUD/screen prompt banner."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5742,7 +5742,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Invokes FUN_800dbd78(prompt_id, 1, 0) to trigger a mode-1 HUD/screen prompt banner."
+    "summary": "Invokes p11_gfx_alloc_hud_prompt_slot(prompt_id, 1, 0) to trigger a mode-1 HUD/screen prompt banner."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5758,7 +5758,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Invokes FUN_800dbd78(prompt_id, 0, 1) to trigger a mode-2 HUD/screen prompt banner."
+    "summary": "Invokes p11_gfx_alloc_hud_prompt_slot(prompt_id, 0, 1) to trigger a mode-2 HUD/screen prompt banner."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5769,7 +5769,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 3,
-    "summary": "Increments byte counters in DAT_8007ae78..8007aef8 capped at 0x78 when active, checks festival status via hm_ovl11_grid_tile_to_world, and steps cutscene triggers via hm_ovl11_trigger_cutscene_script while updating DAT_8007aef8 on storm/snow weather."
+    "summary": "Increments byte counters in g_ovl15_u8_8007ae78..8007aef8 capped at 0x78 when active, checks festival status via hm_ovl11_grid_tile_to_world, and steps cutscene triggers via hm_ovl11_trigger_cutscene_script while updating g_gfx_u32_8007aef8 on storm/snow weather."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5793,7 +5793,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Optionally checks FUN_800dbb94, then scans 1 or 5 12-byte slots starting at DAT_800742b0 for a free (-1) entry, zeroes its fields, and returns its pointer."
+    "summary": "Optionally checks p11_gfx_is_hud_prompt_queued, then scans 1 or 5 12-byte slots starting at g_anim_shipping_pet_stat_idx4_800742b0 for a free (-1) entry, zeroes its fields, and returns its pointer."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5809,7 +5809,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Invokes handler PTR_FUN_800b94ac[anim_index](), sets event flag 2 while running (!= 1), or clears flag 2, zeroes DAT_800742ac, and calls FUN_800dbe9c on completion."
+    "summary": "Invokes handler g_fn_ptr_800b94ac[anim_index](), sets event flag 2 while running (!= 1), or clears flag 2, zeroes g_anim_shipping_pet_state_800742ac, and calls p11_gfx_pop_hud_prompt_queue on completion."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5820,7 +5820,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Shifts the 5-slot HUD prompt queue starting at DAT_800742b0 down by one 12-byte entry and marks tail slot DAT_800742e0 as 0xffff."
+    "summary": "Shifts the 5-slot HUD prompt queue starting at g_anim_shipping_pet_stat_idx4_800742b0 down by one 12-byte entry and marks tail slot g_anim_shipping_pet_stat_idx52_800742e0 as 0xffff."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5831,7 +5831,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 1,
-    "summary": "Checks whether DAT_8006c868+4 is non-zero; when true clears event flag 2 via hm_event_flag_set, zeroes DAT_800742ac, and invokes FUN_800dbe9c."
+    "summary": "Checks whether g_npc_active_cutscene_actor_ptr_8006c868+4 is non-zero; when true clears event flag 2 via hm_event_flag_set, zeroes g_anim_shipping_pet_state_800742ac, and invokes p11_gfx_pop_hud_prompt_queue."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5842,7 +5842,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Checks HUD prompt queue slots 1..4 starting at DAT_800742bc and returns 1 if any slot != -1."
+    "summary": "Checks HUD prompt queue slots 1..4 starting at g_anim_shipping_pet_stat_idx16_800742bc and returns 1 if any slot != -1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5853,7 +5853,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Zeroes DAT_800a0380 active trigger pointer and resets DAT_800a0474 and DAT_800a0478 to 0xffff."
+    "summary": "Zeroes g_core_event_script_ctx_active_trigger_800a0380 active trigger pointer and resets g_core_event_script_ctx_reserved_0xfc_800a0474 and g_core_event_script_ctx_reserved_0xfc_idx1_800a0478 to 0xffff."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5864,7 +5864,7 @@
     "params": [],
     "domain": "render_gte_sprites",
     "wave": 0,
-    "summary": "Calls FUN_8001e334(200) to reset world sprite rendering buffers."
+    "summary": "Calls hm_res_gfx_reset_world_spr_8001e334(200) to reset world sprite rendering buffers."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5904,7 +5904,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 3,
-    "summary": "Clears active animal emote/status via FUN_800f3bcc(animal_rec+0xb6), plays SFX 0x13 and sets event flag 7 if animal_rec+0x30 == 0, clears +0xb6 and +0xdc, and returns 1."
+    "summary": "Clears active animal emote/status via p11_evt_record_shipped_item(animal_rec+0xb6), plays SFX 0x13 and sets event flag 7 if animal_rec+0x30 == 0, clears +0xb6 and +0xdc, and returns 1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5932,7 +5932,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Looks up indoor/outdoor animal waypoint coordinates from UNK_80127d90..80127e40 by waypoint_kind (0..5) and barn/coop upgrade flags DAT_80070d08/0a, writing matching XYZ to out_pos."
+    "summary": "Looks up indoor/outdoor animal waypoint coordinates from g_unk_80127d90..80127e40 by waypoint_kind (0..5) and barn/coop upgrade flags g_farm_upgrade_flags0_80070d08/0a, writing matching XYZ to out_pos."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5948,7 +5948,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 5,
-    "summary": "Offsets the animal's position by facing radius via hm_ovl11_get_item_category_flags, probes collision mask 0x8026 via FUN_800be26c, and if flag 0x20 hits inspects the tile via FUN_800d85f8."
+    "summary": "Offsets the animal's position by facing radius via hm_ovl11_get_item_category_flags, probes collision mask 0x8026 via p11_core_probe_actor_ray_unbounded, and if flag 0x20 hits inspects the tile via p11_spr_harvest_crop_from_tile."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5968,7 +5968,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Projects a 100-unit forward offset along animal heading animal_rec+0x22 via hm_ovl11_get_item_category_flags, converts to tile via hm_ovl11_interp_entity_heading or FUN_8011e090, and clears tile via FUN_800d8320."
+    "summary": "Projects a 100-unit forward offset along animal heading animal_rec+0x22 via hm_ovl11_get_item_category_flags, converts to tile via hm_ovl11_interp_entity_heading or p11_ui_world_pos_to_7x7_grid, and clears tile via p11_spr_water_field_or_greenhouse_tile."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6008,7 +6008,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Checks whether animal_rec is positioned inside barn/target zone 5 via FUN_80110494(animal_rec, 5, 0) and returns true if non-zero."
+    "summary": "Checks whether animal_rec is positioned inside barn/target zone 5 via p11_field_wait_animal_zone_dwell(animal_rec, 5, 0) and returns true if non-zero."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6028,7 +6028,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 20,
-    "summary": "Sets animal target slot via FUN_800d1960, steps movement via FUN_8010e644, preserves bit 0x800 on animal_rec+0x34, and clears velocity via hm_ovl11_get_item_category_flags(4, animal_rec+0x48, 0) upon arrival when flag 0x2000 clears."
+    "summary": "Sets animal target slot via p11_field_set_seek_arrival_radius, steps movement via p11_animl_sprite_step_move_collision, preserves bit 0x800 on animal_rec+0x34, and clears velocity via hm_ovl11_get_item_category_flags(4, animal_rec+0x48, 0) upon arrival when flag 0x2000 clears."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6052,7 +6052,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 4,
-    "summary": "Resolves a pasture/barn/coop grid slot via FUN_80110658, converts its tile coordinates to world position via FUN_800d812c, and writes the coordinates via hm_ovl11_modify_gold_or_counters."
+    "summary": "Resolves a pasture/barn/coop grid slot via p11_field_find_random_matching_field_tile, converts its tile coordinates to world position via p11_spr_tile_coords_to_world_pos, and writes the coordinates via hm_ovl11_modify_gold_or_counters."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6084,7 +6084,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 3,
-    "summary": "Starts at a random tile via hm_prng_next in DAT_80071dfc (45x25) or greenhouse DAT_80074124 (7x7) and scans wraparound using predicate FUN_80110790/FUN_80110838/FUN_80110890, returning tile coordinates on match (0) or 1 if none found."
+    "summary": "Starts at a random tile via hm_prng_next in g_farm_field_grid_80071dfc (45x25) or greenhouse g_farm_greenhouse_grid_80074124 (7x7) and scans wraparound using predicate p11_field_is_tile_active_crop_stage/p11_field_is_tile_tall_grass/p11_field_is_tile_weed_or_grass, returning tile coordinates on match (0) or 1 if none found."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6100,7 +6100,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Checks tile via FUN_801108f8, excludes grass/special ranges (0x31..0x35, 0x178..0x179), and returns 1 when the tile growth byte matches its max stage descriptor in DAT_8006c858/DAT_8006c864."
+    "summary": "Checks tile via p11_field_is_tile_valid_non_grass_crop, excludes grass/special ranges (0x31..0x35, 0x178..0x179), and returns 1 when the tile growth byte matches its max stage descriptor in g_gfx_sprite_desc_tbl_ptr_8006c858/g_gfx_u32_idx_8006c864."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6116,7 +6116,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Checks tile via FUN_801108f8 and returns 1 if the secondary tile ID at tile_ptr+2 is 0x168 or 0x16a (cuttable grass/weed)."
+    "summary": "Checks tile via p11_field_is_tile_valid_non_grass_crop and returns 1 if the secondary tile ID at tile_ptr+2 is 0x168 or 0x16a (cuttable grass/weed)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6132,7 +6132,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Checks tile via FUN_801108f8 and returns 1 if the secondary tile ID at tile_ptr+2 is 0x168, 0x169, 0x16a, or 0x16b."
+    "summary": "Checks tile via p11_field_is_tile_valid_non_grass_crop and returns 1 if the secondary tile ID at tile_ptr+2 is 0x168, 0x169, 0x16a, or 0x16b."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6168,7 +6168,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Scans chicken coop DAT_800742ec or barn livestock DAT_800749f4 (plus pregnant/special slots DAT_80076202/6206 and NPC actor jobs) matching target_zone and filter_flags (fed/produce/sick), returning a random index via hm_prng_next."
+    "summary": "Scans chicken coop g_anim_chicken_coop_tbl_800742ec or barn livestock g_anim_livestock_barn_tbl_800749f4 (plus pregnant/special slots g_farm_ro_u16_80076202/6206 and NPC actor jobs) matching target_zone and filter_flags (fed/produce/sick), returning a random index via hm_prng_next."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6188,7 +6188,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Computes indoor barn stall XYZ coordinates from DAT_80127e60/64/68 for livestock slot_idx (0..0x15, including pregnant slots 0x14/0x15)."
+    "summary": "Computes indoor barn stall XYZ coordinates from g_farm_u32_80127e60/64/68 for livestock slot_idx (0..0x15, including pregnant slots 0x14/0x15)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6208,7 +6208,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Computes coop perch XYZ coordinates from DAT_80127ec0/c4/c8 at 400-unit X spacing for chicken slot_idx."
+    "summary": "Computes coop perch XYZ coordinates from g_farm_u32_80127ec0/c4/c8 at 400-unit X spacing for chicken slot_idx."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6240,7 +6240,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Reads Harvest Sprite spawn XYZ and facing from DAT_80127ee0..ec using sprite ID sprite_actor+0xac, writes +0x38..+0x40 and +0x22, and sets zone +0x30 = 0x28."
+    "summary": "Reads Harvest Sprite spawn XYZ and facing from g_farm_u32_80127ee0..ec using sprite ID sprite_actor+0xac, writes +0x38..+0x40 and +0x22, and sets zone +0x30 = 0x28."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6264,7 +6264,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Computes Harvest Sprite task animation/move speed from season DAT_80070cf2/day, active chore (+0x26, +0xb8), skill levels (+0xae..+0xb2), and individual modifier DAT_80127f50."
+    "summary": "Computes Harvest Sprite task animation/move speed from season g_farm_calendar_clock_80070cf2/day, active chore (+0x26, +0xb8), skill levels (+0xae..+0xb2), and individual modifier g_farm_u32_80127f50."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6280,7 +6280,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Selects chore skill (+0xae, +0xb0, +0xb2) by Harvest Sprite task state (+0x26 == 8..10) and returns 2 * DAT_80076212[skill / 0x34] (or 0x18)."
+    "summary": "Selects chore skill (+0xae, +0xb0, +0xb2) by Harvest Sprite task state (+0x26 == 8..10) and returns 2 * g_farm_u16_80076212[skill / 0x34] (or 0x18)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6312,7 +6312,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Dispatches item_id in range 0x41..0x124 through jump table PTR_LAB_800bac24 to handle animal/NPC item gift response, returning -1 if out of range."
+    "summary": "Dispatches item_id in range 0x41..0x124 through jump table g_jtbl_ptr_800bac24 to handle animal/NPC item gift response, returning -1 if out of range."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6339,7 +6339,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Resets DAT_8012d0e8 to 0, computes sunset hour via FUN_80111d28 and day phase via FUN_80111cc4, and submits initial sky palette gradient to DAT_8012d088/DAT_8012d0a8 via FUN_8001f664."
+    "summary": "Resets g_farm_state_8012d0e8 to 0, computes sunset hour via p11_field_get_season_sunset_hour and day phase via p11_field_get_daylight_phase, and submits initial sky palette gradient to g_farm_u32_8012d088/g_farm_u32_8012d0a8 via gfx_draw_vram_rect_sync."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6350,7 +6350,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 3,
-    "summary": "Queries sunset hour via FUN_80111d28(DAT_80070cf2) and day phase via FUN_80111cc4, driving sky tint interpolation in DAT_8012d088/DAT_8012d0a8/DAT_8012d0e8 via FUN_8001f664, FUN_8001f8a4, and FUN_8001fa0c."
+    "summary": "Queries sunset hour via p11_field_get_season_sunset_hour(g_farm_calendar_clock_80070cf2) and day phase via p11_field_get_daylight_phase, driving sky tint interpolation in g_farm_u32_8012d088/g_farm_u32_8012d0a8/g_farm_state_8012d0e8 via gfx_draw_vram_rect_sync, gfx_queue_vram_clut_upload, and gfx_queue_vram_pix_upload."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6386,7 +6386,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Returns sunset hour for the given season index from table DAT_80127f60."
+    "summary": "Returns sunset hour for the given season index from table g_farm_u32_80127f60."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6397,7 +6397,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Resets DAT_8012d0ec to 0 and writes initial ambient RGB triple (0xcf7e, 0x105b, 0x166b) via FUN_800dcbdc(0, rgb)."
+    "summary": "Resets g_farm_state_8012d0ec to 0 and writes initial ambient RGB triple (0xcf7e, 0x105b, 0x166b) via p11_animl_set_fade_palette_a(0, rgb)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6408,7 +6408,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "While event flag 8 is 1, interpolates ambient RGB between DAT_80127f68 and DAT_80127f74 over 0x4b0 steps via hm_clut_lerp_rgb_triple, applies it via FUN_800dcbdc, and clears flag 8 when done."
+    "summary": "While event flag 8 is 1, interpolates ambient RGB between g_farm_u32_80127f68 and g_farm_u32_80127f74 over 0x4b0 steps via hm_clut_lerp_rgb_triple, applies it via p11_animl_set_fade_palette_a, and clears flag 8 when done."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6419,7 +6419,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 14,
-    "summary": "Refreshes memo flags via FUN_80111ef0 and zeroes carpenter/upgrade timers DAT_80070d12, DAT_800719fe, and DAT_80070d10 during scene initialization."
+    "summary": "Refreshes memo flags via p11_field_sync_memo_hint_flags_wrapper and zeroes carpenter/upgrade timers g_farm_val_u16_80070d12, g_farm_val_u16_800719fe, and g_farm_val_u16_80070d10 during scene initialization."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6435,7 +6435,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Classifies gifted item_id (0x13f..0x141 -> 4, 0xf7..0xf9 or 1..0x19 -> 2) into DAT_80070d12, stores item_id in DAT_800719fe, and sets event flag 0x37 via hm_event_flag_set."
+    "summary": "Classifies gifted item_id (0x13f..0x141 -> 4, 0xf7..0xf9 or 1..0x19 -> 2) into g_farm_val_u16_80070d12, stores item_id in g_farm_val_u16_800719fe, and sets event flag 0x37 via hm_event_flag_set."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6446,7 +6446,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Sets TV/cooking state flag DAT_80070d10 to 3."
+    "summary": "Sets TV/cooking state flag g_farm_val_u16_80070d10 to 3."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6457,7 +6457,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 13,
-    "summary": "Wrapper that delegates directly to FUN_80111f10 to recompute all memo and farm tip bitmask flags."
+    "summary": "Wrapper that delegates directly to p11_field_refresh_all_memo_hint_flags to recompute all memo and farm tip bitmask flags."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6495,7 +6495,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 13,
-    "summary": "Queries or consumes the pending farm upgrade/building completion code in DAT_800719fe (modes 0, 1, 2), applying coop/barn upgrades 0x13f..0x141 and refreshing memo flags."
+    "summary": "Queries or consumes the pending farm upgrade/building completion code in g_farm_val_u16_800719fe (modes 0, 1, 2), applying coop/barn upgrades 0x13f..0x141 and refreshing memo flags."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6506,7 +6506,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Clears bit 2 (0x4) in DAT_800719f8, checks whether all 4 NPC IDs in DAT_80127f80 have affection > 100 via FUN_800f3e00, and sets bit 2 if all qualify."
+    "summary": "Clears bit 2 (0x4) in g_ui_unlocked_recipes_flags_800719f8, checks whether all 4 NPC IDs in g_farm_u32_80127f80 have affection > 100 via p11_evt_get_shipped_item_count, and sets bit 2 if all qualify."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6517,7 +6517,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Clears bit 3 (0x8) in DAT_800719f8, checks whether all 4 NPC IDs in DAT_80127f88 have affection > 100 via FUN_800f3e00, and sets bit 3 if all qualify."
+    "summary": "Clears bit 3 (0x8) in g_ui_unlocked_recipes_flags_800719f8, checks whether all 4 NPC IDs in g_farm_u32_80127f88 have affection > 100 via p11_evt_get_shipped_item_count, and sets bit 3 if all qualify."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6528,7 +6528,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Clears bit 4 (0x10) in DAT_800719f8, checks whether all 4 NPC IDs in DAT_80127f90 have affection > 100 via FUN_800f3e00, and sets bit 4 if all qualify."
+    "summary": "Clears bit 4 (0x10) in g_ui_unlocked_recipes_flags_800719f8, checks whether all 4 NPC IDs in g_farm_u32_80127f90 have affection > 100 via p11_evt_get_shipped_item_count, and sets bit 4 if all qualify."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6539,7 +6539,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Clears bit 0 (0x1) in DAT_800719f8 and sets it if NPC 0x5d has affection > 0x32 via FUN_800f3e00(0x5d)."
+    "summary": "Clears bit 0 (0x1) in g_ui_unlocked_recipes_flags_800719f8 and sets it if NPC 0x5d has affection > 0x32 via p11_evt_get_shipped_item_count(0x5d)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6550,7 +6550,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "Clears bit 1 (0x2) in DAT_800719f8 and sets it if NPC 0x5f has affection > 0x32 via FUN_800f3e00(0x5f)."
+    "summary": "Clears bit 1 (0x2) in g_ui_unlocked_recipes_flags_800719f8 and sets it if NPC 0x5f has affection > 0x32 via p11_evt_get_shipped_item_count(0x5f)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6561,7 +6561,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Updates recipe/memo hint bits 0x20, 0x40, and 0x80 in DAT_800719f8 from DAT_80070d30 bit 0x800, equipped tool DAT_80071a1e, and DAT_800719fc."
+    "summary": "Updates recipe/memo hint bits 0x20, 0x40, and 0x80 in g_ui_unlocked_recipes_flags_800719f8 from g_npc_event_progress_flags_80070d30 bit 0x800, equipped tool g_player_equipped_tool_80071a1e, and g_farm_val_u16_800719fc."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6572,7 +6572,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Clears bit 0x100 in DAT_800719f8, then sets it when DAT_80070d30 bit 0x200000 is clear and any NPC in DAT_80076220 (37 entries stride 0x1d4) has affection > 50000."
+    "summary": "Clears bit 0x100 in g_ui_unlocked_recipes_flags_800719f8, then sets it when g_npc_event_progress_flags_80070d30 bit 0x200000 is clear and any NPC in g_npc_actor_tbl_base_80076220 (37 entries stride 0x1d4) has affection > 50000."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6583,7 +6583,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Sets milestone memo bits 0x200..0x2000 in DAT_800719f8 for the earliest missing upgrade among coop, house 1, barn, house 2, and greenhouse (DAT_80070d06..0c)."
+    "summary": "Sets milestone memo bits 0x200..0x2000 in g_ui_unlocked_recipes_flags_800719f8 for the earliest missing upgrade among coop, house 1, barn, house 2, and greenhouse (g_farm_weather_festival_80070d06..0c)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6605,7 +6605,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Sets memo bits 0x8000, 0x10000, or 0x20000 in DAT_800719f8 based on coop/barn upgrades (DAT_80070d08/0a) and progress flags DAT_80070d30 (0x100, 0x200, 0x100000)."
+    "summary": "Sets memo bits 0x8000, 0x10000, or 0x20000 in g_ui_unlocked_recipes_flags_800719f8 based on coop/barn upgrades (g_farm_upgrade_flags0_80070d08/0a) and progress flags g_npc_event_progress_flags_80070d30 (0x100, 0x200, 0x100000)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6638,7 +6638,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Clears DAT_8007afa4, sets DAT_8007afae to 0xffff, and sets event flag 0x1b via hm_event_flag_set."
+    "summary": "Clears g_farm_val_u16_8007afa4, sets g_farm_val_u16_8007afae to 0xffff, and sets event flag 0x1b via hm_event_flag_set."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6654,7 +6654,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Maps bachelorette spouse_npc_id (3, 7, 9, 0xe) to index 0..4 in DAT_8007afae, saves spouse ID in DAT_8007afb0, zeroes DAT_8007afa4, and latches wedding date into DAT_8007afcc..afd4."
+    "summary": "Maps bachelorette spouse_npc_id (3, 7, 9, 0xe) to index 0..4 in g_farm_val_u16_8007afae, saves spouse ID in g_core_val_u16_8007afb0, zeroes g_farm_val_u16_8007afa4, and latches wedding date into g_npc_ro_u32_8007afcc..afd4."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6665,7 +6665,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Saves current day DAT_80070cf4 and season DAT_80070cf2 into DAT_8007a416/DAT_8007a414, clears pregnancy flag 0x4e via hm_event_flag_set, and resets DAT_8007afa8 to 0."
+    "summary": "Saves current day g_farm_cal_day_80070cf4 and season g_farm_calendar_clock_80070cf2 into g_core_ro_u16_8007a416/g_core_u16_8007a414, clears pregnancy flag 0x4e via hm_event_flag_set, and resets g_farm_val_u16_8007afa8 to 0."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6676,7 +6676,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 2,
-    "summary": "When marriage event flag 0x41 is set via hm_event_flag_get, selects spouse actor DAT_80076220 + DAT_8007afb0*0x1d4, calls FUN_80112c28/ab4/c98, and if flag 0x4f is set updates baby via FUN_80112b60(&DAT_8007a3f0)."
+    "summary": "When marriage event flag 0x41 is set via hm_event_flag_get, selects spouse actor g_npc_actor_tbl_base_80076220 + g_core_val_u16_8007afb0*0x1d4, calls p11_field_track_spouse_talk_neglect_days/ab4/c98, and if flag 0x4f is set updates baby via p11_field_update_baby_growth_stage(&g_farm_u32_8007a3f0)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6687,7 +6687,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Returns pointer from PTR_DAT_80127fd4 indexed by active spouse slot DAT_8007afae."
+    "summary": "Returns pointer from g_dat_ptr_80127fd4 indexed by active spouse slot g_farm_val_u16_8007afae."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6703,7 +6703,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "When baby born flag 0x4f is clear, advances days-married counter DAT_8007afac up to 0x1e, then sets pregnancy flag 0x4e once spouse affection (+4) >= 65000 and advances DAT_8007afa8."
+    "summary": "When baby born flag 0x4f is clear, advances days-married counter g_farm_ro_u16_8007afac up to 0x1e, then sets pregnancy flag 0x4e once spouse affection (+4) >= 65000 and advances g_farm_val_u16_8007afa8."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6714,7 +6714,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Increments baby age DAT_8007afa6 up to 300 and updates growth stage DAT_8007afb4 and event flags 0x50 (infant < 60), 0x51 (crawling < 120), and 0x52 (toddler)."
+    "summary": "Increments baby age g_ovl11_ro_u16_8007afa6 up to 300 and updates growth stage g_core_state_8007afb4 and event flags 0x50 (infant < 60), 0x51 (crawling < 120), and 0x52 (toddler)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6725,7 +6725,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Increments DAT_8007afb2 when daily spouse talk flag 0x4b is 0 (resets to 0 if spoken), then clears daily spouse flags 0x4b and 0x4c via hm_event_flag_set."
+    "summary": "Increments g_ovl11_val_u16_8007afb2 when daily spouse talk flag 0x4b is 0 (resets to 0 if spoken), then clears daily spouse flags 0x4b and 0x4c via hm_event_flag_set."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6741,7 +6741,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "If spouse affection (+4) drops below 0x3a99 and event flag 0x2b is clear, sets flags 0x4d and 0xaf via hm_event_flag_set and increments DAT_8007afaa up to 3."
+    "summary": "If spouse affection (+4) drops below 0x3a99 and event flag 0x2b is clear, sets flags 0x4d and 0xaf via hm_event_flag_set and increments g_ovl11_ro_u16_8007afaa up to 3."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6752,7 +6752,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Clears all 10 floors (10x10 bytes each) of mine state in DAT_8012d126 and reset flags DAT_8012d11c.., then zeroes DAT_8012d510 and floor counter DAT_8012d110."
+    "summary": "Clears all 10 floors (10x10 bytes each) of mine state in g_farm_tbl_8012d126 and reset flags g_farm_u8_8012d11c.., then zeroes g_farm_state_8012d510 and floor counter g_farm_val_u16_8012d110."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6768,7 +6768,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 10,
-    "summary": "Maps player coordinates to a 10x10 mine cell via FUN_801136d0 and calls FUN_80112ec4 to test for up-stairs on the previous floor or down-stairs on the current floor."
+    "summary": "Maps player coordinates to a 10x10 mine cell via p11_field_world_pos_to_mine_tile and calls p11_field_trigger_mine_stairs_prompt to test for up-stairs on the previous floor or down-stairs on the current floor."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6823,7 +6823,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Iterates the 10x10 mine floor grid at DAT_8012d126 + DAT_8012d110*100 and spawns rocks/stumps (type 1) or ladder (type 2) at each cell via FUN_80113208."
+    "summary": "Iterates the 10x10 mine floor grid at g_farm_tbl_8012d126 + g_farm_val_u16_8012d110*100 and spawns rocks/stumps (type 1) or ladder (type 2) at each cell via p11_field_apply_mine_tile_decal."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6847,7 +6847,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Writes mine floor tile decal bytes/UVs from DAT_801281d0..DAT_801281d8[decal_kind*10] into map polygon descriptor referenced by DAT_8009e5f8 when walkable bit 8 is set."
+    "summary": "Writes mine floor tile decal bytes/UVs from g_farm_u8_801281d0..g_farm_u32_801281d8[decal_kind*10] into map polygon descriptor referenced by g_farm_u32_8009e5f8 when walkable bit 8 is set."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6863,7 +6863,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 6,
-    "summary": "Converts the hoe-target coordinate ahead of the player to a 10x10 mine tile via FUN_801136d0, reveals stairs down on RNG hit, or rolls an ore/item find via FUN_80113a20."
+    "summary": "Converts the hoe-target coordinate ahead of the player to a 10x10 mine tile via p11_field_world_pos_to_mine_tile, reveals stairs down on RNG hit, or rolls an ore/item find via p11_field_roll_mine_ore_or_powerberry."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6887,7 +6887,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "Converts world XZ position to 10x10 mine grid indices (400-unit cells centered at -2000, +2000), returning 2/3 if out of bounds or bit 8 test on DAT_8009e5f8."
+    "summary": "Converts world XZ position to 10x10 mine grid indices (400-unit cells centered at -2000, +2000), returning 2/3 if out of bounds or bit 8 test on g_farm_u32_8009e5f8."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6898,7 +6898,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 9,
-    "summary": "Ticks the active mine exit/descend confirmation prompt in 0x8012d510, warping to the waterfall/winter mine entrance on exit or incrementing mine floor DAT_8012d110 on descent."
+    "summary": "Ticks the active mine exit/descend confirmation prompt in 0x8012d510, warping to the waterfall/winter mine entrance on exit or incrementing mine floor g_farm_val_u16_8012d110 on descent."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6914,7 +6914,7 @@
     ],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Rolls hm_prng_next(100) against floor-weighted drop table UNK_80127fe8/DAT_80128088 for winter/normal mine DAT_8012d110 and gates one-time Power Berry (0x67) or Mystic/item (99) drops via flags 0x60..0x62."
+    "summary": "Rolls hm_prng_next(100) against floor-weighted drop table g_unk_80127fe8/g_farm_u32_80128088 for winter/normal mine g_farm_val_u16_8012d110 and gates one-time Power Berry (0x67) or Mystic/item (99) drops via flags 0x60..0x62."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6925,7 +6925,7 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 1,
-    "summary": "Checks ladder arrival (DAT_80071afc high u16 == 0x42) or event flag 0x44, places player at ladder tile (DAT_8012d118, DAT_8012d11a), clears flag 0x44, and regenerates mine floor via FUN_80113c3c."
+    "summary": "Checks ladder arrival (g_player_interact_target_80071afc high u16 == 0x42) or event flag 0x44, places player at ladder tile (g_farm_val_u16_8012d118, g_farm_val_u16_8012d11a), clears flag 0x44, and regenerates mine floor via p11_field_set_mine_ladder_spawn_pos."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6936,6 +6936,6 @@
     "params": [],
     "domain": "farm_crops_field",
     "wave": 0,
-    "summary": "When mine depth DAT_8012d110 != 0, clears bit 0x1000 in DAT_800a00d4 and updates entrance spawn DAT_800a00e8..ec and ladder coords DAT_8012d114/16 from DAT_8012d118/1a."
+    "summary": "When mine depth g_farm_val_u16_8012d110 != 0, clears bit 0x1000 in g_gfx_active_map_desc_80_idx2376_800a00d4 and updates entrance spawn g_gfx_active_map_desc_80_idx2396_800a00e8..ec and ladder coords g_farm_ro_u16_8012d114/16 from g_farm_val_u16_8012d118/1a."
   }
 ]
