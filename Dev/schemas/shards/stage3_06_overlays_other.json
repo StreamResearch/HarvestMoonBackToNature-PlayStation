@@ -8,7 +8,7 @@
     "params": [],
     "domain": "overlay_part08_id04",
     "wave": 0,
-    "summary": "Polls input trigger FUN_8001fd74 and increments font test page counter DAT_800b8500 when active"
+    "summary": "Polls input trigger hm_res_pad_poll_trigger_8001fd74 and increments font test page counter g_ovl08_font_test_advance_cfg when active"
   },
   {
     "program": "OVL_part10_id05.EXE",
@@ -19,7 +19,7 @@
     "params": [],
     "domain": "overlay_part10_id05",
     "wave": 0,
-    "summary": "Polls g_io_active_pad_buf_ptr_8005e3a8 edge bits to navigate the 15-item PocketStation menu, run option, or set busy text"
+    "summary": "Polls g_io_active_pad_buf_ptr edge bits to navigate the 15-item PocketStation menu, run option, or set busy text"
   },
   {
     "program": "OVL_part10_id05.EXE",
@@ -84,7 +84,7 @@
     ],
     "domain": "overlay_part10_id05",
     "wave": 0,
-    "summary": "Calls McxGetApl into DAT_800bb8f0 when op_mode is 2, or prints current PocketStation application number via FntPrint"
+    "summary": "Calls McxGetApl into g_ovl10_pock_cmd_apl_word when op_mode is 2, or prints current PocketStation application number via FntPrint"
   },
   {
     "program": "OVL_part10_id05.EXE",
@@ -132,7 +132,7 @@
     ],
     "domain": "overlay_part10_id05",
     "wave": 0,
-    "summary": "Calls McxGetSerial into DAT_800bb8fc when op_mode is 2, or prints the PocketStation serial number via FntPrint"
+    "summary": "Calls McxGetSerial into g_ovl10_pock_cmd_serial_word when op_mode is 2, or prints the PocketStation serial number via FntPrint"
   },
   {
     "program": "OVL_part10_id05.EXE",
@@ -252,7 +252,7 @@
     ],
     "domain": "overlay_part10_id05",
     "wave": 1,
-    "summary": "Interactive McxSetLED command toggling PocketStation LED flag DAT_800bb8a0 between on and off via Circle/Cross"
+    "summary": "Interactive McxSetLED command toggling PocketStation LED flag g_ovl10_pock_cmd_led_state between on and off via Circle/Cross"
   },
   {
     "program": "OVL_part10_id05.EXE",
@@ -319,7 +319,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 0,
-    "summary": "Dispatches Save/Create Diary FSM cases 0..0x18 on g_ovl15_diary_save_blob_80137584.state, then polls FUN_80135e9c to detect Memory Card removal or swap."
+    "summary": "Dispatches Save/Create Diary FSM cases 0..0x18 on g_ovl15_diary_save_blob.state, then polls FUN_80135e9c to detect Memory Card removal or swap."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -407,7 +407,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 6,
-    "summary": "Save state 7: scans 3 save slots via FUN_80136288 and FUN_80135ff0, records slot status codes in DAT_80137820[0..2], and transitions to state 8."
+    "summary": "Save state 7: scans 3 save slots via FUN_80136288 and FUN_80135ff0, records slot status codes in g_ovl15_memcard_diary_save_half[0..2], and transitions to state 8."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -418,7 +418,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 7,
-    "summary": "Save state 8: calls FUN_80136b18(1) to select a save slot, branching by DAT_80137820 status to state 9 (overwrite), 10 (create), 0x11 (full), 0x12 (corrupt), or 0."
+    "summary": "Save state 8: calls FUN_80136b18(1) to select a save slot, branching by g_ovl15_memcard_diary_save_half status to state 9 (overwrite), 10 (create), 0x11 (full), 0x12 (corrupt), or 0."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -440,7 +440,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 6,
-    "summary": "Save state 10: polls active_port via hm_ovl15_name_entry_input and dispatches through jump table PTR_LAB_8012de54 for file creation or format confirmation."
+    "summary": "Save state 10: polls active_port via hm_ovl15_name_entry_input and dispatches through jump table g_ovl15_diary_save_state_create_jtbl_ptr for file creation or format confirmation."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -528,7 +528,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 6,
-    "summary": "Save state 0x13: builds slot summary/payload/checksums (FUN_80134a34, FUN_80134c48, FUN_801359fc, FUN_80135ae0), writes PS1 SC icon header in DAT_80137830, sets state 0x14."
+    "summary": "Save state 0x13: builds slot summary/payload/checksums (FUN_80134a34, FUN_80134c48, FUN_801359fc, FUN_80135ae0), writes PS1 SC icon header in g_ovl15_memcard_diary_save_word, sets state 0x14."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -539,7 +539,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 6,
-    "summary": "Save state 0x14: draws saving notice (0x8005346a) and polls FUN_80136660(active_port, menu_mode, &DAT_80137830), moving to 0x18 (ok), 0x10 (err), or 0x15 (removed)."
+    "summary": "Save state 0x14: draws saving notice (0x8005346a) and polls FUN_80136660(active_port, menu_mode, &g_ovl15_memcard_diary_save_word), moving to 0x18 (ok), 0x10 (err), or 0x15 (removed)."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -561,7 +561,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 6,
-    "summary": "Save state 0x16: displays cancel-save Yes/No prompt (DAT_80051dcc) via FUN_801370b4, advancing to state 0x17 (exit) on Yes or state 0 on No/Cancel."
+    "summary": "Save state 0x16: displays cancel-save Yes/No prompt (g_ovl15_diary_save_state_confirm_word) via FUN_801370b4, advancing to state 0x17 (exit) on Yes or state 0 on No/Cancel."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -572,7 +572,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 3,
-    "summary": "Calls hm_ovl15_memcard_ui_entry and sets g_ovl15_diary_save_blob_sub_state_80137586 to 0xff to cancel and exit the Save/Create Diary flow."
+    "summary": "Calls hm_ovl15_memcard_ui_entry and sets g_ovl15_diary_save_blob_sub_state to 0xff to cancel and exit the Save/Create Diary flow."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -594,7 +594,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 0,
-    "summary": "Entry wrapper for Load Diary FSM that passes g_ovl15_diary_save_blob_80137584.state into FUN_801301a8 for cases 0..0x13 and card removal polling."
+    "summary": "Entry wrapper for Load Diary FSM that passes g_ovl15_diary_save_blob.state into FUN_801301a8 for cases 0..0x13 and card removal polling."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -665,7 +665,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 6,
-    "summary": "Load state 4: polls selected active_port via hm_ovl15_name_entry_input and dispatches through jump table PTR_LAB_8012df2c (defaulting to state 7 slot scan)."
+    "summary": "Load state 4: polls selected active_port via hm_ovl15_name_entry_input and dispatches through jump table g_ovl15_diary_state_port_jtbl_ptr (defaulting to state 7 slot scan)."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -698,7 +698,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 6,
-    "summary": "Load state 7: scans 3 save slots via FUN_80136288 and FUN_80135ff0, entering state 9 if any valid save exists in DAT_80137820..24 or state 8 (no save data)."
+    "summary": "Load state 7: scans 3 save slots via FUN_80136288 and FUN_80135ff0, entering state 9 if any valid save exists in g_ovl15_memcard_diary_save_half..24 or state 8 (no save data)."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -742,7 +742,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 6,
-    "summary": "Load state 0xb: displays loading dialog (0x80053350), formats filename into DAT_80140ec0 via FUN_80137544(menu_mode), and sets state to 0xc."
+    "summary": "Load state 0xb: displays loading dialog (0x80053350), formats filename into g_ovl15_diary_save_state_prepare_prep_word via FUN_80137544(menu_mode), and sets state to 0xc."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -753,7 +753,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 6,
-    "summary": "Load state 0xc: displays loading dialog (0x80053350) and polls FUN_801367f8(active_port, menu_mode, &DAT_80137830), moving to 0xd (ok), 0xf (err), or 0x10 (removed)."
+    "summary": "Load state 0xc: displays loading dialog (0x80053350) and polls FUN_801367f8(active_port, menu_mode, &g_ovl15_memcard_diary_save_word), moving to 0xd (ok), 0xf (err), or 0x10 (removed)."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -764,7 +764,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 6,
-    "summary": "Load state 0xd: checks loaded save checksums via FUN_80135b68 and sentinel DAT_80137714[menu_mode]==0x14, advancing to state 0x13 (valid) or state 0xe (corrupt)."
+    "summary": "Load state 0xd: checks loaded save checksums via FUN_80135b68 and sentinel g_ovl15_diary_save_slots_idx0_farmer_name_idx8[menu_mode]==0x14, advancing to state 0x13 (valid) or state 0xe (corrupt)."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -819,7 +819,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 3,
-    "summary": "Calls hm_ovl15_memcard_ui_entry and sets g_ovl15_diary_save_blob_sub_state_80137586 to 0xff to cancel and exit the Load Diary flow."
+    "summary": "Calls hm_ovl15_memcard_ui_entry and sets g_ovl15_diary_save_blob_sub_state to 0xff to cancel and exit the Load Diary flow."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -841,7 +841,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 0,
-    "summary": "Entry wrapper for Animal Trade FSM that passes g_ovl15_diary_save_blob_80137584.state into FUN_8013109c for cases 0..0x21 and card removal polling."
+    "summary": "Entry wrapper for Animal Trade FSM that passes g_ovl15_diary_save_blob.state into FUN_8013109c for cases 0..0x21 and card removal polling."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -945,7 +945,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 6,
-    "summary": "Trade state 7: scans 3 save slots via FUN_80136288 and FUN_80135ff0, entering state 9 if any valid save exists in DAT_80137820..24 or state 8 (no save data)."
+    "summary": "Trade state 7: scans 3 save slots via FUN_80136288 and FUN_80135ff0, entering state 9 if any valid save exists in g_ovl15_memcard_diary_save_half..24 or state 8 (no save data)."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -989,7 +989,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 6,
-    "summary": "Trade state 0xb: displays loading dialog (0x80053350), formats remote save filename into DAT_80140ec0 via FUN_80137544(menu_mode), and sets state to 0xc."
+    "summary": "Trade state 0xb: displays loading dialog (0x80053350), formats remote save filename into g_ovl15_diary_save_state_prepare_prep_word via FUN_80137544(menu_mode), and sets state to 0xc."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1000,7 +1000,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 6,
-    "summary": "Trade state 0xc: displays loading dialog (0x80053350) and polls FUN_801367f8(active_port, menu_mode, &DAT_80137830), moving to 0xd (ok), 0xf (err), or 0x1e (removed)."
+    "summary": "Trade state 0xc: displays loading dialog (0x80053350) and polls FUN_801367f8(active_port, menu_mode, &g_ovl15_memcard_diary_save_word), moving to 0xd (ok), 0xf (err), or 0x1e (removed)."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1055,7 +1055,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 6,
-    "summary": "Trade state 0x10: compares 8-byte farm ID at save_buf_ptr+0x225c against local DAT_8006c838 via bcmp, rejecting identical farm (state 0x11) or resetting trade via FUN_8013468c to 0x12."
+    "summary": "Trade state 0x10: compares 8-byte farm ID at save_buf_ptr+0x225c against local g_ovl15_field_all_animal_pickup_evt_state via bcmp, rejecting identical farm (state 0x11) or resetting trade via FUN_8013468c to 0x12."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1099,7 +1099,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 6,
-    "summary": "Trade state 0x14: tallies selected animals in DAT_80140f90 and farm totals via FUN_80133538 against coop (5/10) and barn (10/20) limits, branching to error 0x15..0x19 or 0x1a."
+    "summary": "Trade state 0x14: tallies selected animals in g_ovl15_diary_save_state_prepare_trade_table and farm totals via FUN_80133538 against coop (5/10) and barn (10/20) limits, branching to error 0x15..0x19 or 0x1a."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1220,7 +1220,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 3,
-    "summary": "Calls hm_ovl15_memcard_ui_entry and sets g_ovl15_diary_save_blob_sub_state_80137586 to 0xff to cancel and exit the Animal Trade flow."
+    "summary": "Calls hm_ovl15_memcard_ui_entry and sets g_ovl15_diary_save_blob_sub_state to 0xff to cancel and exit the Animal Trade flow."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1251,7 +1251,7 @@
     ],
     "domain": "overlay_part15_id10",
     "wave": 1,
-    "summary": "Sets coop chicken position (+0x38..+0x40) from table DAT_801375d8 with (coop_slot % 5) * 400 X offset, random facing via hm_prng_next(4), and state 4 (+0x30)."
+    "summary": "Sets coop chicken position (+0x38..+0x40) from table g_ovl15_diary_save_blob_work_0x18_idx15 with (coop_slot % 5) * 400 X offset, random facing via hm_prng_next(4), and state 4 (+0x30)."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1271,7 +1271,7 @@
     ],
     "domain": "overlay_part15_id10",
     "wave": 0,
-    "summary": "Sets barn animal world coordinates (+0x38..+0x40) from stall table DAT_801375f8 (or special slots -1/-2), facing direction (+0x22), and state 5 (+0x30)."
+    "summary": "Sets barn animal world coordinates (+0x38..+0x40) from stall table g_ovl15_diary_save_blob_work_0x18_idx23 (or special slots -1/-2), facing direction (+0x22), and state 5 (+0x30)."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1282,7 +1282,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 2,
-    "summary": "Stages selected remote farm animals from DAT_801376d0 into DAT_80142550, clears remote slots, and moves selected local animals into free remote slots via FUN_8013345c."
+    "summary": "Stages selected remote farm animals from g_ovl15_diary_save_blob_save_buf_ptr into g_ovl15_diary_commit_local_remote_trade_word, clears remote slots, and moves selected local animals into free remote slots via FUN_8013345c."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1293,7 +1293,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 2,
-    "summary": "Moves staged remote animals from DAT_80140fbc/DAT_80142550 into free local coop (DAT_800742ec) or barn (DAT_800749f4) slots via FUN_8013345c and places them in stalls."
+    "summary": "Moves staged remote animals from g_ovl15_diary_commit_remote_local_word_80140fbc/g_ovl15_diary_commit_local_remote_trade_word into free local coop (g_anim_chicken_coop_tbl) or barn (g_anim_livestock_barn_tbl) slots via FUN_8013345c and places them in stalls."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1364,7 +1364,7 @@
     ],
     "domain": "overlay_part15_id10",
     "wave": 9,
-    "summary": "Draws trade species tabs and owner name (DAT_80070d18 or save_buf_ptr+0x2378), switches chicken/cow/sheep tab DAT_8013759e, and tail-calls FUN_80133b28 returning picker result."
+    "summary": "Draws trade species tabs and owner name (g_ui_snapshot_status_summary_animal_diary_cfg or save_buf_ptr+0x2378), switches chicken/cow/sheep tab g_ovl15_diary_save_blob_work_0x18_off_2, and tail-calls FUN_80133b28 returning picker result."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1380,7 +1380,7 @@
     ],
     "domain": "overlay_part15_id10",
     "wave": 8,
-    "summary": "Runs scrollable animal trade selection list (DAT_801375a0/DAT_801375a2) drawing up to 4 rows via FUN_801342a0 and toggling up to 5 picks via FUN_80133f4c/FUN_80134000."
+    "summary": "Runs scrollable animal trade selection list (g_ovl15_diary_save_blob_work_0x18_idx1/g_ovl15_diary_save_blob_work_0x18_off_6) drawing up to 4 rows via FUN_801342a0 and toggling up to 5 picks via FUN_80133f4c/FUN_80134000."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1400,7 +1400,7 @@
     ],
     "domain": "overlay_part15_id10",
     "wave": 0,
-    "summary": "Appends (species_tab DAT_8013759e, animal_slot) to the 5-slot local or remote trade selection list in DAT_80140f90 and increments DAT_801375a4."
+    "summary": "Appends (species_tab g_ovl15_diary_save_blob_work_0x18_off_2, animal_slot) to the 5-slot local or remote trade selection list in g_ovl15_diary_save_state_prepare_trade_table and increments g_ovl15_diary_save_blob_work_0x18_idx2."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1420,7 +1420,7 @@
     ],
     "domain": "overlay_part15_id10",
     "wave": 0,
-    "summary": "Clears a matching (species_tab DAT_8013759e, animal_slot) entry in the 5-slot trade selection table at DAT_80140f90 to 0xffff and decrements DAT_801375a4."
+    "summary": "Clears a matching (species_tab g_ovl15_diary_save_blob_work_0x18_off_2, animal_slot) entry in the 5-slot trade selection table at g_ovl15_diary_save_state_prepare_trade_table to 0xffff and decrements g_ovl15_diary_save_blob_work_0x18_idx2."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1440,7 +1440,7 @@
     ],
     "domain": "overlay_part15_id10",
     "wave": 0,
-    "summary": "Scans the 5-slot trade selection table at DAT_80140f90 (local if &DAT_800742ec, else remote) for (DAT_8013759e, animal_slot), returning 1 if found or 0."
+    "summary": "Scans the 5-slot trade selection table at g_ovl15_diary_save_state_prepare_trade_table (local if &g_anim_chicken_coop_tbl, else remote) for (g_ovl15_diary_save_blob_work_0x18_off_2, animal_slot), returning 1 if found or 0."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1571,7 +1571,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 1,
-    "summary": "Calls FUN_80134724, clears both 5-slot local and remote trade selection arrays at DAT_80140f90 to 0xffff, and zeroes 0x398 bytes at DAT_80142550."
+    "summary": "Calls FUN_80134724, clears both 5-slot local and remote trade selection arrays at g_ovl15_diary_save_state_prepare_trade_table to 0xffff, and zeroes 0x398 bytes at g_ovl15_diary_commit_local_remote_trade_word."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1582,7 +1582,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 0,
-    "summary": "Resets trade picker cursor/selection globals DAT_8013759e..DAT_801375a4 to 0 and zeroes the 0x1568-byte trade scratch buffer via memset."
+    "summary": "Resets trade picker cursor/selection globals g_ovl15_diary_save_blob_work_0x18_off_2..g_ovl15_diary_save_blob_work_0x18_idx2 to 0 and zeroes the 0x1568-byte trade scratch buffer via memset."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1610,7 +1610,7 @@
     ],
     "domain": "overlay_part15_id10",
     "wave": 1,
-    "summary": "Builds the 40-byte Shift-JIS Memory Card directory title at DAT_80140f14 from diary number, year (DAT_801376e0), and season (DAT_801376e2) via FUN_80134890/FUN_801349c8."
+    "summary": "Builds the 40-byte Shift-JIS Memory Card directory title at g_ovl15_diary_build_memcard_sjis_word_80140f14 from diary number, year (g_ovl15_diary_save_slots), and season (g_ovl15_diary_save_slots_idx0_year) via FUN_80134890/FUN_801349c8."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1634,7 +1634,7 @@
     ],
     "domain": "overlay_part15_id10",
     "wave": 0,
-    "summary": "Formats a 1- or 2-digit integer into Shift-JIS full-width numerals and appends them into out_str using digit templates DAT_8012e040/DAT_8012e044 and strcat."
+    "summary": "Formats a 1- or 2-digit integer into Shift-JIS full-width numerals and appends them into out_str using digit templates g_ovl15_diary_build_memcard_sjis_format_word/g_ovl15_diary_format_sjis_number_word and strcat."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1654,7 +1654,7 @@
     ],
     "domain": "overlay_part15_id10",
     "wave": 0,
-    "summary": "Clamps season_idx to [0, 3] and appends the Shift-JIS season name from PTR_DAT_8013765c into out_str via strcat."
+    "summary": "Clamps season_idx to [0, 3] and appends the Shift-JIS season name from g_ovl15_diary_append_sjis_season_dat_ptr into out_str via strcat."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1670,7 +1670,7 @@
     ],
     "domain": "overlay_part15_id10",
     "wave": 0,
-    "summary": "Populates HmSaveSlotSummary at DAT_801376e0[slot_idx] from calendar/player/overlay globals, clears 0x9690 bytes at DAT_80137830, and copies summary to DAT_80137a30."
+    "summary": "Populates HmSaveSlotSummary at g_ovl15_diary_save_slots[slot_idx] from calendar/player/overlay globals, clears 0x9690 bytes at g_ovl15_memcard_diary_save_word, and copies summary to g_ovl15_diary_build_save_slot_compute_word."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1681,7 +1681,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 0,
-    "summary": "Packs live game state (coop DAT_800742ec, minigame, calendar, HmPlayerState, field/greenhouse grids, barn/NPCs, and 36 actor summaries) into DAT_80137ab0."
+    "summary": "Packs live game state (coop g_anim_chicken_coop_tbl, minigame, calendar, HmPlayerState, field/greenhouse grids, barn/NPCs, and 36 actor summaries) into g_ovl15_memcard_diary_deserialize_word."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1692,7 +1692,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 0,
-    "summary": "Restores serialized save payload from DAT_80137ab0 back into live game globals (coop, engine flags, minigame, calendar, player, grids, barn/NPCs, and weather)."
+    "summary": "Restores serialized save payload from g_ovl15_memcard_diary_deserialize_word back into live game globals (coop, engine flags, minigame, calendar, player, grids, barn/NPCs, and weather)."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1703,7 +1703,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 1,
-    "summary": "Expands 201 127-byte save payload blocks at DAT_80137ab0 into 128-byte strides via memmove for checksum insertion and seeds salt DAT_8013f82e via hm_prng_next(0x100)."
+    "summary": "Expands 201 127-byte save payload blocks at g_ovl15_memcard_diary_deserialize_word into 128-byte strides via memmove for checksum insertion and seeds salt g_ovl15_diary_pack_save_blocks_half via hm_prng_next(0x100)."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1714,7 +1714,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 0,
-    "summary": "Compacts 201 128-byte save payload blocks at DAT_80137ab0 into contiguous 127-byte strides (0x7f from 0x80) via memmove, stripping per-block parity bytes."
+    "summary": "Compacts 201 128-byte save payload blocks at g_ovl15_memcard_diary_deserialize_word into contiguous 127-byte strides (0x7f from 0x80) via memmove, stripping per-block parity bytes."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1725,7 +1725,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 0,
-    "summary": "Computes per-block XOR parity bytes across 251 save blocks (DAT_80137830+0x280), storing combined block parity in DAT_80137a68 and header parity in DAT_80137aaf."
+    "summary": "Computes per-block XOR parity bytes across 251 save blocks (g_ovl15_memcard_diary_save_word+0x280), storing combined block parity in g_ovl15_diary_compute_save_checksums_verify_state and header parity in g_ovl15_diary_compute_save_checksums_verify_flag."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1736,7 +1736,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 0,
-    "summary": "Verifies XOR parity across all 251 save blocks, combined parity DAT_80137a68, and header summary parity DAT_80137aaf, returning 0 if valid or -1 on mismatch."
+    "summary": "Verifies XOR parity across all 251 save blocks, combined parity g_ovl15_diary_compute_save_checksums_verify_state, and header summary parity g_ovl15_diary_compute_save_checksums_verify_flag, returning 0 if valid or -1 on mismatch."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1812,7 +1812,7 @@
     ],
     "domain": "overlay_part15_id10",
     "wave": 0,
-    "summary": "Formats the Memory Card in port 0/1 (chan 0x00/0x10) via MemCardSync and MemCardFormat with timeout retries (DAT_80137598), returning 0 on success or 2/4/0xc."
+    "summary": "Formats the Memory Card in port 0/1 (chan 0x00/0x10) via MemCardSync and MemCardFormat with timeout retries (g_ovl15_diary_save_blob_prompt_id), returning 0 on success or 2/4/0xc."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1832,7 +1832,7 @@
     ],
     "domain": "overlay_part15_id10",
     "wave": 1,
-    "summary": "Creates a 4-block BASLUS-01115-FARM%d file on Memory Card port 0/1 via MemCardCreateFile with retry counter DAT_80137598, returning 0 or status 2/4/0xb/0xc."
+    "summary": "Creates a 4-block BASLUS-01115-FARM%d file on Memory Card port 0/1 via MemCardCreateFile with retry counter g_ovl15_diary_save_blob_prompt_id, returning 0 or status 2/4/0xb/0xc."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1891,7 +1891,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 5,
-    "summary": "Renders Memory Card Slot 1/2 chooser window (FUN_80022580, hm_text_draw_dialog_line, FUN_800248b0), handles up/down cursor DAT_80137587, returning 0/1, -1 cancel, or 2 pending."
+    "summary": "Renders Memory Card Slot 1/2 chooser window (FUN_80022580, hm_text_draw_dialog_line, FUN_800248b0), handles up/down cursor g_ovl15_diary_save_blob_card_flag, returning 0/1, -1 cancel, or 2 pending."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1907,7 +1907,7 @@
     ],
     "domain": "overlay_part15_id10",
     "wave": 6,
-    "summary": "Draws 3 diary slot cards (FUN_80136c70), moves cursor DAT_80137587 (0..2) on up/down pad input with SFX, returning selected slot 0..2, -1 cancel, or 3 pending."
+    "summary": "Draws 3 diary slot cards (FUN_80136c70), moves cursor g_ovl15_diary_save_blob_card_flag (0..2) on up/down pad input with SFX, returning selected slot 0..2, -1 cancel, or 3 pending."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1927,7 +1927,7 @@
     ],
     "domain": "overlay_part15_id10",
     "wave": 5,
-    "summary": "Draws diary slot card slot_idx via FUN_80022580/FUN_80017a08/hm_text_draw_dialog_line, displaying slot status (empty/corrupt/unusable) or farmer, year, and season from DAT_801376e0."
+    "summary": "Draws diary slot card slot_idx via FUN_80022580/hm_res_ui_bind_font_slot_80017a08/hm_text_draw_dialog_line, displaying slot status (empty/corrupt/unusable) or farmer, year, and season from g_ovl15_diary_save_slots."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1943,7 +1943,7 @@
     ],
     "domain": "overlay_part15_id10",
     "wave": 1,
-    "summary": "Maps field_idx (1/2/3/other -> offset 0x12/0x18/0x1e/0x24 in DAT_8005175c), fetches localized script text via hm_text_fetch_script_entry, and converts via FUN_8001abf0."
+    "summary": "Maps field_idx (1/2/3/other -> offset 0x12/0x18/0x1e/0x24 in g_ui_shop_tv_menu_seasonal_portrait_table), fetches localized script text via hm_text_fetch_script_entry, and converts via hm_res_ui_draw_icon_row_8001abf0."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1954,7 +1954,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 5,
-    "summary": "Draws Yes/No prompt box (UNK_80051d80) with cursor DAT_80137588 via FUN_800248b0, handles confirm/cancel pad input with SFX, returning 0 (Yes), 1 (No), -1, or 2 pending."
+    "summary": "Draws Yes/No prompt box (g_ovl15_diary_prompt_yes_no_table) with cursor g_ovl15_diary_cursor_item via FUN_800248b0, handles confirm/cancel pad input with SFX, returning 0 (Yes), 1 (No), -1, or 2 pending."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -1974,7 +1974,7 @@
     ],
     "domain": "overlay_part15_id10",
     "wave": 3,
-    "summary": "Draws blinking prompt advance arrow via FUN_800249c0 at (0x11d, 0xd9) and returns next_state with confirm SFX (hm_audio_play_sfx(0)) on pad edge, else cur_state."
+    "summary": "Draws blinking prompt advance arrow via hm_res_ui_draw_prompt_arrow_800249c0 at (0x11d, 0xd9) and returns next_state with confirm SFX (hm_audio_play_sfx(0)) on pad edge, else cur_state."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -2023,7 +2023,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 2,
-    "summary": "Calls DrawSync(0) and ClearOTagR on active OT, then synchronously loads archive part 0x10 (0x900 bytes) into DAT_80137828 via hm_afile_read_or_load_overlay."
+    "summary": "Calls DrawSync(0) and ClearOTagR on active OT, then synchronously loads archive part 0x10 (0x900 bytes) into g_ovl15_memcard_diary_overlay_cfg via hm_afile_read_or_load_overlay."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -2045,7 +2045,7 @@
     "params": [],
     "domain": "overlay_part15_id10",
     "wave": 2,
-    "summary": "Streams archive part 0x0e (0x8e90 bytes) to DAT_80137830, unpacks VRAM via hm_vram_unpack_0x0d_pack_auto, copies sprite pack to DAT_801428f0, and inits 5 sprite anim slots."
+    "summary": "Streams archive part 0x0e (0x8e90 bytes) to g_ovl15_memcard_diary_save_word, unpacks VRAM via hm_vram_unpack_0x0d_pack_auto, copies sprite pack to g_ovl15_diary_animal_trade_sprites_word_801428f0, and inits 5 sprite anim slots."
   },
   {
     "program": "OVL_part15_id10.EXE",
@@ -2076,7 +2076,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 6,
-    "summary": "Renders pool and treading swimmers while waiting for fade-in completion before advancing g_core_minigame_state_80070cc4."
+    "summary": "Renders pool and treading swimmers while waiting for fade-in completion before advancing g_core_minigame_state."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2087,7 +2087,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 7,
-    "summary": "Clears per-frame dialogue UI, dispatches DAT_800bd84c handler in PTR_FUN_800bb4f8, and calls hm_ovl17_swim_race_award(1)."
+    "summary": "Clears per-frame dialogue UI, dispatches g_ovl17_festival_state handler in g_ovl17_dispatch_festival_substate_dat_ptr, and calls hm_ovl17_swim_race_award(1)."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2098,7 +2098,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 2,
-    "summary": "Starts screen/audio fade-in via FUN_80013328(10) and FUN_8001fe34(10) and advances g_core_minigame_state_80070cc4."
+    "summary": "Starts screen/audio fade-in via FUN_80013328(10) and hm_res_spu_set_bgm_vol_8001fe34(10) and advances g_core_minigame_state."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2120,7 +2120,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 6,
-    "summary": "Renders initial pool and treading swimmers, invokes ovl17_setup_race_participants, and transitions DAT_800bd84c to 1."
+    "summary": "Renders initial pool and treading swimmers, invokes ovl17_setup_race_participants, and transitions g_ovl17_festival_state to 1."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2131,7 +2131,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 2,
-    "summary": "Resets swimmer lanes, maps participant IDs DAT_8007ad4e to name offsets DAT_800bb534, and clears wake trail."
+    "summary": "Resets swimmer lanes, maps participant IDs g_ovl11_ovl_betting_racer_row_setup_half to name offsets g_ovl17_setup_race_participants_table, and clears wake trail."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2142,7 +2142,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 6,
-    "summary": "Binds all 6 swimmer names into dialogue tokens, displays dialogue (4, 3), and transitions DAT_800bd84c to 6."
+    "summary": "Binds all 6 swimmer names into dialogue tokens, displays dialogue (4, 3), and transitions g_ovl17_festival_state to 6."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2158,7 +2158,7 @@
     ],
     "domain": "overlay_part17_id07",
     "wave": 6,
-    "summary": "Cycles player breath gauge DAT_800bd912 every 30 frames during intro dialogue (4, 0), advancing DAT_800bd84c to 3."
+    "summary": "Cycles player breath gauge g_ovl17_state_intro_breath_demo_gauge_counter every 30 frames during intro dialogue (4, 0), advancing g_ovl17_festival_state to 3."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2169,7 +2169,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 6,
-    "summary": "Draws swimmers and prompts rules dialogue (4, 1), branching DAT_800bd84c to 4 or resetting lanes to state 2."
+    "summary": "Draws swimmers and prompts rules dialogue (4, 1), branching g_ovl17_festival_state to 4 or resetting lanes to state 2."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2180,7 +2180,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 6,
-    "summary": "Draws pool and swimmers while running rules dialogue (4, 2), then resets lanes and advances DAT_800bd84c to 5."
+    "summary": "Draws pool and swimmers while running rules dialogue (4, 2), then resets lanes and advances g_ovl17_festival_state to 5."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2191,7 +2191,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 6,
-    "summary": "Binds swimmer names, renders treading swimmers and pool, runs dialogue (4, 4), and advances DAT_800bd84c to 6."
+    "summary": "Binds swimmer names, renders treading swimmers and pool, runs dialogue (4, 4), and advances g_ovl17_festival_state to 6."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2224,7 +2224,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 6,
-    "summary": "Displays odds board with payout, runs win dialogue (4, 7), plays win fanfare SFX 0x3e, and sets DAT_800bd84c to 10."
+    "summary": "Displays odds board with payout, runs win dialogue (4, 7), plays win fanfare SFX 0x3e, and sets g_ovl17_festival_state to 10."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2235,7 +2235,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 6,
-    "summary": "Displays odds board, writes medal reward to DAT_8007ae50 (DAT_8007ae4c=0), runs dialogue (4, 8), and exits phase."
+    "summary": "Displays odds board, writes medal reward to g_ovl17_state_player_lost_payout_word (g_ovl17_exit_transition_state=0), runs dialogue (4, 8), and exits phase."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2246,7 +2246,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 0,
-    "summary": "Initializes 90 wake particle slots in DAT_800bd848/DAT_800bdb24 and sets DAT_800bddf0 cursor to 6."
+    "summary": "Initializes 90 wake particle slots in g_ovl17_setup_race_participants_state_swim_state/g_ovl17_push_wake_trail_particle_particles_word_800bdb24 and sets g_ovl17_wake_trail_ring_push_state cursor to 6."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2266,7 +2266,7 @@
     ],
     "domain": "overlay_part17_id07",
     "wave": 0,
-    "summary": "Records wake splash world_x and screen_y into the 90-slot ring buffer at DAT_800bdb20/DAT_800bdb24."
+    "summary": "Records wake splash world_x and screen_y into the 90-slot ring buffer at g_ovl17_push_wake_trail_particle_particles_word_800bdb20/g_ovl17_push_wake_trail_particle_particles_word_800bdb24."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2277,7 +2277,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 3,
-    "summary": "Submits 0x0e quad sprites (DAT_800bda74) for all active wake particles in DAT_800bdb20/DAT_800bdb24."
+    "summary": "Submits 0x0e quad sprites (g_ovl17_wake_trail_particles_festival_pool_word) for all active wake particles in g_ovl17_push_wake_trail_particle_particles_word_800bdb20/g_ovl17_push_wake_trail_particle_particles_word_800bdb24."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2288,7 +2288,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 6,
-    "summary": "Draws water backdrop, all 6 racing swimmers via ovl17_draw_swimmer_racing, and pool/crowd at camera X DAT_800bd86c."
+    "summary": "Draws water backdrop, all 6 racing swimmers via ovl17_draw_swimmer_racing, and pool/crowd at camera X g_ovl17_swim_race_wake_render_state."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2299,7 +2299,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 4,
-    "summary": "Evaluates pace tier, speed (>80), and breath thresholds to roll AI stroke triggers into DAT_800bd878."
+    "summary": "Evaluates pace tier, speed (>80), and breath thresholds to roll AI stroke triggers into g_ovl17_ai_swimmer_inputs_apply_word."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2310,7 +2310,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 3,
-    "summary": "Deducts breath DAT_800bd85a and boosts speed (+0x2e) for stroking swimmers, with 34% chance of splash SFX 0x3d."
+    "summary": "Deducts breath g_ovl17_apply_swimmer_strokes_festival_counter_800bd85a and boosts speed (+0x2e) for stroking swimmers, with 34% chance of splash SFX 0x3d."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2321,7 +2321,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 0,
-    "summary": "Decays each of the 6 swimmers' current speed toward base speed using breath and drag divisor DAT_800bd85c."
+    "summary": "Decays each of the 6 swimmers' current speed toward base speed using breath and drag divisor g_ovl17_decay_swimmer_speeds_festival_counter."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2332,7 +2332,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 0,
-    "summary": "Appends swimmers passing finish X 0x800000 to finish order DAT_800bdb04 or selects leading swimmer."
+    "summary": "Appends swimmers passing finish X 0x800000 to finish order g_ovl17_swim_race_finish_rankings_state or selects leading swimmer."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2343,7 +2343,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 0,
-    "summary": "Adjusts camera tracking speed DAT_800bd868 relative to leading swimmer X and camera scroll DAT_800bd86c."
+    "summary": "Adjusts camera tracking speed g_ovl17_swim_race_camera_festival_counter relative to leading swimmer X and camera scroll g_ovl17_swim_race_wake_render_state."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2370,7 +2370,7 @@
     ],
     "domain": "overlay_part17_id07",
     "wave": 5,
-    "summary": "Draws the 6-swimmer odds/payout table from DAT_8007ad58/DAT_8007ad5a and returns computed bet payout."
+    "summary": "Draws the 6-swimmer odds/payout table from g_ovl11_ovl_betting_racer_row_all_table/g_ui_festival_bet_pool_empty_open_table and returns computed bet payout."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2386,7 +2386,7 @@
     ],
     "domain": "overlay_part17_id07",
     "wave": 0,
-    "summary": "Computes swimmer minimum base speed from DAT_800bd850, DAT_800bd852, DAT_800bd854, and lane_skill."
+    "summary": "Computes swimmer minimum base speed from g_ovl17_swimmer_base_speed_festival_counter_800bd850, g_ovl17_swimmer_base_speed_festival_half, g_ovl17_swimmer_base_speed_festival_counter_800bd854, and lane_skill."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2397,7 +2397,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 0,
-    "summary": "Increments breath gauge (+0x2a) by 5 per frame for all 6 swimmers in DAT_800bd848 up to 0xff."
+    "summary": "Increments breath gauge (+0x2a) by 5 per frame for all 6 swimmers in g_ovl17_setup_race_participants_state_swim_state up to 0xff."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2413,7 +2413,7 @@
     ],
     "domain": "overlay_part17_id07",
     "wave": 3,
-    "summary": "Computes AI swimmer pace tier (0..2) from leader distance DAT_800bdb1a, stats DAT_800bd88a/DAT_800bd88c, and nearby rivals."
+    "summary": "Computes AI swimmer pace tier (0..2) from leader distance g_ovl17_ai_pace_tier_festival_half, stats g_ovl17_ai_pace_tier_half/g_ovl17_ai_pace_tier_word, and nearby rivals."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2493,7 +2493,7 @@
     ],
     "domain": "overlay_part17_id07",
     "wave": 0,
-    "summary": "Checks whether any rival swimmer in DAT_800bd880 is ahead of swimmer_idx within 0x59fff fixed-point units."
+    "summary": "Checks whether any rival swimmer in g_ovl17_swim_race_rankings_camera_word is ahead of swimmer_idx within 0x59fff fixed-point units."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2513,7 +2513,7 @@
     ],
     "domain": "overlay_part17_id07",
     "wave": 0,
-    "summary": "Returns whether swimmer_idx's breath field DAT_800bd872 exceeds the given threshold."
+    "summary": "Returns whether swimmer_idx's breath field g_ovl17_festival_ctx_off_2 exceeds the given threshold."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2529,7 +2529,7 @@
     ],
     "domain": "overlay_part17_id07",
     "wave": 0,
-    "summary": "Returns whether swimmer_idx's current speed DAT_800bd87e exceeds 0x50."
+    "summary": "Returns whether swimmer_idx's current speed g_ovl17_speed_above_half exceeds 0x50."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2556,7 +2556,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 2,
-    "summary": "Loads A_FILE part 0 (0x25000..0x2a800) into high-RAM arena, unpacks VRAM, and initializes DAT_800bdaa4."
+    "summary": "Loads A_FILE part 0 (0x25000..0x2a800) into high-RAM arena, unpacks VRAM, and initializes g_ovl17_swimmer_sprites_word_800bdaa4."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2600,7 +2600,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 7,
-    "summary": "Initializes Swim Festival tuning constants in DAT_800bd848, clears rankings, unpacks AI table, and resets swimmer lanes."
+    "summary": "Initializes Swim Festival tuning constants in g_ovl17_setup_race_participants_state_swim_state, clears rankings, unpacks AI table, and resets swimmer lanes."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2611,7 +2611,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 0,
-    "summary": "Unpacks 3x6 byte AI stroke probability entries from DAT_800bb710 into u16 slots at DAT_800bda50."
+    "summary": "Unpacks 3x6 byte AI stroke probability entries from g_ovl17_unpack_ai_chance_table into u16 slots at g_ovl17_ai_swimmer_inputs_unpack_table."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2622,7 +2622,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 0,
-    "summary": "Populates the 6 lane screen-Y positions (0x4d + i*0x1a) and OT/palette indices at DAT_800bd758."
+    "summary": "Populates the 6 lane screen-Y positions (0x4d + i*0x1a) and OT/palette indices at g_ovl17_setup_race_participants_lane_swimmer_half."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2633,7 +2633,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 0,
-    "summary": "Resets all 6 swimmer blocks in DAT_800bd848 with stats from DAT_8007ad54/DAT_8007ad56 and start X -0x20000."
+    "summary": "Resets all 6 swimmer blocks in g_ovl17_setup_race_participants_state_swim_state with stats from g_ovl17_swimmer_lanes_evt_half/g_ovl17_swimmer_lanes_half and start X -0x20000."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2649,7 +2649,7 @@
     ],
     "domain": "overlay_part17_id07",
     "wave": 3,
-    "summary": "Renders scrolling pool water tiles, lane ropes, start/finish walls, and beach spectators (DAT_800bb5f0) relative to cam_x."
+    "summary": "Renders scrolling pool water tiles, lane ropes, start/finish walls, and beach spectators (g_ovl17_pool_crowd_word_800bb5f0) relative to cam_x."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2669,7 +2669,7 @@
     ],
     "domain": "overlay_part17_id07",
     "wave": 5,
-    "summary": "Advances and renders a swimmer with shadow, player breath icon DAT_800bdad4, and periodic wake particle emission."
+    "summary": "Advances and renders a swimmer with shadow, player breath icon g_ovl17_festival_pack_anims_swimmer_racing_word, and periodic wake particle emission."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2700,7 +2700,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 1,
-    "summary": "Selects breath indicator anim state (1 or 2) from player breath DAT_800bd912 and updates DAT_800bdad4."
+    "summary": "Selects breath indicator anim state (1 or 2) from player breath g_ovl17_state_intro_breath_demo_gauge_counter and updates g_ovl17_festival_pack_anims_swimmer_racing_word."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2711,7 +2711,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 3,
-    "summary": "Sets DAT_800bda74 to anim frame 4 and submits the background water quad to the active display OT."
+    "summary": "Sets g_ovl17_wake_trail_particles_festival_pool_word to anim frame 4 and submits the background water quad to the active display OT."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2738,7 +2738,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 2,
-    "summary": "Loops over all 6 swimmers in DAT_800bd870 (stride 0x50) and sets each to treading-water state 2."
+    "summary": "Loops over all 6 swimmers in g_ovl17_festival_ctx (stride 0x50) and sets each to treading-water state 2."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2765,7 +2765,7 @@
     "params": [],
     "domain": "overlay_part17_id07",
     "wave": 2,
-    "summary": "Loops over all 6 swimmers in DAT_800bd870 (stride 0x50) and sets each to active swimming state 0."
+    "summary": "Loops over all 6 swimmers in g_ovl17_festival_ctx (stride 0x50) and sets each to active swimming state 0."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2797,7 +2797,7 @@
     ],
     "domain": "overlay_part17_id07",
     "wave": 0,
-    "summary": "Adds 20 (clamped at 0xff) to villager affection field DAT_80076222 for npc_idx."
+    "summary": "Adds 20 (clamped at 0xff) to villager affection field g_npc_trigger_cutscene_script_actor_ovl_table for npc_idx."
   },
   {
     "program": "OVL_part17_id07.EXE",
@@ -2813,7 +2813,7 @@
     ],
     "domain": "overlay_part17_id07",
     "wave": 0,
-    "summary": "Adds 500 (clamped at 0xffff) to villager affection word DAT_80076224 for npc_idx."
+    "summary": "Adds 500 (clamped at 0xffff) to villager affection word g_npc_actor0_affection for npc_idx."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -2835,7 +2835,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 4,
-    "summary": "Clears per-frame dialogue UI, updates 3D camera/GTE stage model, and dispatches DAT_800bf4c4 in PTR_FUN_800bcea8."
+    "summary": "Clears per-frame dialogue UI, updates 3D camera/GTE stage model, and dispatches g_ovl19_dispatch_festival_phase_tournament_show_counter in g_ovl19_dispatch_festival_phase_dat_ptr."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -2846,7 +2846,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 8,
-    "summary": "Starts screen/audio fade-in (10), renders all arena actors, and advances g_core_minigame_state_80070cc4."
+    "summary": "Starts screen/audio fade-in (10), renders all arena actors, and advances g_core_minigame_state."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -2868,7 +2868,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 4,
-    "summary": "Shuffles 8 unique chicken IDs (0..19) into DAT_800bf620, resets bout actors, and initializes AI tuning parameters."
+    "summary": "Shuffles 8 unique chicken IDs (0..19) into g_ovl19_tournament_bracket_phase_word, resets bout actors, and initializes AI tuning parameters."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -2879,7 +2879,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 3,
-    "summary": "Clears winner/audio handles (DAT_800bf4cc, DAT_800bf6c2, DAT_800bf6c4) and resets both fighters and 3 spectators."
+    "summary": "Clears winner/audio handles (g_ovl19_bout_actors_chicken_phase_counter, g_ovl19_phase_exit_festival_bout_chicken_counter, g_ovl19_bout_actors_chicken_phase_state) and resets both fighters and 3 spectators."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -2890,7 +2890,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 2,
-    "summary": "Resets both fighter structs from DAT_800bcefc, rolls opponent strength DAT_800bf520, and sets color DAT_800bf522."
+    "summary": "Resets both fighter structs from g_ovl19_fighter_positions_word_800bcefc, rolls opponent strength g_ovl19_fighter_positions_cpu_resolve_counter, and sets color g_ovl19_fighter_positions_half."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -2901,7 +2901,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 0,
-    "summary": "Initializes 3 spectator chicken records at DAT_800bf560 from DAT_800bcf0c and sets DAT_800bf5a6 by round DAT_800bf4c8."
+    "summary": "Initializes 3 spectator chicken records at g_ovl19_phase_announce_match_ready_chicken_table from g_ovl19_spectators_crowd_word and sets g_ovl19_spectators_crowd_half by round g_ovl19_tournament_bracket_fighter_spectators_counter."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -2912,7 +2912,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 1,
-    "summary": "Rolls CPU chicken opponent affection/strength for round DAT_800bf4c8 from DAT_800bcfe4 (+0xab in round 2)."
+    "summary": "Rolls CPU chicken opponent affection/strength for round g_ovl19_tournament_bracket_fighter_spectators_counter from g_ovl19_roll_opponent_affection_table (+0xab in round 2)."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -2923,7 +2923,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 8,
-    "summary": "Renders arena actors and tournament bracket UI, advancing DAT_800bf4c4 to phase 1 on confirm button press (0x60)."
+    "summary": "Renders arena actors and tournament bracket UI, advancing g_ovl19_dispatch_festival_phase_tournament_show_counter to phase 1 on confirm button press (0x60)."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -2934,7 +2934,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 8,
-    "summary": "Displays round prompt dialogue (4, 0xf/0x10) for round 1/2 and branches DAT_800bf4c4 to phase 3 or 2."
+    "summary": "Displays round prompt dialogue (4, 0xf/0x10) for round 1/2 and branches g_ovl19_dispatch_festival_phase_tournament_show_counter to phase 3 or 2."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -2945,7 +2945,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 8,
-    "summary": "Dispatches bout substate DAT_800bf4c6 in PTR_FUN_800bcec8, steps fighters, and renders actors until substate 7 exits."
+    "summary": "Dispatches bout substate g_ovl19_tournament_bracket_phase_bout_counter in g_ovl19_phase_bout_dat_ptr, steps fighters, and renders actors until substate 7 exits."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -2956,7 +2956,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 8,
-    "summary": "Resets bout actors, shows round intro dialogue (DAT_800bcff0[round]) for 60 frames, and advances DAT_800bf4c4 to 4."
+    "summary": "Resets bout actors, shows round intro dialogue (g_ovl19_phase_announce_match_calendar_table[round]) for 60 frames, and advances g_ovl19_dispatch_festival_phase_tournament_show_counter to 4."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -2967,7 +2967,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 8,
-    "summary": "Renders arena and shows pre-fight ready prompt (4, 0x12) for 45 frames before advancing DAT_800bf4c4 to 5."
+    "summary": "Renders arena and shows pre-fight ready prompt (4, 0x12) for 45 frames before advancing g_ovl19_dispatch_festival_phase_tournament_show_counter to 5."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -2978,7 +2978,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 8,
-    "summary": "Announces bout win (4, 0x16) or loss (4, 0x17) with winner name, increments round DAT_800bf4c8, or advances to champion."
+    "summary": "Announces bout win (4, 0x16) or loss (4, 0x17) with winner name, increments round g_ovl19_tournament_bracket_fighter_spectators_counter, or advances to champion."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -2989,7 +2989,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 8,
-    "summary": "Renders arena actors, sets tournament victory flag DAT_8007ae5c = 1, and advances g_core_minigame_state_80070cc4."
+    "summary": "Renders arena actors, sets tournament victory flag g_ovl19_phase_exit_festival_post_champion_state = 1, and advances g_core_minigame_state."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3011,7 +3011,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 3,
-    "summary": "Runs ring entrance dialogue (4, 9), plays cluck SFX 0x3a, sets fighter stances, and transitions DAT_800bf4c6 to 2."
+    "summary": "Runs ring entrance dialogue (4, 9), plays cluck SFX 0x3a, sets fighter stances, and transitions g_ovl19_tournament_bracket_phase_bout_counter to 2."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3033,7 +3033,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 1,
-    "summary": "Runs referee ready prompt (4, 0xb), resets spectators and fighter stances, and advances DAT_800bf4c6 to 4."
+    "summary": "Runs referee ready prompt (4, 0xb), resets spectators and fighter stances, and advances g_ovl19_tournament_bracket_phase_bout_counter to 4."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3066,7 +3066,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 1,
-    "summary": "Runs post-bout prompt (4, 0xe) and transitions outer DAT_800bf4c4 to phase 3 (continue) or 2 (end)."
+    "summary": "Runs post-bout prompt (4, 0xe) and transitions outer g_ovl19_dispatch_festival_phase_tournament_show_counter to phase 3 (continue) or 2 (end)."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3088,7 +3088,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 3,
-    "summary": "Every DAT_800bf63a frames rolls CPU squawk/scare trigger (DAT_800bf5a0) from range, facing cone, and DAT_800bf520."
+    "summary": "Every g_ovl19_tournament_bracket_cpu_counter_800bf63a frames rolls CPU squawk/scare trigger (g_ovl19_phase_announce_match_ready_chicken_word_800bf5a0) from range, facing cone, and g_ovl19_fighter_positions_cpu_resolve_counter."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3099,7 +3099,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 3,
-    "summary": "Triggers charge state 4 on spectator crow (DAT_800bf562==2), resolves head-on/back clashes, and rolls idle AI actions."
+    "summary": "Triggers charge state 4 on spectator crow (g_ovl19_chicken_sumo_fighters_cfg16==2), resolves head-on/back clashes, and rolls idle AI actions."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3110,7 +3110,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 7,
-    "summary": "Dispatches per-state handlers (3..11) for both fighters at DAT_800bf4d0 (stride 0x48) and decrements active timers."
+    "summary": "Dispatches per-state handlers (3..11) for both fighters at g_ovl19_event_actor_tbl (stride 0x48) and decrements active timers."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3126,7 +3126,7 @@
     ],
     "domain": "overlay_part19_id08",
     "wave": 6,
-    "summary": "Turns AI fighter using UNK_800bcf58 weights, triggers state 4 squawk when in range/facing, and avoids ring ledges."
+    "summary": "Turns AI fighter using g_ovl19_fighter_ai_word weights, triggers state 4 squawk when in range/facing, and avoids ring ledges."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3169,7 +3169,7 @@
     ],
     "domain": "overlay_part19_id08",
     "wave": 1,
-    "summary": "Steps clash-winner fighter_ptr (state 6) after windup delay DAT_800bf64e - 0x1e and resets to stance 2 at 0."
+    "summary": "Steps clash-winner fighter_ptr (state 6) after windup delay g_ovl19_tournament_bracket_fighters_fighter_counter_800bf64e - 0x1e and resets to stance 2 at 0."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3185,7 +3185,7 @@
     ],
     "domain": "overlay_part19_id08",
     "wave": 1,
-    "summary": "Steps pushed-back fighter_ptr (state 7) after delay DAT_800bf64e - 0x1e and resets to stance 2 at 0."
+    "summary": "Steps pushed-back fighter_ptr (state 7) after delay g_ovl19_tournament_bracket_fighters_fighter_counter_800bf64e - 0x1e and resets to stance 2 at 0."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3201,7 +3201,7 @@
     ],
     "domain": "overlay_part19_id08",
     "wave": 1,
-    "summary": "Steps stunned pushback fighter_ptr (state 8) after delay DAT_800bf64e - 0x1e and resets to stance 2 at 0."
+    "summary": "Steps stunned pushback fighter_ptr (state 8) after delay g_ovl19_tournament_bracket_fighters_fighter_counter_800bf64e - 0x1e and resets to stance 2 at 0."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3217,7 +3217,7 @@
     ],
     "domain": "overlay_part19_id08",
     "wave": 1,
-    "summary": "Steps heavy tackle winner fighter_ptr (state 9) while timer < DAT_800bf650 - 0x3c and resets to stance 2 at 0."
+    "summary": "Steps heavy tackle winner fighter_ptr (state 9) while timer < g_ovl19_tournament_bracket_fighters_fighter_counter_800bf650 - 0x3c and resets to stance 2 at 0."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3233,7 +3233,7 @@
     ],
     "domain": "overlay_part19_id08",
     "wave": 3,
-    "summary": "Steps knocked-back fighter_ptr (state 10), plays impact SFX 0x3c at DAT_800bf652 - 0x1e, and resets to stance 2 at 0."
+    "summary": "Steps knocked-back fighter_ptr (state 10), plays impact SFX 0x3c at g_ovl19_tournament_bracket_fighters_fighter_counter_800bf652 - 0x1e, and resets to stance 2 at 0."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3271,7 +3271,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 1,
-    "summary": "Compares player vs CPU chicken affection (DAT_800bf4d8 vs DAT_800bf520) with a 91% weighted roll to pick clash winner."
+    "summary": "Compares player vs CPU chicken affection (g_ovl19_fighter_positions_resolve_word vs g_ovl19_fighter_positions_cpu_resolve_counter) with a 91% weighted roll to pick clash winner."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3287,7 +3287,7 @@
     ],
     "domain": "overlay_part19_id08",
     "wave": 1,
-    "summary": "Rolls hm_prng_next(100) against UNK_800bcf28 weight table by affection tier and push flag to return action 0..3."
+    "summary": "Rolls hm_prng_next(100) against g_ovl19_pick_ai_action_region weight table by affection tier and push flag to return action 0..3."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3307,7 +3307,7 @@
     ],
     "domain": "overlay_part19_id08",
     "wave": 1,
-    "summary": "Checks whether target_ptr lies within distance DAT_800bf634 and front angle cone DAT_800bf632 of fighter_ptr."
+    "summary": "Checks whether target_ptr lies within distance g_ovl19_tournament_bracket_opponent_counter_800bf634 and front angle cone g_ovl19_tournament_bracket_opponent_counter_800bf632 of fighter_ptr."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3433,7 +3433,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 7,
-    "summary": "Renders both fighter chickens, 3 spectator chickens (DAT_800bf560), and 9 arena props (DAT_800bcf78)."
+    "summary": "Renders both fighter chickens, 3 spectator chickens (g_ovl19_phase_announce_match_ready_chicken_table), and 9 arena props (g_ovl19_render_all_arena_actors_word_800bcf78)."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3449,7 +3449,7 @@
     ],
     "domain": "overlay_part19_id08",
     "wave": 6,
-    "summary": "Selects animation frame/flip for fighter action_state (0..11), submits 3D fighter sprite, and draws clash effect DAT_800bf690."
+    "summary": "Selects animation frame/flip for fighter action_state (0..11), submits 3D fighter sprite, and draws clash effect g_ovl19_render_fighter_chicken_actor_arena_word."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3555,7 +3555,7 @@
     ],
     "domain": "overlay_part19_id08",
     "wave": 0,
-    "summary": "Selects FUN_80015814 or FUN_80015828 in DAT_800bd07c and applies it to all 3 spectators and 2 fighters."
+    "summary": "Selects hm_res_spr_anim_step_a_80015814 or hm_res_spr_anim_step_b_80015828 in g_ovl19_all_actors_paused_state and applies it to all 3 spectators and 2 fighters."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3566,7 +3566,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 3,
-    "summary": "Sets DAT_800bf660 to anim frame 9 and submits the tournament winner stamp sprite to the active OT."
+    "summary": "Sets g_ovl19_bracket_winner_stamp_slot_tournament_word to anim frame 9 and submits the tournament winner stamp sprite to the active OT."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3582,7 +3582,7 @@
     ],
     "domain": "overlay_part19_id08",
     "wave": 0,
-    "summary": "Clamps chicken_id to [0, 0x13] and returns its localized name offset from DAT_800bcff8."
+    "summary": "Clamps chicken_id to [0, 0x13] and returns its localized name offset from g_ovl19_chicken_name_offset_word."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3658,7 +3658,7 @@
     ],
     "domain": "overlay_part19_id08",
     "wave": 3,
-    "summary": "Sets DAT_800bf660 anim_frame and flip_flag and submits a bracket advance line quad to OT +0x14."
+    "summary": "Sets g_ovl19_bracket_winner_stamp_slot_tournament_word anim_frame and flip_flag and submits a bracket advance line quad to OT +0x14."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3669,7 +3669,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 5,
-    "summary": "Draws tournament bracket sprite DAT_800bf660, renders 7 opponent chicken names from DAT_800bf620, and marks round progress."
+    "summary": "Draws tournament bracket sprite g_ovl19_bracket_winner_stamp_slot_tournament_word, renders 7 opponent chicken names from g_ovl19_tournament_bracket_phase_word, and marks round progress."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3680,7 +3680,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 0,
-    "summary": "Initializes Chicken Sumo camera distance/pitch/yaw offsets and spawn position in g_core_event_script_ctx_800a0378."
+    "summary": "Initializes Chicken Sumo camera distance/pitch/yaw offsets and spawn position in g_core_event_script_ctx."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3691,7 +3691,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 0,
-    "summary": "Rotates camera distance DAT_800a0384 by yaw DAT_800a0390 via GTE RotMatrix/RotTrans into g_gfx_cam_offset."
+    "summary": "Rotates camera distance g_core_event_script_ctx_reserved_0x0c by yaw g_core_event_script_ctx_reserved_0x0c_idx3 via GTE RotMatrix/RotTrans into g_gfx_cam_offset."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3713,7 +3713,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 3,
-    "summary": "Draws 3D Chicken Sumo arena model DAT_800bf700 with camera and spawn vectors via hm_gte_draw_animated_model."
+    "summary": "Draws 3D Chicken Sumo arena model g_ovl19_arena_stage_model_snap_ring_word with camera and spawn vectors via hm_gte_draw_animated_model."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3729,7 +3729,7 @@
     ],
     "domain": "overlay_part19_id08",
     "wave": 4,
-    "summary": "Queries 3D ring collision DAT_800bf700 at pos_vec via hm_gte_update_camera_matrix and updates pos_vec[1] floor height."
+    "summary": "Queries 3D ring collision g_ovl19_arena_stage_model_snap_ring_word at pos_vec via hm_gte_update_camera_matrix and updates pos_vec[1] floor height."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3740,7 +3740,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 2,
-    "summary": "Loads A_FILE part 0 (0x25000..0x2a800) into high-RAM arena, unpacks VRAM, and initializes DAT_800bf690."
+    "summary": "Loads A_FILE part 0 (0x25000..0x2a800) into high-RAM arena, unpacks VRAM, and initializes g_ovl19_render_fighter_chicken_actor_arena_word."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3773,7 +3773,7 @@
     "params": [],
     "domain": "overlay_part19_id08",
     "wave": 2,
-    "summary": "Uploads 3D ring VRAM/map data (0x32ab000/0x32ce000), copies g_gfx_active_map_desc_8009f78c, and inits DAT_800bf700."
+    "summary": "Uploads 3D ring VRAM/map data (0x32ab000/0x32ce000), copies g_gfx_active_map_desc, and inits g_ovl19_arena_stage_model_snap_ring_word."
   },
   {
     "program": "OVL_part19_id08.EXE",
@@ -3800,7 +3800,7 @@
     ],
     "domain": "overlay_part19_id08",
     "wave": 0,
-    "summary": "Adds 20 (clamped at 0xff) to villager affection field DAT_80076222 for npc_idx."
+    "summary": "Adds 20 (clamped at 0xff) to villager affection field g_npc_trigger_cutscene_script_actor_ovl_table for npc_idx."
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -3811,7 +3811,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 9,
-    "summary": "Renders initial arena frame, resets actors, and increments g_core_minigame_state_80070cc4 once fade-in completes"
+    "summary": "Renders initial arena frame, resets actors, and increments g_core_minigame_state once fade-in completes"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -3822,7 +3822,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 4,
-    "summary": "Updates camera, lighting matrices, and 3D arena map, then dispatches active sub-state handler via PTR_FUN_800bcb6c[DAT_800c0448]"
+    "summary": "Updates camera, lighting matrices, and 3D arena map, then dispatches active sub-state handler via g_ovl21_dispatch_match_phase_dat_ptr[g_ovl21_event_slot_tbl]"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -3833,7 +3833,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 9,
-    "summary": "Updates camera/arena entities, starts 10-frame screen and audio fade-out via FUN_80013328/FUN_8001fe34, and advances phase"
+    "summary": "Updates camera/arena entities, starts 10-frame screen and audio fade-out via FUN_80013328/hm_res_spu_set_bgm_vol_8001fe34, and advances phase"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -3844,7 +3844,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 9,
-    "summary": "Waits for fade-out completion, stops SFX/BGM, frees VAB/SEQ banks, sets g_core_minigame_state_80070cc4 = 0xff, and sets flag 0x80000"
+    "summary": "Waits for fade-out completion, stops SFX/BGM, frees VAB/SEQ banks, sets g_core_minigame_state = 0xff, and sets flag 0x80000"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -3866,7 +3866,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 2,
-    "summary": "Clears pause/SFX handles, resets match frame timer DAT_800c0450 = DAT_800c0a94 * 30, and calls ovl21_init_match_actors"
+    "summary": "Clears pause/SFX handles, resets match frame timer g_ovl21_round_state_countdown_horse_cfg = g_ovl21_tuning_state_round_countdown_counter * 30, and calls ovl21_init_match_actors"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -3888,7 +3888,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 9,
-    "summary": "Resets round state and prompts rules/continue choice (4, 0x29) on heat > 0, advancing DAT_800c0448 to 1 or 2"
+    "summary": "Resets round state and prompts rules/continue choice (4, 0x29) on heat > 0, advancing g_ovl21_event_slot_tbl to 1 or 2"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -3899,7 +3899,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 9,
-    "summary": "Opens festival intro/rules dialogue (4, 0x18) and transitions DAT_800c0448 to 2 on Yes or 1 on No"
+    "summary": "Opens festival intro/rules dialogue (4, 0x18) and transitions g_ovl21_event_slot_tbl to 2 on Yes or 1 on No"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -3910,7 +3910,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 9,
-    "summary": "Resets round state, displays pre-match dialogue (4, 0x19), and advances DAT_800c0448 to 3 upon confirmation"
+    "summary": "Resets round state, displays pre-match dialogue (4, 0x19), and advances g_ovl21_event_slot_tbl to 3 upon confirmation"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -3921,7 +3921,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 9,
-    "summary": "Announces team 0 via DAT_800bccc4 dialogue, plays cheer SFX 0x45 with pose 0xb, waits for SPU key-off, and enters state 4"
+    "summary": "Announces team 0 via g_ovl21_state_announce_team0_table dialogue, plays cheer SFX 0x45 with pose 0xb, waits for SPU key-off, and enters state 4"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -3932,7 +3932,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 9,
-    "summary": "Announces team 1 via DAT_800bcccc dialogue, plays cheer SFX 0x45 with pose 0xb, waits for SPU key-off, and enters state 5"
+    "summary": "Announces team 1 via g_ovl21_state_announce_team1_table dialogue, plays cheer SFX 0x45 with pose 0xb, waits for SPU key-off, and enters state 5"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -3943,7 +3943,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 9,
-    "summary": "Resets round actors, opens match-start countdown dialogue (4, 0x1a), and transitions DAT_800c0448 to 6"
+    "summary": "Resets round actors, opens match-start countdown dialogue (4, 0x1a), and transitions g_ovl21_event_slot_tbl to 6"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4009,7 +4009,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 9,
-    "summary": "Plays draw SFX 0x44, waits for SPU key-off/timeout, initiates screen fade via FUN_800132f0, and advances to state 0xd"
+    "summary": "Plays draw SFX 0x44, waits for SPU key-off/timeout, initiates screen fade via hm_res_cd_wait_load_sync_800132f0, and advances to state 0xd"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4031,7 +4031,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 9,
-    "summary": "Reads rematch prompt decision via FUN_800225b8 and branches DAT_800c0448 to 5 (rematch) or 0xf (decline)"
+    "summary": "Reads rematch prompt decision via hm_res_dlg_is_busy_800225b8 and branches g_ovl21_event_slot_tbl to 5 (rematch) or 0xf (decline)"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4042,7 +4042,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 9,
-    "summary": "Displays secondary confirmation dialogue (4, 0x18) and returns DAT_800c0448 to 5 if confirmed"
+    "summary": "Displays secondary confirmation dialogue (4, 0x18) and returns g_ovl21_event_slot_tbl to 5 if confirmed"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4053,7 +4053,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 9,
-    "summary": "Waits for fade, restores screen brightness, increments heat counter DAT_800c044a, and resets DAT_800c0448 = 0"
+    "summary": "Waits for fade, restores screen brightness, increments heat counter g_ovl21_event_slot_tbl_off_2, and resets g_ovl21_event_slot_tbl = 0"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4064,7 +4064,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 9,
-    "summary": "Grants affection to teammates DAT_800c0560 and DAT_800c0668 via ovl21_add_npc_affection, sets win flag 1, and advances phase"
+    "summary": "Grants affection to teammates g_ovl21_match_actors_state_800c0560 and g_ovl21_match_actors_state_800c0668 via ovl21_add_npc_affection, sets win flag 1, and advances phase"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4075,7 +4075,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 9,
-    "summary": "Records opposing winning team ID into DAT_8007ae62, clears win flag DAT_8007ae64 = 0, and advances minigame phase"
+    "summary": "Records opposing winning team ID into g_ovl21_state_award_champion_record_half, clears win flag g_ovl21_state_award_champion_record_word = 0, and advances minigame phase"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4095,7 +4095,7 @@
     ],
     "domain": "overlay_part21_id09",
     "wave": 0,
-    "summary": "Sets pose/animation state field DAT_800c0460 across the 3 actors of team_idx (stride 0x84 shorts)"
+    "summary": "Sets pose/animation state field g_ovl21_match_actors_horse_team_table across the 3 actors of team_idx (stride 0x84 shorts)"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4117,7 +4117,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 0,
-    "summary": "Counts total active in-flight projectiles in DAT_800c047c across 6 actors x DAT_800c0a92 slots"
+    "summary": "Counts total active in-flight projectiles in g_ovl21_count_active_projectiles_launch_table across 6 actors x g_ovl21_tuning_state_count_launch_counter slots"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4155,7 +4155,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 2,
-    "summary": "Chooses target slots (DAT_800c0474) for AI teammates and opponents using alive counts, affection bias, and hm_prng_next"
+    "summary": "Chooses target slots (g_ovl21_match_actors_horse_ai_counter) for AI teammates and opponents using alive counts, affection bias, and hm_prng_next"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4177,7 +4177,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 3,
-    "summary": "Consumes throw-pending flags DAT_800c0470, allocates projectile slots with SquareRoot0 trajectory to target, and plays SFX 0x40"
+    "summary": "Consumes throw-pending flags g_ovl21_match_actors_launch_table, allocates projectile slots with SquareRoot0 trajectory to target, and plays SFX 0x40"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4188,7 +4188,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 0,
-    "summary": "Advances active projectiles in DAT_800c047c using ccos parabolic arc, gravity, ground clamp, and TTL expiry"
+    "summary": "Advances active projectiles in g_ovl21_count_active_projectiles_launch_table using ccos parabolic arc, gravity, ground clamp, and TTL expiry"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4221,7 +4221,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 7,
-    "summary": "Draws all 6 team actors via ovl21_draw_actor_sprite and renders ready-indicator sprite DAT_800c0b2c when in pose 2"
+    "summary": "Draws all 6 team actors via ovl21_draw_actor_sprite and renders ready-indicator sprite g_ovl21_all_actors_sprites_festival_word when in pose 2"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4232,7 +4232,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 7,
-    "summary": "Iterates 6x3 projectile slots in DAT_800c047c and renders each active projectile via ovl21_draw_projectile_sprite"
+    "summary": "Iterates 6x3 projectile slots in g_ovl21_count_active_projectiles_launch_table and renders each active projectile via ovl21_draw_projectile_sprite"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4243,7 +4243,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 7,
-    "summary": "Draws the player targeting reticle above aimed opponent slot DAT_800c0474 via ovl21_draw_target_reticle"
+    "summary": "Draws the player targeting reticle above aimed opponent slot g_ovl21_match_actors_horse_ai_counter via ovl21_draw_target_reticle"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4283,7 +4283,7 @@
     ],
     "domain": "overlay_part21_id09",
     "wave": 0,
-    "summary": "Counts remaining active actors (DAT_800c045c == 1) across the 3 slots of team_idx"
+    "summary": "Counts remaining active actors (g_ovl21_match_actors_horse_projectile_table == 1) across the 3 slots of team_idx"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4315,7 +4315,7 @@
     ],
     "domain": "overlay_part21_id09",
     "wave": 1,
-    "summary": "Selects a random eliminated (DAT_800c045c == 0) slot on team_idx via hm_prng_next, returning -1 if none"
+    "summary": "Selects a random eliminated (g_ovl21_match_actors_horse_projectile_table == 0) slot on team_idx via hm_prng_next, returning -1 if none"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4353,7 +4353,7 @@
     ],
     "domain": "overlay_part21_id09",
     "wave": 0,
-    "summary": "Pauses or resumes 0x0e sprite animations via FUN_80015814/FUN_80015828 across UI, 13 NPCs, and 18 projectiles"
+    "summary": "Pauses or resumes 0x0e sprite animations via hm_res_spr_anim_step_a_80015814/hm_res_spr_anim_step_b_80015828 across UI, 13 NPCs, and 18 projectiles"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4369,7 +4369,7 @@
     ],
     "domain": "overlay_part21_id09",
     "wave": 0,
-    "summary": "Adds +500 affection in DAT_80076224 for marriageable NPCs (7, 9, 0x14) or +20 friendship in DAT_80076222"
+    "summary": "Adds +500 affection in g_npc_actor0_affection for marriageable NPCs (7, 9, 0x14) or +20 friendship in g_npc_trigger_cutscene_script_actor_ovl_table"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4385,7 +4385,7 @@
     ],
     "domain": "overlay_part21_id09",
     "wave": 0,
-    "summary": "Computes NPC bond score via SquareRoot0(DAT_80076224) for candidates 7/9/0x14 or DAT_80076222 otherwise"
+    "summary": "Computes NPC bond score via SquareRoot0(g_npc_actor0_affection) for candidates 7/9/0x14 or g_npc_trigger_cutscene_script_actor_ovl_table otherwise"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4417,7 +4417,7 @@
     ],
     "domain": "overlay_part21_id09",
     "wave": 0,
-    "summary": "Maps npc_id to its preloaded 0x0e sprite descriptor slot in DAT_800c0b5c..DAT_800c0d9c"
+    "summary": "Maps npc_id to its preloaded 0x0e sprite descriptor slot in g_ovl21_sprites_paused_sprite_festival_word..g_ovl21_sprite_desc_word_800c0d9c"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4465,7 +4465,7 @@
     ],
     "domain": "overlay_part21_id09",
     "wave": 6,
-    "summary": "Selects DAT_800c0acc sequence 0xe and draws targeting indicator above target_slot via hm_ovl21_horse_race_payout"
+    "summary": "Selects g_ovl21_sprites_paused_target_vram_word sequence 0xe and draws targeting indicator above target_slot via hm_ovl21_horse_race_payout"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4476,7 +4476,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 3,
-    "summary": "Sets DAT_800c0afc anim state 0 and submits centered pause banner quad via hm_sprite_submit_0x0e_quad"
+    "summary": "Sets g_ovl21_sprites_paused_pause_festival_word anim state 0 and submits centered pause banner quad via hm_sprite_submit_0x0e_quad"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4487,7 +4487,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 0,
-    "summary": "Initializes 3D arena camera rig offsets and spawn target position in DAT_800a0384..DAT_800a03a8"
+    "summary": "Initializes 3D arena camera rig offsets and spawn target position in g_core_event_script_ctx_reserved_0x0c..g_core_spawn_pos_z"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4498,7 +4498,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 0,
-    "summary": "Computes rotated 3D camera offset DAT_800a039c..a0 from DAT_800a4008 matrix via GTE RotMatrix and RotTrans"
+    "summary": "Computes rotated 3D camera offset g_gfx_cam_offset_x..a0 from g_gfx_camera_offset_gte_render_compute_state_800a4008 matrix via GTE RotMatrix and RotTrans"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4520,7 +4520,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 3,
-    "summary": "Renders the 3D festival arena model DAT_800c0dd8 using camera eye and spawn target via hm_gte_draw_animated_model"
+    "summary": "Renders the 3D festival arena model g_ovl21_arena_map_vram_word using camera eye and spawn target via hm_gte_draw_animated_model"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4531,7 +4531,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 2,
-    "summary": "Loads A_FILE partition 0 offset 0x25000, unpacks 0x0d VRAM pack, copies sprite table, and inits 0x0e anim DAT_800c0acc"
+    "summary": "Loads A_FILE partition 0 offset 0x25000, unpacks 0x0d VRAM pack, copies sprite table, and inits 0x0e anim g_ovl21_sprites_paused_target_vram_word"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4564,7 +4564,7 @@
     "params": [],
     "domain": "overlay_part21_id09",
     "wave": 2,
-    "summary": "Queues VRAM rect uploads, unpacks arena 0x0d pack, copies g_gfx_active_map_desc_8009f78c, and initializes 3D map DAT_800c0dd8"
+    "summary": "Queues VRAM rect uploads, unpacks arena 0x0d pack, copies g_gfx_active_map_desc, and initializes 3D map g_ovl21_arena_map_vram_word"
   },
   {
     "program": "OVL_part21_id09.EXE",
@@ -4586,7 +4586,7 @@
     "params": [],
     "domain": "overlay_part23_id0a",
     "wave": 7,
-    "summary": "Resets and renders initial Dog Race scene and increments g_core_minigame_state_80070cc4 once fade-in completes"
+    "summary": "Resets and renders initial Dog Race scene and increments g_core_minigame_state once fade-in completes"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -4597,7 +4597,7 @@
     "params": [],
     "domain": "overlay_part23_id0a",
     "wave": 1,
-    "summary": "Calls FUN_800225c4 and invokes the active Dog Race pre-race handler via PTR_FUN_800bb9f8[DAT_800bf87c]"
+    "summary": "Calls FUN_800225c4 and invokes the active Dog Race pre-race handler via g_ovl23_dispatch_prerace_phase_dat_ptr[g_ovl23_cutscene_ctx]"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -4608,7 +4608,7 @@
     "params": [],
     "domain": "overlay_part23_id0a",
     "wave": 2,
-    "summary": "Initiates 10-frame screen and audio fade-out via FUN_80013328/FUN_8001fe34 and increments g_core_minigame_state_80070cc4"
+    "summary": "Initiates 10-frame screen and audio fade-out via FUN_80013328/hm_res_spu_set_bgm_vol_8001fe34 and increments g_core_minigame_state"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -4619,7 +4619,7 @@
     "params": [],
     "domain": "overlay_part23_id0a",
     "wave": 2,
-    "summary": "Waits for fade completion, stops active SFX, frees VAB/SEQ banks, sets g_core_minigame_state_80070cc4 = 0xff, and sets flag 0x80000"
+    "summary": "Waits for fade completion, stops active SFX, frees VAB/SEQ banks, sets g_core_minigame_state = 0xff, and sets flag 0x80000"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -4630,7 +4630,7 @@
     "params": [],
     "domain": "overlay_part23_id0a",
     "wave": 3,
-    "summary": "Sets track length 0x800 and race tuning globals DAT_800bfc18..2e, resets race state, and rolls 6 unique racer IDs"
+    "summary": "Sets track length 0x800 and race tuning globals g_ovl23_race_config_state_dog_move_counter..2e, resets race state, and rolls 6 unique racer IDs"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -4641,7 +4641,7 @@
     "params": [],
     "domain": "overlay_part23_id0a",
     "wave": 2,
-    "summary": "Resets Dog Race runtime flags, camera scroll DAT_800bf88c = 0x40000, and calls init_trainers, init_dogs, and init_trail_buffers"
+    "summary": "Resets Dog Race runtime flags, camera scroll g_ovl23_race_state_dog_trail_state = 0x40000, and calls init_trainers, init_dogs, and init_trail_buffers"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -4652,7 +4652,7 @@
     "params": [],
     "domain": "overlay_part23_id0a",
     "wave": 1,
-    "summary": "Initializes 6 dog trainer descriptors at DAT_800bfa80 with starting X 0x17000, sprites, and random decision intervals"
+    "summary": "Initializes 6 dog trainer descriptors at g_ovl23_ai_trainers_render_half with starting X 0x17000, sprites, and random decision intervals"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -4663,7 +4663,7 @@
     "params": [],
     "domain": "overlay_part23_id0a",
     "wave": 1,
-    "summary": "Initializes 6 dog racer descriptors at DAT_800bf8a0 with starting X -0x1b000, lane Y, random stats, and Q20.12 speeds"
+    "summary": "Initializes 6 dog racer descriptors at g_ovl23_all_dogs_render_half with starting X -0x1b000, lane Y, random stats, and Q20.12 speeds"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -4674,7 +4674,7 @@
     "params": [],
     "domain": "overlay_part23_id0a",
     "wave": 7,
-    "summary": "Pre-race state 0: resets race descriptors, renders initial scene, and sets DAT_800bf87c = 1"
+    "summary": "Pre-race state 0: resets race descriptors, renders initial scene, and sets g_ovl23_cutscene_ctx = 1"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -4685,7 +4685,7 @@
     "params": [],
     "domain": "overlay_part23_id0a",
     "wave": 7,
-    "summary": "Pre-race state 1: renders scene, opens Dog Race intro dialogue (4, 0x2a), and advances DAT_800bf87c = 2 on confirm"
+    "summary": "Pre-race state 1: renders scene, opens Dog Race intro dialogue (4, 0x2a), and advances g_ovl23_cutscene_ctx = 2 on confirm"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -4707,7 +4707,7 @@
     "params": [],
     "domain": "overlay_part23_id0a",
     "wave": 7,
-    "summary": "Pre-race state 3: renders scene, displays rules dialogue (4, 0x2c), and advances DAT_800bf87c = 4 on confirm"
+    "summary": "Pre-race state 3: renders scene, displays rules dialogue (4, 0x2c), and advances g_ovl23_cutscene_ctx = 4 on confirm"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -4718,7 +4718,7 @@
     "params": [],
     "domain": "overlay_part23_id0a",
     "wave": 7,
-    "summary": "Pre-race state 4: binds racer name strings via FUN_80017a08, displays lineup (4, 0x2d), and transitions to countdown state 5"
+    "summary": "Pre-race state 4: binds racer name strings via hm_res_ui_bind_font_slot_80017a08, displays lineup (4, 0x2d), and transitions to countdown state 5"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -4729,7 +4729,7 @@
     "params": [],
     "domain": "overlay_part23_id0a",
     "wave": 7,
-    "summary": "Pre-race state 5: shows ready prompt (4, 0x2e) for 0x3c frames, plays start SFX 0x38, and sets DAT_800bf87c = 6"
+    "summary": "Pre-race state 5: shows ready prompt (4, 0x2e) for 0x3c frames, plays start SFX 0x38, and sets g_ovl23_cutscene_ctx = 6"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -4740,7 +4740,7 @@
     "params": [],
     "domain": "overlay_part23_id0a",
     "wave": 2,
-    "summary": "Polls g_io_active_pad_buf_ptr_8005e3a8 bits (0x20/0x8000/0x2000) for player trainer DAT_800bfb08 and steps position"
+    "summary": "Polls g_io_active_pad_buf_ptr bits (0x20/0x8000/0x2000) for player trainer g_ovl23_player_trainer_word and steps position"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -4819,7 +4819,7 @@
     ],
     "domain": "overlay_part23_id0a",
     "wave": 0,
-    "summary": "Appends (world_x, lane_y, dir) footprint entry into the 54-slot ring buffer at DAT_800bfc94 using cursor DAT_800bfe44"
+    "summary": "Appends (world_x, lane_y, dir) footprint entry into the 54-slot ring buffer at g_ovl23_push_trainer_trail_mark_marks_word using cursor g_ovl25_trail_buffers_push_scene_state"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -4843,7 +4843,7 @@
     ],
     "domain": "overlay_part23_id0a",
     "wave": 0,
-    "summary": "Appends (world_x, lane_y, dir) pawprint entry into the 12-slot ring buffer at DAT_800bfe48 using cursor DAT_800bfea8"
+    "summary": "Appends (world_x, lane_y, dir) pawprint entry into the 12-slot ring buffer at g_ovl23_push_dog_trail_mark_marks_state using cursor g_ovl23_trail_buffers_push_state"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -4854,7 +4854,7 @@
     "params": [],
     "domain": "overlay_part23_id0a",
     "wave": 4,
-    "summary": "Draws visible dog pawprints (12 slots) and trainer footprints (54 slots) relative to camera DAT_800bf88c via hm_sprite_play_at_pos"
+    "summary": "Draws visible dog pawprints (12 slots) and trainer footprints (54 slots) relative to camera g_ovl23_race_state_dog_trail_state via hm_sprite_play_at_pos"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -4865,7 +4865,7 @@
     "params": [],
     "domain": "overlay_part23_id0a",
     "wave": 1,
-    "summary": "Draws 6 unique random racer/owner IDs in [0..9] via hm_prng_next into DAT_800bf892"
+    "summary": "Draws 6 unique random racer/owner IDs in [0..9] via hm_prng_next into g_ovl23_prerace_lineup_dialogue_dog_roll_half"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -4881,7 +4881,7 @@
     ],
     "domain": "overlay_part23_id0a",
     "wave": 1,
-    "summary": "Steers a finished dog toward post-race resting coords (DAT_800bfc18 + 0x37, lane_y) and sets idle mode 2 on arrival"
+    "summary": "Steers a finished dog toward post-race resting coords (g_ovl23_race_config_state_dog_move_counter + 0x37, lane_y) and sets idle mode 2 on arrival"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -4897,7 +4897,7 @@
     ],
     "domain": "overlay_part23_id0a",
     "wave": 1,
-    "summary": "Moves a finished trainer toward post-race X (DAT_800bfc18 + 0x77) at walk speed and faces left upon arrival"
+    "summary": "Moves a finished trainer toward post-race X (g_ovl23_race_config_state_dog_move_counter + 0x77) at walk speed and faces left upon arrival"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -5029,7 +5029,7 @@
     ],
     "domain": "overlay_part23_id0a",
     "wave": 1,
-    "summary": "Rolls hm_prng_next(100) against DAT_800bbab4 probability table keyed by dog stat delta and action_idx"
+    "summary": "Rolls hm_prng_next(100) against g_ovl23_roll_trainer_dir_prob_table probability table keyed by dog stat delta and action_idx"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -5049,7 +5049,7 @@
     ],
     "domain": "overlay_part23_id0a",
     "wave": 1,
-    "summary": "Selects AI trainer speed tier (1, 2, or 3) from cumulative weight table DAT_800bba9c based on dog proximity/state"
+    "summary": "Selects AI trainer speed tier (1, 2, or 3) from cumulative weight table g_ovl23_pick_trainer_speed_tier_word_800bba9c based on dog proximity/state"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -5065,7 +5065,7 @@
     ],
     "domain": "overlay_part23_id0a",
     "wave": 1,
-    "summary": "Advances trainer X by walk/run speed DAT_800bfc1c/1e, clamping to track bounds and reversing AI direction at edges"
+    "summary": "Advances trainer X by walk/run speed g_ovl23_race_config_state_move_trainer_counter/1e, clamping to track bounds and reversing AI direction at edges"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -5081,7 +5081,7 @@
     ],
     "domain": "overlay_part23_id0a",
     "wave": 0,
-    "summary": "Dispatches dog sprite/animation state handler via PTR_LAB_800b7e7c jump table keyed by *(u16 *)(dog_addr + 4) - 1"
+    "summary": "Dispatches dog sprite/animation state handler via g_ovl23_dispatch_dog_jtbl_ptr jump table keyed by *(u16 *)(dog_addr + 4) - 1"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -5108,7 +5108,7 @@
     "params": [],
     "domain": "overlay_part23_id0a",
     "wave": 3,
-    "summary": "Submits tiled track ground, fence, start line, and finish line 0x0e quads across screen width using camera X DAT_800bf88c"
+    "summary": "Submits tiled track ground, fence, start line, and finish line 0x0e quads across screen width using camera X g_ovl23_race_state_dog_trail_state"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -5124,7 +5124,7 @@
     ],
     "domain": "overlay_part23_id0a",
     "wave": 0,
-    "summary": "Maps fixed-point Q20.12 lane Y coordinate to ordering table bucket pointer in g_gfx_active_disp_ctx_ptr_8005e3c0"
+    "summary": "Maps fixed-point Q20.12 lane Y coordinate to ordering table bucket pointer in g_gfx_active_disp_ctx_ptr"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -5140,7 +5140,7 @@
     ],
     "domain": "overlay_part23_id0a",
     "wave": 0,
-    "summary": "Converts Q20.12 world X coordinate to screen X relative to camera DAT_800bf88c, clamping offscreen values to -width"
+    "summary": "Converts Q20.12 world X coordinate to screen X relative to camera g_ovl23_race_state_dog_trail_state, clamping offscreen values to -width"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -5207,7 +5207,7 @@
     "params": [],
     "domain": "overlay_part23_id0a",
     "wave": 0,
-    "summary": "Pauses all 6 dog (DAT_800bf8bc) and 6 trainer (DAT_800bfa90) 0x0e sprite animations via FUN_80015814"
+    "summary": "Pauses all 6 dog (g_ovl23_pause_racer_sprites_resume_vram_word_800bf8bc) and 6 trainer (g_ovl23_pause_racer_sprites_resume_vram_word_800bfa90) 0x0e sprite animations via hm_res_spr_anim_step_a_80015814"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -5218,7 +5218,7 @@
     "params": [],
     "domain": "overlay_part23_id0a",
     "wave": 0,
-    "summary": "Resumes all 6 dog (DAT_800bf8bc) and 6 trainer (DAT_800bfa90) 0x0e sprite animations via FUN_80015828"
+    "summary": "Resumes all 6 dog (g_ovl23_pause_racer_sprites_resume_vram_word_800bf8bc) and 6 trainer (g_ovl23_pause_racer_sprites_resume_vram_word_800bfa90) 0x0e sprite animations via hm_res_spr_anim_step_b_80015828"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -5229,7 +5229,7 @@
     "params": [],
     "domain": "overlay_part23_id0a",
     "wave": 3,
-    "summary": "Sets DAT_800bfc30 anim sequence 5 and submits the pause banner quad via hm_sprite_submit_0x0e_quad"
+    "summary": "Sets g_ovl23_trail_marks_scrolling_pause_word anim sequence 5 and submits the pause banner quad via hm_sprite_submit_0x0e_quad"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -5240,7 +5240,7 @@
     "params": [],
     "domain": "overlay_part23_id0a",
     "wave": 2,
-    "summary": "Reads A_FILE partition 0 offset 0x25000, unpacks 0x0d VRAM pack, copies sprite table, and inits 0x0e anim DAT_800bfc60"
+    "summary": "Reads A_FILE partition 0 offset 0x25000, unpacks 0x0d VRAM pack, copies sprite table, and inits 0x0e anim g_ovl23_vram_sprites_word_800bfc60"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -5289,7 +5289,7 @@
     ],
     "domain": "overlay_part23_id0a",
     "wave": 0,
-    "summary": "Increments villager friendship by +20 (clamped at 0xff) in DAT_80076222 for slot npc_id (stride 0x1d4)"
+    "summary": "Increments villager friendship by +20 (clamped at 0xff) in g_npc_trigger_cutscene_script_actor_ovl_table for slot npc_id (stride 0x1d4)"
   },
   {
     "program": "OVL_part23_id0a.EXE",
@@ -5305,7 +5305,7 @@
     ],
     "domain": "overlay_part23_id0a",
     "wave": 0,
-    "summary": "Increments bachelorette affection by +500 (clamped at 0xffff) in DAT_80076224 for slot npc_id (stride 0x1d4)"
+    "summary": "Increments bachelorette affection by +500 (clamped at 0xffff) in g_npc_actor0_affection for slot npc_id (stride 0x1d4)"
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5316,7 +5316,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 9,
-    "summary": "Runs pre-match intro camera/stage draw, awaits fade and audio readiness, sets sky RGB (0, 0xa5, 0xd5), and advances DAT_80070cc4."
+    "summary": "Runs pre-match intro camera/stage draw, awaits fade and audio readiness, sets sky RGB (0, 0xa5, 0xd5), and advances g_core_minigame_state."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5327,7 +5327,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 4,
-    "summary": "Steps GTE camera, lighting, 3D stage model, VRAM tile anims, sub-mode table PTR_FUN_800bcbec[DAT_800bfe44], and sky tint cycle each frame."
+    "summary": "Steps GTE camera, lighting, 3D stage model, VRAM tile anims, sub-mode table g_ovl25_scene_dispatch_mode_dat_ptr[g_ovl25_trail_buffers_push_scene_state], and sky tint cycle each frame."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5338,7 +5338,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 9,
-    "summary": "Renders festival frame via ovl25_render_festival_world, triggers 10-frame screen/audio fade-outs, and advances DAT_80070cc4."
+    "summary": "Renders festival frame via ovl25_render_festival_world, triggers 10-frame screen/audio fade-outs, and advances g_core_minigame_state."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5349,7 +5349,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 9,
-    "summary": "Awaits fade completion, stops SFX/BGM/VAB banks, sets DAT_80070cc4=0xff, switches to overlay 6 via FUN_80011ef0, and resets clear color."
+    "summary": "Awaits fade completion, stops SFX/BGM/VAB banks, sets g_core_minigame_state=0xff, switches to overlay 6 via hm_res_sys_wait_vblank_80011ef0, and resets clear color."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5360,7 +5360,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 2,
-    "summary": "Initializes Tomato Festival mode flags, calls ovl25_reset_match_state, and sets gameplay tuning constants in DAT_800c0312..28 (goal=4000)."
+    "summary": "Initializes Tomato Festival mode flags, calls ovl25_reset_match_state, and sets gameplay tuning constants in g_ovl25_minigame_config_ai_recovery_counter_800c0312..28 (goal=4000)."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5371,7 +5371,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 1,
-    "summary": "Resets match pause, SFX handles, timer DAT_800bfe50, and target coordinates DAT_800c0214..18 before calling ovl25_reset_actors_for_match."
+    "summary": "Resets match pause, SFX handles, timer g_ovl25_match_state_mode_countdown_counter, and target coordinates g_ovl25_match_state_goal_half..18 before calling ovl25_reset_actors_for_match."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5382,7 +5382,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 0,
-    "summary": "Initializes 6 participant structs at DAT_800bfe44 (state=1, stamina=0x32000, positions from DAT_800bcc40), 2 NPCs from DAT_800bcc80, and sets DAT_800c0126/019e."
+    "summary": "Initializes 6 participant structs at g_ovl25_trail_buffers_push_scene_state (state=1, stamina=0x32000, positions from g_ovl25_actors_match_word_800bcc40), 2 NPCs from g_ovl25_actors_match_word_800bcc80, and sets g_ovl25_actors_match_tutorial_half_800c0126/019e."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5393,7 +5393,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 0,
-    "summary": "Resets 6 participant structs at DAT_800bfe44 (state=0, stamina=0x32000, positions from DAT_800bcc10), 2 NPCs from DAT_800bcc70, and sets DAT_800c0126/019e."
+    "summary": "Resets 6 participant structs at g_ovl25_trail_buffers_push_scene_state (state=0, stamina=0x32000, positions from g_ovl25_actors_tutorial_word_800bcc10), 2 NPCs from g_ovl25_actors_tutorial_word_800bcc70, and sets g_ovl25_actors_match_tutorial_half_800c0126/019e."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5404,7 +5404,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 9,
-    "summary": "Renders festival world and steps tutorial state table PTR_FUN_800bcbf8[DAT_800bfe46], transitioning DAT_800bfe44 to 1 after step 6."
+    "summary": "Renders festival world and steps tutorial state table g_ovl25_mode_tutorial_sequence_dat_ptr[g_ovl25_minigame_config_mode_tutorial_counter], transitioning g_ovl25_trail_buffers_push_scene_state to 1 after step 6."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5415,7 +5415,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 9,
-    "summary": "Displays match-start prompt 0x35 for 60 frames, resets match via ovl25_reset_match_state, plays SFX 0x38, and starts match mode DAT_800bfe44=2."
+    "summary": "Displays match-start prompt 0x35 for 60 frames, resets match via ovl25_reset_match_state, plays SFX 0x38, and starts match mode g_ovl25_trail_buffers_push_scene_state=2."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5426,7 +5426,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 6,
-    "summary": "Processes player pad buttons (0x10/0x40) at DAT_8005e3a8 for player actor DAT_800bfe54 and displays/dismisses action prompt boxes DAT_800bcb34/8e."
+    "summary": "Processes player pad buttons (0x10/0x40) at g_io_active_pad_buf_ptr for player actor g_ovl25_player_input_prompts_all_match_half and displays/dismisses action prompt boxes g_ovl25_player_input_prompts_word_800bcb34/8e."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5437,7 +5437,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 2,
-    "summary": "Updates AI team behaviors across DAT_800bfecc..0x800c00ac using stamina thresholds, ovl25_ai_roll_action_chance, and ovl25_ai_choose_throw_action."
+    "summary": "Updates AI team behaviors across g_ovl25_ai_actors_word_800bfecc..0x800c00ac using stamina thresholds, ovl25_ai_roll_action_chance, and ovl25_ai_choose_throw_action."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5448,7 +5448,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 0,
-    "summary": "Smoothly pans camera target DAT_800a03a4 toward player X DAT_800bfe64 (clamped at 0xce4), zeroes DAT_800a03a6, and sets DAT_800a03a8 to DAT_800bfe68."
+    "summary": "Smoothly pans camera target g_core_spawn_pos_x toward player X g_ovl25_mode_countdown_start_player_camera_cfg_800bfe64 (clamped at 0xce4), zeroes g_core_spawn_pos_y, and sets g_core_spawn_pos_z to g_ovl25_mode_countdown_start_player_camera_cfg_800bfe68."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5459,7 +5459,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 2,
-    "summary": "Decrements action cooldown timers for all 6 festival participants at DAT_800bfe54 and invokes ovl25_step_actor_state_machine on each."
+    "summary": "Decrements action cooldown timers for all 6 festival participants at g_ovl25_player_input_prompts_all_match_half and invokes ovl25_step_actor_state_machine on each."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5486,7 +5486,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 3,
-    "summary": "Evaluates finish-line crossings (DAT_800c0316-0x140) across all 6 actors, records winner in DAT_8007ae70/74, awards NPC points on player win, and advances phase."
+    "summary": "Evaluates finish-line crossings (g_ovl25_minigame_config_match_tutorial_counter-0x140) across all 6 actors, records winner in g_ovl25_match_finish_rewards_word_8007ae70/74, awards NPC points on player win, and advances phase."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5519,7 +5519,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 7,
-    "summary": "Submits sprites for all 6 festival participants at DAT_800bfe54 and 2 NPCs at DAT_800c0124 via ovl25_draw_participant_sprite and ovl25_draw_npc_sprite."
+    "summary": "Submits sprites for all 6 festival participants at g_ovl25_player_input_prompts_all_match_half and 2 NPCs at g_ovl25_mode_countdown_start_all_half via ovl25_draw_participant_sprite and ovl25_draw_npc_sprite."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5587,7 +5587,7 @@
     ],
     "domain": "overlay_part25_id0b",
     "wave": 1,
-    "summary": "Rolls hm_prng_next(0x80) against threshold table DAT_800bcca0 for actor role and action_idx, returning true when threshold is met."
+    "summary": "Rolls hm_prng_next(0x80) against threshold table g_ovl25_ai_roll_action_chance_table for actor role and action_idx, returning true when threshold is met."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5702,7 +5702,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 6,
-    "summary": "Maps player fixed-point stamina DAT_800bfe60 to gauge anim 0..4 on DAT_800c02dc and draws it near player when active."
+    "summary": "Maps player fixed-point stamina g_ovl25_player_input_prompts_stamina_cfg to gauge anim 0..4 on g_ovl25_player_stamina_gauge_pause_resume_word and draws it near player when active."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5713,7 +5713,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 6,
-    "summary": "Updates goal/marker sprites DAT_800c027c and DAT_800c02ac to anims 0/1 and projects both at DAT_800c0214."
+    "summary": "Updates goal/marker sprites g_ovl25_goal_marker_sprites_pause_resume_word_800c027c and g_ovl25_goal_marker_sprites_pause_resume_word_800c02ac to anims 0/1 and projects both at g_ovl25_match_state_goal_half."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5724,7 +5724,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 6,
-    "summary": "Updates festival props DAT_800c0394..0x800c0424, crowd runner animations, and parabolic tomato flight DAT_800bcd21..54 with impact SFX 0x4d."
+    "summary": "Updates festival props g_ovl25_props_tomato_arc_pause_resume_word_800c0394..0x800c0424, crowd runner animations, and parabolic tomato flight g_ovl25_mode_countdown_start_player_props_flag..54 with impact SFX 0x4d."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5735,7 +5735,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 0,
-    "summary": "Pauses animation playback via FUN_80015814(..., 4) across all festival participant, NPC, prop, and HUD HmSpriteActor instances."
+    "summary": "Pauses animation playback via hm_res_spr_anim_step_a_80015814(..., 4) across all festival participant, NPC, prop, and HUD HmSpriteActor instances."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5746,7 +5746,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 0,
-    "summary": "Resumes animation playback via FUN_80015828(..., 4) across all festival participant, NPC, prop, and HUD HmSpriteActor instances."
+    "summary": "Resumes animation playback via hm_res_spr_anim_step_b_80015828(..., 4) across all festival participant, NPC, prop, and HUD HmSpriteActor instances."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5757,7 +5757,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 3,
-    "summary": "Sets pause banner sprite DAT_800c024c to frame 0 and submits centered HUD quad using DAT_800a3fb0/DAT_800a3fb4 via hm_sprite_submit_0x0e_quad."
+    "summary": "Sets pause banner sprite g_ovl25_pause_all_sprites_resume_overlay_word to frame 0 and submits centered HUD quad using g_ui_hud_money_state/g_ui_tick_rucksack_pause_menu_betting_cfg via hm_sprite_submit_0x0e_quad."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5788,7 +5788,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 1,
-    "summary": "Initializes tutorial scene via ovl25_reset_actors_for_tutorial and advances tutorial sub-state DAT_800bfe46 to 1."
+    "summary": "Initializes tutorial scene via ovl25_reset_actors_for_tutorial and advances tutorial sub-state g_ovl25_minigame_config_mode_tutorial_counter to 1."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5799,7 +5799,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 1,
-    "summary": "Displays tutorial dialogue 0x31 via hm_dialogue_set_window_state and advances DAT_800bfe46 to 2 upon dialogue completion."
+    "summary": "Displays tutorial dialogue 0x31 via hm_dialogue_set_window_state and advances g_ovl25_minigame_config_mode_tutorial_counter to 2 upon dialogue completion."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5810,7 +5810,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 1,
-    "summary": "Pans camera right toward DAT_800c0316-0x140, shows tutorial dialogue 0x32, triggers demo tomato throw DAT_800bcd21=1, and advances to state 3."
+    "summary": "Pans camera right toward g_ovl25_minigame_config_match_tutorial_counter-0x140, shows tutorial dialogue 0x32, triggers demo tomato throw g_ovl25_mode_countdown_start_player_props_flag=1, and advances to state 3."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5821,7 +5821,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 1,
-    "summary": "Pans camera back to DAT_800bfe64, opens confirmation dialogue 0x33, and routes DAT_800bfe46 to 4 or 0 via FUN_800225b8."
+    "summary": "Pans camera back to g_ovl25_mode_countdown_start_player_camera_cfg_800bfe64, opens confirmation dialogue 0x33, and routes g_ovl25_minigame_config_mode_tutorial_counter to 4 or 0 via hm_res_dlg_is_busy_800225b8."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5832,7 +5832,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 1,
-    "summary": "Shows tutorial closing dialogue 0x34, starts screen fade-out via FUN_800132f0(10,0,2), and advances DAT_800bfe46 to 5."
+    "summary": "Shows tutorial closing dialogue 0x34, starts screen fade-out via hm_res_cd_wait_load_sync_800132f0(10,0,2), and advances g_ovl25_minigame_config_mode_tutorial_counter to 5."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5843,7 +5843,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 1,
-    "summary": "Waits for fade completion, resets match actors via ovl25_reset_actors_for_match, starts fade-in, sets DAT_800a03a4=0xfec0, and advances DAT_800bfe46 to 6."
+    "summary": "Waits for fade completion, resets match actors via ovl25_reset_actors_for_match, starts fade-in, sets g_core_spawn_pos_x=0xfec0, and advances g_ovl25_minigame_config_mode_tutorial_counter to 6."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5854,7 +5854,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 0,
-    "summary": "Initializes festival camera distance/elevation parameters in DAT_800a0384..94 and spawn target DAT_800a03a4..a8."
+    "summary": "Initializes festival camera distance/elevation parameters in g_core_event_script_ctx_reserved_0x0c..94 and spawn target g_core_spawn_pos_x..a8."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5865,7 +5865,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 0,
-    "summary": "Computes rotated 3D camera offset DAT_800a039c..a0 via GTE RotMatrix and RotTrans from DAT_800a4008..24 and yaw DAT_800a0390."
+    "summary": "Computes rotated 3D camera offset g_gfx_cam_offset_x..a0 via GTE RotMatrix and RotTrans from g_gfx_camera_offset_gte_render_compute_state_800a4008..24 and yaw g_core_event_script_ctx_reserved_0x0c_idx3."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5876,7 +5876,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 1,
-    "summary": "Updates active GTE camera eye (DAT_800a039c+DAT_800a03a4) and look-at target (DAT_800a03a4..a8) via FUN_8001b9f8 and FUN_8001ba40."
+    "summary": "Updates active GTE camera eye (g_gfx_cam_offset_x+g_core_spawn_pos_x) and look-at target (g_core_spawn_pos_x..a8) via FUN_8001b9f8 and FUN_8001ba40."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5887,7 +5887,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 3,
-    "summary": "Builds camera eye and target vectors from DAT_800a039c..a8 and renders 3D festival stage model DAT_800c0454 via hm_gte_draw_animated_model."
+    "summary": "Builds camera eye and target vectors from g_gfx_cam_offset_x..a8 and renders 3D festival stage model g_ovl21_tuning_state_horse_projectile_state via hm_gte_draw_animated_model."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5898,7 +5898,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 2,
-    "summary": "Loads A_FILE tomato/effect sprite pack (0x25000, 0x5800 B), unpacks VRAM, copies tables to DAT_800bcdd4/DAT_800977f8, and inits DAT_800c021c."
+    "summary": "Loads A_FILE tomato/effect sprite pack (0x25000, 0x5800 B), unpacks VRAM, copies tables to g_ovl25_tomato_sprite_pack_word/g_npc_weather_particles_interact_swimmer_word, and inits g_ovl25_props_tomato_arc_sprite_word."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5920,7 +5920,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 2,
-    "summary": "Loads A_FILE part 0x1a (0x124d0 B) into DAT_800be1b4, unpacks VRAM, and initializes all participant, NPC, prop, and HUD HmSpriteActors."
+    "summary": "Loads A_FILE part 0x1a (0x124d0 B) into g_ovl25_festival_actor_sprites_word_800be1b4, unpacks VRAM, and initializes all participant, NPC, prop, and HUD HmSpriteActors."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5931,7 +5931,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 2,
-    "summary": "Loads Tomato Festival 3D stage map and model (0x15a6000, 0x36000 B), copies descriptor to DAT_8009f78c, inits DAT_800c0454, and sets BGM ID 0x39."
+    "summary": "Loads Tomato Festival 3D stage map and model (0x15a6000, 0x36000 B), copies descriptor to g_gfx_active_map_desc, inits g_ovl21_tuning_state_horse_projectile_state, and sets BGM ID 0x39."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5953,7 +5953,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 0,
-    "summary": "Zeroes the 8 VRAM tile animation slots at DAT_800a03b0 (0xb4 bytes) via memset and marks each slot ID as 0xffff."
+    "summary": "Zeroes the 8 VRAM tile animation slots at g_core_event_script_ctx_reserved_0x0c_idx11 (0xb4 bytes) via memset and marks each slot ID as 0xffff."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5980,7 +5980,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 1,
-    "summary": "Steps all active VRAM tile animation slots at DAT_800a03b0 via ovl25_step_vram_frame_anim or ovl25_step_vram_scroll_anim when unpaused."
+    "summary": "Steps all active VRAM tile animation slots at g_core_event_script_ctx_reserved_0x0c_idx11 via ovl25_step_vram_frame_anim or ovl25_step_vram_scroll_anim when unpaused."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -5996,7 +5996,7 @@
     ],
     "domain": "overlay_part25_id0b",
     "wave": 0,
-    "summary": "Uploads current sprite frame rectangle via MoveImage and advances sequence table step in DAT_800a0378+0x8a8 for slot_ptr."
+    "summary": "Uploads current sprite frame rectangle via MoveImage and advances sequence table step in g_core_event_script_ctx+0x8a8 for slot_ptr."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -6028,7 +6028,7 @@
     ],
     "domain": "overlay_part25_id0b",
     "wave": 0,
-    "summary": "Registers unique tile animation descriptor anim_desc into first free slot (-1) of DAT_800a03b0 (8 slots, stride 0x16 bytes)."
+    "summary": "Registers unique tile animation descriptor anim_desc into first free slot (-1) of g_core_event_script_ctx_reserved_0x0c_idx11 (8 slots, stride 0x16 bytes)."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -6044,7 +6044,7 @@
     ],
     "domain": "overlay_part25_id0b",
     "wave": 0,
-    "summary": "Adds 0x14 points (clamped to 0xff) to villager friendship field at DAT_80076222 + npc_id * 0x1d4."
+    "summary": "Adds 0x14 points (clamped to 0xff) to villager friendship field at g_npc_trigger_cutscene_script_actor_ovl_table + npc_id * 0x1d4."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -6060,7 +6060,7 @@
     ],
     "domain": "overlay_part25_id0b",
     "wave": 0,
-    "summary": "Adds 500 points (clamped to 0xffff) to villager affection field at DAT_80076224 + npc_id * 0x1d4."
+    "summary": "Adds 500 points (clamped to 0xffff) to villager affection field at g_npc_actor0_affection + npc_id * 0x1d4."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -6095,7 +6095,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 1,
-    "summary": "Ping-pongs sky tint counter DAT_800bcd52 across [0..0x1ff], interpolates RGB via hm_clut_lerp_rgb_triple, and applies via ovl25_set_clear_bg_color."
+    "summary": "Ping-pongs sky tint counter g_ovl25_sky_color_cycle_counter_800bcd52 across [0..0x1ff], interpolates RGB via hm_clut_lerp_rgb_triple, and applies via ovl25_set_clear_bg_color."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6106,7 +6106,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 1,
-    "summary": "Calls ovl27_reset_logo_anim_vars and clears title screen phase, menu state, demo flag DAT_800c4a26, and engine snapshot DAT_800c4a28."
+    "summary": "Calls ovl27_reset_logo_anim_vars and clears title screen phase, menu state, demo flag g_ovl27_overlay_state_title_exit_counter, and engine snapshot g_ovl27_overlay_state_phase_sprites_state."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6117,7 +6117,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 0,
-    "summary": "Resets title logo animation timers DAT_800c4a2c..36 and slide offsets DAT_800c4a38/3a/3c (-160, 48, 320) with cursor selection DAT_800c4a1a=1."
+    "summary": "Resets title logo animation timers g_ovl27_logo_vars_title_counter_800c4a2c..36 and slide offsets g_ovl27_logo_vars_intro_counter_800c4a38/3a/3c (-160, 48, 320) with cursor selection g_ovl27_overlay_state_logo_title_counter=1."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6128,7 +6128,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 3,
-    "summary": "Initializes title/demo session: snapshots DAT_8006c844, resets field/player/sound/calendar on cold boot, starts sprite load, and advances DAT_80070cc0."
+    "summary": "Initializes title/demo session: snapshots g_core_engine_flags0, resets field/player/sound/calendar on cold boot, starts sprite load, and advances g_core_ovl_stack_depth."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6156,7 +6156,7 @@
     ],
     "domain": "overlay_part27_id0c",
     "wave": 4,
-    "summary": "Polls title sprite load, copies random palette from PTR_DAT_800c4a40 to DAT_800605e8, shows splash logo on cold boot, and advances DAT_80070cc0."
+    "summary": "Polls title sprite load, copies random palette from g_ovl27_phase_sprites_palette_dat_ptr to g_ovl27_phase_sprites_palette_word, shows splash logo on cold boot, and advances g_core_ovl_stack_depth."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6167,7 +6167,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 0,
-    "summary": "Starts 10-frame screen fade-out (FUN_800132f0) and audio fade-out (FUN_8001fe34), then advances overlay phase DAT_80070cc0."
+    "summary": "Starts 10-frame screen fade-out (hm_res_cd_wait_load_sync_800132f0) and audio fade-out (hm_res_spu_set_bgm_vol_8001fe34), then advances overlay phase g_core_ovl_stack_depth."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6178,7 +6178,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 2,
-    "summary": "Waits for screen and audio fade completion, stops BGM, resets SPU sequencer and frees VAB bank 2, then advances DAT_80070cc0."
+    "summary": "Waits for screen and audio fade completion, stops BGM, resets SPU sequencer and frees VAB bank 2, then advances g_core_ovl_stack_depth."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6189,7 +6189,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 1,
-    "summary": "Finalizes New Game, Continue, or attract demo exit flags in DAT_8006c844/DAT_80070c88 and transitions to overlay 2 or 8 via FUN_80011ef0."
+    "summary": "Finalizes New Game, Continue, or attract demo exit flags in g_core_engine_flags0/g_core_scene_flags and transitions to overlay 2 or 8 via hm_res_sys_wait_vblank_80011ef0."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6200,7 +6200,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 7,
-    "summary": "Starts title logo intro sequence, steps background scene via hm_ovl27_title_step_demo_scene, resets DAT_800c4a1c, and sets state to ovl27_intro_anim_wait."
+    "summary": "Starts title logo intro sequence, steps background scene via hm_ovl27_title_step_demo_scene, resets g_ovl27_overlay_state_logo_title_state, and sets state to ovl27_intro_anim_wait."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6211,7 +6211,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 7,
-    "summary": "Holds background title scene for 30 frames (DAT_800c4a1c > 0x1d) before advancing PTR_FUN_800c4a14 to ovl27_intro_anim_slide_logo."
+    "summary": "Holds background title scene for 30 frames (g_ovl27_overlay_state_logo_title_state > 0x1d) before advancing g_ovl27_intro_wait_dat_ptr to ovl27_intro_anim_slide_logo."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6222,7 +6222,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 7,
-    "summary": "Slides main title logo into position by incrementing DAT_800c4a38 to 0, then transitions PTR_FUN_800c4a14 to ovl27_intro_anim_slide_subtitle."
+    "summary": "Slides main title logo into position by incrementing g_ovl27_logo_vars_intro_counter_800c4a38 to 0, then transitions g_ovl27_intro_wait_dat_ptr to ovl27_intro_anim_slide_subtitle."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6233,7 +6233,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 7,
-    "summary": "Draws settled title logo and slides subtitle by decrementing DAT_800c4a3a to 0, then advances PTR_FUN_800c4a14 to ovl27_intro_anim_slide_press_start."
+    "summary": "Draws settled title logo and slides subtitle by decrementing g_ovl27_logo_vars_intro_counter_800c4a3a to 0, then advances g_ovl27_intro_wait_dat_ptr to ovl27_intro_anim_slide_press_start."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6244,7 +6244,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 7,
-    "summary": "Slides Press Start banner in from right (DAT_800c4a3c -= 2 until <= 0), resets DAT_800c4a1c, and transitions to ovl27_intro_anim_blink_press_start."
+    "summary": "Slides Press Start banner in from right (g_ovl27_logo_vars_intro_exit_state -= 2 until <= 0), resets g_ovl27_overlay_state_logo_title_state, and transitions to ovl27_intro_anim_blink_press_start."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6255,7 +6255,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 7,
-    "summary": "Blinks Press Start banner at 15-frame intervals for 90 frames (DAT_800c4a1c > 0x59) before advancing to ovl27_intro_anim_exit_press_start."
+    "summary": "Blinks Press Start banner at 15-frame intervals for 90 frames (g_ovl27_overlay_state_logo_title_state > 0x59) before advancing to ovl27_intro_anim_exit_press_start."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6266,7 +6266,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 7,
-    "summary": "Slides Press Start banner off-screen left (DAT_800c4a3c <= -DAT_800a3fb0) and transitions PTR_FUN_800c4a14 to ovl27_intro_anim_reset_press_start."
+    "summary": "Slides Press Start banner off-screen left (g_ovl27_logo_vars_intro_exit_state <= -g_ui_hud_money_state) and transitions g_ovl27_intro_wait_dat_ptr to ovl27_intro_anim_reset_press_start."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6277,7 +6277,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 7,
-    "summary": "Resets Press Start X offset DAT_800c4a3c to 0x140 and loops PTR_FUN_800c4a14 back to ovl27_intro_anim_slide_press_start."
+    "summary": "Resets Press Start X offset g_ovl27_logo_vars_intro_exit_state to 0x140 and loops g_ovl27_intro_wait_dat_ptr back to ovl27_intro_anim_slide_press_start."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6321,7 +6321,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 3,
-    "summary": "Submits publisher/company splash logo sprite frame 0x1e from DAT_800c4bd0 to display sub-OT via hm_sprite_submit_0x0e_quad."
+    "summary": "Submits publisher/company splash logo sprite frame 0x1e from g_ovl27_company_splash_logo_title_word to display sub-OT via hm_sprite_submit_0x0e_quad."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6337,7 +6337,7 @@
     ],
     "domain": "overlay_part27_id0c",
     "wave": 3,
-    "summary": "Submits title logo subtitle/ribbon sprite frame 0x20 from DAT_800c4bd0 at vertical offset y_offset via hm_sprite_submit_0x0e_quad."
+    "summary": "Submits title logo subtitle/ribbon sprite frame 0x20 from g_ovl27_company_splash_logo_title_word at vertical offset y_offset via hm_sprite_submit_0x0e_quad."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6353,7 +6353,7 @@
     ],
     "domain": "overlay_part27_id0c",
     "wave": 3,
-    "summary": "Submits main Harvest Moon title logo sprite frame 0x1f from DAT_800c4bd0 at vertical offset y_offset via hm_sprite_submit_0x0e_quad."
+    "summary": "Submits main Harvest Moon title logo sprite frame 0x1f from g_ovl27_company_splash_logo_title_word at vertical offset y_offset via hm_sprite_submit_0x0e_quad."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6369,7 +6369,7 @@
     ],
     "domain": "overlay_part27_id0c",
     "wave": 3,
-    "summary": "Submits Press Start banner sprite frame 0x21 from DAT_800c4bd0 at horizontal offset x_offset via hm_sprite_submit_0x0e_quad."
+    "summary": "Submits Press Start banner sprite frame 0x21 from g_ovl27_company_splash_logo_title_word at horizontal offset x_offset via hm_sprite_submit_0x0e_quad."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6380,7 +6380,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 3,
-    "summary": "Renders two 3x3 tiled scrolling sky layers (frame 0x25) with csin/ccos wave offsets DAT_800c4a4c/4e and backdrop frame 0x1d."
+    "summary": "Renders two 3x3 tiled scrolling sky layers (frame 0x25) with csin/ccos wave offsets g_ovl27_scrolling_sky_backdrop_cfg16/4e and backdrop frame 0x1d."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6391,7 +6391,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 4,
-    "summary": "Renders animated title farm actor DAT_800c4a80 at (0x11a, 0xad) and randomizes its animation state every 90 frames via hm_prng_next."
+    "summary": "Renders animated title farm actor g_ovl27_title_actor_a80_poll_word at (0x11a, 0xad) and randomizes its animation state every 90 frames via hm_prng_next."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6402,7 +6402,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 4,
-    "summary": "Renders animated title farm actor DAT_800c4ab0 at (0x21, 0x92) and cycles its animation state (10..18) every 60 frames via hm_prng_next."
+    "summary": "Renders animated title farm actor g_ovl27_title_actor_ab0_poll_word at (0x21, 0x92) and cycles its animation state (10..18) every 60 frames via hm_prng_next."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6413,7 +6413,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 4,
-    "summary": "Renders animated title farm actor DAT_800c4ae0 at (0x33, 0xb6) and selects animation state 0x13..0x15 every 60 frames via hm_prng_next."
+    "summary": "Renders animated title farm actor g_ovl27_title_actor_ae0_poll_word at (0x33, 0xb6) and selects animation state 0x13..0x15 every 60 frames via hm_prng_next."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6435,7 +6435,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 4,
-    "summary": "Renders 3 ambient title sprite instances of DAT_800c4b10 and toggles animation state 0x16/0x17 every 15 frames via hm_prng_next(2)."
+    "summary": "Renders 3 ambient title sprite instances of g_ovl27_title_ambient_group_b10_poll_word and toggles animation state 0x16/0x17 every 15 frames via hm_prng_next(2)."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6446,7 +6446,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 4,
-    "summary": "Renders 5 ambient title sprite instances of DAT_800c4b40 and toggles animation state 0x18/0x19 every 20 frames via hm_prng_next(2)."
+    "summary": "Renders 5 ambient title sprite instances of g_ovl27_title_ambient_group_b40_poll_word and toggles animation state 0x18/0x19 every 20 frames via hm_prng_next(2)."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6457,7 +6457,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 4,
-    "summary": "Renders 3 ambient title sprite instances of DAT_800c4b70 and toggles animation state 0x1a/0x1b every 30 frames via hm_prng_next(2)."
+    "summary": "Renders 3 ambient title sprite instances of g_ovl27_title_ambient_group_b70_poll_word and toggles animation state 0x1a/0x1b every 30 frames via hm_prng_next(2)."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6479,7 +6479,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 3,
-    "summary": "Submits New Game menu label sprite frame 0x22 from DAT_800c4bd0 via hm_sprite_submit_0x0e_quad."
+    "summary": "Submits New Game menu label sprite frame 0x22 from g_ovl27_company_splash_logo_title_word via hm_sprite_submit_0x0e_quad."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6490,7 +6490,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 3,
-    "summary": "Submits Continue menu label sprite frame 0x23 from DAT_800c4bd0 via hm_sprite_submit_0x0e_quad."
+    "summary": "Submits Continue menu label sprite frame 0x23 from g_ovl27_company_splash_logo_title_word via hm_sprite_submit_0x0e_quad."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6506,7 +6506,7 @@
     ],
     "domain": "overlay_part27_id0c",
     "wave": 5,
-    "summary": "Draws title status prompt box (0x10,0x10,0x78,0x14) and renders message string indexed by msg_index from table DAT_800c4a50."
+    "summary": "Draws title status prompt box (0x10,0x10,0x78,0x14) and renders message string indexed by msg_index from table g_ovl27_status_prompt_box_word."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6528,7 +6528,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 2,
-    "summary": "Polls title sprite A_FILE load; when ready, unpacks VRAM, copies header to DAT_800c4c00, and initializes 8 HmSpriteActors (0x800c4a80..bd0)."
+    "summary": "Polls title sprite A_FILE load; when ready, unpacks VRAM, copies header to g_ovl27_poll_title_sprites_word_800c4c00, and initializes 8 HmSpriteActors (0x800c4a80..bd0)."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6539,7 +6539,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 2,
-    "summary": "Registers loaded title sequence data at DAT_8005e3b0+0x4290 via FUN_8001fbe4 and starts title BGM track 0x1a via hm_audio_play_bgm_seq."
+    "summary": "Registers loaded title sequence data at g_gfx_highram_arena_ptr+0x4290 via hm_res_spu_bind_arena_8001fbe4 and starts title BGM track 0x1a via hm_audio_play_bgm_seq."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6550,7 +6550,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 2,
-    "summary": "Synchronizes GPU, clears active OT, and starts async A_FILE read of title audio data (offset 0x2a800, 0x49000 B) into DAT_8007aff4."
+    "summary": "Synchronizes GPU, clears active OT, and starts async A_FILE read of title audio data (offset 0x2a800, 0x49000 B) into g_sys_highram_reserved_base."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6561,7 +6561,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 2,
-    "summary": "Polls completion of async A_FILE read (0x2a800, 0x49000 B) into DAT_8007aff4, returning true when transfer finishes."
+    "summary": "Polls completion of async A_FILE read (0x2a800, 0x49000 B) into g_sys_highram_reserved_base, returning true when transfer finishes."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6583,7 +6583,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 2,
-    "summary": "Polls splash pack A_FILE read (0x25000, 0x5800 B); on completion, unpacks VRAM via hm_vram_unpack_0x0d_pack_auto and copies table to DAT_800977f8."
+    "summary": "Polls splash pack A_FILE read (0x25000, 0x5800 B); on completion, unpacks VRAM via hm_vram_unpack_0x0d_pack_auto and copies table to g_npc_weather_particles_interact_swimmer_word."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6627,7 +6627,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 0,
-    "summary": "Clamps demo slot DAT_8006c850 [0..3], copies 0x1000-byte preset from PTR_DAT_800c4a64 to DAT_8006c854+6, and advances next slot."
+    "summary": "Clamps demo slot g_ovl27_phase_title_demo_copy_state [0..3], copies 0x1000-byte preset from g_ovl27_copy_demo_save_preset_dat_ptr to g_ovl27_field_demo_input_playback_dispatch_state+6, and advances next slot."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6643,7 +6643,7 @@
     ],
     "domain": "overlay_part27_id0c",
     "wave": 0,
-    "summary": "Populates 25x44 farm field grid DAT_80071dfc from preset_idx (0..3) tilemap table and attaches secondary layer data for tile IDs 0x22..0x30."
+    "summary": "Populates 25x44 farm field grid g_farm_field_grid from preset_idx (0..3) tilemap table and attaches secondary layer data for tile IDs 0x22..0x30."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6654,7 +6654,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 0,
-    "summary": "Initializes player state block DAT_80071a12..cc0 for new game or demo (stamina=100, fatigue=100, gold=500, cleared tools and inventory)."
+    "summary": "Initializes player state block g_core_player_state_stamina..cc0 for new game or demo (stamina=100, fatigue=100, gold=500, cleared tools and inventory)."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6665,7 +6665,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 2,
-    "summary": "Resets audio/system option flags DAT_8007ad04..0a to defaults (stereo/SFX enabled) and applies volume settings via FUN_80020a40."
+    "summary": "Resets audio/system option flags g_farm_field_remap_pad_buttons_sound_counter..0a to defaults (stereo/SFX enabled) and applies volume settings via FUN_80020a40."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -6676,7 +6676,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 0,
-    "summary": "Copies 5 initial 6-byte festival/schedule records from DAT_800bcff0 into resident calendar buffer at 0x80070ec2."
+    "summary": "Copies 5 initial 6-byte festival/schedule records from g_ovl19_phase_announce_match_calendar_table into resident calendar buffer at 0x80070ec2."
   },
   {
     "program": "OVL_part28_id0d.EXE",
@@ -6731,7 +6731,7 @@
     "params": [],
     "domain": "overlay_part28_id0d",
     "wave": 0,
-    "summary": "Triggers 10-frame screen fade-out and audio fade-out, then advances ending overlay state g_core_ovl_stack_depth_80070cc0"
+    "summary": "Triggers 10-frame screen fade-out and audio fade-out, then advances ending overlay state g_core_ovl_stack_depth"
   },
   {
     "program": "OVL_part28_id0d.EXE",
@@ -6753,7 +6753,7 @@
     "params": [],
     "domain": "overlay_part28_id0d",
     "wave": 0,
-    "summary": "Resets g_core_ovl_stack_depth_80070cc0 to 0 and requests overlay 0x14 (epilogue) via FUN_80011ef0"
+    "summary": "Resets g_core_ovl_stack_depth to 0 and requests overlay 0x14 (epilogue) via hm_res_sys_wait_vblank_80011ef0"
   },
   {
     "program": "OVL_part28_id0d.EXE",
@@ -6764,7 +6764,7 @@
     "params": [],
     "domain": "overlay_part28_id0d",
     "wave": 1,
-    "summary": "Clears active credit lines, resets scroll counters, and advances PTR_FUN_800b9614 to hm_ovl28_credits_step_script"
+    "summary": "Clears active credit lines, resets scroll counters, and advances g_ovl28_credits_begin_scroll_dat_ptr to hm_ovl28_credits_step_script"
   },
   {
     "program": "OVL_part28_id0d.EXE",
@@ -6775,7 +6775,7 @@
     "params": [],
     "domain": "overlay_part28_id0d",
     "wave": 0,
-    "summary": "Sets CG slideshow handler PTR_FUN_800b9618 to step phase and clears CG slot, coordinates, and delay timer"
+    "summary": "Sets CG slideshow handler g_ovl28_slideshow_phase_dat_ptr to step phase and clears CG slot, coordinates, and delay timer"
   },
   {
     "program": "OVL_part28_id0d.EXE",
@@ -6802,7 +6802,7 @@
     "params": [],
     "domain": "overlay_part28_id0d",
     "wave": 0,
-    "summary": "Clears all 20 credit line slots at DAT_800b9630 as inactive and resets fixed-point Y offsets to bottom baseline"
+    "summary": "Clears all 20 credit line slots at g_ovl28_credits_clear_entries_spawn_lines_cfg as inactive and resets fixed-point Y offsets to bottom baseline"
   },
   {
     "program": "OVL_part28_id0d.EXE",
@@ -6818,7 +6818,7 @@
     ],
     "domain": "overlay_part28_id0d",
     "wave": 0,
-    "summary": "Finds first free slot in the 20-entry credit line array DAT_800b9630 and spawns entry line_id at bottom Y"
+    "summary": "Finds first free slot in the 20-entry credit line array g_ovl28_credits_clear_entries_spawn_lines_cfg and spawns entry line_id at bottom Y"
   },
   {
     "program": "OVL_part28_id0d.EXE",
@@ -6829,7 +6829,7 @@
     "params": [],
     "domain": "overlay_part28_id0d",
     "wave": 3,
-    "summary": "Iterates all 20 credit line slots in DAT_800b9630 and draws active lines via hm_sprite_submit_0x0e_quad"
+    "summary": "Iterates all 20 credit line slots in g_ovl28_credits_clear_entries_spawn_lines_cfg and draws active lines via hm_sprite_submit_0x0e_quad"
   },
   {
     "program": "OVL_part28_id0d.EXE",
@@ -6840,7 +6840,7 @@
     "params": [],
     "domain": "overlay_part28_id0d",
     "wave": 0,
-    "summary": "Scrolls active credit line entries in DAT_800b9630 upward by DAT_800b93b4 and deactivates lines past -0xe000"
+    "summary": "Scrolls active credit line entries in g_ovl28_credits_clear_entries_spawn_lines_cfg upward by g_ovl28_credits_state_begin_script_state_800b93b4 and deactivates lines past -0xe000"
   },
   {
     "program": "OVL_part28_id0d.EXE",
@@ -6862,7 +6862,7 @@
     "params": [],
     "domain": "overlay_part28_id0d",
     "wave": 2,
-    "summary": "Polls credits sprite A_FILE load (0x3d77000), unpacks VRAM pack, copies sprite bank to DAT_800b9750, and sets anim 0"
+    "summary": "Polls credits sprite A_FILE load (0x3d77000), unpacks VRAM pack, copies sprite bank to g_ovl28_credits_poll_sprite_word, and sets anim 0"
   },
   {
     "program": "OVL_part28_id0d.EXE",
@@ -6873,7 +6873,7 @@
     "params": [],
     "domain": "overlay_part28_id0d",
     "wave": 2,
-    "summary": "Registers ending music sequence bank from g_gfx_highram_arena_ptr_8005e3b0 and starts BGM tracks 0, 1000, and 0x23"
+    "summary": "Registers ending music sequence bank from g_gfx_highram_arena_ptr and starts BGM tracks 0, 1000, and 0x23"
   },
   {
     "program": "OVL_part28_id0d.EXE",
@@ -6895,7 +6895,7 @@
     "params": [],
     "domain": "overlay_part28_id0d",
     "wave": 2,
-    "summary": "Polls ending backdrop A_FILE load (0x2000), unpacks VRAM pack, copies sprite data to DAT_800b9df0, and sets anim 0x1f"
+    "summary": "Polls ending backdrop A_FILE load (0x2000), unpacks VRAM pack, copies sprite data to g_ovl28_credits_poll_logo_word, and sets anim 0x1f"
   },
   {
     "program": "OVL_part28_id0d.EXE",
@@ -6957,7 +6957,7 @@
     "params": [],
     "domain": "overlay_part28_id0d",
     "wave": 0,
-    "summary": "Returns true when ending CG vignette fade state DAT_800b9626 has completed and returned to 0"
+    "summary": "Returns true when ending CG vignette fade state g_ovl28_cg_fade_overlay_start_out_counter_800b9626 has completed and returned to 0"
   },
   {
     "program": "OVL_part30_id0f.EXE",
@@ -6973,7 +6973,7 @@
     ],
     "domain": "overlay_part30_id0f",
     "wave": 0,
-    "summary": "Saves (0) or restores (nonzero) VRAM RECT DAT_8013400c to/from g_gfx_highram_arena_ptr_8005e3b0 + 0x4290 with DrawSync"
+    "summary": "Saves (0) or restores (nonzero) VRAM RECT g_ovl30_dbg_vram_save_restore_loadimage_arg to/from g_gfx_highram_arena_ptr + 0x4290 with DrawSync"
   },
   {
     "program": "OVL_part30_id0f.EXE",
@@ -7017,7 +7017,7 @@
     "params": [],
     "domain": "overlay_part30_id0f",
     "wave": 0,
-    "summary": "Steps g_ovl30_debug_menu_ctx_8_selected_bgm_80134b14 in range [0..0x100] from Left/Right D-pad bits"
+    "summary": "Steps g_ovl30_debug_menu_ctx_selected_bgm in range [0..0x100] from Left/Right D-pad bits"
   },
   {
     "program": "OVL_part30_id0f.EXE",
@@ -7037,7 +7037,7 @@
     ],
     "domain": "overlay_part30_id0f",
     "wave": 0,
-    "summary": "Updates bit (bit_idx & 0x1f) in g_core_engine_flags1_8006c848 to bit_val"
+    "summary": "Updates bit (bit_idx & 0x1f) in g_core_engine_flags1 to bit_val"
   },
   {
     "program": "OVL_part30_id0f.EXE",
@@ -7048,7 +7048,7 @@
     "params": [],
     "domain": "overlay_part30_id0f",
     "wave": 0,
-    "summary": "Loads PS1 SDK debug font (0x2c0, 0x100), opens 256x200 dump window, and sets kanji print origin via FUN_800183b8"
+    "summary": "Loads PS1 SDK debug font (0x2c0, 0x100), opens 256x200 dump window, and sets kanji print origin via hm_res_ui_set_kanji_origin_800183b8"
   },
   {
     "program": "OVL_part30_id0f.EXE",
@@ -7096,7 +7096,7 @@
     ],
     "domain": "overlay_part30_id0f",
     "wave": 4,
-    "summary": "Main debug hub page: runs 29-entry selector at 0x8013439c when last_selection < 0, then dispatches PTR_LAB_8012e4cc jump table"
+    "summary": "Main debug hub page: runs 29-entry selector at 0x8013439c when last_selection < 0, then dispatches g_ovl30_dbg_page_hub_jtbl_ptr jump table"
   },
   {
     "program": "OVL_part30_id0f.EXE",
@@ -7128,7 +7128,7 @@
     ],
     "domain": "overlay_part30_id0f",
     "wave": 4,
-    "summary": "Debug field editor for 20-slot actor table g_anim_livestock_barn_tbl_800749f4 (stride 0xB8): edits 25 fields and steps slot 0..19"
+    "summary": "Debug field editor for 20-slot actor table g_anim_livestock_barn_tbl (stride 0xB8): edits 25 fields and steps slot 0..19"
   },
   {
     "program": "OVL_part30_id0f.EXE",
@@ -7144,7 +7144,7 @@
     ],
     "domain": "overlay_part30_id0f",
     "wave": 4,
-    "summary": "Debug field editor for 10-slot coop table g_anim_chicken_coop_tbl_800742ec (stride 0xB4): edits 23 fields and steps slot 0..9"
+    "summary": "Debug field editor for 10-slot coop table g_anim_chicken_coop_tbl (stride 0xB4): edits 23 fields and steps slot 0..9"
   },
   {
     "program": "OVL_part30_id0f.EXE",
@@ -7176,7 +7176,7 @@
     ],
     "domain": "overlay_part30_id0f",
     "wave": 4,
-    "summary": "Debug field editor for villager table at 0x80076220 indexed by DAT_80070c90 (stride 0x1D4): edits 32 fields and steps slot 0..36"
+    "summary": "Debug field editor for villager table at 0x80076220 indexed by g_npc_dlg_submit_portrait_sprt_upload_state_80070c90 (stride 0x1D4): edits 32 fields and steps slot 0..36"
   },
   {
     "program": "OVL_part30_id0f.EXE",
@@ -7207,7 +7207,7 @@
     "params": [],
     "domain": "overlay_part30_id0f",
     "wave": 0,
-    "summary": "Scrolls DAT_801349b0 across [0..0x24] by +/-1 or +/-5 via D-pad and prints 10 'P %d ADR %x' rows via FntPrint"
+    "summary": "Scrolls g_ovl30_dbg_page_pointer_list_state across [0..0x24] by +/-1 or +/-5 via D-pad and prints 10 'P %d ADR %x' rows via FntPrint"
   },
   {
     "program": "OVL_part30_id0f.EXE",
@@ -7259,7 +7259,7 @@
     ],
     "domain": "overlay_part30_id0f",
     "wave": 0,
-    "summary": "Debug editor page for 128-byte Ke-Day-Cnt0 table DAT_8007ae78: scrolls index 0..0x7f, edits +/-1 or +/-10, and prints 10 rows"
+    "summary": "Debug editor page for 128-byte Ke-Day-Cnt0 table g_ovl15_tick_affection_weather_cutscene_diary_byte: scrolls index 0..0x7f, edits +/-1 or +/-10, and prints 10 rows"
   },
   {
     "program": "OVL_part30_id0f.EXE",
@@ -7279,7 +7279,7 @@
     ],
     "domain": "overlay_part30_id0f",
     "wave": 0,
-    "summary": "Debug editor page for 8-byte Ke-Day-CNT1 table DAT_8007aef8: scrolls index 0..7, adjusts byte +/-1 or +/-10, and prints rows"
+    "summary": "Debug editor page for 8-byte Ke-Day-CNT1 table g_gfx_tick_affection_weather_cutscene_dbg_word: scrolls index 0..7, adjusts byte +/-1 or +/-10, and prints rows"
   },
   {
     "program": "OVL_part30_id0f.EXE",
@@ -7299,7 +7299,7 @@
     ],
     "domain": "overlay_part30_id0f",
     "wave": 0,
-    "summary": "Debug editor page for 128-byte Ke-N-VAL table DAT_8007af00: scrolls index 0..0x7f, adjusts byte +/-1 or +/-10, and prints 10 rows"
+    "summary": "Debug editor page for 128-byte Ke-N-VAL table g_ovl30_dbg_page_ke_n_half: scrolls index 0..0x7f, adjusts byte +/-1 or +/-10, and prints 10 rows"
   },
   {
     "program": "OVL_part30_id0f.EXE",
@@ -7315,7 +7315,7 @@
     ],
     "domain": "overlay_part30_id0f",
     "wave": 0,
-    "summary": "Increments val on Circle (0x20) or decrements val on Square (0x80) from g_io_active_pad_buf_ptr_8005e3a8"
+    "summary": "Increments val on Circle (0x20) or decrements val on Square (0x80) from g_io_active_pad_buf_ptr"
   },
   {
     "program": "OVL_part30_id0f.EXE",
@@ -7335,7 +7335,7 @@
     ],
     "domain": "overlay_part30_id0f",
     "wave": 1,
-    "summary": "Debug editor for 40-byte item descriptor table g_gfx_sprite_desc_tbl_ptr_8006c858 (0..0x17a): edits BUY, SELL, LIFE, TIRED"
+    "summary": "Debug editor for 40-byte item descriptor table g_gfx_sprite_desc_tbl_ptr (0..0x17a): edits BUY, SELL, LIFE, TIRED"
   },
   {
     "program": "OVL_part30_id0f.EXE",
@@ -7355,7 +7355,7 @@
     ],
     "domain": "overlay_part30_id0f",
     "wave": 1,
-    "summary": "Debug editor for 5-entry tool table g_farm_tbl_801231c0 (including WATER_CAN): selects tool 0..4 and edits 5 s16 PRM fields"
+    "summary": "Debug editor for 5-entry tool table g_farm_execute_player_action_dbg_table (including WATER_CAN): selects tool 0..4 and edits 5 s16 PRM fields"
   },
   {
     "program": "OVL_part30_id0f.EXE",
@@ -7375,7 +7375,7 @@
     ],
     "domain": "overlay_part30_id0f",
     "wave": 3,
-    "summary": "Renders 9-row paginated kanji debug bitflag list, handles D-pad/Start cursor DAT_80134014, and sets/clears 1/2/4-byte masks"
+    "summary": "Renders 9-row paginated kanji debug bitflag list, handles D-pad/Start cursor g_ovl30_debug_menu_state, and sets/clears 1/2/4-byte masks"
   },
   {
     "program": "OVL_part31_id0e.EXE",

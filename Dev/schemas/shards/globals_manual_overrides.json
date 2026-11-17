@@ -1451,5 +1451,101 @@
     "domain": "render_gte_sprites",
     "confidence": "high",
     "evidence": "High-RAM staging arena (0x3ee50 bytes cleared in FUN_8001231c)"
+  },
+  {
+    "address": "0x80049a80",
+    "name": "g_cd_xa_channel_table",
+    "c_type": "u16",
+    "domain": "cd_afile_overlays",
+    "confidence": "high",
+    "evidence": "XA sector-offset channel LUT indexed by track in cd_send_xa_seek_cmd (0x80021b90)"
+  },
+  {
+    "address": "0x8005e274",
+    "name": "g_sys_vsync_stride",
+    "c_type": "u32",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "Frame VSync stride written/read by sys_set_vsync_stride / sys_get_vsync_stride"
+  },
+  {
+    "address": "0x8005e278",
+    "name": "g_sys_draw_enable",
+    "c_type": "u32",
+    "domain": "render_gte_sprites",
+    "confidence": "high",
+    "evidence": "Display draw enable flag toggled by sys_set_draw_enable (0x80011f44)"
+  },
+  {
+    "address": "0x8005e27c",
+    "name": "g_sys_frame_sync_flag",
+    "c_type": "u32",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "Frame sync flag toggled by sys_set_frame_sync_flag (0x80011f50)"
+  },
+  {
+    "address": "0x8005e290",
+    "name": "g_hm_prng_seed",
+    "c_type": "u32",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "Deterministic LCG state updated by hm_prng_next (* 0x41C64E6D + 0x3039)"
+  },
+  {
+    "address": "0x8005e324",
+    "name": "g_cd_xa_stream_active",
+    "c_type": "u32",
+    "domain": "cd_afile_overlays",
+    "confidence": "high",
+    "evidence": "Active XA audio playback flag cleared by cd_stop_xa_stream and set by cd_send_xa_seek_cmd"
+  },
+  {
+    "address": "0x8005e584",
+    "name": "g_cd_xa_target_lba",
+    "c_type": "u32",
+    "domain": "cd_afile_overlays",
+    "confidence": "high",
+    "evidence": "Queued XA sector LBA passed to CdIntToPos in cd_send_xa_seek_cmd"
+  },
+  {
+    "address": "0x8005e588",
+    "name": "g_cd_xa_cmd_counter",
+    "c_type": "u32",
+    "domain": "cd_afile_overlays",
+    "confidence": "high",
+    "evidence": "Monotonic XA command issue counter incremented in cd_send_xa_seek_cmd"
+  },
+  {
+    "address": "0x8005e58c",
+    "name": "g_cd_xa_last_seek_lba",
+    "c_type": "u32",
+    "domain": "cd_afile_overlays",
+    "confidence": "high",
+    "evidence": "Last successfully issued XA seek LBA latched in cd_send_xa_seek_cmd"
+  },
+  {
+    "address": "0x8005e594",
+    "name": "g_cd_xa_ready_flag",
+    "c_type": "u32",
+    "domain": "cd_afile_overlays",
+    "confidence": "high",
+    "evidence": "CD-XA readiness guard checked prior to seek dispatch in cd_send_xa_seek_cmd"
+  },
+  {
+    "address": "0x8006c870",
+    "name": "g_hm_event_flags_bitset",
+    "c_type": "u32",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "Base of packed 32-bit scenario/event bitset read and mutated by hm_event_flag_get / hm_event_flag_set"
+  },
+  {
+    "address": "0x8007aff4",
+    "name": "g_sys_highram_reserved_base",
+    "c_type": "u32",
+    "domain": "core_mainloop",
+    "confidence": "high",
+    "evidence": "High-RAM base pointer subtracted alongside 0x49000 in sys_get_highram_free_bytes"
   }
 ]

@@ -44,7 +44,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Clears cutscene control bits 0x1800 in field 0x0f across all 37 NPC records at DAT_80076220."
+    "summary": "Clears cutscene control bits 0x1800 in field 0x0f across all 37 NPC records at g_npc_actor_tbl_base."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -55,7 +55,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Initializes 5 pairs of cutscene portrait/icon tracking slots at DAT_80070c74 to 0xffff."
+    "summary": "Initializes 5 pairs of cutscene portrait/icon tracking slots at g_npc_evt_cutscene_icon_slots_word to 0xffff."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -99,7 +99,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Locks or unlocks player cutscene bits across DAT_80071a6c, DAT_8006c844, and DAT_80071a36 using DAT_80071afc."
+    "summary": "Locks or unlocks player cutscene bits across g_player_status_flags, g_core_engine_flags0, and g_player_action_flags using g_player_interact_target."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -127,7 +127,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Places scripted prop slot slot_idx in DAT_8007a608 table with XYZ position and sets active bit 1."
+    "summary": "Places scripted prop slot slot_idx in g_npc_evt_cutscene_prop_slots_alloc_lut32 table with XYZ position and sets active bit 1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -155,7 +155,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Drives demo pad masks DAT_80071a64/DAT_80071a68 to walk player position DAT_80071b00/DAT_80071b08 to target_coord."
+    "summary": "Drives demo pad masks g_player_pad_held/g_player_pad_edge to walk player position g_player_pos_x/g_player_pos_z to target_coord."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -183,7 +183,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Updates visibility/collision bits on DAT_8007623c NPC records, recursing over IDs 1..36 when npc_id is 0x2a."
+    "summary": "Updates visibility/collision bits on g_npc_evt_bind_cutscene_pack_spawn_table NPC records, recursing over IDs 1..36 when npc_id is 0x2a."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -211,7 +211,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Dispatches event script opcodes 1..0x1f through jump table PTR_LAB_800b99c0."
+    "summary": "Dispatches event script opcodes 1..0x1f through jump table g_npc_evt_dispatch_script_opcode_jtbl_ptr."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -239,7 +239,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Reads NPC or animal map/zone IDs from DAT_80076244/DAT_8007a6fc into script VM variables DAT_80129560."
+    "summary": "Reads NPC or animal map/zone IDs from g_npc_tracked_at_tile_calendar_actor_table_80076244/g_npc_actor_schedule_location_table into script VM variables g_ovl11_script_vm_vars."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -250,7 +250,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Returns signed 16-bit camera target NPC index stored in DAT_801295c6."
+    "summary": "Returns signed 16-bit camera target NPC index stored in g_npc_evt_pan_camera_target_focus_counter."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -277,7 +277,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Resets 12-byte scheduled milestone record at DAT_8007ad10[slot_idx] to unscheduled defaults."
+    "summary": "Resets 12-byte scheduled milestone record at g_npc_birthday_anniversary_flags_trigger_evt_table[slot_idx] to unscheduled defaults."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -301,7 +301,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Checks if target (season, day) avoids festivals, birthdays, and spouse schedule conflicts at DAT_80071cca/DAT_80076f10."
+    "summary": "Checks if target (season, day) avoids festivals, birthdays, and spouse schedule conflicts at g_npc_trigger_cutscene_script_evt_scheduled_counter/g_npc_evt_scheduled_date_available_ovl_half."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -325,7 +325,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Clamps NPC/game property value against min/max bounds in descriptor table DAT_80124a20/DAT_80124a24."
+    "summary": "Clamps NPC/game property value against min/max bounds in descriptor table g_npc_clamp_property_value_table_80124a20/g_npc_clamp_property_value_table_80124a24."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -384,7 +384,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Sums all 25 shipped produce counts in DAT_800711c4 plus shipped fish count DAT_80070d14."
+    "summary": "Sums all 25 shipped produce counts in g_npc_evt_sum_shipped_items_generate_word plus shipped fish count g_npc_evt_sum_shipped_items_record_cfg16."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -411,7 +411,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Finds highest-affection bachelorette index 0..4 in DAT_80124dd8/DAT_80076224, returning -1 if below 500."
+    "summary": "Finds highest-affection bachelorette index 0..4 in g_npc_find_top_bachelorette_candidate_word/g_npc_actor0_affection, returning -1 if below 500."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -427,7 +427,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Checks barn pregnancy flag (0x200 in DAT_80074a28) or coop egg hatch state (0x10a in DAT_800742ec) against upgrades."
+    "summary": "Checks barn pregnancy flag (0x200 in g_anim_barn_slot0_flags) or coop egg hatch state (0x10a in g_anim_chicken_coop_tbl) against upgrades."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -463,7 +463,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Resolves portrait_id in DAT_800a0494 and uploads its texture and CLUT to VRAM via LoadImage/DrawSync into DAT_80070c90."
+    "summary": "Resolves portrait_id in g_gfx_clear_render_entity_slot_spr_table_800a0494 and uploads its texture and CLUT to VRAM via LoadImage/DrawSync into g_npc_dlg_submit_portrait_sprt_upload_state_80070c90."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -474,7 +474,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Copies seasonal/spouse NPC schedule overrides from DAT_80124de4, DAT_80124e00, DAT_80124e1e, and DAT_80124e3c."
+    "summary": "Copies seasonal/spouse NPC schedule overrides from g_npc_apply_schedule_overrides_word_80124de4, g_npc_apply_schedule_overrides_word_80124e00, g_npc_apply_schedule_overrides_half, and g_npc_apply_schedule_overrides_word_80124e3c."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -502,7 +502,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Copies 0xe10 bytes of active event script bytecode into DAT_8006f5f0 and resets DAT_80129618."
+    "summary": "Copies 0xe10 bytes of active event script bytecode into g_npc_evt_copy_script_bytecode_dispatch_cfg and resets g_npc_evt_copy_script_bytecode_dispatch_state_80129618."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -518,7 +518,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Scans livestock/pet state entries starting at DAT_800742b0 for an active slot matching slot_id."
+    "summary": "Scans livestock/pet state entries starting at g_anim_shipping_pet_state_idx4 for an active slot matching slot_id."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -586,7 +586,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Checks packed 6-bit map ID ((cond_bits & 0xffff) >> 10, 0x3f wildcard) against active map *(s16 *)(DAT_800a037c+2)."
+    "summary": "Checks packed 6-bit map ID ((cond_bits & 0xffff) >> 10, 0x3f wildcard) against active map *(s16 *)(g_core_event_script_ctx_pad_0x04+2)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -602,7 +602,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Returns true when player held item ID DAT_80071a22 equals cond_bits & 0xff."
+    "summary": "Returns true when player held item ID g_core_player_state_held_item_id equals cond_bits & 0xff."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -618,7 +618,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Tests current season DAT_80070cf2 (0..3) against season bits 0x40000000..0x08000000 in cond_mask."
+    "summary": "Tests current season g_farm_calendar_clock (0..3) against season bits 0x40000000..0x08000000 in cond_mask."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -634,7 +634,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Tests current weekday DAT_80070cf6 (0..6) against packed weekday bits 0x04000000..0x00100000 in cond_mask."
+    "summary": "Tests current weekday g_farm_cal_weekday (0..6) against packed weekday bits 0x04000000..0x00100000 in cond_mask."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -650,7 +650,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Tests current weather DAT_8007ad00 (0..4) against weather bits in cond_mask with 0xc3800 wildcard."
+    "summary": "Tests current weather g_farm_current_weather (0..4) against weather bits in cond_mask with 0xc3800 wildcard."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -726,7 +726,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Updates schedule slot index field [0x11] across all 37 NPCs in DAT_80076220 for minute_of_day (skips 0x168)."
+    "summary": "Updates schedule slot index field [0x11] across all 37 NPCs in g_npc_actor_tbl_base for minute_of_day (skips 0x168)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -737,7 +737,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Clears all 20 inbox and pending-mail slots via DAT_8006c838+0x49e6/0x4a36 and resets DAT_80070d34."
+    "summary": "Clears all 20 inbox and pending-mail slots via g_ovl15_field_all_animal_pickup_evt_state+0x49e6/0x4a36 and resets g_npc_evt_mailbox_queues_generate_state."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -757,7 +757,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Appends letter (sender_id, letter_id, DAT_80070cf4) to the 20-slot mailbox DAT_8007121c, shifting out oldest if full."
+    "summary": "Appends letter (sender_id, letter_id, g_farm_cal_day) to the 20-slot mailbox g_npc_evt_advance_daily_mailbox_read_counter, shifting out oldest if full."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -777,7 +777,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Deletes slot_idx from inbox DAT_8007121c or pending mail DAT_8007126c via memmove and clears tail slot."
+    "summary": "Deletes slot_idx from inbox g_npc_evt_advance_daily_mailbox_read_counter or pending mail g_npc_evt_queue_mail_notification_advance_half via memmove and clears tail slot."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -797,7 +797,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Adds 1, 6 (mode 2), or amount (mode 3) to fodder stock DAT_80070d38, clamping maximum at 999."
+    "summary": "Adds 1, 6 (mode 2), or amount (mode 3) to fodder stock g_ui_evt_add_fodder_count_consume_counter, clamping maximum at 999."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -813,7 +813,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Subtracts amount from fodder stock DAT_80070d38 if sufficient, returning 1 on success or 0."
+    "summary": "Subtracts amount from fodder stock g_ui_evt_add_fodder_count_consume_counter if sufficient, returning 1 on success or 0."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -833,7 +833,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Adds 1 or amount (mode 2) to chicken feed stock DAT_80070d3a, clamping maximum at 999."
+    "summary": "Adds 1 or amount (mode 2) to chicken feed stock g_ui_evt_add_chicken_feed_consume_counter, clamping maximum at 999."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -849,7 +849,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Subtracts amount from chicken feed stock DAT_80070d3a if sufficient, returning 1 on success or 0."
+    "summary": "Subtracts amount from chicken feed stock g_ui_evt_add_chicken_feed_consume_counter if sufficient, returning 1 on success or 0."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -869,7 +869,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Adds 1 or amount (mode 1) to fish food stock DAT_80070d3e, clamping maximum at 999."
+    "summary": "Adds 1 or amount (mode 1) to fish food stock g_ui_evt_add_fish_food_consume_counter, clamping maximum at 999."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -885,7 +885,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Subtracts amount from fish food stock DAT_80070d3e if sufficient, returning 1 on success or 0."
+    "summary": "Subtracts amount from fish food stock g_ui_evt_add_fish_food_consume_counter if sufficient, returning 1 on success or 0."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -905,7 +905,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Adds 1, 10 (mode 1), or amount (mode 2) to festival medal count DAT_80070d40, clamping maximum at 999."
+    "summary": "Adds 1, 10 (mode 1), or amount (mode 2) to festival medal count g_ui_evt_add_festival_medal_consume_counter, clamping maximum at 999."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -921,7 +921,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Subtracts amount from festival medal count DAT_80070d40 if sufficient, returning 1 on success or 0."
+    "summary": "Subtracts amount from festival medal count g_ui_evt_add_festival_medal_consume_counter if sufficient, returning 1 on success or 0."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -948,7 +948,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Zeroes 22 bytes at DAT_8007130d and 10 bytes at DAT_80071317 for daily shipping/tracking counters."
+    "summary": "Zeroes 22 bytes at g_npc_evt_daily_shipping_totals_field_cfg8 and 10 bytes at g_npc_evt_daily_shipping_totals_byte for daily shipping/tracking counters."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -959,7 +959,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Flushes staged basket shipping counts DAT_800712c2 and revenue DAT_800712f4 into DAT_800711c4 (cap 999) and DAT_800711f8."
+    "summary": "Flushes staged basket shipping counts g_npc_evt_stage_item_into_commit_half and revenue g_npc_evt_stage_item_into_commit_state into g_npc_evt_sum_shipped_items_generate_word (cap 999) and g_npc_show_dog_affection_msg_evt_state."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -970,7 +970,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Checks bit 0x400 with bit 0x4000000 unset in DAT_80070d30, setting 0x4000000 and returning 1 once."
+    "summary": "Checks bit 0x400 with bit 0x4000000 unset in g_npc_event_progress_flags, setting 0x4000000 and returning 1 once."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1054,7 +1054,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Reads XYZ position and rotation for prop_id (100/101 in DAT_8007a60c or 0xe8/0x122..0x124 in DAT_8007a604)."
+    "summary": "Reads XYZ position and rotation for prop_id (100/101 in g_npc_active_script_entity_ptr or 0xe8/0x122..0x124 in g_npc_evt_scene_props_map_spawn_lut32)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1070,7 +1070,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Tests player_pos XYZ against DAT_8007a60c (+/-200 XZ, +/-20 Y); sets DAT_80129634 = 3 and returns slot ptr on hit."
+    "summary": "Tests player_pos XYZ against g_npc_active_script_entity_ptr (+/-200 XZ, +/-20 Y); sets g_npc_execute_player_action_evt_tick_state = 3 and returns slot ptr on hit."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1081,7 +1081,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Decrements DAT_80129634 while DAT_8007a60c+4 bit 0x100 is active and unpaused, clearing bit 0x100 at zero."
+    "summary": "Decrements g_npc_execute_player_action_evt_tick_state while g_npc_active_script_entity_ptr+4 bit 0x100 is active and unpaused, clearing bit 0x100 at zero."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1097,7 +1097,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Sets or clears disable bit 0x4000 across all 16 farm prop entries starting at DAT_8007a5dc."
+    "summary": "Sets or clears disable bit 0x4000 across all 16 farm prop entries starting at g_npc_evt_props_disabled_flag_count_cfg."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1108,7 +1108,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Counts enabled farm prop slots (bit 0x4000 cleared) across the 16 entries at DAT_8007a5dc."
+    "summary": "Counts enabled farm prop slots (bit 0x4000 cleared) across the 16 entries at g_npc_evt_props_disabled_flag_count_cfg."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1124,7 +1124,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Stores seasonal prop/treasure ID 0x51..0x55 in DAT_80070d0e when DAT_80070d30 bit 2 is set and slot is empty."
+    "summary": "Stores seasonal prop/treasure ID 0x51..0x55 in g_npc_item_pickup_carry_evt_decay_counter when g_npc_event_progress_flags bit 2 is set and slot is empty."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1135,7 +1135,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Clears seasonal prop/treasure ID DAT_80070d0e back to zero."
+    "summary": "Clears seasonal prop/treasure ID g_npc_item_pickup_carry_evt_decay_counter back to zero."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1146,7 +1146,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Resets secondary prop slot at DAT_8007a60c+0x18 to type 1 at (-1200, 0, 2900) and updates DAT_80129630."
+    "summary": "Resets secondary prop slot at g_npc_active_script_entity_ptr+0x18 to type 1 at (-1200, 0, 2900) and updates g_npc_evt_horse_prop_anchor_primary_word."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1157,7 +1157,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Resets primary prop slot DAT_8007a60c to type 1 at (-5000, 0, 2300) and updates DAT_80129630."
+    "summary": "Resets primary prop slot g_npc_active_script_entity_ptr to type 1 at (-5000, 0, 2300) and updates g_npc_evt_horse_prop_anchor_primary_word."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1168,7 +1168,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Clears bit 0x2000000 in DAT_80070d30, clears bit 1 on DAT_8007a60c+0x1c, and zeroes DAT_8007ae88."
+    "summary": "Clears bit 0x2000000 in g_npc_event_progress_flags, clears bit 1 on g_npc_active_script_entity_ptr+0x1c, and zeroes g_gfx_hud_villager_timers_evt_word."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1192,7 +1192,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Sets visibility bit 1 and item ID (0xe8 or 0x123) on field prop slot at DAT_8007a5d0+slot_idx*0x18+0xf0."
+    "summary": "Sets visibility bit 1 and item ID (0xe8 or 0x123) on field prop slot at g_farm_field_plot_slot_growth_stage+slot_idx*0x18+0xf0."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1231,7 +1231,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Updates active bit 1 across 13 prop entries at DAT_8007a5ec using season DAT_80070cf2, DAT_80070d0c, and DAT_800719f8."
+    "summary": "Updates active bit 1 across 13 prop entries at g_npc_evt_house_prop_visible_upgrade_cfg using season g_farm_calendar_clock, g_farm_upgrade_flags2, and g_ui_unlocked_recipes_flags."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1286,7 +1286,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Copies festival prop position overrides from DAT_80126ca0/cc0/d60 into DAT_8007a5c8 using DAT_80070d06."
+    "summary": "Copies festival prop position overrides from g_npc_evt_apply_festival_prop_word/cc0/d60 into g_farm_field_plot_slot_flags using g_farm_weather_festival."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1297,7 +1297,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Returns season bitmask (2, 4, 8, or 0x10) corresponding to current season DAT_80070cf2."
+    "summary": "Returns season bitmask (2, 4, 8, or 0x10) corresponding to current season g_farm_calendar_clock."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1372,7 +1372,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Clears all 72 dynamic item/icon VRAM cache slots at DAT_80129668 (stride 0x22)."
+    "summary": "Clears all 72 dynamic item/icon VRAM cache slots at g_npc_dlg_clear_icon_vram_item_cfg (stride 0x22)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1383,7 +1383,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 0,
-    "summary": "Clears frame-lock bytes across all 72 dynamic icon cache slots at DAT_80129fd4."
+    "summary": "Clears frame-lock bytes across all 72 dynamic icon cache slots at g_npc_dlg_clear_icon_cache_lru_half."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1394,7 +1394,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Syncs camera focus coordinates DAT_800a03a4..a8 to the active follow NPC position when DAT_8006c844 bit 0x400000 is set."
+    "summary": "Syncs camera focus coordinates g_core_spawn_pos_x..a8 to the active follow NPC position when g_core_engine_flags0 bit 0x400000 is set."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1458,7 +1458,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Extracts cutscene pack slot offsets matching flag mask 0x3c00 into DAT_801291c0; raises SystemError('A', 999) on overflow."
+    "summary": "Extracts cutscene pack slot offsets matching flag mask 0x3c00 into g_npc_evt_populate_cutscene_offset_bind_word; raises SystemError('A', 999) on overflow."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1469,7 +1469,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Clears 10 cutscene sprite slots ending at DAT_801293f4, clears DAT_8007a608 props, and sets DAT_80070cae to 1."
+    "summary": "Clears 10 cutscene sprite slots ending at g_npc_evt_cutscene_sprites_props_word, clears g_npc_evt_cutscene_prop_slots_alloc_lut32 props, and sets g_npc_dlg_active_cutscene_portrait_evt_counter to 1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1497,7 +1497,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Opens script dialogue box with weather-2 typhoon text ID remap table DAT_801248f4 and saves player choice to DAT_80129560."
+    "summary": "Opens script dialogue box with weather-2 typhoon text ID remap table g_npc_dlg_show_script_message_word and saves player choice to g_ovl11_script_vm_vars."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1525,7 +1525,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Resolves conditional cutscene target map ID from DAT_80070d30 progress bits, event flags, season, and festival state."
+    "summary": "Resolves conditional cutscene target map ID from g_npc_event_progress_flags progress bits, event flags, season, and festival state."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1553,7 +1553,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Smoothly interpolates camera target DAT_800a03a4..a8 toward target XYZ or dispatches preset camera modes via PTR_LAB_800b9948."
+    "summary": "Smoothly interpolates camera target g_core_spawn_pos_x..a8 toward target XYZ or dispatches preset camera modes via g_npc_evt_pan_camera_target_jtbl_ptr."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1581,7 +1581,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Compares script VM variable DAT_80129560[var_idx] against constant rhs_const via p11_evt_compare_vm_values."
+    "summary": "Compares script VM variable g_ovl11_script_vm_vars[var_idx] against constant rhs_const via p11_evt_compare_vm_values."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1601,7 +1601,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Compares two script VM variables in DAT_80129560 using p11_evt_compare_vm_values."
+    "summary": "Compares two script VM variables in g_ovl11_script_vm_vars using p11_evt_compare_vm_values."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1629,7 +1629,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Performs arithmetic operation arith_op on script VM slot DAT_80129560[dst_var_idx] with immediate or VM variable operand."
+    "summary": "Performs arithmetic operation arith_op on script VM slot g_ovl11_script_vm_vars[dst_var_idx] with immediate or VM variable operand."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1685,7 +1685,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Warps or configures an NPC actor's coordinates and state in DAT_8007623c..88; recurses across IDs 1..36 when 0x2a."
+    "summary": "Warps or configures an NPC actor's coordinates and state in g_npc_evt_bind_cutscene_pack_spawn_table..88; recurses across IDs 1..36 when 0x2a."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1709,7 +1709,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Checks if morning 6:00 elapsed (when target_hour==-1) or tests/advances clock DAT_80070cf8 against target time."
+    "summary": "Checks if morning 6:00 elapsed (when target_hour==-1) or tests/advances clock g_farm_cal_hour against target time."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1737,7 +1737,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Draws PRNG integer in [0, max_val) via hm_prng_next, optionally saves to DAT_80129560[out_var_idx], and compares to rhs_const."
+    "summary": "Draws PRNG integer in [0, max_val) via hm_prng_next, optionally saves to g_ovl11_script_vm_vars[out_var_idx], and compares to rhs_const."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1757,7 +1757,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Starts animation anim_id on NPC slot (or player at 0x29 via DAT_80071ccc) and returns 1 when finished."
+    "summary": "Starts animation anim_id on NPC slot (or player at 0x29 via g_farm_player_controller_movement_evt_half) and returns 1 when finished."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1785,7 +1785,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Adjusts or queries villager affection via hm_ovl11_get_villager_heart_level and stores result in DAT_80129560."
+    "summary": "Adjusts or queries villager affection via hm_ovl11_get_villager_heart_level and stores result in g_ovl11_script_vm_vars."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1809,7 +1809,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Fetches dynamic script text entry via hm_text_fetch_script_entry into DAT_801295b0 and opens text prompt."
+    "summary": "Fetches dynamic script text entry via hm_text_fetch_script_entry into g_npc_dlg_show_script_text_word and opens text prompt."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1837,7 +1837,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Places DAT_8007a608 script prop slot_idx adjacent to NPC npc_id offset by cardinal direction dir."
+    "summary": "Places g_npc_evt_cutscene_prop_slots_alloc_lut32 script prop slot_idx adjacent to NPC npc_id offset by cardinal direction dir."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1861,7 +1861,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Evaluates player held item DAT_80071a88 against target_cat preference tier 1..7 and writes tier to DAT_80129560."
+    "summary": "Evaluates player held item g_player_held_item against target_cat preference tier 1..7 and writes tier to g_ovl11_script_vm_vars."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1905,7 +1905,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Plays or cancels custom cutscene sprite animation on player struct DAT_80071c90 with facing DAT_80071a38."
+    "summary": "Plays or cancels custom cutscene sprite animation on player struct g_npc_evt_bind_cutscene_pack_play_word with facing g_player_facing_dir."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1949,7 +1949,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Checks whether item_id (or VM var) is special ID 0xa4 or a valid edible/gift item in DAT_8006c858 descriptor table."
+    "summary": "Checks whether item_id (or VM var) is special ID 0xa4 or a valid edible/gift item in g_gfx_sprite_desc_tbl_ptr descriptor table."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1973,7 +1973,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Consumes and logs offered item DAT_80071a28 against target_cat or checks DAT_80070c88 delivery flag bit 0x20."
+    "summary": "Consumes and logs offered item g_core_player_state_tool_charge against target_cat or checks g_core_scene_flags delivery flag bit 0x20."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2013,7 +2013,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Zeroes velocity, target offsets, and clears active cutscene flags on DAT_80076228..4e for NPC npc_id."
+    "summary": "Zeroes velocity, target offsets, and clears active cutscene flags on g_npc_actor_position_dbg_table_80076228..4e for NPC npc_id."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2029,7 +2029,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Resolves active cutscene graph node inside DAT_8006e910 (0x10 stride) and stores its 1-based index into DAT_80129560."
+    "summary": "Resolves active cutscene graph node inside g_npc_livestock_status_panel_evt_bind_word (0x10 stride) and stores its 1-based index into g_ovl11_script_vm_vars."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2045,7 +2045,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Writes low byte of script VM variable DAT_80129560[var_idx] into active cutscene node branch byte (+1)."
+    "summary": "Writes low byte of script VM variable g_ovl11_script_vm_vars[var_idx] into active cutscene node branch byte (+1)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2109,7 +2109,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Computes festival arena spawn coords DAT_800a0384..88/DAT_800a03a6 from DAT_80129540..54 tables and script VM vars."
+    "summary": "Computes festival arena spawn coords g_core_event_script_ctx_reserved_0x0c..88/g_core_spawn_pos_y from g_npc_evt_save_restore_player_setup_word..54 tables and script VM vars."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2129,7 +2129,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Advances 7+ days ahead from current date DAT_80070cf0..f4 avoiding festival collisions and writes (year, season, day)."
+    "summary": "Advances 7+ days ahead from current date g_farm_cal_year..f4 avoiding festival collisions and writes (year, season, day)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2145,7 +2145,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Dispatches milestone handler via PTR_LAB_800b9e40 or stamps current calendar date into DAT_80071cc0/DAT_8007ad10."
+    "summary": "Dispatches milestone handler via g_npc_evt_record_scheduled_milestone_jtbl_ptr or stamps current calendar date into g_npc_birthday_anniversary_flags_trigger_evt_counter/g_npc_birthday_anniversary_flags_trigger_evt_table."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2194,7 +2194,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Counts planted/worked tiles across farm field DAT_80071dfe and optional greenhouse DAT_80074126, returning percentage."
+    "summary": "Counts planted/worked tiles across farm field g_farm_field_grid_idx2 and optional greenhouse g_farm_greenhouse_grid_idx2, returning percentage."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2218,7 +2218,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Looks up base gift affection delta in DAT_801248cc, applies wrapping/birthday bonus, and multiplies by 5 on festivals."
+    "summary": "Looks up base gift affection delta in g_npc_gift_affection_delta_word, applies wrapping/birthday bonus, and multiplies by 5 on festivals."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2234,7 +2234,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Evaluates bachelorette marriage bitmask conditions against DAT_80071cca spouse ID and heart/rival status."
+    "summary": "Evaluates bachelorette marriage bitmask conditions against g_npc_trigger_cutscene_script_evt_scheduled_counter spouse ID and heart/rival status."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2258,7 +2258,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Checks if NPC affection (or horse affection DAT_800759fa at 0x33) meets or falls below threshold."
+    "summary": "Checks if NPC affection (or horse affection g_anim_horse_state_idx22 at 0x33) meets or falls below threshold."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2354,7 +2354,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Routes mail immediately to p11_evt_enqueue_inbox_letter or queues into 20-slot pending buffer DAT_8007126c."
+    "summary": "Routes mail immediately to p11_evt_enqueue_inbox_letter or queues into 20-slot pending buffer g_npc_evt_queue_mail_notification_advance_half."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2381,7 +2381,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Logs shipped fish/crop into DAT_80070d14, DAT_800711f8 revenue, and DAT_800711c4 bin counters; unlocks flag 0x5f at 200 fish."
+    "summary": "Logs shipped fish/crop into g_npc_evt_sum_shipped_items_record_cfg16, g_npc_show_dog_affection_msg_evt_state revenue, and g_npc_evt_sum_shipped_items_generate_word bin counters; unlocks flag 0x5f at 200 fish."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2392,7 +2392,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Commits daily shipping gold DAT_800711f8 on non-festival days once per day (guard flag 0xa0) and resets accumulator."
+    "summary": "Commits daily shipping gold g_npc_show_dog_affection_msg_evt_state on non-festival days once per day (guard flag 0xa0) and resets accumulator."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2408,7 +2408,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Returns shipped count from DAT_800711c4 for item_id via p11_evt_map_item_to_shipping_bin_idx, or -1 if invalid."
+    "summary": "Returns shipped count from g_npc_evt_sum_shipped_items_generate_word for item_id via p11_evt_map_item_to_shipping_bin_idx, or -1 if invalid."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2424,7 +2424,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Adds item_id to portable basket buffer (capacity 30 in DAT_800712c0), accumulating DAT_800712f4 gold and DAT_800712c2 bin."
+    "summary": "Adds item_id to portable basket buffer (capacity 30 in g_npc_evt_stage_item_into_commit_counter), accumulating g_npc_evt_stage_item_into_commit_state gold and g_npc_evt_stage_item_into_commit_half bin."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2435,7 +2435,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Iterates all 19 prop groups in DAT_8007a5c4/DAT_8007a610 to sync active bits and disables farm props."
+    "summary": "Iterates all 19 prop groups in g_farm_field_plot_slot/g_npc_evt_refresh_all_scene_apply_counter to sync active bits and disables farm props."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2446,7 +2446,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Refreshes seasonal house upgrade prop visibility for current season DAT_80070cf2."
+    "summary": "Refreshes seasonal house upgrade prop visibility for current season g_farm_calendar_clock."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2482,7 +2482,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Returns prop item ID when active for current season DAT_80070cf2, remapping autumn ID 0x40 to 0x13a."
+    "summary": "Returns prop item ID when active for current season g_farm_calendar_clock, remapping autumn ID 0x40 to 0x13a."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2522,7 +2522,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Spawns dynamic prop slot 100/101 (DAT_8007a60c) or 0xe8/0x122..0x124 (DAT_8007a604) with world pose and type."
+    "summary": "Spawns dynamic prop slot 100/101 (g_npc_active_script_entity_ptr) or 0xe8/0x122..0x124 (g_npc_evt_scene_props_map_spawn_lut32) with world pose and type."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2542,7 +2542,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Finds prop_id in DAT_8007a5ec (13 entries) and sets or clears its active visibility bit 1."
+    "summary": "Finds prop_id in g_npc_evt_house_prop_visible_upgrade_cfg (13 entries) and sets or clears its active visibility bit 1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2553,7 +2553,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Syncs field prop slots 2..3 using DAT_8007620a and FUN_800d0bc8 status into p11_evt_set_field_prop_slot_item."
+    "summary": "Syncs field prop slots 2..3 using g_farm_field_deliver_newborn_animals_evt_half and FUN_800d0bc8 status into p11_evt_set_field_prop_slot_item."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2564,7 +2564,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Clears expired seasonal prop IDs in DAT_80070d0e across seasons and deducts 5 stamina from DAT_80071a16."
+    "summary": "Clears expired seasonal prop IDs in g_npc_item_pickup_carry_evt_decay_counter across seasons and deducts 5 stamina from g_core_player_state_pad_0x16."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2642,7 +2642,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 1,
-    "summary": "Resets menu state variables DAT_80126e40..52 and DAT_80126e2c, then clears the dynamic icon cache."
+    "summary": "Resets menu state variables g_npc_dlg_menu_icon_cache_open_state..52 and g_npc_dlg_menu_icon_cache_preload_state, then clears the dynamic icon cache."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2678,7 +2678,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Scans pack slot flags for 0x8000 CLUT entries and uploads palettes to VRAM at (DAT_80129410, DAT_80129412)."
+    "summary": "Scans pack slot flags for 0x8000 CLUT entries and uploads palettes to VRAM at (g_npc_evt_unpack_cutscene_script_upload_counter_80129410, g_npc_evt_unpack_cutscene_script_upload_counter_80129412)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2698,7 +2698,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Finds a free slot in the 10-entry DAT_80129230 sprite array, initializes anim, and assigns prop_id in DAT_8007a608."
+    "summary": "Finds a free slot in the 10-entry g_npc_evt_cutscene_prop_slots_alloc_word sprite array, initializes anim, and assigns prop_id in g_npc_evt_cutscene_prop_slots_alloc_lut32."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2729,7 +2729,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Initializes cutscene map object sprite slot via FUN_800e36cc using DAT_80129418 and (object_id - 0x15f)."
+    "summary": "Initializes cutscene map object sprite slot via FUN_800e36cc using g_anim_upload_afile_snapshot_slot_evt_state and (object_id - 0x15f)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2753,7 +2753,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Allocates and links SPRT and DR_TPAGE GPU primitives into ot_entry for portrait rect cached at DAT_80070c90..ac."
+    "summary": "Allocates and links SPRT and DR_TPAGE GPU primitives into ot_entry for portrait rect cached at g_npc_dlg_submit_portrait_sprt_upload_state_80070c90..ac."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2781,7 +2781,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Dispatches NPC movement/path commands via PTR_LAB_800b9930 or item category check via hm_ovl11_get_item_category_flags."
+    "summary": "Dispatches NPC movement/path commands via g_npc_actor_move_command_jtbl_ptr or item category check via hm_ovl11_get_item_category_flags."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2829,7 +2829,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Starts CD XA audio stream track_id via hm_audio_start_cd_xa_stream or polls playback completion when DAT_8006c904 == 0."
+    "summary": "Starts CD XA audio stream track_id via hm_audio_start_cd_xa_stream or polls playback completion when g_core_submode_state == 0."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2845,7 +2845,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Initializes SPU SEQ audio and starts scene BGM for DAT_800a048c using volume (capped at 0x3f/0x7f by map)."
+    "summary": "Initializes SPU SEQ audio and starts scene BGM for g_core_event_script_ctx_transition_mode using volume (capped at 0x3f/0x7f by map)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2909,7 +2909,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Opens or reads back player/farm/dog/horse naming screen buffer DAT_801295d0 into DAT_80075adc/DAT_8007afbc."
+    "summary": "Opens or reads back player/farm/dog/horse naming screen buffer g_npc_evt_pet_horse_naming_animal_word into g_anim_dog_state_idx8/g_ui_evt_pet_horse_naming_snapshot_word."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2933,7 +2933,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Queries or mutates farm field/greenhouse grid tiles (DAT_80071dfc/DAT_80074124) and writes result to DAT_80129560."
+    "summary": "Queries or mutates farm field/greenhouse grid tiles (g_farm_field_grid/g_farm_greenhouse_grid) and writes result to g_ovl11_script_vm_vars."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2961,7 +2961,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Pans or locks camera onto player (0x29/-2) or NPC actor position DAT_80076280 via p11_evt_pan_camera_to_target."
+    "summary": "Pans or locks camera onto player (0x29/-2) or NPC actor position g_npc_evt_sync_camera_follow_face_table via p11_evt_pan_camera_to_target."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2989,7 +2989,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Resolves up to 4 script VM variables from DAT_80129560 and delegates to p11_npc_spawn_or_warp_actor."
+    "summary": "Resolves up to 4 script VM variables from g_ovl11_script_vm_vars and delegates to p11_npc_spawn_or_warp_actor."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3017,7 +3017,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Reads target XYZ coordinates from script VM variables DAT_80129560 and calls p11_evt_pan_camera_to_target."
+    "summary": "Reads target XYZ coordinates from script VM variables g_ovl11_script_vm_vars and calls p11_evt_pan_camera_to_target."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3045,7 +3045,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Tests whether clock DAT_80070cf8:DAT_80070cfa reached (hour, minute), or sets clock via FUN_800c08e8."
+    "summary": "Tests whether clock g_farm_cal_hour:g_npc_evt_clock_time_table reached (hour, minute), or sets clock via FUN_800c08e8."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3065,7 +3065,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Picks among eligible highest-affection bachelorettes (IDs 3, 7, 9, 0xe, 0x14) with PRNG tie-break into DAT_80129560."
+    "summary": "Picks among eligible highest-affection bachelorettes (IDs 3, 7, 9, 0xe, 0x14) with PRNG tie-break into g_ovl11_script_vm_vars."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3089,7 +3089,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Handles Harvest Sprite treat/gift reaction, updates DAT_8007a6f0/DAT_8007a66c chore bits, and awards affection."
+    "summary": "Handles Harvest Sprite treat/gift reaction, updates g_npc_give_harvest_sprite_treat_row_half/g_npc_give_harvest_sprite_treat_dbg_word chore bits, and awards affection."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3109,7 +3109,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Evaluates marriage, shipping, field planted %, and NPC affection into DAT_8007afd8 outcome code (0xc..0xe)."
+    "summary": "Evaluates marriage, shipping, field planted %, and NPC affection into g_npc_evt_eval_new_year_tv_counter outcome code (0xc..0xe)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3129,7 +3129,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Schedules future wedding/childbirth/festival milestone in DAT_8007ad10 and updates spouse/marriage flags."
+    "summary": "Schedules future wedding/childbirth/festival milestone in g_npc_birthday_anniversary_flags_trigger_evt_table and updates spouse/marriage flags."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3165,7 +3165,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Commits newborn calf/lamb/chick name from DAT_801295d0 into barn DAT_800749f8 or coop DAT_800742f0 record."
+    "summary": "Commits newborn calf/lamb/chick name from g_npc_evt_pet_horse_naming_animal_word into barn g_anim_livestock_barn_tbl_idx0_scene_id or coop g_anim_chicken_coop_tbl_idx0_age_days record."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3185,7 +3185,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Dispatches dialogue trigger_type against DAT_8012961c, verifying held item (case 3) or offered item (case 4)."
+    "summary": "Dispatches dialogue trigger_type against g_npc_evt_copy_script_bytecode_dispatch_state_8012961c, verifying held item (case 3) or offered item (case 4)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3201,7 +3201,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Initializes all 37 NPC records in DAT_80076220 from schedule bytecode DAT_80126bf0 for day_seed."
+    "summary": "Initializes all 37 NPC records in g_npc_actor_tbl_base from schedule bytecode g_npc_all_daily_schedules_word for day_seed."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3212,7 +3212,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Opens head letter from 20-slot mailbox DAT_8007121c in dialogue window and shifts remaining queue via memmove."
+    "summary": "Opens head letter from 20-slot mailbox g_npc_evt_advance_daily_mailbox_read_counter in dialogue window and shifts remaining queue via memmove."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3239,7 +3239,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Applies seasonal variant item IDs across all 19 scene prop groups in DAT_8007a5c4/DAT_8007a610."
+    "summary": "Applies seasonal variant item IDs across all 19 scene prop groups in g_farm_field_plot_slot/g_npc_evt_refresh_all_scene_apply_counter."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3261,7 +3261,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Resets UI/icon cache, enters menu mode DAT_80126e40 = 6, sets event flag 0x71, and locks game state."
+    "summary": "Resets UI/icon cache, enters menu mode g_npc_dlg_menu_icon_cache_open_state = 6, sets event flag 0x71, and locks game state."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3272,7 +3272,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Resets UI/icon cache, enters menu mode DAT_80126e40 = 7, sets event flag 0x70, and locks game state."
+    "summary": "Resets UI/icon cache, enters menu mode g_npc_dlg_menu_icon_cache_open_state = 7, sets event flag 0x70, and locks game state."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3288,7 +3288,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Decompresses and uploads item_id icon texture and CLUT to VRAM and registers slot in DAT_80129668."
+    "summary": "Decompresses and uploads item_id icon texture and CLUT to VRAM and registers slot in g_npc_dlg_clear_icon_vram_item_cfg."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3304,7 +3304,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Reads shop/menu item icon sheet slice from AFILE 0 into high-RAM buffer DAT_8005e3b0+0x4290."
+    "summary": "Reads shop/menu item icon sheet slice from AFILE 0 into high-RAM buffer g_gfx_highram_arena_ptr+0x4290."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3324,7 +3324,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Parses buffered icon pack in high RAM and uploads item/portrait sprite frames into DAT_80129668 VRAM cache."
+    "summary": "Parses buffered icon pack in high RAM and uploads item/portrait sprite frames into g_npc_dlg_clear_icon_vram_item_cfg VRAM cache."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3335,7 +3335,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Projects cutscene portrait anchor DAT_80070cb0..b8 and submits SPRT/DR_TPAGE draw when DAT_80070cae is 0."
+    "summary": "Projects cutscene portrait anchor g_npc_dlg_active_cutscene_portrait_cfg_80070cb0..b8 and submits SPRT/DR_TPAGE draw when g_npc_dlg_active_cutscene_portrait_evt_counter is 0."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3351,7 +3351,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Binds unpacked cutscene sprite animations from DAT_801291b8+DAT_801291c0 onto player, NPCs, or prop sprite slots."
+    "summary": "Binds unpacked cutscene sprite animations from g_npc_evt_unpack_cutscene_script_bind_word+g_npc_evt_populate_cutscene_offset_bind_word onto player, NPCs, or prop sprite slots."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3362,7 +3362,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Copies active NPC sprite blocks from DAT_800762a0 into cutscene backup DAT_800762d0 and loads weather sprites."
+    "summary": "Copies active NPC sprite blocks from g_npc_evt_copy_actor_sprites_word into cutscene backup g_npc_evt_bind_cutscene_pack_copy_table and loads weather sprites."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3418,7 +3418,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Unfreezes NPC npc_id (if < 0x32) or animal slot DAT_80077600 and writes XYZ world coordinates directly."
+    "summary": "Unfreezes NPC npc_id (if < 0x32) or animal slot g_npc_warp_actor_pose_table and writes XYZ world coordinates directly."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3446,7 +3446,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Transitions NPC actor map ID in DAT_8007624e (or all 1..36 when 0x2a), warping or hiding as needed."
+    "summary": "Transitions NPC actor map ID in g_npc_transition_actor_map_position_ovl_table (or all 1..36 when 0x2a), warping or hiding as needed."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3474,7 +3474,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Computes cardinal direction from player DAT_80071b00 toward NPC/animal slot and updates facing or emote balloon."
+    "summary": "Computes cardinal direction from player g_player_pos_x toward NPC/animal slot and updates facing or emote balloon."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3530,7 +3530,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Reads actor/flag property and compares against script VM variable DAT_80129560[var_idx]."
+    "summary": "Reads actor/flag property and compares against script VM variable g_ovl11_script_vm_vars[var_idx]."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3602,7 +3602,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Executes event script command cmd_id passing DAT_80129560[var_idx] as third parameter to hm_ovl11_run_event_script_step."
+    "summary": "Executes event script command cmd_id passing g_ovl11_script_vm_vars[var_idx] as third parameter to hm_ovl11_run_event_script_step."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3630,7 +3630,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Reads actor/flag property prop_id and applies arith_op into script VM variable DAT_80129560[dst_var_idx]."
+    "summary": "Reads actor/flag property prop_id and applies arith_op into script VM variable g_ovl11_script_vm_vars[dst_var_idx]."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3654,7 +3654,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Requests warp to map_id in DAT_80070c70, runs screen fade if requested, and plays or stops BGM upon arrival."
+    "summary": "Requests warp to map_id in g_ovl11_fade_swap_bgm_livestock_evt_counter, runs screen fade if requested, and plays or stops BGM upon arrival."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3682,7 +3682,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Configures festival scene state DAT_800a0490=0xc, flag 0x47, clock, NPC visibility, and festival control flags."
+    "summary": "Configures festival scene state g_core_map_transition_state=0xc, flag 0x47, clock, NPC visibility, and festival control flags."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3710,7 +3710,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Submits a 320x240 fullscreen colored overlay quad to DAT_8005e3c0 OT via FUN_80015074."
+    "summary": "Submits a 320x240 fullscreen colored overlay quad to g_gfx_active_disp_ctx_ptr OT via FUN_80015074."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3738,7 +3738,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Unfreezes NPC npc_id and assigns XYZ coordinates from three script VM variables in DAT_80129560."
+    "summary": "Unfreezes NPC npc_id and assigns XYZ coordinates from three script VM variables in g_ovl11_script_vm_vars."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3842,7 +3842,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Reads property prop_id for entity ID stored in DAT_80129560[target_var_idx] and compares against rhs_const."
+    "summary": "Reads property prop_id for entity ID stored in g_ovl11_script_vm_vars[target_var_idx] and compares against rhs_const."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3862,7 +3862,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Runs hm_ovl11_run_event_script_step for cmd_id using target ID from DAT_80129560[target_var_idx]."
+    "summary": "Runs hm_ovl11_run_event_script_step for cmd_id using target ID from g_ovl11_script_vm_vars[target_var_idx]."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3990,7 +3990,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Maps farm evaluation score from DAT_801249f8/fa/fc tables into three script dialogue ID VM variables."
+    "summary": "Maps farm evaluation score from g_npc_dlg_eval_dialogue_ids_half_801249f8/fa/fc tables into three script dialogue ID VM variables."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4040,7 +4040,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Drives multi-phase NPC scripted choreography (hops/circle/emotes) in DAT_80076280 using state_ptr."
+    "summary": "Drives multi-phase NPC scripted choreography (hops/circle/emotes) in g_npc_evt_sync_camera_follow_face_table using state_ptr."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4102,7 +4102,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Expires same-day old inbox mail, promotes pending mail from DAT_8007126c, and generates today's new letters."
+    "summary": "Expires same-day old inbox mail, promotes pending mail from g_npc_evt_queue_mail_notification_advance_half, and generates today's new letters."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4226,7 +4226,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Projects active seasonal world props into screen space and submits bubble/icon quads from DAT_80070400 via icon_selector_cb."
+    "summary": "Projects active seasonal world props into screen space and submits bubble/icon quads from g_gfx_spr_render_outdoor_field_greenhouse_table via icon_selector_cb."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4237,7 +4237,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Resets UI cache, sets menu mode DAT_80126e40 = 4, and opens TV channel selection dialogue 0x37a."
+    "summary": "Resets UI cache, sets menu mode g_npc_dlg_menu_icon_cache_open_state = 4, and opens TV channel selection dialogue 0x37a."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4269,7 +4269,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Draws cached item icon sprite via FUN_800f8f3c, loading item_id into free DAT_80129666 cache slot on cache miss."
+    "summary": "Draws cached item icon sprite via FUN_800f8f3c, loading item_id into free g_npc_dlg_cached_item_empty_lru_half cache slot on cache miss."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4293,7 +4293,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Draws animated UI selection cursor frame (anim 0xb, frame 0) from DAT_800a0728 at (pos_x, pos_y)."
+    "summary": "Draws animated UI selection cursor frame (anim 0xb, frame 0) from g_gfx_sprite_ot_ctx at (pos_x, pos_y)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4317,7 +4317,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Draws empty inventory/menu item slot background quad (anim 0xb, frame 2) from DAT_800a0728 at (pos_x, pos_y)."
+    "summary": "Draws empty inventory/menu item slot background quad (anim 0xb, frame 2) from g_gfx_sprite_ot_ctx at (pos_x, pos_y)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4345,7 +4345,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "Draws 'xNN' two-digit item stack count using sprite anim 10 glyphs in DAT_800a0728 relative to (pos_x, pos_y)."
+    "summary": "Draws 'xNN' two-digit item stack count using sprite anim 10 glyphs in g_gfx_sprite_ot_ctx relative to (pos_x, pos_y)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4361,7 +4361,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 3,
-    "summary": "State machine alternating shop sheet DMA loads (DAT_80126e2c) and item icon uploads until item_id < 0x13f completes."
+    "summary": "State machine alternating shop sheet DMA loads (g_npc_dlg_menu_icon_cache_preload_state) and item icon uploads until item_id < 0x13f completes."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4372,7 +4372,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Iterates 10 cutscene prop/sprite slots via DAT_8007a608 and DAT_80129230 when unpaused, updating animation and rendering via 0x800e48cc and 0x800e4608."
+    "summary": "Iterates 10 cutscene prop/sprite slots via g_npc_evt_cutscene_prop_slots_alloc_lut32 and g_npc_evt_cutscene_prop_slots_alloc_word when unpaused, updating animation and rendering via 0x800e48cc and 0x800e4608."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4388,7 +4388,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Parses loaded cutscene pack header into VRAM coords DAT_80129410/12, copies bytecode payload (SystemError 'S' if > 0xce0), and unpacks tables via 0x800e4aec..ba4."
+    "summary": "Parses loaded cutscene pack header into VRAM coords g_npc_evt_unpack_cutscene_script_upload_counter_80129410/12, copies bytecode payload (SystemError 'S' if > 0xce0), and unpacks tables via 0x800e4aec..ba4."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4416,7 +4416,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Reads player held item DAT_80071a22 into VM var out_var, turns NPC toward player (0x800e65ac), triggers item reaction 0x800e698c, and unlocks player (0x800e63c8)."
+    "summary": "Reads player held item g_core_player_state_held_item_id into VM var out_var, turns NPC toward player (0x800e65ac), triggers item reaction 0x800e698c, and unlocks player (0x800e63c8)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4464,7 +4464,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Choreographs Harvest Goddess and seasonal festival multi-NPC formations using DAT_80124920/48/70 tables and helpers 0x800e5adc, 0x800e5b84, 0x800edf3c, 0x800f07ec."
+    "summary": "Choreographs Harvest Goddess and seasonal festival multi-NPC formations using g_npc_evt_choreograph_goddess_festival_word_80124920/48/70 tables and helpers 0x800e5adc, 0x800e5b84, 0x800edf3c, 0x800f07ec."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4480,7 +4480,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Positions and animates 5 bachelorettes or Harvest Sprites during festival scenes from DAT_80124984/90/a4 tables according to VM variable mode_var."
+    "summary": "Positions and animates 5 bachelorettes or Harvest Sprites during festival scenes from g_npc_evt_choreograph_bachelorettes_festival_word/90/a4 tables according to VM variable mode_var."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4539,7 +4539,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Scans 4 newborn animal delivery slots via 0x800f0380, clears barn pregnancy bits in DAT_80074a28, registers newborn via FUN_800d0dbc, and refreshes via FUN_800d079c."
+    "summary": "Scans 4 newborn animal delivery slots via 0x800f0380, clears barn pregnancy bits in g_anim_barn_slot0_flags, registers newborn via FUN_800d0dbc, and refreshes via FUN_800d079c."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4614,7 +4614,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Selects per-map icon handler for map ID *(s16 *)(DAT_800a0378 + 10) and renders prop bubble icons (0x800f5bc0) over DAT_80080000, DAT_8007a60c, and DAT_8007a604."
+    "summary": "Selects per-map icon handler for map ID *(s16 *)(g_core_event_script_ctx + 10) and renders prop bubble icons (0x800f5bc0) over g_npc_evt_map_prop_bubble_word, g_npc_active_script_entity_ptr, and g_npc_evt_scene_props_map_spawn_lut32."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4630,7 +4630,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Resets UI menu icon sheet loader state DAT_80126e2c to 0 when reset_flag == -1, otherwise advances icon preload via 0x800f77f0(1)."
+    "summary": "Resets UI menu icon sheet loader state g_npc_dlg_menu_icon_cache_preload_state to 0 when reset_flag == -1, otherwise advances icon preload via 0x800f77f0(1)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4641,7 +4641,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 4,
-    "summary": "Runs TV/shipping-diary substate machine DAT_8012d044 (cases 1..6) when *(s16 *)(DAT_800a0378 + 2) == 2, driving 0x80108104..8b8c and hm_ovl11_set_game_substate."
+    "summary": "Runs TV/shipping-diary substate machine g_anim_ovl_activate_state_evt_tv_state (cases 1..6) when *(s16 *)(g_core_event_script_ctx + 2) == 2, driving 0x80108104..8b8c and hm_ovl11_set_game_substate."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4652,7 +4652,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 5,
-    "summary": "Streams cutscene pack index DAT_801240d8[*(s16 *)(DAT_8006c868 + 2)] from AFILE 0xc, unpacks via 0x800e499c, resets VM cursor DAT_801291b0/b4, and sets DAT_800742ac."
+    "summary": "Streams cutscene pack index g_anim_livestock_status_panel_evt_table[*(s16 *)(g_npc_active_cutscene_actor_ptr + 2)] from AFILE 0xc, unpacks via 0x800e499c, resets VM cursor g_npc_livestock_status_panel_evt_current_cfg/b4, and sets g_anim_shipping_pet_state."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4691,7 +4691,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 5,
-    "summary": "Runs per-frame scene prop logic (0x800f5404), map prop bubble icons (0x800f5944), and carried prop updates (0x800f4a58) when DAT_8006c848 bit 0x4000 is clear."
+    "summary": "Runs per-frame scene prop logic (0x800f5404), map prop bubble icons (0x800f5944), and carried prop updates (0x800f4a58) when g_core_engine_flags1 bit 0x4000 is clear."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4782,7 +4782,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 5,
-    "summary": "Moves an item stack from src_slot into an empty destination slot respecting DAT_80126e40 storage container rules via 0x800f8404 and 0x800f9174."
+    "summary": "Moves an item stack from src_slot into an empty destination slot respecting g_npc_dlg_menu_icon_cache_open_state storage container rules via 0x800f8404 and 0x800f9174."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4810,7 +4810,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 5,
-    "summary": "Swaps or merges two occupied inventory, rucksack, fridge, or tool box slots while checking capacity limits and DAT_80126e40 storage rules."
+    "summary": "Swaps or merges two occupied inventory, rucksack, fridge, or tool box slots while checking capacity limits and g_npc_dlg_menu_icon_cache_open_state storage rules."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4842,7 +4842,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 6,
-    "summary": "Saves (restore_flag==0) or restores (restore_flag!=0) held item and rucksack tools (DAT_80071a88/c0/f0) in backup buffer DAT_80129500..40 for cutscenes or mini-games."
+    "summary": "Saves (restore_flag==0) or restores (restore_flag!=0) held item and rucksack tools (g_player_held_item/c0/f0) in backup buffer g_npc_evt_save_restore_player_word_80129500..40 for cutscenes or mini-games."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4862,7 +4862,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 6,
-    "summary": "Applies constant delta_val or VM variable stamina/fatigue adjustment to player state DAT_80071a00 via hm_ovl11_apply_tool_charge_effect."
+    "summary": "Applies constant delta_val or VM variable stamina/fatigue adjustment to player state g_core_player_state via hm_ovl11_apply_tool_charge_effect."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4873,7 +4873,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 6,
-    "summary": "Updates thrown/dropped prop arc physics on DAT_8007a60c, casts floor ray (0x800bdce8), projects camera coordinates (0x800bdb88), and settles via 0x800f4fc8/cec."
+    "summary": "Updates thrown/dropped prop arc physics on g_npc_active_script_entity_ptr, casts floor ray (0x800bdce8), projects camera coordinates (0x800bdb88), and settles via 0x800f4fc8/cec."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4901,7 +4901,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 6,
-    "summary": "Draws an item icon using LRU VRAM slot cache DAT_80129668/fd4 (preloading via 0x800f6a24 when uncached), or draws empty slot background via 0x800f7010."
+    "summary": "Draws an item icon using LRU VRAM slot cache g_npc_dlg_clear_icon_vram_item_cfg/fd4 (preloading via 0x800f6a24 when uncached), or draws empty slot background via 0x800f7010."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4940,7 +4940,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 7,
-    "summary": "Iterates all 37 NPC actor records (DAT_80076220/6300) when unpaused (DAT_8006c844 & 0x800000 == 0) and active (bits 0x18000000), calling 0x80107dec and 0x800e46a8."
+    "summary": "Iterates all 37 NPC actor records (g_npc_actor_tbl_base/6300) when unpaused (g_core_engine_flags0 & 0x800000 == 0) and active (bits 0x18000000), calling 0x80107dec and 0x800e46a8."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4951,7 +4951,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 7,
-    "summary": "Processes menu controller buttons (DAT_8005e3a8+8 masks 0x10/20/40/100) to pick up, place, swap, or discard rucksack, tool, shelf, and fridge items with SFX."
+    "summary": "Processes menu controller buttons (g_io_active_pad_buf_ptr+8 masks 0x10/20/40/100) to pick up, place, swap, or discard rucksack, tool, shelf, and fridge items with SFX."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4962,7 +4962,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 8,
-    "summary": "Executes cutscene VM opcodes at DAT_801291b4 via dispatch table PTR_FUN_800b975c until terminator 0xff or yield bit 1, then ticks actors, props, and camera."
+    "summary": "Executes cutscene VM opcodes at g_anim_submenu_state_flag_livestock_evt_lut32 via dispatch table g_npc_evt_cutscene_bytecode_vm_dat_ptr until terminator 0xff or yield bit 1, then ticks actors, props, and camera."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4990,7 +4990,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 8,
-    "summary": "Spawns 4 festival chicken actors (hm_ovl11_spawn_harvest_pickup(0x109), flag 0x40000) using DAT_8012490c positions, or releases entries in DAT_800742ec via 0x800e2904."
+    "summary": "Spawns 4 festival chicken actors (hm_ovl11_spawn_harvest_pickup(0x109), flag 0x40000) using g_npc_evt_spawn_clear_festival_word positions, or releases entries in g_anim_chicken_coop_tbl via 0x800e2904."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5006,7 +5006,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 8,
-    "summary": "Spawns the player's dog actor (ID 0x15e) for an event cutscene or resets dog state DAT_80075ad4 via 0x8010b64c."
+    "summary": "Spawns the player's dog actor (ID 0x15e) for an event cutscene or resets dog state g_anim_dog_state via 0x8010b64c."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5030,7 +5030,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 8,
-    "summary": "Queries or picks an actor via FUN_80116980(target_id, 1, ...), stores the result into VM variable DAT_80129560[out_var], and returns true if != -1."
+    "summary": "Queries or picks an actor via FUN_80116980(target_id, 1, ...), stores the result into VM variable g_ovl11_script_vm_vars[out_var], and returns true if != -1."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5085,7 +5085,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 11,
-    "summary": "Loads tool/item animation pack via 0x800d6a94, 0x800d7338, and 0x800cb540 using either equipped tool DAT_80071a1e or rucksack slot DAT_80071ac0."
+    "summary": "Loads tool/item animation pack via 0x800d6a94, 0x800d7338, and 0x800cb540 using either equipped tool g_player_equipped_tool or rucksack slot g_player_rucksack_tools."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5113,7 +5113,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 11,
-    "summary": "Plays held item DAT_80071a84 animation via 0x800d7338 and optionally applies stamina/fatigue cost via 0x800c4f44 on DAT_80071a00."
+    "summary": "Plays held item g_core_player_state_state_0x70_idx10 animation via 0x800d7338 and optionally applies stamina/fatigue cost via 0x800c4f44 on g_core_player_state."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5151,7 +5151,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 12,
-    "summary": "Terminates active cutscene: clears flag 3, refocuses camera on player (-2), unlocks player controls, clears held item DAT_80071a22, and resets prop 0x36."
+    "summary": "Terminates active cutscene: clears flag 3, refocuses camera on player (-2), unlocks player controls, clears held item g_core_player_state_held_item_id, and resets prop 0x36."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5178,7 +5178,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 12,
-    "summary": "Awards year-milestone item/Power Berry 0x103 via hm_ovl11_query_npc_affection and 0x800e6f34, and advances stored milestone year DAT_8007af03."
+    "summary": "Awards year-milestone item/Power Berry 0x103 via hm_ovl11_query_npc_affection and 0x800e6f34, and advances stored milestone year g_npc_evt_grant_year_milestone_execute_byte."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5200,7 +5200,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 13,
-    "summary": "Drives open mailbox letter UI state DAT_80126c90/94: advances to next letter via 0x800f2724, triggers year gift 0x800f3840, or closes on button 0x20."
+    "summary": "Drives open mailbox letter UI state g_npc_dlg_tick_mailbox_reader_evt_state_80126c90/94: advances to next letter via 0x800f2724, triggers year gift 0x800f3840, or closes on button 0x20."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5211,7 +5211,7 @@
     "params": [],
     "domain": "npc_dialogue_events",
     "wave": 14,
-    "summary": "Dispatches queued event script buffer DAT_8006f5f0 via hm_ovl11_run_dialogue_choice_prompt when DAT_8012961c != 0 and DAT_8006c848 bit 0x800 is clear."
+    "summary": "Dispatches queued event script buffer g_npc_evt_copy_script_bytecode_dispatch_cfg via hm_ovl11_run_dialogue_choice_prompt when g_npc_evt_copy_script_bytecode_dispatch_state_8012961c != 0 and g_core_engine_flags1 bit 0x800 is clear."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5275,7 +5275,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 21,
-    "summary": "Sets cardinal facing direction facing_dir on the player (DAT_80071a38 + hm_ovl11_update_player_controller) when entity_id < 0x32, or on actor DAT_8007a65a."
+    "summary": "Sets cardinal facing direction facing_dir on the player (g_player_facing_dir + hm_ovl11_update_player_controller) when entity_id < 0x32, or on actor g_npc_face_actor_toward_player_facing_table."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5303,7 +5303,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 22,
-    "summary": "Warps player position DAT_80071b00..08 from immediate args (mode==0), VM vars (mode==1), or resets/faces via 0x800cd0c0 + 0x800e9284, updating fatigue via 0x800cb4e0."
+    "summary": "Warps player position g_player_pos_x..08 from immediate args (mode==0), VM vars (mode==1), or resets/faces via 0x800cd0c0 + 0x800e9284, updating fatigue via 0x800cb4e0."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5323,7 +5323,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 22,
-    "summary": "Drives or polls player dizzy/collapse/special-sleep state bits in DAT_80071a6c (& 0x800000/8) and DAT_80071a2e via 0x800cd670 and 0x800e9284."
+    "summary": "Drives or polls player dizzy/collapse/special-sleep state bits in g_player_status_flags (& 0x800000/8) and g_core_player_state_target_scene_anim via 0x800cd670 and 0x800e9284."
   },
   {
     "program": "OVL_part11_id06.EXE",

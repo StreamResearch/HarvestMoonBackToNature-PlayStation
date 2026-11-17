@@ -80,9 +80,9 @@ def _rewrite_undef_and_structs(code: str, stack_arrs: dict[str, int]) -> str:
         code = re.sub(rf"(?<!\*)\b{re.escape(var)}\s*=\s*([^=;][^;]*);", _sub_arr, code)
     code = re.sub(r"\bswitchD_([0-9A-Fa-f]+)::switchdataD_([0-9A-Fa-f]+)\b", r"switchD_\1_switchdataD_\2", code)
     code = re.sub(r"\(u_long\)\s*(CVar\d+)\b", r"(*(u_long *)&(\1))", code)
-    code = re.sub(r"\bg_core_minigame_state_80070cc4\s*=\s*0\s*;", "*(uint32_t *)&g_core_minigame_state_80070cc4 = 0;", code)
-    code = re.sub(r"\bg_farm_field_plot_slot_8007a5c4\s*=\s*(&[A-Za-z0-9_]+)\s*;", r"*(uint32_t *)&g_farm_field_plot_slot_8007a5c4 = (uint32_t)(uintptr_t)\1;", code)
-    code = re.sub(r"(?<!&)\bg_gfx_camera_iso_state_80061de8\b(?!\s*[.\[])", "(*(uint32_t *)&g_gfx_camera_iso_state_80061de8)", code)
+    code = re.sub(r"\bg_core_minigame_state(?:_80070cc4)?\s*=\s*0\s*;", lambda m: f"*(uint32_t *)&{m.group(0).split('=')[0].strip()} = 0;", code)
+    code = re.sub(r"\b(g_farm_field_plot_slot(?:_8007a5c4)?)\s*=\s*(&[A-Za-z0-9_]+)\s*;", r"*(uint32_t *)&(\1) = (uint32_t)(uintptr_t)\2;", code)
+    code = re.sub(r"(?<!&)\b(g_gfx_camera_iso_state(?:_80061de8)?)\b(?!\s*[.\[])", r"(*(uint32_t *)&\1)", code)
     return code
 
 
@@ -243,15 +243,11 @@ def main(argv: list[str] | None = None) -> int:
 
     globals_h = READABLE_DIR / "include" / "harvestmoonbtn_globals.h"
     g_txt = globals_h.read_text(encoding="utf-8", errors="replace")
-    g_txt = re.sub(r"/\* 0x[0-9a-fA-F]+ \[[^\]]+\] (?:struct_member|submember|field): (extern [^;]+;) \*/", r"\1", g_txt)
+    g_txt = re.sub(r"/\* (0x[0-9a-fA-F]+) \[[^\]]+\] (?:struct_member|submember|field): (extern [^;]+;) \*/", r"\2 /* \1 */", g_txt)
     g_txt = re.sub(r"extern uint16_t (PTR_DAT_[0-9A-Za-z_]+);", r"extern uint8_t *\1;", g_txt)
-    g_txt = re.sub(r"extern u8 \*?(g_audio_ss_vm_voice_flags_800a15e8)(?:\[\d+\])?;", r"extern u8 \1;", g_txt)
-    g_txt = re.sub(r"extern u8 \*?(g_audio_ss_vm_voices_800a10a8)(?:\[\d+\])?;", r"extern u16 \1;", g_txt)
-    g_txt = re.sub(r"extern u32 (g_sdk_state_800b7a44);", r"extern long *\1;", g_txt)
-    g_txt = re.sub(r"extern u32 (g_sdk_u32_800b7a48);", r"extern u8 *\1;", g_txt)
-    g_txt = re.sub(r"extern u32 (g_sdk_state_800b7e08);", r"extern char *\1;", g_txt)
-    g_txt = re.sub(r"extern u32 (g_ovl27_state_8006c854);", r"extern u16 *\1;", g_txt)
-    g_txt = re.sub(r"extern u32 (g_gfx_u32_idx_(?:80061ef8|80061efc|80061f00));", r"extern int *\1;", g_txt)
+    for addr_hex, fx_type in (("0x800a15e8", "u8"), ("0x800a10a8", "u16"), ("0x800b7a44", "long *"), ("0x800b7a48", "u8 *"), ("0x800b7e08", "char *"), ("0x8006c854", "u16 *"), ("0x80061ef8", "int *"), ("0x80061efc", "int *"), ("0x80061f00", "int *")):
+        sp = "" if fx_type.endswith("*") else " "
+        g_txt = re.sub(rf"extern [^*;]+?\b([A-Za-z_][A-Za-z0-9_]*)(?:\[\d+\])?; /\* {addr_hex}\b[^\n]*\*/", rf"extern {fx_type}{sp}\1; /* {addr_hex} */", g_txt)
     g_txt = re.sub(r"extern uint8_t (UNK_8007a6(?:5c|60|62|64|70|74|78|80|84|88|90|94|98|e6|e8|ea));", r"extern uint16_t \1;", g_txt)
     globals_h.write_text(g_txt, encoding="utf-8")
 

@@ -29,6 +29,13 @@ _UNDEF_MAP = {"undefined": "u8", "undefined1": "u8", "undefined2": "u16", "undef
 _FN_LINE_RE = re.compile(r"^//\s*Function:\s+(\S+)\s+@\s+0x([0-9a-fA-F]+)[^\n]*(?:\r?\n)+", re.M)
 _DOXY_RE = re.compile(r"/\*\*.*?\*/", re.S)
 _EXTERN_NAME_RE = re.compile(r"^\s*extern\s+.+?\b([A-Za-z_][A-Za-z0-9_]*)\s*(?:\[[^\]]*\])?\s*;")
+_STAGE2_ADDR_RE = re.compile(r"\b(_?)g_[A-Za-z0-9_]*_([0-9a-f]{8})\b")
+
+
+def _rewrite_stage2_addrs(text: str, addr_by_hex: dict[str, str] | None) -> str:
+    if not addr_by_hex:
+        return text
+    return _STAGE2_ADDR_RE.sub(lambda m: (m.group(1) + addr_by_hex[m.group(2)]) if m.group(2) in addr_by_hex else m.group(0), text)
 
 
 def _setup_logger(log_dir: Path | None) -> logging.Logger:
@@ -45,15 +52,16 @@ def _setup_logger(log_dir: Path | None) -> logging.Logger:
     return logger
 
 
-def _rewrite_doxygen_blocks(text: str, exact_map: dict[str, str], dat_by_sym: dict[str, str]) -> str:
+def _rewrite_doxygen_blocks(text: str, exact_map: dict[str, str], dat_by_sym: dict[str, str], spill_re: re.Pattern[str] | None = None, addr_by_hex: dict[str, str] | None = None) -> str:
     def _clean_doc(m: re.Match[str]) -> str:
-        doc = m.group(0).replace("pbVar1", "tile_byte_ptr").replace("puVar4", "slot_word_ptr")
+        doc = _rewrite_stage2_addrs(m.group(0).replace("pbVar1", "tile_byte_ptr").replace("puVar4", "slot_word_ptr"), addr_by_hex)
+        if spill_re is not None: doc = spill_re.sub(lambda sm: exact_map[sm.group(0)], doc)
         return GHIDRA_SYM_RE.sub(lambda sm: map_ghidra_symbol(sm.group(0), exact_map, dat_by_sym), doc)
 
     return _DOXY_RE.sub(_clean_doc, text)
 
 
-def _normalize_headers_and_warnings(text: str, is_sdk: bool, exact_map: dict[str, str], dat_by_sym: dict[str, str]) -> str:
+def _normalize_headers_and_warnings(text: str, is_sdk: bool, exact_map: dict[str, str], dat_by_sym: dict[str, str], spill_re: re.Pattern[str] | None = None, addr_by_hex: dict[str, str] | None = None) -> str:
     text = re.sub(r"^[ \t]*/\*\s*WARNING:.*?\*/[ \t]*\r?\n", "", text, flags=re.M | re.S)
     text = re.sub(r"/\*\s*WARNING:.*?\*/", "", text, flags=re.S)
     text = re.sub(r"^[ \t]*\*\s*@(?:callers|callees)\s+none[ \t]*\r?\n", "", text, flags=re.M)
@@ -80,7 +88,7 @@ def _normalize_headers_and_warnings(text: str, is_sdk: bool, exact_map: dict[str
                 out.extend((chunk, doc))
         pos = m.end()
     out.append(text[pos:])
-    return _rewrite_doxygen_blocks("".join(out), exact_map, dat_by_sym)
+    return _rewrite_doxygen_blocks("".join(out), exact_map, dat_by_sym, spill_re, addr_by_hex)
 
 
 def _find_top_level_braces(text: str) -> list[tuple[int, int]]:
@@ -149,13 +157,13 @@ def _rename_fn_locals_and_format(seg: str, reserved_globals: set[str]) -> str:
     return re.sub(r"\n[ \t]*return;[ \t]*\n\}$", "\n}", seg) if is_void else seg
 
 
-def normalize_c_text(text: str, *, is_sdk: bool, exact_map: dict[str, str], dat_by_sym: dict[str, str], reserved_globals: set[str], spill_re: re.Pattern[str] | None = None) -> str:
+def normalize_c_text(text: str, *, is_sdk: bool, exact_map: dict[str, str], dat_by_sym: dict[str, str], reserved_globals: set[str], spill_re: re.Pattern[str] | None = None, addr_by_hex: dict[str, str] | None = None) -> str:
     """Normalize a single C source file across headers, types, casts, globals, locals, and layout."""
-    cur = _normalize_headers_and_warnings(text, is_sdk, exact_map, dat_by_sym)
-    spill_pat = spill_re or re.compile(r"\b(?:" + "|".join(re.escape(k) for k in sorted(exact_map)) + r")\b") if exact_map else None
+    spill_pat = spill_re or (re.compile(r"\b(?:" + "|".join(re.escape(k) for k in sorted(exact_map)) + r")\b") if exact_map else None)
+    cur = _normalize_headers_and_warnings(text, is_sdk, exact_map, dat_by_sym, spill_pat, addr_by_hex)
 
     def _clean_code(seg: str) -> str:
-        seg = re.sub(r"\(\s*void\s*\*\s*\)\s*0x0\b", "NULL", seg)
+        seg = _rewrite_stage2_addrs(re.sub(r"\(\s*void\s*\*\s*\)\s*0x0\b", "NULL", seg), addr_by_hex)
         seg = UNDEF_TYPE_RE.sub(lambda m: _UNDEF_MAP[m.group(1)], seg)
         seg = rewrite_code_casts(seg)
         if spill_pat is not None:
@@ -177,9 +185,9 @@ def normalize_c_text(text: str, *, is_sdk: bool, exact_map: dict[str, str], dat_
     return re.sub(r"\n{3,}", "\n\n", cur).rstrip() + "\n"
 
 
-def _normalize_globals_header(text: str, exact_map: dict[str, str], dat_by_sym: dict[str, str], spill_pat: re.Pattern[str] | None) -> str:
+def _normalize_globals_header(text: str, exact_map: dict[str, str], dat_by_sym: dict[str, str], spill_pat: re.Pattern[str] | None, addr_by_hex: dict[str, str] | None = None) -> str:
     def _clean(seg: str) -> str:
-        seg = UNDEF_TYPE_RE.sub(lambda m: _UNDEF_MAP[m.group(1)], seg)
+        seg = _rewrite_stage2_addrs(UNDEF_TYPE_RE.sub(lambda m: _UNDEF_MAP[m.group(1)], seg), addr_by_hex)
         if spill_pat is not None:
             seg = spill_pat.sub(lambda m: exact_map[m.group(0)], seg)
         return GHIDRA_SYM_RE.sub(lambda m: map_ghidra_symbol(m.group(0), exact_map, dat_by_sym), seg)
@@ -195,9 +203,9 @@ def _normalize_globals_header(text: str, exact_map: dict[str, str], dat_by_sym: 
     return "\n".join(deduped) + "\n"
 
 
-def _normalize_functions_header(text: str, exact_map: dict[str, str], dat_by_sym: dict[str, str]) -> str:
+def _normalize_functions_header(text: str, exact_map: dict[str, str], dat_by_sym: dict[str, str], addr_by_hex: dict[str, str] | None = None) -> str:
     def _clean(seg: str) -> str:
-        seg = re.sub(r"\(\s*void\s*\*\s*\)\s*0x0\b", "NULL", seg)
+        seg = _rewrite_stage2_addrs(re.sub(r"\(\s*void\s*\*\s*\)\s*0x0\b", "NULL", seg), addr_by_hex)
         seg = UNDEF_TYPE_RE.sub(lambda m: _UNDEF_MAP[m.group(1)], seg)
         seg = re.sub(r"\bparam_(\d+)\b", r"arg_\1", seg)
         return GHIDRA_SYM_RE.sub(lambda m: map_ghidra_symbol(m.group(0), exact_map, dat_by_sym), seg)
@@ -218,10 +226,11 @@ def normalize_readable_tree(readable_dir: Path, schemas_dir: Path | None = None,
             hits = find_craftsmanship_artifacts(fp.read_text(encoding="utf-8", errors="replace"), allow_undef_typedefs=(fp.name == "ghidra_compat.h"))
             if hits:
                 violations[fp.relative_to(readable_dir).as_posix()] = hits[:12]
+        log.info("craftsmanship verify-clean: scanned=%d violations=%d", len(c_files) + len(hdr_files), len(violations))
         return {"mode": "verify-clean", "filesScanned": len(c_files) + len(hdr_files), "violationFileCount": len(violations), "violations": violations, "isPassed": not violations}
 
     tables = load_symbol_tables(schemas_dir)
-    exact_map, dat_by_sym, reserved = tables["exactMap"], tables["datBySym"], tables["knownGlobals"]
+    exact_map, dat_by_sym, addr_by_hex, reserved = tables["exactMap"], tables["datBySym"], tables["addrByHex"], tables["knownGlobals"]
     spill_pat = re.compile(r"\b(?:" + "|".join(re.escape(k) for k in sorted(exact_map)) + r")\b") if exact_map else None
 
     modified, norm_c_texts, g_txt_norm = 0, [], ""
@@ -229,7 +238,7 @@ def normalize_readable_tree(readable_dir: Path, schemas_dir: Path | None = None,
         if hp.name == "ghidra_compat.h":
             continue
         orig = hp.read_text(encoding="utf-8", errors="replace")
-        new = _normalize_globals_header(orig, exact_map, dat_by_sym, spill_pat) if hp.name == "harvestmoonbtn_globals.h" else _normalize_functions_header(orig, exact_map, dat_by_sym)
+        new = _normalize_globals_header(orig, exact_map, dat_by_sym, spill_pat, addr_by_hex) if hp.name == "harvestmoonbtn_globals.h" else _normalize_functions_header(orig, exact_map, dat_by_sym, addr_by_hex)
         if hp.name == "harvestmoonbtn_globals.h":
             g_txt_norm = new
         if new != orig:
@@ -240,7 +249,7 @@ def normalize_readable_tree(readable_dir: Path, schemas_dir: Path | None = None,
     remaining: dict[str, list[str]] = {}
     for cp in c_files:
         orig = cp.read_text(encoding="utf-8", errors="replace")
-        new = normalize_c_text(orig, is_sdk=("sdk" in cp.parts), exact_map=exact_map, dat_by_sym=dat_by_sym, reserved_globals=reserved, spill_re=spill_pat)
+        new = normalize_c_text(orig, is_sdk=("sdk" in cp.parts), exact_map=exact_map, dat_by_sym=dat_by_sym, reserved_globals=reserved, spill_re=spill_pat, addr_by_hex=addr_by_hex)
         norm_c_texts.append(new)
         if hits := find_craftsmanship_artifacts(new):
             remaining[cp.relative_to(readable_dir).as_posix()] = hits[:10]
@@ -253,7 +262,7 @@ def normalize_readable_tree(readable_dir: Path, schemas_dir: Path | None = None,
     if compat_p.is_file():
         c_orig = compat_p.read_text(encoding="utf-8", errors="replace")
         c_base = re.sub(re.escape(MARKER_BEGIN) + r".*?" + re.escape(MARKER_END) + r"\n?", "", c_orig, flags=re.S)
-        c_new = c_base.rstrip() + "\n\n" + build_compat_block(g_txt_norm, readable_dir, tables["overrides"], norm_c_texts)
+        c_new = c_base.rstrip() + "\n\n" + build_compat_block(g_txt_norm, readable_dir, tables["overrides"], norm_c_texts, schemas_dir)
         if c_new != c_orig:
             modified += 1
             if not dry_run:

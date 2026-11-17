@@ -19,7 +19,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 1,
-    "summary": "Evaluates scene flags g_core_scene_flags_80070c88, engine flags g_core_engine_flags0_8006c844, weather, and p11_core_map_area_to_time_zone to return area BGM ID"
+    "summary": "Evaluates scene flags g_core_scene_flags, engine flags g_core_engine_flags0, weather, and p11_core_map_area_to_time_zone to return area BGM ID"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -39,7 +39,7 @@
     ],
     "domain": "cd_afile_overlays",
     "wave": 3,
-    "summary": "Loads area scene header into g_gfx_active_map_desc_8009f78c, loads optional palette 0x9b, unpacks VRAM, and runs area entity loaders."
+    "summary": "Loads area scene header into g_gfx_active_map_desc, loads optional palette 0x9b, unpacks VRAM, and runs area entity loaders."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -99,7 +99,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Resets global scene slot handle g_core_u32_801287fc to 0xffffffff before raycast or minigame dispatch"
+    "summary": "Resets global scene slot handle g_core_scene_slot_word to 0xffffffff before raycast or minigame dispatch"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -130,7 +130,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 2,
-    "summary": "Streams CD A-file table entry into g_core_u32_8007aff0 via hm_afile_read_or_load_overlay and returns whether transfer succeeded."
+    "summary": "Streams CD A-file table entry into g_core_area_scene_bundle_stream_water_cfg via hm_afile_read_or_load_overlay and returns whether transfer succeeded."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -163,7 +163,7 @@
     "params": [],
     "domain": "cd_afile_overlays",
     "wave": 2,
-    "summary": "Reads 0xa800 bytes from CD offset 0x74800 into g_gfx_highram_arena_ptr_8005e3b0 + 0x4290 via hm_vram_queue_rect_upload."
+    "summary": "Reads 0xa800 bytes from CD offset 0x74800 into g_gfx_highram_arena_ptr + 0x4290 via hm_vram_queue_rect_upload."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -179,7 +179,7 @@
     ],
     "domain": "cd_afile_overlays",
     "wave": 2,
-    "summary": "Records active crop sprite bank index in 0x80128800 and reads 0x3800 bytes from 0x3cb8800 + bank_idx*0x3800 into g_cd_tbl_8007bff8."
+    "summary": "Records active crop sprite bank index in 0x80128800 and reads 0x3800 bytes from 0x3cb8800 + bank_idx*0x3800 into g_cd_crop_sprite_bank_animal_field_table."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -206,7 +206,7 @@
     ],
     "domain": "cd_afile_overlays",
     "wave": 2,
-    "summary": "Reads 0x1800 bytes from CD offset 0x3d5a800 + bank_idx*0x1800 into g_cd_tbl_8007bff8 via hm_vram_queue_rect_upload."
+    "summary": "Reads 0x1800 bytes from CD offset 0x3d5a800 + bank_idx*0x1800 into g_cd_crop_sprite_bank_animal_field_table via hm_vram_queue_rect_upload."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -332,7 +332,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Searches 2-entry AABB table at g_core_tbl_80122d8c + table_idx*0x38 matching area_id and (pos_x, pos_z), writing spawn pos and dir"
+    "summary": "Searches 2-entry AABB table at g_core_lookup_field_spawn_rect_table + table_idx*0x38 matching area_id and (pos_x, pos_z), writing spawn pos and dir"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -376,7 +376,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 4,
-    "summary": "Increments recursion step counter g_core_state_80128810 (<0x32) before calling hm_ovl11_check_actor_collision; clears *out_hit on cap."
+    "summary": "Increments recursion step counter g_core_probe_actor_ray_budget_unbounded_state (<0x32) before calling hm_ovl11_check_actor_collision; clears *out_hit on cap."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -420,7 +420,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 4,
-    "summary": "Increments ray-probe step counter g_core_state_80128810 and invokes hm_ovl11_check_actor_collision without enforcing step cap."
+    "summary": "Increments ray-probe step counter g_core_probe_actor_ray_budget_unbounded_state and invokes hm_ovl11_check_actor_collision without enforcing step cap."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -431,7 +431,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Clears g_core_state_80128810 to zero each frame during hm_ovl11_tick_all_world_entities"
+    "summary": "Clears g_core_probe_actor_ray_budget_unbounded_state to zero each frame during hm_ovl11_tick_all_world_entities"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -451,7 +451,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 1,
-    "summary": "Tests col_query XZ bounds against g_gfx_sprite_desc_tbl_ptr_8006c858 prop half-extents for actor_slot, skipping festival 0x106 and flagging livestock"
+    "summary": "Tests col_query XZ bounds against g_gfx_sprite_desc_tbl_ptr prop half-extents for actor_slot, skipping festival 0x106 and flagging livestock"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -467,7 +467,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Tests collision query against player position g_player_pos_x_80071b00..08 within +-218 XZ and +-20 Y when area matches g_player_interact_target_80071afc"
+    "summary": "Tests collision query against player position g_player_pos_x..08 within +-218 XZ and +-20 Y when area matches g_player_interact_target"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -519,7 +519,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 2,
-    "summary": "Tests query XZ position against a seasonal prop AABB from g_gfx_sprite_desc_tbl_ptr_8006c858 and updates hit pointer and bitflags."
+    "summary": "Tests query XZ position against a seasonal prop AABB from g_gfx_sprite_desc_tbl_ptr and updates hit pointer and bitflags."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -535,7 +535,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Iterates 36 NPC actor slots at g_core_u32_800763f4 (stride 0x1D4) checking +-200 XZ and +-20 Y proximity unless player flag 0x8 is set"
+    "summary": "Iterates 36 NPC actor slots at g_core_actor_collision_word (stride 0x1D4) checking +-200 XZ and +-20 Y proximity unless player flag 0x8 is set"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -551,7 +551,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Scans 37 NPC slots at g_npc_actor_tbl_base_80076220 (stride 0x1D4) within +-150 XZ and +-20 Y of pos_xyz, returning actor ptr or NULL"
+    "summary": "Scans 37 NPC slots at g_npc_actor_tbl_base (stride 0x1D4) within +-150 XZ and +-20 Y of pos_xyz, returning actor ptr or NULL"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -571,7 +571,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Scans 197 HmFieldPlotCell entries at g_farm_field_plot_slot_8007a5c4 (stride 0x18) matching area_ctx+2 within +-150 XZ, returning obj_type_id or 0"
+    "summary": "Scans 197 HmFieldPlotCell entries at g_farm_field_plot_slot (stride 0x18) matching area_ctx+2 within +-150 XZ, returning obj_type_id or 0"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -604,7 +604,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Calls hm_res_map_get_tile_attr_8001ef98, caches low 16 bits in g_core_u32_8012880c, and returns packed mask checking ground flag bit 0x2000"
+    "summary": "Calls hm_res_map_get_tile_attr_8001ef98, caches low 16 bits in g_core_query_ground_tile_mask_word, and returns packed mask checking ground flag bit 0x2000"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -639,7 +639,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Indexes g_farm_field_grid_80071dfc or g_farm_greenhouse_grid_80074124 and looks up walkability code 0..2 via g_gfx_sprite_desc_tbl_ptr_8006c858/60"
+    "summary": "Indexes g_farm_field_grid or g_farm_greenhouse_grid and looks up walkability code 0..2 via g_gfx_sprite_desc_tbl_ptr/60"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -677,7 +677,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 1,
-    "summary": "Computes tomorrow weather g_core_val_u16_8007ad02 by advancing calendar via p11_core_step_4phase_frame_timer and rolling season-weighted hm_prng_next odds"
+    "summary": "Computes tomorrow weather g_core_roll_tomorrow_weather_resolve_crop_counter by advancing calendar via p11_core_step_4phase_frame_timer and rolling season-weighted hm_prng_next odds"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -720,7 +720,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Checks 5 tracked NPC indices in g_core_u32_80122e74 against g_npc_actor_tbl_base_80076220 to test match with (pos_xy[0], pos_xy[1])"
+    "summary": "Checks 5 tracked NPC indices in g_core_tracked_at_tile_word against g_npc_actor_tbl_base to test match with (pos_xy[0], pos_xy[1])"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -731,7 +731,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 1,
-    "summary": "Clears weather event flags 0x12..0x16 and sets g_farm_current_weather_8007ad00 + 0x12 via hm_event_flag_set"
+    "summary": "Clears weather event flags 0x12..0x16 and sets g_farm_current_weather + 0x12 via hm_event_flag_set"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -753,7 +753,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 1,
-    "summary": "Maps g_farm_cal_hour_80070cf8 via p11_core_map_area_to_time_zone, saves zone in g_core_state_8007afa0, and starts 1-frame light lerp"
+    "summary": "Maps g_farm_cal_hour via p11_core_map_area_to_time_zone, saves zone in g_core_weather_lighting_apply_ambient_state, and starts 1-frame light lerp"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -764,7 +764,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 1,
-    "summary": "Initializes 40 14-byte color blend slots at g_core_u32_80128820 via p11_core_init_color_blend_slot and points g_core_u32_idx_80128a80 to g_core_u32_80125e88"
+    "summary": "Initializes 40 14-byte color blend slots at g_core_all_color_blend_slots_weather_word via p11_core_init_color_blend_slot and points g_core_weather_lighting_apply_all_lut32 to g_core_all_color_blend_slots_word"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -786,7 +786,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Initializes g_core_ro_u32_8007af80..88 from g_core_u32_idx_80128a80[0..2] and zeroes light interpolation deltas and counters g_core_state_8007af8c..a0"
+    "summary": "Initializes g_core_ambient_light_rgb_lerp_start_cfg_8007af80..88 from g_core_weather_lighting_apply_all_lut32[0..2] and zeroes light interpolation deltas and counters g_core_ambient_light_rgb_lerp_start_state_8007af8c..a0"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -813,7 +813,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Applies active ambient RGB g_core_ro_u32_8007af80..88 via hm_res_gfx_lerp_rgb_fade_8001316c if nonzero and steps linear interpolation up to g_core_state_8007af9c frames"
+    "summary": "Applies active ambient RGB g_core_ambient_light_rgb_lerp_start_cfg_8007af80..88 via hm_res_gfx_lerp_rgb_fade_8001316c if nonzero and steps linear interpolation up to g_core_ambient_light_rgb_lerp_start_state_8007af9c frames"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -833,7 +833,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Configures ambient light interpolation over duration_frames toward target_rgb, resetting step counter g_core_state_8007af98"
+    "summary": "Configures ambient light interpolation over duration_frames toward target_rgb, resetting step counter g_core_ambient_light_rgb_lerp_start_state_8007af98"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -860,7 +860,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 4,
-    "summary": "Iterates all 40 weather particle slots in g_core_u32_80128820 calling 0x800c009c and staggers particle[4] respawn countdowns."
+    "summary": "Iterates all 40 weather particle slots in g_core_all_color_blend_slots_weather_word calling 0x800c009c and staggers particle[4] respawn countdowns."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -903,7 +903,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 1,
-    "summary": "When unpaused and weather is 3 or 4 every 8th tick, offsets g_core_spawn_pos_z_800a03a8 using hm_prng_next(100)"
+    "summary": "When unpaused and weather is 3 or 4 every 8th tick, offsets g_core_spawn_pos_z using hm_prng_next(100)"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -914,7 +914,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 6,
-    "summary": "Rolls 30% chance when g_farm_upgrade_flags2_80070d0c != 0 to clear flag, apply storm damage callbacks, and clear event flags 0x39 and 0x3e."
+    "summary": "Rolls 30% chance when g_farm_upgrade_flags2 != 0 to clear flag, apply storm damage callbacks, and clear event flags 0x39 and 0x3e."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -936,7 +936,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 22,
-    "summary": "Fast-forwards pending time steps g_core_state_80128b58 while g_core_state_80128b50 != 0, then refreshes morning NPCs, weather, daily animal state, and ambient lighting."
+    "summary": "Fast-forwards pending time steps g_core_fast_forward_time_calendar_clear_state_80128b58 while g_core_fast_forward_time_overlay_calendar_state != 0, then refreshes morning NPCs, weather, daily animal state, and ambient lighting."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -947,7 +947,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Returns g_core_state_80128b50 indicating whether a core event or transition lock is currently active"
+    "summary": "Returns g_core_fast_forward_time_overlay_calendar_state indicating whether a core event or transition lock is currently active"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -979,7 +979,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 1,
-    "summary": "Computes minutes until 5:00 AM plus extra_minutes, clears g_core_state_80128b5c, and triggers p11_core_activate_pending_transition"
+    "summary": "Computes minutes until 5:00 AM plus extra_minutes, clears g_core_fast_forward_time_schedule_trigger_state, and triggers p11_core_activate_pending_transition"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -990,7 +990,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 1,
-    "summary": "Clears g_core_state_80128b5c to 0 and invokes p11_core_activate_pending_transition for immediate overlay/event transition"
+    "summary": "Clears g_core_fast_forward_time_schedule_trigger_state to 0 and invokes p11_core_activate_pending_transition for immediate overlay/event transition"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1012,7 +1012,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Zeroes core event queue flags g_core_state_8006c908..c and g_core_state_80128b50..58 and fills 50-slot queue g_core_u32_80128a88 with 0xff via memset"
+    "summary": "Zeroes core event queue flags g_core_calendar_new_game_clear_deferred_state..c and g_core_fast_forward_time_overlay_calendar_state..58 and fills 50-slot queue g_core_calendar_new_game_clear_pending_state with 0xff via memset"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1023,7 +1023,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Returns true when the head slot of the 50-entry event queue g_core_u32_80128a88 is not -1"
+    "summary": "Returns true when the head slot of the 50-entry event queue g_core_calendar_new_game_clear_pending_state is not -1"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1039,7 +1039,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Stores mode_val into g_core_state_80128b5c (invoked by hm_ovl11_update_all_animals)"
+    "summary": "Stores mode_val into g_core_fast_forward_time_schedule_trigger_state (invoked by hm_ovl11_update_all_animals)"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1055,7 +1055,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Sets g_core_state_80128b50 = 1 and stores transition argument event_arg into g_core_state_80128b58"
+    "summary": "Sets g_core_fast_forward_time_overlay_calendar_state = 1 and stores transition argument event_arg into g_core_fast_forward_time_calendar_clear_state_80128b58"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1091,7 +1091,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Appends event_id into the first free (-1) slot of the 50-entry event queue at g_core_u32_80128a88"
+    "summary": "Appends event_id into the first free (-1) slot of the 50-entry event queue at g_core_calendar_new_game_clear_pending_state"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1102,7 +1102,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Dispatches g_jtbl_ptr_800b7f54[g_core_u32_80128a88] when queue non-empty; on non-zero return clears g_core_state_8006c908 and shifts queue entries"
+    "summary": "Dispatches g_core_deferred_event_queue_jtbl_ptr[g_core_calendar_new_game_clear_pending_state] when queue non-empty; on non-zero return clears g_core_calendar_new_game_clear_deferred_state and shifts queue entries"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1113,7 +1113,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Looks up active scene index in g_core_tbl_80125f24 via g_core_event_script_ctx_800a0378 and tests equality with 0x1000"
+    "summary": "Looks up active scene index in g_core_current_scene_indoor_flag_render_table via g_core_event_script_ctx and tests equality with 0x1000"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1165,7 +1165,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Scans 18 (x, z) tile coordinate pairs at g_core_u32_80122f0c (stride 6) and returns 1-based match index or 0"
+    "summary": "Scans 18 (x, z) tile coordinate pairs at g_core_grid_tile_world_find_override_word (stride 6) and returns 1-based match index or 0"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1176,7 +1176,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 1,
-    "summary": "Checks 5 milestone dates at g_npc_tbl_8007ad10 and g_npc_val_u16_80071cc0 against current date, updating flags 0x21..0x2c via hm_event_flag_set"
+    "summary": "Checks 5 milestone dates at g_npc_birthday_anniversary_flags_trigger_evt_table and g_npc_birthday_anniversary_flags_trigger_evt_counter against current date, updating flags 0x21..0x2c via hm_event_flag_set"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1192,7 +1192,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 1,
-    "summary": "When default_bgm_id is in 0x34..0x37 and today is a festival via hm_ovl11_grid_tile_to_world, returns override BGM from g_core_u32_80122f0c"
+    "summary": "When default_bgm_id is in 0x34..0x37 and today is a festival via hm_ovl11_grid_tile_to_world, returns override BGM from g_core_grid_tile_world_find_override_word"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1214,7 +1214,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 1,
-    "summary": "Toggles HUD clock overlay via p11_ui_enable/disable_hud_clock_overlay based on busy flag, event flags 2/4/5/0xb0, and g_ui_val_u16_8007ad08"
+    "summary": "Toggles HUD clock overlay via p11_ui_enable/disable_hud_clock_overlay based on busy flag, event flags 2/4/5/0xb0, and g_ui_hud_clock_visibility_open_calendar_counter"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1236,7 +1236,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Zeroes counter field +0x0A across all 37 NPC slots in g_npc_actor_tbl_base_80076220 (stride 0x1D4)"
+    "summary": "Zeroes counter field +0x0A across all 37 NPC slots in g_npc_actor_tbl_base (stride 0x1D4)"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1247,7 +1247,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 1,
-    "summary": "Resets all 37 NPC slots in g_npc_actor_tbl_base_80076220 via p11_core_reset_npc_actor_slot and p11_ovl_reset_entity_state_pair, then calls p11_npc_apply_npc_schedule_overrides"
+    "summary": "Resets all 37 NPC slots in g_npc_actor_tbl_base via p11_core_reset_npc_actor_slot and p11_ovl_reset_entity_state_pair, then calls p11_npc_apply_npc_schedule_overrides"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1274,7 +1274,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Masks off flag bit 0x0010 at +0x1E across all 37 NPC slots in g_npc_actor_tbl_base_80076220"
+    "summary": "Masks off flag bit 0x0010 at +0x1E across all 37 NPC slots in g_npc_actor_tbl_base"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1290,7 +1290,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 1,
-    "summary": "Claims first free (-1) slot in g_npc_actor_tbl_base_80076220, resets it, sets npc_id and flag 0x8000, and initializes affection via p11_core_dispatch_scene_fx_callback"
+    "summary": "Claims first free (-1) slot in g_npc_actor_tbl_base, resets it, sets npc_id and flag 0x8000, and initializes affection via p11_core_dispatch_scene_fx_callback"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1373,7 +1373,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 19,
-    "summary": "Advances NPC schedule waypoint when day-minutes g_farm_cal_day_minutes_80070d02 reaches next slot, loading sprites and updating anim/reflection via hm_ovl11_update_water_reflection_fx."
+    "summary": "Advances NPC schedule waypoint when day-minutes g_farm_cal_day_minutes reaches next slot, loading sprites and updating anim/reflection via hm_ovl11_update_water_reflection_fx."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1432,7 +1432,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 22,
-    "summary": "Increments g_core_state_80122f88 and iterates all 37 NPC slots at g_npc_actor_tbl_base_80076220 (stride 0xea shorts), calling p11_core_tick_npc_actor_ai and p11_core_render_npc_if_active."
+    "summary": "Increments g_core_weather_effects_render_apply_state and iterates all 37 NPC slots at g_npc_actor_tbl_base (stride 0xea shorts), calling p11_core_tick_npc_actor_ai and p11_core_render_npc_if_active."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1464,7 +1464,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Dispatches jump-table callback g_jtbl_ptr_800b7f90[handler_id - 3] for handler_id in range 3..20"
+    "summary": "Dispatches jump-table callback g_core_dispatch_scene_fx_callback_jtbl_ptr[handler_id - 3] for handler_id in range 3..20"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1523,7 +1523,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "Returns g_core_u32_8007aff0 + 0x1000 used by sky gradient, fog, and water reflection shaders"
+    "summary": "Returns g_core_area_scene_bundle_stream_water_cfg + 0x1000 used by sky gradient, fog, and water reflection shaders"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1554,7 +1554,7 @@
     "params": [],
     "domain": "core_mainloop",
     "wave": 0,
-    "summary": "When *g_core_event_script_ctx_800a0378 == 0x13, increments g_core_player_state_8007_state_0x70_80071a70 up to 15 and decrements +0x02/+0x04 across 37 NPCs"
+    "summary": "When *g_core_event_script_ctx == 0x13, increments g_core_player_state_state_0x70 up to 15 and decrements +0x02/+0x04 across 37 NPCs"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1673,7 +1673,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Maps (slot_idx, page_idx) across storage mode g_npc_state_80126e40 (0, 2, else) to the 6-byte item slot pointer in rucksack or storage"
+    "summary": "Maps (slot_idx, page_idx) across storage mode g_npc_dlg_menu_icon_cache_open_state (0, 2, else) to the 6-byte item slot pointer in rucksack or storage"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1765,7 +1765,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Navigates storage/fridge/cabinet pocket cursor (g_npc_val_u16_80126e44) and page index (g_npc_val_u16_80126e4a) and draws slot highlight brackets."
+    "summary": "Navigates storage/fridge/cabinet pocket cursor (g_npc_dlg_menu_icon_cache_shop_counter_80126e44) and page index (g_npc_dlg_menu_icon_cache_shop_counter_80126e4a) and draws slot highlight brackets."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1881,7 +1881,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Formats selected item count (g_npc_val_u16_80126e4a+1) and storage capacity (capacity_x8 >> 3) separated by slash text at Y=0x6e."
+    "summary": "Formats selected item count (g_npc_dlg_menu_icon_cache_shop_counter_80126e4a+1) and storage capacity (capacity_x8 >> 3) separated by slash text at Y=0x6e."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1937,7 +1937,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 4,
-    "summary": "Draws background slot via 0x800f7010 then emits centered SPRT + DR_TPAGE primitives for cached VRAM icon g_ui_u16_80129648..62."
+    "summary": "Draws background slot via 0x800f7010 then emits centered SPRT + DR_TPAGE primitives for cached VRAM icon g_ui_dlg_item_icon_vram_upload_half_80129648..62."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -1969,7 +1969,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Allocates and submits a POLY_FT4 primitive (code 0x2c) from g_ui_u16_80129648 sprite table scaled by scale_q12 >> 12"
+    "summary": "Allocates and submits a POLY_FT4 primitive (code 0x2c) from g_ui_dlg_item_icon_vram_upload_half_80129648 sprite table scaled by scale_q12 >> 12"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2047,7 +2047,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Resets g_ui_state_80126f7c and g_ui_state_80126f84 to 0 and sets g_ui_state_80126f88 = 1"
+    "summary": "Resets g_ui_inventory_subpanel_state_open_calendar_state_80126f7c and g_ui_inventory_subpanel_state_open_calendar_state_80126f84 to 0 and sets g_ui_inventory_subpanel_state_open_calendar_state_80126f88 = 1"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2069,7 +2069,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 9,
-    "summary": "Steps the farm calendar overlay state machine g_ui_state_80126f7c, updating calendar input/render or closing back via hm_ovl11_set_game_substate."
+    "summary": "Steps the farm calendar overlay state machine g_ui_inventory_subpanel_state_open_calendar_state_80126f7c, updating calendar input/render or closing back via hm_ovl11_set_game_substate."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2102,7 +2102,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Moves calendar day cursor g_ui_state_80126f84 within [0,29] via +/-1 and +/-7 D-pad wrapping and renders cursor via p11_ui_draw_calendar_cursor."
+    "summary": "Moves calendar day cursor g_ui_inventory_subpanel_state_open_calendar_state_80126f84 within [0,29] via +/-1 and +/-7 D-pad wrapping and renders cursor via p11_ui_draw_calendar_cursor."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2142,7 +2142,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Scans 18 villager birthday entries at g_ui_u32_80126f8c and draws birthday badges via 0x800fa590 for matching season_idx."
+    "summary": "Scans 18 villager birthday entries at g_ui_calendar_season_birthdays_show_word and draws birthday badges via 0x800fa590 for matching season_idx."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2170,7 +2170,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Draws special scheduled calendar event badge via 0x800fa5c8 when g_npc_val_u16_80071cca != -1 matches year_idx and season_idx."
+    "summary": "Draws special scheduled calendar event badge via 0x800fa5c8 when g_npc_trigger_cutscene_script_evt_scheduled_counter != -1 matches year_idx and season_idx."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2457,7 +2457,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Zeroes g_ui_state_80126fe0..e8 and sets g_ui_state_80126fec = 0xff for calendar cursor state"
+    "summary": "Zeroes g_ui_calendar_cursor_state_open_tick_state..e8 and sets g_ui_calendar_cursor_state_rucksack_state_80126fec = 0xff for calendar cursor state"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2667,7 +2667,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Maps rucksack slot_idx (0 -> g_core_player_state_8007_state_0x70_idx10_80071a84, 9 -> g_dat_80071a8a, else 6-byte stride) to its u16 slot pointer"
+    "summary": "Maps rucksack slot_idx (0 -> g_core_player_state_state_0x70_idx10, 9 -> g_player_equipped_tool_slot, else 6-byte stride) to its u16 slot pointer"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2702,7 +2702,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Sets g_ui_state_80127208 = 1 when currently zero to enable HUD clock/overlay display"
+    "summary": "Sets g_ui_enable_hud_clock_overlay_disable_state = 1 when currently zero to enable HUD clock/overlay display"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2713,7 +2713,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Clears g_ui_state_80127208 = 0 when non-zero to hide HUD clock/overlay display"
+    "summary": "Clears g_ui_enable_hud_clock_overlay_disable_state = 0 when non-zero to hide HUD clock/overlay display"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2724,7 +2724,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Invokes p11_ui_draw_hud_clock_widget when HUD clock visibility state g_ui_state_80127208 is nonzero."
+    "summary": "Invokes p11_ui_draw_hud_clock_widget when HUD clock visibility state g_ui_enable_hud_clock_overlay_disable_state is nonzero."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2746,7 +2746,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Populates g_ui_val_u16_8012720c..74 and g_ui_u32_8012cdc8..e8 status summary cache with upgrades, recipes, family/pets, animal/memo counts, rating, and shipped items"
+    "summary": "Populates g_ui_snapshot_status_summary_trigger_open_counter..74 and g_ui_snapshot_status_summary_screen_word..e8 status summary cache with upgrades, recipes, family/pets, animal/memo counts, rating, and shipped items"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2757,7 +2757,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Sets g_ui_val_u16_8012720c = 1 and plays warning SFX via hm_res_cd_wait_load_sync_800132f0(10, 0, 2) once when flag is zero"
+    "summary": "Sets g_ui_snapshot_status_summary_trigger_open_counter = 1 and plays warning SFX via hm_res_cd_wait_load_sync_800132f0(10, 0, 2) once when flag is zero"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2779,7 +2779,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 4,
-    "summary": "Polls pad input, renders frame background for farm status states 3..5, and dispatches states 1..6 via g_jtbl_ptr_800ba4f8."
+    "summary": "Polls pad input, renders frame background for farm status states 3..5, and dispatches states 1..6 via g_ui_dispatch_status_state_jtbl_ptr."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2844,7 +2844,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Submits a status sprite quad from g_ui_u32_8012cdf8[icon_bank] at (x, y) alongside its text label at (x+0x18, y+4)."
+    "summary": "Submits a status sprite quad from g_ui_open_status_screen_overview_sprite_word[icon_bank] at (x, y) alongside its text label at (x+0x18, y+4)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2855,7 +2855,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Draws 4 farm record counters from g_ui_u16_80127264 at X=0xd4 using p11_ui_draw_sprite_with_label."
+    "summary": "Draws 4 farm record counters from g_ui_status_record_counts_half at X=0xd4 using p11_ui_draw_sprite_with_label."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2866,7 +2866,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Draws 5 farm animal total counts from g_ui_u16_80127220 at X=0x8c using p11_ui_draw_sprite_with_label."
+    "summary": "Draws 5 farm animal total counts from g_ui_status_animal_counts_half at X=0x8c using p11_ui_draw_sprite_with_label."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2877,7 +2877,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Draws up to 4 family/pet status entries from g_ui_ro_u32_80127234 with affection hearts via p11_ui_draw_sprite_label_and_hearts."
+    "summary": "Draws up to 4 family/pet status entries from g_ui_snapshot_status_summary_family_cfg with affection hearts via p11_ui_draw_sprite_label_and_hearts."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2928,7 +2928,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 3,
-    "summary": "Loops over 6 Power Berry / Mystic Berry bitmasks in 0x80127328 against g_npc_event_progress_flags_80070d30 and draws earned icons."
+    "summary": "Loops over 6 Power Berry / Mystic Berry bitmasks in 0x80127328 against g_npc_event_progress_flags and draws earned icons."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2939,7 +2939,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Renders 21 shipped-item sprites in a 3x7 grid from g_ui_u32_80127278 alongside capped 999 counts via p11_ui_draw_capped_999_count."
+    "summary": "Renders 21 shipped-item sprites in a 3x7 grid from g_ui_shipped_items_page_word_80127278 alongside capped 999 counts via p11_ui_draw_capped_999_count."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2963,7 +2963,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Clamps count at 999, formats 3-digit script string into g_ui_val_u16_8012a028, and draws it at (x, y)."
+    "summary": "Clamps count at 999, formats 3-digit script string into g_ui_status_overview_page_record_animal_counter, and draws it at (x, y)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2974,7 +2974,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Draws chicken page header badge (0) and 7-row scrollable list (0x800fcbb4) for g_ui_val_u16_80127222 chickens."
+    "summary": "Draws chicken page header badge (0) and 7-row scrollable list (0x800fcbb4) for g_ui_snapshot_status_summary_chicken_counter chickens."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -2994,7 +2994,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Finds row_num-th active chicken in g_anim_chicken_coop_tbl_800742ec and draws index, sprite, name, hearts, and status metrics."
+    "summary": "Finds row_num-th active chicken in g_anim_chicken_coop_tbl and draws index, sprite, name, hearts, and status metrics."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3005,7 +3005,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Draws livestock cow page header badge (1) and 7-row scrollable list (0x800fcd40) for g_ui_val_u16_80127226 cows."
+    "summary": "Draws livestock cow page header badge (1) and 7-row scrollable list (0x800fcd40) for g_ui_snapshot_status_summary_barn_counter_80127226 cows."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3025,7 +3025,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Finds row_num-th active cow (IDs 0x160..0x163) in g_anim_livestock_barn_tbl_800749f4 and draws index, sprite, hearts, and status."
+    "summary": "Finds row_num-th active cow (IDs 0x160..0x163) in g_anim_livestock_barn_tbl and draws index, sprite, hearts, and status."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3036,7 +3036,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Draws livestock sheep page header badge (2) and 7-row scrollable list (0x800fced4) for g_ui_val_u16_8012722a sheep."
+    "summary": "Draws livestock sheep page header badge (2) and 7-row scrollable list (0x800fced4) for g_ui_snapshot_status_summary_barn_counter_8012722a sheep."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3056,7 +3056,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Finds row_num-th active sheep (IDs 0x164..0x166) in g_anim_livestock_barn_tbl_800749f4 and draws index, sprite, hearts, and status."
+    "summary": "Finds row_num-th active sheep (IDs 0x164..0x166) in g_anim_livestock_barn_tbl and draws index, sprite, hearts, and status."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3076,7 +3076,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 4,
-    "summary": "Scrolls g_ui_val_u16_80127210 across item_count entries via D-pad Up/Down, draws scroll arrows, and calls draw_row_cb for 7 visible rows."
+    "summary": "Scrolls g_ui_snapshot_status_summary_screen_scrollable_counter across item_count entries via D-pad Up/Down, draws scroll arrows, and calls draw_row_cb for 7 visible rows."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3092,7 +3092,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Submits animal page header icon from g_ui_u32_8012ce28 at (0xba, 0x14) with unit string at (0xd2, 0x1a)."
+    "summary": "Submits animal page header icon from g_ui_animal_page_badge_word_8012ce28 at (0xba, 0x14) with unit string at (0xd2, 0x1a)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3159,7 +3159,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Draws Harvest Sprite row (g_ui_tbl_8007a63c) with index, name/hearts, gift icon, and favorite skill tier + count."
+    "summary": "Draws Harvest Sprite row (g_ui_harvest_sprite_row_table) with index, name/hearts, gift icon, and favorite skill tier + count."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3170,7 +3170,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Draws cumulative farm income/expense totals (g_ui_tbl_800711fc/1200) and all 4 seasonal balance gauges via p11_ui_draw_seasonal_balance_row."
+    "summary": "Draws cumulative farm income/expense totals (g_ui_villager_heart_level_earnings_seasonal_table/1200) and all 4 seasonal balance gauges via p11_ui_draw_seasonal_balance_row."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3190,7 +3190,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Draws seasonal icon, income/expense bar via 0x800fd968, and summary rating text from g_ui_tbl_8005175c at X=0xac."
+    "summary": "Draws seasonal icon, income/expense bar via 0x800fd968, and summary rating text from g_ui_shop_tv_menu_seasonal_portrait_table at X=0xac."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3221,7 +3221,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 14,
-    "summary": "Renders the 5 Harvest Sprite status rows from g_core_player_state_8007_pad_0x3a_idx3_80071a40 with face icons, star tiers, EXP progress bars, and percentages."
+    "summary": "Renders the 5 Harvest Sprite status rows from g_core_player_state_pad_0x3a_idx3 with face icons, star tiers, EXP progress bars, and percentages."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3237,7 +3237,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 13,
-    "summary": "Looks up base ID from g_ui_tbl_80127370 for clamped row_idx (<=4) and calls p11_ui_find_tool_or_sprite_rank_idx."
+    "summary": "Looks up base ID from g_ui_sprite_row_rank_table for clamped row_idx (<=4) and calls p11_ui_find_tool_or_sprite_rank_idx."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3253,7 +3253,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 12,
-    "summary": "Scans 5 consecutive rank flags starting at base_id using g_farm_val_u16_800719fe threshold to compute a signed 1..5 progress index."
+    "summary": "Scans 5 consecutive rank flags starting at base_id using g_farm_find_tool_sprite_rank_matches_counter threshold to compute a signed 1..5 progress index."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3285,7 +3285,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Returns true when g_farm_val_u16_800719fe equals target_val"
+    "summary": "Returns true when g_farm_find_tool_sprite_rank_matches_counter equals target_val"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3389,7 +3389,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Formats tool upgrade percentage relative to g_ui_u32_80127214 thresholds (or MAX/empty strings) and draws text at (x, y)."
+    "summary": "Formats tool upgrade percentage relative to g_ui_tool_upgrade_tier_stars_exp_word thresholds (or MAX/empty strings) and draws text at (x, y)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3449,7 +3449,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Writes g_ui_tbl_8005175c[table_idx] into out_pair[0] and 0xffff sentinel into out_pair[1]"
+    "summary": "Writes g_ui_shop_tv_menu_seasonal_portrait_table[table_idx] into out_pair[0] and 0xffff sentinel into out_pair[1]"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3471,7 +3471,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 3,
-    "summary": "Submits upward scroll arrow sprite 1 at (0x120, 0x30) using 30-frame blink phase from g_ui_val_u16_80127212."
+    "summary": "Submits upward scroll arrow sprite 1 at (0x120, 0x30) using 30-frame blink phase from g_ui_snapshot_status_summary_screen_page_counter."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3482,7 +3482,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 3,
-    "summary": "Submits downward scroll arrow sprite 3 at (0x120, 200) using 30-frame blink phase from g_ui_val_u16_80127212."
+    "summary": "Submits downward scroll arrow sprite 3 at (0x120, 200) using 30-frame blink phase from g_ui_snapshot_status_summary_screen_page_counter."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3569,7 +3569,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Advances g_ui_val_u16_8012720e across pages 0..7, skipping empty chicken (2), cow (3), and sheep (4) pages via coop/barn counters"
+    "summary": "Advances g_ui_snapshot_status_summary_screen_next_counter across pages 0..7, skipping empty chicken (2), cow (3), and sheep (4) pages via coop/barn counters"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3580,7 +3580,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Decrements g_ui_val_u16_8012720e across pages 7..0, skipping empty sheep (4), cow (3), and chicken (2) pages via coop/barn counters"
+    "summary": "Decrements g_ui_snapshot_status_summary_screen_next_counter across pages 7..0, skipping empty sheep (4), cow (3), and chicken (2) pages via coop/barn counters"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3591,7 +3591,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Counts non-zero s16 entries across 99 4-byte records starting at g_anim_u32_80075854"
+    "summary": "Counts non-zero s16 entries across 99 4-byte records starting at g_anim_field_all_animal_pickup_count_cfg"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3602,7 +3602,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Counts active chicken entries across 10 HmAnimalRecord slots at g_anim_chicken_coop_tbl_idx0_pos_y_80074320 (stride 0xB4) excluding flag 0x2000000"
+    "summary": "Counts active chicken entries across 10 HmAnimalRecord slots at g_anim_chicken_coop_tbl_idx0_pos_y (stride 0xB4) excluding flag 0x2000000"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3613,7 +3613,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Counts cow entries (IDs 0x160..0x163) across 20 HmNpcActor slots at g_anim_livestock_barn_tbl_800749f4 (stride 0xB8)"
+    "summary": "Counts cow entries (IDs 0x160..0x163) across 20 HmNpcActor slots at g_anim_livestock_barn_tbl (stride 0xB8)"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3624,7 +3624,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Counts sheep entries (IDs 0x164..0x166) across 20 HmNpcActor slots at g_anim_livestock_barn_tbl_800749f4 (stride 0xB8)"
+    "summary": "Counts sheep entries (IDs 0x164..0x166) across 20 HmNpcActor slots at g_anim_livestock_barn_tbl (stride 0xB8)"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3635,7 +3635,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Zeroes calendar and map overlay state fields g_ui_state_801273b0..bc"
+    "summary": "Zeroes calendar and map overlay state fields g_ui_calendar_map_ctx_open_tick_state..bc"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3657,7 +3657,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Configures brightness and text margins and invokes hm_ovl11_run_calendar_and_map_menu while g_ui_state_801273b0 is active."
+    "summary": "Configures brightness and text margins and invokes hm_ovl11_run_calendar_and_map_menu while g_ui_calendar_map_ctx_open_tick_state is active."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3668,7 +3668,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Draws festival index panel, navigates 2-column x 5/6-row D-pad cursor (g_ui_val_u16_801273b6/b8), and shows descriptions via 0x800ff27c."
+    "summary": "Draws festival index panel, navigates 2-column x 5/6-row D-pad cursor (g_ui_calendar_map_ctx_festival_counter_801273b6/b8), and shows descriptions via 0x800ff27c."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3730,7 +3730,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 2,
-    "summary": "Applies stereo/mono audio mode (0x80020a14/0x80020a40) and HUD clock visibility toggle from g_ui_val_u16_8007ad08."
+    "summary": "Applies stereo/mono audio mode (0x80020a14/0x80020a40) and HUD clock visibility toggle from g_ui_hud_clock_visibility_open_calendar_counter."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3741,7 +3741,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Resets g_ui_val_u16_801273d8 = 0 and g_ui_val_u16_801273da = 0xff for bedside diary prompt state"
+    "summary": "Resets g_ui_diary_prompt_state_save_counter = 0 and g_ui_diary_prompt_state_open_tick_counter = 0xff for bedside diary prompt state"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3752,7 +3752,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Calls p11_ui_reset_diary_prompt_state and sets g_ui_val_u16_801273da = 0 to open the bedside diary save/sleep prompt"
+    "summary": "Calls p11_ui_reset_diary_prompt_state and sets g_ui_diary_prompt_state_open_tick_counter = 0 to open the bedside diary save/sleep prompt"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3763,7 +3763,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 7,
-    "summary": "Ticks hm_ovl11_run_diary_save_prompt while g_ui_val_u16_801273da == 0, then waits for window close in state 0xfe and restores game substate."
+    "summary": "Ticks hm_ovl11_run_diary_save_prompt while g_ui_diary_prompt_state_open_tick_counter == 0, then waits for window close in state 0xfe and restores game substate."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3774,7 +3774,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Clears kitchen cooking UI state g_ovl11_ui_menu_mode_801273dc..7424 and zeroes 8 u16 ingredient slots backwards from g_ui_u16_8012cf0e"
+    "summary": "Clears kitchen cooking UI state g_ovl11_ui_menu_mode..7424 and zeroes 8 u16 ingredient slots backwards from g_ui_kitchen_cooking_state_ingredient_half"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3807,7 +3807,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Ticks active kitchen UI state machine: waits on initial prompt/fade, clears sub-cursors on mode change, and calls *g_ovl11_ui_menu_mode_801273dc."
+    "summary": "Ticks active kitchen UI state machine: waits on initial prompt/fade, clears sub-cursors on mode change, and calls *g_ovl11_ui_menu_mode."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3823,7 +3823,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Scans 32-byte-strided table at g_ui_u32_80050b60 up to 0xe2 sentinel to test whether item_id is listed"
+    "summary": "Scans 32-byte-strided table at g_ui_cookable_ingredient_id_word up to 0xe2 sentinel to test whether item_id is listed"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3834,7 +3834,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Displays kitchen intro prompt 0x3b6 via hm_dialogue_set_window_state; on choice 1 advances g_ovl11_ui_menu_mode_801273dc to p11_ui_kitchen_step_mode_select, else p11_ui_exit_kitchen_cooking_menu"
+    "summary": "Displays kitchen intro prompt 0x3b6 via hm_dialogue_set_window_state; on choice 1 advances g_ovl11_ui_menu_mode to p11_ui_kitchen_step_mode_select, else p11_ui_exit_kitchen_cooking_menu"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3856,7 +3856,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Navigates 4x20 recipe book grid (g_ovl11_ui_menu_substate_off_3_801273e7/e8), transitions to detail/cook/missing-ingredient subhandlers, or cancels to utensil menu."
+    "summary": "Navigates 4x20 recipe book grid (g_ovl11_ui_menu_substate_off_3/e8), transitions to detail/cook/missing-ingredient subhandlers, or cancels to utensil menu."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3867,7 +3867,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 8,
-    "summary": "Displays recipe inspection prompt 0x3b9 for g_ui_val_u16_801273ec via p11_ui_draw_recipe_detail_panel and handles confirm/cancel back to recipe list."
+    "summary": "Displays recipe inspection prompt 0x3b9 for g_ui_kitchen_cooking_state_recipe_show_counter via p11_ui_draw_recipe_detail_panel and handles confirm/cancel back to recipe list."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3878,7 +3878,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 8,
-    "summary": "Displays recipe edit prompt 0x3ba for g_ui_val_u16_801273ec via p11_ui_draw_recipe_detail_panel and returns to recipe list or closes menu."
+    "summary": "Displays recipe edit prompt 0x3ba for g_ui_kitchen_cooking_state_recipe_show_counter via p11_ui_draw_recipe_detail_panel and returns to recipe list or closes menu."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3889,7 +3889,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 8,
-    "summary": "Runs dialogue action choice 0x3bb on selected recipe g_ui_val_u16_801273ec to start cooking, open utensil customization, or return."
+    "summary": "Runs dialogue action choice 0x3bb on selected recipe g_ui_kitchen_cooking_state_recipe_show_counter to start cooking, open utensil customization, or return."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3921,7 +3921,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Searches 32-byte-strided table at g_ui_u32_80050b5c (starting ID 0x88 up to 0xe2), returning entry tag or 0x2206"
+    "summary": "Searches 32-byte-strided table at g_ui_lookup_ingredient_sprite_tag_eval_word (starting ID 0x88 up to 0xe2), returning entry tag or 0x2206"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3973,7 +3973,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Tests g_farm_calendar_clock_80_weather_today_80070d04 against weather_mask (<0x80) or high bit 0x80"
+    "summary": "Tests g_farm_calendar_clock_weather_today against weather_mask (<0x80) or high bit 0x80"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -3989,7 +3989,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Checks whether item_id & 0xffff exists in player rucksack g_player_rucksack_tools_80071ac0 or refrigerator storage g_ui_ro_u16_80070d42"
+    "summary": "Checks whether item_id & 0xffff exists in player rucksack g_player_rucksack_tools or refrigerator storage g_ui_map_palette_slices_tick_shop_cfg16"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4005,7 +4005,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Copies 8 u16 ingredient IDs and header g_ui_val_u16_801273ee for (recipe_idx & 0xff) from g_ui_u16_8007131c into g_ui_ro_u32_8012cf00"
+    "summary": "Copies 8 u16 ingredient IDs and header g_ui_kitchen_cooking_state_recipe_utensil_counter for (recipe_idx & 0xff) from g_ui_cook_saved_recipe_detail_ingredient_half into g_ui_recipe_ingredient_slots_kitchen_staged_cfg"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4016,7 +4016,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 8,
-    "summary": "Runs the 8-slot kitchen utensil toggle grid UI, toggling g_ui_val_u16_801273ee bits against owned utensils g_farm_calendar_clock_80_weather_today_80070d04 and advancing to seasoning or ingredient staging."
+    "summary": "Runs the 8-slot kitchen utensil toggle grid UI, toggling g_ui_kitchen_cooking_state_recipe_utensil_counter bits against owned utensils g_farm_calendar_clock_weather_today and advancing to seasoning or ingredient staging."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4032,7 +4032,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Displays recipe dialogue text from g_ui_u32_801273f4[recipe_slot] via hm_dialogue_set_window_state and sets substate 3 on close"
+    "summary": "Displays recipe dialogue text from g_ui_recipe_detail_panel_kitchen_selected_word[recipe_slot] via hm_dialogue_set_window_state and sets substate 3 on close"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4043,7 +4043,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Draws 5-row cooking seasoning selector (bits 7..11 of g_ui_val_u16_801273ee), toggles seasonings on Cross with SFX, and closes on Circle."
+    "summary": "Draws 5-row cooking seasoning selector (bits 7..11 of g_ui_kitchen_cooking_state_recipe_utensil_counter), toggles seasonings on Cross with SFX, and closes on Circle."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4054,7 +4054,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 7,
-    "summary": "Draws the 8 selected kitchen utensil slots driven by bitmask g_ui_val_u16_801273ee (bits 0..6 and seasoning mask 0xf80)."
+    "summary": "Draws the 8 selected kitchen utensil slots driven by bitmask g_ui_kitchen_cooking_state_recipe_utensil_counter (bits 0..6 and seasoning mask 0xf80)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4065,7 +4065,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 7,
-    "summary": "Draws the 8 owned kitchen utensil slots from g_farm_calendar_clock_80_weather_today_80070d04 and highlights selected ones."
+    "summary": "Draws the 8 owned kitchen utensil slots from g_farm_calendar_clock_weather_today and highlights selected ones."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4081,7 +4081,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Tests g_ui_val_u16_801273ee against p11_ui_bit_mask_16 for utensil_idx < 7, or seasoning bitmask 0xf80 otherwise"
+    "summary": "Tests g_ui_kitchen_cooking_state_recipe_utensil_counter against p11_ui_bit_mask_16 for utensil_idx < 7, or seasoning bitmask 0xf80 otherwise"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4108,7 +4108,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 8,
-    "summary": "Runs the 9-pocket cooking ingredient staging UI, moving items into the 8-slot pot buffer g_ui_ro_u32_8012cf00 and launching item inspection or cooking confirmation."
+    "summary": "Runs the 9-pocket cooking ingredient staging UI, moving items into the 8-slot pot buffer g_ui_recipe_ingredient_slots_kitchen_staged_cfg and launching item inspection or cooking confirmation."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4139,7 +4139,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Displays cooking confirm prompt 0x3bf; on choice 1 plays SFX hm_res_cd_wait_load_sync_800132f0(10,0,2) and sets g_ovl11_ui_menu_mode_801273dc = p11_ui_start_cooking_dish_sequence"
+    "summary": "Displays cooking confirm prompt 0x3bf; on choice 1 plays SFX hm_res_cd_wait_load_sync_800132f0(10,0,2) and sets g_ovl11_ui_menu_mode = p11_ui_start_cooking_dish_sequence"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4150,7 +4150,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 7,
-    "summary": "Draws the 8 staged cooking ingredient slots in g_ui_ro_u32_8012cf00 using rucksack sprites or cached VRAM item icons."
+    "summary": "Draws the 8 staged cooking ingredient slots in g_ui_recipe_ingredient_slots_kitchen_staged_cfg using rucksack sprites or cached VRAM item icons."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4161,7 +4161,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 7,
-    "summary": "Draws rucksack or refrigerator 8-slot pocket view (g_ui_val_u8_801273ea) with L/R page arrows, item counts, and already-staged markers."
+    "summary": "Draws rucksack or refrigerator 8-slot pocket view (g_ui_kitchen_cooking_state_ingredient_flag) with L/R page arrows, item counts, and already-staged markers."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4181,7 +4181,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Tests whether the item at p11_ui_get_storage_or_tool_slot_ptr(bag_type, slot_idx) is already in the 8-slot pot g_ui_ro_u32_8012cf00"
+    "summary": "Tests whether the item at p11_ui_get_storage_or_tool_slot_ptr(bag_type, slot_idx) is already in the 8-slot pot g_ui_recipe_ingredient_slots_kitchen_staged_cfg"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4201,7 +4201,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Returns u16 pointer to tool slot in g_player_rucksack_tools_80071ac0 (bag_type == 0) or storage slot in g_ui_ro_u16_80070d42"
+    "summary": "Returns u16 pointer to tool slot in g_player_rucksack_tools (bag_type == 0) or storage slot in g_ui_map_palette_slices_tick_shop_cfg16"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4259,7 +4259,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 3,
-    "summary": "Loads entity model pack for dish_item_id, places 1 unit into g_player_held_item_80071a88, and sets held-item flag 0x2000."
+    "summary": "Loads entity model pack for dish_item_id, places 1 unit into g_player_held_item, and sets held-item flag 0x2000."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4295,7 +4295,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Checks required utensil bits in *(u16 *)(recipe_ptr + 8) against g_ui_val_u16_801273ee and XOR-clears matched bits"
+    "summary": "Checks required utensil bits in *(u16 *)(recipe_ptr + 8) against g_ui_kitchen_cooking_state_recipe_utensil_counter and XOR-clears matched bits"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4311,7 +4311,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Verifies all 8 required ingredient slots in recipe_ptr+0x14 match either category slots via p11_ui_match_recipe_category_slot or g_ui_ro_u32_8012cf00"
+    "summary": "Verifies all 8 required ingredient slots in recipe_ptr+0x14 match either category slots via p11_ui_match_recipe_category_slot or g_ui_recipe_ingredient_slots_kitchen_staged_cfg"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4331,7 +4331,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Accumulates utensil (g_ui_val_u16_801273ee) and staged ingredient (g_ui_ro_u32_8012cf00) modifier deltas via p11_ui_eval_recipe_ingredient_bonus"
+    "summary": "Accumulates utensil (g_ui_kitchen_cooking_state_recipe_utensil_counter) and staged ingredient (g_ui_recipe_ingredient_slots_kitchen_staged_cfg) modifier deltas via p11_ui_eval_recipe_ingredient_bonus"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4347,7 +4347,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Maps item_id 0x181..0x184 to row 0..3 of g_ui_tbl_80127404 and clears first matching ingredient slot in g_ui_ro_u32_8012cf00"
+    "summary": "Maps item_id 0x181..0x184 to row 0..3 of g_ui_match_recipe_category_slot_table and clears first matching ingredient slot in g_ui_recipe_ingredient_slots_kitchen_staged_cfg"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4382,7 +4382,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Polls pad input and shows cooking success message 0x3c0, returning g_ovl11_ui_menu_mode_801273dc to p11_ui_exit_kitchen_cooking_menu on dialogue completion"
+    "summary": "Polls pad input and shows cooking success message 0x3c0, returning g_ovl11_ui_menu_mode to p11_ui_exit_kitchen_cooking_menu on dialogue completion"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4404,7 +4404,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Polls pad input and shows failed dish message 0x3c2, returning g_ovl11_ui_menu_mode_801273dc to p11_ui_exit_kitchen_cooking_menu on dialogue completion"
+    "summary": "Polls pad input and shows failed dish message 0x3c2, returning g_ovl11_ui_menu_mode to p11_ui_exit_kitchen_cooking_menu on dialogue completion"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4459,7 +4459,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Sums 6 s16 wager slots at g_ui_tbl_8007ad5a + idx*0x54 (clamping g_ui_ro_u16_8007ad4c == 3 to 2) and returns true if zero"
+    "summary": "Sums 6 s16 wager slots at g_ui_festival_bet_pool_empty_open_table + idx*0x54 (clamping g_ui_festival_bet_pool_empty_open_cfg16 == 3 to 2) and returns true if zero"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4470,7 +4470,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Returns true when betting menu state g_ui_state_80127428 equals 0"
+    "summary": "Returns true when betting menu state g_ui_betting_menu_idle_state_open_state equals 0"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4481,7 +4481,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Clears g_ui_state_80127428..2c, g_ui_state_8012cf1c, g_ui_state_8012cf24 and zeroes 6 u16 wager slots backwards from g_ui_u16_8012cf1a"
+    "summary": "Clears g_ui_betting_menu_idle_state_open_state..2c, g_ui_betting_menu_state_poll_state_8012cf1c, g_ui_betting_menu_state_poll_state_8012cf24 and zeroes 6 u16 wager slots backwards from g_ui_betting_menu_state_half"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4503,7 +4503,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 8,
-    "summary": "Draws background backdrop panel and delegates to p11_ui_update_betting_menu_ui whenever g_ui_state_80127428 betting UI is active."
+    "summary": "Draws background backdrop panel and delegates to p11_ui_update_betting_menu_ui whenever g_ui_betting_menu_idle_state_open_state betting UI is active."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4525,7 +4525,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "When g_ui_state_80127428 == 3, adjusts g_ui_ro_u32_80071200 and gold g_core_player_state_8007_gold_80071a5c from g_ui_u32_idx_8012cf20 and commits 6 wagers from g_ui_u32_8012cf10"
+    "summary": "When g_ui_betting_menu_idle_state_open_state == 3, adjusts g_ui_villager_heart_level_earnings_seasonal_cfg and gold g_core_player_state_gold from g_ui_open_festival_betting_menu_commit_lut32 and commits 6 wagers from g_ui_open_festival_betting_menu_commit_word"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4558,7 +4558,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Draws medal balance frame at (0xe3, 0x10), header g_ui_u32_80054400, and formatted medal total g_ui_u32_idx_8012cf20 with suffix g_ui_u16_80054442."
+    "summary": "Draws medal balance frame at (0xe3, 0x10), header g_ui_betting_medal_box_word, and formatted medal total g_ui_open_festival_betting_menu_commit_lut32 with suffix g_ui_betting_medal_box_apply_half."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4580,7 +4580,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 5,
-    "summary": "Draws pointing cursor via 0x800248b0 aligned to betting state g_ui_state_80127428 (racer list, wager column, Done, or confirm)."
+    "summary": "Draws pointing cursor via 0x800248b0 aligned to betting state g_ui_betting_menu_idle_state_open_state (racer list, wager column, Done, or confirm)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4596,7 +4596,7 @@
     ],
     "domain": "overlay_part11_id06",
     "wave": 5,
-    "summary": "Draws one festival race betting row: entry code, racer name string, odds g_ovl11_tbl_8007ad58, and current wager g_ui_u32_8012cf10."
+    "summary": "Draws one festival race betting row: entry code, racer name string, odds g_ovl11_ovl_betting_racer_row_all_table, and current wager g_ui_open_festival_betting_menu_commit_word."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4607,7 +4607,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Compares 6 s16 wagers between g_ui_u32_8012cf10 and g_ui_tbl_8007ad5a + idx*0x54, returning 1 if all match"
+    "summary": "Compares 6 s16 wagers between g_ui_open_festival_betting_menu_commit_word and g_ui_festival_bet_pool_empty_open_table + idx*0x54, returning 1 if all match"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4627,7 +4627,7 @@
     ],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Clamps *bet_count to [0, min(99, cur + g_ui_u32_idx_8012cf20/50)] and updates remaining currency g_ui_u32_idx_8012cf20 by +-50 per unit"
+    "summary": "Clamps *bet_count to [0, min(99, cur + g_ui_open_festival_betting_menu_commit_lut32/50)] and updates remaining currency g_ui_open_festival_betting_menu_commit_lut32 by +-50 per unit"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4638,7 +4638,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Resets 3x6 race/festival entry records around g_ovl11_tbl_8007ad58..5a, setting IDs to 0xffff and clearing stats"
+    "summary": "Resets 3x6 race/festival entry records around g_ovl11_ovl_betting_racer_row_all_table..5a, setting IDs to 0xffff and clearing stats"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4649,7 +4649,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Resets farm upgrade flags g_farm_weather_festival_80070d06..40, g_ovl11_val_u16_80070c70, g_core_event_script_ctx_transition_mode_800a048c, and 5 slots at g_npc_u16_8007ad1a for new game init"
+    "summary": "Resets farm upgrade flags g_farm_weather_festival..40, g_ovl11_fade_swap_bgm_livestock_evt_counter, g_core_event_script_ctx_transition_mode, and 5 slots at g_npc_evt_record_scheduled_milestone_schedule_half_8007ad1a for new game init"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4682,7 +4682,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Zeroes 0x680 u32 words (0x1A00 bytes) starting at g_cd_u32_8009cbf8"
+    "summary": "Zeroes 0x680 u32 words (0x1A00 bytes) starting at g_cd_sync_upload_area_vram_hud_word"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4715,7 +4715,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 14,
-    "summary": "Initializes OVL_part11_id06 runtime scene, map descriptor g_gfx_active_map_desc_8009f78c, script ctx g_core_event_script_ctx_800a0378, weather, livestock, crops, and UI options."
+    "summary": "Initializes OVL_part11_id06 runtime scene, map descriptor g_gfx_active_map_desc, script ctx g_core_event_script_ctx, weather, livestock, crops, and UI options."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4764,7 +4764,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 1,
-    "summary": "Initializes all 10 24-byte cutscene slots at g_ovl11_u32_8012cf48 via p11_ovl_init_cutscene_slot_ctx and calls p11_evt_reset_cutscene_icon_slots"
+    "summary": "Initializes all 10 24-byte cutscene slots at g_ovl11_ovl_all_cutscene_slots_alloc_word via p11_ovl_init_cutscene_slot_ctx and calls p11_evt_reset_cutscene_icon_slots"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4780,7 +4780,7 @@
     ],
     "domain": "overlay_part11_id06",
     "wave": 1,
-    "summary": "Finds first free slot in g_ovl11_u32_8012cf48, initializes it via p11_ovl_init_cutscene_slot_ctx, and stores actor_data and *(s16 *)(actor_data+8)"
+    "summary": "Finds first free slot in g_ovl11_ovl_all_cutscene_slots_alloc_word, initializes it via p11_ovl_init_cutscene_slot_ctx, and stores actor_data and *(s16 *)(actor_data+8)"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4843,7 +4843,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 4,
-    "summary": "Ticks 10 door animation slots at g_ovl11_u32_8012cf48 when unpaused, counting down hold state 3 to 4 and stepping swings via 0x80107044."
+    "summary": "Ticks 10 door animation slots at g_ovl11_ovl_all_cutscene_slots_alloc_word when unpaused, counting down hold state 3 to 4 and stepping swings via 0x80107044."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4859,7 +4859,7 @@
     ],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Scans 10 24-byte slot records at g_ovl11_u32_8012cf48 comparing *(s16 *)(slot[5] + 10) == target_id, returning *slot or 0"
+    "summary": "Scans 10 24-byte slot records at g_ovl11_ovl_all_cutscene_slots_alloc_word comparing *(s16 *)(slot[5] + 10) == target_id, returning *slot or 0"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4875,7 +4875,7 @@
     ],
     "domain": "overlay_part11_id06",
     "wave": 15,
-    "summary": "Scans 31 NPC schedule tables at g_dat_ptr_80127814 for npc_id, returning 0x1cd on festival match or delegating to p11_ovl_find_matching_schedule_entry."
+    "summary": "Scans 31 NPC schedule tables at g_ovl11_ovl_lookup_dialogue_id_dat_ptr for npc_id, returning 0x1cd on festival match or delegating to p11_ovl_find_matching_schedule_entry."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -4947,7 +4947,7 @@
     ],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Returns true when g_npc_tbl_8007624e[npc_idx * 0xea] does not equal scene_id"
+    "summary": "Returns true when g_npc_transition_actor_map_position_ovl_table[npc_idx * 0xea] does not equal scene_id"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5015,7 +5015,7 @@
     ],
     "domain": "overlay_part11_id06",
     "wave": 11,
-    "summary": "Evaluates one of 22 schedule/event predicates (event flags, season/day/hour, held item, or Starry Night invite) and caches matching cond_id in g_ovl11_state_8012d038."
+    "summary": "Evaluates one of 22 schedule/event predicates (event flags, season/day/hour, held item, or Starry Night invite) and caches matching cond_id in g_ovl11_ovl_lookup_dialogue_id_eval_state."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5035,7 +5035,7 @@
     ],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Returns 1 if g_farm_cal_hour_80070cf8 is < start_hour or >= end_hour, else 0"
+    "summary": "Returns 1 if g_farm_cal_hour is < start_hour or >= end_hour, else 0"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5075,7 +5075,7 @@
     ],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Searches 3 schedule tables via g_dat_ptr_801278d8 matching (season_val, day_val) and checks item_id membership"
+    "summary": "Searches 3 schedule tables via g_ovl11_ovl_match_event_schedule_dat_ptr matching (season_val, day_val) and checks item_id membership"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5103,7 +5103,7 @@
     ],
     "domain": "overlay_part11_id06",
     "wave": 16,
-    "summary": "Resolves NPC talk dialogue ID (checking g_ovl11_u16_80070c72 overrides, p11_ovl_lookup_npc_dialogue_id, and flag 0x76) or falls back to p11_ovl_trigger_door_open_or_close."
+    "summary": "Resolves NPC talk dialogue ID (checking g_ovl11_ovl_resolve_talk_door_half overrides, p11_ovl_lookup_npc_dialogue_id, and flag 0x76) or falls back to p11_ovl_trigger_door_open_or_close."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5159,7 +5159,7 @@
     ],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Decrements *(s16 *)(timer_ctx + 2) when non-zero and g_core_engine_flags0_8006c844 & 0x8000000 == 0, returning 1 when zero"
+    "summary": "Decrements *(s16 *)(timer_ctx + 2) when non-zero and g_core_engine_flags0 & 0x8000000 == 0, returning 1 when zero"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5209,7 +5209,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Sets g_anim_state_8012d044 = 1 when currently zero during item pickup/carry handling"
+    "summary": "Sets g_anim_ovl_activate_state_evt_tv_state = 1 when currently zero during item pickup/carry handling"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5220,7 +5220,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 13,
-    "summary": "Populates the 9-entry blacksmith/toolshop menu list in g_ui_hud_selected_idx_8012d548, gating cheese/butter/yarn makers and sprite/blessing entries on flags."
+    "summary": "Populates the 9-entry blacksmith/toolshop menu list in g_ui_hud_selected_idx, gating cheese/butter/yarn makers and sprite/blessing entries on flags."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5231,7 +5231,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 13,
-    "summary": "Populates the 4-entry poultry/animal feed shop list in g_ui_hud_selected_idx_8012d548, gating the fourth entry on g_ui_unlocked_recipes_flags_800719f8 bit 0x4000."
+    "summary": "Populates the 4-entry poultry/animal feed shop list in g_ui_hud_selected_idx, gating the fourth entry on g_ui_unlocked_recipes_flags bit 0x4000."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5242,7 +5242,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 13,
-    "summary": "Populates two shop sub-lists (g_ui_hud_selected_idx_8012d548 2 entries, g_ui_hud_sprite_prim_8012d5a8 up to 4 entries gated by g_ui_unlocked_recipes_flags_800719f8 bits 1 and 2)."
+    "summary": "Populates two shop sub-lists (g_ui_hud_selected_idx 2 entries, g_ui_hud_sprite_prim up to 4 entries gated by g_ui_unlocked_recipes_flags bits 1 and 2)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5253,7 +5253,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 13,
-    "summary": "Populates the 9-entry supermarket catalog in g_ui_hud_selected_idx_8012d548, toggling entry 0 vs entry 1 based on g_ui_ro_u16_800712be bit 0x10."
+    "summary": "Populates the 9-entry supermarket catalog in g_ui_hud_selected_idx, toggling entry 0 vs entry 1 based on g_ui_supermarket_shop_menu_redeem_cfg16 bit 0x10."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5307,7 +5307,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Scans 10 coop animal entries at g_anim_chicken_coop_tbl_idx0_pos_y_80074320 (stride 0xB4) for flag bit 0x20000, returning last matching index or -1"
+    "summary": "Scans 10 coop animal entries at g_anim_chicken_coop_tbl_idx0_pos_y (stride 0xB4) for flag bit 0x20000, returning last matching index or -1"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5318,7 +5318,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Locates last flagged coop bird via p11_ui_find_last_flagged_coop_bird and tests flag bit 0x40 in g_anim_chicken_coop_tbl_idx0_pos_y_80074320"
+    "summary": "Locates last flagged coop bird via p11_ui_find_last_flagged_coop_bird and tests flag bit 0x40 in g_anim_chicken_coop_tbl_idx0_pos_y"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5340,7 +5340,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Maps player stamina g_core_player_state_8007_stamina_80071a12 and fatigue g_core_player_state_8007_pad_0x16_80071a16 tiers into 5x4 icon lookup table g_unk_80128214"
+    "summary": "Maps player stamina g_core_player_state_stamina and fatigue g_core_player_state_pad_0x16 tiers into 5x4 icon lookup table g_ui_stamina_fatigue_icon_lut"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5351,7 +5351,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Returns true when UI state g_ui_state_8012d520 is not equal to 0x1a (26)"
+    "summary": "Returns true when UI state g_ui_hud_menu_not_state_tick_state is not equal to 0x1a (26)"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5378,7 +5378,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Looks up selected prize cost via p11_spr_get_special_item_stamina_heal and compares against g_core_player_state_8007_shipping_or_medals_80071a60"
+    "summary": "Looks up selected prize cost via p11_spr_get_special_item_stamina_heal and compares against g_core_player_state_shipping_or_medals"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5525,7 +5525,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 9,
-    "summary": "Initializes Saturday/festival stall shop state g_ui_u32_8012d794=1, selects slot via p11_ui_find_char_2_in_empty_str, and resets yes/no cursor."
+    "summary": "Initializes Saturday/festival stall shop state g_ui_saturday_shop_state_word=1, selects slot via p11_ui_find_char_2_in_empty_str, and resets yes/no cursor."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5590,7 +5590,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Checks cost of item 'rstuvwxyg'[entry_idx] via hm_ovl11_get_entity_anim_state, deducts gold, and sets g_anim_u8_8007afda[entry_idx] = 3 and flag entry_idx+0x67"
+    "summary": "Checks cost of item 'rstuvwxyg'[entry_idx] via hm_ovl11_get_entity_anim_state, deducts gold, and sets g_anim_tv_recipe_broadcast_unlock_buy_byte[entry_idx] = 3 and flag entry_idx+0x67"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5601,7 +5601,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Clears 10-slot list at g_ui_hud_selected_idx_8012d548 and populates Inn daytime (6..17h) or evening shop menu options, icons, and box layout"
+    "summary": "Clears 10-slot list at g_ui_hud_selected_idx and populates Inn daytime (6..17h) or evening shop menu options, icons, and box layout"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5612,7 +5612,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Clears 10-slot list at g_ui_hud_selected_idx_8012d548 and populates Clinic shop menu options, icons, and dialogue IDs in g_ui_shop_menu_ctx_8012d"
+    "summary": "Clears 10-slot list at g_ui_hud_selected_idx and populates Clinic shop menu options, icons, and dialogue IDs in g_ui_shop_menu_ctx_8012d"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5666,7 +5666,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 9,
-    "summary": "Runs Gotz woodcutter shop state machine handling lumber purchase (into g_ui_val_u16_80070d38) and farmhouse/barn upgrade ordering with event flag 0x38."
+    "summary": "Runs Gotz woodcutter shop state machine handling lumber purchase (into g_ui_evt_add_fodder_count_consume_counter) and farmhouse/barn upgrade ordering with event flag 0x38."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5736,7 +5736,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Dispatches g_ui_u32_800bb248[g_ui_state_8012d520] handler, calls p11_ui_init_shop_hud_defaults on completion, and ticks g_ui_u32_800bb228[g_ui_hud_inventory_ctx_8012d52c]"
+    "summary": "Dispatches g_ui_tick_shop_hud_state_word_800bb248[g_ui_hud_menu_not_state_tick_state] handler, calls p11_ui_init_shop_hud_defaults on completion, and ticks g_ui_tick_shop_hud_state_word_800bb228[g_ui_hud_inventory_ctx]"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5752,7 +5752,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 15,
-    "summary": "Sets active shop/UI mode menu_id in g_ui_state_8012d520 (running trigger zone 10 check for mode 0x16) and invokes handler g_ui_tbl_800bb2bc[menu_id]."
+    "summary": "Sets active shop/UI mode menu_id in g_ui_hud_menu_not_state_tick_state (running trigger zone 10 check for mode 0x16) and invokes handler g_ui_dispatch_shop_menu_handler_table[menu_id]."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5776,7 +5776,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 8,
-    "summary": "Renders Yes/No prompt box at (x, y) using g_ui_state_80128294 (with -1/-2 cursor presets) and returns 1 for Yes, 2 for No, or 0 while pending."
+    "summary": "Renders Yes/No prompt box at (x, y) using g_ui_yes_no_prompt_box_state (with -1/-2 cursor presets) and returns 1 for Yes, 2 for No, or 0 while pending."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5792,7 +5792,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Searches 14 4-byte (s16 key, s16 val) pairs at g_ui_u32_80128298 for item_id, returning paired value or 0"
+    "summary": "Searches 14 4-byte (s16 key, s16 val) pairs at g_ui_lookup_item_carry_flag_word for item_id, returning paired value or 0"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5803,7 +5803,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Returns current shop/HUD UI state word g_ui_state_8012d520"
+    "summary": "Returns current shop/HUD UI state word g_ui_hud_menu_not_state_tick_state"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5838,7 +5838,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Resets g_ui_state_8012d520 = 0, g_ui_u32_80128210 = 1, g_ovl11_shop_ctx_flags_8012d524 = 0, g_ui_hud_item_slots_8012d540 = 1, g_ui_hud_inventory_ctx_8012d52c = 0 and returns 1"
+    "summary": "Resets g_ui_hud_menu_not_state_tick_state = 0, g_ui_shop_hud_defaults_word = 1, g_ovl11_shop_ctx_flags = 0, g_ui_hud_item_slots = 1, g_ui_hud_inventory_ctx = 0 and returns 1"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5849,7 +5849,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 13,
-    "summary": "Runs animal fodder/feed bulk purchase state machine capping total stock g_ui_val_u16_80070d3e below 1000 and deducting gold via hm_ovl11_get_villager_heart_level."
+    "summary": "Runs animal fodder/feed bulk purchase state machine capping total stock g_ui_evt_add_fish_food_consume_counter below 1000 and deducting gold via hm_ovl11_get_villager_heart_level."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5937,7 +5937,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 14,
-    "summary": "Checks g_ui_unlocked_recipes_flags_800719f8 bit 0x20 and g_npc_event_progress_flags_80070d30 bit 0x800 to offer item 100 via p11_ui_run_single_item_shop_sm (shop_kind=2) or show sold-out text 0xd6."
+    "summary": "Checks g_ui_unlocked_recipes_flags bit 0x20 and g_npc_event_progress_flags bit 0x800 to offer item 100 via p11_ui_run_single_item_shop_sm (shop_kind=2) or show sold-out text 0xd6."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5948,7 +5948,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 15,
-    "summary": "Opens supermarket spring seed catalog (season == 0 or g_farm_upgrade_flags2_80070d0c != 0) via p11_ui_run_multi_item_shop_sm."
+    "summary": "Opens supermarket spring seed catalog (season == 0 or g_farm_upgrade_flags2 != 0) via p11_ui_run_multi_item_shop_sm."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5959,7 +5959,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 15,
-    "summary": "Opens supermarket summer seed catalog (season == 1 or g_farm_upgrade_flags2_80070d0c != 0) via p11_ui_run_multi_item_shop_sm."
+    "summary": "Opens supermarket summer seed catalog (season == 1 or g_farm_upgrade_flags2 != 0) via p11_ui_run_multi_item_shop_sm."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5970,7 +5970,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 15,
-    "summary": "Opens supermarket autumn seed catalog (season == 2 or g_farm_upgrade_flags2_80070d0c != 0) via p11_ui_run_multi_item_shop_sm."
+    "summary": "Opens supermarket autumn seed catalog (season == 2 or g_farm_upgrade_flags2 != 0) via p11_ui_run_multi_item_shop_sm."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -5992,7 +5992,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 13,
-    "summary": "Runs the 1-time basket purchase state machine gated by g_ui_unlocked_recipes_flags_800719f8 bit 0x100, verifying bag space and setting g_npc_event_progress_flags_80070d30 bit 0x200000."
+    "summary": "Runs the 1-time basket purchase state machine gated by g_ui_unlocked_recipes_flags bit 0x100, verifying bag space and setting g_npc_event_progress_flags bit 0x200000."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6069,7 +6069,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 7,
-    "summary": "Shop UI draw callback rendering player gold box and primary 10-slot shop list (g_ui_hud_selected_idx_8012d548) at (0x10, 0x10)."
+    "summary": "Shop UI draw callback rendering player gold box and primary 10-slot shop list (g_ui_hud_selected_idx) at (0x10, 0x10)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6091,7 +6091,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 7,
-    "summary": "Shop UI draw callback rendering player gold box, primary 10-slot list (g_ui_hud_selected_idx_8012d548), and secondary list (g_ui_hud_sprite_prim_8012d5a8) below it."
+    "summary": "Shop UI draw callback rendering player gold box, primary 10-slot list (g_ui_hud_selected_idx), and secondary list (g_ui_hud_sprite_prim) below it."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6102,7 +6102,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 7,
-    "summary": "Festival exchange UI draw callback rendering player medals box and 10-slot prize list (g_ui_hud_selected_idx_8012d548) at (0x10, 0x30)."
+    "summary": "Festival exchange UI draw callback rendering player medals box and 10-slot prize list (g_ui_hud_selected_idx) at (0x10, 0x30)."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6113,7 +6113,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Initializes single-entry shop context g_ui_hud_slot_mask_8012d538..40 with label g_ui_u32_80054454 and anim state 0x6c"
+    "summary": "Initializes single-entry shop context g_ui_hud_slot_mask..40 with label g_ui_blacksmith_shop_menu_poultry_setup_word and anim state 0x6c"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6124,7 +6124,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Populates Blacksmith buy/upgrade menu options g_ui_hud_selected_idx_8012d548..96, gating slot 4 on g_ui_unlocked_recipes_flags_800719f8 & 4"
+    "summary": "Populates Blacksmith buy/upgrade menu options g_ui_hud_selected_idx..96, gating slot 4 on g_ui_unlocked_recipes_flags & 4"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6135,7 +6135,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Populates farm livestock/feed shop menu options g_ui_hud_selected_idx_8012d548..96, gating slot 4 on g_ui_unlocked_recipes_flags_800719f8 & 8"
+    "summary": "Populates farm livestock/feed shop menu options g_ui_hud_selected_idx..96, gating slot 4 on g_ui_unlocked_recipes_flags & 8"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6146,7 +6146,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Populates general store menu options g_ui_hud_selected_idx_8012d548..96 with dialogue ID 0x12, gating slot 4 on g_ui_unlocked_recipes_flags_800719f8 & 0x10"
+    "summary": "Populates general store menu options g_ui_hud_selected_idx..96 with dialogue ID 0x12, gating slot 4 on g_ui_unlocked_recipes_flags & 0x10"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6157,7 +6157,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Populates 8-option menu g_ui_hud_selected_idx_8012d548..9c, gating slot 3 on g_ui_unlocked_recipes_flags_800719f8 & 0x800000"
+    "summary": "Populates 8-option menu g_ui_hud_selected_idx..9c, gating slot 3 on g_ui_unlocked_recipes_flags & 0x800000"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6168,7 +6168,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Clears g_ui_hud_selected_idx_8012d548 and configures a 2-option menu (g_ui_u16_800546e2, g_ui_u32_800546ec) with confirm/cancel IDs 0xb and 0x10"
+    "summary": "Clears g_ui_hud_selected_idx and configures a 2-option menu (g_ui_setup_two_option_dialog_half, g_ui_setup_two_option_dialog_word) with confirm/cancel IDs 0xb and 0x10"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6339,7 +6339,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Validates state_ptr offset < 15, copies stack frame from *ctx_ptr, sets portrait/icon IDs, and jumps via g_jtbl_ptr_800bb518"
+    "summary": "Validates state_ptr offset < 15, copies stack frame from *ctx_ptr, sets portrait/icon IDs, and jumps via g_ui_dispatch_tv_program_state_jtbl_ptr"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6449,7 +6449,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 5,
-    "summary": "Draws framed player gold (g_core_player_state_8007_gold_80071a5c) or medals (g_core_player_state_8007_shipping_or_medals_80071a60) HUD box with localized label and formatted value."
+    "summary": "Draws framed player gold (g_core_player_state_gold) or medals (g_core_player_state_shipping_or_medals) HUD box with localized label and formatted value."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6505,7 +6505,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Calls hm_res_ui_draw_icon_row_8001abf0(menu_ctx, &g_ui_u16_80054442) to apply UI window/text style A"
+    "summary": "Calls hm_res_ui_draw_icon_row_8001abf0(menu_ctx, &g_ui_betting_medal_box_apply_half) to apply UI window/text style A"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6521,7 +6521,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Calls hm_res_ui_draw_icon_row_8001abf0(menu_ctx, &g_ui_u16_80054446) to apply UI window/text style B"
+    "summary": "Calls hm_res_ui_draw_icon_row_8001abf0(menu_ctx, &g_ui_apply_menu_style_b_half) to apply UI window/text style B"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6557,7 +6557,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Returns true when cost_amount <= g_core_player_state_8007_gold_80071a5c"
+    "summary": "Returns true when cost_amount <= g_core_player_state_gold"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6577,7 +6577,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Writes flag_val to g_ovl11_shop_ctx_flags_8012d524 and state_val to g_ui_state_8012d528"
+    "summary": "Writes flag_val to g_ovl11_shop_ctx_flags and state_val to g_ui_earnings_summary_memo_blacksmith_state"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6601,7 +6601,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Sets g_ovl11_shop_ctx_flags_8012d524 = base_a + offset and g_ui_state_8012d528 = base_b + offset"
+    "summary": "Sets g_ovl11_shop_ctx_flags = base_a + offset and g_ui_earnings_summary_memo_blacksmith_state = base_b + offset"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6612,7 +6612,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Copies g_ui_state_8012d528 into g_ovl11_shop_ctx_flags_8012d524"
+    "summary": "Copies g_ui_earnings_summary_memo_blacksmith_state into g_ovl11_shop_ctx_flags"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6740,7 +6740,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 8,
-    "summary": "Renders two-option menu box at (x, y) using g_ui_val_u16_801282e2 (with -1/-2 cursor presets) and returns 1, 2, or 0 while pending."
+    "summary": "Renders two-option menu box at (x, y) using g_ui_two_option_prompt_box_counter (with -1/-2 cursor presets) and returns 1, 2, or 0 while pending."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6934,7 +6934,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 13,
-    "summary": "Deposits qty units of item_id into cabinet/fridge table g_npc_u16_80070ec2 (if to_cabinet or insufficient bag space) or player rucksack slots, returning leftover qty."
+    "summary": "Deposits qty units of item_id into cabinet/fridge table g_npc_map_palette_slices_tick_shop_half (if to_cabinet or insufficient bag space) or player rucksack slots, returning leftover qty."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -6966,7 +6966,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Populates menu row descriptor entry_ctx with label_ptr, badge_id, optional price_or_val, and default sublabel g_ui_u32_80054454"
+    "summary": "Populates menu row descriptor entry_ctx with label_ptr, badge_id, optional price_or_val, and default sublabel g_ui_blacksmith_shop_menu_poultry_setup_word"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7013,7 +7013,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Reads u16 icon ID from g_ui_tbl_801282e4[slot_idx] when alt_table == 0, else g_ui_tbl_801282f0[slot_idx]"
+    "summary": "Reads u16 icon ID from g_ui_lookup_sprite_icon_table_801282e4[slot_idx] when alt_table == 0, else g_ui_lookup_sprite_icon_table_801282f0[slot_idx]"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7045,7 +7045,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Walks a 7x7 world grid around farm center calling hm_ovl11_update_camera_projection and storing matching pointers into g_farm_u32_8009e5f8."
+    "summary": "Walks a 7x7 world grid around farm center calling hm_ovl11_update_camera_projection and storing matching pointers into g_farm_cache_field_tile_pointers_spr_word."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7091,7 +7091,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Iterates 7x7 g_farm_greenhouse_grid_80074124, maps tile IDs 0x167..0x16b and crop 0x36 growth states, and calls p11_ui_noop_farm_grid_stub"
+    "summary": "Iterates 7x7 g_farm_greenhouse_grid, maps tile IDs 0x167..0x16b and crop 0x36 growth states, and calls p11_ui_noop_farm_grid_stub"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7102,7 +7102,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Zeroes town map overlay cursor state globals g_ui_val_u16_80128420 and g_ui_val_u16_80128422"
+    "summary": "Zeroes town map overlay cursor state globals g_ui_town_map_cursor_open_overlay_counter and g_ui_town_map_cursor_markers_counter"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7113,7 +7113,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Calls p11_ui_reset_town_map_cursor and sets g_ui_val_u16_80128420 = 1 to open the Mineral Town map overlay"
+    "summary": "Calls p11_ui_reset_town_map_cursor and sets g_ui_town_map_cursor_open_overlay_counter = 1 to open the Mineral Town map overlay"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7124,7 +7124,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 6,
-    "summary": "Updates town map node cursor via 8-way graph g_ui_u32_801284b0, draws map markers (p11_ui_draw_town_map_markers), and opens/closes node info."
+    "summary": "Updates town map node cursor via 8-way graph g_ui_town_map_cursor_word, draws map markers (p11_ui_draw_town_map_markers), and opens/closes node info."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7173,7 +7173,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Scans (id, pin) byte pairs at g_ui_u32_80128424 up to 0xff sentinel, returning pin byte or 0xffffffff"
+    "summary": "Scans (id, pin) byte pairs at g_ui_lookup_town_map_pin_word up to 0xff sentinel, returning pin byte or 0xffffffff"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7200,7 +7200,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Zeroes shipping bin popup UI globals g_ui_state_8012db10 and g_ui_state_8012db14"
+    "summary": "Zeroes shipping bin popup UI globals g_ui_shipping_bin_popup_show_tv_state_8012db10 and g_ui_shipping_bin_popup_show_tv_state_8012db14"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7216,7 +7216,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Activates shipping popup g_ui_state_8012db10 = 1 if idle and clamps item_grade to 0..9 in g_ui_state_8012db14"
+    "summary": "Activates shipping popup g_ui_shipping_bin_popup_show_tv_state_8012db10 = 1 if idle and clamps item_grade to 0..9 in g_ui_shipping_bin_popup_show_tv_state_8012db14"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7243,7 +7243,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Advances TV channel episode byte at g_ovl15_state_8007afe4[channel_idx] using event flags 99..102, 0x13d, 0x143, season, and p11_ui_count_memo_flags_alt"
+    "summary": "Advances TV channel episode byte at g_ovl15_advance_tv_channel_episode_diary_state[channel_idx] using event flags 99..102, 0x13d, 0x143, season, and p11_ui_count_memo_flags_alt"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7254,7 +7254,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Counts non-zero s16 entries across 99 4-byte records at g_anim_u32_80075854 for memo UI helper p11_ui_advance_tv_channel_episode"
+    "summary": "Counts non-zero s16 entries across 99 4-byte records at g_anim_field_all_animal_pickup_count_cfg for memo UI helper p11_ui_advance_tv_channel_episode"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7265,7 +7265,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Clears status book state g_ui_state_80128540..4c and g_ui_val_u16_8012855a while setting g_ui_u16_80128550..56 to 0xffff"
+    "summary": "Clears status book state g_ui_status_book_state_open_tick_state..4c and g_ui_status_book_state_open_exit_counter while setting g_ui_status_book_state_select_apply_half..56 to 0xffff"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7276,7 +7276,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Calls p11_ui_reset_status_book_state, saves g_ui_val_u16_8007ad08 into g_ui_val_u16_8012855a, and sets g_ui_state_80128540 = 1"
+    "summary": "Calls p11_ui_reset_status_book_state, saves g_ui_hud_clock_visibility_open_calendar_counter into g_ui_status_book_state_open_exit_counter, and sets g_ui_status_book_state_open_tick_state = 1"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7287,7 +7287,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "When g_ui_state_80128540 != 0, switches text mode to 3, executes p11_ui_dispatch_status_book_substate, and restores previous text mode"
+    "summary": "When g_ui_status_book_state_open_tick_state != 0, switches text mode to 3, executes p11_ui_dispatch_status_book_substate, and restores previous text mode"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7298,7 +7298,7 @@
     "params": [],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Dispatches jump-table handler g_jtbl_ptr_800bb610[g_ui_state_80128540 - 1] for status book substates 1..9"
+    "summary": "Dispatches jump-table handler g_ui_dispatch_status_book_substate_jtbl_ptr[g_ui_status_book_state_open_tick_state - 1] for status book substates 1..9"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7325,7 +7325,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 1,
-    "summary": "Selects top two affection entries from g_core_player_state_8007_state_0x70_80071a70[0..5], rolls random event via hm_prng_next(0x13), and writes 3 portrait pointers"
+    "summary": "Selects top two affection entries from g_core_player_state_state_0x70[0..5], rolls random event via hm_prng_next(0x13), and writes 3 portrait pointers"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7409,7 +7409,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Adds delta to g_npc_tbl_80076222[npc_idx * 0xea] clamped at 0xff (255)"
+    "summary": "Adds delta to g_npc_trigger_cutscene_script_actor_ovl_table[npc_idx * 0xea] clamped at 0xff (255)"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7429,7 +7429,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Adds delta to g_npc_actor0_affection_80076224[npc_idx * 0xea] clamped at 0xffff"
+    "summary": "Adds delta to g_npc_actor0_affection[npc_idx * 0xea] clamped at 0xffff"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7481,7 +7481,7 @@
     ],
     "domain": "overlay_part11_id06",
     "wave": 1,
-    "summary": "Matches g_farm_cal_day_minutes_80070d02 against 4 intervals at g_ovl11_u32_801285f4, sets *out_duration via hm_prng_next, and returns interval value"
+    "summary": "Matches g_farm_cal_day_minutes against 4 intervals at g_ovl11_ovl_roll_timed_weather_word, sets *out_duration via hm_prng_next, and returns interval value"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7508,7 +7508,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Sets g_core_event_script_ctx_reserved_0xfc_idx2_800a047c = 3, g_core_map_transition_state_800a0490 = 0x17, and zeroes g_ovl11_state_8012db58"
+    "summary": "Sets g_core_event_script_ctx_reserved_0xfc_idx2 = 3, g_core_map_transition_state = 0x17, and zeroes g_ovl11_ovl_trigger_map_transition_debug_state"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7519,7 +7519,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "When g_core_map_transition_state_800a0490 == 0x17, integrates gravity (-4) into g_core_spawn_pos_y_800a03a6"
+    "summary": "When g_core_map_transition_state == 0x17, integrates gravity (-4) into g_core_spawn_pos_y"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7550,7 +7550,7 @@
     ],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Maps item_or_crop_id (adjusting for winter/fall season g_farm_calendar_clock_80070cf2) via g_ovl11_u32_80128764 into 8 UV bytes and CLUT u16"
+    "summary": "Maps item_or_crop_id (adjusting for winter/fall season g_farm_calendar_clock) via g_ovl11_ovl_build_season_icon_word into 8 UV bytes and CLUT u16"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7574,7 +7574,7 @@
     ],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Writes 8 UV bytes (mirrored via g_ovl11_u32_801287c4 bitset) and CLUT/tpage to field polygon at g_farm_u32_8009e5f8[grid_z*45+grid_x]"
+    "summary": "Writes 8 UV bytes (mirrored via g_ovl11_ovl_apply_grid_cell_word bitset) and CLUT/tpage to field polygon at g_farm_cache_field_tile_pointers_spr_word[grid_z*45+grid_x]"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7585,7 +7585,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 1,
-    "summary": "Iterates 45x25 cells of g_farm_field_grid_80071dfc, builds seasonal UV/CLUT via p11_ovl_build_season_icon_uv_clut, and applies via p11_ovl_apply_grid_cell_uv_clut"
+    "summary": "Iterates 45x25 cells of g_farm_field_grid, builds seasonal UV/CLUT via p11_ovl_build_season_icon_uv_clut, and applies via p11_ovl_apply_grid_cell_uv_clut"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7596,7 +7596,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 0,
-    "summary": "Computes (season*30 + day + 20) % 120 threshold index in g_ovl11_u32_801287cc and returns 0x1bd + index"
+    "summary": "Computes (season*30 + day + 20) % 120 threshold index in g_ovl11_ovl_seasonal_sprite_id_word and returns 0x1bd + index"
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7607,7 +7607,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 4,
-    "summary": "Iterates all 25 seasonal sprite effect slots at g_ovl11_u32_8012db90 (stride 0x18) calling 0x801213d8 when pause bit 0x400 is clear."
+    "summary": "Iterates all 25 seasonal sprite effect slots at g_ovl11_ovl_tick_all_seasonal_clear_word (stride 0x18) calling 0x801213d8 when pause bit 0x400 is clear."
   },
   {
     "program": "OVL_part11_id06.EXE",
@@ -7618,7 +7618,7 @@
     "params": [],
     "domain": "overlay_part11_id06",
     "wave": 1,
-    "summary": "Clears +0x14 timer across 25 24-byte entries at g_ovl11_u32_8012db90 via p11_ovl_clear_actor_timer_0x14"
+    "summary": "Clears +0x14 timer across 25 24-byte entries at g_ovl11_ovl_tick_all_seasonal_clear_word via p11_ovl_clear_actor_timer_0x14"
   },
   {
     "program": "OVL_part11_id06.EXE",

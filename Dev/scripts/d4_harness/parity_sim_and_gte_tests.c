@@ -87,14 +87,14 @@ static int test_field_tool_stamina_and_fishing_sim(void) {
         && p11_field_get_tool_family_index(29) == 3
         && p11_field_get_tool_family_index(0) == 0;
 
-    g_farm_current_weather_8007ad00 = 0;
-    g_farm_calendar_clock_80070cf2.hour = 24;
+    g_farm_current_weather = 0;
+    g_farm_calendar_clock.hour = 24;
     s32 c_base = p11_field_calc_effective_stamina_cost(4);
-    g_farm_calendar_clock_80070cf2.hour = 22;
+    g_farm_calendar_clock.hour = 22;
     s32 c_22 = p11_field_calc_effective_stamina_cost(4);
-    g_farm_current_weather_8007ad00 = 1;
+    g_farm_current_weather = 1;
     s32 c_rain = p11_field_calc_effective_stamina_cost(4);
-    g_farm_calendar_clock_80070cf2.hour = 3;
+    g_farm_calendar_clock.hour = 3;
     s32 c_late = p11_field_calc_effective_stamina_cost(4);
     int stam_ok = (c_base == 6) && (c_22 == 7) && (c_rain == 8) && (c_late == 10);
 
@@ -117,17 +117,17 @@ static int test_field_tool_stamina_and_fishing_sim(void) {
     p11_field_add_tool_experience(pstate, 50);
     int xp3 = (*(u16 *)(pstate + 0x42) == 100u);
 
-    g_core_state_8005e290 = 0x12345678u;
+    g_hm_prng_seed = 0x12345678u;
     u32 exp_seed = 0x12345678u * 0x41c64e6du + 0x3039u;
     uint r = hm_prng_next(100u);
-    int rng_ok = (g_core_state_8005e290 == exp_seed)
+    int rng_ok = (g_hm_prng_seed == exp_seed)
         && (r == (((exp_seed >> 16) * 100u) >> 16)) && (r < 100u);
 
-    g_ovl15_tbl_8006c870 = 0u;
+    g_hm_event_flags_bitset = 0u;
     hm_event_flag_set(5u, 1);
     hm_event_flag_set(31u, 1);
     int bit_set = (hm_event_flag_get(5u) == 1u) && (hm_event_flag_get(31u) == 1u)
-        && (hm_event_flag_get(6u) == 0u) && (g_ovl15_tbl_8006c870 == ((1u << 5) | (1u << 31)));
+        && (hm_event_flag_get(6u) == 0u) && (g_hm_event_flags_bitset == ((1u << 5) | (1u << 31)));
     hm_event_flag_set(5u, 0);
     int bit_clr = (hm_event_flag_get(5u) == 0u) && (hm_event_flag_get(31u) == 1u);
 

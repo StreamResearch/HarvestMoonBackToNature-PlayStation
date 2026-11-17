@@ -184,6 +184,8 @@ class TestHmbtnDecompCleanroom(unittest.TestCase):
         ov = json.loads((SCHEMAS_DIR / "d4_symbol_overrides.json").read_text(encoding="utf-8"))
         self.assertEqual(len(ov["residentFunctions"]), 48)
         self.assertEqual(len(ov["spillGlobals"]), 10)
+        self.assertGreaterEqual(len(ov["unindexedGlobals"]), 330)
+        self.assertTrue(craft_helpers.find_craftsmanship_artifacts("u32 x = g_dat_80012345 + g_core_u32_8003ef04;"))
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             empty, logs = root / "empty", root / "logs"
@@ -197,11 +199,11 @@ class TestHmbtnDecompCleanroom(unittest.TestCase):
             for sub in ("include", "sdk", "src/render_gte_sprites", "overlays"):
                 (rdir / sub).mkdir(parents=True, exist_ok=True)
             (rdir / "include" / "harvestmoonbtn_types.h").write_text("#pragma once\n#include <stdint.h>\ntypedef uint8_t u8; typedef uint16_t u16; typedef uint32_t u32; typedef uint64_t u64; typedef int32_t s32; typedef struct S { int local_x; int param_1; } S;\n", encoding="utf-8")
-            (rdir / "include" / "harvestmoonbtn_globals.h").write_text('#pragma once\n#include "harvestmoonbtn_types.h"\nextern undefined4 DAT_8005e384;\nextern u8 UNK_80071234;\n', encoding="utf-8")
+            (rdir / "include" / "harvestmoonbtn_globals.h").write_text('#pragma once\n#include "harvestmoonbtn_types.h"\nextern undefined4 DAT_8005e384;\nextern u8 UNK_8003ef10;\n', encoding="utf-8")
             (rdir / "include" / "harvestmoonbtn_functions.h").write_text('#pragma once\n#include "harvestmoonbtn_types.h"\nundefined4 demo_fn(undefined2 param_1, int param_flag);\n', encoding="utf-8")
             (rdir / "include" / "ghidra_compat.h").write_text("#pragma once\n#include <stdint.h>\n#include <stddef.h>\ntypedef int code();\n", encoding="utf-8")
             (rdir / "sdk" / "sdk_01.c").write_text('#include "../include/harvestmoonbtn_types.h"\n// Function: sdk_stub @ 0x80011270 (size=0x8, sdk=true)\nvoid sdk_stub(void)\n\n{\n  return;\n}\n', encoding="utf-8")
-            src_c = '#include "../../include/harvestmoonbtn_types.h"\n#include "../../include/harvestmoonbtn_globals.h"\n#include "../../include/harvestmoonbtn_functions.h"\n/**\n * Sample (*pbVar1 + puVar4[0]) using FUN_80011ef0 and DAT_8005e384.\n * @address 0x8001e390 (SLUS_011.15)\n * @domain render_gte_sprites\n * @callers none\n * @callees none\n */\n// Function: gfx_floor_mesh_sample_height_v0 @ 0x8001e390 (size=0x40, sdk=false)\n/* WARNING: Unknown calling convention */\ns32 gfx_floor_mesh_sample_height_v0(undefined2 param_1, int param_flag)\n\n{\n  int in_v0;\n  u32 uVar1;\n  undefined1 auStack_8[8];\n  S obj;\n  obj.local_x = (int)param_1 + -1;\n  obj.param_1 = param_flag;\n  if ((void *)0x0 == &UNK_80071234) { goto LAB_8001e3b0; }\n  (*(code *)(uintptr_t)(PTR_LAB_800559c4))();\n  (*(code *)(&g_core_engine_state_8005e384))();\n  uVar1 = (u32)_local_30 + FUN_80011ef0() + auStack_8[0] + in_v0;\n  return (s32)(uVar1 + obj.local_x + obj.param_1);\nLAB_8001e3b0:\n  return (s32)switchD_80013b8c_caseD_2[0];\n}\n'
+            src_c = '#include "../../include/harvestmoonbtn_types.h"\n#include "../../include/harvestmoonbtn_globals.h"\n#include "../../include/harvestmoonbtn_functions.h"\n/**\n * Sample (*pbVar1 + puVar4[0]) using FUN_80011ef0 and DAT_8005e384.\n * @address 0x8001e390 (SLUS_011.15)\n * @domain render_gte_sprites\n * @callers none\n * @callees none\n */\n// Function: gfx_floor_mesh_sample_height_v0 @ 0x8001e390 (size=0x40, sdk=false)\n/* WARNING: Unknown calling convention */\ns32 gfx_floor_mesh_sample_height_v0(undefined2 param_1, int param_flag)\n\n{\n  int in_v0;\n  u32 uVar1;\n  undefined1 auStack_8[8];\n  S obj;\n  obj.local_x = (int)param_1 + -1;\n  obj.param_1 = param_flag;\n  if ((void *)0x0 == &UNK_8003ef10) { goto LAB_8001e3b0; }\n  (*(code *)(uintptr_t)(PTR_LAB_80121780))();\n  (*(code *)(&g_core_engine_state_8005e384))();\n  uVar1 = (u32)_local_30 + FUN_80011ef0() + auStack_8[0] + in_v0;\n  return (s32)(uVar1 + obj.local_x + obj.param_1);\nLAB_8001e3b0:\n  return (s32)switchD_80013b8c_caseD_2[0];\n}\n'
             (rdir / "src" / "render_gte_sprites" / "render_gte_sprites_07.c").write_text(src_c, encoding="utf-8")
 
             res = craft_norm.normalize_readable_tree(rdir, SCHEMAS_DIR)
@@ -212,6 +214,10 @@ class TestHmbtnDecompCleanroom(unittest.TestCase):
             norm_src = (rdir / "src" / "render_gte_sprites" / "render_gte_sprites_07.c").read_text(encoding="utf-8")
             self.assertIsNone(craft_helpers._GHIDRA_CRAFT_RE.search(norm_src))
             self.assertIn("* @symbol gfx_floor_mesh_sample_height_v0", norm_src)
+            self.assertIn("g_core_engine_state", norm_src)
+            self.assertNotIn("g_core_engine_state_8005e384", norm_src)
+            self.assertIn("g_core_patch_bios_table_region", norm_src)
+            self.assertIn("g_core_overlay_jtbl_ptr", norm_src)
             self.assertIn("int reg_v0 = 0;", norm_src)
             self.assertIn("obj.local_x = (int)arg_1 - 1;", norm_src)
             self.assertIn("obj.param_1 = param_flag;", norm_src)

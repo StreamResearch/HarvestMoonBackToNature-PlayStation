@@ -63,7 +63,7 @@ All `6` shards were named bottom-up from wave `0` leaves to wave `24` top-level 
 | **Non-SDK Functions** | 804 | 506 | 289 | 220 | 128 | 118 | 183 | 188 | 75 | 59 | 3 | 2 | **2,575** |
 
 1. **Resident Core & Asset/Overlay Dispatch (`SLUS_011.15`):**
-   `hm_main` (`0x80011370`, wave `3`) initializes PS1 hardware subsystems, pads, SPU/VAB (`audio_spu_vab`), `HmDisplayOtCtx` double-buffered GPU queues (`g_gfx_disp_ctx_buf0_8005e5e8`), and `hm_prng_next` (`0x80012a34`, wave `0`), then drives `hm_afile_load_entry_sync` (`0x800145f0`, wave `1`) across `22` overlay/data callers alongside `hm_sprite_init_0x0e_anim` (`0x80015704`), `hm_event_flag_get` (`0x8001af44`), and `hm_dialogue_set_window_state` (`0x8002261c`).
+   `hm_main` (`0x80011370`, wave `3`) initializes PS1 hardware subsystems, pads, SPU/VAB (`audio_spu_vab`), `HmDisplayOtCtx` double-buffered GPU queues (`g_gfx_disp_ctx_buf0`), and `hm_prng_next` (`0x80012a34`, wave `0`), then drives `hm_afile_load_entry_sync` (`0x800145f0`, wave `1`) across `22` overlay/data callers alongside `hm_sprite_init_0x0e_anim` (`0x80015704`), `hm_event_flag_get` (`0x8001af44`), and `hm_dialogue_set_window_state` (`0x8002261c`).
 2. **Master Gameplay Loop (`OVL_part11_id06.EXE` Waves `22..24`):**
    - **Wave `24`:** `hm_ovl11_load_area_resources` (`0x800bc3e8`, master area/mode loader) and `p11_core_tick_frame_gameplay_or_debug_cam` (`0x800c14a0`).
    - **Wave `23`:** `hm_ovl11_frame_render_and_sim` (`0x800bcd28`), `hm_ovl11_tick_all_world_entities` (`0x800c162c`), and `hm_ovl11_update_npc_schedules` (`0x800ec52c`).

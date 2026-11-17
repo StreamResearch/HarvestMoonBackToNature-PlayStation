@@ -8,9 +8,9 @@ This specification covers the two PlayStation audio pipelines in *Harvest Moon: 
 
 ## 1. Part 9 Audio Archive (`0x06E1E000`, `6,006,784` Bytes)
 
-`A_FILE.BIN` Partition `9` stores **`39` `pBAV` (VABp) soundbanks** (`vab_00..vab_38`) interleaved with **`36` `pQES` (SEQ) music sequences** (`seq_00..seq_35`). Resident `SLUS_011.15` locates sub-entries via `g_audio_tbl_80049370` (`0x80049370`), an array of `uint32` Part-9-relative byte offsets.
+`A_FILE.BIN` Partition `9` stores **`39` `pBAV` (VABp) soundbanks** (`vab_00..vab_38`) interleaved with **`36` `pQES` (SEQ) music sequences** (`seq_00..seq_35`). Resident `SLUS_011.15` locates sub-entries via `g_audio_spu_tick_vab_async_prepare_table` (`0x80049370`), an array of `uint32` Part-9-relative byte offsets.
 
-### `g_audio_tbl_80049370` Indexing Pattern
+### `g_audio_spu_tick_vab_async_prepare_table` Indexing Pattern
 - **VABp entries (`VH` + `VB` pair):** Three consecutive `uint32` offsets `(off_vh, off_vb, off_next)`. For example, VAB `0` maps `VH = 0x000000` (`4,096` B padded), `VB = 0x001000` (`20,480` B padded), ending at `0x006000`; VAB `1` maps `VH = 0x006000` (`10,240` B), `VB = 0x008800`, ending at `0x03D800`.
 - **SEQ entries (`pQES`):** Paired as `(off_seq, 0x00000001)` where `1` acts as a sentinel discriminating sequence entries from VAB header/body offset pairs (`spu_prepare_vab_transfer_bank @ 0x800214FC`).
 
@@ -96,9 +96,9 @@ Each of the `36` `pQES` sequences stores a **big-endian** header (`15` bytes) fo
 | `hm_audio_set_spu_reverb` | `0x8001FB30` | `audio_spu_vab` | Sets SPU hardware reverb type and stereo depth (`SpuReverbAttr`) |
 | `hm_audio_play_bgm_seq` | `0x8001FBF0` | `audio_spu_vab` | Opens and plays sequenced BGM track in SPU SEQ slot |
 | `hm_audio_tick_seq_fade` | `0x8001FD10` | `audio_spu_vab` | Advances per-frame BGM volume fade & polls async VAB loader |
-| `spu_init_audio_driver` | `0x8001FEA4` | `audio_spu_vab` | Initializes SPU 24-voice table (`g_audio_ss_vm_voices_800a10a8`, `0x540` B) |
-| `spu_tick_vab_async_loader` | `0x80020E58` | `audio_spu_vab` | State machine (`g_audio_state_8005e538`) reading VH/VB chunks into SPU RAM |
-| `spu_prepare_vab_transfer_bank` | `0x800214FC` | `audio_spu_vab` | Indexes `g_audio_tbl_80049370` and queues Part 9 async CD transfers |
+| `spu_init_audio_driver` | `0x8001FEA4` | `audio_spu_vab` | Initializes SPU 24-voice table (`g_audio_ss_vm_voices`, `0x540` B) |
+| `spu_tick_vab_async_loader` | `0x80020E58` | `audio_spu_vab` | State machine (`g_audio_spu_driver_tick_prepare_state`) reading VH/VB chunks into SPU RAM |
+| `spu_prepare_vab_transfer_bank` | `0x800214FC` | `audio_spu_vab` | Indexes `g_audio_spu_tick_vab_async_prepare_table` and queues Part 9 async CD transfers |
 | `spu_tick_stream_dma_chunk` | `0x80021668` | `audio_spu_vab` | Streams `0x800`-sector-aligned VB body chunks to SPU RAM via `SsVabTransBodyPartly` |
 
 ### SPU Hardware Attribute Structs (`SpuCommonAttr`, `SpuVoiceAttr`, `SpuReverbAttr`)
@@ -116,12 +116,12 @@ Each of the `36` `pQES` sequences stores a **big-endian** header (`15` bytes) fo
 
 ## 5. `STR/01.XA`–`STR/04.XA` Mode 2 Form 2 CD-XA Streams
 
-CD-XA audio streams reside outside `A_FILE.BIN` under `\STR\01.XA;1` through `\STR\04.XA;1`, resolved at boot by `cd_locate_xa_streams @ 0x800218C4` into `g_cd_u32_8006c7d8` and started by `hm_audio_start_cd_xa_stream @ 0x80021B90` / polled by `cd_tick_xa_stream @ 0x80021950`.
+CD-XA audio streams reside outside `A_FILE.BIN` under `\STR\01.XA;1` through `\STR\04.XA;1`, resolved at boot by `cd_locate_xa_streams @ 0x800218C4` into `g_cd_locate_xa_streams_start_table` and started by `hm_audio_start_cd_xa_stream @ 0x80021B90` / polled by `cd_tick_xa_stream @ 0x80021950`.
 
 ### Sector Geometry & `8`-Byte Subheader
 - **Sector size:** `2,336` bytes (`8`-byte Mode 2 XA subheader + `2,324`-byte Form 2 ADPCM payload + `4`-byte EDC/padding), zero remainder across all 4 files.
 - **Subheader (`[0..3]` repeated at `[4..7]`):** `file_num` (`0x01`), `channel` (`0..7`), `submode` (`0x64` = Audio | Real-Time | Form 2), `coding` (`0x01` = stereo `37.8 kHz` 4-bit ADPCM).
-- **Track Lookup (`g_cd_tbl_80049a80`, stride `6` B = `3 x u16`):** Each track ID indexes `(duration_frames, xa_file_index, xa_channel)` (e.g., track `0`: `2802` frames, `01.XA` ch `0`; track `7`: `59` frames, `02.XA` ch `0`; track `15`: `125` frames, `03.XA` ch `0`).
+- **Track Lookup (`g_cd_xa_channel_table`, stride `6` B = `3 x u16`):** Each track ID indexes `(duration_frames, xa_file_index, xa_channel)` (e.g., track `0`: `2802` frames, `01.XA` ch `0`; track `7`: `59` frames, `02.XA` ch `0`; track `15`: `125` frames, `03.XA` ch `0`).
 
 | File | Total Bytes | `2,336`-B Sectors | File ID | Channels Present | Audio Sectors (`ch 0..7`) | Approx. 1-Ch Duration |
 | :--- | ---: | ---: | ---: | :--- | :--- | ---: |
@@ -130,7 +130,7 @@ CD-XA audio streams reside outside `A_FILE.BIN` under `\STR\01.XA;1` through `\S
 | `STR/03.XA` | `710,144` | `304` | `1` | `0..7` | `38, 37, 38, 38, 19, 19, 19, 19` | `2.03 s` |
 | `STR/04.XA` | `2,597,632` | `1,112` | `1` | `0..7` | `77, 72, 139, 53, 83, 57, 126, 19` | `7.41 s` |
 
-### Verified `g_cd_tbl_80049a80` Track Entries (`0..15`, Stride `6` Bytes)
+### Verified `g_cd_xa_channel_table` Track Entries (`0..15`, Stride `6` Bytes)
 
 | Track ID | Duration Frames | File Index | Channel | Target XA File |
 | ---: | ---: | ---: | ---: | :--- |

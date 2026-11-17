@@ -46,7 +46,7 @@ Before `stage4_assembler` partitions raw `Corpus/work/reexported/<binary>/` lift
 
 | Transformation | Raw Ghidra Lift Pattern | Normalized C11 Output |
 | :--- | :--- | :--- |
-| **Byte Subpiece Lvalue** | `g_gfx_state_8005e274._0_1_ = stride;` | `(*((uint8_t *)((uint8_t *)&(g_gfx_state_8005e274) + 0))) = stride;` |
+| **Byte Subpiece Lvalue** | `g_sys_vsync_stride._0_1_ = stride;` | `(*((uint8_t *)((uint8_t *)&(g_sys_vsync_stride) + 0))) = stride;` |
 | **Unaligned Stack Store** | `undefined1 buf[4]; buf = val;` | `u8 buf[4]; *(uint32_t *)(void *)(buf) = (uint32_t)(val);` |
 | **Indirect Callback Cast** | `(*(code *)ptr)(arg);` / `(*(code *)(uintptr_t)(ptr))();` | `((HmCallbackFn)(uintptr_t)(ptr))(arg);` |
 | **Null Pointer & Sign** | `(void *)0x0` / `x + -1` | `NULL` / `x - 1` |
@@ -65,7 +65,8 @@ Although pre-assembly lowering compiled `513/513` `.c` files with `0` errors, th
 | **`param_<N>` Placeholders** | `4,389` | **`0`** | Numbered `param_\d+` parameters renamed to `arg_1..arg_N` while strictly preserving semantic names (`param_flag`, `param_b`, struct fields after `.`/`->`) |
 | **`undefined[1248]?` Pseudo-Types** | `4,634` `.c` + `445` `.h` | **`0`** | Replaced with `u8`, `u16`, `u32`, `u64` in `.c` code spans and `harvestmoonbtn_{globals,functions}.h` (preserving `primitives_and_sdk.h` `21` typedefs) |
 | **Uncataloged Overlay `FUN_800*`** | `48` (`491` sites) | **`0`** | Mapped via `d4_symbol_overrides.json` -> `hm_res_<domain>_<desc>_<addr>` across `.c`, `ghidra_compat.h`, and `d4_synthetic_corpus.py` |
-| **Raw `DAT_`/`UNK_`/`PTR_`/`LAB_`/`SUB_`/`switchD_`** | `2,040` (`96`/`284`/`216`/`1,245`/`37`/`162`)* | **`0`** | `globals_map.json` lookup first, else `g_dat_*`, `g_unk_*`, `g_jtbl_ptr_*`/`g_dat_ptr_*`/`g_fn_ptr_*`/`g_ptr_*`, `loc_*`, `sub_loc_*`, `jmp_tbl_*` |
+| **Raw `DAT_`/`UNK_`/`PTR_`/`LAB_`/`SUB_`/`switchD_`** | `2,040` (`96`/`284`/`216`/`1,245`/`37`/`162`)* | **`0`** | `globals_map.json` (`1,850` suffix-free + `1,647` disambiguated) + `1,022` `unindexedGlobals` (`706` suffix-free + `316` disambiguated; zero `g_dat_*`/`g_unk_*`), `loc_*`, `sub_loc_*`, `jmp_tbl_*` |
+| **Caller-Semantic Global Naming (`3,497` + `1,022`)** | `4,519` generic/suffixed globals | **`0` generic/unsorted** | `stage2_globals_builder.py` + `semanticConfig` derive domain+caller stems and strip `_[0-9a-f]{8}` when unique (`2,556` suffix-free, `1,963` collision-disambiguated) |
 | **Spill Globals (`PS1_MISC_STATIC`)** | `10` globals | **`0`** | `_local_30/38/48/resc`, `_in_stack_00000014`, `_sStack00000010`, `stack0xffffff{bc,cc,e4}`, `register0x00000074` -> `g_spill_*` / `g_cop_reg_74` |
 
 *\*Note: Verified across all `3,828` reexported function bodies (`96` `DAT_` + `284` `UNK_` + `216` `PTR_` + `1,245` `LAB_` + `37` `SUB_` + `162` `switchD_` = `2,040`), alongside `487` code `FUN_*` calls + `37` `FUN_*` references inside Doxygen prose (`524` total).*

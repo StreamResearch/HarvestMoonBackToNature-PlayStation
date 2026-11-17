@@ -8,12 +8,12 @@ This empirical report documents the deterministic core simulation laws recovered
 
 ## 1. Deterministic LCG PRNG (`hm_prng_next @ 0x80012A34`)
 
-All stochastic gameplay rolls (`109` total call sites across weather, particles, villager affection, fishing, and minigames) share a single 32-bit Linear Congruential Generator stored in resident `g_core_state_8005e290`:
+All stochastic gameplay rolls (`109` total call sites across weather, particles, villager affection, fishing, and minigames) share a single 32-bit Linear Congruential Generator stored in resident `g_hm_prng_seed`:
 
 ```c
 uint hm_prng_next(uint mod_max) {
-    g_core_state_8005e290 = g_core_state_8005e290 * 0x41C64E6Du + 0x3039u;
-    return (g_core_state_8005e290 >> 16) * (mod_max & 0xFFFFu) >> 16;
+    g_hm_prng_seed = g_hm_prng_seed * 0x41C64E6Du + 0x3039u;
+    return (g_hm_prng_seed >> 16) * (mod_max & 0xFFFFu) >> 16;
 }
 ```
 
@@ -33,14 +33,14 @@ uint hm_prng_next(uint mod_max) {
 
 ## 2. Bit-Addressed Persistent Event, Festival & Heart Bitsets (`0x8006C870`)
 
-All persistent story triggers, weekday/season mirrors, marriage flags, and festival states live in a flat little-endian `uint32[]` bitfield rooted at `g_ovl15_tbl_8006c870` (`0x8006C870`), manipulated strictly through two resident primitives:
+All persistent story triggers, weekday/season mirrors, marriage flags, and festival states live in a flat little-endian `uint32[]` bitfield rooted at `g_hm_event_flags_bitset` (`0x8006C870`), manipulated strictly through two resident primitives:
 
 ```c
 uint hm_event_flag_get(uint bit_idx) {
-    return ((const u32 *)&g_ovl15_tbl_8006c870)[(bit_idx & 0xFFFFu) >> 5] >> (bit_idx & 0x1Fu) & 1u;
+    return ((const u32 *)&g_hm_event_flags_bitset)[(bit_idx & 0xFFFFu) >> 5] >> (bit_idx & 0x1Fu) & 1u;
 }
 void hm_event_flag_set(uint bit_idx, short value) {
-    u32 *word = &((u32 *)&g_ovl15_tbl_8006c870)[(bit_idx & 0xFFFFu) >> 5];
+    u32 *word = &((u32 *)&g_hm_event_flags_bitset)[(bit_idx & 0xFFFFu) >> 5];
     u32 mask = 1u << (bit_idx & 0x1Fu);
     *word = (value == 0) ? (*word & ~mask) : (*word | mask);
 }
@@ -53,10 +53,10 @@ void hm_event_flag_set(uint bit_idx, short value) {
 | `0x17..0x1A` | `4` one-hot season flags (`season + 0x17`) | Cleared and updated by `p11_core_update_season_event_flags @ 0x800C11C4` |
 | `0x1B`, `0x4F` | Story/marriage prerequisite suppression flags | Gates birthday flags (`0x98..0x9A`) and spouse prop animation checks (`0x800C32C8`) |
 | `0x21..0x2C` | `5` milestone/anniversary bits + aggregate bit `0x2C` | Evaluated by `p11_core_update_birthday_and_anniversary_flags @ 0x800C12DC` |
-| `0x4B` | Active spouse daily talked/gifted status mirror | Synced when `npc_idx == g_core_val_u16_8007afb0` (`p11_core_step_daily_npc_affection`) |
+| `0x4B` | Active spouse daily talked/gifted status mirror | Synced when `npc_idx == g_core_calendar_event_flags_daily_scene_counter` (`p11_core_step_daily_npc_affection`) |
 | `0x72` | Late-day (`elapsed_hours_day > 0x0F`) festival trigger | Armed in `hm_ovl11_set_scene_prop_anim_state @ 0x800C32C8` |
 | `0x78..0x95` | `30` one-hot day-of-season flags (`day + 0x78`) | Cleared and re-armed on midnight / morning rollover (`0x800C0FC0`) |
-| `0x97`, `0x98..0x9A` | New Year (`Spring 1`) & spouse/family birthdays | Synced against `g_core_val_u16_8007afb0` (`0x1D4` NPC table) & `g_core_u32_8007afd0` |
+| `0x97`, `0x98..0x9A` | New Year (`Spring 1`) & spouse/family birthdays | Synced against `g_core_calendar_event_flags_daily_scene_counter` (`0x1D4` NPC table) & `g_core_calendar_event_flags_execute_word` |
 
 ---
 
@@ -79,7 +79,7 @@ Verified C layouts in [farm_npc_and_sim.h](../../schemas/types/farm_npc_and_sim.
 | **Outdoor Field Grid** | `0x80071DFC` | `+0x345C` | `8,640` B (`24 x 0x168`) | Outdoor tilled/crop tile array (`45` cols x `8` B/cell; `0x800C55FC`) |
 | **Greenhouse Grid** | `0x80074124` | `+0x5784` | `392` B (`7 x 0x38`) | Greenhouse grid; flower seeds `0x13B..0x13D` remap to crops `0x3A`, `0x3E`, `0x3F` |
 
-- **New-Game Reset (`p11_core_reset_calendar_new_game @ 0x800C090C`):** Sets `year = 0`, `season = 0` (`Spring`), `day = 1`, `day_of_week = 1`, `hour = 6`, `minute = 0`, `elapsed_minutes_day = 0x168` (`360`), `day_phase = 0`, fills the 50-slot `g_core_u32_80128a88` (`200` B) event queue with `0xFF`, and syncs weekday/season bitsets.
+- **New-Game Reset (`p11_core_reset_calendar_new_game @ 0x800C090C`):** Sets `year = 0`, `season = 0` (`Spring`), `day = 1`, `day_of_week = 1`, `hour = 6`, `minute = 0`, `elapsed_minutes_day = 0x168` (`360`), `day_phase = 0`, fills the 50-slot `g_core_calendar_new_game_clear_pending_state` (`200` B) event queue with `0xFF`, and syncs weekday/season bitsets.
 
 ### Enumerated Simulation Constants (`farm_npc_and_sim.h`)
 
@@ -99,7 +99,7 @@ Six pure leaf routines in `OVL_part11_id06.EXE` (`0x800CB0B0..0x800CD5BC`) gover
 | Routine (`Address`) | Verified Formula / Exact C Rules |
 | :--- | :--- |
 | **`p11_field_get_tool_family_index`** (`0x800CB0B0`) | For `u16(tool_id - 1) < 25` (`1..25`), returns `(tool_id - 1) / 5` (`0..4` tool upgrade tier across Sickle/Hoe/Axe/Hammer/Watering Can); for `26..29` (`0x1A..0x1D`), returns `tool_id - 0x1A` (`0..3`); else `0`. |
-| **`p11_field_calc_effective_stamina_cost`** (`0x800CD3C4`) | `cost = base_cost`: `+1` if `g_farm_current_weather_8007ad00 != 0` (bad weather), `+1` if `g_farm_calendar_clock_80070cf2.hour` is `22..23` (`(u32)(hour - 0x16) < 2`), `+2` if `hour < 6` (midnight–05:59), then `+2` baseline (`return cost + 2`). |
+| **`p11_field_calc_effective_stamina_cost`** (`0x800CD3C4`) | `cost = base_cost`: `+1` if `g_farm_current_weather != 0` (bad weather), `+1` if `g_farm_calendar_clock.hour` is `22..23` (`(u32)(hour - 0x16) < 2`), `+2` if `hour < 6` (midnight–05:59), then `+2` baseline (`return cost + 2`). |
 | **`p11_field_get_fatigue_tint_alpha`** (`0x800CD4E4`) | Reads `s16 f = *(s16 *)(player_state + 0x16)`: `<50 -> 0`, `50..69 -> 0x78 (120)`, `70..79 -> 0xF0 (240)`, `80..99 -> 0x168 (360)`, `>99 -> 0`. |
 | **`p11_field_calc_fishing_tension_decay`** (`0x800CD534`) | Computes `s32 d = (fish_timer / 60) * -2 - 5`; clamps lower bound at `-0x80` (`-128`). |
 | **`p11_field_calc_fishing_reel_power`** (`0x800CD578`) | Computes `s32 p = (fish_timer / 60) * 7 + 0x32`; clamps upper bound at `+0x7F` (`+127`). |
@@ -107,9 +107,9 @@ Six pure leaf routines in `OVL_part11_id06.EXE` (`0x800CB0B0..0x800CD5BC`) gover
 
 ```c
 s32 p11_field_calc_effective_stamina_cost(s32 base_cost) {
-    if (g_farm_current_weather_8007ad00 != 0) base_cost += 1;
-    if ((u32)(g_farm_calendar_clock_80070cf2.hour - 0x16) < 2u) base_cost += 1;
-    if (g_farm_calendar_clock_80070cf2.hour < 6) base_cost += 2;
+    if (g_farm_current_weather != 0) base_cost += 1;
+    if ((u32)(g_farm_calendar_clock.hour - 0x16) < 2u) base_cost += 1;
+    if (g_farm_calendar_clock.hour < 6) base_cost += 2;
     return base_cost + 2;
 }
 s32 p11_field_calc_fishing_tension_decay(s32 fish_timer) {
@@ -126,11 +126,11 @@ s32 p11_field_calc_fishing_reel_power(s32 fish_timer) {
 
 ## 5. `37`-Entry NPC Affection & Livestock Simulation (`0x800C1D68`)
 
-Live NPC state occupies `37` slots (`0..36`, stride `0x1D4` = `468` B) at `g_npc_actor_tbl_base_80076220` (`ovl_part11_id06_47.c`), while chicken coop (`HmAnimalRecord[10]`, `0xB4` B at `0x800742EC`) and barn livestock (`HmNpcActor[20]`, `0xB8` B at `0x800749F4`) persist at `+0x0000` in unpacked saves. `ovl15_diary_serialize_save_payload` compacts the `37` NPC records into `14`-byte entries at `+0x1F34`:
+Live NPC state occupies `37` slots (`0..36`, stride `0x1D4` = `468` B) at `g_npc_actor_tbl_base` (`ovl_part11_id06_47.c`), while chicken coop (`HmAnimalRecord[10]`, `0xB4` B at `0x800742EC`) and barn livestock (`HmNpcActor[20]`, `0xB8` B at `0x800749F4`) persist at `+0x0000` in unpacked saves. `ovl15_diary_serialize_save_payload` compacts the `37` NPC records into `14`-byte entries at `+0x1F34`:
 
 1. **Talked Bonus (`flags & 0x400`):** Bachelorette slots (`p11_core_dispatch_scene_fx_callback(i) == 1`) gain `+200` love points (`[0, 65535]`); general villagers gain `+1` friendship (`[0, 255]`).
 2. **Neglect Roll (`(flags & 0x600) == 0`):** Except exempt slots (`idx == 0x19` or `0x21 <= idx` with `0x23`), calls `hm_prng_next(10)`. On a `1-in-10` roll (`== 0`), subtracts `-200` love points or `-1` friendship before clamping.
-3. **Spouse Sync & Daily Clear:** If `idx == g_core_val_u16_8007afb0` (spouse), bit `0x200` drives `hm_event_flag_set(0x4B, ...)` (gifted/interacted today); finally clears bits `0x600` (`flags &= 0xF9FF` / `63999`) across all `37` entries.
+3. **Spouse Sync & Daily Clear:** If `idx == g_core_calendar_event_flags_daily_scene_counter` (spouse), bit `0x200` drives `hm_event_flag_set(0x4B, ...)` (gifted/interacted today); finally clears bits `0x600` (`flags &= 0xF9FF` / `63999`) across all `37` entries.
 
 | Save / Live Record | Offset | Type / Stride | Persisted Fields & Ranges |
 | :--- | :--- | :--- | :--- |

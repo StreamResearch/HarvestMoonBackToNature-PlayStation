@@ -91,7 +91,7 @@ typedef struct HmEngineState {
     u32            fade_color;        /* +0x44 */
 } HmEngineState; /* 0x48 */
 
-/* Archive file TOC entry (g_cd_afile_toc_head_80048b40 @ 0x80048b40, stride 10 * 4 = 0x28 in 800147bc) */
+/* Archive file TOC entry (g_cd_afile_toc_head @ 0x80048b40, stride 10 * 4 = 0x28 in 800147bc) */
 typedef struct HmAfileTocEntry {
     u32  offset_bytes; /* +0x00 */
     u32  size_bytes;   /* +0x04 */

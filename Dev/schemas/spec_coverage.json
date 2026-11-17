@@ -44,20 +44,20 @@
       "isPassed": true,
       "fields": [
         "Part9.container",
-        "g_audio_tbl_80049370",
+        "g_audio_spu_tick_vab_async_prepare_table",
         "pBAV.header",
         "ProgAtr",
         "VagAtr",
         "VAG.offset_table",
         "pQES.header",
-        "g_audio_ss_vm_voices_800a10a8",
+        "g_audio_ss_vm_voices",
         "spu_init_audio_driver",
         "hm_audio_play_bgm_seq",
         "hm_audio_play_sfx",
         "spu_tick_vab_async_loader",
         "STR.XA.sector_geometry",
         "STR.XA.submode_coding",
-        "g_cd_tbl_80049a80",
+        "g_cd_xa_channel_table",
         "hm_audio_start_cd_xa_stream"
       ]
     },

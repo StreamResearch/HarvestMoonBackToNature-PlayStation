@@ -31,7 +31,7 @@ PS1_MMIO_32 = (
 ).split()
 PS1_MISC_STATIC = (
     "Status _index PATCH_OBJ_44 PATCH_OBJ_B4 PATCH_OBJ_C8 PATCHGTE_OBJ_AC PATCHGTE_OBJ_C4 "
-    "g_core_event_script_ctx_reserved_0xfc_idx2_800a047c g_core_map_transition_state_800a0490"
+    "g_core_event_script_ctx_reserved_0xfc_idx2 g_core_map_transition_state"
 ).split()
 
 C_KEYWORDS = frozenset({
@@ -48,9 +48,10 @@ GHIDRA_LOCAL_RE = re.compile(
     r"|_?local_[A-Za-z0-9_]+|unaff_[A-Za-z0-9_]+|_?in_[A-Za-z0-9_]+|extraout_[A-Za-z0-9_]+|param_\d+)\b"
 )
 UNDEF_TYPE_RE = re.compile(r"\b(undefined(?:1|2|3|4|8)?)\b")
+_GENERIC_G_RE = re.compile(r"\bg_(?:dat|unk)_[0-9A-Za-z_]+\b|\bg_[a-z0-9]+_(?:u8|u16|u32|s8|s16|s32)_[0-9a-fA-F]{8}\b")
 _GHIDRA_CRAFT_RE = re.compile(
     r"/\*\s*WARNING:|^//\s*Function:|^\s*\*\s*@(?:callers|callees)\s+none\b|\(\s*void\s*\*\s*\)\s*0x0\b"
-    r"|\(\*\(\s*code\s*\*|" + GHIDRA_SYM_RE.pattern + r"|(?<!\.)(?<!->)" + GHIDRA_LOCAL_RE.pattern + r"|\bundefined[12348]?\b", re.M,
+    r"|\(\*\(\s*code\s*\*|" + GHIDRA_SYM_RE.pattern + r"|(?<!\.)(?<!->)" + GHIDRA_LOCAL_RE.pattern + r"|\bundefined[12348]?\b|" + _GENERIC_G_RE.pattern, re.M,
 )
 
 _VAR_PREFIX_MAP = {
@@ -125,24 +126,27 @@ def load_symbol_tables(schemas_dir: Path | None = None) -> dict[str, Any]:
     sdir = schemas_dir or DEFAULT_SCHEMAS_DIR
     ov_p, gm_p = sdir / "d4_symbol_overrides.json", sdir / "globals_map.json"
     ov = json.loads(ov_p.read_text(encoding="utf-8")) if ov_p.is_file() else {}
-    res_fns, spill = dict(ov.get("residentFunctions") or {}), dict(ov.get("spillGlobals") or {})
-    exact_map = {**res_fns, **spill}
+    res_fns, spill, unidx = dict(ov.get("residentFunctions") or {}), dict(ov.get("spillGlobals") or {}), dict(ov.get("unindexedGlobals") or {})
+    exact_map = {**res_fns, **spill, **unidx}
+    ptr_globals = {v for k, v in unidx.items() if k.startswith("PTR_")}
     gmap = json.loads(gm_p.read_text(encoding="utf-8")) if gm_p.is_file() else []
-    dat_by_sym: dict[str, str] = {}
+    dat_by_sym, addr_by_hex = {}, {}
     known = set(exact_map.values()) | set(PS1_MMIO_16) | set(PS1_MMIO_32) | set(PS1_MISC_STATIC)
     for g in gmap:
         sym, name = str(g.get("symbol", "")).lstrip("_").upper(), str(g.get("name", ""))
+        addr8 = str(g.get("address", "")).lower().removeprefix("0x").zfill(8)
         if sym and name:
-            dat_by_sym[sym] = name; known.add(name)
-    return {"overrides": ov, "residentFunctions": res_fns, "spillGlobals": spill, "exactMap": exact_map, "datBySym": dat_by_sym, "knownGlobals": known}
+            dat_by_sym[sym] = name; addr_by_hex[addr8] = name; known.add(name)
+    return {"overrides": ov, "residentFunctions": res_fns, "spillGlobals": spill, "unindexedGlobals": unidx, "ptrGlobals": ptr_globals, "addrByHex": addr_by_hex, "exactMap": exact_map, "datBySym": dat_by_sym, "knownGlobals": known}
 
 
 def map_ghidra_symbol(sym: str, exact_map: dict[str, str], dat_by_sym: dict[str, str]) -> str:
     """Map raw Ghidra FUN_/DAT_/UNK_/PTR_/LAB_/SUB_/switchD_ or spill token to clean identifier."""
-    if sym in exact_map: return exact_map[sym]
-    for pfx, dst in (("PTR_LAB_", "g_jtbl_ptr_"), ("PTR_DAT_", "g_dat_ptr_"), ("PTR_FUN_", "g_fn_ptr_"), ("PTR_", "g_ptr_"), ("UNK_", "g_unk_"), ("LAB_", "loc_"), ("SUB_", "sub_loc_"), ("switchD_", "jmp_tbl_")):
-        if sym.startswith(pfx): return dst + sym[len(pfx) :]
     bare = sym.lstrip("_")
+    if sym in exact_map: return exact_map[sym]
+    if bare in exact_map: return exact_map[bare]
+    for pfx, dst in (("PTR_LAB_", "g_jtbl_ptr_"), ("PTR_DAT_", "g_dat_ptr_"), ("PTR_FUN_", "g_fn_ptr_"), ("PTR_", "g_ptr_"), ("UNK_", "g_unk_"), ("LAB_", "loc_"), ("SUB_", "sub_loc_"), ("switchD_", "jmp_tbl_")):
+        if bare.startswith(pfx): return dst + bare[len(pfx) :]
     return dat_by_sym.get(bare.upper(), "g_dat_" + bare[4:]) if bare.startswith("DAT_") else sym
 
 
@@ -177,13 +181,15 @@ def rename_local_token(tok: str) -> str:
     return tok
 
 
-def _collect_compat_refs(c_texts: list[str], exact_map: dict[str, str], dat_by_sym: dict[str, str]) -> tuple[set[str], set[str]]:
+def _collect_compat_refs(c_texts: list[str], exact_map: dict[str, str], dat_by_sym: dict[str, str], ptr_globals: set[str] | frozenset[str] = frozenset()) -> tuple[set[str], set[str]]:
     ptr_syms, arr_syms = set(), set()
     ptr_re = re.compile(r"\b(?:PTR_[A-Za-z0-9_]+|g_(?:jtbl_ptr|dat_ptr|fn_ptr|ptr)_[A-Za-z0-9_]+)\b")
     arr_re = re.compile(r"\b((?:LAB|SUB|switchD|loc|sub_loc|jmp_tbl)_[A-Za-z0-9_]+)\b")
+    tok_re = re.compile(r"\b[A-Za-z_][A-Za-z0-9_]*\b")
     for raw in c_texts:
         noc = mask_non_code(raw)
         ptr_syms.update(map_ghidra_symbol(p, exact_map, dat_by_sym) for p in ptr_re.findall(noc))
+        if ptr_globals: ptr_syms.update(t for t in tok_re.findall(noc) if t in ptr_globals)
         for m in arr_re.finditer(noc):
             pre, post = noc[max(0, m.start() - 16) : m.start()], noc[m.end() : m.end() + 4].lstrip()
             if not ((re.search(r"\bgoto\s+$", pre) and post.startswith(";")) or post.startswith(":")):
@@ -195,8 +201,8 @@ def build_compat_block(globals_txt: str, readable_dir: Path | None = None, overr
     """Build HMBTN_PS1_COMPAT_EXTS block for ghidra_compat.h using clean normalized symbols."""
     tables = load_symbol_tables(schemas_dir)
     ov = overrides if overrides is not None else tables["overrides"]
-    res_fns, spill = dict(ov.get("residentFunctions") or tables["residentFunctions"]), dict(ov.get("spillGlobals") or tables["spillGlobals"])
-    exact_map, dat_by_sym = {**res_fns, **spill}, tables["datBySym"]
+    res_fns, spill, unidx = dict(ov.get("residentFunctions") or tables["residentFunctions"]), dict(ov.get("spillGlobals") or tables["spillGlobals"]), dict(ov.get("unindexedGlobals") or tables["unindexedGlobals"])
+    exact_map, dat_by_sym, ptr_globals = {**res_fns, **spill, **unidx}, tables["datBySym"], ({v for k, v in unidx.items() if k.startswith("PTR_")} | tables["ptrGlobals"])
     lines = [
         MARKER_BEGIN, "#ifndef HMBTN_PS1_COMPAT_EXTS", "#define HMBTN_PS1_COMPAT_EXTS", "typedef int (*HmCallbackFn)();",
         "#define SUB84(x, n) ((uint32_t)(((uint64_t)(x)) >> ((n) * 8)))", "#define SUB82(x, n) ((uint16_t)(((uint64_t)(x)) >> ((n) * 8)))",
@@ -211,13 +217,14 @@ def build_compat_block(globals_txt: str, readable_dir: Path | None = None, overr
         "#define _gh_set5(p,v) _gh_setN((p),(v),5)", "#define _gh_set6(p,v) _gh_setN((p),(v),6)", "#define _gh_set7(p,v) _gh_setN((p),(v),7)",
     ]
     seen = {map_ghidra_symbol(exact_map.get(s, s), exact_map, dat_by_sym) for s in re.findall(r"\b([A-Za-z_][A-Za-z0-9_]*)\b(?:\[[^\]]*\])?;", mask_non_code(globals_txt))}
+    seen.update(tables["addrByHex"].get(m.group(2), "") for m in re.finditer(r"\b(_?)g_[A-Za-z0-9_]*_([0-9a-f]{8})\b", mask_non_code(globals_txt)) if m.group(2) in tables["addrByHex"])
     for tp, syms in (("volatile uint16_t", PS1_MMIO_16), ("volatile uint32_t", PS1_MMIO_32), ("uint32_t", (*PS1_MISC_STATIC, *spill.values()))):
         for s in syms:
             if s not in seen: lines.append(f"extern {tp} {s};"); seen.add(s)
     for fn in sorted(res_fns.values()):
         if fn not in seen: lines.append(f"extern int {fn}();"); seen.add(fn)
     texts = c_texts if c_texts is not None else ([p.read_text(encoding="utf-8", errors="replace") for p in readable_dir.rglob("*.c")] if readable_dir and readable_dir.is_dir() else [])
-    ptr_syms, arr_syms = _collect_compat_refs(texts, exact_map, dat_by_sym)
+    ptr_syms, arr_syms = _collect_compat_refs(texts, exact_map, dat_by_sym, ptr_globals)
     for s in sorted(ptr_syms):
         if s not in seen: lines.append(f"extern uint8_t *{s};"); seen.add(s)
     for s in sorted(arr_syms):
@@ -229,12 +236,12 @@ def find_craftsmanship_artifacts(text: str, *, allow_undef_typedefs: bool = Fals
     """Return sorted unique Ghidra craftsmanship violations in C or header source text."""
     hits: set[str] = set(re.findall(r"/\*\s*WARNING:[^\n]*|^//\s*Function:[^\n]*|^\s*\*\s*@(?:callers|callees)\s+none\b", text, re.M))
     for dm in re.finditer(r"/\*\*.*?\*/", text, re.S):
-        hits.update(GHIDRA_SYM_RE.findall(dm.group(0)) + re.findall(r"\b(?:pbVar1|puVar4)\b", dm.group(0)))
+        hits.update(GHIDRA_SYM_RE.findall(dm.group(0)) + re.findall(r"\b(?:pbVar1|puVar4)\b", dm.group(0)) + _GENERIC_G_RE.findall(dm.group(0)))
     for s, e, is_c in code_spans(text):
         if not is_c: continue
         seg = text[s:e]
         hits.update(re.findall(r"\(\s*void\s*\*\s*\)\s*0x0\b|\(\*\(\s*code\s*\*", seg))
-        hits.update(GHIDRA_SYM_RE.findall(seg))
+        hits.update(GHIDRA_SYM_RE.findall(seg) + _GENERIC_G_RE.findall(seg))
         hits.update(m.group(0) for m in GHIDRA_LOCAL_RE.finditer(seg) if not _MEMBER_PRE_RE.search(seg[: m.start()]))
         if not allow_undef_typedefs:
             hits.update(UNDEF_TYPE_RE.findall(seg))

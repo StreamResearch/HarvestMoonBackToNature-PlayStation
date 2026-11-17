@@ -109,7 +109,7 @@ Partitions `14, 18, 20, 22, 24, 26` store **multiple concatenated `0x0E` banks**
 | `gfx_queue_vram_clut_upload` | `0x8001F8A4` | `render_gte_sprites` | Uploads decoded CLUT palettes into VRAM |
 
 ### Ordering Table Submission (`HmDisplayOtCtx`, `0x134` Bytes)
-- Active double-buffered context pointer `g_gfx_active_disp_ctx_ptr_8005e3c0` toggles between `0x8005E5E8` and `0x8005E71C` each frame.
+- Active double-buffered context pointer `g_gfx_active_disp_ctx_ptr` toggles between `0x8005E5E8` and `0x8005E71C` each frame.
 - `hm_sprite_build_sprt_packet` and `hm_sprite_build_poly_ft4_packet` advance `prim_cursor` (`+0x118`) and link primitives into `sub_ot[4]` (`+0xD8`) or `main_ot` (`+0x120`), flushed on VSync by `hm_gpu_swap_buffers_and_draw_ot`.
 
 ---

@@ -9,7 +9,7 @@ import re
 import struct
 from pathlib import Path
 
-ARRAY_BUMP = {"g_cd_afile_toc_head_80048b40": 64, "g_cd_tbl_80049a80": 64}
+ARRAY_BUMP = {"g_cd_afile_toc_head": 64, "g_cd_xa_channel_table": 64}
 HOOKED_FUNCS = {
     "ResetCallback", "DrawSync", "hm_cd_is_queue_busy", "hm_gpu_swap_buffers_and_draw_ot",
     "SsSetSerialVol", "CdControl", "CdIntToPos", "main",
@@ -58,21 +58,21 @@ def _core_c() -> str:
     slus, d = "SLUS_011.15", "core_mainloop"
     return _C_INC + "".join([
         _dox("Run pending one-shot VSync callback.", "sys_run_vsync_cb_and_swap", f"0x80011334 ({slus})", d,
-             "void sys_run_vsync_cb_and_swap(void) { if (g_core_engine_state_8005e384.vsync_cb != NULL) { ((HmCallbackFn)(uintptr_t)(g_core_engine_state_8005e384.vsync_cb))(); g_core_engine_state_8005e384.vsync_cb = NULL; } hm_cd_is_queue_busy(); hm_gpu_swap_buffers_and_draw_ot(); }"),
-        _dox("Set VSync stride.", "sys_set_vsync_stride", f"0x80011f2c ({slus})", d, "void sys_set_vsync_stride(u8 stride) { g_gfx_state_8005e274 = stride; }"),
-        _dox("Get VSync stride.", "sys_get_vsync_stride", f"0x80011f38 ({slus})", d, "u8 sys_get_vsync_stride(void) { return (u8)g_gfx_state_8005e274; }"),
-        _dox("Set display draw enable.", "sys_set_draw_enable", f"0x80011f44 ({slus})", d, "void sys_set_draw_enable(u32 enabled) { g_gfx_state_8005e278 = enabled; }"),
-        _dox("Set frame sync flag.", "sys_set_frame_sync_flag", f"0x80011f50 ({slus})", d, "void sys_set_frame_sync_flag(u32 flag) { g_cd_state_8005e27c = flag; }"),
+             "void sys_run_vsync_cb_and_swap(void) { if (g_core_engine_state.vsync_cb != NULL) { ((HmCallbackFn)(uintptr_t)(g_core_engine_state.vsync_cb))(); g_core_engine_state.vsync_cb = NULL; } hm_cd_is_queue_busy(); hm_gpu_swap_buffers_and_draw_ot(); }"),
+        _dox("Set VSync stride.", "sys_set_vsync_stride", f"0x80011f2c ({slus})", d, "void sys_set_vsync_stride(u8 stride) { g_sys_vsync_stride = stride; }"),
+        _dox("Get VSync stride.", "sys_get_vsync_stride", f"0x80011f38 ({slus})", d, "u8 sys_get_vsync_stride(void) { return (u8)g_sys_vsync_stride; }"),
+        _dox("Set display draw enable.", "sys_set_draw_enable", f"0x80011f44 ({slus})", d, "void sys_set_draw_enable(u32 enabled) { g_sys_draw_enable = enabled; }"),
+        _dox("Set frame sync flag.", "sys_set_frame_sync_flag", f"0x80011f50 ({slus})", d, "void sys_set_frame_sync_flag(u32 flag) { g_sys_frame_sync_flag = flag; }"),
         _dox("Compute free high-RAM arena bytes.", "sys_get_highram_free_bytes", f"0x8001205c ({slus})", d,
-             "s32 sys_get_highram_free_bytes(void) { return (s32)((uintptr_t)g_core_engine_state_8005e384.prim_arena - 0x49000u - g_core_ro_u32_8007aff4); }"),
+             "s32 sys_get_highram_free_bytes(void) { return (s32)((uintptr_t)g_core_engine_state.prim_arena - 0x49000u - g_sys_highram_reserved_base); }"),
         _dox("Return active high-RAM arena base.", "sys_get_highram_arena_ptr", f"0x800120bc ({slus})", d,
-             "u32 sys_get_highram_arena_ptr(void) { return (u32)(uintptr_t)g_core_engine_state_8005e384.prim_arena; }"),
+             "u32 sys_get_highram_arena_ptr(void) { return (u32)(uintptr_t)g_core_engine_state.prim_arena; }"),
         _dox("Advance LCG PRNG state.", "hm_prng_next", f"0x80012a34 ({slus})", d,
-             "uint hm_prng_next(uint mod_max) { g_core_state_8005e290 = g_core_state_8005e290 * 0x41c64e6du + 0x3039u; return (g_core_state_8005e290 >> 0x10) * (mod_max & 0xffffu) >> 0x10; }"),
+             "uint hm_prng_next(uint mod_max) { g_hm_prng_seed = g_hm_prng_seed * 0x41c64e6du + 0x3039u; return (g_hm_prng_seed >> 0x10) * (mod_max & 0xffffu) >> 0x10; }"),
         _dox("Read 32-bit event flag bit.", "hm_event_flag_get", f"0x8001af44 ({slus})", d,
-             "uint hm_event_flag_get(uint bit_idx) { return (*(uint *)(&g_ovl15_tbl_8006c870 + ((bit_idx & 0xffffu) >> 5) * 4) >> (bit_idx & 0x1fu)) & 1u; }"),
+             "uint hm_event_flag_get(uint bit_idx) { return (*(uint *)(&g_hm_event_flags_bitset + ((bit_idx & 0xffffu) >> 5) * 4) >> (bit_idx & 0x1fu)) & 1u; }"),
         _dox("Write 32-bit event flag bit.", "hm_event_flag_set", f"0x8001af70 ({slus})", d,
-             "u32 hm_event_flag_set(uint bit_idx, s16 value) { uint *wp = (uint *)(&g_ovl15_tbl_8006c870 + ((bit_idx & 0xffffu) >> 5) * 4); *wp = (value == 0) ? (*wp & ~(1u << (bit_idx & 0x1fu))) : (*wp | (1u << (bit_idx & 0x1fu))); return 0u; }"),
+             "u32 hm_event_flag_set(uint bit_idx, s16 value) { uint *wp = (uint *)(&g_hm_event_flags_bitset + ((bit_idx & 0xffffu) >> 5) * 4); *wp = (value == 0) ? (*wp & ~(1u << (bit_idx & 0x1fu))) : (*wp | (1u << (bit_idx & 0x1fu))); return 0u; }"),
     ])
 
 
@@ -80,11 +80,11 @@ def _cd_c() -> str:
     slus, d = "SLUS_011.15", "cd_afile_overlays"
     return _C_INC + "".join([
         _dox("Init CD and align A_FILE span.", "hm_cd_init_afile_system", f"0x80014748 ({slus})", d,
-             "uint hm_cd_init_afile_system(int load_toc) { ResetCallback(); DrawSync(0); return ((&g_cd_afile_toc_head_80048b40)[load_toc + 1].offset_bytes - (&g_cd_afile_toc_head_80048b40)[load_toc].offset_bytes + 3u) & 0xfffffffcu; }"),
+             "uint hm_cd_init_afile_system(int load_toc) { ResetCallback(); DrawSync(0); return ((&g_cd_afile_toc_head)[load_toc + 1].offset_bytes - (&g_cd_afile_toc_head)[load_toc].offset_bytes + 3u) & 0xfffffffcu; }"),
         _dox("Mute serial audio and pause XA.", "cd_stop_xa_stream", f"0x80021b20 ({slus})", d,
-             "void cd_stop_xa_stream(void) { if ((s16)g_cd_state_8005e324 != 0) { SsSetSerialVol(0, 0, 0); CdControl(7, NULL, NULL); g_cd_state_8005e324 = 0; } }"),
+             "void cd_stop_xa_stream(void) { if ((s16)g_cd_xa_stream_active != 0) { SsSetSerialVol(0, 0, 0); CdControl(7, NULL, NULL); g_cd_xa_stream_active = 0; } }"),
         _dox("Seek CD XA sector via MSF.", "cd_send_xa_seek_cmd", f"0x80021cd8 ({slus})", d,
-             "u32 cd_send_xa_seek_cmd(u8 cd_cmd) { CdlLOC loc; g_cd_state_8005e324 = 1; CdIntToPos((int)g_cd_u32_8005e584, &loc); if (CdControl(cd_cmd, &loc.minute, NULL) == 1) { g_cd_state_8005e588++; g_cd_state_8005e58c = g_cd_u32_8005e584; return 0; } return 0xffffffffu; }"),
+             "u32 cd_send_xa_seek_cmd(u8 cd_cmd) { CdlLOC loc; g_cd_xa_stream_active = 1; CdIntToPos((int)g_cd_xa_target_lba, &loc); if (CdControl(cd_cmd, &loc.minute, NULL) == 1) { g_cd_xa_cmd_counter++; g_cd_xa_last_seek_lba = g_cd_xa_target_lba; return 0; } return 0xffffffffu; }"),
     ])
 
 
@@ -104,7 +104,7 @@ def _ovl11_c() -> str:
         _dox("Map tool_id to tool family index.", "p11_field_get_tool_family_index", f"0x800cb0b0 ({ovl})", d,
              "s32 p11_field_get_tool_family_index(s16 tool_id) { uint idx = (uint)((int)tool_id - 1); uint alt = (uint)((int)tool_id - 0x1a); if ((idx & 0xffffu) < 0x19u) return ((int)idx / 5) * 0x10000 >> 0x10; if ((alt & 0xffffu) < 4u) return (int)(alt * 0x10000u) >> 0x10; return 0; }"),
         _dox("Compute effective stamina cost.", "p11_field_calc_effective_stamina_cost", f"0x800cd3c4 ({ovl})", d,
-             "s32 p11_field_calc_effective_stamina_cost(s32 base_cost) { if (g_farm_current_weather_8007ad00 != 0) base_cost += 1; if (g_farm_calendar_clock_80070cf2.hour - 0x16 < 2) base_cost += 1; if (g_farm_calendar_clock_80070cf2.hour < 6) base_cost += 2; return base_cost + 2; }"),
+             "s32 p11_field_calc_effective_stamina_cost(s32 base_cost) { if (g_farm_current_weather != 0) base_cost += 1; if (g_farm_calendar_clock.hour - 0x16 < 2) base_cost += 1; if (g_farm_calendar_clock.hour < 6) base_cost += 2; return base_cost + 2; }"),
         _dox("Compute fishing tension decay step.", "p11_field_calc_fishing_tension_decay", f"0x800cd534 ({ovl})", d,
              "s32 p11_field_calc_fishing_tension_decay(s32 fish_timer) { s32 step = (fish_timer / 0x3c) * -2 - 5; return (step < -0x80) ? -0x80 : step; }"),
         _dox("Compute fishing reel power step.", "p11_field_calc_fishing_reel_power", f"0x800cd578 ({ovl})", d,
@@ -176,12 +176,12 @@ def _seed_synthetic_corpus(root: Path) -> tuple[Path, Path, Path]:
     (inc_dir / "ghidra_compat.h").write_text(_HDR_COMPAT, encoding="utf-8")
     (inc_dir / "harvestmoonbtn_types.h").write_text(_HDR_TYPES, encoding="utf-8")
     (inc_dir / "harvestmoonbtn_globals.h").write_text("\n".join([
-        "extern HmAfileTocEntry g_cd_afile_toc_head_80048b40;", "extern u16 g_cd_tbl_80049a80;",
-        "extern u32 g_gfx_state_8005e274;", "extern u32 g_gfx_state_8005e278;", "extern u32 g_cd_state_8005e27c;",
-        "extern u32 g_core_state_8005e290;", "extern u32 g_cd_state_8005e324;", "extern HmEngineState g_core_engine_state_8005e384;",
-        "extern u32 g_cd_u32_8005e584;", "extern u32 g_cd_state_8005e588;", "extern u32 g_cd_state_8005e58c;",
-        "extern u32 g_cd_u32_8005e594;", "extern u32 g_ovl15_tbl_8006c870;", "extern HmCalendarClock g_farm_calendar_clock_80070cf2;",
-        "extern s16 g_farm_current_weather_8007ad00;", "extern u32 g_core_ro_u32_8007aff4;",
+        "extern HmAfileTocEntry g_cd_afile_toc_head;", "extern u16 g_cd_xa_channel_table;",
+        "extern u32 g_sys_vsync_stride;", "extern u32 g_sys_draw_enable;", "extern u32 g_sys_frame_sync_flag;",
+        "extern u32 g_hm_prng_seed;", "extern u32 g_cd_xa_stream_active;", "extern HmEngineState g_core_engine_state;",
+        "extern u32 g_cd_xa_target_lba;", "extern u32 g_cd_xa_cmd_counter;", "extern u32 g_cd_xa_last_seek_lba;",
+        "extern u32 g_cd_xa_ready_flag;", "extern u32 g_hm_event_flags_bitset;", "extern HmCalendarClock g_farm_calendar_clock;",
+        "extern s16 g_farm_current_weather;", "extern u32 g_sys_highram_reserved_base;",
     ]) + "\n", encoding="utf-8")
     (inc_dir / "harvestmoonbtn_functions.h").write_text(
         "int ResetCallback(void);\nint DrawSync(int mode);\nu32 hm_cd_is_queue_busy(void);\n"

@@ -29,9 +29,9 @@ Each diary save occupies **4 PlayStation Memory Card blocks** (`4 x 8,192 = 32,7
 
 1. **Per-Block Parity (`251` blocks, `0x0280..0x7FFF`):** For each block `i` (`0..250`) at `base = 0x0280 + i * 0x80`:
    - `block[127] = XOR(block[0..126])`.
-2. **Combined Payload Parity (`+0x0238`, `g_ovl15_state_80137a68`):**
+2. **Combined Payload Parity (`+0x0238`, `g_ovl15_diary_compute_save_checksums_verify_state`):**
    - `file[0x0238] = XOR(block_i[127] for i in 0..250)`.
-3. **Summary Header Parity (`+0x027F`, `g_ovl15_val_u8_80137aaf`):**
+3. **Summary Header Parity (`+0x027F`, `g_ovl15_diary_compute_save_checksums_verify_flag`):**
    - Computed **after** writing `file[0x0238]`: `file[0x027F] = XOR(file[0x0200..0x027E])`.
    - `ovl15_diary_read_slot_summary @ 0x80136288` reads only `0x0200..0x027F` (`0x80` B) during slot scanning and validates `file[0x027F]` (`0` valid, `0x0E` parity mismatch).
 
@@ -41,7 +41,7 @@ Each diary save occupies **4 PlayStation Memory Card blocks** (`4 x 8,192 = 32,7
 
 | Offset | Size | Type | Field | Verified Mapping (`ovl15_diary_build_save_slot_summary`) |
 | :--- | ---: | :--- | :--- | :--- |
-| `+0x00` | `2` | `u16` | `slot_valid` | Farm Year (`g_farm_cal_year_80070cf0`) |
+| `+0x00` | `2` | `u16` | `slot_valid` | Farm Year (`g_farm_cal_year`) |
 | `+0x02` | `2` | `u16` | `year` | Season ID (`0=Spring, 1=Summer, 2=Fall, 3=Winter`) |
 | `+0x04` | `4` | `u32` | `save_flags` | Packed `day` (`u16` low) + `day_of_week` (`u16` high) |
 | `+0x08` | `4` | `s16+u16` | `season_or_day, _pad` | Auxiliary diary stamp |
@@ -102,18 +102,18 @@ Each diary save occupies **4 PlayStation Memory Card blocks** (`4 x 8,192 = 32,7
 | `HmPlayerState` | `+0x100..+0x118` | `s32[7]` | `pos_x/y/z, vel_x/y/z, move_speed` | Fixed-point world position & velocity |
 
 ### `HmSeason` (`0..3`), `HmWeather` (`0..3`), & `HmToolId` (`0..11`) Enumerations
-- **`HmSeason` (`g_farm_calendar_clock_80070cf2.season`):** `0 = HM_SEASON_SPRING`, `1 = HM_SEASON_SUMMER`, `2 = HM_SEASON_FALL`, `3 = HM_SEASON_WINTER`.
+- **`HmSeason` (`g_farm_calendar_clock.season`):** `0 = HM_SEASON_SPRING`, `1 = HM_SEASON_SUMMER`, `2 = HM_SEASON_FALL`, `3 = HM_SEASON_WINTER`.
 - **`HmWeather` (`weather_today` / `weather_tomorrow`):** `0 = HM_WEATHER_SUNNY`, `1 = HM_WEATHER_RAINY`, `2 = HM_WEATHER_SNOWY`, `3 = HM_WEATHER_TYPHOON`.
-- **`HmToolId` (`g_core_player_state_80071a00.equipped_tool`):** `0=None`, `1=Sickle`, `2=Hoe`, `3=Axe`, `4=Hammer`, `5=Watering Can`, `6=Fishing Rod`, `7=Milker`, `8=Shears`, `9=Brush`, `10=Bell`, `11=Seed Bag`.
+- **`HmToolId` (`g_core_player_state.equipped_tool`):** `0=None`, `1=Sickle`, `2=Hoe`, `3=Axe`, `4=Hammer`, `5=Watering Can`, `6=Fishing Rod`, `7=Milker`, `8=Shears`, `9=Brush`, `10=Bell`, `11=Seed Bag`.
 
 ### Calendar Initialization (`p11_core_reset_calendar_new_game @ 0x800C090C`)
-New game boot initializes `year = 0`, `season = 0` (`Spring`), `day = 1`, `day_of_week = 1`, `hour = 6`, `minute = 0`, `elapsed_minutes_day = 0x168`, `day_phase = 0`, clears `200` bytes at `g_core_u32_80128a88` to `0xFF`, and synchronizes weekday/season/festival event flags (`0x800C0FC0`).
+New game boot initializes `year = 0`, `season = 0` (`Spring`), `day = 1`, `day_of_week = 1`, `hour = 6`, `minute = 0`, `elapsed_minutes_day = 0x168`, `day_phase = 0`, clears `200` bytes at `g_core_calendar_new_game_clear_pending_state` to `0xFF`, and synchronizes weekday/season/festival event flags (`0x800C0FC0`).
 
 ---
 
 ## 5. `37`-Entry NPC Affection Table (`+0x1F34`, `14`-Byte Stride)
 
-`ovl15_diary_serialize_save_payload` compacts `37` entries (`0..36`) from live `0x1D4`-stride NPC records (`g_npc_actor_tbl_base_80076220`), governed daily by `p11_core_step_daily_npc_affection @ 0x800C1D68`:
+`ovl15_diary_serialize_save_payload` compacts `37` entries (`0..36`) from live `0x1D4`-stride NPC records (`g_npc_actor_tbl_base`), governed daily by `p11_core_step_daily_npc_affection @ 0x800C1D68`:
 
 | Record Offset | Size | Type | Field | Daily Simulation Rule (`0x800C1D68`) |
 | :--- | ---: | :--- | :--- | :--- |

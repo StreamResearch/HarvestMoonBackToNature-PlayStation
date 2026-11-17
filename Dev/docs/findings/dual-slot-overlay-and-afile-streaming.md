@@ -22,19 +22,19 @@ flowchart LR
 | **PS-X Header (`0x800` B)** | File `+0x00..+0x7FF` | `2,048` | `pc0 = 0x80011278`, `gp0 = 0`, `t_addr = 0x80010000`, `t_size = 0x4E800`, `sp_base = 0x801FFF00` |
 | **Slot Pointer Pair (`+0x98`)** | `0x80010098..0x8001009F` | `8` | Resident `uint32[2]` storing **Slot A** (`0x800B7E20`) and **Slot B** (`0x8012DDE8`) |
 | **Resident `.text`** | `0x80011270..0x80048B0F` | `227,488` | `1,681` functions (`1,253` SDK + `428` game functions across `7` resident domains) |
-| **Resident `.data`** | `0x80048B10..0x8005E7FF` | `89,328` | `631` initialized globals (`g_cd_afile_toc_head_80048b40`, `g_audio_tbl_80049370`, `g_cd_tbl_80049a80`) |
+| **Resident `.data`** | `0x80048B10..0x8005E7FF` | `89,328` | `631` initialized globals (`g_cd_afile_toc_head`, `g_audio_spu_tick_vab_async_prepare_table`, `g_cd_xa_channel_table`) |
 | **Resident `.bss`** | `0x8005E800..0x800B7E1F` | `366,112` | `1,219` runtime globals (`HmEngineState`, `HmCalendarClock`, `HmPlayerState`, crop/animal tables) |
 | **Slot A Overlay Window** | `0x800B7E20..0x8012DDE7` | `483,272` | Holds `11` Slot A overlays; **Part 11** `.text` spans `0x800BBC34..0x80121780` (`483,328` B) |
 | **Slot B Co-Resident Window** | `0x8012DDE8..0x80145FFF` | `98,840` | Holds **Part 15** (`98,304` B) or **Part 30** (`28,672` B) directly above live **Part 11** |
 | **High-RAM Arena** | `0x80146000..0x801F0000` | `~696,320` | Double-buffered `0x800`-entry OTs + `96,000`-B prim arenas (`0x801F0000 - 0x800C9000 = 0x00127000` free) |
 
-- **High-RAM Accounting (`sys_get_highram_free_bytes @ 0x8001205C`):** Computes `(s32)(g_core_engine_state_8005e384.prim_arena - 0x49000 - g_core_ro_u32_8007aff4)`, matching exact LP32 R3000A arithmetic verified in [parity_core_sys_tests.c](../../scripts/d4_harness/parity_core_sys_tests.c).
+- **High-RAM Accounting (`sys_get_highram_free_bytes @ 0x8001205C`):** Computes `(s32)(g_core_engine_state.prim_arena - 0x49000 - g_sys_highram_reserved_base)`, matching exact LP32 R3000A arithmetic verified in [parity_core_sys_tests.c](../../scripts/d4_harness/parity_core_sys_tests.c).
 
 ---
 
 ## 2. `A_FILE.HDT` Byte-Offset Table & CD Streaming Pipeline
 
-During boot, `hm_cd_poll_async_queue` (`0x800147BC`) reads `\A_FILE.HDT;1` via `hm_cd_read_named_file` (`0x80014554`), copies `33` `uint32` offsets into `g_cd_afile_toc_head_80048b40` (`HmAfileTocEntry[33]`, `0x28` B stride), and locates `\A_FILE.BIN;1` via `CdSearchFile` to latch `g_cd_afile_request_8005e3f0.base_lba`.
+During boot, `hm_cd_poll_async_queue` (`0x800147BC`) reads `\A_FILE.HDT;1` via `hm_cd_read_named_file` (`0x80014554`), copies `33` `uint32` offsets into `g_cd_afile_toc_head` (`HmAfileTocEntry[33]`, `0x28` B stride), and locates `\A_FILE.BIN;1` via `CdSearchFile` to latch `g_cd_afile_request.base_lba`.
 
 - **Byte-Offset Invariant:** Every entry in the `132`-byte `A_FILE.HDT` (`uint32[33]`) stores an exact **byte offset** aligned to `0x800`-byte (`2,048` B) CD-ROM sectors, starting at `0x00000000` and ending at `133,935,104` B (`65,398` sectors):
   - `sector_lba_rel = toc[entry_idx].offset_bytes >> 11`
@@ -82,7 +82,7 @@ Static MIPS `jal 0x800145F0` scanning ([hmbtn_unpack.py](../../scripts/hmbtn_unp
 | `22` | `OVL_part11_id06` | `0x800E3CB8` | `29..30` | RAM scratch (`0`) | Loads `Part 29` (`75,776` B) event / snapshot data (`0x800E3C4C`) |
 
 > [!NOTE]
-> Call site `#15` (`0x80011A44`, `HM_OVL_FESTIVAL_MAIN`) is an empirical quirk in `hm_main`: it invokes `hm_afile_load_entry_sync(0xB, 0xC, ...)` passing `&g_cd_u32_8012dde8` when loading `Part 11` (`483,328` B), whereas call sites `#18` (`0x80011AF0`) and `#8..#10` load `Part 30` and `Part 15` into `0x8012DDE8` **after** `Part 11` is already resident at `0x800B7E20`.
+> Call site `#15` (`0x80011A44`, `HM_OVL_FESTIVAL_MAIN`) is an empirical quirk in `hm_main`: it invokes `hm_afile_load_entry_sync(0xB, 0xC, ...)` passing `&g_cd_main_copy_word` when loading `Part 11` (`483,328` B), whereas call sites `#18` (`0x80011AF0`) and `#8..#10` load `Part 30` and `Part 15` into `0x8012DDE8` **after** `Part 11` is already resident at `0x800B7E20`.
 
 ---
 

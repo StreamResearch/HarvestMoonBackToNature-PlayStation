@@ -27,7 +27,7 @@ This clean-room specification documents the retail PlayStation 1 (`SLUS-01115`) 
 
 ## 2. `A_FILE.HDT` Table Format & `HmAfileTocEntry`
 
-`A_FILE.HDT` is a `132`-byte little-endian array (`uint32[33]`) loaded at boot into `g_cd_afile_toc_head_80048b40` (`HmAfileTocEntry`, stride `0x28` bytes in RAM).
+`A_FILE.HDT` is a `132`-byte little-endian array (`uint32[33]`) loaded at boot into `g_cd_afile_toc_head` (`HmAfileTocEntry`, stride `0x28` bytes in RAM).
 
 | Field | Byte Offset | Type | Description |
 | :--- | :--- | :--- | :--- |

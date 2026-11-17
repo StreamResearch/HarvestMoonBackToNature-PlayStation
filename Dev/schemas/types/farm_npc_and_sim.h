@@ -3,7 +3,7 @@
 
 #include "render_and_gte.h"
 
-/* Calendar season IDs (g_farm_calendar_clock_80070cf2 @ 0x80070cf2 in 800c0a4c) */
+/* Calendar season IDs (g_farm_calendar_clock @ 0x80070cf2 in 800c0a4c) */
 typedef enum HmSeason {
     HM_SEASON_SPRING = 0,
     HM_SEASON_SUMMER = 1,

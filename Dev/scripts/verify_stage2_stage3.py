@@ -32,6 +32,7 @@ _CRAFT_RE = re.compile(
     r"|\b_?(?:local_|unaff_|in_|extraout_)[0-9A-Za-z_]*\b|\bstack0x[0-9A-Fa-f]+\b"
     r"|\b_?[A-Za-z]*Stack(?:[XY]?_[0-9A-Za-z]+|0[xX]?[0-9A-Fa-f]+)\b"
     r"|\bparam_[0-9]+\b|\bundefined[1248]?\b|\b(?:FUN|DAT|UNK|PTR|LAB|SUB|switchD)_[0-9A-Za-z_]+\b"
+    r"|\bg_(?:dat|unk)_[0-9A-Za-z_]+\b|\bg_[a-z0-9]+_(?:u8|u16|u32|s8|s16|s32)_[0-9a-fA-F]{8}\b"
 )
 LEAK_RE = re.compile("(j" + "anov|[A-Z]:[/\\\\]+(?:Us" + "ers|Py" + "thon\\d+|Pro" + "jects|Pro" + "grams)|fi" + "le:///)", re.I)
 

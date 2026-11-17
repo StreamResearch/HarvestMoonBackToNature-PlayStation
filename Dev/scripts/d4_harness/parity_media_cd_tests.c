@@ -34,8 +34,8 @@ static int test_retail_afile_hdt_table(const char *standalone_dir) {
 }
 
 static int test_cd_init_afile_aligned_span(void) {
-    (&g_cd_afile_toc_head_80048b40)[0].offset_bytes = 0x100u;
-    (&g_cd_afile_toc_head_80048b40)[1].offset_bytes = 0x255u;
+    (&g_cd_afile_toc_head)[0].offset_bytes = 0x100u;
+    (&g_cd_afile_toc_head)[1].offset_bytes = 0x255u;
     int prev_rc = g_d4_spy.reset_cb;
     int prev_ds = g_d4_spy.draw_sync;
     uint32_t span = hm_cd_init_afile_system(0);
@@ -45,24 +45,24 @@ static int test_cd_init_afile_aligned_span(void) {
 }
 
 static int test_cd_xa_seek_and_stop_fsm(void) {
-    g_cd_u32_8005e594 = 1u;
-    (&g_cd_tbl_80049a80)[3] = 0x0102u;
-    g_cd_u32_8005e584 = 150u;
-    g_cd_state_8005e588 = 10u;
+    g_cd_xa_ready_flag = 1u;
+    (&g_cd_xa_channel_table)[3] = 0x0102u;
+    g_cd_xa_target_lba = 150u;
+    g_cd_xa_cmd_counter = 10u;
     g_d4_spy.ss_serial = 0;
     g_d4_spy.cd_ctrl = 0;
     g_d4_spy.last_cd_cmd = 0;
 
     u32 seek_rc = cd_send_xa_seek_cmd(0x09);
-    int active_after_seek = ((uint16_t)g_cd_state_8005e324 == 1u
-        && g_cd_state_8005e588 == 11u
-        && g_cd_state_8005e58c == 150u
+    int active_after_seek = ((uint16_t)g_cd_xa_stream_active == 1u
+        && g_cd_xa_cmd_counter == 11u
+        && g_cd_xa_last_seek_lba == 150u
         && g_d4_spy.last_cd_cmd == 0x09
         && seek_rc != 0xffffffffu);
 
     cd_stop_xa_stream();
     return active_after_seek
-        && (uint16_t)g_cd_state_8005e324 == 0u
+        && (uint16_t)g_cd_xa_stream_active == 0u
         && g_d4_spy.ss_serial == 1
         && g_d4_spy.cd_ctrl == 2
         && g_d4_spy.last_cd_cmd == 0x07;

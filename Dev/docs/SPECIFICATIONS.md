@@ -11,7 +11,7 @@ This routing index links the four specification spokes (`Dev/docs/specifications
 | Specification Spoke | Parser Script | Scope & Verified Fields | Mapped Fields |
 | :--- | :--- | :--- | ---: |
 | [`afile-and-overlays.md`](specifications/afile-and-overlays.md) | [`hmbtn_overlays.py`](../scripts/hmbtn_overlays.py) | `SLUS_011.15` header, `A_FILE.HDT` (`132` B / `32` parts), `Slot A`/`Slot B` dual-slot co-residency, `0x800145F0` callers | `16` |
-| [`sound-vab-seq-xa.md`](specifications/sound-vab-seq-xa.md) | [`hmbtn_sound.py`](../scripts/hmbtn_sound.py) | Part 9 (`39` `pBAV` VABp + `36` `pQES` SEQ), `g_audio_tbl_80049370`, SPU driver, `STR/01..04.XA` (`2,336`-B sectors) | `16` |
+| [`sound-vab-seq-xa.md`](specifications/sound-vab-seq-xa.md) | [`hmbtn_sound.py`](../scripts/hmbtn_sound.py) | Part 9 (`39` `pBAV` VABp + `36` `pQES` SEQ), `g_audio_spu_tick_vab_async_prepare_table`, SPU driver, `STR/01..04.XA` (`2,336`-B sectors) | `16` |
 | [`sprites-0x0e-and-tim.md`](specifications/sprites-0x0e-and-tim.md) | [`hmbtn_sprites.py`](../scripts/hmbtn_sprites.py) | `HmLzSpriteHeader` (`0x24` B, `5` tables), chained `0x0E` packs (`14, 18, 20, 22, 24, 26`), `0x100D` VRAM tail, `.TIM` (`4/8/16/24` bpp) | `18` |
 | [`save-diary-calendar-affection.md`](specifications/save-diary-calendar-affection.md) | [`hmbtn_save_diary.py`](../scripts/hmbtn_save_diary.py) | `BASLUS-01115-FARM0..3` (`0x8000` B), `3`-tier XOR parity, `201`-block unpack, `HmCalendarClock`, `37` NPC affection entries | `18` |
 
@@ -39,14 +39,14 @@ This routing index links the four specification spokes (`Dev/docs/specifications
 
 | Symbol | Address | C Type | Role |
 | :--- | :--- | :--- | :--- |
-| `g_core_engine_state_8005e384` | `0x8005E384` | `HmEngineState` | Primary VSync callback (`vsync_cb`), high-RAM arena pointer, active display context |
-| `g_cd_afile_toc_head_80048b40` | `0x80048B40` | `HmAfileTocEntry` | Resident `A_FILE.HDT` offset table loaded at boot (`hm_cd_init_afile_system`) |
-| `g_cd_tbl_80049a80` | `0x80049A80` | `u16[]` | CD-XA stream duration, file index, and channel table (`STR/01..04.XA`) |
-| `g_audio_tbl_80049370` | `0x80049370` | `u32[]` | Part 9 `pBAV` VH/VB and `pQES` SEQ relative offset table |
-| `g_ovl15_tbl_8006c870` | `0x8006C870` | `u32[]` | Persistent event, weekday, season, festival & heart bitset (`hm_event_flag_get`/`set`) |
-| `g_farm_calendar_clock_80070cf2` | `0x80070CF2` | `HmCalendarClock` | Season, day, weekday, clock ticks, and today/tomorrow weather state |
-| `g_core_player_state_80071a00` | `0x80071A00` | `HmPlayerState` | Farmer stamina, fatigue, equipped tool (`HmToolId`), gold, flags, and 3D coords |
-| `g_ovl15_diary_save_slots_801376e0` | `0x801376E0` | `HmSaveSlotSummary[3]` | Slot summary cache populated by `OVL_part15_id10.EXE` |
+| `g_core_engine_state` | `0x8005E384` | `HmEngineState` | Primary VSync callback (`vsync_cb`), high-RAM arena pointer, active display context |
+| `g_cd_afile_toc_head` | `0x80048B40` | `HmAfileTocEntry` | Resident `A_FILE.HDT` offset table loaded at boot (`hm_cd_init_afile_system`) |
+| `g_cd_xa_channel_table` | `0x80049A80` | `u16[]` | CD-XA stream duration, file index, and channel table (`STR/01..04.XA`) |
+| `g_audio_spu_tick_vab_async_prepare_table` | `0x80049370` | `u32[]` | Part 9 `pBAV` VH/VB and `pQES` SEQ relative offset table |
+| `g_hm_event_flags_bitset` | `0x8006C870` | `u32[]` | Persistent event, weekday, season, festival & heart bitset (`hm_event_flag_get`/`set`) |
+| `g_farm_calendar_clock` | `0x80070CF2` | `HmCalendarClock` | Season, day, weekday, clock ticks, and today/tomorrow weather state |
+| `g_core_player_state` | `0x80071A00` | `HmPlayerState` | Farmer stamina, fatigue, equipped tool (`HmToolId`), gold, flags, and 3D coords |
+| `g_ovl15_diary_save_slots` | `0x801376E0` | `HmSaveSlotSummary[3]` | Slot summary cache populated by `OVL_part15_id10.EXE` |
 
 ---
 
