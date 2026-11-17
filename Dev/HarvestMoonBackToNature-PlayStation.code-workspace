@@ -1,23 +1,23 @@
 {
   "folders": [
     {
-      "name": "0. HMBackToNature-Recomp \u2014 Native Recomp (Dev)",
+      "name": "0. HMBackToNature-Recomp — Native Recomp (Dev)",
       "path": "../../../Personal/HMBackToNature-Recomp/Dev"
     },
     {
-      "name": "1. Harvest Moon: Back to Nature \u2014 Readable C (SLUS-01115)",
+      "name": "1. Harvest Moon: Back to Nature — Readable C (SLUS-01115)",
       "path": "../Corpus/readable"
     },
     {
-      "name": "2. Harvest Moon: Back to Nature \u2014 Schemas & Catalog",
+      "name": "2. Harvest Moon: Back to Nature — Schemas & Catalog",
       "path": "./schemas"
     },
     {
-      "name": "3. Harvest Moon: Back to Nature \u2014 Stage Docs",
+      "name": "3. Harvest Moon: Back to Nature — Stage Docs",
       "path": "./docs"
     },
     {
-      "name": "4. Harvest Moon: Back to Nature \u2014 Pipeline Scripts",
+      "name": "4. Harvest Moon: Back to Nature — Pipeline Scripts",
       "path": "./scripts"
     }
   ],
@@ -25,7 +25,7 @@
     "clangd.path": "${env:LOCALAPPDATA}/Microsoft/WinGet/Packages/LLVM.clangd_Microsoft.Winget.Source_8wekyb3d8bbwe/clangd_23.1.0/bin/clangd.exe",
     "clangd.arguments": [
       "--background-index",
-      "--compile-commands-dir=<REPO_ROOT>/Corpus/readable",
+      "--compile-commands-dir=${workspaceFolder:1. Harvest Moon: Back to Nature — Readable C (SLUS-01115)}",
       "--header-insertion=never",
       "--limit-results=0",
       "-j=4"
@@ -52,11 +52,14 @@
         "command": "python",
         "args": [
           "-B",
-          "<PROJECTS_PERSONAL>/R&D/Dev/tools/decomp/decomp_cli.py",
+          "../../Personal/R&D/Dev/tools/decomp/decomp_cli.py",
           "verify",
           "--track",
-          "<REPO_ROOT>"
+          "."
         ],
+        "options": {
+          "cwd": "${workspaceFolder:2. Harvest Moon: Back to Nature — Schemas & Catalog}/../.."
+        },
         "group": {
           "kind": "test",
           "isDefault": true
@@ -73,11 +76,14 @@
         "command": "python",
         "args": [
           "-B",
-          "<PROJECTS_PERSONAL>/R&D/Dev/tools/decomp/decomp_cli.py",
+          "../../Personal/R&D/Dev/tools/decomp/decomp_cli.py",
           "index",
           "--track",
-          "<REPO_ROOT>"
+          "."
         ],
+        "options": {
+          "cwd": "${workspaceFolder:2. Harvest Moon: Back to Nature — Schemas & Catalog}/../.."
+        },
         "group": {
           "kind": "build",
           "isDefault": false
@@ -94,11 +100,14 @@
         "command": "python",
         "args": [
           "-B",
-          "<PROJECTS_PERSONAL>/R&D/Dev/tools/decomp/decomp_cli.py",
+          "../../Personal/R&D/Dev/tools/decomp/decomp_cli.py",
           "bundle",
           "--track",
-          "<REPO_ROOT>"
+          "."
         ],
+        "options": {
+          "cwd": "${workspaceFolder:2. Harvest Moon: Back to Nature — Schemas & Catalog}/../.."
+        },
         "group": {
           "kind": "build",
           "isDefault": false
@@ -115,11 +124,14 @@
         "command": "python",
         "args": [
           "-B",
-          "<PROJECTS_PERSONAL>/R&D/Dev/tools/decomp/decomp_cli.py",
+          "../../Personal/R&D/Dev/tools/decomp/decomp_cli.py",
           "assemble",
           "--track",
-          "<REPO_ROOT>"
+          "."
         ],
+        "options": {
+          "cwd": "${workspaceFolder:2. Harvest Moon: Back to Nature — Schemas & Catalog}/../.."
+        },
         "group": {
           "kind": "build",
           "isDefault": true
@@ -136,11 +148,14 @@
         "command": "python",
         "args": [
           "-B",
-          "<PROJECTS_PERSONAL>/R&D/Dev/tools/decomp/decomp_cli.py",
+          "../../Personal/R&D/Dev/tools/decomp/decomp_cli.py",
           "workspace",
           "--track",
-          "<REPO_ROOT>"
+          "."
         ],
+        "options": {
+          "cwd": "${workspaceFolder:2. Harvest Moon: Back to Nature — Schemas & Catalog}/../.."
+        },
         "group": {
           "kind": "build",
           "isDefault": false
@@ -157,8 +172,11 @@
         "command": "python",
         "args": [
           "-B",
-          "<REPO_ROOT>/Dev/scripts/build_and_verify_d4.py"
+          "Dev/scripts/build_and_verify_d4.py"
         ],
+        "options": {
+          "cwd": "${workspaceFolder:2. Harvest Moon: Back to Nature — Schemas & Catalog}/../.."
+        },
         "group": {
           "kind": "build",
           "isDefault": false

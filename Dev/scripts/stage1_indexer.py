@@ -1,10 +1,11 @@
-# @module: R&D.decomps.ps1.harvest-moon-btn.scripts.stage1_indexer
+# @module: HarvestMoonBackToNature-PlayStation.Dev.scripts.stage1_indexer
 # @purpose: Stage 1 call-graph, Tarjan SCC wave, DAT_* global, and domain-cluster indexer for Harvest Moon: Back to Nature (SLUS-01115)
-# @depends-on: json, re, struct, sys, collections, pathlib
+# @depends-on: argparse, json, re, struct, sys, collections, pathlib
 # @exports: memory_region, compute_waves, classify_domain, main
 
 from __future__ import annotations
 
+import argparse
 import json
 import re
 import struct
@@ -12,8 +13,7 @@ import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
-ROOT = Path(r"<PROJECTS_PERSONAL>/R&D\decomps\ps1\harvest-moon-btn")
-STANDALONE, DECOMPILED, SCHEMAS = ROOT / "standalone", ROOT / "standalone" / "decompiled", ROOT / "schemas"
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
 DAT_RE = re.compile(r"\b(DAT_[0-9a-fA-F]+)\b")
 DAT_CTX_RE = re.compile(r"([^\n;]{0,48})\b(DAT_[0-9a-fA-F]+)\b([^\n;]{0,36})")
@@ -32,49 +32,39 @@ DIRECT_MMIO = {
     "DMA_CDROM_MADR": 0x1F8010B0, "DMA_CDROM_BCR": 0x1F8010B4, "DMA_CDROM_CHCR": 0x1F8010B8,
     "DMA_SPU_MADR": 0x1F8010C0, "DMA_SPU_BCR": 0x1F8010C4, "DMA_SPU_CHCR": 0x1F8010C8,
     "DMA_OTC_MADR": 0x1F8010E0, "DMA_OTC_BCR": 0x1F8010E4, "DMA_OTC_CHCR": 0x1F8010E8,
-    "TMR_DOTCLOCK_VAL": 0x1F801100, "TMR_DOTCLOCK_MODE": 0x1F801104, "TMR_DOTCLOCK_MAX": 0x1F801108,
-    "TMR_HRETRACE_VAL": 0x1F801110, "TMR_HRETRACE_MODE": 0x1F801114, "TMR_HRETRACE_MAX": 0x1F801118,
-    "TMR_SYSCLOCK_VAL": 0x1F801120, "TMR_SYSCLOCK_MODE": 0x1F801124, "TMR_SYSCLOCK_MAX": 0x1F801128,
-    "CDROM_REG0": 0x1F801800, "CDROM_REG1": 0x1F801801, "CDROM_REG2": 0x1F801802, "CDROM_REG3": 0x1F801803,
+    "TMR_DOTCLOCK_VAL": 0x1F801100, "TMR_DOTCLOCK_MODE": 0x1F801104, "TMR_DOTCLOCK_MAX": 0x1F801108, "TMR_HRETRACE_VAL": 0x1F801110,
+    "TMR_HRETRACE_MODE": 0x1F801114, "TMR_HRETRACE_MAX": 0x1F801118, "TMR_SYSCLOCK_VAL": 0x1F801120, "TMR_SYSCLOCK_MODE": 0x1F801124,
+    "TMR_SYSCLOCK_MAX": 0x1F801128, "CDROM_REG0": 0x1F801800, "CDROM_REG1": 0x1F801801, "CDROM_REG2": 0x1F801802, "CDROM_REG3": 0x1F801803,
     "GPU_REG0": 0x1F801810, "GPU_REG1": 0x1F801814, "MDEC_REG0": 0x1F801820, "MDEC_REG1": 0x1F801824,
     "SPU_MAIN_VOL_L": 0x1F801D80, "SPU_MAIN_VOL_R": 0x1F801D82, "SPU_REVERB_OUT_L": 0x1F801D84, "SPU_REVERB_OUT_R": 0x1F801D86,
-    "SPU_VOICE_KEY_ON": 0x1F801D88, "SPU_VOICE_KEY_OFF": 0x1F801D8C, "SPU_VOICE_CHN_FM_MODE": 0x1F801D90,
-    "SPU_VOICE_CHN_NOISE_MODE": 0x1F801D94, "SPU_VOICE_CHN_REVERB_MODE": 0x1F801D98, "SPU_CTRL_REG_CPUCNT": 0x1F801DAA,
-    "SPU_STATUS_REG_SPUSTAT": 0x1F801DAE, "SPU_DELAY": 0x1F801DB6, "DAT_1f801c0a": 0x1F801C0A,
+    "SPU_VOICE_KEY_ON": 0x1F801D88, "SPU_VOICE_KEY_OFF": 0x1F801D8C, "SPU_VOICE_CHN_FM_MODE": 0x1F801D90, "SPU_VOICE_CHN_NOISE_MODE": 0x1F801D94,
+    "SPU_VOICE_CHN_REVERB_MODE": 0x1F801D98, "SPU_CTRL_REG_CPUCNT": 0x1F801DAA, "SPU_STATUS_REG_SPUSTAT": 0x1F801DAE, "SPU_DELAY": 0x1F801DB6, "DAT_1f801c0a": 0x1F801C0A,
 }
 DIRECT_MMIO_RE = re.compile(r"\b(" + "|".join(DIRECT_MMIO) + r")\b")
 SLOT_B_PROGS = frozenset({"OVL_part15_id10.EXE", "OVL_part30_id0f.EXE"})
 
 
-def load_json(path: Path) -> dict | list:
-    return json.loads(path.read_text(encoding="utf-8"))
-
-
+def load_json(path: Path) -> dict | list: return json.loads(path.read_text(encoding="utf-8"))
 def write_json(path: Path, obj: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(obj, indent=2) + "\n", encoding="utf-8")
 
 
+_MEM_REGIONS = (
+    (0x1F800000, "bios_kernel_low"), (0x1F800400, "scratchpad_1f800000"),
+    (0x1F801000, "low_ram_other"), (0x1F804000, "mmio_1f801000"),
+    (0x80010000, "low_ram_other"), (0x80011270, "resident_rodata_pre"),
+    (0x80048B10, "resident_text"), (0x8005E800, "resident_data"),
+    (0x800B7E20, "resident_bss"), (0x8012DDE8, "slot_a_part11"),
+    (0x80146000, "slot_b_overlay"),
+)
+
+
 def memory_region(addr: int) -> str:
-    if addr < 0x1F800000:
-        return "bios_kernel_low"
-    if addr <= 0x1F8003FF:
-        return "scratchpad_1f800000"
-    if 0x1F801000 <= addr <= 0x1F803FFF:
-        return "mmio_1f801000"
-    if addr < 0x80010000:
-        return "low_ram_other"
-    if addr < 0x80011270:
-        return "resident_rodata_pre"
-    if addr < 0x80048B10:
-        return "resident_text"
-    if addr < 0x8005E800:
-        return "resident_data"
-    if addr < 0x800B7E20:
-        return "resident_bss"
-    if addr < 0x8012DDE8:
-        return "slot_a_part11"
-    return "slot_b_overlay" if addr < 0x80146000 else "high_ram_arena"
+    for limit, name in _MEM_REGIONS:
+        if addr < limit:
+            return name
+    return "high_ram_arena"
 
 
 def resolve_ptr_mmio(exe_bytes: bytes, text_addr: int, text_size: int, sym: str) -> int | None:
@@ -95,89 +85,67 @@ def scan_dat_patterns(txt: str) -> dict[str, set[str]]:
     for m in DAT_CTX_RE.finditer(txt):
         pre, sym, post = m.group(1), m.group(2), m.group(3)
         pats = out[sym]
-        if pre.rstrip().endswith("&"):
-            pats.add("&addr")
-        if cm := CAST_END_RE.search(pre):
-            pats.add(f"*({re.sub(r'\s+', ' ', cm.group(1).strip())})")
-        if re.match(r"\s*\+\s*[^;,\)]*\*", post):
-            pats.add("indexed_stride")
-        elif re.match(r"\s*\+\s*(?:0x[0-9a-fA-F]+|\d+)", post):
-            pats.add("offset_add")
-        elif re.match(r"\s*\[", post):
-            pats.add("array_index")
-        if re.match(r"\s*=(?!=)", post):
-            pats.add("scalar_write")
-        elif not pre.rstrip().endswith("&"):
-            pats.add("scalar_read")
+        is_addr = pre.rstrip().endswith("&")
+        if is_addr: pats.add("&addr")
+        if cm := CAST_END_RE.search(pre): pats.add(f"*({re.sub(r'\s+', ' ', cm.group(1).strip())})")
+        if re.match(r"\s*\+\s*[^;,\)]*\*", post): pats.add("indexed_stride")
+        elif re.match(r"\s*\+\s*(?:0x[0-9a-fA-F]+|\d+)", post): pats.add("offset_add")
+        elif re.match(r"\s*\[", post): pats.add("array_index")
+        if re.match(r"\s*=(?!=)", post): pats.add("scalar_write")
+        elif not is_addr: pats.add("scalar_read")
     return out
 
 
 def compute_waves(funcs: dict[str, dict]) -> tuple[dict[str, int], list[list[str]]]:
     sys.setrecursionlimit(10000)
-
-    def visible(src_p: str, dst_p: str) -> bool:
-        return dst_p in (src_p, "SLUS_011.15") or (src_p in SLOT_B_PROGS and dst_p == "OVL_part11_id06.EXE")
-
+    visible = lambda sp, dp: dp in (sp, "SLUS_011.15") or (sp in SLOT_B_PROGS and dp == "OVL_part11_id06.EXE")
     adj = {
-        k: ([] if n["is_sdk"] else [
-            c for c in n["direct_callees"]
-            if c != k and not funcs[c]["is_sdk"] and visible(n["program"], funcs[c]["program"])
-        ])
+        k: ([] if n["is_sdk"] else [c for c in n["direct_callees"] if c != k and not funcs[c]["is_sdk"] and visible(n["program"], funcs[c]["program"])])
         for k, n in funcs.items()
     }
     idx_counter, indices, low, stack, on_stack, sccs, comp_of = 0, {}, {}, [], set(), [], {}
 
     def strong(v: str) -> None:
         nonlocal idx_counter
-        indices[v] = low[v] = idx_counter
-        idx_counter += 1
-        stack.append(v)
-        on_stack.add(v)
+        indices[v] = low[v] = idx_counter; idx_counter += 1
+        stack.append(v); on_stack.add(v)
         for w in adj[v]:
-            if w not in indices:
-                strong(w)
-                low[v] = min(low[v], low[w])
-            elif w in on_stack:
-                low[v] = min(low[v], indices[w])
+            if w not in indices: strong(w); low[v] = min(low[v], low[w])
+            elif w in on_stack: low[v] = min(low[v], indices[w])
         if low[v] == indices[v]:
             cid, comp = len(sccs), []
             while True:
-                w = stack.pop()
-                on_stack.remove(w)
-                comp_of[w] = cid
-                comp.append(w)
-                if w == v:
-                    break
+                w = stack.pop(); on_stack.remove(w); comp_of[w] = cid; comp.append(w)
+                if w == v: break
             sccs.append(comp)
 
     for k in sorted(funcs):
-        if k not in indices:
-            strong(k)
-
+        if k not in indices: strong(k)
     c_wave: dict[int, int] = {}
     for cid, comp in enumerate(sccs):
         c_wave[cid] = max((c_wave[comp_of[w]] for u in comp for w in adj[u] if comp_of[w] != cid), default=-1) + 1
     return {k: c_wave[comp_of[k]] for k in funcs}, [sorted(c) for c in sccs if len(c) > 1]
 
 
+_PART11_BANDS = (
+    (0x800C4000, 0x800D3FFF, "farm_crops_field"), (0x80110000, 0x80113CCF, "farm_crops_field"),
+    (0x800D4000, 0x800DBFFF, "render_gte_sprites"), (0x800DC000, 0x800E3FFF, "animals_livestock"),
+    (0x80108000, 0x8010FFFF, "animals_livestock"), (0x800E4000, 0x800F7FFF, "npc_dialogue_events"),
+    (0x800F8000, 0x80103FFF, "ui_inventory_hud"), (0x80113CD0, 0x8011FFFF, "ui_inventory_hud"),
+)
+
+
 def classify_part11(addr: int, cnames: set[str], dats: set[str]) -> str:
     dlg_api = {"FUN_8002261c", "FUN_800226b0", "FUN_80022738", "FUN_800226a4", "FUN_800226d8", "FUN_80022580"}
     if 0x800BB000 <= addr <= 0x800C3FFF:
         return "cd_afile_overlays" if ("FUN_80014bcc" in cnames or any(c.startswith(("Cd", "CD_")) for c in cnames)) else "core_mainloop"
-    if 0x800C4000 <= addr <= 0x800D3FFF or 0x80110000 <= addr <= 0x80113CCF:
-        return "farm_crops_field"
-    if 0x800D4000 <= addr <= 0x800DBFFF:
-        return "render_gte_sprites"
-    if 0x800DC000 <= addr <= 0x800E3FFF or 0x80108000 <= addr <= 0x8010FFFF:
-        return "animals_livestock"
-    if 0x800E4000 <= addr <= 0x800F7FFF:
-        return "npc_dialogue_events"
-    if 0x800F8000 <= addr <= 0x80103FFF or 0x80113CD0 <= addr <= 0x8011FFFF:
-        return "ui_inventory_hud"
+    for lo, hi, dom in _PART11_BANDS:
+        if lo <= addr <= hi:
+            return dom
     return "npc_dialogue_events" if (cnames & dlg_api or "DAT_80129560" in dats) else "overlay_part11_id06"
 
 
-def classify_domain(node: dict, cnames: set[str]) -> str:
+def classify_domain(node: dict, cnames: set[str], strings: list[str] | None = None) -> str:
     if node["is_sdk"]:
         return "sdk"
     prog, addr = node["program"], int(node["address"], 16)
@@ -186,7 +154,7 @@ def classify_domain(node: dict, cnames: set[str]) -> str:
     if prog != "SLUS_011.15":
         return "overlay_" + prog.replace("OVL_", "").replace(".EXE", "")
 
-    strs = " ".join(node["strings"])
+    strs = " ".join(node.get("strings", ()) if strings is None else strings)
     mmio_syms = {m["symbol"] for m in node["mmio_accesses"]}
     if any(c.startswith(("Cd", "CD_")) for c in cnames) or "A_FILE" in strs or 0x80014554 <= addr <= 0x80014E8F or 0x80033814 <= addr <= 0x80036AB4:
         return "cd_afile_overlays"
@@ -202,25 +170,52 @@ def classify_domain(node: dict, cnames: set[str]) -> str:
     return "npc_dialogue_events" if (0x8001AD00 <= addr <= 0x8001AFFF or 0x80022000 <= addr <= 0x80024A4C) else "core_mainloop"
 
 
-def main() -> None:
-    master = load_json(STANDALONE / "reports" / "decomp_master_summary.json")
-    ovl_manifest = load_json(STANDALONE / "overlays" / "overlays_manifest.json")
-    ovl_callers = load_json(STANDALONE / "assets" / "overlay_callers.json")
-    slus_bytes = (STANDALONE / "disc" / "files" / "SLUS_011.15").read_bytes()
+def _resolve_standalone(data_dir: Path | None) -> Path:
+    base = data_dir.resolve() if data_dir else (REPO_ROOT / "Corpus")
+    return base if (base / "decompiled").is_dir() else (base / "standalone")
+
+
+def _emit_missing_media(standalone: Path, log_dir: Path | None) -> int:
+    payload = {"status": "MISSING_CORPUS_MEDIA", "missingPath": str(standalone), "message": "Decompiled standalone corpus not found."}
+    msg = json.dumps(payload, indent=2)
+    print(msg, file=sys.stderr)
+    if log_dir:
+        log_dir.mkdir(parents=True, exist_ok=True)
+        (log_dir / "stage1_indexer.log").write_text(msg + "\n", encoding="utf-8")
+    return 1
+
+
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(description="Stage 1 call-graph, wave, global, and cluster indexer.")
+    ap.add_argument("--data-dir", type=Path, default=None, help="Corpus/data directory containing standalone/.")
+    ap.add_argument("--schemas-dir", type=Path, default=REPO_ROOT / "Dev" / "schemas", help="Output schemas directory.")
+    ap.add_argument("--log-dir", type=Path, default=None, help="Optional log directory.")
+    args = ap.parse_args(argv)
+    standalone = _resolve_standalone(args.data_dir)
+    decompiled, schemas = standalone / "decompiled", args.schemas_dir.resolve()
+    master_p = standalone / "reports" / "decomp_master_summary.json"
+    if not (decompiled.is_dir() and master_p.is_file()):
+        return _emit_missing_media(standalone, args.log_dir)
+
+    master = load_json(master_p)
+    ovl_manifest = load_json(standalone / "overlays" / "overlays_manifest.json")
+    ovl_callers = load_json(standalone / "assets" / "overlay_callers.json")
+    slus_bytes = (standalone / "disc" / "files" / "SLUS_011.15").read_bytes()
     _pc0, _gp0, slus_t_addr, slus_t_size = struct.unpack_from("<4I", slus_bytes, 0x10)
 
     progs = ["SLUS_011.15"] + [o["name"] for o in ovl_manifest]
     funcs, by_prog_addr, by_addr = {}, {}, defaultdict(list)
-    sdk_names, raw_callees, c_texts, callee_names, str_counts = set(), {}, {}, {}, {}
+    sdk_names, raw_callees, c_texts, callee_names, str_counts, in_mem_strings = set(), {}, {}, {}, {}, {}
 
     for prog in progs:
-        pdir = DECOMPILED / prog
+        pdir = decompiled / prog
         fj = load_json(pdir / "functions.json")
         str_counts[prog] = len(load_json(pdir / "strings.json"))
         for f in fj["functions"]:
             a_hex = f["address"].lower()
             key = f"{prog}@{a_hex[2:]}"
-            if f["is_psyq_sdk"]:
+            is_sdk = bool(f.get("is_sdk", f.get("is_psyq_sdk", False)))
+            if is_sdk:
                 sdk_names.add(f["name"])
             by_prog_addr[(prog, a_hex)] = key
             by_addr[a_hex].append(key)
@@ -238,13 +233,14 @@ def main() -> None:
             for lit in MMIO_LIT_RE.findall(txt):
                 mmio_seen[(f"0x{lit.lower()}", f"0x{lit.lower()}")] = "literal"
 
+            in_mem_strings[key] = list(dict.fromkeys(f.get("strings", ())))
             funcs[key] = {
                 "program": prog, "address": a_hex, "ghidra_name": f["name"], "safe_name": f["safe_name"],
-                "size": f["size"], "signature": f["signature"], "is_sdk": f["is_psyq_sdk"],
+                "size": f["size"], "signature": f["signature"], "is_sdk": is_sdk,
                 "is_gte": bool(f["uses_gte"] or gte_calls), "uses_gte_flag": f["uses_gte"],
                 "c_lines": len(txt.splitlines()), "decomp_ok": "DECOMPILE FAILED" not in txt,
                 "direct_callers": [], "direct_callees": [], "unresolved_callees": [],
-                "dat_refs": sorted(set(DAT_RE.findall(txt))), "strings": list(dict.fromkeys(f["strings"])),
+                "dat_refs": sorted(set(DAT_RE.findall(txt))), "strings": [],
                 "gte_calls": gte_calls, "wave": 0,
                 "mmio_accesses": sorted([{"symbol": s, "address": a, "kind": k} for (s, a), k in mmio_seen.items()], key=lambda x: (x["address"], x["symbol"])),
             }
@@ -336,7 +332,7 @@ def main() -> None:
 
     domains, func_to_domain = defaultdict(list), {}
     for key in sorted(funcs):
-        dom = classify_domain(funcs[key], callee_names[key])
+        dom = classify_domain(funcs[key], callee_names[key], in_mem_strings[key])
         domains[dom].append(key)
         func_to_domain[key] = dom
 
@@ -353,11 +349,11 @@ def main() -> None:
     }
     all_w, ns_w = Counter(n["wave"] for n in funcs.values()), Counter(n["wave"] for n in funcs.values() if not n["is_sdk"])
 
-    write_json(SCHEMAS / "call_graph.json", {
+    sdk_cnt = sum(1 for n in funcs.values() if n["is_sdk"])
+    write_json(schemas / "call_graph.json", {
         "meta": {
             "profile": master.get("profile", "harvest-moon-btn"), "total_functions": len(funcs),
-            "sdk_functions": sum(1 for n in funcs.values() if n["is_sdk"]),
-            "non_sdk_functions": sum(1 for n in funcs.values() if not n["is_sdk"]),
+            "sdk_functions": sdk_cnt, "non_sdk_functions": len(funcs) - sdk_cnt,
             "gte_functions": sum(1 for n in funcs.values() if n["is_gte"]),
             "uses_gte_flag_functions": sum(1 for n in funcs.values() if n["uses_gte_flag"]),
             "mmio_functions": sum(1 for n in funcs.values() if n["mmio_accesses"]),
@@ -371,17 +367,22 @@ def main() -> None:
         },
         "functions": {k: funcs[k] for k in sorted(funcs)},
     })
-    write_json(SCHEMAS / "globals_index.json", {
+    write_json(schemas / "globals_index.json", {
         "meta": {"total_globals": len(globals_out), "slus_text_addr": f"0x{slus_t_addr:08x}", "slus_text_size": f"0x{slus_t_size:08x}", "region_counts": dict(sorted(region_counts.items())), "top_fanout_globals": top_fanout},
         "globals": globals_out,
     })
-    write_json(SCHEMAS / "clusters.json", {
-        "meta": {"total_functions": len(funcs), "sdk_functions": sum(1 for n in funcs.values() if n["is_sdk"]), "non_sdk_functions": sum(1 for n in funcs.values() if not n["is_sdk"]), "domain_count": len(domain_summary)},
+    write_json(schemas / "clusters.json", {
+        "meta": {"total_functions": len(funcs), "sdk_functions": sdk_cnt, "non_sdk_functions": len(funcs) - sdk_cnt, "domain_count": len(domain_summary)},
         "wave_distribution": {"all": {str(w): all_w[w] for w in sorted(all_w)}, "non_sdk": {str(w): ns_w[w] for w in sorted(ns_w)}},
         "domain_summary": domain_summary, "function_to_domain": func_to_domain, "domains": {d: domains[d] for d in sorted(domains)},
     })
-    print(f"OK: functions={len(funcs)}, globals={len(globals_out)}, domains={len(domain_summary)}, max_wave={max(all_w)}")
+    summary = f"OK: functions={len(funcs)}, globals={len(globals_out)}, domains={len(domain_summary)}, max_wave={max(all_w)}"
+    if args.log_dir:
+        args.log_dir.mkdir(parents=True, exist_ok=True)
+        (args.log_dir / "stage1_indexer.log").write_text(summary + "\n", encoding="utf-8")
+    print(summary)
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

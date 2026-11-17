@@ -3,7 +3,7 @@
 
 #include "engine_and_afile.h"
 
-/* PS1 GPU rendering primitives (PS1 ABI) */
+/* PS1 GPU rendering primitives (PS1 MIPS32 LE LP32) */
 typedef struct POLY_F3 {
     u32 tag; /* +0x00 */
     u8 r0; /* +0x04 */

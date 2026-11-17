@@ -1,6 +1,6 @@
 # Harvest Moon: Back to Nature (USA / `SLUS-01115`) — Stage 3 Function Naming & Catalog
 
-Stage 3 merges the `225` typed Stage 2 seed anchors ([`schemas/anchor_functions.json`](../schemas/anchor_functions.json)) and all `6` bottom-up Stage 3 shards (`2,350` functions) via `decomp_cli.py bundle` ([`stage2_3_builder.py`](../../../../Dev/tools/decomp/stage2_3_builder.py)) into [`schemas/functions_catalog.json`](../schemas/functions_catalog.json), achieving **`2,575 / 2,575`** (`100%`) coverage of all non-SDK functions in [`schemas/call_graph.json`](../schemas/call_graph.json) (`SLUS_011.15`: `428`, `13` overlays: `2,147`; `0` missing, `0` extra).
+Stage 3 merges the `225` typed Stage 2 seed anchors ([schemas/anchor_functions.json](../../schemas/anchor_functions.json)) and all `6` bottom-up Stage 3 shards (`2,350` functions) via `decomp_cli.py bundle` (`RD_DECOMP_TOOLS/stage2_3_builder.py`) into [schemas/functions_catalog.json](../../schemas/functions_catalog.json), achieving **`2,575 / 2,575`** (`100%`) coverage of all non-SDK functions in [schemas/call_graph.json](../../schemas/call_graph.json) (`SLUS_011.15`: `428`, `13` overlays: `2,147`; `0` missing, `0` extra).
 
 ---
 
@@ -8,19 +8,19 @@ Stage 3 merges the `225` typed Stage 2 seed anchors ([`schemas/anchor_functions.
 
 | Source File | Functions Merged | Role / Scope |
 | --- | ---: | --- |
-| [`schemas/anchor_functions.json`](../schemas/anchor_functions.json) | 225 | Typed seed anchors across all `14` images (`SLUS_011.15`: `79`, `OVL_part11_id06`: `94`, `OVL_part15`: `6`, `OVL_part10`/`31`: `5` ea, `9` overlays: `4` ea) |
-| [`schemas/shards/stage3_01_slus_resident.json`](../schemas/shards/stage3_01_slus_resident.json) | 349 | `SLUS_011.15` resident domains: `render_gte_sprites` (`104`), `npc_dialogue_events` (`74`), `audio_spu_vab` (`63`), `ui_inventory_hud` (`56`), `core_mainloop` (`24`), `cd_afile_overlays` (`17`), `input_memcard` (`11`) |
-| [`schemas/shards/stage3_02_p11_ui_core.json`](../schemas/shards/stage3_02_p11_ui_core.json) | 483 | `OVL_part11_id06.EXE`: `ui_inventory_hud` (`321`), `core_mainloop` (`96`), `overlay_part11_id06` (`56`), `cd_afile_overlays` (`10`) |
-| [`schemas/shards/stage3_03_p11_farm_gfx.json`](../schemas/shards/stage3_03_p11_farm_gfx.json) | 404 | `OVL_part11_id06.EXE`: `farm_crops_field` (`281`), `render_gte_sprites` (`123`) |
-| [`schemas/shards/stage3_04_p11_npc_events.json`](../schemas/shards/stage3_04_p11_npc_events.json) | 277 | `OVL_part11_id06.EXE`: `npc_dialogue_events` (`277`) |
-| [`schemas/shards/stage3_05_p11_animals.json`](../schemas/shards/stage3_05_p11_animals.json) | 283 | `OVL_part11_id06.EXE`: `animals_livestock` (`283`) |
-| [`schemas/shards/stage3_06_overlays_other.json`](../schemas/shards/stage3_06_overlays_other.json) | 554 | Remaining `12` overlays: `part15` (`132`), `part19` (`72`), `part21` (`63`), `part25` (`61`), `part17` (`57`), `part23` (`51`), `part27` (`49`), `part30` (`26`), `part28` (`23`), `part10` (`18`), `part08` (`1`), `part31` (`1`) |
+| [schemas/anchor_functions.json](../../schemas/anchor_functions.json) | 225 | Typed seed anchors across all `14` images (`SLUS_011.15`: `79`, `OVL_part11_id06`: `94`, `OVL_part15`: `6`, `OVL_part10`/`31`: `5` ea, `9` overlays: `4` ea) |
+| [schemas/shards/stage3_01_slus_resident.json](../../schemas/shards/stage3_01_slus_resident.json) | 349 | `SLUS_011.15` resident domains: `render_gte_sprites` (`104`), `npc_dialogue_events` (`74`), `audio_spu_vab` (`63`), `ui_inventory_hud` (`56`), `core_mainloop` (`24`), `cd_afile_overlays` (`17`), `input_memcard` (`11`) |
+| [schemas/shards/stage3_02_p11_ui_core.json](../../schemas/shards/stage3_02_p11_ui_core.json) | 483 | `OVL_part11_id06.EXE`: `ui_inventory_hud` (`321`), `core_mainloop` (`96`), `overlay_part11_id06` (`56`), `cd_afile_overlays` (`10`) |
+| [schemas/shards/stage3_03_p11_farm_gfx.json](../../schemas/shards/stage3_03_p11_farm_gfx.json) | 404 | `OVL_part11_id06.EXE`: `farm_crops_field` (`281`), `render_gte_sprites` (`123`) |
+| [schemas/shards/stage3_04_p11_npc_events.json](../../schemas/shards/stage3_04_p11_npc_events.json) | 277 | `OVL_part11_id06.EXE`: `npc_dialogue_events` (`277`) |
+| [schemas/shards/stage3_05_p11_animals.json](../../schemas/shards/stage3_05_p11_animals.json) | 283 | `OVL_part11_id06.EXE`: `animals_livestock` (`283`) |
+| [schemas/shards/stage3_06_overlays_other.json](../../schemas/shards/stage3_06_overlays_other.json) | 554 | Remaining `12` overlays: `part15` (`132`), `part19` (`72`), `part21` (`63`), `part25` (`61`), `part17` (`57`), `part23` (`51`), `part27` (`49`), `part30` (`26`), `part28` (`23`), `part10` (`18`), `part08` (`1`), `part31` (`1`) |
 | **Total Non-SDK Catalog** | **2,575** | **`0` missing, `0` extra** vs `call_graph.json` (`3,828` total minus `1,253` `is_sdk=true`) |
 
-**Validation Results ([`verify_stage2_stage3.py`](../scripts/verify_stage2_stage3.py) Check 3 & `decomp_cli.py verify --tier D3`):**
-- **Global Uniqueness:** `0` duplicate names across all `2,575` game functions, `0` collisions with `1,253` PS1 SDK `4.70` SDK symbols, and `0` collisions with `3,497` `globals_map.json` `g_*` globals.
+**Validation Results ([verify_stage2_stage3.py](../../scripts/verify_stage2_stage3.py) Check 3 & `decomp_cli.py verify --tier D3`):**
+- **Global Uniqueness:** `0` duplicate names across all `2,575` game functions, `0` collisions with `1,253` PS1 SDK symbols, and `0` collisions with `3,497` `globals_map.json` `g_*` globals.
 - **Identifier & Summary Hygiene:** `0` banned placeholders (`FUN_*`, `fn_80*`, `func_80*`, `sub_80*`, `unk_*`, `todo_*`, `helper_<N>`), `0` `param_<N>` parameter placeholders, `100%` `summary` coverage, and `0` parameter-count mismatches against Ghidra signatures.
-- **MIPS32 LP32 Type Safety:** `100%` of `return_type` and `params[].type` values validate against [`schemas/types/*.h`](../schemas/types/header_order.json) via `parse_type_headers(..., pointer_bytes=4)` (`0` invalid base types, `0` invalid array dimensions).
+- **MIPS32 LP32 Type Safety:** `100%` of `return_type` and `params[].type` values validate against [schemas/types/*.h](../../schemas/types/header_order.json) via `parse_type_headers(..., pointer_bytes=4)` (`0` invalid base types, `0` invalid array dimensions).
 
 ---
 
@@ -63,7 +63,7 @@ All `6` shards were named bottom-up from wave `0` leaves to wave `24` top-level 
 | **Non-SDK Functions** | 804 | 506 | 289 | 220 | 128 | 118 | 183 | 188 | 75 | 59 | 3 | 2 | **2,575** |
 
 1. **Resident Core & Asset/Overlay Dispatch (`SLUS_011.15`):**
-   `hm_main` (`0x80011370`, wave `3`) initializes PS1 SDK `4.70`, pads, SPU/VAB (`audio_spu_vab`), `HmDisplayOtCtx` double-buffered GPU queues (`g_gfx_disp_ctx_buf0_8005e5e8`), and `hm_prng_next` (`0x80012a34`, wave `0`), then drives `hm_afile_load_entry_sync` (`0x800145f0`, wave `1`) across `22` overlay/data callers alongside `hm_sprite_init_0x0e_anim` (`0x80015704`), `hm_event_flag_get` (`0x8001af44`), and `hm_dialogue_set_window_state` (`0x8002261c`).
+   `hm_main` (`0x80011370`, wave `3`) initializes PS1 hardware subsystems, pads, SPU/VAB (`audio_spu_vab`), `HmDisplayOtCtx` double-buffered GPU queues (`g_gfx_disp_ctx_buf0_8005e5e8`), and `hm_prng_next` (`0x80012a34`, wave `0`), then drives `hm_afile_load_entry_sync` (`0x800145f0`, wave `1`) across `22` overlay/data callers alongside `hm_sprite_init_0x0e_anim` (`0x80015704`), `hm_event_flag_get` (`0x8001af44`), and `hm_dialogue_set_window_state` (`0x8002261c`).
 2. **Master Gameplay Loop (`OVL_part11_id06.EXE` Waves `22..24`):**
    - **Wave `24`:** `hm_ovl11_load_area_resources` (`0x800bc3e8`, master area/mode loader) and `p11_core_tick_frame_gameplay_or_debug_cam` (`0x800c14a0`).
    - **Wave `23`:** `hm_ovl11_frame_render_and_sim` (`0x800bcd28`), `hm_ovl11_tick_all_world_entities` (`0x800c162c`), and `hm_ovl11_update_npc_schedules` (`0x800ec52c`).

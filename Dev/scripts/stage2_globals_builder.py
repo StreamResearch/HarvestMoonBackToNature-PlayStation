@@ -5,7 +5,10 @@
 
 from __future__ import annotations
 
+import argparse
+import importlib
 import json
+import os
 import re
 import sys
 from collections import Counter, defaultdict
@@ -13,10 +16,20 @@ from pathlib import Path
 from typing import Any
 
 TRACK_DIR = Path(__file__).resolve().parents[1]
-REPO_ROOT = Path(__file__).resolve().parents[4]
-sys.path.insert(0, str(REPO_ROOT / "Dev" / "tools" / "decomp"))
+REPO_ROOT = TRACK_DIR.parent
 
-from stage2_3_builder import parse_type_headers, parse_type_spec  # noqa: E402
+
+def _resolve_decomp_tools(tools_dir: Path | None = None) -> Path:
+    raw = str(tools_dir) if tools_dir else os.environ.get("RD_DECOMP_TOOLS", "")
+    cand = Path(raw).resolve() if raw else (REPO_ROOT.parent.parent / "Personal" / "R&D" / "Dev" / "tools" / "decomp")
+    return (cand / "decomp") if (cand / "decomp" / "stage2_3_builder.py").is_file() else cand
+
+
+def _s23(tools_dir: Path | None = None) -> Any:
+    tdir = _resolve_decomp_tools(tools_dir)
+    if str(tdir) not in sys.path:
+        sys.path.insert(0, str(tdir))
+    return importlib.import_module("stage2_3_builder")
 
 RESIDENT_REGIONS = frozenset({
     "resident_bss", "resident_data", "resident_rodata_pre", "resident_text",
@@ -65,8 +78,9 @@ def assign_program_scope(entry: dict[str, Any]) -> str:
     return sorted(progs)[0] if progs else "resident"
 
 
-def calc_type_size(c_type: str, type_sizes: dict[str, tuple[int, int]], pb: int = 4) -> int:
-    base, pdepth, dims = parse_type_spec(c_type)
+def calc_type_size(c_type: str, type_sizes: dict[str, tuple[int, int]], pb: int = 4, parse_spec: Any = None) -> int:
+    fn = parse_spec or _s23().parse_type_spec
+    base, pdepth, dims = fn(c_type)
     if base not in type_sizes:
         raise ValueError(f"Unresolved C type {c_type!r} (base={base!r})")
     elem_sz = pb if pdepth > 0 else type_sizes[base][0]
@@ -148,8 +162,9 @@ def infer_standalone(entry: dict[str, Any], domain: str, max_gap: int) -> tuple[
 
 
 def lookup_field(c_type: str, offset: int, structs_by_name: dict[str, dict[str, Any]],
-                 type_sizes: dict[str, tuple[int, int]], pb: int = 4) -> tuple[str, str | None, int] | None:
-    base, pdepth, dims = parse_type_spec(c_type)
+                 type_sizes: dict[str, tuple[int, int]], pb: int = 4, parse_spec: Any = None) -> tuple[str, str | None, int] | None:
+    fn = parse_spec or _s23().parse_type_spec
+    base, pdepth, dims = fn(c_type)
     if pdepth > 0 or base not in type_sizes:
         return None
     if dims:
@@ -160,7 +175,7 @@ def lookup_field(c_type: str, offset: int, structs_by_name: dict[str, dict[str, 
         if rem == 0 and base not in structs_by_name:
             return (f"idx{idx}", base, elem_sz)
         if base in structs_by_name:
-            sub = lookup_field(base, rem, structs_by_name, type_sizes, pb)
+            sub = lookup_field(base, rem, structs_by_name, type_sizes, pb, fn)
             if sub:
                 return (f"idx{idx}_{sub[0]}", sub[1], sub[2])
             if rem == 0:
@@ -174,7 +189,7 @@ def lookup_field(c_type: str, offset: int, structs_by_name: dict[str, dict[str, 
         if foff <= offset < foff + fsz:
             if offset == foff:
                 return (f["name"], f["c_type"], fsz)
-            sub = lookup_field(f["c_type"], offset - foff, structs_by_name, type_sizes, pb)
+            sub = lookup_field(f["c_type"], offset - foff, structs_by_name, type_sizes, pb, fn)
             if sub:
                 return (f"{f['name']}_{sub[0]}", sub[1], sub[2])
             return (f"{f['name']}_p{offset - foff:x}", None, 0)
@@ -195,12 +210,13 @@ def load_overrides(path: Path) -> dict[str, dict[str, Any]]:
     return out
 
 
-def build_globals_map(track_dir: Path = TRACK_DIR) -> list[dict[str, Any]]:
+def build_globals_map(track_dir: Path = TRACK_DIR, tools_dir: Path | None = None) -> list[dict[str, Any]]:
+    s23 = _s23(tools_dir)
     schemas = track_dir / "schemas"
     gi = json.loads((schemas / "globals_index.json").read_text(encoding="utf-8"))["globals"]
     cl = json.loads((schemas / "clusters.json").read_text(encoding="utf-8"))
     func_to_domain = cl.get("function_to_domain", {})
-    parsed = parse_type_headers(schemas / "types", pointer_bytes=4)
+    parsed = s23.parse_type_headers(schemas / "types", pointer_bytes=4)
     type_sizes = parsed["type_sizes"]
     structs_by_name = {s["name"]: s for s in parsed["structs"]}
     overrides = load_overrides(schemas / "shards" / "globals_manual_overrides.json")
@@ -228,7 +244,7 @@ def build_globals_map(track_dir: Path = TRACK_DIR) -> list[dict[str, Any]]:
                 continue
             active_root = None
             if ov and ov.get("kind", "standalone") != "struct_member":
-                sz = calc_type_size(ov["c_type"], type_sizes)
+                sz = calc_type_size(ov["c_type"], type_sizes, parse_spec=s23.parse_type_spec)
                 if "size" in ov and int(ov["size"]) != sz:
                     raise ValueError(f"Override size mismatch at {addr_hex}: {ov['size']} != {sz}")
                 active_root = (addr, addr + sz, ov["c_type"], addr_hex)
@@ -263,10 +279,10 @@ def build_globals_map(track_dir: Path = TRACK_DIR) -> list[dict[str, Any]]:
                 off = addr - p_addr
                 nxt_addr = int(entries[i + 1]["address_int"]) if i + 1 < len(entries) else root_end
                 max_avail = max(1, min(root_end, nxt_addr) - addr)
-                field = lookup_field(p_ov["c_type"], off, structs_by_name, type_sizes)
+                field = lookup_field(p_ov["c_type"], off, structs_by_name, type_sizes, parse_spec=s23.parse_type_spec)
                 if ov and ov.get("c_type"):
                     ctype = ov["c_type"]
-                    sz = calc_type_size(ctype, type_sizes)
+                    sz = calc_type_size(ctype, type_sizes, parse_spec=s23.parse_type_spec)
                     if sz > (root_end - addr):
                         raise ValueError(f"Member override {addr_hex} exceeds parent {p_hex}")
                 elif field and field[1] and field[2] <= max_avail:
@@ -291,7 +307,7 @@ def build_globals_map(track_dir: Path = TRACK_DIR) -> list[dict[str, Any]]:
                 max_gap = (nxt_st - addr) if nxt_st is not None else 0x100000
                 if ov:
                     ctype = ov["c_type"]
-                    sz = calc_type_size(ctype, type_sizes)
+                    sz = calc_type_size(ctype, type_sizes, parse_spec=s23.parse_type_spec)
                     if nxt_st is not None and addr + sz > nxt_st:
                         raise ValueError(f"Standalone {addr_hex} ({ctype}, sz={sz}) overlaps next standalone 0x{nxt_st:08x}")
                     name = sanitize_ident(ov["name"])
@@ -307,13 +323,13 @@ def build_globals_map(track_dir: Path = TRACK_DIR) -> list[dict[str, Any]]:
                 })
 
     records.sort(key=lambda r: (int(r["address"], 16), r["program_scope"]))
-    validate_globals_map(records, gi, buckets, type_sizes)
+    validate_globals_map(records, gi, buckets, type_sizes, s23.parse_type_spec)
     return records
 
 
 def validate_globals_map(records: list[dict[str, Any]], gi: dict[str, Any],
                          buckets: dict[tuple[str, str], list[dict[str, Any]]],
-                         type_sizes: dict[str, tuple[int, int]]) -> None:
+                         type_sizes: dict[str, tuple[int, int]], parse_spec: Any = None) -> None:
     if len(records) != len(gi):
         raise ValueError(f"Expected {len(gi)} globals, got {len(records)}")
     seen_names: set[str] = set()
@@ -326,7 +342,7 @@ def validate_globals_map(records: list[dict[str, Any]], gi: dict[str, Any],
         if nm in seen_names:
             raise ValueError(f"Duplicate global name: {nm!r}")
         seen_names.add(nm)
-        if calc_type_size(r["c_type"], type_sizes) != int(r["size"]):
+        if calc_type_size(r["c_type"], type_sizes, parse_spec=parse_spec) != int(r["size"]):
             raise ValueError(f"Size mismatch for {nm}: {r['c_type']} vs {r['size']}")
         if r["kind"] == "struct_member" and not r.get("parent_address"):
             raise ValueError(f"struct_member {nm} missing parent_address")
@@ -339,13 +355,24 @@ def validate_globals_map(records: list[dict[str, Any]], gi: dict[str, Any],
                 raise ValueError(f"Standalone span overlap in {key}: {a['address']}+{a['size']} > {b['address']}")
 
 
-def main() -> int:
-    records = build_globals_map(TRACK_DIR)
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(description="Build and validate Stage 2 globals_map.json.")
+    ap.add_argument("--tools-dir", type=Path, default=None)
+    ap.add_argument("--data-dir", type=Path, default=None)
+    ap.add_argument("--log-dir", type=Path, default=None)
+    ap.add_argument("--dry-run", action="store_true")
+    args = ap.parse_args(argv)
+    records = build_globals_map(TRACK_DIR, tools_dir=args.tools_dir)
     out_path = TRACK_DIR / "schemas" / "globals_map.json"
-    out_path.write_text(json.dumps(records, indent=2) + "\n", encoding="utf-8")
+    if not args.dry_run:
+        out_path.write_text(json.dumps(records, indent=2) + "\n", encoding="utf-8")
     members = sum(1 for r in records if r["kind"] == "struct_member")
     scopes = Counter(r["program_scope"] for r in records)
-    print(f"Wrote {len(records)} globals ({len(records) - members} standalone, {members} struct_member) to {out_path}")
+    msg = f"{'Validated' if args.dry_run else 'Wrote'} {len(records)} globals ({len(records) - members} standalone, {members} struct_member) -> {out_path}"
+    if args.log_dir:
+        args.log_dir.mkdir(parents=True, exist_ok=True)
+        (args.log_dir / "stage2_globals_builder.log").write_text(msg + "\n", encoding="utf-8")
+    print(msg)
     print(f"Scopes: {dict(sorted(scopes.items()))}")
     return 0
 

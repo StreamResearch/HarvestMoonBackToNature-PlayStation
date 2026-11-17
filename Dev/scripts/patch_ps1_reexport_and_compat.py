@@ -2,6 +2,7 @@
 """Normalize PS1 reexported Ghidra C lifts, run Stage 4 assembly, and validate 513/513 builds."""
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import re
@@ -13,7 +14,12 @@ DEV_DIR = SCRIPT_DIR.parent
 PROJ_ROOT = DEV_DIR.parent if DEV_DIR.name == "Dev" else DEV_DIR
 CORPUS_DIR = PROJ_ROOT / "Corpus" if (PROJ_ROOT / "Dev").is_dir() else PROJ_ROOT
 REEXPORT_DIR, READABLE_DIR = CORPUS_DIR / "work" / "reexported", CORPUS_DIR / "readable"
-TOOLS_DIR = Path(os.environ.get("RD_DECOMP_TOOLS", r"<PROJECTS_PERSONAL>/R&D\Dev\tools"))
+
+
+def _resolve_tools_root(tools_dir: Path | None = None) -> Path:
+    raw = str(tools_dir) if tools_dir else os.environ.get("RD_DECOMP_TOOLS", "")
+    cand = Path(raw).resolve() if raw else (PROJ_ROOT.parent.parent / "Personal" / "R&D" / "Dev" / "tools" / "decomp")
+    return cand.parent if (cand / "stage4_assembler.py").is_file() else cand
 
 MARKER_BEGIN = "/* === BEGIN HMBTN_PS1_COMPAT_EXTS === */"
 MARKER_END = "/* === END HMBTN_PS1_COMPAT_EXTS === */"
@@ -297,8 +303,29 @@ def _build_compat_block(globals_txt: str) -> str:
     return "\n".join(lines) + "\n"
 
 
-def main() -> int:
-    sys.path.insert(0, str(TOOLS_DIR))
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(description="Normalize PS1 reexported C lifts and run Stage 4 assembly.")
+    ap.add_argument("--tools-dir", type=Path, default=None)
+    ap.add_argument("--data-dir", type=Path, default=None)
+    ap.add_argument("--log-dir", type=Path, default=None)
+    args = ap.parse_args(argv)
+
+    global CORPUS_DIR, REEXPORT_DIR, READABLE_DIR
+    if args.data_dir is not None:
+        CORPUS_DIR = args.data_dir.resolve()
+        REEXPORT_DIR, READABLE_DIR = CORPUS_DIR / "work" / "reexported", CORPUS_DIR / "readable"
+
+    if not REEXPORT_DIR.is_dir() or not any(REEXPORT_DIR.glob("*/functions.json")):
+        err = json.dumps({"status": "MISSING_CORPUS_MEDIA", "missingPath": str(REEXPORT_DIR)})
+        print(err, file=sys.stderr)
+        if args.log_dir:
+            args.log_dir.mkdir(parents=True, exist_ok=True)
+            (args.log_dir / "patch_ps1_reexport_and_compat.log").write_text(err + "\n", encoding="utf-8")
+        return 1
+
+    tools_root = _resolve_tools_root(args.tools_dir)
+    if str(tools_root) not in sys.path:
+        sys.path.insert(0, str(tools_root))
     import decomp.stage4_assembler as s4
     import decomp.workspace_gen as wg
 
@@ -325,7 +352,11 @@ def main() -> int:
     c_txt = re.sub(re.escape(MARKER_BEGIN) + r".*?" + re.escape(MARKER_END) + r"\n?", "", c_txt, flags=re.S)
     c_txt = c_txt.rstrip() + "\n\n" + _build_compat_block(g_txt)
     compat_h.write_text(c_txt, encoding="utf-8", newline="\n")
-    print(json.dumps({"reexportedModified": changed, "voidPromoted": prom, "readableFiles": res.get("readableFiles")}, indent=2))
+    out = json.dumps({"reexportedModified": changed, "voidPromoted": prom, "readableFiles": res.get("readableFiles")}, indent=2)
+    if args.log_dir:
+        args.log_dir.mkdir(parents=True, exist_ok=True)
+        (args.log_dir / "patch_ps1_reexport_and_compat.log").write_text(out + "\n", encoding="utf-8")
+    print(out)
     return 0
 
 

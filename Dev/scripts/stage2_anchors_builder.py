@@ -8,17 +8,29 @@
 from __future__ import annotations
 
 import argparse
+import importlib
 import json
+import os
 import re
 import sys
 from pathlib import Path
 from typing import Any
 
 TRACK_DIR = Path(__file__).resolve().parents[1]
-REPO_ROOT = TRACK_DIR.parents[2]
-sys.path.insert(0, str(REPO_ROOT / "Dev" / "tools" / "decomp"))
+REPO_ROOT = TRACK_DIR.parent
 
-from stage2_3_builder import BANNED_NAME_RE, C_IDENT_RE, PARAM_PLACEHOLDER_RE, parse_type_headers, parse_type_spec  # noqa: E402
+
+def _resolve_decomp_tools(tools_dir: Path | None) -> Path:
+    raw = str(tools_dir) if tools_dir else os.environ.get("RD_DECOMP_TOOLS", "")
+    cand = Path(raw).resolve() if raw else (REPO_ROOT.parent.parent / "Personal" / "R&D" / "Dev" / "tools" / "decomp")
+    return (cand / "decomp") if (cand / "decomp" / "stage2_3_builder.py").is_file() else cand
+
+
+def _load_s23(tools_dir: Path | None) -> Any:
+    tdir = _resolve_decomp_tools(tools_dir)
+    if str(tdir) not in sys.path:
+        sys.path.insert(0, str(tdir))
+    return importlib.import_module("stage2_3_builder")
 
 # (program, address, name, return_type, params_spec, domain, summary)
 CURATED_ANCHORS: list[tuple[str, str, str, str, str, str, str]] = [
@@ -32,7 +44,7 @@ CURATED_ANCHORS: list[tuple[str, str, str, str, str, str, str]] = [
     ("SLUS_011.15", "0x800120c8", "hm_apply_screen_brightness", "void", "", "core_mainloop", "Applies current fade multiplier across GPU display RGB overlay state"),
     ("SLUS_011.15", "0x80012298", "hm_init_gpu_display_mode", "void", "int mode", "render_gte_sprites", "Configures double-buffered GPU DISPENV and DRAWENV geometry for selected screen resolution"),
     ("SLUS_011.15", "0x800129e8", "hm_get_frame_tick", "u32", "", "core_mainloop", "Returns current monotonic frame tick counter incremented by frame sync loop"),
-    ("SLUS_011.15", "0x80012a14", "hm_enable_display_mask", "void", "", "render_gte_sprites", "Enables live video output via PS1 SDK SetDispMask after initial frame buffer clear"),
+    ("SLUS_011.15", "0x80012a14", "hm_enable_display_mask", "void", "", "render_gte_sprites", "Enables live video output via PS1 GPU SetDispMask after initial frame buffer clear"),
     ("SLUS_011.15", "0x80012a34", "hm_prng_next", "uint", "uint mod_max", "core_mainloop", "Linear-congruential PRNG step advancing global seed and returning modulo-bounded value"),
     ("SLUS_011.15", "0x80012a68", "hm_draw_clear_tile_rect", "void", "short x, short y, short w, short h, u8 r, u8 g, u8 b", "render_gte_sprites", "Submits a flat colored TILE primitive into the active ordering table to clear a rectangle"),
     ("SLUS_011.15", "0x80012ab0", "hm_screen_align_tool", "void", "short x_off, short y_off", "core_mainloop", "Interactive screen centering alignment helper reading pad directions and updating DISPENV offsets"),
@@ -43,7 +55,7 @@ CURATED_ANCHORS: list[tuple[str, str, str, str, str, str, str]] = [
     ("SLUS_011.15", "0x800134c4", "hm_clear_pad_state", "void", "", "input_memcard", "Zeroes active controller edge/repeat state buffers to flush stale button presses"),
     ("SLUS_011.15", "0x800136d4", "hm_draw_font_string", "void", "u32 ot_idx, short x, short y, int str_ptr, short color_mode", "ui_inventory_hud", "Renders an encoded text string to the specified ordering table at screen coordinates"),
     ("SLUS_011.15", "0x800139fc", "hm_memcard_reset_state", "void", "", "input_memcard", "Resets resident Memory Card state machine globals and clears pending card slot flags"),
-    ("SLUS_011.15", "0x80013a24", "hm_memcard_init_subsystems", "void", "", "input_memcard", "Initializes PS1 SDK MemCard driver and registers card polling status tables"),
+    ("SLUS_011.15", "0x80013a24", "hm_memcard_init_subsystems", "void", "", "input_memcard", "Initializes PS1 Memory Card driver and registers card polling status tables"),
     ("SLUS_011.15", "0x80013b04", "hm_memcard_poll_status", "void", "", "input_memcard", "Polls Memory Card hardware insertion and completion events via MemCardSync"),
     ("SLUS_011.15", "0x80013cd0", "hm_memcard_scan_save_slots", "void", "uint * out_mask, u8 card_slot", "input_memcard", "Scans Memory Card directory entries on card_slot and populates valid save slot mask"),
     ("SLUS_011.15", "0x80013fc0", "hm_memcard_dispatch_io", "uint", "int op_code", "input_memcard", "Dispatches async Memory Card read/write/create/delete commands by operation code"),
@@ -95,7 +107,7 @@ CURATED_ANCHORS: list[tuple[str, str, str, str, str, str, str]] = [
     ("SLUS_011.15", "0x8001fb30", "hm_audio_set_spu_reverb", "u32", "short reverb_type, short depth_l, short depth_r, short flags", "audio_spu_vab", "Configures SPU hardware reverb type and stereo depth via SsUtSetReverbType/Depth"),
     ("SLUS_011.15", "0x8001fbf0", "hm_audio_play_bgm_seq", "void", "short seq_id", "audio_spu_vab", "Stops active BGM keys and starts playback of requested SEQ music track"),
     ("SLUS_011.15", "0x8001fd10", "hm_audio_tick_seq_fade", "void", "", "audio_spu_vab", "Updates active BGM volume envelope fade curves once per frame"),
-    ("SLUS_011.15", "0x80020818", "hm_audio_init_spu_seq_system", "u32", "", "audio_spu_vab", "Initializes PS1 SDK SPU/SEQ subsystem via SsStart and opens VAB/SEQ slots"),
+    ("SLUS_011.15", "0x80020818", "hm_audio_init_spu_seq_system", "u32", "", "audio_spu_vab", "Initializes PS1 SPU/SEQ subsystem via SsStart and opens VAB/SEQ slots"),
     ("SLUS_011.15", "0x80020b80", "hm_audio_free_vab_and_seq", "u32", "int vab_id, int seq_slot", "audio_spu_vab", "Closes active SEQ sequence and releases loaded VAB sound bank memory"),
     ("SLUS_011.15", "0x800212a8", "hm_audio_trigger_spu_voice", "int", "int sfx_id, u32 vol_l, u32 vol_r", "audio_spu_vab", "Allocates free SPU hardware channel via SpuGetAllKeysStatus and triggers SsUtKeyOnV"),
     ("SLUS_011.15", "0x80021b90", "hm_audio_start_cd_xa_stream", "void", "int xa_track", "audio_spu_vab", "Configures CD-ROM XA audio filtering and begins streaming XA music channel"),
@@ -281,64 +293,70 @@ def parse_params_spec(spec: str) -> list[dict[str, str]]:
         out.append({"name": name, "type": ptype})
     return out
 
-def check_type(tstr: str, type_sizes: dict[str, int] | None, ctx: str, errs: list[str]) -> None:
-    base, ptr_depth, arr = parse_type_spec(tstr)
+def check_type(tstr: str, type_sizes: dict[str, int] | None, ctx: str, errs: list[str], parse_spec: Any) -> None:
+    base, ptr_depth, arr = parse_spec(tstr)
     if arr: errs.append(f"{ctx}: array dims not allowed on {tstr!r}")
-    if type_sizes is not None:
-        if not ((ptr_depth > 0 and base == "void") or base in type_sizes):
-            errs.append(f"{ctx}: unknown type {tstr!r} (base={base!r})")
+    if type_sizes is not None and not ((ptr_depth > 0 and base == "void") or base in type_sizes):
+        errs.append(f"{ctx}: unknown type {tstr!r} (base={base!r})")
 
-def build_and_validate(allow_missing_types: bool = False) -> list[dict[str, Any]]:
+
+def _resolve_standalone(data_dir: Path | None) -> Path:
+    base = data_dir.resolve() if data_dir else (REPO_ROOT / "Corpus")
+    return base if (base / "decompiled").is_dir() else (base / "standalone")
+
+
+def build_and_validate(
+    allow_missing_types: bool = False, tools_dir: Path | None = None,
+    data_dir: Path | None = None, log_dir: Path | None = None,
+) -> list[dict[str, Any]]:
+    standalone_dir = _resolve_standalone(data_dir)
+    if not (standalone_dir / "decompiled").is_dir():
+        msg = json.dumps({"status": "MISSING_CORPUS_MEDIA", "missingPath": str(standalone_dir / "decompiled")})
+        print(msg, file=sys.stderr)
+        if log_dir:
+            log_dir.mkdir(parents=True, exist_ok=True)
+            (log_dir / "stage2_anchors_builder.log").write_text(msg + "\n", encoding="utf-8")
+        raise SystemExit(1)
+
+    s23 = _load_s23(tools_dir)
     schemas_dir = TRACK_DIR / "schemas"
     cg_funcs = json.loads((schemas_dir / "call_graph.json").read_text(encoding="utf-8"))["functions"]
-    clusters_data = json.loads((schemas_dir / "clusters.json").read_text(encoding="utf-8"))
-    valid_domains = set(clusters_data["domain_summary"].keys())
+    valid_domains = set(json.loads((schemas_dir / "clusters.json").read_text(encoding="utf-8"))["domain_summary"].keys())
     sdk_reserved = {nm for v in cg_funcs.values() if v["is_sdk"] for nm in (v.get("safe_name", ""), v.get("ghidra_name", "")) if nm}
     types_dir = schemas_dir / "types"
     has_types = types_dir.is_dir() and any(types_dir.glob("*.h"))
     if not has_types and not allow_missing_types:
         raise FileNotFoundError(f"Missing schemas/types/*.h in {types_dir}")
-    type_sizes = parse_type_headers(types_dir, pointer_bytes=4)["type_sizes"] if has_types else None
+    type_sizes = s23.parse_type_headers(types_dir, pointer_bytes=4)["type_sizes"] if has_types else None
 
-    fj_cache: dict[str, dict[str, str]] = {}
-    anchors: list[dict[str, Any]] = []
-    seen_keys: set[str] = set()
-    seen_names: set[str] = set()
-    errs: list[str] = []
-    per_prog: dict[str, int] = {}
-
+    fj_cache, anchors, seen_keys, seen_names, errs, per_prog = {}, [], set(), set(), [], {}
     for prog, addr, name, ret_t, pspec, domain, summary in CURATED_ANCHORS:
         addr_l = addr.lower()
         key = f"{prog}@{addr_l.removeprefix('0x')}"
         if key in seen_keys: errs.append(f"Duplicate key {key}")
         seen_keys.add(key)
         node = cg_funcs.get(key)
-        if not node or node.get("is_sdk", False):
-            errs.append(f"{key}: missing or is_sdk==True in call_graph.json")
+        if not node or node.get("is_sdk", False): errs.append(f"{key}: missing or is_sdk==True in call_graph.json")
         if prog not in fj_cache:
-            fj = json.loads((TRACK_DIR / "standalone" / "decompiled" / prog / "functions.json").read_text(encoding="utf-8"))["functions"]
+            fj = json.loads((standalone_dir / "decompiled" / prog / "functions.json").read_text(encoding="utf-8"))["functions"]
             fj_cache[prog] = {f["address"].lower(): f["signature"] for f in fj}
         sig = fj_cache[prog].get(addr_l)
-        if not sig:
-            errs.append(f"{key}: missing in standalone/decompiled/{prog}/functions.json")
-            exp_np = -1
-        else:
-            exp_np = sig_param_count(sig)
+        if not sig: errs.append(f"{key}: missing in standalone/decompiled/{prog}/functions.json"); exp_np = -1
+        else: exp_np = sig_param_count(sig)
         params = parse_params_spec(pspec)
-        if exp_np >= 0 and len(params) != exp_np:
-            errs.append(f"{key} ({name}): param count {len(params)} != signature {exp_np} ({sig})")
-        if not C_IDENT_RE.match(name) or BANNED_NAME_RE.match(name) or name.startswith("g_") or name in sdk_reserved:
+        if exp_np >= 0 and len(params) != exp_np: errs.append(f"{key} ({name}): param count {len(params)} != signature {exp_np} ({sig})")
+        if not s23.C_IDENT_RE.match(name) or s23.BANNED_NAME_RE.match(name) or name.startswith("g_") or name in sdk_reserved:
             errs.append(f"{key}: invalid/banned/reserved name {name!r}")
         if name in seen_names: errs.append(f"Duplicate anchor name {name!r}")
         seen_names.add(name)
         pnames: set[str] = set()
         for p in params:
             pn = p["name"]
-            if not C_IDENT_RE.match(pn) or PARAM_PLACEHOLDER_RE.match(pn) or pn in pnames:
+            if not s23.C_IDENT_RE.match(pn) or s23.PARAM_PLACEHOLDER_RE.match(pn) or pn in pnames:
                 errs.append(f"{key}: bad/duplicate param name {pn!r}")
             pnames.add(pn)
-            check_type(p["type"], type_sizes, f"{key} param {pn}", errs)
-        check_type(ret_t, type_sizes, f"{key} return_type", errs)
+            check_type(p["type"], type_sizes, f"{key} param {pn}", errs, s23.parse_type_spec)
+        check_type(ret_t, type_sizes, f"{key} return_type", errs, s23.parse_type_spec)
         if len(summary.strip()) < 30: errs.append(f"{key}: summary < 30 chars")
         if domain not in valid_domains: errs.append(f"{key}: unknown domain {domain!r}")
         anchors.append({"program": prog, "address": addr_l, "name": name, "return_type": ret_t, "params": params, "domain": domain, "summary": summary.strip()})
@@ -347,15 +365,23 @@ def build_and_validate(allow_missing_types: bool = False) -> list[dict[str, Any]
     if not (180 <= len(anchors) <= 240): errs.append(f"Total anchors {len(anchors)} outside [180..240]")
     if per_prog.get("OVL_part11_id06.EXE", 0) < 80: errs.append(f"OVL_part11_id06.EXE count {per_prog.get('OVL_part11_id06.EXE', 0)} < 80")
     if len(per_prog) != 14: errs.append(f"Expected 14 programs, got {len(per_prog)}")
-    if errs:
-        raise ValueError("Validation failed:\n  " + "\n  ".join(errs[:25]) + (f"\n  ... (+{len(errs)-25} more)" if len(errs) > 25 else ""))
+    if errs: raise ValueError("Validation failed:\n  " + "\n  ".join(errs[:25]) + (f"\n  ... (+{len(errs)-25} more)" if len(errs) > 25 else ""))
     out_path = schemas_dir / "anchor_functions.json"
     out_path.write_text(json.dumps(anchors, indent=2) + "\n", encoding="utf-8")
-    print(f"Wrote {len(anchors)} anchors to {out_path} (types_checked={has_types})")
+    summary_line = f"Wrote {len(anchors)} anchors to {out_path} (types_checked={has_types})"
+    if log_dir:
+        log_dir.mkdir(parents=True, exist_ok=True)
+        (log_dir / "stage2_anchors_builder.log").write_text(summary_line + "\n", encoding="utf-8")
+    print(summary_line)
     for p in sorted(per_prog): print(f"  {p}: {per_prog[p]}")
     return anchors
+
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--allow-missing-types", action="store_true")
-    build_and_validate(allow_missing_types=ap.parse_args().allow_missing_types)
+    ap.add_argument("--tools-dir", type=Path, default=None)
+    ap.add_argument("--data-dir", type=Path, default=None)
+    ap.add_argument("--log-dir", type=Path, default=None)
+    ns = ap.parse_args()
+    build_and_validate(ns.allow_missing_types, ns.tools_dir, ns.data_dir, ns.log_dir)
