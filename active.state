@@ -18,13 +18,25 @@
   "openTaskCount": 8,
   "completedTaskCount": 1,
   "openReportCount": 0,
+  "isPublicRepo": false,
+  "requireHumanReviewBeforePush": true,
   "gates": {
     "isGate0ScopePassed": true,
     "isGate1PlanPassed": true,
     "isGate2BuildPassed": false,
     "isInspecterVerified": false,
-    "isTessaSynced": true
+    "isTessaSynced": false
   },
   "notes": "Graduated PS1 SLUS-01115 D4/S4 research container; v0.1.1 folded into v0.2.0 (stabilization, .decomp exporter, public scrub, parsers/spokes) -> v0.3.0 (Q12 GTE parity) -> v1.0.0 (S5 Gold) -> v2.0.0 (D5 1:1 byte-match). Downstream HMBackToNature-Recomp v0.1.1 verified R2 Title Boot on reStation v0.1.5.",
-  "updatedAtUtc": "2026-11-17T03:25:00.000Z"
+  "discordPost": {
+    "isEnabled": true,
+    "serverName": null,
+    "guildId": null,
+    "channelName": null,
+    "channelId": null,
+    "deliveryMethod": "webhook",
+    "secretEnvKey": "DISCORD_WEBHOOK_FOUNDATION",
+    "autoPostOnRelease": true
+  },
+  "updatedAtUtc": "2026-11-17T04:15:00Z"
 }

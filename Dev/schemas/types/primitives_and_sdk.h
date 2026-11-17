@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-/* Base LP32 / PS1 ABI / Ghidra scalar aliases (MIPS32 little-endian) */
+/* Base PS1 MIPS32 LE LP32 / Ghidra scalar aliases */
 typedef uint8_t   u8;
 typedef uint16_t  u16;
 typedef uint32_t  u32;
@@ -65,7 +65,7 @@ typedef struct DRAWENV {
     DR_ENV dr_env; /* +0x1C */
 } DRAWENV; /* 0x5C */
 
-/* PS1 GTE geometry structs (verified in SLUS_011.15 @ 0x8001b5dc) */
+/* PS1 GTE (COP2) geometry structs (verified in SLUS_011.15 @ 0x8001b5dc) */
 typedef struct MATRIX {
     s16 m[3][3]; /* +0x00 */
     s16 pad;  /* +0x12 */

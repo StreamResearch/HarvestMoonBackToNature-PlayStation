@@ -1,13 +1,15 @@
 # Context: HarvestMoonBackToNature-PlayStation
 
-- **Tier R (`ps1`):** `D4/S4`. Zero `Builds`/`Installers`/`Releases`; `Corpus` gitignored & `-xr!Corpus\*` (`standalone` RO).
-- **Control:** [manifest](Dev/research.manifest.json) | [HarvestMoonBackToNature-PlayStation.code-workspace](Dev/HarvestMoonBackToNature-PlayStation.code-workspace) | [R&D](../R&D/AGENTS.md) | [HMBackToNature-Recomp](../HMBackToNature-Recomp/AGENTS.md) | [Oracle Ref](<LOCAL_FILE_URI>)
+- **Tier R (`ps1`):** `D4/S4` (`goalStudyTier: S5`, target engine `reStation` `0.2.x`). Zero `Builds`/`Installers`/`Releases`; `Corpus` & `Dev/data/` gitignored (`-xr!Corpus\*`, `standalone/` RO).
+- **Control:** [research.manifest.json](Dev/research.manifest.json) | [HarvestMoonBackToNature-PlayStation.code-workspace](Dev/HarvestMoonBackToNature-PlayStation.code-workspace) | Downstream: `HMBackToNature-Recomp` (`read-only`)
 
-## 1. Quartet & State
-- [README](README.md) | [FEATURES](FEATURES.md) | [ROADMAP](ROADMAP.md) | [CHANGELOG](CHANGELOG.md) | [state](active.state)
+## 1. Quartet, Security & State
+- [README.md](README.md) | [FEATURES.md](FEATURES.md) | [ROADMAP.md](ROADMAP.md) | [CHANGELOG.md](CHANGELOG.md) | [SECURITY.md](SECURITY.md) | [active.state](active.state)
 
 ## 2. Manuals (`Dev/docs/`)
-- [ARCHITECTURE](Dev/docs/ARCHITECTURE.md) | [SPECIFICATIONS](Dev/docs/SPECIFICATIONS.md) | [FINDINGS](Dev/docs/FINDINGS.md) | [OPERATIONS](Dev/docs/OPERATIONS.md)
+- [ARCHITECTURE.md](Dev/docs/ARCHITECTURE.md) | [SPECIFICATIONS.md](Dev/docs/SPECIFICATIONS.md) | [FINDINGS.md](Dev/docs/FINDINGS.md) | [OPERATIONS.md](Dev/docs/OPERATIONS.md)
+- **Specs, Plans & Reports:** [specifications/](Dev/docs/specifications/) | [plans/](Dev/docs/plans/) | [reports/](Dev/docs/reports/)
 
 ## 3. Governance & Notion
-- [DevBible](../_DevBible/01_PROJECT_LAYOUTS.md) | **Notion:** `<NOTION_PROJECT_PAGE_ID>` (`🔬 Research` `<NOTION_TASK_LIST_COLLECTION>`)
+- **Notion:** `<NOTION_PROJECT_PAGE_ID>` (`<NOTION_TASK_LIST_COLLECTION>` — local IDs in gitignored `Dev/data/notion_hub.local.json`)
+- **Commit `/post` Hook:** Every commit & release pushes `/post` via `active.state` -> `discordPost` (`DISCORD_WEBHOOK_FOUNDATION`), tagging `@StreamDoesDev`.
