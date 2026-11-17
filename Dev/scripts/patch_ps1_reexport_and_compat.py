@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 import os
 import re
 import sys
@@ -14,6 +15,14 @@ DEV_DIR = SCRIPT_DIR.parent
 PROJ_ROOT = DEV_DIR.parent if DEV_DIR.name == "Dev" else DEV_DIR
 CORPUS_DIR = PROJ_ROOT / "Corpus" if (PROJ_ROOT / "Dev").is_dir() else PROJ_ROOT
 REEXPORT_DIR, READABLE_DIR = CORPUS_DIR / "work" / "reexported", CORPUS_DIR / "readable"
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
+from craftsmanship_d4_helpers import (  # noqa: E402
+    MARKER_BEGIN, MARKER_END, build_compat_block, code_spans as _code_spans,
+    map_code as _map_code, mask_non_code as _mask_non_code, match_back as _match_back, match_fwd as _match_fwd,
+)
+from craftsmanship_d4_normalizer import normalize_readable_tree  # noqa: E402
 
 
 def _resolve_tools_root(tools_dir: Path | None = None) -> Path:
@@ -21,80 +30,11 @@ def _resolve_tools_root(tools_dir: Path | None = None) -> Path:
     cand = Path(raw).resolve() if raw else (PROJ_ROOT.parent.parent / "Personal" / "R&D" / "Dev" / "tools" / "decomp")
     return cand.parent if (cand / "stage4_assembler.py").is_file() else cand
 
-MARKER_BEGIN = "/* === BEGIN HMBTN_PS1_COMPAT_EXTS === */"
-MARKER_END = "/* === END HMBTN_PS1_COMPAT_EXTS === */"
+
 SUBPIECE_TAG_RE = re.compile(r"\._(\d+)_([124])_\b")
 UNDEF_DECL_RE = re.compile(r"\bundefined1\s+([A-Za-z_][A-Za-z0-9_]*)\s*\[\s*([24])\s*\]\s*;")
 DEREF_CALL_START_RE = re.compile(r"\(\*")
 VALUE_BEFORE_RE = re.compile(r"(?:[=(,?+\-*/%&|^<>!~:\[]|\breturn)\s*$")
-PS1_MMIO_16 = (
-    "SPU_MAIN_VOL_L SPU_MAIN_VOL_R CURR_MAIN_VOL_L CURR_MAIN_VOL_R CD_VOL_L CD_VOL_R "
-    "EXT_VOL_L EXT_VOL_R SPU_CTRL_REG_CPUCNT SPU_STATUS_REG_SPUSTAT SPU_DELAY "
-    "SOUND_RAM_DATA_TRANSFER_ADDR SOUND_RAM_DATA_TRANSFER_FIFO SOUND_RAM_DATA_TRANSTER_CTRL "
-    "SPU_REVERB_OUT_L SPU_REVERB_OUT_R VOICE_00_LEFT_RIGHT VOICE_00_ADPCM_SAMPLE_RATE "
-    "VOICE_00_ADSR_ATT_DEC_SUS_REL VOICE_00_ADSR_CURR_VOLUME JOY_MCD_DATA JOY_MCD_STAT "
-    "JOY_MCD_MODE JOY_MCD_CTRL JOY_MCD_BAUD TMR_DOTCLOCK_VAL TMR_DOTCLOCK_MODE TMR_DOTCLOCK_MAX "
-    "TMR_HRETRACE_VAL TMR_SYSCLOCK_VAL TMR_SYSCLOCK_MODE TMR_SYSCLOCK_MAX I_STAT I_MASK _I_STAT _I_MASK"
-).split()
-PS1_MMIO_32 = (
-    "CDROM_REG0 CDROM_REG1 CDROM_REG2 CDROM_REG3 COMMON_DELAY DMA_DPCR DMA_DICR "
-    "DMA_MDEC_IN_MADR DMA_GPU_MADR DMA_GPU_BCR DMA_GPU_CHCR DMA_CDROM_CHCR "
-    "DMA_SPU_MADR DMA_SPU_BCR DMA_SPU_CHCR DMA_OTC_MADR DMA_OTC_BCR DMA_OTC_CHCR "
-    "GPU_REG0 GPU_REG1 TMR_HRETRACE_MODE SPU_VOICE_KEY_ON SPU_VOICE_KEY_OFF "
-    "SPU_VOICE_CHN_FM_MODE SPU_VOICE_CHN_NOISE_MODE SPU_VOICE_CHN_REVERB_MODE"
-).split()
-PS1_MISC_U32 = (
-    "Status _index _local_30 _local_38 _local_48 _local_resc _in_stack_00000014 "
-    "_sStack00000010 stack0xffffffbc stack0xffffffcc stack0xffffffe4 "
-    "PATCH_OBJ_44 PATCH_OBJ_B4 PATCH_OBJ_C8 PATCHGTE_OBJ_AC PATCHGTE_OBJ_C4 "
-    "FUN_800132f0 FUN_80015814 FUN_80015828 g_core_event_script_ctx_reserved_0xfc_idx2_800a047c "
-    "g_core_map_transition_state_800a0490 register0x00000074"
-).split()
-
-
-def _code_spans(text: str) -> list[tuple[int, int, bool]]:
-    spans, i, n, cur = [], 0, len(text), 0
-    while i < n:
-        ch, nxt = text[i], text[i + 1] if i + 1 < n else ""
-        if ch == "/" and nxt in ("/", "*"):
-            if i > cur: spans.append((cur, i, True))
-            j = text.find("\n" if nxt == "/" else "*/", i + 2)
-            j = n if j < 0 else (j if nxt == "/" else j + 2)
-            spans.append((i, j, False))
-            i = cur = j
-        elif ch in ('"', "'"):
-            if i > cur: spans.append((cur, i, True))
-            j = i + 1
-            while j < n:
-                if text[j] == "\\": j += 2; continue
-                if text[j] == ch: j += 1; break
-                j += 1
-            spans.append((i, j, False))
-            i = cur = j
-        else:
-            i += 1
-    if cur < n: spans.append((cur, n, True))
-    return spans
-
-
-def _map_code(text: str, fn) -> str:
-    return "".join(fn(text[s:e]) if is_c else text[s:e] for s, e, is_c in _code_spans(text))
-
-
-def _match_fwd(s: str, open_idx: int) -> int:
-    depth = 0
-    for idx in range(open_idx, len(s)):
-        depth += 1 if s[idx] == "(" else (-1 if s[idx] == ")" else 0)
-        if depth == 0: return idx
-    return -1
-
-
-def _match_back(s: str, close_idx: int, lo: str, hi: str) -> int:
-    depth = 0
-    for idx in range(close_idx, -1, -1):
-        depth += 1 if s[idx] == hi else (-1 if s[idx] == lo else 0)
-        if depth == 0: return idx
-    return -1
 
 
 def _rewrite_subpieces(code: str) -> str:
@@ -211,16 +151,6 @@ def _find_void_value_callers(void_names: set[str]) -> set[str]:
     return promoted
 
 
-def _mask_non_code(text: str) -> str:
-    chars = list(text)
-    for s, e, is_c in _code_spans(text):
-        if not is_c:
-            for k in range(s, e):
-                if chars[k] != "\n":
-                    chars[k] = " "
-    return "".join(chars)
-
-
 def _reconcile_calls(text: str, arities: dict[str, int]) -> str:
     masked = _mask_non_code(text)
     call_re = re.compile(r"\b([A-Za-z_][A-Za-z0-9_]*)\s*\(")
@@ -266,43 +196,6 @@ def _patch_work_reexported() -> tuple[int, int]:
     return files_changed, len(promoted)
 
 
-def _build_compat_block(globals_txt: str) -> str:
-    lines = [
-        MARKER_BEGIN, "#ifndef HMBTN_PS1_COMPAT_EXTS", "#define HMBTN_PS1_COMPAT_EXTS",
-        "#define SUB84(x, n) ((uint32_t)(((uint64_t)(x)) >> ((n) * 8)))",
-        "#define SUB82(x, n) ((uint16_t)(((uint64_t)(x)) >> ((n) * 8)))",
-        "#define SUB81(x, n) ((uint8_t)(((uint64_t)(x)) >> ((n) * 8)))",
-        "#define ZEXT48(x) ((uint64_t)(uint32_t)(x))", "#define ZEXT44(x) ((uint32_t)(x))",
-        "#define SEXT48(x) ((int64_t)(int32_t)(x))", "#define ABS(x) ((x) < 0 ? -(x) : (x))",
-        "#define setCopReg(c, r, ...) ((void)0)",
-        "static inline uint32_t _gh_get3(const void *p){const uint8_t*b=(const uint8_t*)p;return b[0]|((uint32_t)b[1]<<8)|((uint32_t)b[2]<<16);}",
-        "static inline uint64_t _gh_getN(const void *p,int n){uint64_t v=0;for(int i=0;i<n;i++)v|=((uint64_t)((const uint8_t*)p)[i])<<(i*8);return v;}",
-        "#define _gh_get5(p) _gh_getN((p),5)", "#define _gh_get6(p) _gh_getN((p),6)", "#define _gh_get7(p) _gh_getN((p),7)",
-        "static inline void _gh_set3(void *p,uint32_t v){uint8_t*b=(uint8_t*)p;b[0]=v;b[1]=v>>8;b[2]=v>>16;}",
-        "static inline void _gh_setN(void *p,uint64_t v,int n){for(int i=0;i<n;i++)((uint8_t*)p)[i]=(uint8_t)(v>>(i*8));}",
-        "#define _gh_set5(p,v) _gh_setN((p),(v),5)", "#define _gh_set6(p,v) _gh_setN((p),(v),6)", "#define _gh_set7(p,v) _gh_setN((p),(v),7)",
-    ]
-    seen = set(re.findall(r"\b([A-Za-z_][A-Za-z0-9_]*)\b(?:\[[^\]]*\])?;", globals_txt))
-    for s in PS1_MMIO_16:
-        if s not in seen: lines.append(f"extern volatile uint16_t {s};"); seen.add(s)
-    for s in PS1_MMIO_32:
-        if s not in seen: lines.append(f"extern volatile uint32_t {s};"); seen.add(s)
-    for s in PS1_MISC_U32:
-        if s not in seen:
-            lines.append(f"extern int {s}();" if s.startswith("FUN_") else f"extern uint32_t {s};"); seen.add(s)
-    ptr_syms, arr_syms = set(), set()
-    for cpath in READABLE_DIR.rglob("*.c"):
-        txt = cpath.read_text(encoding="utf-8", errors="replace")
-        ptr_syms.update(re.findall(r"\bPTR_[A-Za-z0-9_]+\b", txt))
-        arr_syms.update(re.findall(r"\b(?:LAB|SUB|switchD)_[A-Za-z0-9_]+\b", txt))
-    for s in sorted(ptr_syms):
-        if s not in seen: lines.append(f"extern uint8_t *{s};"); seen.add(s)
-    for s in sorted(arr_syms):
-        if s not in seen: lines.append(f"extern uint8_t {s}[];"); seen.add(s)
-    lines.extend(["#endif", MARKER_END])
-    return "\n".join(lines) + "\n"
-
-
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Normalize PS1 reexported C lifts and run Stage 4 assembly.")
     ap.add_argument("--tools-dir", type=Path, default=None)
@@ -315,12 +208,19 @@ def main(argv: list[str] | None = None) -> int:
         CORPUS_DIR = args.data_dir.resolve()
         REEXPORT_DIR, READABLE_DIR = CORPUS_DIR / "work" / "reexported", CORPUS_DIR / "readable"
 
+    logger = logging.getLogger("patch_ps1_reexport_and_compat")
+    logger.handlers.clear()
+    logger.setLevel(logging.INFO)
+    if args.log_dir:
+        args.log_dir.mkdir(parents=True, exist_ok=True)
+        logger.addHandler(logging.FileHandler(args.log_dir / "patch_ps1_reexport_and_compat.log", encoding="utf-8"))
+    else:
+        logger.addHandler(logging.NullHandler())
+
     if not REEXPORT_DIR.is_dir() or not any(REEXPORT_DIR.glob("*/functions.json")):
         err = json.dumps({"status": "MISSING_CORPUS_MEDIA", "missingPath": str(REEXPORT_DIR)})
         print(err, file=sys.stderr)
-        if args.log_dir:
-            args.log_dir.mkdir(parents=True, exist_ok=True)
-            (args.log_dir / "patch_ps1_reexport_and_compat.log").write_text(err + "\n", encoding="utf-8")
+        logger.error("MISSING_CORPUS_MEDIA: %s", REEXPORT_DIR)
         return 1
 
     tools_root = _resolve_tools_root(args.tools_dir)
@@ -350,14 +250,14 @@ def main(argv: list[str] | None = None) -> int:
     compat_h = READABLE_DIR / "include" / "ghidra_compat.h"
     c_txt = compat_h.read_text(encoding="utf-8", errors="replace")
     c_txt = re.sub(re.escape(MARKER_BEGIN) + r".*?" + re.escape(MARKER_END) + r"\n?", "", c_txt, flags=re.S)
-    c_txt = c_txt.rstrip() + "\n\n" + _build_compat_block(g_txt)
+    c_txt = c_txt.rstrip() + "\n\n" + build_compat_block(g_txt, READABLE_DIR)
     compat_h.write_text(c_txt, encoding="utf-8", newline="\n")
-    out = json.dumps({"reexportedModified": changed, "voidPromoted": prom, "readableFiles": res.get("readableFiles")}, indent=2)
-    if args.log_dir:
-        args.log_dir.mkdir(parents=True, exist_ok=True)
-        (args.log_dir / "patch_ps1_reexport_and_compat.log").write_text(out + "\n", encoding="utf-8")
+    norm_res = normalize_readable_tree(READABLE_DIR, DEV_DIR / "schemas", logger)
+
+    out = json.dumps({"reexportedModified": changed, "voidPromoted": prom, "readableFiles": res.get("readableFiles"), "normalizedFiles": norm_res.get("filesModified"), "remainingArtifacts": norm_res.get("remainingArtifacts")}, indent=2)
+    logger.info("patch_ps1_reexport_and_compat complete: %s", out)
     print(out)
-    return 0
+    return 0 if norm_res.get("isPassed") else 1
 
 
 if __name__ == "__main__":
