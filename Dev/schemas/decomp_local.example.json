@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 2,
+  "gameId": "harvest-moon-btn",
+  "usageNotes": "Copy this template to gitignored Dev/data/decomp_local.json or configure the listed CLI flags and environment variables locally without modifying tracked files.",
+  "cliOverrides": {
+    "dataDirFlag": "--data-dir <path-to-local-corpus-or-work-dir>",
+    "toolsDirFlag": "--tools-dir <path-to-rd-decomp-tools>",
+    "logDirFlag": "--log-dir <path-to-local-logs>",
+    "outFlag": "--out <path-to-output.decomp>"
+  },
+  "environmentVariables": {
+    "HMBTN_DATA_DIR": "./Corpus",
+    "RD_DECOMP_TOOLS": "../../Personal/R&D/Dev/tools/decomp",
+    "ZIG_EXE": "zig"
+  },
+  "localPathsExample": {
+    "dataDirectory": "./Corpus",
+    "decompBundleOutputPath": "./Corpus/work/extracts/harvest-moon-btn-v0.2.0.decomp",
+    "toolsDirectory": "../../Personal/R&D/Dev/tools/decomp",
+    "zigExecutablePath": "%LOCALAPPDATA%\\Microsoft\\WinGet\\Links\\zig.exe",
+    "logDirectory": "./Dev/logs"
+  }
+}

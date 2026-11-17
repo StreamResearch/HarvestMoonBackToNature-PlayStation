@@ -1,0 +1,39 @@
+{
+  "moduleId": "harvest-moon-btn",
+  "title": "Harvest Moon: Back to Nature (USA)",
+  "platformId": "ps1",
+  "engineId": "reStation",
+  "engineVersion": "0.2.0",
+  "compatibleEngineTrack": "0.2.x",
+  "decompSchemaVersion": "1.0.0",
+  "targetDecompTier": "D5",
+  "goalDecompTier": "D5",
+  "packageVersion": "0.2.0",
+  "serialNumber": "SLUS-01115",
+  "defaultBootExecutable": "SLUS_011.15",
+  "sleighLanguageId": "MIPS:LE:32:R3000A_GTE",
+  "upstreamResearchPath": "HarvestMoonBackToNature-PlayStation",
+  "ghidraProjectName": "HarvestMoonBTNUSA",
+  "preloadRomDir": "data/rom",
+  "recipeEntryPoint": "Dev/scripts/hmbtn_unpack.py",
+  "customUnpackerScript": "Dev/scripts/hmbtn_unpack.py",
+  "toolchainRequirements": {
+    "minimumGhidraVersion": "11.2",
+    "requiresHeadlessJdk": true,
+    "requiredExtensions": []
+  },
+  "bundleDirectories": [
+    "Dev/schemas",
+    "Dev/scripts"
+  ],
+  "excludedSubtrees": [
+    "Corpus",
+    "Archive",
+    "Dev/docs",
+    "Dev/data",
+    "Dev/logs",
+    "Dev/scripts/tests",
+    "__pycache__",
+    ".pytest_cache"
+  ]
+}
