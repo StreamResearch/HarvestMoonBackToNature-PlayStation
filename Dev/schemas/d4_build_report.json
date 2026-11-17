@@ -1,8 +1,8 @@
 {
   "schemaVersion": 2,
   "gameId": "harvest-moon-btn",
-  "generatedAtUtc": "2026-11-17T04:10:00.000Z",
-  "verifiedAtUtc": "2026-11-17T04:10:00.000Z",
+  "generatedAtUtc": "2026-11-17T07:15:00.000Z",
+  "verifiedAtUtc": "2026-11-17T07:15:00.000Z",
   "zigTarget": "mipsel-freestanding-eabi",
   "zigCpu": "mips2",
   "readableFiles": 513,
@@ -17,9 +17,9 @@
   "compilerErrors": 0,
   "compilerWarnings": 0,
   "parityTarget": "x86-windows-gnu",
-  "assertionsPassedCount": 8,
-  "assertionsTotalCount": 8,
-  "parityTestsPassed": 8,
+  "assertionsPassedCount": 12,
+  "assertionsTotalCount": 12,
+  "parityTestsPassed": 12,
   "parityPassed": true,
   "isPassed": true,
   "parityResults": [
@@ -33,6 +33,10 @@
     },
     {
       "name": "cd_init_afile_aligned_span",
+      "isPassed": true
+    },
+    {
+      "name": "cd_xa_seek_and_stop_fsm",
       "isPassed": true
     },
     {
@@ -52,7 +56,19 @@
       "isPassed": true
     },
     {
-      "name": "cd_xa_seek_and_stop_fsm",
+      "name": "gte_rtps_q12_projection_and_flag",
+      "isPassed": true
+    },
+    {
+      "name": "gte_nclip_winding_and_avsz3",
+      "isPassed": true
+    },
+    {
+      "name": "field_tool_stamina_and_fishing_sim",
+      "isPassed": true
+    },
+    {
+      "name": "save_diary_3tier_xor_parity",
       "isPassed": true
     }
   ]

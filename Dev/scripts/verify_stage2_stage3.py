@@ -21,16 +21,19 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 SCHEMAS = REPO_ROOT / "Dev" / "schemas"
 SCRIPTS = REPO_ROOT / "Dev" / "scripts"
 
-FUNC_HDR_RE = re.compile(r"^// Function:\s+(\S+)\s+@\s+0x([0-9a-fA-F]+)", re.M)
-DOC_FUNC_RE = re.compile(
-    r"/\*\*\n(?: \*[^\n]*\n)+? \* @address 0x[0-9a-fA-F]+ \([^\n]+\)\n"
-    r" \* @domain [^\n]+\n \* @wave \d+\n \* @callers [^\n]+\n \* @callees [^\n]+\n \*/\n"
-    r"// Function:\s+(\S+)\s+@\s+0x([0-9a-fA-F]+)",
+DOXY_FUNC_RE = re.compile(
+    r"/\*\*\n(?: \*(?!/)[^\n]*\n)+? \* @symbol (\S+)\n \* @address 0x([0-9a-fA-F]+) \(([^)]+)\)\n(?: \*(?!/)[^\n]*\n)*? \*/"
 )
-LEAK_RE = re.compile(
-    "(j" + "anov|[A-Z]:[/\\\\]+(?:Us" + "ers|Py" + "thon\\d+|Pro" + "jects|Pro" + "grams)|fi" + "le:///)",
-    re.I,
+FUNC_HDR_RE = re.compile(r"^(?:[A-Za-z_][A-Za-z0-9_*\s]*?)\b([A-Za-z_][A-Za-z0-9_]*)\s*\([^;{}]*\)\s*\{", re.M)
+_C_KW = frozenset({"if", "else", "while", "for", "switch", "return", "sizeof", "typedef"})
+_CRAFT_RE = re.compile(
+    r"/\*\s*WARNING:|//\s*Function:|\(void\s*\*\)\s*0x0\b|\(\*\(code\s*\*\)|@(?:callers|callees)\s+none\b"
+    r"|\b(?:uVar|iVar|puVar|piVar|pcVar|pbVar|psVar|pvVar|lVar|fVar|dVar|sVar|bVar|cVar|wVar|plVar|ppuVar|CVar)[0-9A-Za-z_]*\b"
+    r"|\b_?(?:local_|unaff_|in_|extraout_)[0-9A-Za-z_]*\b|\bstack0x[0-9A-Fa-f]+\b"
+    r"|\b_?[A-Za-z]*Stack(?:[XY]?_[0-9A-Za-z]+|0[xX]?[0-9A-Fa-f]+)\b"
+    r"|\bparam_[0-9]+\b|\bundefined[1248]?\b|\b(?:FUN|DAT|UNK|PTR|LAB|SUB|switchD)_[0-9A-Za-z_]+\b"
 )
+LEAK_RE = re.compile("(j" + "anov|[A-Z]:[/\\\\]+(?:Us" + "ers|Py" + "thon\\d+|Pro" + "jects|Pro" + "grams)|fi" + "le:///)", re.I)
 
 _FB_BANNED = re.compile(r"^(FUN_|fn_[0-9a-fA-F]+|func_[0-9a-fA-F]+|sub_[0-9a-fA-F]+|unk_|todo_|helper_[0-9]+$)")
 _FB_PARAM = re.compile(r"^param_[0-9]+$")
@@ -115,14 +118,8 @@ def _check_catalog(
         + sum(1 for p in c.get("params", []) if parse_spec(p["type"])[0] not in ts or parse_spec(p["type"])[2])
         for c in cat
     )
-    ok = (
-        len(cat) == 2575 and missing == 0 and extra == 0 and nonempty_strs == 0
-        and not banned and not bad_params and collisions == 0 and lp32_bad == 0
-    )
-    detail = (
-        f"catalog={len(cat)}/2575 missing={missing} extra={extra} banned={len(banned)} "
-        f"param_*={len(bad_params)} collisions={collisions} lp32_invalid={lp32_bad} cg_strings={nonempty_strs}"
-    )
+    ok = len(cat) == 2575 and missing == 0 and extra == 0 and nonempty_strs == 0 and not banned and not bad_params and collisions == 0 and lp32_bad == 0
+    detail = f"catalog={len(cat)}/2575 missing={missing} extra={extra} banned={len(banned)} param_*={len(bad_params)} collisions={collisions} lp32_invalid={lp32_bad} cg_strings={nonempty_strs}"
     return ok, detail
 
 
@@ -152,29 +149,33 @@ def _check_readable_tree(readable_dir: Path, offline_synthetic: bool) -> tuple[b
     ws_path = REPO_ROOT / "Dev" / "HarvestMoonBackToNature-PlayStation.code-workspace"
     ws_clean = ws_path.is_file() and not LEAK_RE.search(ws_path.read_text(encoding="utf-8"))
     if offline_synthetic and not readable_dir.is_dir():
-        return True, "offline-synthetic (5 types/*.h, 0 FUN_80*, 0 fail)", ws_clean, f"offline-synthetic ws={ws_path.is_file()} ws_clean={ws_clean}"
+        return True, "offline-synthetic (5 types/*.h, 0 FUN_80*, 0 craft, 0 fail)", ws_clean, f"offline-synthetic ws={ws_path.is_file()} ws_clean={ws_clean}"
     inc = readable_dir / "include"
     req = [inc / "harvestmoonbtn_types.h", inc / "harvestmoonbtn_globals.h", inc / "harvestmoonbtn_functions.h", inc / "ghidra_compat.h"]
     types_h = sorted((inc / "types").glob("*.h")) if (inc / "types").is_dir() else []
     hdrs_ok = all(p.is_file() and p.stat().st_size > 0 for p in req) and len(types_h) == 5
     c_files = sorted(readable_dir.rglob("*.c"))
-    r_funcs = fun_defs = r_fail = doc_game = game_funcs = single_gt400 = 0
+    r_funcs = fun_defs = r_fail = doc_game = game_funcs = single_gt400 = craft_hits = 0
     oversized: list[str] = []
     for cf in c_files:
         txt = cf.read_text(encoding="utf-8", errors="replace")
         lc = len(txt.splitlines())
         r_fail += txt.count("DECOMPILE FAILED")
-        hdrs = FUNC_HDR_RE.findall(txt)
+        craft_hits += len(_CRAFT_RE.findall(txt))
+        doxy = list(DOXY_FUNC_RE.finditer(txt))
+        hdrs = [(m.group(1), m.group(2)) for m in doxy] if doxy else [(fn, "") for fn in FUNC_HDR_RE.findall(txt) if fn not in _C_KW]
         if lc > 400:
-            if len(hdrs) > 1: oversized.append(f"{cf.relative_to(readable_dir)}({lc})")
-            else: single_gt400 += 1
+            if len(hdrs) > 1:
+                oversized.append(f"{cf.relative_to(readable_dir)}({lc})")
+            else:
+                single_gt400 += 1
         r_funcs += len(hdrs)
         fun_defs += sum(1 for nm, _ in hdrs if nm.startswith("FUN_80"))
         if "sdk" not in cf.parts:
             game_funcs += len(hdrs)
-            doc_game += len(DOC_FUNC_RE.findall(txt))
-    tree_ok = hdrs_ok and r_funcs == 3828 and game_funcs == 2575 and doc_game == 2575 and fun_defs == 0 and r_fail == 0 and not oversized
-    tree_det = f"hdrs={hdrs_ok}(5 types/*.h) chunks={len(c_files)} funcs={r_funcs}/3828 game_docs={doc_game}/2575 fun80_defs={fun_defs} fail={r_fail} multi_oversized={len(oversized)} single_fn_gt400={single_gt400}"
+            doc_game += sum(1 for m in doxy if " * @domain " in m.group(0))
+    tree_ok = hdrs_ok and r_funcs == 3828 and game_funcs == 2575 and doc_game == 2575 and fun_defs == 0 and r_fail == 0 and craft_hits == 0 and not oversized
+    tree_det = f"hdrs={hdrs_ok}(5 types/*.h) chunks={len(c_files)} funcs={r_funcs}/3828 game_docs={doc_game}/2575 fun80={fun_defs} craft={craft_hits} fail={r_fail} oversized={len(oversized)} single_gt400={single_gt400}"
     sym_p, walk_p, cdb_p, cl_cfg = readable_dir / "SYMBOL_MAP.md", readable_dir / "ARCHITECTURE_WALKTHROUGH.md", readable_dir / "compile_commands.json", readable_dir / ".clangd"
     sym_rows = len(re.findall(r"^\| `0x[0-9a-fA-F]+` \|", sym_p.read_text(encoding="utf-8"), re.M)) if sym_p.is_file() else 0
     docs_ok = sym_p.is_file() and walk_p.is_file() and cdb_p.is_file() and cl_cfg.is_file() and ws_clean and sym_rows == 3828
@@ -200,7 +201,8 @@ def _check_clangd(readable_dir: Path, find_clangd_fn: Any, offline_synthetic: bo
         proc = subprocess.run([clangd, f"--check={t}"], capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=30)
         m = re.search(r"All checks completed,\s*(\d+)\s*errors", (proc.stdout or "") + "\n" + (proc.stderr or ""))
         errs = int(m.group(1)) if m else -1
-        if proc.returncode != 0 or errs != 0: all_ok = False
+        if proc.returncode != 0 or errs != 0:
+            all_ok = False
         summary.append(f"{t.name}={errs}")
     return all_ok, ", ".join(summary)
 
@@ -234,7 +236,7 @@ def run_checks(
     tracked = [REPO_ROOT / "README.md", *(REPO_ROOT / "Dev" / "docs").rglob("*.md"), *(SCHEMAS / "types").glob("*.h"), *SCRIPTS.glob("*.py")]
     if java_p and java_p.is_file():
         tracked.append(java_p)
-    oversized = [f"{p.name}({len(p.read_text(encoding='utf-8').splitlines())})" for p in tracked if p.is_file() and len(p.read_text(encoding='utf-8').splitlines()) > 400]
+    oversized = [f"{p.name}({len(p.read_text(encoding='utf-8').splitlines())})" for p in tracked if p.is_file() and len(p.read_text(encoding="utf-8").splitlines()) > 400]
     j_loc = len(java_p.read_text(encoding="utf-8").splitlines()) if java_p and java_p.is_file() else -1
     v_loc = len(Path(__file__).read_text(encoding="utf-8").splitlines())
     lim_ok = not oversized and v_loc <= 380 and (j_loc < 0 or j_loc <= 395)

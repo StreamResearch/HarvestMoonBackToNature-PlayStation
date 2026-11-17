@@ -6,6 +6,8 @@
 #include "parity_harness.h"
 
 D4SpyCounters g_d4_spy = {0};
+uint32_t g_gte_ctrl[32] = {0};
+uint32_t g_gte_data[32] = {0};
 
 int ResetCallback(void) { g_d4_spy.reset_cb++; return 0; }
 int DrawSync(int mode) { (void)mode; g_d4_spy.draw_sync++; return 0; }
@@ -70,6 +72,7 @@ int main(int argc, char **argv) {
     int total = 0;
     total += d4_run_media_cd_tests(standalone_dir, results + total, 32 - total);
     total += d4_run_core_sys_tests(results + total, 32 - total);
+    total += d4_run_sim_and_gte_tests(results + total, 32 - total);
 
     int passed = 0;
     for (int i = 0; i < total; i++) passed += results[i].is_passed ? 1 : 0;

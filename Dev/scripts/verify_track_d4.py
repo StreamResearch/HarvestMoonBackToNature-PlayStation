@@ -21,6 +21,13 @@ IS_TIER_R = (DEV_DIR / "research.manifest.json").is_file()
 SCHEMAS_DIR = DEV_DIR / "schemas"
 MANIFEST_PATH = DEV_DIR / ("research.manifest.json" if IS_TIER_R else "decomp.manifest.json")
 BANNED_REPORT_KEYS = frozenset({"passed", "errors", "warnings", "archiveFile", "archiveBytes", "parityTestsTotal"})
+_GHIDRA_CRAFT_RE = re.compile(
+    r"/\*\s*WARNING:|//\s*Function:|\(void\s*\*\)\s*0x0\b|\(\*\(code\s*\*\)|@(?:callers|callees)\s+none\b"
+    r"|\b(?:uVar|iVar|puVar|piVar|pcVar|pbVar|psVar|pvVar|lVar|fVar|dVar|sVar|bVar|cVar|wVar|plVar|ppuVar|CVar)[0-9A-Za-z_]*\b"
+    r"|\b_?(?:local_|unaff_|in_|extraout_)[0-9A-Za-z_]*\b|\bstack0x[0-9A-Fa-f]+\b"
+    r"|\b_?[A-Za-z]*Stack(?:[XY]?_[0-9A-Za-z]+|0[xX]?[0-9A-Fa-f]+)\b"
+    r"|\bparam_[0-9]+\b|\bundefined[1248]?\b|\b(?:FUN|DAT|UNK|PTR|LAB|SUB|switchD)_[0-9A-Za-z_]+\b"
+)
 
 
 def count_code_sloc(path: Path) -> int:
@@ -89,6 +96,17 @@ def _find_banned_keys(obj: Any) -> list[str]:
     return sorted(set(found))
 
 
+def _check_craftsmanship(readable_dir: Path, failures: list[str]) -> None:
+    c_files = sorted(readable_dir.rglob("*.c")) if readable_dir.is_dir() else []
+    craft_files, craft_hits = 0, 0
+    for cf in c_files:
+        hits = len(_GHIDRA_CRAFT_RE.findall(cf.read_text(encoding="utf-8", errors="replace")))
+        if hits:
+            craft_files += 1
+            craft_hits += hits
+    _check("D4.craftsmanship", bool(c_files) and craft_hits == 0, f"hits={craft_hits} files={craft_files}/{len(c_files)}", failures)
+
+
 def _check_synthetic_build(data_dir: Path | None, zig_exe: Path | None, logger: logging.Logger, failures: list[str]) -> None:
     if str(SCRIPT_DIR) not in sys.path:
         sys.path.insert(0, str(SCRIPT_DIR))
@@ -102,7 +120,13 @@ def _check_synthetic_build(data_dir: Path | None, zig_exe: Path | None, logger: 
             standalone, readable, work_dir = bvd._seed_synthetic_corpus(base)
             manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
             s_rep = bvd.build_and_verify(resolved_zig, readable, work_dir, standalone, manifest["gameId"], logger, work_dir / "d4_build_report.json", base)
-            _check("D4.synthetic_parity", s_rep.get("isPassed") is True and int(s_rep.get("assertionsPassedCount", 0)) >= 8, f"passed={s_rep.get('assertionsPassedCount')}/{s_rep.get('assertionsTotalCount')}", failures)
+        else:
+            readable = base / "readable"
+            rep_file = work_dir / "d4_build_report.json"
+            s_rep = json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {}
+        if s_rep:
+            _check("D4.synthetic_parity", s_rep.get("isPassed") is True and int(s_rep.get("assertionsPassedCount", 0)) >= 12, f"passed={s_rep.get('assertionsPassedCount')}/{s_rep.get('assertionsTotalCount')}", failures)
+        _check_craftsmanship(readable, failures)
         arch = work_dir / "d4_build" / "libharvest_moon_btn_d4.a"
         obj_cnt, bad_elf = _verify_elf_objects(work_dir / "d4_build" / "obj", 3)
         _check("D4.synthetic_archive", arch.is_file() and arch.stat().st_size > 0, f"archive={arch.name} size={arch.stat().st_size if arch.is_file() else 0}", failures)
@@ -110,7 +134,7 @@ def _check_synthetic_build(data_dir: Path | None, zig_exe: Path | None, logger: 
 
 
 def run_checks(data_dir: Path | None, offline_synthetic: bool, zig_exe: Path | None, logger: logging.Logger) -> tuple[dict[str, Any], list[str]]:
-    """Run independent Stage D4 schema, harness SLOC, archive, and ELF32 MIPS checks."""
+    """Run independent Stage D4 schema, craftsmanship, harness SLOC, archive, and ELF32 MIPS checks."""
     failures: list[str] = []
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
     rep_path = SCHEMAS_DIR / "d4_build_report.json"
@@ -133,21 +157,26 @@ def run_checks(data_dir: Path | None, offline_synthetic: bool, zig_exe: Path | N
     is_passed = rep.get("isPassed") if rep.get("isPassed") is not None else rep.get("parityPassed")
 
     _check("D4.compile_counts", comp_cnt >= 513 and err_cnt == 0 and warn_cnt == 0, f"compiled={comp_cnt} err={err_cnt} warn={warn_cnt}", failures)
-    _check("D4.parity", is_passed is True and passed_cnt >= 8 and total_cnt >= 8 and passed_cnt == total_cnt, f"isPassed={is_passed} assertions={passed_cnt}/{total_cnt}", failures)
+    _check("D4.parity", is_passed is True and passed_cnt >= 12 and total_cnt >= 12 and passed_cnt == total_cnt, f"isPassed={is_passed} assertions={passed_cnt}/{total_cnt}", failures)
 
     d4_gate = ((manifest.get("gates") or {}).get("D4") or {})
     _check("D4.manifest", manifest.get("currentDecompTier") == "D4" and d4_gate.get("passed") is True, f"tier={manifest.get('currentDecompTier')} gate={d4_gate.get('passed')}", failures)
 
     harness_dir = SCRIPT_DIR / "d4_harness"
-    harness_c = sorted(harness_dir.glob("*.c"))
-    harness_h = sorted(harness_dir.glob("*.h"))
+    harness_c, harness_h = sorted(harness_dir.glob("*.c")), sorted(harness_dir.glob("*.h"))
     _check("D4.modular_harness", len(harness_c) >= 2, f"harness_c_count={len(harness_c)}", failures)
     sloc_over = [f"{p.name}({count_code_sloc(p)})" for p in [*harness_c, *harness_h] if count_code_sloc(p) > 250]
     _check("D4.harness_sloc", not sloc_over, f"over_250_sloc={sloc_over}", failures)
 
     stage_doc = DEV_DIR / "docs" / "stages" / "05-stage4-d4-mips-build-and-parity.md"
     _check("D4.stage_doc_exists", stage_doc.is_file(), f"Missing {stage_doc}", failures)
-    checked_files = [SCRIPT_DIR / "patch_ps1_reexport_and_compat.py", SCRIPT_DIR / "build_and_verify_d4.py", SCRIPT_DIR / "verify_track_d4.py", SCRIPT_DIR / "hmbtn_unpack.py", SCRIPT_DIR / "verify_stage0_stage1.py", stage_doc, *harness_c, *harness_h]
+    checked_files = [
+        SCRIPT_DIR / "patch_ps1_reexport_and_compat.py", SCRIPT_DIR / "craftsmanship_d4_normalizer.py",
+        SCRIPT_DIR / "craftsmanship_d4_helpers.py", SCRIPT_DIR / "d4_synthetic_corpus.py",
+        SCRIPT_DIR / "build_and_verify_d4.py", SCRIPT_DIR / "verify_track_d4.py",
+        SCRIPT_DIR / "verify_stage2_stage3.py", SCRIPT_DIR / "hmbtn_unpack.py",
+        SCRIPT_DIR / "verify_stage0_stage1.py", stage_doc, *harness_c, *harness_h,
+    ]
     over_400 = [f"{p.name}({len(p.read_text(encoding='utf-8').splitlines())})" for p in checked_files if p.is_file() and len(p.read_text(encoding="utf-8").splitlines()) > 400]
     _check("D4.line_limits", not over_400, f"over_400={over_400}", failures)
 
@@ -161,6 +190,7 @@ def run_checks(data_dir: Path | None, offline_synthetic: bool, zig_exe: Path | N
         else:
             c_files = sorted(readable_dir.rglob("*.c"))
             _check("D4.c_files", len(c_files) >= 500 and comp_cnt >= len(c_files), f"found={len(c_files)} compiled={comp_cnt}", failures)
+            _check_craftsmanship(readable_dir, failures)
             arch_rel = str(rep.get("archivePath") or rep.get("archiveFile") or "work/d4_build/libharvest_moon_btn_d4.a")
             arch = corpus_dir / arch_rel
             exp_sz = int(rep.get("fileSizeBytes", rep.get("archiveBytes", 0)))
@@ -173,12 +203,8 @@ def run_checks(data_dir: Path | None, offline_synthetic: bool, zig_exe: Path | N
             _check("D4.compat_hygiene", compat.is_file() and not has_rec, f"recursive_include={has_rec}", failures)
 
     summary = {
-        "isPassed": not failures,
-        "mode": "offline-synthetic" if offline_synthetic else "corpus",
-        "compiledFileCount": comp_cnt,
-        "assertionsPassedCount": passed_cnt,
-        "assertionsTotalCount": total_cnt,
-        "failures": failures,
+        "isPassed": not failures, "mode": "offline-synthetic" if offline_synthetic else "corpus",
+        "compiledFileCount": comp_cnt, "assertionsPassedCount": passed_cnt, "assertionsTotalCount": total_cnt, "failures": failures,
     }
     logger.info("verify_track_d4 mode=%s isPassed=%s failures=%d", summary["mode"], summary["isPassed"], len(failures))
     return summary, failures

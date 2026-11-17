@@ -1,13 +1,14 @@
 {
   "schemaVersion": 2,
   "gameId": "harvest-moon-btn",
-  "generatedAtUtc": "2026-11-17T04:10:00.000Z",
+  "generatedAtUtc": "2026-11-17T07:15:00.000Z",
   "compilerErrorCount": 0,
   "compilerWarningCount": 0,
   "compilerErrors": 0,
   "compilerWarnings": 0,
-  "assertionsPassedCount": 8,
-  "assertionsTotalCount": 8,
+  "assertionsPassedCount": 12,
+  "assertionsTotalCount": 12,
+  "parityTestsPassed": 12,
   "isPassed": true,
   "parityPassed": true,
   "manualDocsVerified": [
@@ -18,7 +19,10 @@
     "Dev/docs/specifications/afile-and-overlays.md",
     "Dev/docs/specifications/sound-vab-seq-xa.md",
     "Dev/docs/specifications/sprites-0x0e-and-tim.md",
-    "Dev/docs/specifications/save-diary-calendar-affection.md"
+    "Dev/docs/specifications/save-diary-calendar-affection.md",
+    "Dev/docs/findings/dual-slot-overlay-and-afile-streaming.md",
+    "Dev/docs/findings/farm-simulation-rng-and-event-bitsets.md",
+    "Dev/docs/findings/d4-craftsmanship-and-mips-abi-normalization.md"
   ],
   "parserModulesVerified": [
     "Dev/scripts/hmbtn_unpack.py",
@@ -26,6 +30,9 @@
     "Dev/scripts/hmbtn_overlays.py",
     "Dev/scripts/hmbtn_sound.py",
     "Dev/scripts/hmbtn_sprites.py",
-    "Dev/scripts/hmbtn_save_diary.py"
+    "Dev/scripts/hmbtn_save_diary.py",
+    "Dev/scripts/craftsmanship_d4_helpers.py",
+    "Dev/scripts/craftsmanship_d4_normalizer.py",
+    "Dev/scripts/d4_synthetic_corpus.py"
   ]
 }
