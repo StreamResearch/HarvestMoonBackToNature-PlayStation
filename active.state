@@ -17,7 +17,7 @@
   "tasklistDetailLevel": 3,
   "openTaskCount": 1,
   "completedTaskCount": 8,
-  "openReportCount": 0,
+  "openReportCount": 1,
   "isPublicRepo": false,
   "requireHumanReviewBeforePush": true,
   "gates": {
