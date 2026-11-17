@@ -1,12 +1,12 @@
 # HarvestMoonBackToNature-PlayStation — Clean-Room Specifications & Data Contracts
 
-**Version:** `0.2.0` (2026-11-17) · **Study Axis:** `S4` · **Decomp Axis:** `D4` · **Recomp Goal:** `R3`
+**Version:** `0.2.1` (`2026-11-17`) · **Study Axis:** `S4` · **Decomp Axis:** `D4` · **Recomp Goal:** `R3`
 
-This routing index links the four detailed specification spokes under `Dev/docs/specifications/`, their matching pure-stdlib Python decoders under `Dev/scripts/`, and the machine-readable coverage ledger [`Dev/schemas/spec_coverage.json`](../schemas/spec_coverage.json) (`68 / 68` fields mapped, `0` unresolved).
+This routing index links the four specification spokes (`Dev/docs/specifications/`), the three empirical findings spokes (`Dev/docs/findings/`), their matching pure-stdlib Python tools (`Dev/scripts/`), and the machine-readable coverage ledger [`Dev/schemas/spec_coverage.json`](../schemas/spec_coverage.json) (`68 / 68` fields mapped, `unresolvedFieldCount: 0`).
 
 ---
 
-## 1. Specification Spokes & Modular Decoders
+## 1. Specification Spokes & Modular Decoders (`68 / 68` Fields Mapped)
 
 | Specification Spoke | Parser Script | Scope & Verified Fields | Mapped Fields |
 | :--- | :--- | :--- | ---: |
@@ -17,15 +17,25 @@ This routing index links the four detailed specification spokes under `Dev/docs/
 
 ---
 
-## 2. Manifest, Schemas & Clean-Room Type Headers (`Dev/`)
+## 2. Empirical Findings Spokes (`Dev/docs/findings/` via [FINDINGS.md](FINDINGS.md))
 
-- **Control Manifest:** [`Dev/research.manifest.json`](../research.manifest.json) (`gameId = "harvest-moon-btn"`, `platform = "ps1"`, `serialOrHash = "SLUS-01115"`, `abiProfile = "ps1-psyq-mipsel"`, `recompProjectPath = "HMBackToNature-Recomp"`).
-- **Umbrella & Modular C Types:** [`harvestmoonbtn_types.h`](../schemas/harvestmoonbtn_types.h) plus [`primitives_and_sdk.h`](../schemas/types/primitives_and_sdk.h), [`engine_and_afile.h`](../schemas/types/engine_and_afile.h), [`render_and_gte.h`](../schemas/types/render_and_gte.h), [`farm_npc_and_sim.h`](../schemas/types/farm_npc_and_sim.h), and [`ui_diary_and_overlays.h`](../schemas/types/ui_diary_and_overlays.h) (`4` enums, `21` typedefs, `57` structs).
-- **Machine-Readable Ledgers:** [`spec_coverage.json`](../schemas/spec_coverage.json) (`68` mapped / `0` unresolved), [`standalone_integrity.json`](../schemas/standalone_integrity.json), [`call_graph.json`](../schemas/call_graph.json) (`3,828` nodes), [`clusters.json`](../schemas/clusters.json) (`23` domains), [`globals_map.json`](../schemas/globals_map.json) (`3,497` symbols), [`functions_catalog.json`](../schemas/functions_catalog.json) (`2,575` game functions), [`d4_build_report.json`](../schemas/d4_build_report.json), and [`decomp_recipe.json`](../schemas/decomp_recipe.json).
+| Findings Spoke | Supporting Tools / Harness | Empirical & ABI Focus |
+| :--- | :--- | :--- |
+| [`dual-slot-overlay-and-afile-streaming.md`](findings/dual-slot-overlay-and-afile-streaming.md) | [`hmbtn_unpack.py`](../scripts/hmbtn_unpack.py), [`d4_symbol_overrides.json`](../schemas/d4_symbol_overrides.json) | `SLUS_011.15` arena geometry, `22` `0x800145F0` load calls, `Slot A` + `Part 11` / `Slot B` co-residency, `48` `hm_res_*` exports |
+| [`farm-simulation-rng-and-event-bitsets.md`](findings/farm-simulation-rng-and-event-bitsets.md) | [`hm_gte_cop2.h`](../scripts/d4_harness/hm_gte_cop2.h), [`parity_sim_and_gte_tests.c`](../scripts/d4_harness/parity_sim_and_gte_tests.c) | `0x41C64E6D` LCG PRNG, `0x8006C870` event bitsets, tool/stamina/fishing math, `37` NPC daily step, `Q12` `COP2` GTE |
+| [`d4-craftsmanship-and-mips-abi-normalization.md`](findings/d4-craftsmanship-and-mips-abi-normalization.md) | [`craftsmanship_d4_normalizer.py`](../scripts/craftsmanship_d4_normalizer.py), [`patch_ps1_reexport_and_compat.py`](../scripts/patch_ps1_reexport_and_compat.py) | `MIPS32 LE LP32` ABI, pre-assembly P-code lowering, `0`-artifact `D4.craftsmanship` normalization across `513` `.c` files |
 
 ---
 
-## 3. Core Resident Globals & Hardware Interfaces
+## 3. Manifest, Schemas & Clean-Room Type Headers (`Dev/`)
+
+- **Control Manifest:** [`Dev/research.manifest.json`](../research.manifest.json) (`version = "0.2.1"`, `gameId = "harvest-moon-btn"`, `platform = "ps1"`, `serialOrHash = "SLUS-01115"`, `currentDecompTier = "D4"`, `currentStudyTier = "S4"`, `recompProjectPath = "../../Personal/HMBackToNature-Recomp"`).
+- **Umbrella & Modular C Types:** [`harvestmoonbtn_types.h`](../schemas/harvestmoonbtn_types.h) plus [`primitives_and_sdk.h`](../schemas/types/primitives_and_sdk.h), [`engine_and_afile.h`](../schemas/types/engine_and_afile.h), [`render_and_gte.h`](../schemas/types/render_and_gte.h), [`farm_npc_and_sim.h`](../schemas/types/farm_npc_and_sim.h), and [`ui_diary_and_overlays.h`](../schemas/types/ui_diary_and_overlays.h) (`4` enums, `21` typedefs, `57` structs, neutral PS1 ABI comments).
+- **Machine-Readable Ledgers:** [`spec_coverage.json`](../schemas/spec_coverage.json) (`68` mapped / `0` unresolved), [`standalone_integrity.json`](../schemas/standalone_integrity.json), [`call_graph.json`](../schemas/call_graph.json) (`3,828` nodes, `strings: []`), [`clusters.json`](../schemas/clusters.json) (`23` domains), [`globals_map.json`](../schemas/globals_map.json) (`3,497` symbols), [`functions_catalog.json`](../schemas/functions_catalog.json) (`2,575` game functions), [`d4_symbol_overrides.json`](../schemas/d4_symbol_overrides.json) (`48` `hm_res_*` + `10` `spillGlobals`), [`d4_build_report.json`](../schemas/d4_build_report.json), [`s4_verify_report.json`](../schemas/s4_verify_report.json), and [`decomp_recipe.json`](../schemas/decomp_recipe.json).
+
+---
+
+## 4. Core Resident Globals & Hardware Interfaces
 
 | Symbol | Address | C Type | Role |
 | :--- | :--- | :--- | :--- |
@@ -33,19 +43,21 @@ This routing index links the four detailed specification spokes under `Dev/docs/
 | `g_cd_afile_toc_head_80048b40` | `0x80048B40` | `HmAfileTocEntry` | Resident `A_FILE.HDT` offset table loaded at boot (`hm_cd_init_afile_system`) |
 | `g_cd_tbl_80049a80` | `0x80049A80` | `u16[]` | CD-XA stream duration, file index, and channel table (`STR/01..04.XA`) |
 | `g_audio_tbl_80049370` | `0x80049370` | `u32[]` | Part 9 `pBAV` VH/VB and `pQES` SEQ relative offset table |
+| `g_ovl15_tbl_8006c870` | `0x8006C870` | `u32[]` | Persistent event, weekday, season, festival & heart bitset (`hm_event_flag_get`/`set`) |
 | `g_farm_calendar_clock_80070cf2` | `0x80070CF2` | `HmCalendarClock` | Season, day, weekday, clock ticks, and today/tomorrow weather state |
+| `g_core_player_state_80071a00` | `0x80071A00` | `HmPlayerState` | Farmer stamina, fatigue, equipped tool (`HmToolId`), gold, flags, and 3D coords |
 | `g_ovl15_diary_save_slots_801376e0` | `0x801376E0` | `HmSaveSlotSummary[3]` | Slot summary cache populated by `OVL_part15_id10.EXE` |
 
 ---
 
-## 4. Verification Gates & Automated Test Suites
+## 5. Verification Gates & Automated Test Suites
 
 | Gate | Axis | Status | Primary Evidence |
 | :--- | :--- | :--- | :--- |
-| `D0` / `S0` | Corpus & SHA-256 | Verified | [`standalone_integrity.json`](../schemas/standalone_integrity.json) + `hmbtn_unpack.py` |
+| `D0` / `S0` | Corpus & SHA-256 | Verified | [`standalone_integrity.json`](../schemas/standalone_integrity.json) + [`hmbtn_unpack.py`](../scripts/hmbtn_unpack.py) |
 | `D1`–`D3` / `S1`–`S3` | Schemas, Specs & Catalog | Verified | [`spec_coverage.json`](../schemas/spec_coverage.json) (`0` unresolved) + `Dev/scripts/tests/` |
-| `D4` / `S4` | ELF32 MIPS & Parser Parity | Verified | [`d4_build_report.json`](../schemas/d4_build_report.json) (`513/513`, `0` errors) + `hmbtn_*.py` |
-| `R1`–`R3` | Downstream Native Recomp | Goal `R3` | Linked via `downstreamProjects` (`HMBackToNature-Recomp`) + `.decomp` exporter |
+| `D4` / `S4` | ELF32 MIPS, Craftsmanship & `12/12` Parity | Verified | [`d4_build_report.json`](../schemas/d4_build_report.json) (`513/513`, `0` err, `12/12` parity) + [`s4_verify_report.json`](../schemas/s4_verify_report.json) |
+| `R1`–`R3` | Downstream Native Recomp | Goal `R3` | Linked via `recompProjectPath` (`HMBackToNature-Recomp`) + clean-room `.decomp` exporter |
 
 Run all isolated parser and clean-room contract tests (`0` retail media required):
 
