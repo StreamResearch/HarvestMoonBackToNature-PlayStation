@@ -1,7 +1,7 @@
 # Features & Verified Deliverables — HarvestMoonBackToNature-PlayStation
 
-> **Container Tier:** `Tier R` Standalone Research Repository · **Baseline:** `v0.1.0` (`D4 / S4 / R1`) · **Active Horizon:** `v0.1.1` -> `v1.0.0` (`S5` Gold)
-> **Legend:** `🟢 Live` (Shipped in `v0.1.0`) · `🟡 In-Dev` (Active `v0.1.1`) · `🔵 Planned` (`v0.2.0` -> `v1.0.0`)
+> **Container Tier:** `Tier R` Standalone Research Repository · **Baseline:** `v0.1.0-hf.1` (`D4 / S4 / R2`) · **Active Horizon:** `v0.2.0` -> `v1.0.0` (`S5` Gold) -> `v2.0.0` (`D5` Byte-Match)
+> **Legend:** `🟢 Live` (Shipped in `v0.1.0`) · `🟡 In-Dev` (Active `v0.2.0`) · `🔵 Planned` (`v0.3.0` -> `v2.0.0`)
 > **Links:** [README](README.md) · [ROADMAP](ROADMAP.md) · [active.state](active.state) · [SPECIFICATIONS](Dev/docs/SPECIFICATIONS.md) · [OPERATIONS](Dev/docs/OPERATIONS.md)
 
 ---
@@ -15,11 +15,12 @@
 | **23-Domain Schemas & Zero-Error C Corpus (`D1`–`D3`)** | `v0.1.0` | `🟢 Live` | `3,828` funcs (`2,575` game + `1,253` PS1 SDK), `3,497` globals, `6` headers, `513` `.c` files (`0` err) | [`Dev/research.manifest.json`](Dev/research.manifest.json) |
 | **ELF32 MIPS Archive & LP32 Host Parity (`D4` / `S4`)** | `v0.1.0` | `🟢 Live` | `513/513` TUs -> `libharvest_moon_btn_d4.a` (`3,463,828` B) + `8/8` `x86-windows-gnu` tests | [`d4_build_report.json`](Dev/schemas/d4_build_report.json) |
 | **4-Doc Research Manual Shelf (`Tier R`)** | `v0.1.0` | `🟢 Live` | Self-contained `ARCHITECTURE`, `SPECIFICATIONS`, `FINDINGS`, and `OPERATIONS` docs | [`Dev/docs/ARCHITECTURE.md`](Dev/docs/ARCHITECTURE.md) |
-| **Standard 18 Schemas & Clean-Room Paths (`T1`)** | `v0.1.1` | `🟡 In-Dev` | Canonical `generatedAtUtc`/`isPassed`/`unresolvedFieldCount` keys + `MISSING_CORPUS_MEDIA` JSON | `Dev/schemas/*.json`, `Dev/scripts/hmbtn_*.py` |
-| **Multi-TU `d4_harness\` & `verify_track_d4.py` Fix (`T2`–`T3`)** | `v0.1.1` | `🟡 In-Dev` | Split `d4_harness\` (`<= 250` LOC/TU), Pass-2 globbing, fix `== 8` & `stages/` path checks | `Dev/scripts/verify_track_d4.py`, `Dev/scripts/d4_harness/` |
-| **Full Asset/Checksum Parsers & Spec Spokes (`T4`–`T5`)** | `v0.2.0` | `🔵 Planned` | `A_FILE` overlays, `Part 9` `pBAV`/`pQES`, `0x0E` sprites, diary checksums + `spec\*.md` spokes | `Dev/scripts/*.py`, `Dev/docs/specifications/*.md` |
-| **Q12 Host GTE & Multi-Scene Trace Parity (`T6`)** | `v0.3.0` | `🔵 Planned` | Replace `((void)0)` GTE stubs in `ghidra_compat.h` with Q12 host GTE + farm/festival traces | `Dev/scripts/d4_harness/`, `Corpus/work/` |
+| **Canonical Reports, `A_FILE.BIN` Gate & `d4_harness\` (`T0`–`T1`)** | `v0.2.0` | `🟡 In-Dev` | `sourceMediaSha256` + `> 64 MiB` SHA-256 gate, `MISSING_CORPUS_MEDIA` JSON, `<= 250` LOC TUs | `Dev/schemas/*.json`, `Dev/scripts/d4_harness/` |
+| **Clean-Room `.decomp` Exporter & Public Scrub (`T2`–`T4`)** | `v0.2.0` | `🟡 In-Dev` | `export_decomp_bundle.py` targeting `reStation`, `<dataDir>\` override, PII/path scrub | `Dev/scripts/export_decomp_bundle.py`, `Dev/schemas/decomp_recipe.json` |
+| **Modular Parsers & `S5` Spec Spokes (`T5`)** | `v0.2.0` | `🟡 In-Dev` | `<= 250` LOC decoders (`hmbtn_overlays/sound/sprites/save_diary.py`) + `specifications/*.md` | `Dev/scripts/hmbtn_*.py`, `Dev/docs/specifications/*.md` |
+| **Q12 Host GTE & Multi-Scene Trace Parity (`T6`)** | `v0.3.0` | `🔵 Planned` | Deterministic Q12 `COP2` host math (`--offline-synthetic`) + farm/festival traces | `Dev/scripts/d4_harness/`, `Corpus/work/` |
 | **Certified `S5` Gold Research Container (`T7`–`T8`)** | `v1.0.0` | `🔵 Planned` | `s5_gold_report.json` (`isPassed: true`), `unresolvedFieldCount == 0`, Gold Manual Shelf | `Dev/schemas/s5_gold_report.json` |
+| **`D5` 1:1 Retail Byte-Matching (`T9`)** | `v2.0.0` | `🔵 Planned` | Per-TU PS1 SDK `4.70` / `maspsx` exact matching (`SLUS_011.15` + `13` overlays) | `Dev/schemas/d5_byte_match.json` |
 
 ---
 
@@ -35,31 +36,34 @@
 ### 2.3 Typed 23-Domain Corpus & Compiled ELF32 Archive (`D1`–`D4` / `S1`–`S4`)
 - **Complete Function & Global Coverage:** `3,828` total functions (`2,575` named game + `1,253` PS1 SDK SDK symbols), `3,497` mapped globals, `6` clean-room LP32 type headers, `513` readable `.c` files (`0` `DECOMPILE FAILED`), and `0`-error `clangd` `compile_commands.json`.
 - **Zero-Warning Cross-Compile & LP32 Host Parity:** Compiles `513/513` `.c` translation units via `zig cc` (`mipsel-freestanding-eabi`, `-mcpu=mips2`) into `libharvest_moon_btn_d4.a` (`3,463,828` B, `0` errors / `0` warnings) alongside `8/8` passing `x86-windows-gnu` parity tests in [`d4_build_report.json`](Dev/schemas/d4_build_report.json).
-- **Optional Read-Only Reference (`R1`):** Exposes immutable research contracts read strictly read-only by downstream [`HMBackToNature-Recomp`](../HMBackToNature-Recomp/README.md) without any gating dependency in either direction.
+- **Optional Read-Only Reference (`R1`–`R2`):** Exposes immutable research contracts read strictly read-only by downstream [`HMBackToNature-Recomp`](../HMBackToNature-Recomp/README.md) without any gating dependency in either direction.
 
 ---
 
-## 3. Active In-Dev Capabilities (`v0.1.1`)
+## 3. Active In-Dev Capabilities (`v0.2.0`)
 
-### 3.1 Standard 18 Reports & Clean Corpus-Empty Behavior (`T1`)
-- **Schema Normalization:** Migrate every JSON report to Standard 18 canonical keys (`generatedAtUtc`, `isPassed`, `unresolvedFieldCount`, `assertionsPassedCount`, `assertionsTotalCount`).
-- **Fail-Closed Missing-Media Diagnostics:** Running unpackers or parity runners against an empty BYO-disc `Corpus\` emits structured `"status": "MISSING_CORPUS_MEDIA"` JSON and clean non-crashing exit status, while supporting deterministic `--offline-synthetic` checks.
+### 3.1 Canonical Reports, `A_FILE.BIN` Gate & Clean-Room Paths (`T0`)
+- **Schema Normalization & Media Gate:** Migrate every JSON report to canonical report keys (`generatedAtUtc`, `isPassed`, `unresolvedFieldCount`, `assertionsPassedCount`, `assertionsTotalCount`), index retail `SLUS-01115` + `A_FILE.BIN` (`133,935,104` B) in `standalone_integrity.json` (removing `.gpr`), and enforce `sourceMediaSha256` inside `hmbtn_unpack.py`.
+- **Fail-Closed Missing-Media Diagnostics:** Running unpackers or parity runners against an empty `--data-dir` emits structured `"status": "MISSING_CORPUS_MEDIA"` JSON and clean non-crashing exit status, while supporting deterministic `--offline-synthetic` checks.
 
-### 3.2 Modular Multi-TU `d4_harness\` & Verifier Path Fixes (`T2`–`T3`)
-- **`d4_harness\` Split (`<= 250` LOC/TU):** Break monolithic test runners into clean domain C TUs discovered by Pass-2 globbing inside `build_d4_*.py`, ready for additive GTE, audio, and simulation checks.
-- **Verifier Alignment:** Fix `verify_track_d4.py` removing its hardcoded `== 8` test count cap and correcting its stage-doc check from `Dev\docs\05-...` to `Dev\docs\stages\05-...`, verified alongside `study_verifier.py` hashing the full `133,935,104`-byte `A_FILE.BIN` (`> 64 MiB`).
+### 3.2 Modular `d4_harness\`, `.decomp` Exporter & Public Scrub (`T1`–`T4`)
+- **`d4_harness\` Split (`<= 250` LOC/TU) & Verifier Alignment:** Break monolithic test runners into clean domain C TUs discovered by Pass-2 globbing, remove the `== 8` test count cap in `verify_track_d4.py`, fix `Dev\docs\stages\05-...` path resolution, and support `--data-dir` / `--log-dir`.
+- **Clean-Room `.decomp` Bundle & Public Scrub:** Author `export_decomp_bundle.py` (`<= 250` LOC) + `decomp_recipe.json` targeting `reStation`, scrub workstation paths/PII, add `## License & Legal` to `README.md`, and verify full `> 64 MiB` `A_FILE.BIN` SHA-256.
 
----
-
-## 4. Planned Horizon Capabilities (`v0.2.0` -> `v1.0.0`)
-
-### 4.1 Complete Container Parsers & `S5` Spec Spokes (`v0.2.0` — `T4`–`T5`)
-- **Flat `Dev/scripts/*.py` (`<= 250` LOC):** Clean-room Python extractors/validators for Slot A/B overlays, `Part 9` `pBAV`/`pQES` audio banks, `0x0E` sprite frames, and memory-card/diary checksum + calendar/affection tables outputting strictly into `--data-dir` / `Corpus\work\`.
+### 3.3 Modular Container Parsers & `S5` Spec Spokes (`T5`)
+- **Dedicated `<= 250`-LOC Decoders:** Split Slot A/B overlays (`hmbtn_overlays.py`), `Part 9` `pBAV`/`pQES` audio (`hmbtn_sound.py`), `0x0E` sprite frames (`hmbtn_sprites.py`), and diary checksum/calendar/affection tables (`hmbtn_save_diary.py`) outputting strictly into `--data-dir` / `Corpus\work\`.
 - **Specification Spokes:** Author `150–380`-line `Dev\docs\specifications\*.md` spokes linked from [`SPECIFICATIONS.md`](Dev/docs/SPECIFICATIONS.md) until `spec_coverage.json` reaches `unresolvedFieldCount == 0`.
 
-### 4.2 Q12 Host GTE & Multi-Scene Behavioral Parity (`v0.3.0` — `T6`)
-- **Real Fixed-Point GTE (`COP2`) Host Model:** Replace no-op `((void)0)` stubs in `ghidra_compat.h` with deterministic Q12 host GTE arithmetic covering isometric camera projection, lighting matrices, and matrix-multiply rounding.
-- **Multi-Scene Golden Traces:** Capture deterministic state/frame traces across Day-1 ranch intro, Mineral Town festival, crop watering/growth, and diary save/load inside `Corpus\work\` (`--data-dir`).
+---
 
-### 4.3 Certified `S5` Gold Reference Research Container (`v1.0.0` — `T7`–`T8`)
-- **`s5_gold_report.json` (`isPassed: true`):** Full `decomp_cli.py verify --tier S5` certification with `0` unresolved fields, complete multi-scene parity proof, and finished 4-Doc Manual Shelf.
+## 4. Planned Horizon Capabilities (`v0.3.0` -> `v2.0.0`)
+
+### 4.1 Q12 Host GTE & Multi-Scene Behavioral Parity (`v0.3.0` — `T6`)
+- **Real Fixed-Point GTE (`COP2`) Host Model:** Replace no-op `((void)0)` stubs in `ghidra_compat.h` with deterministic Q12 host GTE arithmetic (`RTPS`/`RTPT`/`MVMVA`/`NCLIP`/`AVSZ3`/`FLAG`) runnable via `--offline-synthetic`.
+- **Multi-Scene Golden Traces:** Capture deterministic fixed-seed state/frame traces across Day-1 ranch intro, Mineral Town festival, crop watering/growth, and diary save/load inside `--data-dir` / `Corpus\work\`.
+
+### 4.2 Certified `S5` Gold Reference Research Container (`v1.0.0` — `T7`–`T8`)
+- **`s5_gold_report.json` (`isPassed: true`):** Full `S5` certification with `0` unresolved fields, complete multi-scene parity proof, and finished 4-Doc Manual Shelf.
+
+### 4.3 `D5` 1:1 Retail Byte-Matching (`v2.0.0` — `T9`)
+- **`d5_byte_match.json` (`isPassed: true`):** Optional per-TU PS1 SDK `4.70` / `maspsx` instruction-exact matching of `SLUS_011.15` and `13` overlays with fail-closed `"status": "MISSING_TOOLCHAIN"` fallback.

@@ -8,23 +8,23 @@
   "ecosystemTier": "ResearchTrack",
   "appArchetype": "LAB",
   "version": "0.1.0-hf.1",
-  "activeMilestone": "0.1.1",
+  "activeMilestone": "0.2.0",
   "goalMajorVersion": "1.0.0",
   "stateChangedDate": "2026-11-15",
   "lastVersionDate": "2026-11-15",
   "productionSubpath": null,
   "supersededBy": null,
   "tasklistDetailLevel": 3,
-  "openTaskCount": 3,
+  "openTaskCount": 8,
   "completedTaskCount": 1,
   "openReportCount": 0,
   "gates": {
     "isGate0ScopePassed": true,
-    "isGate1PlanPassed": false,
+    "isGate1PlanPassed": true,
     "isGate2BuildPassed": false,
     "isInspecterVerified": false,
     "isTessaSynced": true
   },
-  "notes": "Graduated from <PROJECTS_PERSONAL>/R&D/decomps/ps1/harvest-moon-btn (D4 / S4); downstream HMBackToNature-Recomp v0.1.1 verified R2 Title Boot & 3-tier controls on reStation v0.1.5 (2026-11-14T21:58:59.410Z).",
-  "updatedAtUtc": "2026-11-16T00:46:00.000Z"
+  "notes": "Graduated PS1 SLUS-01115 D4/S4 research container; v0.1.1 folded into v0.2.0 (stabilization, .decomp exporter, public scrub, parsers/spokes) -> v0.3.0 (Q12 GTE parity) -> v1.0.0 (S5 Gold) -> v2.0.0 (D5 1:1 byte-match). Downstream HMBackToNature-Recomp v0.1.1 verified R2 Title Boot on reStation v0.1.5.",
+  "updatedAtUtc": "2026-11-17T03:25:00.000Z"
 }

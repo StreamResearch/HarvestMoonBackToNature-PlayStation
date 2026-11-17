@@ -36,3 +36,10 @@ __pycache__/
 .cache/
 .clangd/
 *.tmp
+
+# Extraneous OS / Drive Desktop Metadata
+desktop.ini
+Thumbs.db
+ehthumbs.db
+.DS_Store
+._*

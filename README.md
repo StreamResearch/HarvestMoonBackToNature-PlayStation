@@ -1,6 +1,6 @@
 # HarvestMoonBackToNature-PlayStation
 
-> **Standalone Clean-Room Research Repository (`Tier R`)** for **Harvest Moon: Back to Nature** (North American `SLUS-01115`, `ps1` / `native_ghidra_c`, ABI `ps1-psyq-mipsel`), graduated from `<PROJECTS_PERSONAL>/R&D\decomps\ps1\harvest-moon-btn` on `2026-11-14`.
+> **Standalone Clean-Room Research Repository (`Tier R`)** for **Harvest Moon: Back to Nature** (North American `SLUS-01115`, `ps1` / `native_ghidra_c`, ABI `ps1-psyq-mipsel`), graduated on `2026-11-14`.
 
 ## Overview
 - **Research ID:** `harvest-moon-back-to-nature-play-station` (`axis=decomp`)

@@ -174,11 +174,11 @@
       "verifiedAtUtc": null
     }
   },
-  "updatedAtUtc": "2026-11-16T00:46:00.000Z",
+  "updatedAtUtc": "2026-11-17T03:25:00.000Z",
   "manifestType": "research-repo",
   "researchAxis": "decomp",
   "currentStudyTier": "S4",
-  "goalStudyTier": "S4",
+  "goalStudyTier": "S5",
   "downstreamProjects": [
     "<PROJECTS_PERSONAL>/HMBackToNature-Recomp"
   ],
