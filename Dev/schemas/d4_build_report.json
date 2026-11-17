@@ -1,56 +1,59 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "gameId": "harvest-moon-btn",
-  "verifiedAtUtc": "2026-11-14T00:39:47Z",
+  "generatedAtUtc": "2026-11-17T04:10:00.000Z",
+  "verifiedAtUtc": "2026-11-17T04:10:00.000Z",
   "zigTarget": "mipsel-freestanding-eabi",
   "zigCpu": "mips2",
   "readableFiles": 513,
+  "compiledFileCount": 513,
   "compiledFiles": 513,
   "totalObjects": 514,
   "elf32MipsVerifiedObjects": 514,
-  "archiveFile": "work/d4_build/libharvest_moon_btn_d4.a",
-  "archiveBytes": 3463828,
+  "archivePath": "work/d4_build/libharvest_moon_btn_d4.a",
+  "fileSizeBytes": 3463828,
+  "compilerErrorCount": 0,
+  "compilerWarningCount": 0,
   "compilerErrors": 0,
   "compilerWarnings": 0,
-  "errors": 0,
-  "warnings": 0,
   "parityTarget": "x86-windows-gnu",
+  "assertionsPassedCount": 8,
+  "assertionsTotalCount": 8,
   "parityTestsPassed": 8,
-  "parityTestsTotal": 8,
   "parityPassed": true,
-  "passed": true,
+  "isPassed": true,
   "parityResults": [
     {
       "name": "retail_psx_exe_header",
-      "passed": true
+      "isPassed": true
     },
     {
       "name": "retail_afile_hdt_table",
-      "passed": true
+      "isPassed": true
     },
     {
       "name": "cd_init_afile_aligned_span",
-      "passed": true
+      "isPassed": true
     },
     {
       "name": "vsync_stride_roundtrip",
-      "passed": true
+      "isPassed": true
     },
     {
       "name": "draw_and_sync_flags",
-      "passed": true
+      "isPassed": true
     },
     {
       "name": "vsync_oneshot_callback_and_swap",
-      "passed": true
+      "isPassed": true
     },
     {
       "name": "highram_arena_accounting",
-      "passed": true
+      "isPassed": true
     },
     {
       "name": "cd_xa_seek_and_stop_fsm",
-      "passed": true
+      "isPassed": true
     }
   ]
 }

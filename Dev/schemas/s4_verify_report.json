@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 2,
+  "gameId": "harvest-moon-btn",
+  "generatedAtUtc": "2026-11-17T04:10:00.000Z",
+  "compilerErrorCount": 0,
+  "compilerWarningCount": 0,
+  "compilerErrors": 0,
+  "compilerWarnings": 0,
+  "assertionsPassedCount": 8,
+  "assertionsTotalCount": 8,
+  "isPassed": true,
+  "parityPassed": true,
+  "manualDocsVerified": [
+    "Dev/docs/ARCHITECTURE.md",
+    "Dev/docs/SPECIFICATIONS.md",
+    "Dev/docs/FINDINGS.md",
+    "Dev/docs/OPERATIONS.md",
+    "Dev/docs/specifications/afile-and-overlays.md",
+    "Dev/docs/specifications/sound-vab-seq-xa.md",
+    "Dev/docs/specifications/sprites-0x0e-and-tim.md",
+    "Dev/docs/specifications/save-diary-calendar-affection.md"
+  ],
+  "parserModulesVerified": [
+    "Dev/scripts/hmbtn_unpack.py",
+    "Dev/scripts/hmbtn_assets.py",
+    "Dev/scripts/hmbtn_overlays.py",
+    "Dev/scripts/hmbtn_sound.py",
+    "Dev/scripts/hmbtn_sprites.py",
+    "Dev/scripts/hmbtn_save_diary.py"
+  ]
+}
