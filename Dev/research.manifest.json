@@ -122,7 +122,7 @@
     },
     "D4": {
       "passed": true,
-      "verifiedAtUtc": "2026-11-17T07:15:00.000Z",
+      "verifiedAtUtc": "2026-11-17T07:38:47.368Z",
       "report": "schemas/d4_build_report.json"
     },
     "R0": {
@@ -178,7 +178,7 @@
       "verifiedAtUtc": null
     }
   },
-  "updatedAtUtc": "2026-11-17T07:15:00.000Z",
+  "updatedAtUtc": "2026-11-17T07:38:47.819Z",
   "manifestType": "research-repo",
   "researchAxis": "decomp",
   "currentStudyTier": "S4",

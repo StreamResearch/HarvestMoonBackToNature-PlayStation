@@ -26,7 +26,7 @@ from craftsmanship_d4_helpers import (  # noqa: E402
 DEV_DIR = SCRIPT_DIR.parent
 PROJ_ROOT = DEV_DIR.parent if DEV_DIR.name == "Dev" else DEV_DIR
 _UNDEF_MAP = {"undefined": "u8", "undefined1": "u8", "undefined2": "u16", "undefined3": "u32", "undefined4": "u32", "undefined8": "u64"}
-_FN_LINE_RE = re.compile(r"^//\s*Function:\s+(\S+)\s+@\s+0x([0-9a-fA-F]+)[^\n]*\r?\n?", re.M)
+_FN_LINE_RE = re.compile(r"^//\s*Function:\s+(\S+)\s+@\s+0x([0-9a-fA-F]+)[^\n]*(?:\r?\n)+", re.M)
 _DOXY_RE = re.compile(r"/\*\*.*?\*/", re.S)
 _EXTERN_NAME_RE = re.compile(r"^\s*extern\s+.+?\b([A-Za-z_][A-Za-z0-9_]*)\s*(?:\[[^\]]*\])?\s*;")
 
@@ -63,7 +63,7 @@ def _normalize_headers_and_warnings(text: str, is_sdk: bool, exact_map: dict[str
         fn, addr = m.group(1), m.group(2).lower()
         chunk = text[pos : m.start()]
         if is_sdk:
-            doc = f"/**\n * PS1 SDK runtime routine ({fn}).\n * @symbol {fn}\n * @address 0x{addr} (SLUS_011.15)\n * @domain sdk\n */\n"
+            doc = f"/**\n * PS1 SDK runtime routine ({fn}).\n * @symbol {fn}\n * @address 0x{addr} (SLUS_011.15)\n */\n"
             out.extend((chunk.rstrip("\n") + "\n\n", doc))
         else:
             rstripped = chunk.rstrip()

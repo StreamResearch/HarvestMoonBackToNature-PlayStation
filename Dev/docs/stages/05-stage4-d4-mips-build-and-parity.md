@@ -17,11 +17,11 @@
 ## 2. Two-Pass Build & `12/12` Parity (`build_and_verify_d4.py` + `d4_synthetic_corpus.py`)
 
 ### Pass 1 — MIPS ELF32 Static Build (`mipsel-freestanding-eabi`, `-mcpu=mips2`)
-- **Compiler:** `zig cc -target mipsel-freestanding-eabi -mcpu=mips2 -msoft-float -ffreestanding -fno-builtin -std=gnu11 -O1 -g0` (`-mcpu=mips1` triggers an LLVM `MipsISD::Sync` backend crash in Zig; `-mcpu=mips2 -msoft-float` emits valid little-endian R3000A O32 ELF32 objects `EI_CLASS=1`, `EI_DATA=1`, `ET_REL=1`, `EM_MIPS=8`).
+- **Compiler:** `zig cc -target mipsel-freestanding-eabi -mcpu=mips2 -msoft-float -ffreestanding -fno-builtin -fno-strict-aliasing -std=gnu11 -O1 -g0` (`-mcpu=mips1` triggers an LLVM `MipsISD::Sync` backend crash in Zig; `-fno-strict-aliasing` prevents TBAA miscompiling Ghidra stack puns; `-mcpu=mips2 -msoft-float` emits valid little-endian R3000A O32 ELF32 objects `EI_CLASS=1`, `EI_DATA=1`, `ET_REL=1`, `EM_MIPS=8`).
 - **Artifacts:** All `513` `.c` translation units (`129` `sdk`, `52` `src`, `332` `overlays`) + `globals_defs.c` (`514` `.o` objects) compile with `0` errors / `0` warnings and archive in `80`-file chunks into `Corpus/work/d4_build/libharvest_moon_btn_d4.a`.
 
 ### Pass 2 — LP32 Host & `Q12` GTE Parity (`x86-windows-gnu`, `-DHM_HOST_PARITY`)
-Modular `<= 250`-SLOC C TUs under `Dev/scripts/d4_harness/` (including [hm_gte_cop2.h](../../scripts/d4_harness/hm_gte_cop2.h) and [parity_sim_and_gte_tests.c](../../scripts/d4_harness/parity_sim_and_gte_tests.c)) compile with `-DHM_HOST_PARITY -I Dev/scripts/d4_harness` and link directly against `core_mainloop_01.c`, `cd_afile_overlays_01.c`, `render_gte_sprites_07.c`, and `ovl_part11_id06_06.c` (with offline fixtures & `hm_res_*` stubs from [d4_synthetic_corpus.py](../../scripts/d4_synthetic_corpus.py)):
+Modular `<= 250`-SLOC C TUs under `Dev/scripts/d4_harness/` (including [hm_gte_cop2.h](../../scripts/d4_harness/hm_gte_cop2.h) and [parity_sim_and_gte_tests.c](../../scripts/d4_harness/parity_sim_and_gte_tests.c)) compile with `-fno-strict-aliasing -DHM_HOST_PARITY -I Dev/scripts/d4_harness` and link directly against `core_mainloop_01.c`, `cd_afile_overlays_01.c`, `render_gte_sprites_07.c`, and `ovl_part11_id06_06.c` (with offline fixtures & `hm_res_*` stubs from [d4_synthetic_corpus.py](../../scripts/d4_synthetic_corpus.py)):
 
 1. `retail_psx_exe_header` — `SLUS_011.15` (`PS-X EXE`, `pc0 = 0x80011278`, `t_addr = 0x80010000`, `t_size = 321,536 B`).
 2. `retail_afile_hdt_table` — `A_FILE.HDT` `33` monotonic LE byte offsets ending at `133,935,104 B` (`65,398` sectors).
@@ -48,5 +48,5 @@ python -B Dev/scripts/craftsmanship_d4_normalizer.py --verify-clean --data-dir C
 # Pass 1 (MIPS ELF32) + Pass 2 (12/12 -DHM_HOST_PARITY) + independent D4 & CLI gates
 python -B Dev/scripts/build_and_verify_d4.py --offline-synthetic --data-dir "$env:TEMP\hmbtn-d4" --log-dir Dev/logs
 python -B Dev/scripts/verify_track_d4.py --offline-synthetic --data-dir "$env:TEMP\hmbtn-d4" --log-dir Dev/logs
-python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track . --tier D4
+python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track HarvestMoonBackToNature-PlayStation --tier D4
 ```

@@ -117,7 +117,7 @@ def build_and_verify(zig_exe: Path, readable_dir: Path, work_dir: Path, standalo
     c_files, parity_sources = sorted(readable_dir.rglob("*.c")), [readable_dir / rel for rel in _PARITY_RELS]
     globals_defs_c, host_stubs_c = _generate_globals_and_stubs(readable_dir, host_root, _collect_defined_fns(parity_sources))
     env, inc, compat = _zig_env(work_dir), str(readable_dir / "include"), str(readable_dir / "include/ghidra_compat.h")
-    cflags = [str(zig_exe), "cc", "-target", "mipsel-freestanding-eabi", "-mcpu=mips2", "-msoft-float", "-ffreestanding", "-fno-builtin", "-std=gnu11", "-O1", "-g0", "-Wno-everything", f"-I{inc}", "-include", compat]
+    cflags = [str(zig_exe), "cc", "-target", "mipsel-freestanding-eabi", "-mcpu=mips2", "-msoft-float", "-ffreestanding", "-fno-builtin", "-fno-strict-aliasing", "-std=gnu11", "-O1", "-g0", "-Wno-everything", f"-I{inc}", "-include", compat]
     all_tus = [(p, obj_root / p.relative_to(readable_dir).with_suffix(".o")) for p in c_files] + [(globals_defs_c, obj_root / "globals_defs.o")]
 
     def _compile_tu(pair: tuple[Path, Path]) -> tuple[str, int, str]:
@@ -149,7 +149,7 @@ def build_and_verify(zig_exe: Path, readable_dir: Path, work_dir: Path, standalo
     if not d4_sources:
         raise RuntimeError("No C translation units found in Dev/scripts/d4_harness/")
     runner_exe = host_root / "d4_parity_runner.exe"
-    host_cmd = [str(zig_exe), "cc", "-target", "x86-windows-gnu", "-std=gnu11", "-O1", "-Wno-everything", "-DHM_HOST_PARITY", f"-I{inc}", f"-I{harness_dir}", "-include", compat, *[str(s) for s in parity_sources], str(globals_defs_c), str(host_stubs_c), *[str(s) for s in d4_sources], "-o", str(runner_exe)]
+    host_cmd = [str(zig_exe), "cc", "-target", "x86-windows-gnu", "-std=gnu11", "-O1", "-fno-strict-aliasing", "-Wno-everything", "-DHM_HOST_PARITY", f"-I{inc}", f"-I{harness_dir}", "-include", compat, *[str(s) for s in parity_sources], str(globals_defs_c), str(host_stubs_c), *[str(s) for s in d4_sources], "-o", str(runner_exe)]
     host_build = subprocess.run(host_cmd, env=env, capture_output=True, text=True)
     if host_build.returncode != 0:
         raise RuntimeError(f"Pass2 build failed:\n{host_build.stderr[:1200]}")

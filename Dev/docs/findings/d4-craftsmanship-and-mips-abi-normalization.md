@@ -23,7 +23,7 @@ This empirical report documents the PlayStation 1 `MIPS32` little-endian `LP32` 
 | ABI / Toolchain Dimension | Verified PS1 Target Behavior | Failure Mode & Clean-Room Mitigation |
 | :--- | :--- | :--- |
 | **`LP32` Word & Pointer Width** | `sizeof(int) == sizeof(long) == sizeof(void *) == 4` | Host x64 builds (`LP64`/`LLP64`) widen pointers to 8 bytes; `stage2_globals_builder.py` validates all `3,497` globals with `pointer_bytes=4` (`0` overlap), and Pass 2 compiles strictly for 32-bit `x86-windows-gnu` with `(uintptr_t)` pointer casts (`sys_get_highram_free_bytes`). |
-| **Zig LLVM `mips1` Backend Crash** | `-target mipsel-freestanding-eabi -mcpu=mips1` triggers LLVM `MipsISD::Sync` fatal error | Pass 1 compiles with `-mcpu=mips2 -msoft-float -ffreestanding -fno-builtin -std=gnu11` to emit valid little-endian `ELF32` `ET_REL` `EM_MIPS` (`8`) objects verified across all `514` `.o` files. |
+| **Zig LLVM `mips1` & Aliasing** | `-target mipsel-freestanding-eabi -mcpu=mips1` triggers LLVM `MipsISD::Sync` crash; `-O1` TBAA drops punned stack reads | Pass 1 uses `-mcpu=mips2 -msoft-float -ffreestanding -fno-builtin -fno-strict-aliasing -std=gnu11 -O1`, and Pass 2 also sets `-fno-strict-aliasing` so stack puns (`hm_gte_project_svector_to_ot`) match PS1 hardware. |
 | **Windows `zig ar` CLI Limit** | Archiving `514` absolute object paths exceeds Windows command-line buffer (`WinError 206`) | `build_and_verify_d4.py` chunks archiving into `80`-object batches using relative paths from `cwd=obj_root` followed by `zig ar s`. |
 | **MinGW `<string.h>` Collision** | PS1 SDK `harvestmoonbtn_functions.h` declares `strcat`/`strcmp`/`memcpy` with conflicting attributes | `d4_harness/` omits `harvestmoonbtn_functions.h`, and `d4_synthetic_corpus.py` filters `LIBC_SYMS` (`19` CRT names) out of generated `host_stubs.c`. |
 | **Recursive Include Cycles** | `ghidra_compat.h` included before `harvestmoonbtn_types.h` cannot include `*_types.h` back | `verify_track_d4.py` enforces zero `*_types.h` includes inside `ghidra_compat.h` (`D4.compat_hygiene`); `HmCallbackFn`, `48` `hm_res_*` externs, `PS1_MMIO_16` (`36` regs), `PS1_MMIO_32` (`26` regs), and `#ifdef HM_HOST_PARITY` live inside `HMBTN_PS1_COMPAT_EXTS`. |
@@ -65,16 +65,16 @@ Although pre-assembly lowering compiled `513/513` `.c` files with `0` errors, th
 | **`param_<N>` Placeholders** | `4,389` | **`0`** | Numbered `param_\d+` parameters renamed to `arg_1..arg_N` while strictly preserving semantic names (`param_flag`, `param_b`, struct fields after `.`/`->`) |
 | **`undefined[1248]?` Pseudo-Types** | `4,634` `.c` + `445` `.h` | **`0`** | Replaced with `u8`, `u16`, `u32`, `u64` in `.c` code spans and `harvestmoonbtn_{globals,functions}.h` (preserving `primitives_and_sdk.h` `21` typedefs) |
 | **Uncataloged Overlay `FUN_800*`** | `48` (`491` sites) | **`0`** | Mapped via `d4_symbol_overrides.json` -> `hm_res_<domain>_<desc>_<addr>` across `.c`, `ghidra_compat.h`, and `d4_synthetic_corpus.py` |
-| **Raw `DAT_`/`UNK_`/`PTR_`/`LAB_`/`SUB_`/`switchD_`** | `1,912` (`108`/`290`/`269`/`1,246`/`37`/`162`)* | **`0`** | `globals_map.json` lookup first, else `g_dat_*`, `g_unk_*`, `g_jtbl_ptr_*`/`g_dat_ptr_*`/`g_fn_ptr_*`/`g_ptr_*`, `loc_*`, `sub_loc_*`, `jmp_tbl_*` |
-| **Spill Globals (`PS1_MISC_U32`)** | `10` globals | **`0`** | `_local_30/38/48/resc`, `_in_stack_00000014`, `_sStack00000010`, `stack0xffffff{bc,cc,e4}`, `register0x00000074` -> `g_spill_*` / `g_cop_reg_74` |
+| **Raw `DAT_`/`UNK_`/`PTR_`/`LAB_`/`SUB_`/`switchD_`** | `2,040` (`96`/`284`/`216`/`1,245`/`37`/`162`)* | **`0`** | `globals_map.json` lookup first, else `g_dat_*`, `g_unk_*`, `g_jtbl_ptr_*`/`g_dat_ptr_*`/`g_fn_ptr_*`/`g_ptr_*`, `loc_*`, `sub_loc_*`, `jmp_tbl_*` |
+| **Spill Globals (`PS1_MISC_STATIC`)** | `10` globals | **`0`** | `_local_30/38/48/resc`, `_in_stack_00000014`, `_sStack00000010`, `stack0xffffff{bc,cc,e4}`, `register0x00000074` -> `g_spill_*` / `g_cop_reg_74` |
 
-*\*Note: `108` `DAT_*` + `290` `UNK_*` + `269` `PTR_*` + `1,246` `LAB_*` + `37` `SUB_*` + `162` `switchD_*` = `1,912` raw address/label tokens plus `37` `FUN_*` references inside Doxygen comments.*
+*\*Note: Verified across all `3,828` reexported function bodies (`96` `DAT_` + `284` `UNK_` + `216` `PTR_` + `1,245` `LAB_` + `37` `SUB_` + `162` `switchD_` = `2,040`), alongside `487` code `FUN_*` calls + `37` `FUN_*` references inside Doxygen prose (`524` total).*
 
-### Spill Globals & Local/Label Prefix Tables (`d4_symbol_overrides.json`)
+### Spill Globals & Local/Label Prefix Tables ([d4_symbol_overrides.json](../../schemas/d4_symbol_overrides.json))
 
 | Legacy Ghidra Pattern | Clean Replacement Family | Scope & Collision Guard |
 | :--- | :--- | :--- |
-| `_local_30`, `_local_38`, `_local_48`, `_local_resc` | `g_spill_slot_30`, `g_spill_slot_38`, `g_spill_slot_48`, `g_spill_res_c` | Global spill aliases in `PS1_MISC_U32` |
+| `_local_30`, `_local_38`, `_local_48`, `_local_resc` | `g_spill_slot_30`, `g_spill_slot_38`, `g_spill_slot_48`, `g_spill_res_c` | Global spill aliases in `PS1_MISC_STATIC` |
 | `_in_stack_00000014`, `_sStack00000010` | `g_spill_arg_14`, `g_spill_short_10` | Unresolved caller stack-arg spill slots |
 | `stack0xffffffbc`, `stack0xffffffcc`, `stack0xffffffe4` | `g_spill_frame_bc`, `g_spill_frame_cc`, `g_spill_frame_e4` | Negative frame-offset stack temporaries |
 | `register0x00000074` | `g_cop_reg_74` | Coprocessor register spill global |
@@ -85,7 +85,7 @@ Although pre-assembly lowering compiled `513/513` `.c` files with `0` errors, th
 | `LAB_*` / `SUB_*` / `switchD_*` | `loc_*` / `sub_loc_*` / `jmp_tbl_*` | Synchronized across `goto` and labels |
 
 ### Uniform Doxygen Headers & Formatting Hygiene
-- **All `3,828` Functions (`1,253` SDK + `2,575` Game):** `sdk/*.c` `// Function:` headers promote to `/** ... @symbol <fn> @address 0x<hex> (SLUS_011.15) @domain sdk */`; `src/` & `overlays/` docstrings add `* @symbol <fn>` while removing duplicate `// Function:`, `@callers none`, `@callees none`, and `/* WARNING: */` lines, and scrubbing raw tokens inside Doxygen prose.
+- **All `3,828` Functions (`1,253` SDK + `2,575` Game):** `sdk/*.c` `// Function:` headers promote to compact 4-line blocks (`/** ... @symbol <fn> @address 0x<hex> (SLUS_011.15) */` so multi-fn SDK files stay `<= 400` lines); `src/` & `overlays/` keep full `@symbol` + `@address` + `@domain` + `@wave` headers while removing duplicate `// Function:`, `@callers none`, `@callees none`, and `/* WARNING: */` lines, and scrubbing raw tokens inside Doxygen prose.
 - **Formatting Rules:** Collapses `)\n\n{` -> `) {`, strips redundant trailing `return;` in `void` functions only, and cleans `+ -<num>` -> `- <num>`.
 
 ```c
@@ -94,7 +94,6 @@ Although pre-assembly lowering compiled `513/513` `.c` files with `0` errors, th
  * PS1 SDK runtime routine (CdSearchFile).
  * @symbol CdSearchFile
  * @address 0x80036884 (SLUS_011.15)
- * @domain sdk
  */
 
 /* Normalized game header (src/ & overlays/) */
@@ -142,19 +141,19 @@ Although pre-assembly lowering compiled `513/513` `.c` files with `0` errors, th
 | `src/npc_dialogue_events/` | `9` | `83` | Dialogue VM, NPC scripts & portraits |
 | `src/render_gte_sprites/` | `18` | `132` | COP2 GTE matrices, ordering tables & TIMs |
 | `src/ui_inventory_hud/` | `8` | `59` | HUD counters, rucksack & pause overlays |
-| `overlays/OVL_part08_id04.EXE/` | `1` | `5` | Title / early attract flow |
-| `overlays/OVL_part10_id05.EXE/` | `7` | `23` | Intro / new-game prologue logic |
-| `overlays/OVL_part11_id06.EXE/` | `225` | `1,541` | Main farm simulation, tools & map logic |
-| `overlays/OVL_part15_id10.EXE/` | `26` | `138` | Title menu & initial save-slot browser |
-| `overlays/OVL_part17_id07.EXE/` | `9` | `61` | World-map & outdoor festival overlay |
-| `overlays/OVL_part19_id08.EXE/` | `11` | `76` | Town / shop / dialogue event overlay |
-| `overlays/OVL_part21_id09.EXE/` | `10` | `67` | Mine / spring / harvest festival logic |
-| `overlays/OVL_part23_id0a.EXE/` | `8` | `55` | Animal barn / contest event overlay |
-| `overlays/OVL_part25_id0b.EXE/` | `10` | `65` | Year-end & ending evaluation logic |
-| `overlays/OVL_part27_id0c.EXE/` | `8` | `53` | Credits / epilogue sequence overlay |
-| `overlays/OVL_part28_id0d.EXE/` | `4` | `27` | Developer inspection menu overlay |
-| `overlays/OVL_part30_id0f.EXE/` | `12` | `30` | Memory Card backup utility overlay |
-| `overlays/OVL_part31_id0e.EXE/` | `1` | `6` | Exception / fallback screen overlay |
+| `overlays/OVL_part08_id04.EXE/` | `1` | `5` | Kanji font test/viewer overlay (`hm_ovl08_font_test_*`) |
+| `overlays/OVL_part10_id05.EXE/` | `7` | `23` | `640x240` developer debug & PocketStation menu (`hm_ovl10_debug_*`) |
+| `overlays/OVL_part11_id06.EXE/` | `225` | `1,541` | Main farm simulation, tools & map logic (`hm_ovl11_*`, `p11_*`) |
+| `overlays/OVL_part15_id10.EXE/` | `26` | `138` | Slot B Memory Card New Game / Load / Save diary UI (`hm_ovl15_*`) |
+| `overlays/OVL_part17_id07.EXE/` | `9` | `61` | Summer Swimming Festival 6-racer minigame (`hm_ovl17_swim_race_*`) |
+| `overlays/OVL_part19_id08.EXE/` | `11` | `76` | Chicken Sumo Festival arena minigame (`hm_ovl19_chicken_sumo_*`) |
+| `overlays/OVL_part21_id09.EXE/` | `10` | `67` | Horse Race Festival & betting overlay (`hm_ovl21_horse_race_*`) |
+| `overlays/OVL_part23_id0a.EXE/` | `8` | `55` | Winter Dog Race Festival minigame (`hm_ovl23_dog_race_*`) |
+| `overlays/OVL_part25_id0b.EXE/` | `10` | `65` | Tomato Throwing Festival minigame (`hm_ovl25_tomato_fest_*`) |
+| `overlays/OVL_part27_id0c.EXE/` | `8` | `53` | Title screen, logo splash & attract-mode intro (`hm_ovl27_title_*`) |
+| `overlays/OVL_part28_id0d.EXE/` | `4` | `27` | Ending sequence & staff credits overlay (`hm_ovl28_credits_*`) |
+| `overlays/OVL_part30_id0f.EXE/` | `12` | `30` | Slot B debug event-flag & memory inspector (`hm_ovl30_flag_browser_*`) |
+| `overlays/OVL_part31_id0e.EXE/` | `1` | `6` | PocketStation / Memory Card backup utility (`hm_ovl31_pocket_*`) |
 | **Total (`Corpus/readable/`)** | **`513`** | **`3,828`** | Zero raw Ghidra craft or `param_*` leaks |
 3. **Catalog, Shard & Standard 18 Scrub:** Replaced `pbVar1` -> `tile_byte_ptr` and `puVar4` -> `slot_word_ptr` inside [functions_catalog.json](../../schemas/functions_catalog.json) and Stage 3 shards (`stage3_02_p11_ui_core.json`, `stage3_03_p11_farm_gfx.json`), and dropped banned `"unresolvedFields"` from [spec_coverage.json](../../schemas/spec_coverage.json).
 4. **Verification Commands:**

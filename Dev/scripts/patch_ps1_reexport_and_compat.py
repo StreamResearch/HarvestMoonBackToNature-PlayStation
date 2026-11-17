@@ -7,6 +7,8 @@ import json
 import logging
 import os
 import re
+import shutil
+import stat
 import sys
 from pathlib import Path
 
@@ -230,8 +232,14 @@ def main(argv: list[str] | None = None) -> int:
     import decomp.workspace_gen as wg
 
     changed, prom = _patch_work_reexported()
+    if READABLE_DIR.exists():
+        shutil.rmtree(READABLE_DIR, onexc=lambda fn, p, _: (os.chmod(p, stat.S_IWRITE | stat.S_IREAD), fn(p)))
     res = s4.run_stage4_assemble(PROJ_ROOT)
+    ws_p = DEV_DIR / "HarvestMoonBackToNature-PlayStation.code-workspace"
+    ws_saved = ws_p.read_bytes() if ws_p.is_file() else None
     wg.generate_track_workspace(PROJ_ROOT)
+    if ws_saved is not None:
+        ws_p.write_bytes(ws_saved)
 
     globals_h = READABLE_DIR / "include" / "harvestmoonbtn_globals.h"
     g_txt = globals_h.read_text(encoding="utf-8", errors="replace")

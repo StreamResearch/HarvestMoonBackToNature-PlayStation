@@ -45,10 +45,10 @@ python -B Dev/scripts/craftsmanship_d4_normalizer.py --verify-clean --data-dir C
 python -B Dev/scripts/build_and_verify_d4.py --data-dir Corpus --log-dir Dev/logs
 python -B Dev/scripts/verify_track_d4.py --data-dir Corpus --log-dir Dev/logs
 
-# Universal R&D decomp_cli gates from repo root (D4, S4, and default R1/R2 resolution)
-python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track . --tier D4
-python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track . --tier S4 --no-clangd
-python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track . --no-clangd
+# Universal R&D decomp_cli gates (D4, S4, and default R1/R2 resolution)
+python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track HarvestMoonBackToNature-PlayStation --tier D4
+python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track HarvestMoonBackToNature-PlayStation --tier S4 --no-clangd
+python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track HarvestMoonBackToNature-PlayStation --no-clangd
 ```
 - `craftsmanship_d4_normalizer.py` also supports `--dry-run` to preview changes without touching `Corpus/readable/`, and `--verify-clean` exits `0` only when all `513` `.c` files and `3` headers carry zero Ghidra artifacts.
 

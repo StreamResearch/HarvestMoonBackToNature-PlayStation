@@ -72,30 +72,30 @@ Partition size and CD-ROM LBA calculations (`hm_cd_init_afile_system @ 0x8001474
 | `5` | `0x062BC000` | `11,411,456` | `5,572` | `0xFFFFFFFF` blob | Stage / 3D geometry & tile cluster 3 |
 | `6` | `0x06D9E000` | `458,752` | `224` | Data table + `0x100D` | Indexed HUD / UI graphics sub-archive |
 | `7` | `0x06E0E000` | `63,488` | `31` | `0x100D` stream | Resident VRAM patch stream |
-| `8` | `0x06E1D800` | `2,048` | `1` | MIPS Overlay (`0x04`) | Slot A: Boot / opening stub (`5` funcs) |
+| `8` | `0x06E1D800` | `2,048` | `1` | MIPS Overlay (`0x04`) | Slot A: Kanji font test/viewer (`5` funcs) |
 | `9` | `0x06E1E000` | `6,006,784` | `2,933` | `pBAV` / `pQES` bank | `39` VABp soundbanks + `36` SEQ sequences |
-| `10` | `0x073D8800` | `16,384` | `8` | MIPS Overlay (`0x05`) | Slot A: PocketStation / PDA utility (`23` funcs) |
+| `10` | `0x073D8800` | `16,384` | `8` | MIPS Overlay (`0x05`) | Slot A: Debug & PocketStation menu (`23` funcs) |
 | `11` | `0x073DC800` | `483,328` | `236` | MIPS Overlay (`0x06`) | Slot A: Master farm & town engine (`1,541` funcs) |
 | `12` | `0x07452800` | `10,878,976` | `5,312` | Data blob | Dialogue script & world asset table |
 | `13` | `0x07EB2800` | `69,632` | `34` | Data blob | Indexed bitmap / font / layout data |
 | `14` | `0x07EC3800` | `36,864` | `18` | `0x0E` pack (`5` banks) | Sprite animation pack (`+0x100D` VRAM tail) |
 | `15` | `0x07ECC800` | `98,304` | `48` | MIPS Overlay (`0x10`) | Slot B: Diary Save/Load/Trade (`138` funcs) |
 | `16` | `0x07EE4800` | `4,096` | `2` | `.TIM` bundle | `12` `4bpp` CLUT `.TIM` textures |
-| `17` | `0x07EE5800` | `26,624` | `13` | MIPS Overlay (`0x07`) | Slot A: Event / submode (`61` funcs) |
+| `17` | `0x07EE5800` | `26,624` | `13` | MIPS Overlay (`0x07`) | Slot A: Swimming Festival (`61` funcs) |
 | `18` | `0x07EEC000` | `124,928` | `61` | `0x0E` pack (`5` banks) | Sprite animation pack (`+0x100D` VRAM tail) |
-| `19` | `0x07F0A800` | `32,768` | `16` | MIPS Overlay (`0x08`) | Slot A: Festival minigame (`76` funcs) |
+| `19` | `0x07F0A800` | `32,768` | `16` | MIPS Overlay (`0x08`) | Slot A: Chicken Sumo Festival (`76` funcs) |
 | `20` | `0x07F12800` | `110,592` | `54` | `0x0E` pack (`6` banks) | Sprite animation pack (`+0x100D` VRAM tail) |
-| `21` | `0x07F2D800` | `36,864` | `18` | MIPS Overlay (`0x09`) | Slot A: Event / submode (`67` funcs) |
+| `21` | `0x07F2D800` | `36,864` | `18` | MIPS Overlay (`0x09`) | Slot A: Horse Race Festival (`67` funcs) |
 | `22` | `0x07F36800` | `92,160` | `45` | `0x0E` pack (`15` banks) | Sprite animation pack (`+0x100D` VRAM tail) |
-| `23` | `0x07F4D000` | `34,816` | `17` | MIPS Overlay (`0x0A`) | Slot A: Horse race (`55` funcs) |
+| `23` | `0x07F4D000` | `34,816` | `17` | MIPS Overlay (`0x0A`) | Slot A: Winter Dog Race Festival (`55` funcs) |
 | `24` | `0x07F55800` | `126,976` | `62` | `0x0E` pack (`4` banks) | Sprite animation pack (`+0x100D` VRAM tail) |
-| `25` | `0x07F74800` | `34,816` | `17` | MIPS Overlay (`0x0B`) | Slot A: Tutorial / event (`65` funcs) |
+| `25` | `0x07F74800` | `34,816` | `17` | MIPS Overlay (`0x0B`) | Slot A: Tomato Throwing Festival (`65` funcs) |
 | `26` | `0x07F7D000` | `75,776` | `37` | `0x0E` pack (`17` banks) | Sprite animation pack (`+0x100D` VRAM tail) |
 | `27` | `0x07F8F800` | `57,344` | `28` | MIPS Overlay (`0x0C`) | Slot A: Opening intro (`53` funcs) |
 | `28` | `0x07F9D800` | `12,288` | `6` | MIPS Overlay (`0x0D`) | Slot A: Credits & slideshow (`27` funcs) |
 | `29` | `0x07FA0800` | `75,776` | `37` | Data blob | Event / cutscene data loaded by Part 11 (`0x800E3CB8`) |
-| `30` | `0x07FB3000` | `28,672` | `14` | MIPS Overlay (`0x0F`) | Slot B: Debug menu (`30` funcs) |
-| `31` | `0x07FBA000` | `4,096` | `2` | MIPS Overlay (`0x0E`) | Slot A: Memory Card utility (`6` funcs) |
+| `30` | `0x07FB3000` | `28,672` | `14` | MIPS Overlay (`0x0F`) | Slot B: Debug event-flag inspector (`30` funcs) |
+| `31` | `0x07FBA000` | `4,096` | `2` | MIPS Overlay (`0x0E`) | Slot A: PocketStation / MC backup (`6` funcs) |
 
 ---
 

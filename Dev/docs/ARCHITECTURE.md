@@ -139,7 +139,7 @@ flowchart TB
 | `python -B Dev/scripts/build_and_verify_d4.py` | Pass 1 `513/513` MIPS ELF32 `.o`/`.a` (`0` err/warn) + Pass 2 `12/12` Q12 GTE / farm / save-XOR parity | `--offline-synthetic` (`--data-dir`) or live | Requires `zig` (`ZIG_EXE`, `PATH`, or `%LOCALAPPDATA%`) |
 | `python -B Dev/scripts/verify_track_d4.py` | Report Standard 18 schema, `514` ELF32 MIPS checks, `D4.craftsmanship`, `>= 12` parity, SLOC/line caps | `--offline-synthetic` or live `Corpus/` | Enforces `<= 250` SLOC on `d4_harness/*.{c,h}` |
 | `python -B Dev/scripts/export_decomp_bundle.py --verify-cleanroom` | Emits `.decomp` ZIP + runs `PsxCleanRoomValidator` byte/path/magic/token checks | Pure stdlib | Output directed to `--out` or `--data-dir` |
-| `python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track .` | Upstream universal `R&D` `D4`, `S4`, and default `R1`/`R2` path checks | Repo root | Requires sibling `R&D` or `RD_DECOMP_TOOLS` env |
+| `python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track HarvestMoonBackToNature-PlayStation` | Upstream universal `R&D` `D4`, `S4`, and default `R1`/`R2` path checks | Research track CLI | Requires sibling `R&D` or `RD_DECOMP_TOOLS` env |
 
 ---
 
