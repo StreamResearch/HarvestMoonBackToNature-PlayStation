@@ -22,10 +22,10 @@ python -B Dev/scripts/verify_track_d4.py --offline-synthetic --data-dir "$env:TE
 
 ### 2.2 Clean-Room `.decomp` Bundle Export (`reStation` `0.2.x`)
 ```powershell
-# Export and self-validate tracked root HarvestMoonBackToNature-PlayStation.decomp
+# Export and self-validate tracked root MeadowValley-BackToEarth-SlateOne-04.decomp
 python -B Dev/scripts/export_decomp_bundle.py --verify-cleanroom
 ```
-- Emits ZIP root `module.decomp.json` (`moduleId: "harvest-moon-btn"`, `engineId: "reStation"`, `compatibleEngineTrack: "0.2.x"`, `targetDecompTier: "D4"`, `goalDecompTier: "D4"`, `preloadRomDir: "data/rom"`, `recipeEntryPoint: "Dev/scripts/hmbtn_unpack.py"`) plus clean-room `Dev/schemas/` (incl. `d4_rewrites/*.json`) and `Dev/scripts/` (`67` entries, `1,293,433` B; never `Corpus/`, `Archive/`, `Dev/docs/`, `.gpr`, `*.g.cs`, or `*.Generated.dll`).
+- Emits ZIP root `module.decomp.json` (`moduleId: "meadowvalley-backtoearth-slateone-04"`, `engineId: "reStation"`, `compatibleEngineTrack: "0.2.x"`, `targetDecompTier: "D4"`, `goalDecompTier: "D4"`, `preloadRomDir: "data/rom"`, `recipeEntryPoint: "Dev/scripts/hmbtn_unpack.py"`) plus clean-room `Dev/schemas/` (incl. `d4_rewrites/*.json`) and `Dev/scripts/` (`68` entries; never `Corpus/`, `Archive/`, `Dev/docs/`, `.gpr`, `*.g.cs`, or `*.Generated.dll`).
 
 ### 2.3 Live BYO-Media Unpack, `D4.craftsmanship`, Parsers & Universal `decomp_cli` Checks
 ```powershell

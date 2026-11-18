@@ -33,6 +33,6 @@ python -B Dev/scripts/export_decomp_bundle.py --verify-cleanroom
 
 ## Clean-Room Rules
 
-- **No Copyrighted Material:** Never commit or attach retail game binaries, disc images, audio, textures, PlayStation BIOS files, or Ghidra `.gpr` databases.
+- **No Copyrighted Material:** Never commit or attach retail game binaries, disc images, audio, textures, console BIOS files, or Ghidra `.gpr` databases.
 - **No Raw Disassembly or Retail Strings:** Do not paste copyrighted game text or raw vendor disassembly into issues or pull requests.
 - **Security & Leak Reports:** See [SECURITY.md](SECURITY.md) for private reporting.

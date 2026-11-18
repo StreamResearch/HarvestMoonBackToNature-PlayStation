@@ -15,7 +15,7 @@
   },
   "localPathsExample": {
     "dataDirectory": "./Corpus",
-    "decompBundleOutputPath": "./Corpus/work/extracts/harvest-moon-btn-v0.2.0.decomp",
+    "decompBundleOutputPath": "./Corpus/work/extracts/meadowvalley-backtoearth-slateone-04-v0.2.1.decomp",
     "toolsDirectory": "../../Personal/R&D/Dev/tools/decomp",
     "zigExecutablePath": "%LOCALAPPDATA%\\Microsoft\\WinGet\\Links\\zig.exe",
     "logDirectory": "./Dev/logs"

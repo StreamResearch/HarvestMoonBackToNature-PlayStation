@@ -5,7 +5,7 @@ Current baseline: **v0.2.1 (Beta)** | Active target: **v0.3.0** | See [CHANGELOG
 ## Vision
 
 - **v1.0.0 (Gold Reference):** Complete, self-contained format specifications (`0` unresolved fields) and deterministic multi-scene simulation parity for `SLUS-01115`.
-- **v2.0.0 (Byte-Exact Matching):** Optional 1:1 instruction-exact matching against the original PS1 executable and 13 overlays using a matching MIPS C compiler.
+- **v2.0.0 (Byte-Exact Matching):** Optional 1:1 instruction-exact matching against the original executable and 13 overlays using a matching MIPS C compiler.
 
 ```mermaid
 flowchart LR

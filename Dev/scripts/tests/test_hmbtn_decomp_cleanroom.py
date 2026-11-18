@@ -252,10 +252,16 @@ class TestHmbtnDecompCleanroom(unittest.TestCase):
         if not (recipe_p.is_file() and exporter_p.is_file()):
             self.skipTest("Post-merge check: export_decomp_bundle.py / decomp_recipe.json owned by devv-decomp-pack")
         recipe = json.loads(recipe_p.read_text(encoding="utf-8"))
-        for k in ("moduleId", "title", "platformId", "engineId", "engineVersion", "compatibleEngineTrack", "decompSchemaVersion", "targetDecompTier", "goalDecompTier", "preloadRomDir", "recipeEntryPoint"):
+        for k in ("moduleId", "title", "packageFileName", "platformId", "engineId", "engineVersion", "compatibleEngineTrack", "decompSchemaVersion", "targetDecompTier", "goalDecompTier", "preloadRomDir", "recipeEntryPoint"):
             self.assertTrue(recipe.get(k), f"Missing {k} in decomp_recipe.json")
+        self.assertRegex(recipe["moduleId"], r"^[a-z0-9][a-z0-9-]*$")
+        self.assertFalse(recipe["packageFileName"].endswith(("-Decomp.decomp", "-Recomp.recomp")))
+        for forbidden_tm in ("harvest", "moon", "playstation"):
+            self.assertNotIn(forbidden_tm, recipe["packageFileName"].lower())
+            self.assertNotIn(forbidden_tm, recipe["moduleId"].lower())
+            self.assertNotIn(forbidden_tm, recipe["title"].lower())
         with tempfile.TemporaryDirectory() as tmp:
-            out_zip = Path(tmp) / "hmbtn-test.decomp"
+            out_zip = Path(tmp) / "meadowvalley-test.decomp"
             res = subprocess.run([sys.executable, "-B", str(exporter_p), "--out", str(out_zip), "--verify-cleanroom"], capture_output=True, text=True, timeout=60)
             self.assertEqual(res.returncode, 0, f"export_decomp_bundle failed: {res.stdout}\n{res.stderr}")
             self.assertTrue(out_zip.is_file())

@@ -163,14 +163,21 @@ def _collect_entries(root_dir: Path, manifest: dict[str, Any]) -> list[tuple[str
     return entries
 
 
-def _resolve_output_path(out_path: Path | None, data_dir: Path | None, root_dir: Path, manifest: dict[str, Any]) -> Path:
+def _resolve_output_path(
+    out_path: Path | None,
+    data_dir: Path | None,
+    root_dir: Path,
+    manifest: dict[str, Any],
+    recipe: dict[str, Any] | None = None,
+) -> Path:
     filename = f"{manifest['moduleId']}-v{manifest['packageVersion']}.decomp"
     if out_path is not None:
         return Path(out_path).resolve()
     if data_dir is not None:
         base = Path(data_dir).resolve()
         return (base / "extracts" / filename) if base.name.lower() == "work" else (base / "work" / "extracts" / filename)
-    return (root_dir / f"{root_dir.name}.decomp").resolve()
+    pkg_name = str((recipe or {}).get("packageFileName") or f"{root_dir.name}.decomp").strip()
+    return (root_dir / pkg_name).resolve()
 
 
 def _write_log(log_dir: Path | None, report: dict[str, Any]) -> None:
@@ -195,7 +202,7 @@ def export_decomp_bundle(
     recipe = load_decomp_recipe(recipe_path or (root_dir / "Dev" / "schemas" / "decomp_recipe.json"))
     manifest = build_module_decomp_manifest(recipe)
     entries = _collect_entries(root_dir, manifest)
-    dest = _resolve_output_path(out_path, data_dir, root_dir, manifest)
+    dest = _resolve_output_path(out_path, data_dir, root_dir, manifest, recipe)
     dest.parent.mkdir(parents=True, exist_ok=True)
     tmp_dest = dest.with_suffix(dest.suffix + ".tmp")
     with zipfile.ZipFile(tmp_dest, "w", compression=zipfile.ZIP_DEFLATED) as zf:

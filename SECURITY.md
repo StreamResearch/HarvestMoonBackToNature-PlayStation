@@ -9,7 +9,7 @@
 
 ## Security & Clean-Room Boundaries
 
-- **Zero Retail Media or BIOS Distribution:** No copyrighted disc images, `.bin`/`.iso`/`.cue`/`.xa`/`.tim`/`.vab`/`.seq` assets, PlayStation BIOS dumps, or Ghidra `.gpr` databases are committed to Git, packaged in `Archive/`, or included in `.decomp` bundles.
+- **Zero Retail Media or BIOS Distribution:** No copyrighted disc images, `.bin`/`.iso`/`.cue`/`.xa`/`.tim`/`.vab`/`.seq` assets, console BIOS dumps, or Ghidra `.gpr` databases are committed to Git, packaged in `Archive/`, or included in `.decomp` bundles.
 - **Fail-Closed Disc Verification:** Unpackers and decoders verify user-supplied `SLUS-01115` media via full SHA-256 checksums before extraction and exit non-zero with structured `MISSING_CORPUS_MEDIA` JSON when media is absent.
 - **Path & Execution Isolation:** Python scripts use pure stdlib with explicit `--data-dir` / `--log-dir` containment, offline synthetic test fixtures, and zero `eval`/`exec` or `shell=True` subprocess calls.
 - **No Secrets in Repo:** API tokens, webhook URLs, and local workspace configuration files are never committed, packaged in `.decomp` bundles, or written to logs.

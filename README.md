@@ -2,9 +2,9 @@
 
 # MeadowValley BackToEarth (SlateOne) 04 Decomp
 
-Clean-room decompilation research, binary format specifications, and portable build package for *Harvest Moon: Back to Nature* (PS1, `SLUS-01115`).
+Clean-room MIPS32 decompilation research, binary format specifications, and portable `.decomp` package for `SLUS-01115`.
 
-![Version](https://img.shields.io/badge/version-0.2.1--beta-blue?style=flat) ![License](https://img.shields.io/badge/license-MIT-green?style=flat) ![Python](https://img.shields.io/badge/python-3.12%2B-3776AB?style=flat) ![Platform](https://img.shields.io/badge/platform-PS1%20(MIPS)-lightgrey?style=flat)
+![Version](https://img.shields.io/badge/version-0.2.1--beta-blue?style=flat) ![License](https://img.shields.io/badge/license-MIT-green?style=flat) ![Python](https://img.shields.io/badge/python-3.12%2B-3776AB?style=flat) ![Architecture](https://img.shields.io/badge/arch-MIPS32%20(R3000A)-lightgrey?style=flat)
 
 **Decompilation Progress:** `▓▓▓▓▓▓▓▓░░` **80%** — Clean C rewrite complete (52 modules, 0 warnings); byte-exact matching next
 
@@ -14,13 +14,13 @@ Clean-room decompilation research, binary format specifications, and portable bu
 
 ## About
 
-This repository documents the internals of *Harvest Moon: Back to Nature* (North American PlayStation 1 release, `SLUS-01115`) using strictly clean-room reverse engineering. It turns raw game binaries and disc containers into human-readable C modules, typed headers, and documented file formats—without distributing any copyrighted game code or assets.
+This repository documents the binary internals of North American `SLUS-01115` (`MeadowValley BackToEarth / SlateOne`) using strictly clean-room reverse engineering. It turns raw binaries and disc containers into human-readable C modules, typed headers, and documented file formats—without distributing any copyrighted game code or assets.
 
-The output is packaged into a self-contained `.decomp` bundle (`HarvestMoonBackToNature-PlayStation.decomp`) designed for the `reStation` static recompilation engine and downstream native ports such as `HMBackToNature-Recomp`.
+The output is packaged into a self-contained `.decomp` bundle (`MeadowValley-BackToEarth-SlateOne-04.decomp`) designed for the `reStation` static recompilation engine and compatible downstream recompilation projects.
 
 ## Key Features
 
-- **Clean C Rewrite:** 3,828 indexed functions (2,575 game functions and 1,253 PS1 SDK symbols) organized into 52 cohesive C modules that compile cleanly with zero warnings.
+- **Clean C Rewrite:** 3,828 indexed functions (2,575 game functions and 1,253 runtime SDK symbols) organized into 52 cohesive C modules that compile cleanly with zero warnings.
 - **Container & Save Decoders:** Python tools for unpacking `A_FILE.BIN` overlays, audio banks, sprite sheets, and XOR-obfuscated memory card saves.
 - **Typed ABI Headers:** Clean-room C structs, enums, and lookup tables covering game state, farm grids, fixed-point GTE math, and dialog glyphs.
 - **Offline Synthetic Testing:** Full verification suite that runs without a retail disc image using synthetic test fixtures.
@@ -77,7 +77,7 @@ python -B Dev/scripts/craftsmanship_d4_normalizer.py --verify-clean --data-dir "
 - `Dev/` — Python decoders, verification scripts, C headers, schemas, and technical manuals
 - `Corpus/` — Local working directory for your own disc files and generated C builds (gitignored; never committed)
 - `Archive/` — Compressed clean-room source snapshots
-- `HarvestMoonBackToNature-PlayStation.decomp` — Tracked clean-room package consumed by `reStation`
+- `MeadowValley-BackToEarth-SlateOne-04.decomp` — Tracked clean-room package consumed by `reStation`
 
 ## Documentation
 
@@ -94,6 +94,6 @@ python -B Dev/scripts/craftsmanship_d4_normalizer.py --verify-clean --data-dir "
 
 Distributed under the **MIT License** ([LICENSE](LICENSE)) for all clean-room Python tooling, JSON schemas, C headers, and documentation in this repository. See [SECURITY.md](SECURITY.md) for clean-room boundaries and vulnerability reporting.
 
-**No Copyrighted Assets:** This repository contains zero game binaries, disc images, audio, textures, PlayStation BIOS files, or `.gpr` databases. You must supply your own legally obtained North American `SLUS-01115` disc copy.
+**No Copyrighted Assets:** This repository contains zero game binaries, disc images, audio, textures, console BIOS files, or `.gpr` databases. You must supply your own legally obtained North American `SLUS-01115` disc copy.
 
 *Harvest Moon* and *Harvest Moon: Back to Nature* are registered trademarks of Natsume Inc. and Marvelous Inc. (formerly Victor Interactive Software). *PlayStation* is a registered trademark of Sony Interactive Entertainment Inc. This independent clean-room research project is not affiliated with, endorsed by, or connected to Natsume Inc., Marvelous Inc., or Sony Interactive Entertainment Inc.

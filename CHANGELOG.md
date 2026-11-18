@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- Renamed the clean-room `.decomp` package to `MeadowValley-BackToEarth-SlateOne-04.decomp` with coded internal identifiers (`meadowvalley-backtoearth-slateone-04`) and moved commercial trademark references strictly to `## License & Legal`.
 - Rewrote root documentation (`README.md`, `FEATURES.md`, `ROADMAP.md`, `CHANGELOG.md`, `SECURITY.md`) and added `CONTRIBUTING.md` for plain-English readability.
 
 ## [0.2.1] - 2026-11-18 (Beta)
@@ -34,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - **Full SHA-256 Disc Gate:** Updated `hmbtn_unpack.py` to verify the full 133 MB `A_FILE.BIN` checksum before extraction and fail closed with `MISSING_CORPUS_MEDIA` JSON when media is absent.
-- **Clean-Room Schema Scrub:** Cleared all retail string arrays from `call_graph.json`, replaced vendor SDK comments in headers with neutral PS1 ABI notes, and scrubbed local paths across tracked files.
+- **Clean-Room Schema Scrub:** Cleared all retail string arrays from `call_graph.json`, replaced vendor SDK comments in headers with neutral MIPS ABI notes, and scrubbed local paths across tracked files.
 
 ### Fixed
 - **Verifier & `.gitignore` Fixes:** Updated `verify_track_d4.py` to validate all 514 ELF32 MIPS object headers and updated `.gitignore` to exclude local data and `.decomp` scratch files.
