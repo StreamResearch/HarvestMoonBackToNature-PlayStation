@@ -1,6 +1,6 @@
 # HarvestMoonBackToNature-PlayStation — Empirical Findings & Discovery Hub
 
-**Version:** `0.2.1` (`2026-11-17`) · **Axis:** `decomp` (`D4 / S4 / R2`) · **Serial:** `SLUS-01115`
+**Version:** `0.2.1` (`2026-11-18`) · **Axis:** `decomp` (`D4 / S4 / R2`) · **Serial:** `SLUS-01115`
 
 ---
 
@@ -22,7 +22,7 @@ This hub indexes the three deep empirical findings spokes under `Dev/docs/findin
 
 - **Clean-Room Media & Full SHA-256 Gate:** Baseline files in gitignored `Corpus/standalone/` (`SLUS_011.15` `323,584` B, `A_FILE.HDT` `132` B, `A_FILE.BIN` `133,935,104` B, `STR/01..04.XA`, and `13` synthesized overlay EXEs) are verified end-to-end with zero size-skip caps ([standalone_integrity.json](../schemas/standalone_integrity.json)).
 - **Dual-Slot Architecture & `48` Uncataloged Resident Helpers:** Eleven overlays target **Slot A** (`0x800B7E20`) while **Parts 15 & 30** execute simultaneously in **Slot B** (`0x8012DDE8`) above co-resident **Part 11** (`0x800BBC34..0x80121780`). Across overlay C sources, `48` previously uncataloged `FUN_800*` calls (`491` sites) resolve to `hm_res_*` declarations in [d4_symbol_overrides.json](../schemas/d4_symbol_overrides.json).
-- **Zero-Artifact `D4.craftsmanship` Restoration (`512/512` C Files):** Pre-assembly lowering + un-fold restoration ([patch_ps1_reexport_and_compat.py](../scripts/patch_ps1_reexport_and_compat.py)) paired with strict post-assembly normalization ([craftsmanship_d4_normalizer.py](../scripts/craftsmanship_d4_normalizer.py)) reduces `81,097` `_GHIDRA_CRAFT_RE` hits, `8,339` stack/width locals, `71,024` mechanical locals, `4,447` `arg_N` params, `55` folded functions, and `1,624` subpiece casts to **`0`** while formatting and compiling all `512` `.c` TUs (`129` `sdk`, `52` `src`, `331` `overlays`) with `0` errors and `0` warnings.
+- **True `512`-File `D4_FunctionalRewrite` & Tier Preservation (`D1..D4`):** Distinct `Corpus/tiers/{D1_Raw,D2_Structured,D3_Mapped,D4_FunctionalRewrite}/` snapshots materialized by [materialize_decomp_tiers.py](../scripts/materialize_decomp_tiers.py) pair typed arrays/structs (`HmDialogueBoxCtx`, `HmGlyphToken`, `HmCallbackFn`) with file-by-file/function-by-function idiomatic human C across all `512` `.c` TUs (`3,828` unique `@symbol`s, `11` clean-room `Dev/schemas/d4_rewrites/*.json` shards), eliminating all `6` decompiler-tell families (`0` shifts, `0` raw array offsets, `0` `*(T *)&(s.f)`, `0` `goto`/`while(true)`/`x = x +/- N`, `0` wraparound/Yoda/raw ASCII switches, `0` mechanical/SSA stems) and compiling cleanly under `-Wall -Wextra -Wno-unused-parameter` (`0` errors, `0` warnings).
 - **Deterministic `Q12` `COP2` Host GTE & `12/12` Parity:** [hm_gte_cop2.h](../scripts/d4_harness/hm_gte_cop2.h) (`-DHM_HOST_PARITY`) models PS1 fixed-point `Q12` (`4096 = 1.0`) GTE registers and `RTPS`/`MVMVA`/`NCLIP`/`AVSZ3`/`FLAG` arithmetic, allowing [parity_sim_and_gte_tests.c](../scripts/d4_harness/parity_sim_and_gte_tests.c) to link directly against lifted `render_gte_sprites_07.c` and `ovl_part11_id06_06.c` alongside core/media tests for `12/12` parity.
 
 ---
@@ -45,9 +45,9 @@ This hub indexes the three deep empirical findings spokes under `Dev/docs/findin
 
 | Verification Check | Measured Result | Reference Artifact |
 | :--- | :--- | :--- |
-| **MIPS ELF32 Static Build (`Pass 1`)** | `512/512` `.c` + `globals_defs.c` = `513` ELF32 MIPS `.o`, `0` errors / `0` warnings -> `libharvest_moon_btn_d4.a` (`3,669,114` B) | [d4_build_report.json](../schemas/d4_build_report.json) |
+| **MIPS ELF32 Static Build (`Pass 1`)** | `512/512` `.c` + `globals_defs.c` = `513` ELF32 MIPS `.o`, `0` errors / `0` `-Wall -Wextra` warnings -> `libharvest_moon_btn_d4.a` (`3,610,812` B) | [d4_build_report.json](../schemas/d4_build_report.json) |
 | **Host LP32 + Q12 GTE Parity (`Pass 2`)** | `12/12` assertions (`8` media/kernel/CD-XA + `4` `Q12` `COP2` `RTPS`/`NCLIP`/`AVSZ3`, farm sim, save `3`-tier XOR) | [build_and_verify_d4.py](../scripts/build_and_verify_d4.py), [parity_sim_and_gte_tests.c](../scripts/d4_harness/parity_sim_and_gte_tests.c) |
-| **`D4.craftsmanship` & `clangd` Audit** | `0` `_GHIDRA_CRAFT_RE` / strict-gate hits, `0` `FUN_80*`/`DAT_80*`/`arg_N`/`_80*`, `0` `clangd` & `--dry-run` `clang-format` errors across `512` `.c` + `3` `.h` | [verify_stage2_stage3.py](../scripts/verify_stage2_stage3.py), [verify_track_d4.py](../scripts/verify_track_d4.py) |
+| **`6`-Tell `D4_FunctionalRewrite` & `clangd` Audit** | `0` `_GHIDRA_CRAFT_RE` / `6`-tell hits, `0` `FUN_80*`/`DAT_80*`/`arg_N`/`_80*`, `0` `clangd` errors/warnings across `512` `.c` + `9` `.h` | [verify_stage2_stage3.py](../scripts/verify_stage2_stage3.py), [verify_track_d4.py](../scripts/verify_track_d4.py) |
 | **Specification & Unit-Test Parity** | `68/68` fields mapped (`unresolvedFieldCount: 0`), `4` modular parsers, `Dev/scripts/tests/` isolated suite PASS | [spec_coverage.json](../schemas/spec_coverage.json), [SPECIFICATIONS.md](SPECIFICATIONS.md) |
 
 ---

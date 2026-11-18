@@ -216,8 +216,8 @@ def _write_chunk(out_p: Path, readable_dir: Path, preamble: str, cur: list[str],
     return out_p
 
 
-def format_and_rechunk_readable(readable_dir: Path, style_file: Path, max_lines: int = 385) -> dict[str, Any]:
-    """Run clang-format on C/headers, split >400L multi-function C chunks, and sync index files."""
+def format_and_rechunk_readable(readable_dir: Path, style_file: Path, max_lines: int = 385, rechunk: bool = False) -> dict[str, Any]:
+    """Run clang-format on C/headers, optionally rechunk >400L files, and sync index files."""
     cf_exe = find_clang_format()
     if cf_exe is not None and style_file.is_file():
         top_hdrs = [readable_dir / "include" / n for n in ("harvestmoonbtn_globals.h", "harvestmoonbtn_functions.h", "ghidra_compat.h") if (readable_dir / "include" / n).is_file()]
@@ -228,7 +228,7 @@ def format_and_rechunk_readable(readable_dir: Path, style_file: Path, max_lines:
     rewritten, sym_to_rel = [], {}
 
     for dpath, files in sorted(dirs.items()):
-        oversize = any(len(p.read_text(encoding="utf-8", errors="replace").splitlines()) > 400 and len(_extract_unit_blocks(p.read_text(encoding="utf-8", errors="replace"))[1]) > 1 for p in files)
+        oversize = rechunk and any(len(p.read_text(encoding="utf-8", errors="replace").splitlines()) > 400 and len(_extract_unit_blocks(p.read_text(encoding="utf-8", errors="replace"))[1]) > 1 for p in files)
         if not oversize:
             for p in files:
                 rel = p.relative_to(readable_dir).as_posix()
@@ -262,7 +262,8 @@ def format_and_rechunk_readable(readable_dir: Path, style_file: Path, max_lines:
     if (cdb_p := readable_dir / "compile_commands.json").is_file():
         old_cdb = json.loads(cdb_p.read_text(encoding="utf-8"))
         base_args = list(old_cdb[0]["arguments"][:-1]) if old_cdb else ["clang", "-target", "mipsel-unknown-none-elf", "-ffreestanding", "-std=gnu11", f"-I{(readable_dir / 'include').as_posix()}", "-include", (readable_dir / "include" / "ghidra_compat.h").as_posix(), "-c"]
-        for flg in ("-Wno-int-conversion", "-Wno-incompatible-pointer-types", "-Wno-incompatible-function-pointer-types", "-Wno-implicit-function-declaration", "-Wno-pointer-sign", "-ferror-limit=0"):
+        base_args = [a for a in base_args if a not in ("-Wno-int-conversion", "-Wno-incompatible-pointer-types", "-Wno-incompatible-function-pointer-types", "-Wno-implicit-function-declaration", "-Wno-pointer-sign", "-ferror-limit=0", "-Wno-everything")]
+        for flg in ("-Wall", "-Wextra", "-Wno-unused-parameter"):
             if flg not in base_args: base_args.insert(-1 if base_args[-1] == "-c" else len(base_args), flg)
         cdb_p.write_text(json.dumps([{"directory": readable_dir.as_posix(), "file": p.as_posix(), "arguments": [*base_args, p.as_posix()]} for p in sorted(readable_dir.rglob("*.c"))], indent=2) + "\n", encoding="utf-8", newline="\n")
     return {"rechunked": len(rewritten), "totalCFiles": len(list(readable_dir.rglob("*.c")))}

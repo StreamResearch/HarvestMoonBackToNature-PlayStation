@@ -34,8 +34,8 @@ static int test_retail_afile_hdt_table(const char *standalone_dir) {
 }
 
 static int test_cd_init_afile_aligned_span(void) {
-    (&g_cd_afile_toc_head)[0].offset_bytes = 0x100u;
-    (&g_cd_afile_toc_head)[1].offset_bytes = 0x255u;
+    g_cd_afile_toc_head[0].offset_bytes = 0x100u;
+    g_cd_afile_toc_head[1].offset_bytes = 0x255u;
     int prev_rc = g_d4_spy.reset_cb;
     int prev_ds = g_d4_spy.draw_sync;
     uint32_t span = hm_cd_init_afile_system(0);
@@ -46,7 +46,7 @@ static int test_cd_init_afile_aligned_span(void) {
 
 static int test_cd_xa_seek_and_stop_fsm(void) {
     g_cd_xa_ready_flag = 1u;
-    (&g_cd_xa_channel_table)[3] = 0x0102u;
+    g_cd_xa_channel_table[3] = 0x0102u;
     g_cd_xa_target_lba = 150u;
     g_cd_xa_cmd_counter = 10u;
     g_d4_spy.ss_serial = 0;

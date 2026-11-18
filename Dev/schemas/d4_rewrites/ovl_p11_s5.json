@@ -1,0 +1,2805 @@
+{
+  "schemaVersion": 2,
+  "shardId": "ovl_p11_s5",
+  "taskId": "HMBTN:0.2.1:T8",
+  "rewriteTier": "D4_FunctionalRewrite",
+  "compilerFlags": [
+    "-Wall",
+    "-Wextra",
+    "-Wno-unused-parameter"
+  ],
+  "zeroDecompilerTellsVerified": true,
+  "zeroWarningsVerified": true,
+  "generatedAtUtc": "2026-11-18T06:28:45.310Z",
+  "fileCount": 44,
+  "symbolCount": 175,
+  "files": [
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_181.c",
+      "lineCount": 300,
+      "codeSloc": 221,
+      "symbolCount": 4,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_181.c",
+          "address": "0x800cf428",
+          "symbol": "p11_field_spawn_seasonal_map_items",
+          "signature": "void p11_field_spawn_seasonal_map_items(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "prng_next": "idx"
+          },
+          "docstringSummary": "Calls p11_field_spawn_wild_critters_stub and p11_field_spawn_map_forage_pickups, then in sunny weather iterates 17 seasonal forage entries in 0x80123758 matched by p11_field_get_season_bitmask and spawns them via hm_ovl11_spawn_harvest_pickup. p11_field_spawn_map_forage_pickups, p11_field_get_season_bitmask, hm_prng_next",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_181.c",
+          "address": "0x800cfc20",
+          "symbol": "p11_field_reset_animals_for_festival_day",
+          "signature": "void p11_field_reset_animals_for_festival_day(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "weather_tomorrow_2": "i"
+          },
+          "docstringSummary": "Removes event-flagged livestock and chickens from the active field via p11_barn_cow_zero_actor and p11_coop_chicken_zero_actor, dropping any carried chicken first and incrementing weather/state counters. p11_barn_cow_zero_actor, p11_coop_chicken_zero_actor",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_181.c",
+          "address": "0x800d8428",
+          "symbol": "p11_spr_till_field_plot_tile",
+          "signature": "s32 p11_spr_till_field_plot_tile(s16 is_greenhouse, s16 grid_x, s16 grid_y)",
+          "typedArraysUsed": [
+            "g_gfx_spr_plant_seed_tilled_water_fn_ptr_1"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "area_kind",
+            "slot_active": "orig_tile_id",
+            "carry_word": "stage_arg",
+            "bit_0x800": "soil_mode",
+            "work_word_2": "world_pos"
+          },
+          "docstringSummary": "Validates tillability via p11_spr_has_recipe_ingredient_bit_0x800 on outdoor/greenhouse farm plots, sets soil state (0x168 dry or 0x169 watered in rain), rolls item drop via p11_field_roll_spawn_bug_or_forage_drop, and updates crop tile mesh. p11_spr_has_recipe_ingredient_bit_0x800, p11_spr_tile_coords_to_world_pos, p11_spr_update_grass_autotile_neighborhood, hm_ovl11_set_actor_facing_vec",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_181.c",
+          "address": "0x800d876c",
+          "symbol": "p11_spr_sickle_cut_field_tile",
+          "signature": "s32 p11_spr_sickle_cut_field_tile(s16 is_greenhouse, s16 grid_x, s16 grid_y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "slot_active": "stage_arg",
+            "work_acc": "world_pos"
+          },
+          "docstringSummary": "Checks cuttable field contents via p11_spr_has_recipe_ingredient_bit_0x8000, harvests fodder grass (0x36 -> p11_evt_add_chicken_feed_count) or clears weeds/dead crops via p11_spr_spawn_grid_tile_effect and p11_spr_cut_single_grass_tile, and rolls forage drop via p11_field_roll_spawn_bug_or_forage_drop. p11_spr_has_recipe_ingredient_bit_0x8000, p11_spr_tile_coords_to_world_pos, p11_spr_spawn_grid_tile_effect, p11_spr_cut_single_grass_tile, hm_ovl11_set_actor_facing_vec, p11_evt_add_chicken_feed_count",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_182.c",
+      "lineCount": 265,
+      "codeSloc": 194,
+      "symbolCount": 5,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_182.c",
+          "address": "0x800eec1c",
+          "symbol": "hm_ovl11_tick_npc_ai_and_talk",
+          "signature": "s32 hm_ovl11_tick_npc_ai_and_talk(s16 npc_id, s16 area_id, s16 dist, s32 flags)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "cond_flag": "start_zone",
+            "work_acc": "end_zone",
+            "work_acc_2": "zone",
+            "i": "slot_count",
+            "j": "match_count",
+            "work_acc_3": "side",
+            "work_acc_4": "i",
+            "area_id_2": "match_count"
+          },
+          "docstringSummary": "Updates NPC pathing, facing toward player, and dialogue script trigger hm_ovl11_clear_render_entity_slot, p11_spr_zero_item_slot_6b, sys_int_pow",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_182.c",
+          "address": "0x800f0358",
+          "symbol": "p11_evt_sync_barn_and_coop_animals",
+          "signature": "void p11_evt_sync_barn_and_coop_animals(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Synchronizes barn and coop animal states by invoking p11_field_deliver_newborn_animals(1) followed by p11_field_deliver_newborn_animals(0).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_182.c",
+          "address": "0x800f787c",
+          "symbol": "hm_ovl11_update_shop_or_tv_menu",
+          "signature": "void hm_ovl11_update_shop_or_tv_menu(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "or_choice": "dialog_ready",
+            "slot_count": "bag_capacity",
+            "work_acc": "title_off",
+            "work_acc_2": "sub_off",
+            "icon_x": "close_state"
+          },
+          "docstringSummary": "Drives shop purchase counter, clinic/inn, or TV channel weather/recipe show UI p11_ui_show_storage_item_tooltip, p11_ui_draw_storage_slot_row, p11_ui_draw_storage_slot_icon, p11_ui_draw_storage_unit_qty, p11_ui_draw_storage_menu_frames, hm_text_set_margins (+7 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_182.c",
+          "address": "0x800f9db0",
+          "symbol": "p11_ui_step_calendar_overlay_sm",
+          "signature": "void p11_ui_step_calendar_overlay_sm(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "poll_advance": "prev_color"
+          },
+          "docstringSummary": "Steps the farm calendar overlay state machine g_ui_inventory_subpanel_state_open_calendar_state_rucksack_panel, updating calendar input/render or closing back via hm_ovl11_set_game_substate. hud_res_set_text_color_idx, hud_res_get_text_color_idx, evt_res_init_dialog_box_idle",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_182.c",
+          "address": "0x80112ec4",
+          "symbol": "p11_field_trigger_mine_stairs_prompt",
+          "signature": "s32 p11_field_trigger_mine_stairs_prompt(s32 is_down_stairs, s32 floor_idx, s16 grid_x, s16 grid_y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Checks if the mine tile at (grid_x, grid_y) on floor_idx holds stairs (type 2), sets transition flags in 0x8012d510 and event flag 3, opens dialogue box, and ends player action lock.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_183.c",
+      "lineCount": 208,
+      "codeSloc": 154,
+      "symbolCount": 4,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_183.c",
+          "address": "0x80113818",
+          "symbol": "p11_field_tick_mine_stairs_confirm",
+          "signature": "void p11_field_tick_mine_stairs_confirm(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "prompt_box": "choice",
+            "work_acc": "msg_offset"
+          },
+          "docstringSummary": "Ticks the active mine exit/descend confirmation prompt in 0x8012d510, warping to the waterfall/winter mine entrance on exit or incrementing mine floor g_farm_field_all_mine_floors_player_counter on descent. p11_ui_run_yes_no_prompt_box, sys_init_display_timing, hm_text_draw_box_with_message, hm_event_flag_set",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_183.c",
+          "address": "0x80115cac",
+          "symbol": "p11_ui_run_sell_chicken_dialog_sm",
+          "signature": "u32 p11_ui_run_sell_chicken_dialog_sm(void)",
+          "typedArraysUsed": [
+            "g_anim_chicken_coop_tbl"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "flags_2": "locked_flags",
+            "bird_ready": "next_state",
+            "work_word": "bird_idx"
+          },
+          "docstringSummary": "Runs the poultry farm sell-chicken dialogue state machine, pricing mature vs chick birds at 2000G/500G and removing the sold coop record. hm_ovl11_get_villager_heart_level, p11_ui_find_last_flagged_coop_bird, p11_ui_is_last_flagged_bird_ready, p11_ui_run_yes_no_prompt_box, p11_ui_set_shop_flags_and_state, p11_ui_sync_shop_flags_from_state (+4 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_183.c",
+          "address": "0x80117370",
+          "symbol": "p11_ui_init_saturday_shop_state",
+          "signature": "u32 p11_ui_init_saturday_shop_state(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Initializes Saturday/festival stall shop state g_ui_saturday_shop_state_value=1, selects slot via p11_ui_find_text_sentinel_len, and resets yes/no cursor.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_183.c",
+          "address": "0x80117674",
+          "symbol": "p11_ui_poll_shop_confirm_box",
+          "signature": "u32 p11_ui_poll_shop_confirm_box(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Waits for dialogue state 5 and delegates to p11_ui_run_yes_no_prompt_box at (0x83, 0x48) to confirm or cancel purchase.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_184.c",
+      "lineCount": 290,
+      "codeSloc": 242,
+      "symbolCount": 3,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_184.c",
+          "address": "0x801180f8",
+          "symbol": "p11_ui_run_woodcutter_shop_sm",
+          "signature": "u32 p11_ui_run_woodcutter_shop_sm(u32 state)",
+          "typedArraysUsed": [
+            "g_ui_woodcutter_shop_sm_count_1",
+            "g_ui_woodcutter_shop_sm_count_2"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "lumber_cost",
+            "afford_gold": "menu_res",
+            "abi_reg": "non_empty",
+            "flag_get": "qty",
+            "carry_word": "unit_price",
+            "list_submenu": "upgrade_idx"
+          },
+          "docstringSummary": "Runs Gotz woodcutter shop state machine handling lumber purchase (into g_ui_evt_add_fodder_count_consume_counter) and farmhouse/barn upgrade ordering with event flag 0x38. p11_ui_run_shop_qty_999_picker, p11_ui_run_yes_no_prompt_box, p11_ui_run_10slot_list_submenu, p11_ui_can_afford_gold, p11_ui_count_nonzero_stack_slots, hm_text_set_render_mode (+5 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_184.c",
+          "address": "0x800c5098",
+          "symbol": "p11_field_step_queued_tool_tile_fx",
+          "signature": "s32 p11_field_step_queued_tool_tile_fx(HmPlayerState *player_state)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "cell_offset": "tile_x",
+            "greenhouse_tile": "tile_y",
+            "frame_slot": "hit",
+            "frame_slot_2": "applied"
+          },
+          "docstringSummary": "Processes one queued tile index per frame in 0x80128cb4..0x80128cb8 for hoe tilling (p11_spr_till_field_plot_tile), watering (p11_spr_water_field_or_greenhouse_tile), or sickle cutting (p11_spr_sickle_cut_field_tile) until finished. p11_spr_is_tile_blocked_or_oob, p11_spr_water_field_or_greenhouse_tile, p11_spr_till_field_plot_tile, p11_spr_sickle_cut_field_tile",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_184.c",
+          "address": "0x800cbe2c",
+          "symbol": "p11_field_check_shipping_or_doghouse_drop",
+          "signature": "s32 p11_field_check_shipping_or_doghouse_drop(u8 *thrown_item_slot)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "with_budget": "hit_pos",
+            "caller_slot": "hit_flags"
+          },
+          "docstringSummary": "Tests collision bit 0x200 at a thrown item's landing spot via p11_core_probe_actor_ray_with_budget when the dog state is 0x15f; if hit, registers the shipped item via p11_evt_record_shipped_item and cleans up. p11_evt_record_shipped_item, hm_audio_play_sfx",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_185.c",
+      "lineCount": 324,
+      "codeSloc": 249,
+      "symbolCount": 4,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_185.c",
+          "address": "0x800cc7cc",
+          "symbol": "hm_ovl11_interact_field_tile",
+          "signature": "s32 hm_ovl11_interact_field_tile(s32 target_tile)",
+          "typedArraysUsed": [
+            "g_farm_field_spawn_thrown_item_interact_value_1",
+            "g_farm_field_spawn_thrown_item_interact_value_tile"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "cond_flag": "snap_pos",
+            "top_bit": "step_x",
+            "work_word": "step_z",
+            "work_acc": "orig_y",
+            "crop_group": "above_world_cap",
+            "season_index": "seed_slot",
+            "farm_objects": "bounced_dir",
+            "carry_word": "fish_res"
+          },
+          "docstringSummary": "Handles foraging, rock smashing, lumber chopping, watering, and harvesting on target_tile p11_core_tick_map19_player_and_npc_timers, hm_ovl11_use_equipped_tool_on_tile, hm_ovl11_interact_farm_objects, p11_field_eval_fishing_cast_zone, p11_field_resolve_throw_or_fishing_end, p11_field_is_item_edible_crop_group (+10 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_185.c",
+          "address": "0x800e6ee0",
+          "symbol": "hm_ovl11_query_npc_affection",
+          "signature": "bool hm_ovl11_query_npc_affection(s16 npc_id, s16 x, s16 y, u32 threshold)",
+          "typedArraysUsed": [
+            "g_ovl11_script_vm_vars"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Evaluates villager affection/event precondition against NPC state in g_ovl11_script_vm_vars p11_evt_play_held_item_anim_and_stamina, hm_ovl11_dispatch_npc_gift_reaction, hm_ovl11_update_npc_schedules, p11_evt_eval_schedule_condition_mask, p11_evt_grant_year_milestone_gift, p11_ui_is_npc_affection_rank_active (+11 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_185.c",
+          "address": "0x800f67e0",
+          "symbol": "hm_ovl11_render_hud_clock_and_stamina",
+          "signature": "void hm_ovl11_render_hud_clock_and_stamina(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "ch3_active_ptr": "check_fn",
+            "or_choice": "icon_sheet",
+            "color_idx": "next_open_state",
+            "poll_advance": "prev_color"
+          },
+          "docstringSummary": "Draws in-game HUD clock, season/weekday icon, weather badge, and gold/tool corner widgets p11_animl_is_flag_fx_ch4_active, p11_dlg_clear_icon_cache_locks, p11_dlg_step_item_icon_sheet_preload, hm_ovl11_update_shop_or_tv_menu, hud_res_set_text_color_idx, hud_res_get_text_color_idx (+9 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_185.c",
+          "address": "0x80112da8",
+          "symbol": "p11_field_check_player_on_mine_stairs",
+          "signature": "s32 p11_field_check_player_on_mine_stairs(HmPlayerState *player_state)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "mine_tile": "player_pos",
+            "carry_word": "grid_x",
+            "stairs_prompt": "grid_y",
+            "pos_x_2": "floor_idx"
+          },
+          "docstringSummary": "Maps player coordinates to a 10x10 mine cell via p11_field_world_pos_to_mine_tile and calls p11_field_trigger_mine_stairs_prompt to test for up-stairs on the previous floor or down-stairs on the current floor. hm_event_flag_set",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_186.c",
+      "lineCount": 310,
+      "codeSloc": 247,
+      "symbolCount": 4,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_186.c",
+          "address": "0x801173c0",
+          "symbol": "p11_ui_run_saturday_shop_sm",
+          "signature": "u32 p11_ui_run_saturday_shop_sm(u32 state)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "abi_reg": "msg_id",
+            "or_special": "dlg_result"
+          },
+          "docstringSummary": "Runs the Saturday shop dialogue state machine gating on weekday == 6, charging 10G entry, and calling p11_ui_buy_power_berry_or_special. p11_ui_poll_shop_confirm_box, p11_ui_buy_power_berry_or_special, hm_dialogue_set_window_state, evt_res_commit_dialog_close",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_186.c",
+          "address": "0x800cc0f8",
+          "symbol": "hm_ovl11_handle_area_door_warp",
+          "signature": "void hm_ovl11_handle_area_door_warp(s16 *player_pos)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "player_pos_2": "interact_res",
+            "pad_input": "to_ot",
+            "carry_word": "snap_pos"
+          },
+          "docstringSummary": "Checks door/exit triggers around player_pos and initiates map warp transition hm_ovl11_use_equipped_tool_on_tile, p11_field_check_shipping_or_doghouse_drop, hm_ovl11_interact_field_tile, p11_field_resolve_throw_or_fishing_end, p11_field_snap_pos_to_valid_ground_y, hm_ovl11_spawn_render_entity (+4 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_186.c",
+          "address": "0x800e6eac",
+          "symbol": "p11_npc_adjust_affection_wrapper",
+          "signature": "u32 p11_npc_adjust_affection_wrapper(s16 npc_id, s16 delta_val)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Thin wrapper calling hm_ovl11_query_npc_affection(0, npc_id, delta_val, 0) to apply a scripted NPC affection change. p11_ui_calc_rucksack_item_capacity",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_186.c",
+          "address": "0x800e6f34",
+          "symbol": "p11_evt_load_tool_or_item_anim_pack",
+          "signature": "u32 p11_evt_load_tool_or_item_anim_pack(s16 item_id, s16 slot_idx, s32 use_equipped)",
+          "typedArraysUsed": [
+            "g_ovl11_script_vm_vars"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "rucksack_tools": "slot_limit",
+            "int_pow": "temp_slot"
+          },
+          "docstringSummary": "Loads tool/item animation pack via 0x800d6a94, 0x800d7338, and 0x800cb540 using either equipped tool g_core_player_state.equipped_tool or rucksack slot g_player_rucksack_tools[0]. p11_spr_set_item_slot_6b, hm_ovl11_query_npc_affection, sys_int_pow",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_187.c",
+      "lineCount": 193,
+      "codeSloc": 123,
+      "symbolCount": 5,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_187.c",
+          "address": "0x800e7088",
+          "symbol": "p11_evt_play_held_item_anim_and_stamina",
+          "signature": "u32 p11_evt_play_held_item_anim_and_stamina(s16 anim_mode, s16 apply_stamina, s32 unused_a, s32 unused_b)",
+          "typedArraysUsed": [
+            "g_ovl11_script_vm_vars"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "npc_affection": "delta",
+            "y": "item_id",
+            "carry_word": "sub_val"
+          },
+          "docstringSummary": "Plays held item g_core_player_state_action_sub_vars_idx10[0] animation via 0x800d7338 and optionally applies stamina/fatigue cost via 0x800c4f44 on g_core_player_state. p11_spr_set_item_slot_6b, hm_ovl11_query_npc_affection, sys_int_pow",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_187.c",
+          "address": "0x800ec064",
+          "symbol": "hm_ovl11_dispatch_npc_gift_reaction",
+          "signature": "u32 hm_ovl11_dispatch_npc_gift_reaction(u16 npc_id, s16 item_id, s32 mood, s32 flags)",
+          "typedArraysUsed": [
+            "g_anim_chicken_coop_tbl",
+            "g_anim_livestock_barn_tbl",
+            "g_ovl11_script_vm_vars"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "i": "slot_idx",
+            "work_acc": "i"
+          },
+          "docstringSummary": "Evaluates villager gift preference tier, adjusts affection points, and selects dialogue reply p11_animl_dispatch_gift_reaction_2, p11_animl_dispatch_gift_reaction_0",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_187.c",
+          "address": "0x800f1b28",
+          "symbol": "p11_evt_eval_schedule_condition_mask",
+          "signature": "u32 p11_evt_eval_schedule_condition_mask(u32 cond_bits)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Evaluates packed event condition bitmask across season (0x800f1bd0), weekday (0x800f1c48), weather (0x800f1cc4), and actor presence (0x800e6ee0). p11_evt_check_weekday_bitmask, p11_evt_check_weather_bitmask",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_187.c",
+          "address": "0x800f65b8",
+          "symbol": "p11_dlg_dispatch_hud_and_menu_ui",
+          "signature": "void p11_dlg_dispatch_hud_and_menu_ui(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Master overlay 11 HUD/UI tick and render dispatcher invoking 0x8002470c(0), 0x800f67e0..0x801038e4, hm_ovl11_draw_town_map_overlay, and 0x8011f5bc. p11_ui_tick_rucksack_pause_menu, p11_ui_draw_hud_clock_if_enabled, p11_ui_dispatch_farm_status_state, p11_ui_tick_calendar_and_map_menu, p11_ui_tick_diary_save_prompt, p11_ui_update_kitchen_cooking_ui (+3 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_187.c",
+          "address": "0x800fdfa8",
+          "symbol": "p11_ui_is_npc_affection_rank_active",
+          "signature": "void p11_ui_is_npc_affection_rank_active(s16 npc_id)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Forwards npc_id to hm_ovl11_query_npc_affection(npc_id, 0, 2, 0) to query status rank bits for the sprite/tool status page.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_188.c",
+      "lineCount": 791,
+      "codeSloc": 760,
+      "symbolCount": 1,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_188.c",
+          "address": "0x80104ec8",
+          "symbol": "hm_ovl11_execute_story_cutscene_table",
+          "signature": "u32 hm_ovl11_execute_story_cutscene_table(u16 scene_id)",
+          "typedArraysUsed": [
+            "g_anim_chicken_coop_tbl",
+            "g_jtbl_ptr_entry",
+            "g_ovl11_execute_story_cutscene_table_jtbl_ptr"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "cond_flag": "coop_limit",
+            "i": "coop_limit",
+            "matching_tiles": "coop_limit",
+            "matching_tiles_2": "year_idx",
+            "and_talk": "scene_kind",
+            "j": "sub_idx"
+          },
+          "docstringSummary": "Large state machine table executing seasonal festivals, weddings, births, and rival heart scenes p11_spr_get_crop_max_growth_stage, p11_spr_count_or_find_matching_tiles, hm_ovl11_query_npc_affection, p11_evt_dispatch_script_opcode, p11_npc_get_actor_schedule_location, hm_ovl11_tick_npc_ai_and_talk (+2 more)",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_189.c",
+      "lineCount": 210,
+      "codeSloc": 147,
+      "symbolCount": 5,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_189.c",
+          "address": "0x80107888",
+          "symbol": "p11_ovl_eval_schedule_condition",
+          "signature": "u32 p11_ovl_eval_schedule_condition(s32 cond_id)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "npc_affection": "matched",
+            "carry_word": "hour_limit",
+            "flag_get": "matched"
+          },
+          "docstringSummary": "Evaluates one of 22 schedule/event predicates (event flags, season/day/hour, held item, or Starry Night invite) and caches matching cond_id in g_ovl11_ovl_lookup_dialogue_id_eval_state.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_189.c",
+          "address": "0x8010cf58",
+          "symbol": "p11_animl_sprite_handle_gift_flag",
+          "signature": "void p11_animl_sprite_handle_gift_flag(s32 sprite_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Monitors gift-held flag 0x800 on a Harvest Sprite and updates affection via hm_ovl11_query_npc_affection. hm_event_flag_get",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_189.c",
+          "address": "0x8011266c",
+          "symbol": "p11_field_update_goddess_memo_flag",
+          "signature": "void p11_field_update_goddess_memo_flag(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Clears bit 0x4000 of g_ui_unlocked_recipes_flags and sets it when hm_ovl11_query_npc_affection(0x1e, 0, 2, 0) indicates the Harvest Goddess gift condition is unmet.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_189.c",
+          "address": "0x8011277c",
+          "symbol": "p11_field_update_town_npc_memo_flags",
+          "signature": "void p11_field_update_town_npc_memo_flags(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Updates bits 0x40000, 0x80000, and 0x100000 in g_ui_unlocked_recipes_flags by querying hm_ovl11_query_npc_affection for NPCs 0x1c, 0x1a, and 0x1b.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_189.c",
+          "address": "0x8011282c",
+          "symbol": "p11_field_update_sprite_memo_flags",
+          "signature": "void p11_field_update_sprite_memo_flags(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Updates bits 0x200000 and 0x400000 in g_ui_unlocked_recipes_flags by querying hm_ovl11_query_npc_affection for NPCs 0x1f and 0x20.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_190.c",
+      "lineCount": 310,
+      "codeSloc": 189,
+      "symbolCount": 10,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_190.c",
+          "address": "0x80119008",
+          "symbol": "p11_ui_run_tool_upgrade_shop_sm",
+          "signature": "u32 p11_ui_run_tool_upgrade_shop_sm(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "anim_state": "upgrade_cost",
+            "shippable_flag": "ui_res",
+            "use_step": "done_flag",
+            "work_word": "next_state"
+          },
+          "docstringSummary": "Runs Saibara blacksmith tool-upgrade shop state machine validating held tool != 0xa4, deducting upgrade cost, and running upgrade cutscene step. hm_ovl11_query_npc_affection, hm_ovl11_get_villager_heart_level, p11_ui_run_yes_no_prompt_box, p11_ui_run_bag_upgrade_use_step, p11_ui_can_afford_gold, p11_ui_set_shop_flags_and_state (+5 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_190.c",
+          "address": "0x800ccb90",
+          "symbol": "p11_field_tick_thrown_item_slots",
+          "signature": "void p11_field_tick_thrown_item_slots(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Loops over the 3 thrown/flying item trajectory slots starting at 0x80128bb0 and updates each active slot via hm_ovl11_handle_area_door_warp.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_190.c",
+          "address": "0x800ceef8",
+          "symbol": "p11_field_pickup_world_entity_or_horse",
+          "signature": "s32 p11_field_pickup_world_entity_or_horse(s16 *entity_rec)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Handles picking up a carryable world entity (checking p11_spr_has_item_flag_0x8100), locking it for player carry or dismounting/claiming a horse state via p11_npc_adjust_affection_wrapper and hm_ovl11_query_pasture_tile_grass. p11_npc_adjust_affection_wrapper, p11_ovl_reset_entity_state_pair, hm_ovl11_query_pasture_tile_grass",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_190.c",
+          "address": "0x800de6bc",
+          "symbol": "p11_animl_dispatch_gift_reaction_4",
+          "signature": "u32 p11_animl_dispatch_gift_reaction_4(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Dispatches NPC/animal event gift reaction mode 4 through hm_ovl11_dispatch_npc_gift_reaction.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_190.c",
+          "address": "0x800de6e8",
+          "symbol": "p11_animl_dispatch_gift_reaction_1",
+          "signature": "u32 p11_animl_dispatch_gift_reaction_1(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Dispatches NPC/animal event gift reaction mode 1 through hm_ovl11_dispatch_npc_gift_reaction.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_190.c",
+          "address": "0x800de714",
+          "symbol": "p11_animl_dispatch_gift_reaction_2",
+          "signature": "u32 p11_animl_dispatch_gift_reaction_2(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Dispatches NPC/animal event gift reaction mode 2 through hm_ovl11_dispatch_npc_gift_reaction.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_190.c",
+          "address": "0x800de740",
+          "symbol": "p11_animl_dispatch_gift_reaction_0",
+          "signature": "u32 p11_animl_dispatch_gift_reaction_0(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Dispatches NPC/animal event gift reaction mode 0 through hm_ovl11_dispatch_npc_gift_reaction.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_190.c",
+          "address": "0x800e537c",
+          "symbol": "p11_evt_end_cutscene_and_unlock_player",
+          "signature": "void p11_evt_end_cutscene_and_unlock_player(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Terminates active cutscene: clears flag 3, refocuses camera on player (-2), unlocks player controls, clears held item g_core_player_state.held_item_id, and resets prop 0x36. p11_evt_focus_camera_on_actor, p11_evt_reset_primary_prop_anchor, p11_pet_horse_set_world_pos, hm_event_flag_set",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_190.c",
+          "address": "0x800f1aa8",
+          "symbol": "p11_evt_run_story_cutscene_if_valid",
+          "signature": "u32 p11_evt_run_story_cutscene_if_valid(s8 table_idx)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Returns 1 immediately if table_idx == -1, otherwise executes the corresponding story cutscene entry via hm_ovl11_execute_story_cutscene_table.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_190.c",
+          "address": "0x800f3840",
+          "symbol": "p11_evt_grant_year_milestone_gift",
+          "signature": "void p11_evt_grant_year_milestone_gift(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Awards year-milestone item/Power Berry 0x103 via hm_ovl11_query_npc_affection and 0x800e6f34, and advances stored milestone year g_npc_evt_grant_year_milestone_execute_flag.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_191.c",
+      "lineCount": 291,
+      "codeSloc": 179,
+      "symbolCount": 7,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_191.c",
+          "address": "0x800fdedc",
+          "symbol": "p11_ui_find_tool_or_sprite_rank_idx",
+          "signature": "s32 p11_ui_find_tool_or_sprite_rank_idx(s16 base_id)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "cond_flag": "use_sprite_check",
+            "work_acc": "check_fn",
+            "i": "best_rank",
+            "rank_active_ptr": "i",
+            "work_acc_2": "best_rank"
+          },
+          "docstringSummary": "Scans 5 consecutive rank flags starting at base_id using g_farm_find_tool_sprite_rank_matches_counter threshold to compute a signed 1..5 progress index.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_191.c",
+          "address": "0x80107528",
+          "symbol": "p11_ovl_dispatch_condition_check",
+          "signature": "u32 p11_ovl_dispatch_condition_check(s32 cond_type, u32 packed_arg)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "not_scene": "location_id"
+          },
+          "docstringSummary": "Dispatches overlay condition checks 0..3 to scene presence, NPC affection schedule, location open hours, or p11_ovl_eval_schedule_condition. p11_ovl_is_location_closed_by_hour, p11_ovl_eval_schedule_condition",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_191.c",
+          "address": "0x8010c7f0",
+          "symbol": "p11_animl_sprites_tick_all",
+          "signature": "void p11_animl_sprites_tick_all(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Main per-frame loop across all 7 Harvest Sprites in g_anim_actor_collision_give_sprites_value[0] running gift checks, AI, shadows, and sprites. p11_animl_sprite_clear_flags, p11_animl_sprite_tick_ai, p11_animl_sprite_handle_gift_flag, p11_animl_sprite_setup_model_anim",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_191.c",
+          "address": "0x80111f10",
+          "symbol": "p11_field_refresh_all_memo_hint_flags",
+          "signature": "void p11_field_refresh_all_memo_hint_flags(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Refreshes all 12 bitmask flags in g_ui_unlocked_recipes_flags covering tools, animals, crops, farm upgrades, sprites, and town NPC tips. p11_field_consume_pending_unlock_notice, p11_ui_init_blacksmith_shop_menu, p11_ui_init_poultry_feed_shop_menu, p11_ui_init_winery_or_inn_shop_menu, p11_ui_init_supermarket_shop_menu, p11_ui_run_tv_and_festival_shop_sm (+1 more) p11_field_refresh_recipe_bit4_from_friends, p11_field_refresh_recipe_bit0_from_npc5d, p11_field_refresh_recipe_bit1_from_npc5f, p11_field_refresh_recipe_bits_5_to_7, p11_field_refresh_recipe_bit8_high_affection, p11_field_refresh_recipe_bits_9_to_13 (+4 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_191.c",
+          "address": "0x8011b6c4",
+          "symbol": "p11_ui_step_shop_wait_and_check_player",
+          "signature": "u32 p11_ui_step_shop_wait_and_check_player(s32 *state_ptr, s32 base_state, s16 npc_id)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "delta"
+          },
+          "docstringSummary": "Advances a two-step shop pause timer, triggers p11_evt_load_tool_or_item_anim_pack on npc_id, and returns 1 once player flags match 0x14008000. p11_ui_run_fodder_or_feed_shop_sm, p11_ui_run_inn_shop_sm, p11_ui_run_single_item_shop_sm",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_191.c",
+          "address": "0x8011d9dc",
+          "symbol": "p11_ui_calc_rucksack_item_capacity",
+          "signature": "s32 p11_ui_calc_rucksack_item_capacity(s16 item_id, s32 skip_held)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "abi_reg": "remaining_slots",
+            "work_acc": "capacity"
+          },
+          "docstringSummary": "Calculates how many more units of item_id fit across empty and matching rucksack slots (up to 99 per slot, including held item unless skip_held != 0). p11_ui_run_basket_shop_sm, p11_ui_run_tv_and_festival_shop_sm, p11_ui_run_multi_item_shop_sm, p11_ui_add_item_to_rucksack_or_storage",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_191.c",
+          "address": "0x800c7878",
+          "symbol": "p11_field_pickup_target_into_hands",
+          "signature": "s32 p11_field_pickup_target_into_hands(HmPlayerState *player_state, u16 *out_item_slot)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "from_tile": "tool_state"
+          },
+          "docstringSummary": "Dispatches a pickup attempt against g_ovl11_active_tool_state flags (0x8, 0x20, 0x100, 0x800, 0x8000) to harvest a crop, grab an animal/item, or pull from a forage source. p11_spr_harvest_crop_from_tile, p11_evt_try_pickup_scene_prop, p11_evt_get_interactable_prop_item, hm_audio_play_sfx",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_192.c",
+      "lineCount": 328,
+      "codeSloc": 214,
+      "symbolCount": 7,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_192.c",
+          "address": "0x800c907c",
+          "symbol": "hm_ovl11_try_sleep_or_end_day",
+          "signature": "bool hm_ovl11_try_sleep_or_end_day(s32 bed_trigger, u32 flags)",
+          "typedArraysUsed": [
+            "g_ovl11_tool_anim_tbl_ptr"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "true"
+          },
+          "docstringSummary": "Validates bed interaction/night collapse and advances day transition hm_ovl11_add_player_fatigue_penalty, hm_ovl11_check_tool_hit_livestock, p11_field_pickup_world_entity_or_horse, p11_evt_get_interactable_prop_item, p11_pet_dog_dispatch_state, p11_animl_sprite_dispatch_state (+3 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_192.c",
+          "address": "0x800e4280",
+          "symbol": "p11_evt_reset_and_dispatch_cutscene_state",
+          "signature": "u32 p11_evt_reset_and_dispatch_cutscene_state(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Clears cutscene prop/sprite subsystems (0x800e4568..54c8, 0x800e5230) and toggles cutscene begin/end via 0x800dbf60 -> 0x800e5294 / 0x800e537c. p11_evt_update_cutscene_prop_slots, p11_evt_reset_cutscene_sprites_and_props, p11_evt_begin_cutscene_player_state, p11_evt_end_cutscene_and_unlock_player, p11_npc_clear_cutscene_actor_flags, p11_evt_reset_cutscene_icon_slots",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_192.c",
+          "address": "0x800f1078",
+          "symbol": "hm_ovl11_run_dialogue_choice_prompt",
+          "signature": "u32 hm_ovl11_run_dialogue_choice_prompt(u16 *script_ptr, s32 choice_count)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "affection_threshold": "date_range"
+          },
+          "docstringSummary": "Runs interactive yes/no or multi-choice dialogue prompt and writes selected option p11_evt_match_day_of_season_range, p11_evt_match_packed_map_condition, p11_npc_check_stage_in_range, p11_npc_match_bachelorette_marriage_cond, p11_npc_check_actor_affection_threshold, p11_evt_check_three_dialogue_flags (+6 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_192.c",
+          "address": "0x800f2400",
+          "symbol": "p11_dlg_tick_mailbox_reader_ui",
+          "signature": "void p11_dlg_tick_mailbox_reader_ui(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Drives open mailbox letter UI state g_npc_dlg_tick_mailbox_reader_evt_state_open_read/94: advances to next letter via 0x800f2724, triggers year gift 0x800f3840, or closes on button 0x20. evt_res_commit_dialog_close",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_192.c",
+          "address": "0x800fde98",
+          "symbol": "p11_ui_update_sprite_row_rank",
+          "signature": "void p11_ui_update_sprite_row_rank(u32 row_idx)",
+          "typedArraysUsed": [
+            "g_ui_sprite_row_rank_table"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "row_idx_2": "clamped"
+          },
+          "docstringSummary": "Looks up base ID from g_ui_sprite_row_rank_table for clamped row_idx (<=4) and calls p11_ui_find_tool_or_sprite_rank_idx.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_192.c",
+          "address": "0x80107480",
+          "symbol": "p11_ovl_eval_schedule_rule_pair",
+          "signature": "u32 p11_ovl_eval_schedule_rule_pair(u8 *rule_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "rule_ptr_2": "ok_a",
+            "work_word": "ok_b"
+          },
+          "docstringSummary": "Evaluates an 8-byte schedule rule pair via p11_ovl_dispatch_condition_check and returns rule target u16 or 0xffffffff on mismatch.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_192.c",
+          "address": "0x80111ef0",
+          "symbol": "p11_field_sync_memo_hint_flags_wrapper",
+          "signature": "void p11_field_sync_memo_hint_flags_wrapper(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Wrapper that delegates directly to p11_field_refresh_all_memo_hint_flags to recompute all memo and farm tip bitmask flags.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_193.c",
+      "lineCount": 308,
+      "codeSloc": 241,
+      "symbolCount": 5,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_193.c",
+          "address": "0x80112160",
+          "symbol": "p11_field_consume_pending_unlock_notice",
+          "signature": "u16 p11_field_consume_pending_unlock_notice(s32 query_mode)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "matches_counter": "pending_code"
+          },
+          "docstringSummary": "Queries or consumes the pending farm upgrade/building completion code in g_farm_find_tool_sprite_rank_matches_counter (modes 0, 1, 2), applying coop/barn upgrades 0x13f..0x141 and refreshing memo flags.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_193.c",
+          "address": "0x80113cd0",
+          "symbol": "p11_ui_init_blacksmith_shop_menu",
+          "signature": "u32 p11_ui_init_blacksmith_shop_menu(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "npc_affection": "anim_state"
+          },
+          "docstringSummary": "Populates the 9-entry blacksmith/toolshop menu list in g_ui_hud_inventory_ctx.panel_list_params[0], gating cheese/butter/yarn makers and sprite/blessing entries on flags. p11_field_refresh_all_memo_hint_flags, p11_ui_clear_10slot_menu_list",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_193.c",
+          "address": "0x80113ff0",
+          "symbol": "p11_ui_init_poultry_feed_shop_menu",
+          "signature": "u32 p11_ui_init_poultry_feed_shop_menu(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Populates the 4-entry poultry/animal feed shop list in g_ui_hud_inventory_ctx.panel_list_params[0], gating the fourth entry on g_ui_unlocked_recipes_flags bit 0x4000. p11_ui_clear_10slot_menu_list",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_193.c",
+          "address": "0x80114194",
+          "symbol": "p11_ui_init_winery_or_inn_shop_menu",
+          "signature": "u32 p11_ui_init_winery_or_inn_shop_menu(void)",
+          "typedArraysUsed": [
+            "g_ui_winery_inn_shop_menu_clinic_count"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Populates two shop sub-lists (g_ui_hud_inventory_ctx.panel_list_params[0] 2 entries, g_ui_hud_inventory_ctx.panel_end_slot up to 4 entries gated by g_ui_unlocked_recipes_flags bits 1 and 2).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_193.c",
+          "address": "0x80114398",
+          "symbol": "p11_ui_init_supermarket_shop_menu",
+          "signature": "u32 p11_ui_init_supermarket_shop_menu(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Populates the 9-entry supermarket catalog in g_ui_hud_inventory_ctx.panel_list_params[0], toggling entry 0 vs entry 1 based on g_ui_supermarket_shop_menu_redeem_cfg16 bit 0x10.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_194.c",
+      "lineCount": 248,
+      "codeSloc": 216,
+      "symbolCount": 2,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_194.c",
+          "address": "0x80115fe0",
+          "symbol": "p11_ui_run_clinic_shop_sm",
+          "signature": "u32 p11_ui_run_clinic_shop_sm(void)",
+          "typedArraysUsed": [
+            "g_ui_winery_inn_shop_menu_clinic_count"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "at_0x28": "item_id",
+            "anim_state": "price",
+            "list_submenu": "main_pack",
+            "icon_id": "med_pack",
+            "work_word": "submenu_res",
+            "work_word_2": "checkup_msg"
+          },
+          "docstringSummary": "Runs Doctor's clinic shop state machine offering 10G stamina/fatigue checkups (p11_ui_get_stamina_fatigue_icon_id) and medicine purchase submenu. p11_ui_get_stamina_fatigue_icon_id, p11_ui_run_yes_no_prompt_box, p11_ui_step_shop_wait_and_check_player, p11_ui_run_10slot_list_submenu, p11_ui_can_afford_gold, p11_ui_set_shop_flags_and_state (+8 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_194.c",
+          "address": "0x801165e0",
+          "symbol": "p11_ui_run_medal_exchange_shop_sm",
+          "signature": "u32 p11_ui_run_medal_exchange_shop_sm(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "list_submenu": "submenu_res"
+          },
+          "docstringSummary": "Runs horse-race festival medal prize exchange state machine checking medal balance and calling p11_ui_redeem_festival_medal_prize. p11_ui_run_yes_no_prompt_box, p11_ui_step_shop_wait_and_check_player, p11_ui_run_10slot_list_submenu, p11_ui_set_shop_flags_and_state, p11_ui_sync_shop_flags_from_state, hm_text_set_render_mode (+2 more)",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_195.c",
+      "lineCount": 201,
+      "codeSloc": 165,
+      "symbolCount": 2,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_195.c",
+          "address": "0x80118ce4",
+          "symbol": "p11_ui_run_fodder_or_feed_shop_sm",
+          "signature": "u32 p11_ui_run_fodder_or_feed_shop_sm(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "flags_2": "picker_res",
+            "poll_advance": "msg_id"
+          },
+          "docstringSummary": "Runs animal fodder/feed bulk purchase state machine capping total stock g_ui_evt_add_fish_food_consume_counter below 1000 and deducting gold via hm_ovl11_get_villager_heart_level. p11_evt_add_fish_food_count, p11_evt_set_house_prop_visible, p11_ui_step_shop_wait_and_check_player, p11_ui_poll_numeric_picker_input, p11_ui_can_afford_gold, p11_ui_set_shop_flags_and_state (+5 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_195.c",
+          "address": "0x80119820",
+          "symbol": "p11_ui_run_basket_shop_sm",
+          "signature": "u32 p11_ui_run_basket_shop_sm(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "anim_state": "basket_price",
+            "poll_advance": "prompt_res",
+            "work_word": "msg_id"
+          },
+          "docstringSummary": "Runs the 1-time basket purchase state machine gated by g_ui_unlocked_recipes_flags bit 0x100, verifying bag space and setting g_npc_event_progress_flags bit 0x200000. hm_ovl11_get_villager_heart_level, p11_evt_set_house_prop_visible, p11_ui_can_afford_gold, p11_ui_set_shop_flags_and_state, p11_ui_sync_shop_flags_from_state, p11_ui_run_two_option_prompt_box (+5 more)",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_196.c",
+      "lineCount": 211,
+      "codeSloc": 175,
+      "symbolCount": 2,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_196.c",
+          "address": "0x80119af0",
+          "symbol": "p11_ui_run_inn_shop_sm",
+          "signature": "u32 p11_ui_run_inn_shop_sm(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "at_0x28": "menu_pack",
+            "poll_advance": "submenu_res",
+            "at_0x28_2": "item_id",
+            "work_word": "item_price"
+          },
+          "docstringSummary": "Runs the Inn food/drink purchase menu state machine using p11_ui_run_10slot_list_submenu, deducting gold and stepping NPC dialogue response. p11_ui_step_shop_wait_and_check_player, p11_ui_run_10slot_list_submenu, p11_ui_can_afford_gold, p11_ui_set_shop_flags_and_state, p11_ui_sync_shop_flags_from_state, p11_ui_read_caller_s16_at_0x28 (+2 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_196.c",
+          "address": "0x8011c298",
+          "symbol": "p11_ui_run_single_item_shop_sm",
+          "signature": "u32 p11_ui_run_single_item_shop_sm(s16 item_id, s16 box_mode, s16 prompt_msg_id, s16 shop_kind)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "anim_state": "price",
+            "i": "cancel_msg",
+            "work_word": "prompt_res",
+            "work_word_2": "rot_y_arg",
+            "frame_slot": "i"
+          },
+          "docstringSummary": "Generic single-item purchase state machine supporting rucksack upgrades (shop_kind==1), power berry/specials (shop_kind==2), or standard items. p11_ui_buy_brush_shop_sm, p11_ui_buy_milker_shop_sm, p11_ui_buy_clippers_shop_sm, p11_ui_run_rucksack_upgrade_shop_sm, p11_ui_run_power_berry_shop_sm hm_ovl11_query_npc_affection, hm_ovl11_get_villager_heart_level, p11_evt_spawn_dynamic_prop_by_id, p11_evt_set_house_prop_visible, p11_field_refresh_all_memo_hint_flags, p11_ui_run_yes_no_prompt_box (+9 more)",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_197.c",
+      "lineCount": 312,
+      "codeSloc": 208,
+      "symbolCount": 7,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_197.c",
+          "address": "0x8011dad4",
+          "symbol": "p11_ui_add_item_to_rucksack_or_storage",
+          "signature": "s32 p11_ui_add_item_to_rucksack_or_storage(s16 item_id, s16 qty, s32 to_cabinet)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "rem_qty",
+            "cond_flag": "need_cabinet",
+            "int_pow": "slot_cap",
+            "work_acc_2": "need_load",
+            "i": "hand_qty",
+            "work_acc_3": "i",
+            "qty_2": "rem_qty"
+          },
+          "docstringSummary": "Deposits qty units of item_id into cabinet/fridge table g_npc_map_palette_slices_tick_shop_count (if to_cabinet or insufficient bag space) or player rucksack slots, returning leftover qty. p11_ui_run_tv_and_festival_shop_sm, p11_ui_run_multi_item_shop_sm p11_ui_calc_rucksack_item_capacity, sys_int_pow",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_197.c",
+          "address": "0x800c8cc8",
+          "symbol": "p11_field_try_pickup_front_target",
+          "signature": "bool32 p11_field_try_pickup_front_target(HmPlayerState *player_state)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "cond_flag": "item_slot"
+          },
+          "docstringSummary": "Attempts to pick up an item or entity ahead via p11_field_pickup_target_into_hands, and if an item ID is returned equips it into player hands via hm_ovl11_use_equipped_tool_on_tile.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_197.c",
+          "address": "0x800f0f50",
+          "symbol": "p11_evt_dispatch_pending_event_script",
+          "signature": "u32 p11_evt_dispatch_pending_event_script(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Dispatches queued event script buffer g_npc_evt_copy_script_bytecode_dispatch_cfg via hm_ovl11_run_dialogue_choice_prompt when g_npc_evt_copy_script_bytecode_dispatch_state_1 != 0 and g_core_engine_flags1 bit 0x800 is clear. p11_animl_run_pet_event_wait_loop, hm_ovl11_step_daily_animal_status, p11_ovl_finalize_area_transition_load, p11_ui_dispatch_shop_menu_handler",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_197.c",
+          "address": "0x800fdd74",
+          "symbol": "p11_ui_draw_sprite_status_rows",
+          "signature": "void p11_ui_draw_sprite_status_rows(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "row_offset",
+            "tier": "tier_val",
+            "level": "i"
+          },
+          "docstringSummary": "Renders the 5 Harvest Sprite status rows from g_core_player_state_tool_exp_and_timers_idx3 with face icons, star tiers, EXP progress bars, and percentages. p11_ui_draw_tool_upgrade_tier_stars, p11_ui_draw_tool_exp_progress_bar, p11_ui_draw_tool_exp_percent, hm_text_draw_dialog_line",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_197.c",
+          "address": "0x80104a90",
+          "symbol": "p11_ovl_init_overlay_scene_state",
+          "signature": "void p11_ovl_init_overlay_scene_state(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Initializes OVL_part11_id06 runtime scene, map descriptor g_gfx_active_map_desc, script ctx g_core_event_script_ctx, weather, livestock, crops, and UI options. p11_cd_load_festival_field_vram, p11_core_noop_overlay_hook, p11_cd_load_common_ui_arena_chunk, p11_core_reset_all_color_blend_slots, p11_core_reset_ambient_light_rgb (+24 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_197.c",
+          "address": "0x80107418",
+          "symbol": "p11_ovl_find_matching_schedule_entry",
+          "signature": "s32 p11_ovl_find_matching_schedule_entry(s32 sched_hdr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "count",
+            "rule_pair": "i"
+          },
+          "docstringSummary": "Iterates 8-byte schedule rule entries in sched_hdr via p11_ovl_eval_schedule_rule_pair and returns first matching result or -1.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_197.c",
+          "address": "0x80111e38",
+          "symbol": "p11_field_init_upgrade_and_memo_state",
+          "signature": "void p11_field_init_upgrade_and_memo_state(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Refreshes memo flags via p11_field_sync_memo_hint_flags_wrapper and zeroes carpenter/upgrade timers g_farm_field_upgrade_memo_state_grant_counter, g_farm_find_tool_sprite_rank_matches_counter, and g_farm_field_upgrade_memo_state_mark_counter during scene initialization.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_198.c",
+      "lineCount": 356,
+      "codeSloc": 336,
+      "symbolCount": 1,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_198.c",
+          "address": "0x80114604",
+          "symbol": "hm_ovl11_draw_earnings_summary_ui",
+          "signature": "u32 hm_ovl11_draw_earnings_summary_ui(void)",
+          "typedArraysUsed": [
+            "g_anim_livestock_barn_tbl"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "at_0x28": "item_id",
+            "flags_2": "item_price",
+            "prompt_box": "main_pack",
+            "i": "ui_res",
+            "anim_state": "slot_idx",
+            "frame_slot": "msg_id",
+            "frame_slot_2": "sale_gold",
+            "frame_slot_3": "idx"
+          },
+          "docstringSummary": "Renders shipping ledger, farm earnings, livestock count, and villager relationship status page hm_ovl11_get_entity_anim_state, p11_barn_cow_zero_actor, hm_ovl11_get_villager_heart_level, p11_ui_init_blacksmith_shop_menu, p11_ui_purchase_shop_row_item_a, p11_ui_run_animal_picker_dialog (+16 more)",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_199.c",
+      "lineCount": 248,
+      "codeSloc": 227,
+      "symbolCount": 1,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_199.c",
+          "address": "0x80115308",
+          "symbol": "hm_ovl11_draw_memo_and_recipes_ui",
+          "signature": "u32 hm_ovl11_draw_memo_and_recipes_ui(void)",
+          "typedArraysUsed": [
+            "g_anim_chicken_coop_tbl"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "at_0x28": "main_pack",
+            "flags_2": "ui_res",
+            "prompt_box": "slot_idx",
+            "i": "msg_id",
+            "anim_state": "idx"
+          },
+          "docstringSummary": "Renders kitchen recipe book, shipped items list, and farm memo summary screens hm_ovl11_get_entity_anim_state, p11_coop_chicken_zero_actor, hm_ovl11_get_villager_heart_level, p11_ui_init_poultry_feed_shop_menu, p11_ui_purchase_shop_row_item_b, p11_ui_run_animal_picker_dialog (+16 more)",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_200.c",
+      "lineCount": 104,
+      "codeSloc": 38,
+      "symbolCount": 7,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_200.c",
+          "address": "0x80119338",
+          "symbol": "p11_ui_buy_blue_feather_shop_sm",
+          "signature": "void p11_ui_buy_blue_feather_shop_sm(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Invokes p11_ui_run_single_item_shop_sm for item 0x99 with prompt 0x1dd (shop_kind 0).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_200.c",
+          "address": "0x80119364",
+          "symbol": "p11_ui_buy_bracelet_or_brooch_shop_sm",
+          "signature": "void p11_ui_buy_bracelet_or_brooch_shop_sm(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Invokes p11_ui_run_single_item_shop_sm for item 0x9a with prompt 0x1de (shop_kind 0).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_200.c",
+          "address": "0x80119390",
+          "symbol": "p11_ui_buy_brush_shop_sm",
+          "signature": "void p11_ui_buy_brush_shop_sm(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Invokes p11_ui_run_single_item_shop_sm for item 0xa5 with prompt 0xd9 (shop_kind 0).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_200.c",
+          "address": "0x801193bc",
+          "symbol": "p11_ui_buy_milker_shop_sm",
+          "signature": "void p11_ui_buy_milker_shop_sm(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Invokes p11_ui_run_single_item_shop_sm for item 0xa6 with prompt 0xda (shop_kind 0).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_200.c",
+          "address": "0x801193e8",
+          "symbol": "p11_ui_buy_clippers_shop_sm",
+          "signature": "void p11_ui_buy_clippers_shop_sm(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Invokes p11_ui_run_single_item_shop_sm for item 0xa7 with prompt 0xdb (shop_kind 0).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_200.c",
+          "address": "0x8011941c",
+          "symbol": "p11_ui_run_rucksack_upgrade_shop_sm",
+          "signature": "u32 p11_ui_run_rucksack_upgrade_shop_sm(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "status_flags": "recipe_flags"
+          },
+          "docstringSummary": "Selects rucksack tier item 0x6d (prompt 0xd4) or 0x6e (prompt 0x248) from flags and delegates to p11_ui_run_single_item_shop_sm with shop_kind=1.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_200.c",
+          "address": "0x80119470",
+          "symbol": "p11_ui_run_power_berry_shop_sm",
+          "signature": "u32 p11_ui_run_power_berry_shop_sm(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Checks g_ui_unlocked_recipes_flags bit 0x20 and g_npc_event_progress_flags bit 0x800 to offer item 100 via p11_ui_run_single_item_shop_sm (shop_kind=2) or show sold-out text 0xd6.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_201.c",
+      "lineCount": 178,
+      "codeSloc": 161,
+      "symbolCount": 1,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_201.c",
+          "address": "0x80119df8",
+          "symbol": "p11_ui_run_tv_and_festival_shop_sm",
+          "signature": "u32 p11_ui_run_tv_and_festival_shop_sm(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "anim_state": "selected_item",
+            "at_0x28": "item_price",
+            "poll_advance": "entity_flags",
+            "work_word": "list_pack_args",
+            "flags_2": "run_main_menu",
+            "work_word_2": "submenu_result"
+          },
+          "docstringSummary": "Runs TV Shopping and multi-program menu shop state machine combining p11_ui_run_10slot_list_submenu and p11_ui_dispatch_tv_program_state. p11_field_refresh_all_memo_hint_flags, p11_ui_setup_tv_shopping_or_festival_menu, p11_ui_run_10slot_list_submenu, p11_ui_dispatch_tv_program_state, p11_ui_can_afford_gold, p11_ui_set_shop_flags_and_state (+6 more)",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_202.c",
+      "lineCount": 245,
+      "codeSloc": 186,
+      "symbolCount": 4,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_202.c",
+          "address": "0x8011c6cc",
+          "symbol": "p11_ui_run_multi_item_shop_sm",
+          "signature": "u32 p11_ui_run_multi_item_shop_sm(s16 *prompt_a, s16 *prompt_b, s16 *cancel_msg, u32 list_ptr, u32 *hdr_arg, u32 *opt_a, u32 *opt_b, u32 *opt_c)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "box_a",
+            "cancel_msg_2": "msg_a",
+            "flags_2": "box_b",
+            "at_0x28": "msg_b",
+            "work_acc_2": "box_cancel",
+            "afford_gold": "msg_cancel",
+            "poll_advance": "ui_res",
+            "prompt_b_2": "item_id"
+          },
+          "docstringSummary": "Generic multi-item quantity shop state machine selecting an item from 10-slot list, picking qty 1..99, checking gold/bag space, and adding items. p11_ui_run_autumn_seed_shop_sm, p11_ui_run_winery_or_festival_shop_sm p11_ui_run_shop_qty_99_picker, p11_ui_can_afford_gold, p11_ui_set_shop_flags_and_state, p11_ui_sync_shop_flags_from_state, p11_ui_read_caller_s16_at_0x28, p11_ui_calc_rucksack_item_capacity (+3 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_202.c",
+          "address": "0x800c8d24",
+          "symbol": "p11_field_handle_action_button_item_op",
+          "signature": "s32 p11_field_handle_action_button_item_op(HmPlayerState *player_state, u32 pad_mask)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "front_target": "did_action"
+          },
+          "docstringSummary": "Handles pressing action button 0x40: either uses/gives/throws the currently carried item via p11_field_handle_held_item_use_or_throw(0) or picks up a target via p11_field_try_pickup_front_target when bit 0x2000 is set.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_202.c",
+          "address": "0x800de3a0",
+          "symbol": "p11_animl_run_pet_event_wait_loop",
+          "signature": "void p11_animl_run_pet_event_wait_loop(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Executes pet/livestock menu dialog wait loop while monitoring event flag 2 and state g_anim_shipping_pet_state[0]. p11_evt_dispatch_pending_event_script, p11_evt_enqueue_secondary_script_wrap, hm_event_flag_get",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_202.c",
+          "address": "0x800de4c0",
+          "symbol": "hm_ovl11_step_daily_animal_status",
+          "signature": "void hm_ovl11_step_daily_animal_status(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Rolls over daily animal feeding, brushing, milking, shearing, egg laying, and illness/pregnancy hm_ovl11_step_scene_animations, p11_evt_dispatch_pending_event_script, hm_ovl11_check_event_trigger_zone, hm_prng_next, hm_draw_debug_glyph, hm_event_flag_get (+2 more)",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_203.c",
+      "lineCount": 290,
+      "codeSloc": 201,
+      "symbolCount": 7,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_203.c",
+          "address": "0x801044e4",
+          "symbol": "hm_ovl11_dispatch_festival_or_minigame",
+          "signature": "u32 hm_ovl11_dispatch_festival_or_minigame(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Dispatches transitions out of main town gameplay into festival, credits, or title sub-overlays p11_cd_load_festival_field_vram, p11_cd_load_common_ui_arena_chunk, p11_core_roll_tomorrow_weather, p11_core_resolve_daily_weather, p11_core_reset_all_color_blend_slots, p11_core_reset_ambient_light_rgb (+32 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_203.c",
+          "address": "0x80104cb8",
+          "symbol": "p11_ovl_finalize_area_transition_load",
+          "signature": "void p11_ovl_finalize_area_transition_load(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Completes area transition by resetting lights/weather/crops/livestock/animations, allocating scene anim slots, syncing BGM fade, and setting flag 0xad after hour 6. p11_core_apply_time_zone_ambient_light, p11_core_reset_all_color_blend_slots, p11_core_reset_ambient_light_rgb, p11_core_init_weather_particles, hm_ovl11_apply_tool_charge_effect, p11_field_clear_thrown_item_slots (+17 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_203.c",
+          "address": "0x80104ea8",
+          "symbol": "p11_ovl_enter_area_scene_wrapper",
+          "signature": "void p11_ovl_enter_area_scene_wrapper(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Thin wrapper invoking p11_ovl_init_overlay_scene_state to initialize the OVL_part11_id06 scene.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_203.c",
+          "address": "0x80107390",
+          "symbol": "p11_ovl_lookup_npc_dialogue_id",
+          "signature": "u32 p11_ovl_lookup_npc_dialogue_id(s32 npc_id)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "npc_item": "i"
+          },
+          "docstringSummary": "Scans 31 NPC schedule tables at g_ovl11_ovl_lookup_dialogue_id_dat_ptr for npc_id, returning 0x1cd on festival match or delegating to p11_ovl_find_matching_schedule_entry.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_203.c",
+          "address": "0x80118a68",
+          "symbol": "p11_ui_dispatch_shop_menu_handler",
+          "signature": "u32 p11_ui_dispatch_shop_menu_handler(s32 menu_id)",
+          "typedArraysUsed": [
+            "g_ui_dispatch_shop_menu_handler_table"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Sets active shop/UI mode menu_id in g_ui_hud_menu_not_state_tick_state (running trigger zone 10 check for mode 0x16) and invokes handler g_ui_dispatch_shop_menu_handler_table[menu_id]. hm_ovl11_check_event_trigger_zone, hm_event_flag_get",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_203.c",
+          "address": "0x801194dc",
+          "symbol": "p11_ui_run_spring_seed_shop_sm",
+          "signature": "u32 p11_ui_run_spring_seed_shop_sm(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "shop_sm": "prompt_a",
+            "frame_slot": "prompt_b",
+            "frame_slot_2": "cancel_msg",
+            "frame_slot_3": "hdr_arg"
+          },
+          "docstringSummary": "Opens supermarket spring seed catalog (season == 0 or g_farm_upgrade_flags2 != 0) via p11_ui_run_multi_item_shop_sm.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_203.c",
+          "address": "0x801195bc",
+          "symbol": "p11_ui_run_summer_seed_shop_sm",
+          "signature": "void p11_ui_run_summer_seed_shop_sm(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "frame_slot": "prompt_a",
+            "frame_slot_2": "prompt_b",
+            "frame_slot_3": "cancel_msg",
+            "frame_slot_4": "hdr_arg"
+          },
+          "docstringSummary": "Opens supermarket summer seed catalog (season == 1 or g_farm_upgrade_flags2 != 0) via p11_ui_run_multi_item_shop_sm.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_204.c",
+      "lineCount": 301,
+      "codeSloc": 203,
+      "symbolCount": 6,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_204.c",
+          "address": "0x8011969c",
+          "symbol": "p11_ui_run_autumn_seed_shop_sm",
+          "signature": "u32 p11_ui_run_autumn_seed_shop_sm(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "shop_sm": "option_a",
+            "frame_slot": "option_b",
+            "frame_slot_2": "option_c",
+            "frame_slot_3": "prompt_msg"
+          },
+          "docstringSummary": "Opens supermarket autumn seed catalog (season == 2 or g_farm_upgrade_flags2 != 0) via p11_ui_run_multi_item_shop_sm.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_204.c",
+          "address": "0x8011977c",
+          "symbol": "p11_ui_run_winery_or_festival_shop_sm",
+          "signature": "void p11_ui_run_winery_or_festival_shop_sm(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "frame_slot": "option_a",
+            "frame_slot_2": "option_b",
+            "frame_slot_3": "option_c"
+          },
+          "docstringSummary": "Opens multi-item shop catalog using prompt IDs 0x164/0x16d..0x171 via p11_ui_run_multi_item_shop_sm.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_204.c",
+          "address": "0x800c8808",
+          "symbol": "p11_field_match_and_fire_zone_trigger",
+          "signature": "s32 p11_field_match_and_fire_zone_trigger(HmPlayerState *player_state, u32 zone_list, u8 *trigger_rule)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Checks whether player position matches a zone entry via p11_core_find_nearby_npc_actor, validates trigger ID (+0x04) and facing (+0x08), and fires dialogue 0x16 or event zone 3 with flag 0x46. hm_ovl11_check_event_trigger_zone, p11_ui_dispatch_shop_menu_handler, hm_event_flag_set",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_204.c",
+          "address": "0x800cd734",
+          "symbol": "p11_field_check_stamina_fatigue_emots",
+          "signature": "s32 p11_field_check_stamina_fatigue_emots(HmPlayerState *player_state, s32 suppress_anim)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "fatigue_2": "fatigue_tenth",
+            "work_acc": "fatigue_val",
+            "fatigue_delta": "emote_id"
+          },
+          "docstringSummary": "Evaluates stamina (+0x12 vs +0x14 thresholds) and fatigue (+0x16 at 50/80/100) threshold crossings in flags +0x36, triggering collapse/sweat animations or calling p11_animl_run_pet_event_wait_loop.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_204.c",
+          "address": "0x80107c80",
+          "symbol": "p11_ovl_resolve_npc_talk_or_door",
+          "signature": "u32 p11_ovl_resolve_npc_talk_or_door(s16 target_id, u16 action_arg, s32 *out_msg_id, s32 force_door)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "by_id": "i",
+            "flag_get": "matched_npc",
+            "carry_word": "override_msg",
+            "i": "npc_id",
+            "npc_id_2": "dialogue_id"
+          },
+          "docstringSummary": "Resolves NPC talk dialogue ID (checking g_ovl11_ovl_resolve_talk_door_count overrides, p11_ovl_lookup_npc_dialogue_id, and flag 0x76) or falls back to p11_ovl_trigger_door_open_or_close. p11_field_check_exit_trigger_and_warp, p11_field_apply_entity_zone_transition, p11_evt_control_or_query_target_substate, p11_ui_exit_diary_sleep_to_morning p11_ovl_lookup_npc_dialogue_id, hm_event_flag_get",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_204.c",
+          "address": "0x800c3ee8",
+          "symbol": "p11_core_trigger_prop_door_interact",
+          "signature": "u32 p11_core_trigger_prop_door_interact(s32 prop_ptr, s32 door_desc)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Triggers p11_ovl_resolve_npc_talk_or_door and sets prop state 5 via hm_ovl11_set_scene_prop_anim_state when prop flag 0x100 is set and bit 2 is clear.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_205.c",
+      "lineCount": 552,
+      "codeSloc": 517,
+      "symbolCount": 1,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_205.c",
+          "address": "0x800c580c",
+          "symbol": "hm_ovl11_execute_player_action",
+          "signature": "u32 hm_ovl11_execute_player_action(HmPlayerState *player_state)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "cond_flag": "action_code",
+            "hold_state_2": "consume_tool_stamina",
+            "work_word": "action_handled",
+            "stamina_cost": "fatigue_delta"
+          },
+          "docstringSummary": "Massive player action/tool switch dispatching hoe, watering can, sickle, hammer, axe, and interactions p11_field_use_sickle_on_target_tiles, p11_field_use_axe_on_target_tile, p11_field_use_hammer_on_target_tile, p11_crop_plant_flower_or_crop_seed_tile, p11_field_try_unstuck_or_dismount_pos, p11_field_swap_picked_held_item (+30 more)",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_206.c",
+      "lineCount": 342,
+      "codeSloc": 317,
+      "symbolCount": 1,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_206.c",
+          "address": "0x800c7ac0",
+          "symbol": "hm_ovl11_handle_item_pickup_carry",
+          "signature": "u32 hm_ovl11_handle_item_pickup_carry(s32 item_id)",
+          "typedArraysUsed": [
+            "g_farm_field_probe_ground_ahead_item_count_1",
+            "g_farm_field_probe_ground_ahead_item_count_pickup_carry"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "zone_kind",
+            "item_id_00": "probe_pos",
+            "carry_word": "tile_anim_cmd",
+            "sprite_id": "forward_pos",
+            "food_count": "lake_offset_z",
+            "flag_get": "player_facing"
+          },
+          "docstringSummary": "Handles lifting, holding overhead, throwing, shipping, or gifting held farm item item_id hm_ovl11_trigger_player_emote, p11_field_offer_fish_to_lake_goddess, p11_field_feed_or_gift_coop_chicken, p11_field_feed_barn_livestock_fodder, p11_field_feed_dog_or_horse_bowl, p11_field_interact_lumber_shed (+32 more)",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_207.c",
+      "lineCount": 310,
+      "codeSloc": 251,
+      "symbolCount": 3,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_207.c",
+          "address": "0x800cccc0",
+          "symbol": "hm_ovl11_update_fishing_action",
+          "signature": "u32 hm_ovl11_update_fishing_action(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "flag_get": "elapsed"
+          },
+          "docstringSummary": "Drives fishing rod cast, bobber wait, bite window, and caught fish/trash roll p11_field_end_player_action_lock, p11_field_calc_fishing_tension_decay, p11_field_calc_fishing_reel_power, p11_field_check_stamina_fatigue_emots, p11_field_reset_sweat_and_ambient_particles, p11_field_clear_ambient_particles (+3 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_207.c",
+          "address": "0x800cd9a0",
+          "symbol": "p11_field_check_exit_trigger_and_warp",
+          "signature": "s32 p11_field_check_exit_trigger_and_warp(HmPlayerState *player_state)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "or_door": "flags",
+            "flag_get": "move_gate",
+            "flags_2": "cell_facing",
+            "facing_dir_2": "talk_msg_id",
+            "work_acc": "door_result"
+          },
+          "docstringSummary": "Checks engine/player busy flags, raycasts ground exit trigger via hm_ovl11_raycast_ground_height(g_gfx_active_map_desc, player_state+0x100, 1), validates door/area entry via p11_ovl_resolve_npc_talk_or_door and hm_event_flag_get, and triggers prompt p11_field_start_scripted_walk_turn or warp in g_core_event_script_ctx.script_state. p11_field_start_scripted_walk_turn, p11_ovl_resolve_npc_talk_or_door, hm_event_flag_get, hm_event_flag_set, gfx_start_screen_filter, hm_dialogue_set_window_state",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_207.c",
+          "address": "0x800d2b40",
+          "symbol": "p11_field_apply_entity_zone_transition",
+          "signature": "void p11_field_apply_entity_zone_transition(u8 *entity_rec)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "by_id": "i"
+          },
+          "docstringSummary": "Tests zone transition flags 0x4000000..0x20000000 on entity_rec+0x34, resolves exit coordinates across farm/barn/greenhouse/coop via p11_core_lookup_field_spawn_rect, updates entity position, and clears velocity/lock flag 0x2000. p11_ovl_find_cutscene_slot_by_id, p11_ovl_resolve_npc_talk_or_door",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_208.c",
+      "lineCount": 353,
+      "codeSloc": 283,
+      "symbolCount": 4,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_208.c",
+          "address": "0x800e7a74",
+          "symbol": "p11_evt_control_or_query_target_substate",
+          "signature": "bool32 p11_evt_control_or_query_target_substate(s16 target_id, u16 mode, u16 sub_arg, s32 from_var)",
+          "typedArraysUsed": [
+            "g_ovl11_script_vm_vars"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "by_id": "resolved_id"
+          },
+          "docstringSummary": "Resolves target_id (optionally from VM var when from_var != 0) and executes mode 0..4 substate control (0x80107c80) or status query (0x8010734c).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_208.c",
+          "address": "0x8011f958",
+          "symbol": "p11_ui_exit_diary_sleep_to_morning",
+          "signature": "void p11_ui_exit_diary_sleep_to_morning(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Closes diary/book UI, clears player sleep lock bit 0x400, calls p11_field_start_scripted_walk_turn(0x14) and p11_ovl_resolve_npc_talk_or_door(0x20), and sets flag 0x76. p11_ovl_resolve_npc_talk_or_door, p11_ui_reset_status_book_state, hm_event_flag_set",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_208.c",
+          "address": "0x800c2044",
+          "symbol": "hm_ovl11_render_weather_particles",
+          "signature": "void hm_ovl11_render_weather_particles(s32 mode, s32 count, s32 ot_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "cmd_ptr_3": "next_wp_idx",
+            "work_acc": "cmd_op"
+          },
+          "docstringSummary": "Draws active raindrop/snowflake/petal 3D particles into ordering table p11_core_step_npc_schedule_waypoint, hm_ovl11_set_scene_prop_anim_state, hm_ovl11_update_water_reflection_fx, p11_core_steer_ambient_particle_vel, p11_core_trigger_prop_door_interact, p11_core_show_dog_affection_msg",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_208.c",
+          "address": "0x800c2678",
+          "symbol": "hm_ovl11_render_sky_and_fog",
+          "signature": "void hm_ovl11_render_sky_and_fog(s32 time_of_day)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "fx_x",
+            "by_id": "fx_z",
+            "count": "cmd_op"
+          },
+          "docstringSummary": "Renders sky gradient, distant fog tint, and ambient light curve for time_of_day p11_core_get_water_shader_phase, p11_ovl_find_cutscene_slot_by_id",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_209.c",
+      "lineCount": 204,
+      "codeSloc": 161,
+      "symbolCount": 2,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_209.c",
+          "address": "0x800c3838",
+          "symbol": "hm_ovl11_update_water_reflection_fx",
+          "signature": "u32 hm_ovl11_update_water_reflection_fx(s32 area_id, s32 frame_tick, s32 mode)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "route_id",
+            "cond_flag": "updated_flags"
+          },
+          "docstringSummary": "Animates water/ripple shaders and seasonal ambient particle emitters p11_core_advance_npc_schedule_slot p11_core_get_water_shader_phase, p11_core_steer_ambient_particle_vel, p11_core_trigger_prop_door_interact, p11_core_show_dog_affection_msg",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_209.c",
+          "address": "0x800c8ba8",
+          "symbol": "p11_field_dispatch_farm_pad_shortcuts",
+          "signature": "s32 p11_field_dispatch_farm_pad_shortcuts(HmPlayerState *player_state, u32 pad_mask)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Handles farm UI and action pad shortcuts when g_core_event_script_ctx.script_state is 0: dispatches overlay shortcuts 0x100/0x800/0x10 via p11_ui_open_town_map_overlay/p11_ui_trigger_stamina_warning_sfx/p11_ui_open_rucksack_pause_menu and ground raycast/pickup 0x40 via hm_ovl11_raycast_ground_height and hm_ovl11_handle_item_pickup_carry. p11_ui_open_rucksack_pause_menu, p11_ui_trigger_stamina_warning_sfx, p11_ui_open_town_map_overlay",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_210.c",
+      "lineCount": 313,
+      "codeSloc": 236,
+      "symbolCount": 4,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_210.c",
+          "address": "0x800d12b8",
+          "symbol": "p11_field_step_entity_path_movement",
+          "signature": "u32 p11_field_step_entity_path_movement(u16 *entity_rec, s32 move_speed, u32 collision_mask)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "cond_flag": "step_interval",
+            "entity_rec_2": "probe_pos",
+            "work_word": "ray_hit_flags",
+            "move_mask": "ray_hit_entity"
+          },
+          "docstringSummary": "Steps animal/pickup movement: evaluates water probe p11_field_check_actor_water_or_zone, selects cardinal heading via p11_field_choose_entity_move_dir from forward/left/right probes (p11_core_probe_actor_ray_with_budget, p11_field_is_tile_or_wall_blocked, p11_field_probe_entity_collision), seeks target or jumps via p11_field_step_entity_jump_arc, and runs zone transitions via p11_field_apply_entity_zone_transition. p11_barn_cow_anim_step_walk, p11_barn_cow_settle_idle_state, p11_barn_sheep_anim_step_walk, p11_barn_sheep_settle_idle_state, p11_coop_chicken_anim_step_walk, p11_coop_chicken_anim_step_flap (+6 more) p11_field_face_entity_toward_target, p11_field_choose_entity_move_dir, p11_field_compute_seek_move_mask, p11_field_check_actor_water_or_zone, p11_field_probe_entity_collision, p11_field_step_entity_jump_arc (+3 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_210.c",
+          "address": "0x800e7b78",
+          "symbol": "p11_evt_check_target_substate_active",
+          "signature": "void p11_evt_check_target_substate_active(s16 target_id)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Invokes 0x800e7a74(target_id, 4, 0, 0) to test whether target_id is in an active/non-idle scripted substate.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_210.c",
+          "address": "0x800c2b04",
+          "symbol": "p11_core_advance_npc_schedule_slot",
+          "signature": "void p11_core_advance_npc_schedule_slot(s16 *npc_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "npc_ptr_2": "next_start_min",
+            "npc_ptr_3": "cur_min",
+            "npc_ptr_4": "old_scene",
+            "screen_bounds": "new_scene"
+          },
+          "docstringSummary": "Advances NPC schedule waypoint when day-minutes g_farm_calendar_clock.elapsed_minutes_day reaches next slot, loading sprites and updating anim/reflection via hm_ovl11_update_water_reflection_fx. hm_ovl11_update_water_reflection_fx, p11_animl_check_actor_screen_bounds",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_210.c",
+          "address": "0x800c3020",
+          "symbol": "p11_core_step_npc_motion_or_waypoint",
+          "signature": "u32 p11_core_step_npc_motion_or_waypoint(s32 npc_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "mode"
+          },
+          "docstringSummary": "Steps active NPC motion timer (+0x10), calling hm_ovl11_render_sky_and_fog at zero or p11_core_step_npc_schedule_waypoint when decrementing from 1.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_211.c",
+      "lineCount": 335,
+      "codeSloc": 255,
+      "symbolCount": 5,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_211.c",
+          "address": "0x800c9424",
+          "symbol": "hm_ovl11_process_player_input_actions",
+          "signature": "u32 hm_ovl11_process_player_input_actions(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Translates controller pad inputs into player walk/run, tool use, whistle, and item swap p11_field_try_use_held_item_input, p11_field_is_active_scene_not_indoor, p11_field_dispatch_farm_pad_shortcuts, p11_field_handle_action_button_item_op, p11_field_equip_first_rucksack_item, p11_field_cycle_or_stow_held_item (+10 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_211.c",
+          "address": "0x800d425c",
+          "symbol": "p11_spr_step_entity_walk_speed",
+          "signature": "s32 p11_spr_step_entity_walk_speed(s16 *entity_rec)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Looks up move speed via p11_field_get_entity_walk_speed, steps entity movement via p11_field_step_entity_path_movement (mask 0x9010 for 0x15b, else 0x8031), sets moving flag at entity_rec[0x12], and clears bit 0x800 of entity_rec+0x34. p11_spr_pursue_outdoor_animal_ai",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_211.c",
+          "address": "0x800d55f8",
+          "symbol": "p11_spr_run_wild_dog_action_script",
+          "signature": "s32 p11_spr_run_wild_dog_action_script(u8 *entity_rec)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Executes entity animation/action table 0x80123c94 via hm_ovl11_add_item_to_rucksack, initializes emote/state via p11_ovl_set_entity_state_pair, plays SFX 0x1a when facing 0, and steps movement via p11_field_step_entity_path_movement(entity_rec, 0x18, 0x9010). p11_ovl_set_entity_state_pair, hm_audio_play_sfx",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_211.c",
+          "address": "0x800dfe74",
+          "symbol": "p11_barn_cow_anim_step_walk",
+          "signature": "u32 p11_barn_cow_anim_step_walk(s32 cow_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Steps cow walking animation g_anim_barn_cow_walk_value and collision/turning via hm_ovl11_add_item_to_rucksack and p11_field_step_entity_path_movement.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_211.c",
+          "address": "0x800e0280",
+          "symbol": "p11_barn_cow_settle_idle_state",
+          "signature": "u32 p11_barn_cow_settle_idle_state(s32 cow_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Applies cow movement/collision step via p11_field_step_entity_path_movement and updates facing/idle state from velocity and weather.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_212.c",
+      "lineCount": 307,
+      "codeSloc": 206,
+      "symbolCount": 8,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_212.c",
+          "address": "0x800e1a3c",
+          "symbol": "p11_barn_sheep_anim_step_walk",
+          "signature": "u32 p11_barn_sheep_anim_step_walk(s32 sheep_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "step"
+          },
+          "docstringSummary": "Steps sheep walking animation g_anim_barn_sheep_walk_value and collision movement via hm_ovl11_add_item_to_rucksack and p11_field_step_entity_path_movement.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_212.c",
+          "address": "0x800e1da8",
+          "symbol": "p11_barn_sheep_settle_idle_state",
+          "signature": "u32 p11_barn_sheep_settle_idle_state(s32 sheep_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "cond_flag": "is_not_feeding",
+            "work_word": "col_mask"
+          },
+          "docstringSummary": "Applies sheep movement/collision step via p11_field_step_entity_path_movement and updates facing/idle state from velocity and weather.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_212.c",
+          "address": "0x800e30fc",
+          "symbol": "p11_coop_chicken_anim_step_walk",
+          "signature": "u32 p11_coop_chicken_anim_step_walk(s32 chicken_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "step"
+          },
+          "docstringSummary": "Steps chicken walking animation g_anim_coop_chicken_walk_value and collision movement via hm_ovl11_add_item_to_rucksack and p11_field_step_entity_path_movement.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_212.c",
+          "address": "0x800e3200",
+          "symbol": "p11_coop_chicken_anim_step_flap",
+          "signature": "u32 p11_coop_chicken_anim_step_flap(s32 chicken_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "step"
+          },
+          "docstringSummary": "Steps chicken flapping/carried animation g_anim_coop_chicken_flap_value via hm_ovl11_add_item_to_rucksack and p11_field_step_entity_path_movement.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_212.c",
+          "address": "0x800e33e8",
+          "symbol": "p11_coop_chicken_settle_idle_state",
+          "signature": "u32 p11_coop_chicken_settle_idle_state(s32 chicken_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Applies chicken collision step via p11_field_step_entity_path_movement and resets idle state based on movement velocity.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_212.c",
+          "address": "0x8010add4",
+          "symbol": "p11_pet_horse_settle_idle_state",
+          "signature": "u32 p11_pet_horse_settle_idle_state(s32 horse_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Applies horse collision/movement via p11_field_step_entity_path_movement and clears ride-carry flags when velocity reaches zero.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_212.c",
+          "address": "0x8010ae64",
+          "symbol": "p11_pet_horse_update_mount_motion",
+          "signature": "u32 p11_pet_horse_update_mount_motion(s32 horse_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Updates horse mounted velocity, walk/gallop animation mode via g_anim_horse_mount_vel_state/32, and ride stamina counter. p11_pet_horse_state_mount_and_ride, p11_pet_horse_sync_mounted_player",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_212.c",
+          "address": "0x8010bfec",
+          "symbol": "p11_pet_dog_settle_idle_state",
+          "signature": "u32 p11_pet_dog_settle_idle_state(s32 dog_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "collision_mask": "col_mask"
+          },
+          "docstringSummary": "Applies dog collision step via p11_field_step_entity_path_movement and sets idle state 0 or run state 1.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_213.c",
+      "lineCount": 215,
+      "codeSloc": 171,
+      "symbolCount": 3,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_213.c",
+          "address": "0x8010c090",
+          "symbol": "p11_pet_dog_step_follow_motion",
+          "signature": "u32 p11_pet_dog_step_follow_motion(s32 dog_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Steps dog chasing/following collision and ground contact flags via p11_field_step_entity_path_movement and hm_ovl11_get_item_category_flags.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_213.c",
+          "address": "0x8010e644",
+          "symbol": "p11_animl_sprite_step_move_collision",
+          "signature": "u32 p11_animl_sprite_step_move_collision(s32 sprite_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "idle_anim",
+            "work_word_2": "walk_anim"
+          },
+          "docstringSummary": "Applies Harvest Sprite collision step via p11_field_step_entity_path_movement and updates facing/idle state based on carry flag.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_213.c",
+          "address": "0x800c2ce8",
+          "symbol": "hm_ovl11_apply_time_palette_tint",
+          "signature": "void hm_ovl11_apply_time_palette_tint(s32 hour, s32 weather_id)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "status_flags": "flags",
+            "hour_2": "should_probe",
+            "hour_3": "probe_pos",
+            "cond_flag": "ray_hit_flags",
+            "work_acc": "ray_hit_entity",
+            "with_budget": "i"
+          },
+          "docstringSummary": "Blends morning/noon/evening/night CLUT tinting across outdoor map textures p11_core_step_npc_motion_or_waypoint, p11_ovl_tick_unpaused_timer",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_214.c",
+      "lineCount": 341,
+      "codeSloc": 297,
+      "symbolCount": 2,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_214.c",
+          "address": "0x800c401c",
+          "symbol": "hm_ovl11_update_player_controller",
+          "signature": "void hm_ovl11_update_player_controller(void)",
+          "typedArraysUsed": [
+            "g_gfx_player_controller_submit_spr_table"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "scene_anim": "anim_timer",
+            "busy_flag": "mode_bits",
+            "flags_2": "trigger_action",
+            "minigame_tools": "step_timer"
+          },
+          "docstringSummary": "Primary player character update: reads movement, facing, stamina/fatigue, and tool/action state p11_field_probe_ground_ahead_of_player, hm_ovl11_execute_player_action, p11_field_tick_player_action_substate, hm_ovl11_modify_player_stamina, hm_ovl11_process_player_input_actions, hm_ovl11_add_player_fatigue_penalty (+11 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_214.c",
+          "address": "0x800d4ea0",
+          "symbol": "p11_spr_update_wild_dog_patrol_ai",
+          "signature": "s32 p11_spr_update_wild_dog_patrol_ai(u8 *entity_rec)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "step"
+          },
+          "docstringSummary": "Runs wild dog predator AI state machine: sets bit 0x1000000 in g_npc_event_progress_flags, initializes spawn/target at (-0x1324, 0, -0x2198) via hm_ovl11_modify_gold_or_counters, walks via p11_spr_step_entity_walk_speed, picks outdoor barn/coop target via p11_field_pick_random_grazing_animal, and switches state to 0x13 or 0x14. p11_field_pick_random_grazing_animal, p11_spr_step_entity_walk_speed, hm_prng_next, hm_audio_play_sfx",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_215.c",
+      "lineCount": 346,
+      "codeSloc": 247,
+      "symbolCount": 7,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_215.c",
+          "address": "0x800d506c",
+          "symbol": "hm_ovl11_draw_held_item_icon",
+          "signature": "u32 hm_ovl11_draw_held_item_icon(s32 item_id)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "step"
+          },
+          "docstringSummary": "Queues 3D or sprite render of item_id held above player or placed on counter p11_field_set_seek_arrival_radius, p11_field_zero_world_entity_slot, p11_spr_step_entity_walk_speed, p11_ovl_set_entity_state_pair",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_215.c",
+          "address": "0x800d5224",
+          "symbol": "p11_spr_pursue_outdoor_animal_ai",
+          "signature": "s32 p11_spr_pursue_outdoor_animal_ai(u8 *entity_rec)",
+          "typedArraysUsed": [
+            "g_anim_chicken_coop_tbl",
+            "g_anim_livestock_barn_tbl"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "outdoor_animal",
+            "outdoor_animal": "animal_kind",
+            "frame_slot": "unused_out",
+            "caller_slot": "slot_idx"
+          },
+          "docstringSummary": "Scans for an active outdoor barn/coop animal within 800 units via p11_field_find_nearby_outdoor_animal, locks onto its live coordinates via hm_ovl11_modify_gold_or_counters, pursues via p11_spr_step_entity_walk_speed, and transitions state to 0x13 if hour < 7 or 7 when bit 0x2000 clears. p11_field_find_nearby_outdoor_animal, p11_spr_step_entity_walk_speed",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_215.c",
+          "address": "0x800e0220",
+          "symbol": "p11_barn_cow_anim_step_rest",
+          "signature": "bool p11_barn_cow_anim_step_rest(s32 cow_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "cond_flag": "is_done",
+            "status_flags": "is_done"
+          },
+          "docstringSummary": "Checks cow rest flag 0x2000, resets rest timer to 300 or invokes p11_barn_cow_settle_idle_state to settle idle/sleep state.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_215.c",
+          "address": "0x800e1d48",
+          "symbol": "p11_barn_sheep_anim_step_rest",
+          "signature": "bool p11_barn_sheep_anim_step_rest(s32 sheep_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "cond_flag": "is_done",
+            "status_flags": "is_done"
+          },
+          "docstringSummary": "Checks sheep rest flag 0x2000, resets rest timer to 300 or invokes p11_barn_sheep_settle_idle_state to settle idle/sleep state.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_215.c",
+          "address": "0x8010a47c",
+          "symbol": "p11_pet_horse_state_seek_fodder",
+          "signature": "u32 p11_pet_horse_state_seek_fodder(s32 horse_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "step"
+          },
+          "docstringSummary": "Executes horse state machine for approaching stable fodder (g_anim_pet_horse_state_seek_value/d070) and eating. p11_field_face_entity_toward_target, hm_ovl11_feed_or_pet_cow_sheep, hm_ovl11_interact_horse_or_dog, p11_pet_horse_update_mount_motion, hm_audio_play_sfx",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_215.c",
+          "address": "0x8010a654",
+          "symbol": "p11_pet_horse_state_graze_pasture",
+          "signature": "u32 p11_pet_horse_state_graze_pasture(s32 horse_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "step"
+          },
+          "docstringSummary": "Executes horse state machine for grazing pasture grass (g_anim_pet_horse_state_graze_value/d072) and clearing eaten grass tile. p11_field_face_entity_toward_target, p11_field_transition_world_entity_ai, p11_field_set_tool_hit_animal_pair, hm_ovl11_query_pasture_tile_grass, p11_pet_horse_update_mount_motion, hm_audio_play_sfx",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_215.c",
+          "address": "0x8010afcc",
+          "symbol": "p11_pet_horse_sync_mounted_player",
+          "signature": "u32 p11_pet_horse_sync_mounted_player(s32 horse_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "prop_pose": "prop_pos",
+            "carry_word": "prop_meta"
+          },
+          "docstringSummary": "Reads player mount input state via p11_evt_get_scene_prop_pose(0x65) and synchronizes horse motion via p11_pet_horse_update_mount_motion. p11_evt_get_scene_prop_pose, p11_pet_horse_update_mount_motion",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_216.c",
+      "lineCount": 369,
+      "codeSloc": 261,
+      "symbolCount": 7,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_216.c",
+          "address": "0x8010bf8c",
+          "symbol": "p11_pet_dog_anim_step_rest",
+          "signature": "bool p11_pet_dog_anim_step_rest(s32 dog_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "cond_flag": "is_done",
+            "status_flags": "is_done"
+          },
+          "docstringSummary": "Checks dog carry/rest flag 0x2000, resets timer to 300 or invokes p11_pet_dog_settle_idle_state to settle state.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_216.c",
+          "address": "0x80110544",
+          "symbol": "p11_field_step_animal_to_slot",
+          "signature": "bool32 p11_field_step_animal_to_slot(u8 *animal_rec, s16 slot_idx)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "cond_flag": "prev_flags",
+            "status_flags": "arrived"
+          },
+          "docstringSummary": "Sets animal target slot via p11_field_set_seek_arrival_radius, steps movement via p11_animl_sprite_step_move_collision, preserves bit 0x800 on animal_rec+0x34, and clears velocity via hm_ovl11_get_item_category_flags(4, animal_rec+0x48, 0) upon arrival when flag 0x2000 clears. p11_animl_sprite_chore_finish_subtask, p11_animl_sprite_chore_walk_to_station, p11_animl_sprite_chore_approach_door, p11_animl_sprite_substep_water_tile, p11_animl_sprite_substep_harvest_tile, p11_animl_sprite_substep_feed_animals (+2 more) p11_animl_sprite_step_move_collision",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_216.c",
+          "address": "0x800c19b0",
+          "symbol": "hm_ovl11_update_weather_effects",
+          "signature": "void hm_ovl11_update_weather_effects(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "weather_sprites": "i"
+          },
+          "docstringSummary": "Updates active weather particle simulation (rain, snow, petals, typhoon) and lighting hm_ovl11_update_barn_and_coop_state, hm_ovl11_update_all_animals p11_core_step_npc_schedule_waypoint, hm_ovl11_apply_time_palette_tint, hm_ovl11_update_water_reflection_fx",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_216.c",
+          "address": "0x800c2f74",
+          "symbol": "p11_core_tick_npc_actor_ai",
+          "signature": "void p11_core_tick_npc_actor_ai(s32 npc_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Clears NPC flag 0x8000 and updates p11_core_advance_npc_schedule_slot plus hm_ovl11_apply_time_palette_tint when engine pause flag 0x8000000 and event flag 3 are clear. hm_event_flag_get",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_216.c",
+          "address": "0x800e9284",
+          "symbol": "p11_npc_set_player_or_actor_facing",
+          "signature": "u32 p11_npc_set_player_or_actor_facing(u16 facing_dir, s16 entity_id)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Sets cardinal facing direction facing_dir on the player (g_core_player_state.facing_dir + hm_ovl11_update_player_controller) when entity_id < 0x32, or on actor g_npc_face_actor_toward_player_facing_table[0]. p11_evt_drive_player_collapse_or_sleep, p11_npc_turn_entity_toward_target_and_emote, p11_ui_run_special_item_upgrade_sm",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_216.c",
+          "address": "0x8010a850",
+          "symbol": "p11_pet_horse_state_mount_and_ride",
+          "signature": "u32 p11_pet_horse_state_mount_and_ride(s32 horse_ptr)",
+          "typedArraysUsed": [
+            "g_anim_pet_horse_state_mount_jtbl_ptr_1"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "mounted_flag",
+            "to_rucksack": "step_idx",
+            "work_word_2": "next_step",
+            "mounted_player": "cur_step"
+          },
+          "docstringSummary": "Manages horse mount, shipping-bin deposit, and mounted ride sub-states via jump table g_anim_pet_horse_state_mount_jtbl_ptr. hm_ovl11_modify_gold_or_counters, p11_evt_try_pickup_scene_prop, p11_pet_horse_update_mount_motion, p11_pet_horse_sync_mounted_player, hm_audio_play_sfx",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_216.c",
+          "address": "0x8010ee5c",
+          "symbol": "p11_animl_sprite_chore_finish_subtask",
+          "signature": "u32 p11_animl_sprite_chore_finish_subtask(s32 sprite_ptr, s16 expected_state, u32 flag_mask)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Clears Harvest Sprite chore sub-task flag mask or walks sprite toward target position via p11_field_step_animal_to_slot.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_217.c",
+      "lineCount": 258,
+      "codeSloc": 200,
+      "symbolCount": 4,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_217.c",
+          "address": "0x8010f324",
+          "symbol": "p11_animl_sprite_chore_walk_to_station",
+          "signature": "u32 p11_animl_sprite_chore_walk_to_station(s32 sprite_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "step",
+            "work_word": "chore"
+          },
+          "docstringSummary": "Guides a Harvest Sprite along station approach coordinates and switches into the assigned chore state. p11_animl_sprite_step_move_collision, p11_field_step_animal_to_slot",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_217.c",
+          "address": "0x8010f4cc",
+          "symbol": "p11_animl_sprite_chore_approach_door",
+          "signature": "u32 p11_animl_sprite_chore_approach_door(s32 sprite_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "saved_flags",
+            "work_acc_2": "step",
+            "to_slot": "area",
+            "work_word": "waypoint_pos",
+            "work_word_2": "waypoint_kind",
+            "waypoint_kind": "target_id"
+          },
+          "docstringSummary": "Guides a Harvest Sprite through barn/coop entrance waypoints before returning to idle or starting work. p11_animl_sprite_dispatch_state, p11_field_get_animal_waypoint_pos, p11_field_step_animal_to_slot, p11_field_place_sprite_in_farm_work_zone",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_217.c",
+          "address": "0x8010f6c0",
+          "symbol": "p11_animl_sprite_substep_water_tile",
+          "signature": "u32 p11_animl_sprite_substep_water_tile(s32 sprite_ptr, u32 water_flag)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "trough_collision": "waypoint_pos"
+          },
+          "docstringSummary": "Executes the 7-phase Harvest Sprite soil-watering sub-state (seek dry crop, water tile, step cooldown). p11_field_get_animal_waypoint_pos, p11_field_check_feed_trough_collision, p11_field_is_animal_in_barn_zone, p11_field_step_animal_to_slot, p11_field_get_animal_target_cell_center",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_217.c",
+          "address": "0x8010f80c",
+          "symbol": "p11_animl_sprite_substep_harvest_tile",
+          "signature": "u32 p11_animl_sprite_substep_harvest_tile(s32 sprite_ptr, u32 harvest_flag)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "step"
+          },
+          "docstringSummary": "Executes the Harvest Sprite crop-picking sub-state (seek ripe crop, pick, carry/ship item). p11_field_step_animal_to_slot, p11_field_get_animal_target_cell_center",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_218.c",
+      "lineCount": 372,
+      "codeSloc": 311,
+      "symbolCount": 3,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_218.c",
+          "address": "0x8010f8e4",
+          "symbol": "p11_animl_sprite_substep_feed_animals",
+          "signature": "u32 p11_animl_sprite_substep_feed_animals(s32 sprite_ptr, s32 barn_type)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "daily_checked": "waypoint_pos",
+            "eligible_animal": "animal_slot"
+          },
+          "docstringSummary": "Executes Harvest Sprite fodder/chicken-feed chore: picks feed from silo dispenser and fills barn/coop bins. p11_field_is_animal_daily_checked, p11_evt_add_chicken_feed_count, p11_evt_consume_chicken_feed_count, p11_evt_add_festival_medal_count, p11_evt_consume_festival_medal_count, p11_field_get_animal_waypoint_pos (+6 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_218.c",
+          "address": "0x8010fbc4",
+          "symbol": "p11_animl_sprite_substep_tend_livestock",
+          "signature": "u32 p11_animl_sprite_substep_tend_livestock(s32 sprite_ptr)",
+          "typedArraysUsed": [
+            "g_anim_livestock_barn_tbl"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Executes Harvest Sprite cow/sheep care sub-state: approaches livestock slot and triggers brush/care. hm_ovl11_interact_horse_or_dog, p11_field_complete_animal_feed_or_emote_action, p11_field_get_animal_waypoint_pos, p11_field_wait_animal_zone_dwell, p11_field_is_animal_in_barn_zone, p11_field_step_animal_to_slot (+1 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_218.c",
+          "address": "0x8010fef8",
+          "symbol": "p11_animl_sprite_substep_collect_eggs",
+          "signature": "u32 p11_animl_sprite_substep_collect_eggs(s32 sprite_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "waypoint_pos",
+            "prop_pose": "prop_meta",
+            "eligible_animal": "picked_item"
+          },
+          "docstringSummary": "Executes Harvest Sprite egg/product collection sub-state from g_npc_evt_scene_props_map_spawn_lut32 slots and carries to shipping. p11_evt_get_scene_prop_pose, p11_field_complete_animal_feed_or_emote_action, p11_field_get_animal_waypoint_pos, p11_field_is_animal_in_barn_zone, p11_field_step_animal_to_slot, p11_field_pick_random_eligible_animal",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_219.c",
+      "lineCount": 275,
+      "codeSloc": 205,
+      "symbolCount": 4,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_219.c",
+          "address": "0x800c06b0",
+          "symbol": "p11_core_step_fast_forward_time_step",
+          "signature": "void p11_core_step_fast_forward_time_step(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Fast-forwards pending time steps g_core_fast_forward_time_calendar_clear_state_2 while g_core_fast_forward_time_overlay_calendar_state != 0, then refreshes morning NPCs, weather, daily animal state, and ambient lighting. p11_core_has_pending_queued_event, hm_ovl11_update_weather_effects, hm_ovl11_step_daily_animal_status, p11_npc_reset_actor_position_and_anim, p11_npc_update_all_schedules_for_time",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_219.c",
+          "address": "0x800c30ac",
+          "symbol": "p11_core_tick_and_render_all_npcs",
+          "signature": "void p11_core_tick_and_render_all_npcs(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Increments g_core_weather_effects_render_apply_state and iterates all 37 NPC slots at g_npc_actor_tbl_base[0] (stride 0xea shorts), calling p11_core_tick_npc_actor_ai and p11_core_render_npc_if_active.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_219.c",
+          "address": "0x800c3d70",
+          "symbol": "p11_core_trigger_noon_and_evening_vram_sync",
+          "signature": "void p11_core_trigger_noon_and_evening_vram_sync(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "flag_get": "scene_id"
+          },
+          "docstringSummary": "Triggers 12:00 (0x2d0, flag 0x3f) and 18:00 (0x438, flag 0x40) NPC counter resets and outdoor VRAM/weather or HUD overlay pack reloads. hm_ovl11_update_weather_effects, p11_core_clear_all_npc_anim_counters, hm_event_flag_get, hm_event_flag_set",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_219.c",
+          "address": "0x800dc560",
+          "symbol": "hm_ovl11_update_barn_and_coop_state",
+          "signature": "void hm_ovl11_update_barn_and_coop_state(s32 area_id, u16 sub_mode)",
+          "typedArraysUsed": [
+            "g_gfx_active_map_desc"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "status_flags": "prev_pack_word",
+            "map_desc": "prev_map_word"
+          },
+          "docstringSummary": "Initializes and ticks barn, chicken coop, and pasture animal placements on map load p11_cd_load_hud_overlay_pack, hm_ovl11_update_weather_effects, p11_field_init_winter_pond_sprite, p11_spr_load_zone_tile_vram_overlays, p11_gfx_setup_map_lighting_and_weather (+7 more)",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_220.c",
+      "lineCount": 271,
+      "codeSloc": 215,
+      "symbolCount": 4,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_220.c",
+          "address": "0x800dddfc",
+          "symbol": "hm_ovl11_update_all_animals",
+          "signature": "void hm_ovl11_update_all_animals(void)",
+          "typedArraysUsed": [
+            "g_gfx_active_map_desc"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Master animal AI tick updating dog, horse, cows, sheep, and chickens behavior and sound hm_ovl11_copy_actor_pack, p11_cd_load_common_ui_arena_chunk, hm_ovl11_sync_upload_area_vram, p11_core_reset_farm_tile_grid_vis, p11_core_roll_tomorrow_weather (+31 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_220.c",
+          "address": "0x800e8e78",
+          "symbol": "p11_evt_warp_and_face_player",
+          "signature": "u32 p11_evt_warp_and_face_player(s16 mode, s16 pos_x, s32 pos_y, s32 pos_z)",
+          "typedArraysUsed": [
+            "g_ovl11_script_vm_vars"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Warps player position g_core_player_state.pos_x..08 from immediate args (mode==0), VM vars (mode==1), or resets/faces via 0x800cd0c0 + 0x800e9284, updating fatigue via 0x800cb4e0. p11_npc_set_player_or_actor_facing",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_220.c",
+          "address": "0x800ed634",
+          "symbol": "p11_evt_drive_player_collapse_or_sleep",
+          "signature": "bool32 p11_evt_drive_player_collapse_or_sleep(s16 state_cmd, s16 anim_dir)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Drives or polls player dizzy/collapse/special-sleep state bits in g_core_player_state.flags (& 0x800000/8) and g_core_player_state.target_scene_anim via 0x800cd670 and 0x800e9284.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_220.c",
+          "address": "0x800edd54",
+          "symbol": "p11_npc_turn_entity_toward_target_and_emote",
+          "signature": "u32 p11_npc_turn_entity_toward_target_and_emote(s16 entity_id, u32 unused_mode, s16 emote_id, s32 target_id)",
+          "typedArraysUsed": [
+            "g_ovl11_script_vm_vars"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "target_id_2": "resolved_entity",
+            "facing_dir": "resolved_target",
+            "entity_id_2": "facing_dir"
+          },
+          "docstringSummary": "Computes facing angle from entity_id toward target_id via 0x800f06d8, applies facing via 0x800e9284 or emote via hm_ovl11_spawn_npc_emote_balloon, and unfreezes via 0x800e5c60. p11_npc_set_player_or_actor_facing, p11_npc_calc_cardinal_facing_dir",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_221.c",
+      "lineCount": 247,
+      "codeSloc": 195,
+      "symbolCount": 3,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_221.c",
+          "address": "0x8010eb24",
+          "symbol": "p11_animl_sprite_chore_water_crops",
+          "signature": "bool p11_animl_sprite_chore_water_crops(s32 sprite_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "cond_flag": "base_flags",
+            "status_flags": "done"
+          },
+          "docstringSummary": "Drives Harvest Sprite crop-watering chore state machine via p11_animl_sprite_substep_water_tile and tile pathing. p11_animl_sprite_substep_water_tile, p11_field_get_animal_waypoint_pos, p11_field_step_animal_to_slot, p11_field_find_random_matching_field_tile",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_221.c",
+          "address": "0x8010ecc0",
+          "symbol": "p11_animl_sprite_chore_harvest_crops",
+          "signature": "bool p11_animl_sprite_chore_harvest_crops(s32 sprite_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "cond_flag": "base_flags",
+            "status_flags": "done"
+          },
+          "docstringSummary": "Drives Harvest Sprite crop-harvesting chore state machine via p11_animl_sprite_substep_harvest_tile and shipping bin checks. p11_animl_sprite_substep_harvest_tile, p11_field_get_animal_waypoint_pos, p11_field_step_animal_to_slot, p11_field_find_random_matching_field_tile",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_221.c",
+          "address": "0x8010eee4",
+          "symbol": "p11_animl_sprite_chore_animal_care",
+          "signature": "bool p11_animl_sprite_chore_animal_care(s32 sprite_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "base_flags",
+            "work_word": "step",
+            "cond_flag": "area",
+            "work_word_2": "done"
+          },
+          "docstringSummary": "Master Harvest Sprite animal-care state machine coordinating feeding, brushing/milking, and shipping eggs/milk/wool. p11_animl_sprite_chore_finish_subtask, p11_animl_sprite_substep_feed_animals, p11_animl_sprite_substep_tend_livestock, p11_animl_sprite_substep_collect_eggs, p11_field_get_animal_waypoint_pos, p11_field_pick_random_eligible_animal",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_222.c",
+      "lineCount": 267,
+      "codeSloc": 218,
+      "symbolCount": 3,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_222.c",
+          "address": "0x8011a25c",
+          "symbol": "p11_ui_run_special_item_upgrade_sm",
+          "signature": "u32 p11_ui_run_special_item_upgrade_sm(void)",
+          "typedArraysUsed": [
+            "g_ui_special_item_upgrade_sm_value"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "to_rank": "held_item_id",
+            "icon_table": "item_rank",
+            "prompt_box": "upgrade_cost"
+          },
+          "docstringSummary": "Runs held special-item upgrade/blessing shop state machine computing rank and cost via p11_ui_map_special_item_to_rank and p11_ui_lookup_sprite_icon_table. p11_npc_set_player_or_actor_facing, p11_npc_reset_actor_position_and_anim, hm_ovl11_get_villager_heart_level, p11_field_grant_cooking_or_tv_item_gift, p11_ui_run_yes_no_prompt_box, p11_ui_can_afford_gold (+12 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_222.c",
+          "address": "0x800bcd28",
+          "symbol": "hm_ovl11_frame_render_and_sim",
+          "signature": "u32 hm_ovl11_frame_render_and_sim(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Top-level per-frame simulation and scene rendering pass for player, NPCs, livestock, and HUD p11_field_reset_sweat_and_ambient_particles, p11_field_clear_ambient_particles, p11_spr_rebuild_all_outdoor_field_meshes, p11_gfx_cache_field_tile_pointers, p11_spr_reset_vram_anim_slots, p11_gfx_reset_camera_rig_params (+15 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_222.c",
+          "address": "0x800c162c",
+          "symbol": "hm_ovl11_tick_all_world_entities",
+          "signature": "void hm_ovl11_tick_all_world_entities(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "caller_slot": "spad_backup"
+          },
+          "docstringSummary": "Main entity tick dispatcher updating farm field, NPCs, tools, weather, and HUD every frame p11_core_apply_typhoon_camera_jitter, p11_core_tick_clock_and_event_queue, p11_core_step_fast_forward_time_step, p11_core_tick_and_render_all_npcs, p11_core_trigger_noon_and_evening_vram_sync, hm_ovl11_update_player_controller (+27 more)",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_223.c",
+      "lineCount": 347,
+      "codeSloc": 317,
+      "symbolCount": 1,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_223.c",
+          "address": "0x800ec52c",
+          "symbol": "hm_ovl11_update_npc_schedules",
+          "signature": "s32 hm_ovl11_update_npc_schedules(s16 npc_id, s16 area_id, s32 time_min, s32 weather)",
+          "typedArraysUsed": [
+            "g_npc_schedules_jtbl_ptr",
+            "g_ovl11_script_vm_vars"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "race_weights",
+            "work_acc": "step_state",
+            "screen_fade": "step_res",
+            "for_event": "step_res"
+          },
+          "docstringSummary": "Massive NPC schedule and waypoint router placing villagers by hour, weekday, season, and weather hm_ovl11_spawn_npc_emote_balloon, p11_evt_pan_camera_to_target, p11_evt_control_xa_audio_stream, p11_evt_request_map_transition, p11_evt_play_scene_bgm (+14 more)",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_224.c",
+      "lineCount": 192,
+      "codeSloc": 165,
+      "symbolCount": 2,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_224.c",
+          "address": "0x800bc3e8",
+          "symbol": "hm_ovl11_load_area_resources",
+          "signature": "void hm_ovl11_load_area_resources(u32 area_id)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Loads map geometry, textures, BGM SEQ, and actors for area_id into simulation state p11_core_noop_area_load_hook, p11_core_init_farm_sprite_anim, p11_core_clear_npc_active_bit_0x10, hm_ovl11_apply_tool_charge_effect, p11_field_latch_held_item_mount_state (+19 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "overlays/OVL_part11_id06.EXE/ovl_part11_id06_224.c",
+          "address": "0x800c14a0",
+          "symbol": "p11_core_tick_frame_gameplay_or_debug_cam",
+          "signature": "void p11_core_tick_frame_gameplay_or_debug_cam(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Dispatches per-frame overlay main loop: mode 0 updates HUD clock and world entities; mode 3 runs p11_ovl_run_debug_camera_viewer and GTE debug rendering. p11_core_update_hud_clock_visibility, p11_gfx_update_camera_offset_gte, p11_gfx_apply_camera_look_at_and_target, p11_gfx_draw_player_camera_rig, hm_ovl11_render_livestock_models, p11_animl_fade_and_swap_bgm (+2 more)",
+          "zeroTellsVerified": true
+        }
+      ]
+    }
+  ]
+}

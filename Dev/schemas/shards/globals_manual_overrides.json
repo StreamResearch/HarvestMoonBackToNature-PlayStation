@@ -26,7 +26,7 @@
   {
     "address": "0x8001021c",
     "name": "g_rodata_spu_dispatch_tbl",
-    "c_type": "void *",
+    "c_type": "void *[79]",
     "domain": "sdk",
     "confidence": "high",
     "evidence": "Resident pre-text rodata jump/dispatch table"
@@ -34,7 +34,7 @@
   {
     "address": "0x80010358",
     "name": "g_rodata_card_dispatch_tbl",
-    "c_type": "void *",
+    "c_type": "void *[535]",
     "domain": "sdk",
     "confidence": "high",
     "evidence": "Resident pre-text rodata jump/dispatch table"
@@ -42,10 +42,10 @@
   {
     "address": "0x80048b40",
     "name": "g_cd_afile_toc_head",
-    "c_type": "HmAfileTocEntry",
+    "c_type": "HmAfileTocEntry[32]",
     "domain": "cd_afile_overlays",
     "confidence": "high",
-    "evidence": "A_FILE.BIN resident archive TOC entry base (stride 0x28 in SLUS_011.15@800147bc)"
+    "evidence": "A_FILE.BIN resident archive TOC table (32 x 40B)"
   },
   {
     "address": "0x80049a80",
@@ -186,10 +186,10 @@
   {
     "address": "0x8005e338",
     "name": "g_core_vblank_frame_flag",
-    "c_type": "s32",
+    "c_type": "u16[2]",
     "domain": "core_mainloop",
     "confidence": "high",
-    "evidence": "VSync / mainloop timing synchronization flag in SLUS_011.15@8002301c"
+    "evidence": "Prompt state + yes/no prompt choice halfword pair"
   },
   {
     "address": "0x8005e384",
@@ -373,10 +373,10 @@
   {
     "address": "0x8006c870",
     "name": "g_hm_event_flags_bitset",
-    "c_type": "u32",
+    "c_type": "u32[37]",
     "domain": "core_mainloop",
     "confidence": "high",
-    "evidence": "Base of packed 32-bit scenario/event bitset read and mutated by hm_event_flag_get / hm_event_flag_set"
+    "evidence": "Resident event bitset array (37 words)"
   },
   {
     "address": "0x8006c904",
@@ -720,10 +720,10 @@
   {
     "address": "0x8007a5c4",
     "name": "g_farm_field_plot_slot",
-    "c_type": "HmFieldPlotCell",
-    "domain": "farm_crops_field",
+    "c_type": "u8 *[6]",
+    "domain": "npc_dialogue_events",
     "confidence": "high",
-    "evidence": "Interactive farm plot cell record (0x18 bytes ending at 0x8007a5dc)"
+    "evidence": "Pointer table of 6 prop/plot locale group bases (24 bytes ending at 0x8007a5dc)"
   },
   {
     "address": "0x8007a60c",
@@ -1122,7 +1122,7 @@
   {
     "address": "0x800a18f8",
     "name": "g_audio_vab_open_status",
-    "c_type": "u32",
+    "c_type": "u32[4]",
     "domain": "audio_spu_vab",
     "confidence": "high",
     "evidence": "PS1 SDK VAB open/transfer status table"
@@ -1306,10 +1306,10 @@
   {
     "address": "0x801273e4",
     "name": "g_ovl11_ui_menu_substate",
-    "c_type": "s32",
+    "c_type": "u8[4]",
     "domain": "overlay_part11_id06",
     "confidence": "high",
-    "evidence": "OVL_part11 menu/UI substate"
+    "evidence": "Overlay 11 UI menu substate byte flags"
   },
   {
     "address": "0x801287f0",
@@ -1346,10 +1346,10 @@
   {
     "address": "0x80129560",
     "name": "g_ovl11_script_vm_vars",
-    "c_type": "s32",
+    "c_type": "s32[20]",
     "domain": "npc_dialogue_events",
     "confidence": "high",
-    "evidence": "High-fanout (55 funcs/142 refs) dialogue/event script VM register/variable array base"
+    "evidence": "Overlay 11 cutscene/event script VM variable table"
   },
   {
     "address": "0x8012d524",
@@ -1603,5 +1603,2093 @@
     "domain": "render_gte_sprites",
     "confidence": "high",
     "evidence": "High-RAM staging arena (0x3ee50 bytes cleared in FUN_8001231c)"
+  },
+  {
+    "address": "0x80049050",
+    "name": "g_ui_hud_text_speed_table",
+    "c_type": "u16[4]",
+    "confidence": "high",
+    "evidence": "UI text speed preset delay lookup table (4 halfwords)"
+  },
+  {
+    "address": "0x80049058",
+    "name": "g_ui_hud_map_choice_result_value",
+    "c_type": "u32[4]",
+    "confidence": "high",
+    "evidence": "Dialogue choice index result mapping table (4 words)"
+  },
+  {
+    "address": "0x80049084",
+    "name": "g_ui_hud_append_record_name_value",
+    "c_type": "u16[4]",
+    "confidence": "high",
+    "evidence": "UI record name suffix token buffer (4 halfwords)"
+  },
+  {
+    "address": "0x8004908c",
+    "name": "g_ui_hud_copy_6tok_preset_table",
+    "c_type": "u16[19][6]",
+    "confidence": "high",
+    "evidence": "UI 6-token calendar/diary preset glyph table (19 x 6 halfwords)"
+  },
+  {
+    "address": "0x8005f0c8",
+    "name": "g_hud_macro_token_table",
+    "c_type": "u16 *[12]",
+    "confidence": "high",
+    "evidence": "HUD macro token string pointer table (12 pointers)"
+  },
+  {
+    "address": "0x8005f0f8",
+    "name": "g_ui_font_lookup_kanji_glyph_hud_value",
+    "c_type": "u16[224]",
+    "confidence": "high",
+    "evidence": "HUD font kanji/macro glyph expansion scratch buffer"
+  },
+  {
+    "address": "0x800977f8",
+    "name": "g_ui_framed_window_border_sprite",
+    "c_type": "HmSpriteActor",
+    "confidence": "high",
+    "evidence": "UI 9-slice framed menu/dialogue border sprite actor state"
+  },
+  {
+    "address": "0x800a073c",
+    "name": "g_ui_framed_window_sprite_ptr",
+    "c_type": "HmSpriteActor *",
+    "confidence": "high",
+    "evidence": "Active framed window border sprite cache pointer"
+  },
+  {
+    "address": "0x80010bb9",
+    "name": "g_sdk_kprintf_c1_c_cfc_ro_table_2",
+    "c_type": "u8[455]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[455]) within verified span"
+  },
+  {
+    "address": "0x80049044",
+    "name": "g_ui_emit_font_glyph_sprt_value",
+    "c_type": "s16[6]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
+  },
+  {
+    "address": "0x80049170",
+    "name": "g_gfx_start_screen_filter_value",
+    "c_type": "u32[62]",
+    "domain": "render_gte_sprites",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[62]) within verified span"
+  },
+  {
+    "address": "0x80049294",
+    "name": "g_audio_play_bgm_seq_table",
+    "c_type": "u8[76]",
+    "domain": "audio_spu_vab",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[76]) within verified span"
+  },
+  {
+    "address": "0x80049370",
+    "name": "g_audio_spu_tick_vab_async_prepare_table",
+    "c_type": "u32[151]",
+    "domain": "audio_spu_vab",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[151]) within verified span"
+  },
+  {
+    "address": "0x800495d8",
+    "name": "g_audio_trigger_spu_voice_value",
+    "c_type": "s16[540]",
+    "domain": "audio_spu_vab",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[540]) within verified span"
+  },
+  {
+    "address": "0x80049a10",
+    "name": "g_audio_trigger_spu_voice_find_table",
+    "c_type": "u32[23]",
+    "domain": "audio_spu_vab",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[23]) within verified span"
+  },
+  {
+    "address": "0x80049a84",
+    "name": "g_cd_start_xa_stream_value_1",
+    "c_type": "s16[76]",
+    "domain": "cd_afile_overlays",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[76]) within verified span"
+  },
+  {
+    "address": "0x8005175c",
+    "name": "g_ui_shop_tv_menu_seasonal_portrait_table",
+    "c_type": "u16[824]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[824]) within verified span"
+  },
+  {
+    "address": "0x8005392e",
+    "name": "g_npc_evt_format_naming_alnum_table",
+    "c_type": "u16[6]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[6]) within verified span"
+  },
+  {
+    "address": "0x8005597c",
+    "name": "g_npc_evt_dialog_speaker_style_value",
+    "c_type": "s16[6]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
+  },
+  {
+    "address": "0x80055988",
+    "name": "g_npc_evt_affection_tier_value",
+    "c_type": "s16[70]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[70]) within verified span"
+  },
+  {
+    "address": "0x80055b0c",
+    "name": "g_sdk_spu_clear_reverb_work_mode_value",
+    "c_type": "u32[15]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[15]) within verified span"
+  },
+  {
+    "address": "0x80055f8c",
+    "name": "g_sdk_spu_note2pitch_pitch2note_value",
+    "c_type": "u16[11]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[11]) within verified span"
+  },
+  {
+    "address": "0x8005635c",
+    "name": "g_sdk_ss_pitch_note_value",
+    "c_type": "u16[144]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[144]) within verified span"
+  },
+  {
+    "address": "0x80056a54",
+    "name": "g_sdk_sin_table",
+    "c_type": "s16[1384]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[1384]) within verified span"
+  },
+  {
+    "address": "0x800575b4",
+    "name": "g_sdk_start_intr_vsync_value",
+    "c_type": "u32[8]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
+  },
+  {
+    "address": "0x80057664",
+    "name": "g_sdk_cw_result_value",
+    "c_type": "u8[4]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[4]) within verified span"
+  },
+  {
+    "address": "0x80057710",
+    "name": "g_sdk_bios_value_1",
+    "c_type": "u32[32]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[32]) within verified span"
+  },
+  {
+    "address": "0x80057790",
+    "name": "g_sdk_cw_value_1",
+    "c_type": "u32[32]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[32]) within verified span"
+  },
+  {
+    "address": "0x80057810",
+    "name": "g_sdk_bios_value_2",
+    "c_type": "u32[32]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[32]) within verified span"
+  },
+  {
+    "address": "0x80057890",
+    "name": "g_sdk_cw_value_2",
+    "c_type": "u32[25]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[25]) within verified span"
+  },
+  {
+    "address": "0x80057954",
+    "name": "g_sdk_control_f_b_value",
+    "c_type": "u32[32]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[32]) within verified span"
+  },
+  {
+    "address": "0x80057a54",
+    "name": "g_sdk_rcos_value",
+    "c_type": "s16[1032]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[1032]) within verified span"
+  },
+  {
+    "address": "0x80058294",
+    "name": "g_sdk_square_root0_value",
+    "c_type": "s16[202]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[202]) within verified span"
+  },
+  {
+    "address": "0x80058428",
+    "name": "g_sdk_inv_square_root_value",
+    "c_type": "s16[190]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[190]) within verified span"
+  },
+  {
+    "address": "0x800585e0",
+    "name": "g_sdk_push_matrix_value_8",
+    "c_type": "u32[185]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[185]) within verified span"
+  },
+  {
+    "address": "0x8005c8c4",
+    "name": "g_sdk_ratan2_value",
+    "c_type": "s16[1048]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[1048]) within verified span"
+  },
+  {
+    "address": "0x8005d0fa",
+    "name": "g_sdk_fnt_open_count_1",
+    "c_type": "u8[2]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[2]) within verified span"
+  },
+  {
+    "address": "0x8005d102",
+    "name": "g_sdk_fnt_open_count_5",
+    "c_type": "u16[7]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[7]) within verified span"
+  },
+  {
+    "address": "0x8005d120",
+    "name": "g_sdk_fnt_open_value_3",
+    "c_type": "u32[85]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[85]) within verified span"
+  },
+  {
+    "address": "0x8005dd94",
+    "name": "g_sdk_graph_value_2",
+    "c_type": "u32[3]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[3]) within verified span"
+  },
+  {
+    "address": "0x8005dda0",
+    "name": "g_sdk_graph_value_3",
+    "c_type": "u32[3]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[3]) within verified span"
+  },
+  {
+    "address": "0x8005ddea",
+    "name": "g_sdk_put_disp_env_count_1",
+    "c_type": "u16[19]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[19]) within verified span"
+  },
+  {
+    "address": "0x8005de10",
+    "name": "g_sdk_put_disp_env_value",
+    "c_type": "u8[44]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[44]) within verified span"
+  },
+  {
+    "address": "0x8005deb2",
+    "name": "g_sdk_kanjitrans_count_2",
+    "c_type": "u16[63]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[63]) within verified span"
+  },
+  {
+    "address": "0x8005df86",
+    "name": "g_sdk_kt02_cc_count_2",
+    "c_type": "u16[55]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[55]) within verified span"
+  },
+  {
+    "address": "0x8005e025",
+    "name": "g_ui_hud_ascii_glyph_tok_flag",
+    "c_type": "u8[167]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[167]) within verified span"
+  },
+  {
+    "address": "0x8005e0cc",
+    "name": "g_sdk_start_rcnt_stop_value",
+    "c_type": "u32[6]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[6]) within verified span"
+  },
+  {
+    "address": "0x8005e224",
+    "name": "g_sdk_pad_sio_mode_value",
+    "c_type": "u32[2]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[2]) within verified span"
+  },
+  {
+    "address": "0x8005e2a4",
+    "name": "g_io_memcard_poll_status_value",
+    "c_type": "u32[3]",
+    "domain": "input_memcard",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[3]) within verified span"
+  },
+  {
+    "address": "0x8005e4c0",
+    "name": "g_gfx_tick_fade_wipe_slot_filter_table",
+    "c_type": "u16[2]",
+    "domain": "render_gte_sprites",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
+  },
+  {
+    "address": "0x8005e4c8",
+    "name": "g_gfx_start_screen_filter_tick_slot_table",
+    "c_type": "u32[2]",
+    "domain": "render_gte_sprites",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[2]) within verified span"
+  },
+  {
+    "address": "0x8005e8f6",
+    "name": "g_core_wait_vsync_sync_count_9",
+    "c_type": "u16[13]",
+    "domain": "core_mainloop",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[13]) within verified span"
+  },
+  {
+    "address": "0x8005e918",
+    "name": "g_core_wait_vsync_sync_value_2",
+    "c_type": "u32[26]",
+    "domain": "core_mainloop",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[26]) within verified span"
+  },
+  {
+    "address": "0x8005e996",
+    "name": "g_core_clear_pad_state_count_9",
+    "c_type": "u16[13]",
+    "domain": "core_mainloop",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[13]) within verified span"
+  },
+  {
+    "address": "0x8005e9b8",
+    "name": "g_core_clear_pad_state_value_2",
+    "c_type": "u32[4]",
+    "domain": "core_mainloop",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[4]) within verified span"
+  },
+  {
+    "address": "0x8005e9cb",
+    "name": "g_io_memcard_dispatch_flag",
+    "c_type": "u8[3]",
+    "domain": "input_memcard",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[3]) within verified span"
+  },
+  {
+    "address": "0x8005e9cf",
+    "name": "g_io_pad_analog_stick_x_angle_flag_2",
+    "c_type": "u8[27]",
+    "domain": "input_memcard",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[27]) within verified span"
+  },
+  {
+    "address": "0x8005ea1a",
+    "name": "g_io_memcard_target_slot_count",
+    "c_type": "u16[3]",
+    "domain": "input_memcard",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[3]) within verified span"
+  },
+  {
+    "address": "0x8005ee28",
+    "name": "g_gfx_vram_unpack_0x0d_lz_value",
+    "c_type": "u16[256]",
+    "domain": "render_gte_sprites",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[256]) within verified span"
+  },
+  {
+    "address": "0x8005f028",
+    "name": "g_ui_hud_dialog_tokens_value",
+    "c_type": "u32[31]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[31]) within verified span"
+  },
+  {
+    "address": "0x8006bf28",
+    "name": "g_audio_free_vab_seq_spu_table",
+    "c_type": "u32[8]",
+    "domain": "audio_spu_vab",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
+  },
+  {
+    "address": "0x8006bf68",
+    "name": "g_audio_spu_seq_vab_slots_enqueue_value_slot_arg",
+    "c_type": "u32[8]",
+    "domain": "audio_spu_vab",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
+  },
+  {
+    "address": "0x8006bf88",
+    "name": "g_audio_spu_seq_vab_slots_enqueue_value_1",
+    "c_type": "u32[8]",
+    "domain": "audio_spu_vab",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
+  },
+  {
+    "address": "0x8006bfa8",
+    "name": "g_audio_spu_seq_vab_slots_shutdown_value",
+    "c_type": "u32[8]",
+    "domain": "audio_spu_vab",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
+  },
+  {
+    "address": "0x8006bfc8",
+    "name": "g_audio_spu_seq_vab_slots_play_value_slot_volume",
+    "c_type": "s16[16]",
+    "domain": "audio_spu_vab",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[16]) within verified span"
+  },
+  {
+    "address": "0x8006bfe8",
+    "name": "g_audio_spu_seq_vab_slots_free_value_tick_async",
+    "c_type": "u32[8]",
+    "domain": "audio_spu_vab",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
+  },
+  {
+    "address": "0x8006c028",
+    "name": "g_audio_spu_seq_vab_slots_system_value_free_tick",
+    "c_type": "u32[8]",
+    "domain": "audio_spu_vab",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
+  },
+  {
+    "address": "0x8006c048",
+    "name": "g_audio_spu_seq_vab_slots_free_value_2",
+    "c_type": "u32[8]",
+    "domain": "audio_spu_vab",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
+  },
+  {
+    "address": "0x8006c088",
+    "name": "g_audio_spu_seq_vab_slots_play_value_1",
+    "c_type": "u32[8]",
+    "domain": "audio_spu_vab",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
+  },
+  {
+    "address": "0x8006c0a8",
+    "name": "g_audio_spu_seq_vab_slots_play_value_slot_free",
+    "c_type": "u32[8]",
+    "domain": "audio_spu_vab",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
+  },
+  {
+    "address": "0x8006c0c8",
+    "name": "g_audio_spu_seq_vab_slots_trigger_value_voice_voice",
+    "c_type": "u32[24]",
+    "domain": "audio_spu_vab",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[24]) within verified span"
+  },
+  {
+    "address": "0x8006c128",
+    "name": "g_audio_spu_seq_vab_slots_trigger_value_1",
+    "c_type": "u32[24]",
+    "domain": "audio_spu_vab",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[24]) within verified span"
+  },
+  {
+    "address": "0x8006c198",
+    "name": "g_audio_spu_trigger_sfx_voice_value_5",
+    "c_type": "u32[116]",
+    "domain": "audio_spu_vab",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[116]) within verified span"
+  },
+  {
+    "address": "0x8006f5f0",
+    "name": "g_npc_evt_copy_script_bytecode_dispatch_cfg",
+    "c_type": "u32[644]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[644]) within verified span"
+  },
+  {
+    "address": "0x80070d18",
+    "name": "g_ui_snapshot_status_summary_animal_diary_cfg",
+    "c_type": "s16[2]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[2]) within verified span"
+  },
+  {
+    "address": "0x80070d42",
+    "name": "g_ui_map_palette_slices_tick_shop_cfg16",
+    "c_type": "u16[192]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[192]) within verified span"
+  },
+  {
+    "address": "0x800711c4",
+    "name": "g_npc_evt_sum_shipped_items_generate_value",
+    "c_type": "u16[26]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[26]) within verified span"
+  },
+  {
+    "address": "0x80071200",
+    "name": "g_ui_villager_heart_level_earnings_seasonal_cfg",
+    "c_type": "u32[7]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[7]) within verified span"
+  },
+  {
+    "address": "0x800712c2",
+    "name": "g_npc_evt_stage_item_into_commit_count",
+    "c_type": "u16[24]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[24]) within verified span"
+  },
+  {
+    "address": "0x80075bf4",
+    "name": "g_farm_field_tick_all_ground_value_1",
+    "c_type": "s16[2]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[2]) within verified span"
+  },
+  {
+    "address": "0x80075bf8",
+    "name": "g_farm_field_tick_all_ground_value_2",
+    "c_type": "u32[29]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[29]) within verified span"
+  },
+  {
+    "address": "0x80076014",
+    "name": "g_farm_field_tick_wild_critter_dbg_value",
+    "c_type": "s16[60]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[60]) within verified span"
+  },
+  {
+    "address": "0x80076230",
+    "name": "g_npc_actor_position_value",
+    "c_type": "u16[2]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
+  },
+  {
+    "address": "0x8007623c",
+    "name": "g_npc_evt_bind_cutscene_pack_spawn_table",
+    "c_type": "u16[2]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
+  },
+  {
+    "address": "0x8007625c",
+    "name": "g_npc_spawn_warp_actor_value_1",
+    "c_type": "u32[9]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[9]) within verified span"
+  },
+  {
+    "address": "0x80076298",
+    "name": "g_npc_spawn_warp_actor_dbg_value_2",
+    "c_type": "u32[2]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[2]) within verified span"
+  },
+  {
+    "address": "0x800762a4",
+    "name": "g_npc_face_actor_toward_player_table",
+    "c_type": "u32[11]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[11]) within verified span"
+  },
+  {
+    "address": "0x800762d4",
+    "name": "g_npc_spawn_warp_actor_table",
+    "c_type": "u8[44]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[44]) within verified span"
+  },
+  {
+    "address": "0x8007a64e",
+    "name": "g_npc_give_harvest_sprite_treat_evt_count",
+    "c_type": "u16[6]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[6]) within verified span"
+  },
+  {
+    "address": "0x8007a65a",
+    "name": "g_npc_face_actor_toward_player_facing_table",
+    "c_type": "u16[2]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
+  },
+  {
+    "address": "0x8007a66c",
+    "name": "g_npc_give_harvest_sprite_treat_dbg_value",
+    "c_type": "u32[32]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[32]) within verified span"
+  },
+  {
+    "address": "0x8007ad14",
+    "name": "g_core_birthday_anniversary_flags_evt_value",
+    "c_type": "u16[2]",
+    "domain": "core_mainloop",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
+  },
+  {
+    "address": "0x8007ad1a",
+    "name": "g_npc_evt_record_scheduled_milestone_schedule_count_1",
+    "c_type": "u16[19]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[19]) within verified span"
+  },
+  {
+    "address": "0x8007ad5a",
+    "name": "g_ui_festival_bet_pool_empty_open_table",
+    "c_type": "u16[20]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[20]) within verified span"
+  },
+  {
+    "address": "0x8007aef8",
+    "name": "g_gfx_tick_affection_weather_cutscene_dbg_value",
+    "c_type": "char[7]",
+    "domain": "render_gte_sprites",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (char[7]) within verified span"
+  },
+  {
+    "address": "0x8007af00",
+    "name": "g_ovl30_dbg_page_ke_n_count",
+    "c_type": "char[3]",
+    "domain": "overlay_part30_id0f",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (char[3]) within verified span"
+  },
+  {
+    "address": "0x8007afe4",
+    "name": "g_ovl15_advance_tv_channel_episode_diary_state",
+    "c_type": "u8[4]",
+    "domain": "overlay_part15_id10",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[4]) within verified span"
+  },
+  {
+    "address": "0x8009e5f8",
+    "name": "g_farm_cache_field_tile_pointers_spr_value",
+    "c_type": "u32[1125]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[1125]) within verified span"
+  },
+  {
+    "address": "0x800a04bc",
+    "name": "g_npc_dlg_upload_portrait_sprite_item_value_vram_icon",
+    "c_type": "u16[2]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
+  },
+  {
+    "address": "0x800a04c2",
+    "name": "g_gfx_spawn_render_entity_item_count",
+    "c_type": "u16[7]",
+    "domain": "render_gte_sprites",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[7]) within verified span"
+  },
+  {
+    "address": "0x800a04d4",
+    "name": "g_npc_dlg_upload_portrait_sprite_item_value_1",
+    "c_type": "u16[126]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[126]) within verified span"
+  },
+  {
+    "address": "0x800a05d0",
+    "name": "g_sdk_spu_any_voice_table",
+    "c_type": "u16[132]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[132]) within verified span"
+  },
+  {
+    "address": "0x800a1612",
+    "name": "g_sdk_ss_vm_allocate_flush_count_2",
+    "c_type": "u16[187]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[187]) within verified span"
+  },
+  {
+    "address": "0x800a1790",
+    "name": "g_sdk_ss_vm_allocate_flush_value",
+    "c_type": "u32[16]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[16]) within verified span"
+  },
+  {
+    "address": "0x800a17f0",
+    "name": "g_sdk_ss_vm_vset_up_vab_table_open_head",
+    "c_type": "s32[16]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s32[16]) within verified span"
+  },
+  {
+    "address": "0x800a1830",
+    "name": "g_sdk_ss_vm_vset_up_vab_value",
+    "c_type": "u32[16]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[16]) within verified span"
+  },
+  {
+    "address": "0x800a1878",
+    "name": "g_sdk_ss_vm_vset_up_vab_table_1",
+    "c_type": "u32[16]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[16]) within verified span"
+  },
+  {
+    "address": "0x800a2084",
+    "name": "g_sdk_iso9660_table",
+    "c_type": "u32[9]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[9]) within verified span"
+  },
+  {
+    "address": "0x800a3efe",
+    "name": "g_sdk_gs_sort_clear_count_4",
+    "c_type": "u16[2]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
+  },
+  {
+    "address": "0x800b5ca6",
+    "name": "g_sdk_kanji_fnt_open_count_5",
+    "c_type": "s16[7]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[7]) within verified span"
+  },
+  {
+    "address": "0x800b5cc8",
+    "name": "g_sdk_kanji_fnt_open_value_4",
+    "c_type": "s32[40]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s32[40]) within verified span"
+  },
+  {
+    "address": "0x800b5dc4",
+    "name": "g_sdk_sys_obj_value",
+    "c_type": "u32[1533]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[1533]) within verified span"
+  },
+  {
+    "address": "0x800b76a8",
+    "name": "g_sdk_user_open_execute_value",
+    "c_type": "u32[4]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[4]) within verified span"
+  },
+  {
+    "address": "0x800b7928",
+    "name": "g_sdk_card_create2_value_1",
+    "c_type": "u32[4]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[4]) within verified span"
+  },
+  {
+    "address": "0x800b7a53",
+    "name": "g_sdk_mcxcmd25_e0_flag",
+    "c_type": "u8[7]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[7]) within verified span"
+  },
+  {
+    "address": "0x800b7ae8",
+    "name": "g_sdk_mcx_sio_value",
+    "c_type": "u32[38]",
+    "domain": "sdk",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[38]) within verified span"
+  },
+  {
+    "address": "0x800b8508",
+    "name": "g_ovl08_font_test_grid_value",
+    "c_type": "u32[64]",
+    "domain": "overlay_part08_id04",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[64]) within verified span"
+  },
+  {
+    "address": "0x800b936c",
+    "name": "g_ovl28_credits_script_value",
+    "c_type": "u8[66]",
+    "domain": "overlay_part28_id0d",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[66]) within verified span"
+  },
+  {
+    "address": "0x800b957c",
+    "name": "g_anim_feed_pet_cow_sheep_table",
+    "c_type": "u32[40]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[40]) within verified span"
+  },
+  {
+    "address": "0x800b9634",
+    "name": "g_ovl28_credits_spawn_line_table",
+    "c_type": "u16[2]",
+    "domain": "overlay_part28_id0d",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
+  },
+  {
+    "address": "0x800ba848",
+    "name": "g_anim_query_pasture_tile_grass_table",
+    "c_type": "u32[103]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[103]) within verified span"
+  },
+  {
+    "address": "0x800ba9e4",
+    "name": "g_anim_pet_dog_dispatch_state_table",
+    "c_type": "u32[40]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[40]) within verified span"
+  },
+  {
+    "address": "0x800bb228",
+    "name": "g_ui_tick_shop_hud_state_value_1",
+    "c_type": "u32[8]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
+  },
+  {
+    "address": "0x800bb248",
+    "name": "g_ui_tick_shop_hud_state_value_2",
+    "c_type": "u32[29]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[29]) within verified span"
+  },
+  {
+    "address": "0x800bb534",
+    "name": "g_ovl17_setup_race_participants_table",
+    "c_type": "u32[47]",
+    "domain": "overlay_part17_id07",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[47]) within verified span"
+  },
+  {
+    "address": "0x800bb5f0",
+    "name": "g_ovl17_pool_crowd_value_1",
+    "c_type": "s16[2]",
+    "domain": "overlay_part17_id07",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[2]) within verified span"
+  },
+  {
+    "address": "0x800bb6ec",
+    "name": "g_ovl17_odds_board_payout_value_3",
+    "c_type": "u16[18]",
+    "domain": "overlay_part17_id07",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[18]) within verified span"
+  },
+  {
+    "address": "0x800bb99c",
+    "name": "g_ovl10_pock_cmd_apl_state_7",
+    "c_type": "s16[6]",
+    "domain": "overlay_part10_id05",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
+  },
+  {
+    "address": "0x800bba88",
+    "name": "g_ovl23_trainers_table",
+    "c_type": "u16[4]",
+    "domain": "overlay_part23_id0a",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[4]) within verified span"
+  },
+  {
+    "address": "0x800bba90",
+    "name": "g_ovl23_dogs_value_2",
+    "c_type": "u16[6]",
+    "domain": "overlay_part23_id0a",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[6]) within verified span"
+  },
+  {
+    "address": "0x800bbab4",
+    "name": "g_ovl23_roll_trainer_dir_prob_table",
+    "c_type": "s16[20]",
+    "domain": "overlay_part23_id0a",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[20]) within verified span"
+  },
+  {
+    "address": "0x800bbb3c",
+    "name": "g_ovl10_debug_menu_value_3",
+    "c_type": "u32[14]",
+    "domain": "overlay_part10_id05",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[14]) within verified span"
+  },
+  {
+    "address": "0x800bcc14",
+    "name": "g_ovl21_state_record_loss_table",
+    "c_type": "u16[8]",
+    "domain": "overlay_part21_id09",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[8]) within verified span"
+  },
+  {
+    "address": "0x800bcc4a",
+    "name": "g_ovl21_match_actors_target_count_1",
+    "c_type": "u16[11]",
+    "domain": "overlay_part21_id09",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[11]) within verified span"
+  },
+  {
+    "address": "0x800bccc4",
+    "name": "g_ovl21_state_announce_team0_table",
+    "c_type": "s16[4]",
+    "domain": "overlay_part21_id09",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[4]) within verified span"
+  },
+  {
+    "address": "0x800bcccc",
+    "name": "g_ovl21_state_announce_team1_table",
+    "c_type": "s16[4]",
+    "domain": "overlay_part21_id09",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[4]) within verified span"
+  },
+  {
+    "address": "0x800bccd4",
+    "name": "g_ovl21_state_judge_winner_value",
+    "c_type": "s16[8]",
+    "domain": "overlay_part21_id09",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[8]) within verified span"
+  },
+  {
+    "address": "0x800bcee8",
+    "name": "g_ovl19_fighter_positions_value_1",
+    "c_type": "u16[4]",
+    "domain": "overlay_part19_id08",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[4]) within verified span"
+  },
+  {
+    "address": "0x800bcef0",
+    "name": "g_ovl19_spectators_crowd_table",
+    "c_type": "u32[3]",
+    "domain": "overlay_part19_id08",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[3]) within verified span"
+  },
+  {
+    "address": "0x800bcf24",
+    "name": "g_ovl19_phase_post_bout_result_value",
+    "c_type": "u8[52]",
+    "domain": "overlay_part19_id08",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[52]) within verified span"
+  },
+  {
+    "address": "0x800bcf58",
+    "name": "g_ovl19_fighter_ai_value",
+    "c_type": "u8[32]",
+    "domain": "overlay_part19_id08",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[32]) within verified span"
+  },
+  {
+    "address": "0x800bcfe4",
+    "name": "g_ovl19_roll_opponent_affection_table",
+    "c_type": "u16[6]",
+    "domain": "overlay_part19_id08",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[6]) within verified span"
+  },
+  {
+    "address": "0x800bcff0",
+    "name": "g_ovl19_phase_announce_match_calendar_table",
+    "c_type": "s16[4]",
+    "domain": "overlay_part19_id08",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[4]) within verified span"
+  },
+  {
+    "address": "0x800bcff8",
+    "name": "g_ovl19_chicken_name_offset_value",
+    "c_type": "u32[20]",
+    "domain": "overlay_part19_id08",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[20]) within verified span"
+  },
+  {
+    "address": "0x800bd880",
+    "name": "g_ovl17_swim_race_rankings_camera_value",
+    "c_type": "u32[2]",
+    "domain": "overlay_part17_id07",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[2]) within verified span"
+  },
+  {
+    "address": "0x800bda50",
+    "name": "g_ovl17_ai_swimmer_inputs_unpack_table",
+    "c_type": "s16[18]",
+    "domain": "overlay_part17_id07",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[18]) within verified span"
+  },
+  {
+    "address": "0x800bdb04",
+    "name": "g_ovl17_swim_race_finish_rankings_state",
+    "c_type": "s16[5]",
+    "domain": "overlay_part17_id07",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[5]) within verified span"
+  },
+  {
+    "address": "0x800bdb24",
+    "name": "g_ovl17_push_wake_trail_particle_particles_value_2",
+    "c_type": "s16[358]",
+    "domain": "overlay_part17_id07",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[358]) within verified span"
+  },
+  {
+    "address": "0x800bfa82",
+    "name": "g_ovl23_dog_race_ai_count",
+    "c_type": "s16[3]",
+    "domain": "overlay_part23_id0a",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[3]) within verified span"
+  },
+  {
+    "address": "0x800bfc9a",
+    "name": "g_ovl23_push_trainer_trail_mark_count_2",
+    "c_type": "u16[213]",
+    "domain": "overlay_part23_id0a",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[213]) within verified span"
+  },
+  {
+    "address": "0x800c0466",
+    "name": "g_ovl21_match_actors_launch_count",
+    "c_type": "u16[2]",
+    "domain": "overlay_part21_id09",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
+  },
+  {
+    "address": "0x800c048c",
+    "name": "g_ovl21_launch_queued_throws_value_2",
+    "c_type": "u16[2]",
+    "domain": "overlay_part21_id09",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
+  },
+  {
+    "address": "0x800c4a50",
+    "name": "g_ovl27_status_prompt_box_value",
+    "c_type": "s32[12]",
+    "domain": "overlay_part27_id0c",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s32[12]) within verified span"
+  },
+  {
+    "address": "0x801217b8",
+    "name": "g_cd_area_scene_bundle_value_4",
+    "c_type": "u32[1017]",
+    "domain": "cd_afile_overlays",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[1017]) within verified span"
+  },
+  {
+    "address": "0x801227a0",
+    "name": "g_cd_copy_map_slot_b_table_2",
+    "c_type": "u32[4]",
+    "domain": "cd_afile_overlays",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[4]) within verified span"
+  },
+  {
+    "address": "0x801227b4",
+    "name": "g_cd_copy_map_slot_table_2",
+    "c_type": "u32[6]",
+    "domain": "cd_afile_overlays",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[6]) within verified span"
+  },
+  {
+    "address": "0x801227d0",
+    "name": "g_cd_copy_actor_pack_table_2",
+    "c_type": "u32[10]",
+    "domain": "cd_afile_overlays",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[10]) within verified span"
+  },
+  {
+    "address": "0x801227fc",
+    "name": "g_cd_afile_subentry_value_2",
+    "c_type": "u32[5]",
+    "domain": "cd_afile_overlays",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[5]) within verified span"
+  },
+  {
+    "address": "0x80122814",
+    "name": "g_cd_sync_upload_area_vram_table_2",
+    "c_type": "u32[175]",
+    "domain": "cd_afile_overlays",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[175]) within verified span"
+  },
+  {
+    "address": "0x80122e6c",
+    "name": "g_core_test_prop_aabb_hit_table",
+    "c_type": "u16[4]",
+    "domain": "core_mainloop",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[4]) within verified span"
+  },
+  {
+    "address": "0x80122f0c",
+    "name": "g_core_grid_tile_world_find_override_value",
+    "c_type": "s16[62]",
+    "domain": "core_mainloop",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[62]) within verified span"
+  },
+  {
+    "address": "0x80122f8c",
+    "name": "g_core_nearby_greetings_value_1",
+    "c_type": "u32[64]",
+    "domain": "core_mainloop",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[64]) within verified span"
+  },
+  {
+    "address": "0x8012308c",
+    "name": "g_farm_field_render_player_sprite_value_1",
+    "c_type": "s16[6]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
+  },
+  {
+    "address": "0x80123098",
+    "name": "g_farm_field_render_player_sprite_value_2",
+    "c_type": "s16[6]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
+  },
+  {
+    "address": "0x801230a4",
+    "name": "g_farm_field_render_player_sprite_table",
+    "c_type": "s16[6]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
+  },
+  {
+    "address": "0x801230b2",
+    "name": "g_farm_field_probe_actor_interaction_count",
+    "c_type": "u16[15]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[15]) within verified span"
+  },
+  {
+    "address": "0x80123102",
+    "name": "g_farm_field_integrate_player_physics_count_2",
+    "c_type": "s16[7]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[7]) within verified span"
+  },
+  {
+    "address": "0x80123112",
+    "name": "g_farm_field_probe_ground_ahead_item_count_1",
+    "c_type": "u16[15]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[15]) within verified span"
+  },
+  {
+    "address": "0x80123134",
+    "name": "g_farm_field_spawn_thrown_item_interact_value_1",
+    "c_type": "u32[7]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[7]) within verified span"
+  },
+  {
+    "address": "0x8012315e",
+    "name": "g_farm_field_carried_item_sprite_count",
+    "c_type": "u16[31]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[31]) within verified span"
+  },
+  {
+    "address": "0x8012319c",
+    "name": "g_farm_field_use_hoe_target_table",
+    "c_type": "s16[6]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
+  },
+  {
+    "address": "0x801231a8",
+    "name": "g_farm_field_use_watering_tiles_table",
+    "c_type": "s16[6]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
+  },
+  {
+    "address": "0x801231b4",
+    "name": "g_farm_field_use_sickle_target_table",
+    "c_type": "s16[6]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
+  },
+  {
+    "address": "0x801231fc",
+    "name": "g_farm_field_player_emote_sprite_value",
+    "c_type": "u16[36]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[36]) within verified span"
+  },
+  {
+    "address": "0x80123244",
+    "name": "g_farm_execute_player_action_value",
+    "c_type": "u32[3]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[3]) within verified span"
+  },
+  {
+    "address": "0x80123276",
+    "name": "g_farm_field_resolve_player_wall_count_4",
+    "c_type": "s16[13]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[13]) within verified span"
+  },
+  {
+    "address": "0x80123290",
+    "name": "g_farm_tool_hit_livestock_table",
+    "c_type": "s16[10]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[10]) within verified span"
+  },
+  {
+    "address": "0x801232b4",
+    "name": "g_farm_field_apply_scripted_pad_table",
+    "c_type": "u16[4]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[4]) within verified span"
+  },
+  {
+    "address": "0x801232be",
+    "name": "g_farm_field_barn_coop_spawn_count_2",
+    "c_type": "u16[5]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[5]) within verified span"
+  },
+  {
+    "address": "0x80123a00",
+    "name": "g_farm_field_target_octant_direction_table",
+    "c_type": "u16[10]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[10]) within verified span"
+  },
+  {
+    "address": "0x80123a18",
+    "name": "g_farm_field_compute_seek_move_table",
+    "c_type": "u16[10]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[10]) within verified span"
+  },
+  {
+    "address": "0x80123a34",
+    "name": "g_farm_field_place_barn_animal_value_3",
+    "c_type": "u32[22]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[22]) within verified span"
+  },
+  {
+    "address": "0x80123a94",
+    "name": "g_farm_field_place_coop_chicken_value_3",
+    "c_type": "u32[6]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[6]) within verified span"
+  },
+  {
+    "address": "0x80123aae",
+    "name": "g_farm_field_critter_spawn_zone_count_2",
+    "c_type": "u16[143]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[143]) within verified span"
+  },
+  {
+    "address": "0x80123e06",
+    "name": "g_gfx_spr_tile_blocked_oob_count_2",
+    "c_type": "s16[3]",
+    "domain": "render_gte_sprites",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[3]) within verified span"
+  },
+  {
+    "address": "0x80123e0e",
+    "name": "g_gfx_spr_grass_autotile_neighborhood_table_2",
+    "c_type": "u16[3]",
+    "domain": "render_gte_sprites",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[3]) within verified span"
+  },
+  {
+    "address": "0x80123e50",
+    "name": "g_anim_resolve_season_map_id_value",
+    "c_type": "s16[2]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[2]) within verified span"
+  },
+  {
+    "address": "0x80123e72",
+    "name": "g_anim_barn_cow_lookup_frame_count_2",
+    "c_type": "u16[71]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[71]) within verified span"
+  },
+  {
+    "address": "0x80123f5a",
+    "name": "g_anim_barn_sheep_lookup_frame_count_2",
+    "c_type": "u16[47]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[47]) within verified span"
+  },
+  {
+    "address": "0x8012400a",
+    "name": "g_anim_coop_chicken_lookup_frame_count_2",
+    "c_type": "u16[55]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[55]) within verified span"
+  },
+  {
+    "address": "0x801240d8",
+    "name": "g_anim_livestock_status_panel_evt_table",
+    "c_type": "u32[452]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[452]) within verified span"
+  },
+  {
+    "address": "0x801247e8",
+    "name": "g_anim_snapshot_vram_save_slot_value",
+    "c_type": "u32[53]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[53]) within verified span"
+  },
+  {
+    "address": "0x801248cc",
+    "name": "g_npc_gift_affection_delta_value",
+    "c_type": "s16[20]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[20]) within verified span"
+  },
+  {
+    "address": "0x801248f4",
+    "name": "g_npc_dlg_show_script_message_value",
+    "c_type": "s16[10]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[10]) within verified span"
+  },
+  {
+    "address": "0x801249ec",
+    "name": "g_npc_dlg_new_year_fortune_value",
+    "c_type": "u8[12]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[12]) within verified span"
+  },
+  {
+    "address": "0x801249fc",
+    "name": "g_npc_dlg_eval_dialogue_ids_value",
+    "c_type": "s16[16]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[16]) within verified span"
+  },
+  {
+    "address": "0x80124a28",
+    "name": "g_npc_event_script_read_table",
+    "c_type": "u32[236]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[236]) within verified span"
+  },
+  {
+    "address": "0x80124ee8",
+    "name": "g_anim_barn_cow_setup_model_sheep_value",
+    "c_type": "u32[24]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[24]) within verified span"
+  },
+  {
+    "address": "0x80124f48",
+    "name": "g_anim_coop_chicken_setup_model_value",
+    "c_type": "u32[976]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[976]) within verified span"
+  },
+  {
+    "address": "0x80125f1a",
+    "name": "g_farm_field_house_upgrade_spawn_table_2",
+    "c_type": "u16[5]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[5]) within verified span"
+  },
+  {
+    "address": "0x80125f24",
+    "name": "g_core_current_scene_indoor_flag_render_table",
+    "c_type": "s16[1638]",
+    "domain": "core_mainloop",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[1638]) within verified span"
+  },
+  {
+    "address": "0x80126bf0",
+    "name": "g_npc_all_daily_schedules_value",
+    "c_type": "u32[40]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[40]) within verified span"
+  },
+  {
+    "address": "0x80126c98",
+    "name": "g_npc_evt_map_prop_bubble_table",
+    "c_type": "s16[4]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[4]) within verified span"
+  },
+  {
+    "address": "0x80126e02",
+    "name": "g_npc_evt_apply_season_prop_count_2",
+    "c_type": "u16[21]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[21]) within verified span"
+  },
+  {
+    "address": "0x80126e58",
+    "name": "g_ui_storage_menu_cursor_value",
+    "c_type": "u8[284]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[284]) within verified span"
+  },
+  {
+    "address": "0x80126f74",
+    "name": "g_npc_dlg_upload_tv_menu_table",
+    "c_type": "s16[4]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[4]) within verified span"
+  },
+  {
+    "address": "0x80126fd6",
+    "name": "g_ui_calendar_cell_badge_count",
+    "c_type": "u16[5]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[5]) within verified span"
+  },
+  {
+    "address": "0x80126ff4",
+    "name": "g_ui_rucksack_pause_menu_value_1",
+    "c_type": "u8[500]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[500]) within verified span"
+  },
+  {
+    "address": "0x801271ec",
+    "name": "g_ui_rucksack_pause_menu_value_2",
+    "c_type": "u32[7]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[7]) within verified span"
+  },
+  {
+    "address": "0x80127214",
+    "name": "g_ui_tool_upgrade_tier_stars_exp_value",
+    "c_type": "u16[2]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
+  },
+  {
+    "address": "0x80127278",
+    "name": "g_ui_shipped_items_page_value_1",
+    "c_type": "u8[124]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[124]) within verified span"
+  },
+  {
+    "address": "0x80127358",
+    "name": "g_ui_animal_page_badge_value_1",
+    "c_type": "u8[24]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[24]) within verified span"
+  },
+  {
+    "address": "0x80127370",
+    "name": "g_ui_sprite_row_rank_table",
+    "c_type": "s16[6]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
+  },
+  {
+    "address": "0x8012737c",
+    "name": "g_ui_affection_face_icon_value",
+    "c_type": "u8[12]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[12]) within verified span"
+  },
+  {
+    "address": "0x80127388",
+    "name": "g_ui_tool_exp_progress_bar_value_1",
+    "c_type": "u32[5]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[5]) within verified span"
+  },
+  {
+    "address": "0x8012739c",
+    "name": "g_ui_tool_exp_progress_bar_value_2",
+    "c_type": "u32[5]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[5]) within verified span"
+  },
+  {
+    "address": "0x801273f4",
+    "name": "g_ui_recipe_detail_panel_kitchen_selected_value",
+    "c_type": "u16[8]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[8]) within verified span"
+  },
+  {
+    "address": "0x801274dc",
+    "name": "g_ovl11_ovl_door_swing_value",
+    "c_type": "u32[258]",
+    "domain": "overlay_part11_id06",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[258]) within verified span"
+  },
+  {
+    "address": "0x801278e4",
+    "name": "g_anim_tv_channel_sprite_table",
+    "c_type": "u16[4]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[4]) within verified span"
+  },
+  {
+    "address": "0x801278f0",
+    "name": "g_anim_tv_dispatch_channel_schedule_value",
+    "c_type": "u16[20]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[20]) within verified span"
+  },
+  {
+    "address": "0x8012791a",
+    "name": "g_anim_pet_horse_lookup_frame_count_2",
+    "c_type": "u16[175]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[175]) within verified span"
+  },
+  {
+    "address": "0x80127b3a",
+    "name": "g_anim_pet_dog_lookup_frame_count_2",
+    "c_type": "u16[39]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[39]) within verified span"
+  },
+  {
+    "address": "0x80127ba6",
+    "name": "g_anim_sprite_lookup_frame_count_2",
+    "c_type": "u16[135]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[135]) within verified span"
+  },
+  {
+    "address": "0x80127cec",
+    "name": "g_anim_sprite_choose_idle_action_table",
+    "c_type": "s16[4]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[4]) within verified span"
+  },
+  {
+    "address": "0x80127cf4",
+    "name": "g_anim_sprite_interact_talk_gift_value",
+    "c_type": "s16[8]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[8]) within verified span"
+  },
+  {
+    "address": "0x80127d04",
+    "name": "g_anim_sprite_play_tea_party_value",
+    "c_type": "s16[8]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[8]) within verified span"
+  },
+  {
+    "address": "0x80127d24",
+    "name": "g_anim_sprite_hire_dialog_value_2",
+    "c_type": "s16[8]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[8]) within verified span"
+  },
+  {
+    "address": "0x80127d3c",
+    "name": "g_anim_sprite_hire_dialog_table_5",
+    "c_type": "s16[6]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
+  },
+  {
+    "address": "0x80127e68",
+    "name": "g_farm_field_barn_stall_pos_value_3",
+    "c_type": "u32[22]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[22]) within verified span"
+  },
+  {
+    "address": "0x80127ec8",
+    "name": "g_farm_field_coop_perch_pos_value_3",
+    "c_type": "s32[6]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s32[6]) within verified span"
+  },
+  {
+    "address": "0x80127eec",
+    "name": "g_farm_field_place_sprite_work_value_4",
+    "c_type": "u32[25]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[25]) within verified span"
+  },
+  {
+    "address": "0x80127f50",
+    "name": "g_farm_field_harvest_sprite_task_value",
+    "c_type": "s16[8]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[8]) within verified span"
+  },
+  {
+    "address": "0x80127f60",
+    "name": "g_farm_field_season_sunset_hour_value",
+    "c_type": "s16[4]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[4]) within verified span"
+  },
+  {
+    "address": "0x801281d8",
+    "name": "g_farm_field_apply_mine_tile_value",
+    "c_type": "u16[12]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[12]) within verified span"
+  },
+  {
+    "address": "0x801281f2",
+    "name": "g_farm_field_dig_mine_floor_count",
+    "c_type": "u16[7]",
+    "domain": "farm_crops_field",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[7]) within verified span"
+  },
+  {
+    "address": "0x80128264",
+    "name": "g_ui_carpenter_menu_ctx_table",
+    "c_type": "u32[5]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[5]) within verified span"
+  },
+  {
+    "address": "0x8012827a",
+    "name": "g_ui_woodcutter_shop_sm_count_2",
+    "c_type": "u16[9]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[9]) within verified span"
+  },
+  {
+    "address": "0x801282d0",
+    "name": "g_ui_special_item_upgrade_sm_value",
+    "c_type": "s16[6]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
+  },
+  {
+    "address": "0x801282dc",
+    "name": "g_ui_setup_tv_shopping_festival_table",
+    "c_type": "u16[3]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[3]) within verified span"
+  },
+  {
+    "address": "0x801282e4",
+    "name": "g_ui_lookup_sprite_icon_table_1",
+    "c_type": "u16[6]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[6]) within verified span"
+  },
+  {
+    "address": "0x801282f0",
+    "name": "g_ui_lookup_sprite_icon_table_2",
+    "c_type": "u16[152]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[152]) within verified span"
+  },
+  {
+    "address": "0x801284b0",
+    "name": "g_ui_town_map_cursor_value",
+    "c_type": "u8[116]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[116]) within verified span"
+  },
+  {
+    "address": "0x8012852c",
+    "name": "g_ui_advance_tv_channel_episode_table",
+    "c_type": "s16[10]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[10]) within verified span"
+  },
+  {
+    "address": "0x80128560",
+    "name": "g_ui_apply_goddess_wish_fortune_table_2",
+    "c_type": "s16[16]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[16]) within verified span"
+  },
+  {
+    "address": "0x80128580",
+    "name": "g_ui_select_top_bachelorette_portraits_apply_table",
+    "c_type": "s16[58]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[58]) within verified span"
+  },
+  {
+    "address": "0x8012862c",
+    "name": "g_ovl11_ovl_roll_timed_weather_table",
+    "c_type": "u16[82]",
+    "domain": "overlay_part11_id06",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[82]) within verified span"
+  },
+  {
+    "address": "0x80128758",
+    "name": "g_ovl11_story_progression_milestones_table",
+    "c_type": "s16[6]",
+    "domain": "overlay_part11_id06",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
+  },
+  {
+    "address": "0x80128764",
+    "name": "g_ovl11_ovl_build_season_icon_value",
+    "c_type": "u16[48]",
+    "domain": "overlay_part11_id06",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[48]) within verified span"
+  },
+  {
+    "address": "0x801287c4",
+    "name": "g_ovl11_ovl_apply_grid_cell_value",
+    "c_type": "u8[8]",
+    "domain": "overlay_part11_id06",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[8]) within verified span"
+  },
+  {
+    "address": "0x80128e14",
+    "name": "g_anim_fade_palette_value",
+    "c_type": "u16[10]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[10]) within verified span"
+  },
+  {
+    "address": "0x80128e2c",
+    "name": "g_anim_fade_palette_b_value",
+    "c_type": "u16[2]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
+  },
+  {
+    "address": "0x801291c0",
+    "name": "g_npc_evt_populate_cutscene_offset_bind_value",
+    "c_type": "u32[25]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[25]) within verified span"
+  },
+  {
+    "address": "0x80129244",
+    "name": "g_npc_evt_alloc_cutscene_sprite_value",
+    "c_type": "s32[108]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s32[108]) within verified span"
+  },
+  {
+    "address": "0x80129420",
+    "name": "g_anim_snapshot_vram_save_value",
+    "c_type": "u32[50]",
+    "domain": "animals_livestock",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[50]) within verified span"
+  },
+  {
+    "address": "0x8012964a",
+    "name": "g_ui_dlg_item_icon_vram_upload_count_1",
+    "c_type": "u16[3]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[3]) within verified span"
+  },
+  {
+    "address": "0x80129652",
+    "name": "g_npc_dlg_item_icon_vram_upload_count",
+    "c_type": "u16[7]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[7]) within verified span"
+  },
+  {
+    "address": "0x80129662",
+    "name": "g_ui_dlg_item_icon_vram_cached_table_1",
+    "c_type": "u16[2]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
+  },
+  {
+    "address": "0x80129666",
+    "name": "g_npc_dlg_cached_item_empty_lru_count",
+    "c_type": "u8[2]",
+    "domain": "npc_dialogue_events",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[2]) within verified span"
+  },
+  {
+    "address": "0x8012cdc8",
+    "name": "g_ui_snapshot_status_summary_screen_value",
+    "c_type": "s16[13]",
+    "domain": "ui_inventory_hud",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[13]) within verified span"
+  },
+  {
+    "address": "0x80140ee0",
+    "name": "g_ovl15_diary_trade_picker_screen_slot_value",
+    "c_type": "u16[5]",
+    "domain": "overlay_part15_id10",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[5]) within verified span"
+  },
+  {
+    "address": "0x80140f94",
+    "name": "g_ovl15_diary_add_trade_selection_remove_value",
+    "c_type": "u32[9]",
+    "domain": "overlay_part15_id10",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[9]) within verified span"
+  },
+  {
+    "address": "0x80140fbc",
+    "name": "g_ovl15_diary_commit_remote_local_value_2",
+    "c_type": "u32[1381]",
+    "domain": "overlay_part15_id10",
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[1381]) within verified span"
   }
 ]

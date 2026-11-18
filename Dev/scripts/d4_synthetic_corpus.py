@@ -40,12 +40,14 @@ _HDR_TYPES = (
 _HDR_COMPAT = (
     "#pragma once\n#include <stdint.h>\n#include <stddef.h>\n"
     "#ifndef HMBTN_PS1_COMPAT_EXTS\n#define HMBTN_PS1_COMPAT_EXTS\n"
-    "typedef int (*HmCallbackFn)();\n"
-    "extern int hm_res_cd_wait_load_sync();\n"
-    "extern int hm_res_spr_anim_step_a();\n"
-    "extern int hm_res_spr_anim_step_b();\n"
+    "typedef int (*HmCallbackFn)(void);\n"
+    "extern int hm_res_cd_wait_load_sync(void);\n"
+    "extern int hm_res_spr_anim_step_a(void);\n"
+    "extern int hm_res_spr_anim_step_b(void);\n"
     "#ifdef HM_HOST_PARITY\n#include \"hm_gte_cop2.h\"\n#else\n"
-    "#define setCopReg(c, r, ...) ((void)0)\n#endif\n#endif\n"
+    "#define setCopReg(c, r, ...) ((void)0)\n#define gte_ldv0(v) ((void)(v))\n#define gte_rtps() ((void)0)\n"
+    "#define gte_stflg(p) (*(p) = 0)\n#define gte_stsxy(p) (*(p) = 0)\n#define gte_stszotz(p) (*(p) = 0)\n#define gte_stotz(p) (*(p) = 0)\n"
+    "#endif\n#endif\n"
 )
 
 _C_INC = '#include "harvestmoonbtn_types.h"\n#include "harvestmoonbtn_globals.h"\n#include "harvestmoonbtn_functions.h"\n'
@@ -71,9 +73,9 @@ def _core_c() -> str:
         _dox("Advance LCG PRNG state.", "hm_prng_next", f"0x80012a34 ({slus})", d,
              "u32 hm_prng_next(u32 mod_max) { g_hm_prng_seed = g_hm_prng_seed * 0x41c64e6du + 0x3039u; return (g_hm_prng_seed >> 0x10) * (mod_max & 0xffffu) >> 0x10; }"),
         _dox("Read 32-bit event flag bit.", "hm_event_flag_get", f"0x8001af44 ({slus})", d,
-             "u32 hm_event_flag_get(u32 bit_idx) { return (*(u32 *)(&g_hm_event_flags_bitset + ((bit_idx & 0xffffu) >> 5) * 4) >> (bit_idx & 0x1fu)) & 1u; }"),
+             "u32 hm_event_flag_get(u32 bit_idx) { return (g_hm_event_flags_bitset[(bit_idx & 0xffffu) >> 5] >> (bit_idx & 0x1fu)) & 1u; }"),
         _dox("Write 32-bit event flag bit.", "hm_event_flag_set", f"0x8001af70 ({slus})", d,
-             "u32 hm_event_flag_set(u32 bit_idx, s16 value) { u32 *wp = (u32 *)(&g_hm_event_flags_bitset + ((bit_idx & 0xffffu) >> 5) * 4); *wp = (value == 0) ? (*wp & ~(1u << (bit_idx & 0x1fu))) : (*wp | (1u << (bit_idx & 0x1fu))); return 0u; }"),
+             "u32 hm_event_flag_set(u32 bit_idx, s16 value) { u32 *wp = &g_hm_event_flags_bitset[(bit_idx & 0xffffu) >> 5]; *wp = (value == 0) ? (*wp & ~(1u << (bit_idx & 0x1fu))) : (*wp | (1u << (bit_idx & 0x1fu))); return 0u; }"),
     ])
 
 
@@ -81,7 +83,7 @@ def _cd_c() -> str:
     slus, d = "SLUS_011.15", "cd_afile_overlays"
     return _C_INC + "".join([
         _dox("Init CD and align A_FILE span.", "hm_cd_init_afile_system", f"0x80014748 ({slus})", d,
-             "u32 hm_cd_init_afile_system(s32 load_toc) { ResetCallback(); DrawSync(0); return ((&g_cd_afile_toc_head)[load_toc + 1].offset_bytes - (&g_cd_afile_toc_head)[load_toc].offset_bytes + 3u) & 0xfffffffcu; }"),
+             "u32 hm_cd_init_afile_system(s32 load_toc) { ResetCallback(); DrawSync(0); return (g_cd_afile_toc_head[load_toc + 1].offset_bytes - g_cd_afile_toc_head[load_toc].offset_bytes + 3u) & 0xfffffffcu; }"),
         _dox("Mute serial audio and pause XA.", "cd_stop_xa_stream", f"0x80021b20 ({slus})", d,
              "void cd_stop_xa_stream(void) { if ((s16)g_cd_xa_stream_active != 0) { SsSetSerialVol(0, 0, 0); CdControl(7, NULL, NULL); g_cd_xa_stream_active = 0; } }"),
         _dox("Seek CD XA sector via MSF.", "cd_send_xa_seek_cmd", f"0x80021cd8 ({slus})", d,
@@ -93,7 +95,7 @@ def _gte_c() -> str:
     slus, d = "SLUS_011.15", "render_gte_sprites"
     return _C_INC + "".join([
         _dox("Project SVECTOR through GTE RTPS.", "hm_gte_project_svector_to_ot", f"0x8001dfd4 ({slus})", d,
-             "u32 hm_gte_project_svector_to_ot(s32 *out_screen, SVECTOR *world_pos) { s32 reg_buf[4]; gte_ldv0(world_pos); gte_rtps(); gte_stflg(&reg_buf[2]); if (reg_buf[2] < 0) return 0u; gte_stsxy(&reg_buf[0]); if (out_screen != NULL) { out_screen[0] = (s32)*(s16 *)&reg_buf[0]; out_screen[1] = (s32)*((s16 *)&reg_buf[0] + 1); } gte_stszotz(&reg_buf[2]); return (u32)reg_buf[2]; }"),
+             "u32 hm_gte_project_svector_to_ot(s32 *out_screen, SVECTOR *world_pos) { s32 reg_buf[4]; gte_ldv0(world_pos); gte_rtps(); gte_stflg(&reg_buf[2]); if (reg_buf[2] < 0) return 0u; gte_stsxy(&reg_buf[0]); if (out_screen != NULL) { out_screen[0] = (s32)(s16)((u32)reg_buf[0] & 0xffffu); out_screen[1] = (s32)(s16)((u32)reg_buf[0] >> 16); } gte_stszotz(&reg_buf[2]); return (u32)reg_buf[2]; }"),
         _dox("Return GTE RTPS OTZ depth.", "gfx_gte_rtps_get_otz", f"0x8001e088 ({slus})", d,
              "u32 gfx_gte_rtps_get_otz(SVECTOR *vertex) { s32 reg_buf[4]; gte_ldv0(vertex); gte_rtps(); gte_stsxy(&reg_buf[0]); gte_stotz(&reg_buf[2]); return (u32)reg_buf[2]; }"),
     ])
@@ -103,15 +105,15 @@ def _ovl11_c() -> str:
     ovl, d = "OVL_part11_id06.EXE", "farm_crops_field"
     return _C_INC + "".join([
         _dox("Map tool_id to tool family index.", "p11_field_get_tool_family_index", f"0x800cb0b0 ({ovl})", d,
-             "s32 p11_field_get_tool_family_index(s16 tool_id) { u32 idx = (u32)((s32)tool_id - 1); u32 alt = (u32)((s32)tool_id - 0x1a); if ((idx & 0xffffu) < 0x19u) return ((s32)idx / 5) * 0x10000 >> 0x10; if ((alt & 0xffffu) < 4u) return (s32)(alt * 0x10000u) >> 0x10; return 0; }"),
+             "s32 p11_field_get_tool_family_index(s16 tool_id) { u32 idx = (u32)((s32)tool_id - 1); u32 alt = (u32)((s32)tool_id - 0x1a); if ((idx & 0xffffu) < 0x19u) return (s16)((s32)idx / 5); if ((alt & 0xffffu) < 4u) return (s16)alt; return 0; }"),
         _dox("Compute effective stamina cost.", "p11_field_calc_effective_stamina_cost", f"0x800cd3c4 ({ovl})", d,
              "s32 p11_field_calc_effective_stamina_cost(s32 base_cost) { if (g_farm_current_weather != 0) base_cost += 1; if (g_farm_calendar_clock.hour - 0x16 < 2) base_cost += 1; if (g_farm_calendar_clock.hour < 6) base_cost += 2; return base_cost + 2; }"),
         _dox("Compute fishing tension decay step.", "p11_field_calc_fishing_tension_decay", f"0x800cd534 ({ovl})", d,
              "s32 p11_field_calc_fishing_tension_decay(s32 fish_timer) { s32 step = (fish_timer / 0x3c) * -2 - 5; return (step < -0x80) ? -0x80 : step; }"),
         _dox("Compute fishing reel power step.", "p11_field_calc_fishing_reel_power", f"0x800cd578 ({ovl})", d,
-             "s32 p11_field_calc_fishing_reel_power(s32 fish_timer) { s32 step = (fish_timer / 0x3c) * 7 + 0x32; return (0x7f < step) ? 0x7f : step; }"),
+             "s32 p11_field_calc_fishing_reel_power(s32 fish_timer) { s32 step = (fish_timer / 0x3c) * 7 + 0x32; return (step > 0x7f) ? 0x7f : step; }"),
         _dox("Accumulate saturated tool experience.", "p11_field_add_tool_experience", f"0x800cd5bc ({ovl})", d,
-             "void p11_field_add_tool_experience(HmPlayerState *player_state, s32 xp_delta) { if ((player_state->action_flags & 8u) == 0u) { s32 off = (((s16)player_state->action_sub_vars[10] - 1) / 5) * 2 + 0x40; s32 tot = xp_delta + (s32)*(u16 *)((u8 *)player_state + off); *(u16 *)((u8 *)player_state + off) = (u16)((tot > 0xffff) ? 0xffff : tot); } }"),
+             "void p11_field_add_tool_experience(HmPlayerState *player_state, s32 xp_delta) { if ((player_state->action_flags & 8u) == 0u) { s32 slot = ((s16)player_state->action_sub_vars[10] - 1) / 5; s32 tot = xp_delta + (s32)player_state->tool_exp_and_timers[slot + 3]; player_state->tool_exp_and_timers[slot + 3] = (u16)((tot > 0xffff) ? 0xffff : tot); } }"),
     ])
 
 
@@ -121,9 +123,10 @@ def _generate_globals_and_stubs(readable_dir: Path, out_dir: Path, defined_fns: 
     compat_txt = (inc_dir / "ghidra_compat.h").read_text(encoding="utf-8", errors="replace")
     g_lines, seen = ['#include "harvestmoonbtn_types.h"', ""], set()
     for txt in ((inc_dir / "harvestmoonbtn_globals.h").read_text(encoding="utf-8", errors="replace"), compat_txt):
-        for m in re.finditer(r"^\s*extern\s+(.+?);", txt, re.M):
-            decl = m.group(1).strip()
-            name_m = None if decl.endswith(")") else re.search(r"([A-Za-z_][A-Za-z0-9_]*)\s*(?:\[[^\]]*\])?\s*$", decl)
+        clean_txt = re.sub(r"/\*.*?\*/|//[^\n]*", "", txt, flags=re.S)
+        for m in re.finditer(r"^\s*extern\s+([^;]+);", clean_txt, re.M | re.S):
+            decl = " ".join(m.group(1).split())
+            name_m = None if decl.endswith(")") else re.search(r"([A-Za-z_][A-Za-z0-9_]*)\s*(?:\[[^\]]*\])*\s*$", decl)
             if not name_m or (nm := name_m.group(1)) in seen:
                 continue
             seen.add(nm)
@@ -136,17 +139,17 @@ def _generate_globals_and_stubs(readable_dir: Path, out_dir: Path, defined_fns: 
 
     s_lines = [
         _C_INC.rstrip(),
-        "int hm_res_cd_wait_load_sync(void) { return 0; }",
-        "int hm_res_spr_anim_step_a(void) { return 0; }",
-        "int hm_res_spr_anim_step_b(void) { return 0; }",
         "void halt_baddata(void) {} void trap(int c, ...) { (void)c; } void halt(void) {} void stop(void) {}",
         "void IME(uint8_t v) { (void)v; } uint8_t daaOperand(uint8_t v, ...) { return v; }",
     ]
-    seen_f = set(defined_fns) | HOOKED_FUNCS | LIBC_SYMS | EXTRA_STUBS
-    for nm in re.findall(r"^\s*extern\s+int\s+(hm_res_[A-Za-z0-9_]+)\s*\(\s*\)\s*;", compat_txt, re.M):
-        if nm not in seen_f:
-            seen_f.add(nm)
-            s_lines.append(f"int {nm}(void) {{ return 0; }}")
+    seen_f = set(defined_fns) | HOOKED_FUNCS | LIBC_SYMS | (EXTRA_STUBS - {"hm_res_cd_wait_load_sync", "hm_res_spr_anim_step_a", "hm_res_spr_anim_step_b"})
+    for m in re.finditer(r"^\s*extern\s+(.+?[\s*])\s*(hm_res_[A-Za-z0-9_]+)\s*\(([^)]*)\)\s*;", compat_txt, re.M):
+        ret, nm, params = m.group(1).strip(), m.group(2), m.group(3).strip() or "void"
+        if nm in seen_f:
+            continue
+        seen_f.add(nm)
+        body = "{ }" if ret == "void" else ("{ return NULL; }" if "*" in ret else "{ return 0; }")
+        s_lines.append(f"{ret} {nm}({params}) {body}")
     for ln in (inc_dir / "harvestmoonbtn_functions.h").read_text(encoding="utf-8", errors="replace").splitlines():
         s = re.sub(r"/\*.*?\*/\s*$", "", ln).strip()
         m = re.match(r"^(?:extern\s+)?(.+?[\s*])\s*([A-Za-z_][A-Za-z0-9_]*)\s*\((.*)\)\s*;\s*$", s) if s and not s.startswith(("#", "/*", "//")) and s.endswith(");") else None
@@ -177,11 +180,11 @@ def _seed_synthetic_corpus(root: Path) -> tuple[Path, Path, Path]:
     (inc_dir / "ghidra_compat.h").write_text(_HDR_COMPAT, encoding="utf-8")
     (inc_dir / "harvestmoonbtn_types.h").write_text(_HDR_TYPES, encoding="utf-8")
     (inc_dir / "harvestmoonbtn_globals.h").write_text("\n".join([
-        "extern HmAfileTocEntry g_cd_afile_toc_head;", "extern u16 g_cd_xa_channel_table;",
+        "extern HmAfileTocEntry g_cd_afile_toc_head[];", "extern u16 g_cd_xa_channel_table[];",
         "extern u32 g_sys_vsync_stride;", "extern u32 g_sys_draw_enable;", "extern u32 g_sys_frame_sync_flag;",
         "extern u32 g_hm_prng_seed;", "extern u32 g_cd_xa_stream_active;", "extern HmEngineState g_core_engine_state;",
         "extern u32 g_cd_xa_target_lba;", "extern u32 g_cd_xa_cmd_counter;", "extern u32 g_cd_xa_last_seek_lba;",
-        "extern u32 g_cd_xa_ready_flag;", "extern u32 g_hm_event_flags_bitset;", "extern HmCalendarClock g_farm_calendar_clock;",
+        "extern u32 g_cd_xa_ready_flag;", "extern u32 g_hm_event_flags_bitset[];", "extern HmCalendarClock g_farm_calendar_clock;",
         "extern s16 g_farm_current_weather;", "extern u32 g_sys_highram_reserved_base;",
     ]) + "\n", encoding="utf-8")
     (inc_dir / "harvestmoonbtn_functions.h").write_text(

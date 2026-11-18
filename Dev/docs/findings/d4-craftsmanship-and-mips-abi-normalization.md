@@ -14,7 +14,8 @@ This empirical report documents the PlayStation 1 `MIPS32` little-endian `LP32` 
 | **2. Chunked Assembly** | `RD_DECOMP_TOOLS/stage4_assembler.py` | Reexported lifts -> `512` `.c` chunks (`<= 400` lines/multi-fn TU) + `9` `.h` + `compile_commands.json` |
 | **3. Compat Header Synthesis** | [craftsmanship_d4_helpers.py](../../scripts/craftsmanship_d4_helpers.py) | `harvestmoonbtn_globals.h` + `d4_symbol_overrides.json` -> `HMBTN_PS1_COMPAT_EXTS` in `ghidra_compat.h` |
 | **4. `D4.craftsmanship` & Format Scrub** | [craftsmanship_d4_normalizer.py](../../scripts/craftsmanship_d4_normalizer.py) + `craftsmanship_d4_{ast_cleaner,type_gates}.py` | `512` `.c` + `3` `.h` -> `0` craft/strict hits, uniform `@symbol` Doxygen, `Dev/.clang-format` |
-| **5. `D4` Compile & Parity** | [build_and_verify_d4.py](../../scripts/build_and_verify_d4.py) + [d4_synthetic_corpus.py](../../scripts/d4_synthetic_corpus.py) | Pass 1 `513` MIPS ELF32 `.o` -> `.a` (`3,669,114` B) + Pass 2 `12/12` `-DHM_HOST_PARITY` assertions |
+| **5. `D4` Compile & Parity** | [build_and_verify_d4.py](../../scripts/build_and_verify_d4.py) + [d4_synthetic_corpus.py](../../scripts/d4_synthetic_corpus.py) | Pass 1 `513` MIPS ELF32 `.o` -> `.a` (`3,610,812` B, `0` `-Wall -Wextra` warnings) + Pass 2 `12/12` `-DHM_HOST_PARITY` assertions |
+| **6. `6`-Tell `D4_FunctionalRewrite` & Shards** | [materialize_decomp_tiers.py](../../scripts/materialize_decomp_tiers.py) + [craftsmanship_d4_type_gates.py](../../scripts/craftsmanship_d4_type_gates.py) | Distinct `D1_Raw..D4_FunctionalRewrite` tiers + `11` clean-room `Dev/schemas/d4_rewrites/*.json` shards (`0` `6`-tell hits, `0` C bodies) |
 
 ---
 

@@ -10,9 +10,7 @@ import re
 from pathlib import Path
 from typing import Any
 
-from craftsmanship_d4_helpers import (
-    GHIDRA_LOCAL_RE, GHIDRA_SYM_RE, UNDEF_TYPE_RE, code_spans, map_code, match_back, match_fwd,
-)
+from craftsmanship_d4_helpers import GHIDRA_LOCAL_RE, GHIDRA_SYM_RE, UNDEF_TYPE_RE, code_spans, map_code, match_back, match_fwd
 
 _RAW_INT_RE = re.compile(
     r"\b(unsigned\s+long\s+long|signed\s+long\s+long|long\s+long|unsigned\s+int|unsigned\s+long|unsigned\s+short|unsigned\s+char"
@@ -21,12 +19,10 @@ _RAW_INT_RE = re.compile(
     r"|uint|ushort|ulong|ulonglong|longlong|uchar|u_char|u_short|u_int|u_long|byte|sbyte|int|short|long|unsigned|signed)\b"
 )
 _RAW_INT_MAP = {
-    "uint8_t": "u8", "uint16_t": "u16", "uint32_t": "u32", "uint64_t": "u64",
-    "int8_t": "s8", "int16_t": "s16", "int32_t": "s32", "int64_t": "s64",
-    "unsigned char": "u8", "unsigned short": "u16", "unsigned int": "u32", "unsigned long": "u32", "unsigned long long": "u64",
-    "signed char": "s8", "signed short": "s16", "signed int": "s32", "signed long": "s32", "signed long long": "s64", "long long": "s64",
-    "uint": "u32", "ushort": "u16", "ulong": "u32", "ulonglong": "u64", "longlong": "s64",
-    "u_long": "u32", "u_int": "u32", "u_short": "u16", "uchar": "u8", "u_char": "u8",
+    "uint8_t": "u8", "uint16_t": "u16", "uint32_t": "u32", "uint64_t": "u64", "int8_t": "s8", "int16_t": "s16", "int32_t": "s32", "int64_t": "s64",
+    "unsigned char": "u8", "unsigned short": "u16", "unsigned int": "u32", "unsigned long": "u32", "unsigned long long": "u64", "long long": "s64",
+    "signed char": "s8", "signed short": "s16", "signed int": "s32", "signed long": "s32", "signed long long": "s64", "uint": "u32", "ushort": "u16",
+    "ulong": "u32", "ulonglong": "u64", "longlong": "s64", "u_long": "u32", "u_int": "u32", "u_short": "u16", "uchar": "u8", "u_char": "u8",
     "byte": "u8", "sbyte": "s8", "int": "s32", "short": "s16", "long": "s32", "unsigned": "u32", "signed": "s32",
 }
 _NULL_PTR_CAST_RE = re.compile(r"\(\s*[A-Za-z_][A-Za-z0-9_\s]*\*\s*\)\s*0x0\b")
@@ -41,12 +37,8 @@ _WORD_GLOBAL_RE = re.compile(r"\bg_[A-Za-z0-9_]+_(?:word|half|byte|sword|shalf|s
 _OLD_FIELD_GATE_RE = re.compile(r"\b_(?:pad|reserved|meta|work|hud|items|state)_0x[0-9a-fA-F]+\b|\bstate_0x10\b|\b_anim_and_ai\b|\b_runtime\b|\b_hud_state\b")
 _SUBPIECE_GATE_RE = re.compile(r"\(\s*\*\s*\(\s*\(\s*(?:u?int(?:8|16|32|64)_t|[us](?:8|16|32|64))\s*\*\s*\)\s*\(\s*\(?\s*(?:u?int8_t|u8)\s*\*")
 _MACRO_GATE_RE = re.compile(r"\b(?:CONCAT(?:11|12|13|21|22|31|44)|SUB(?:41|42|81|82|84))\b|\bcode\s*\*|0xffffffffU\s*>>")
-_TYPE_BASE_SZ = {
-    "u8": 1, "s8": 1, "char": 1, "uint8_t": 1, "int8_t": 1,
-    "u16": 2, "s16": 2, "short": 2, "uint16_t": 2, "int16_t": 2,
-    "u32": 4, "s32": 4, "int": 4, "f32": 4, "bool32": 4, "uint32_t": 4, "int32_t": 4,
-    "u64": 8, "s64": 8, "f64": 8, "uint64_t": 8, "int64_t": 8,
-}
+_TYPE_BASE_SZ = {"u8": 1, "s8": 1, "char": 1, "uint8_t": 1, "int8_t": 1, "u16": 2, "s16": 2, "short": 2, "uint16_t": 2, "int16_t": 2,
+                 "u32": 4, "s32": 4, "int": 4, "f32": 4, "bool32": 4, "uint32_t": 4, "int32_t": 4, "u64": 8, "s64": 8, "f64": 8, "uint64_t": 8, "int64_t": 8}
 _SIGNED_TYPES = frozenset({"s8", "s16", "s32", "s64", "char", "short", "int", "long", "int8_t", "int16_t", "int32_t", "int64_t"})
 _SCALAR_TY_RE = re.compile(
     r"^(?:(?:unsigned|signed|long|short)\s+)*(?:void|bool|_Bool|char|short|int|long|float|double"
@@ -251,4 +243,33 @@ def find_strict_craftsmanship_artifacts(text: str, *, allow_undef_typedefs: bool
         hits.update(m.group(0) for rx in (GHIDRA_LOCAL_RE, _STRICT_MECH_RE) for m in rx.finditer(seg) if not re.search(r"(?:\.|->)\s*$", seg[: m.start()]))
         if check_raw_types:
             hits.update(m.group(0) for m in _RAW_INT_RE.finditer(seg) if not re.search(r"(?:\.|->)\s*$", seg[: m.start()]))
+    return sorted(hits)
+
+
+_TELL_RX = (
+    ("A_shift", re.compile(r"\*\s*0x10000(?:00)?\b|\b(?:<<|\*)\s*(?:16|24|0x10|0x18|0x10000|0x1000000)\b[^;\n]{0,24}>>\s*(?:16|24|0x10|0x18)")),
+    ("B_ptr", re.compile(r"\(\s*&\s*g_[A-Za-z0-9_]+\s*\)\s*\[|\*\s*\([^)]+\*\)\s*\(\s*(?:\(\s*(?:s32|u32|uintptr_t)\s*\)\s*)?&\s*g_[A-Za-z0-9_]+|\*\s*\([^)]+\*\)\s*\([^;\n]*[+-]\s*0x[0-9a-fA-F]+\s*\)|\bhm_(?:read|write)_[us](?:8|16|32)_at\s*\(\s*&")),
+    ("C_deref", re.compile(r"\*\s*\([^)]+\*\)\s*&\s*(?:\(|g_)|\(\s*u8\s*\*\s*\)\s*&\s*\([^)]+\)\s*\+")),
+    ("D_goto", re.compile(r"\bgoto\s+[A-Za-z_]")),
+    ("D_wtrue", re.compile(r"\bwhile\s*\(\s*(?:true|1)\s*\)")),
+    ("D_inc", re.compile(r"\b([A-Za-z_][A-Za-z0-9_]*)\s*=\s*\1\s*[+-]\s*(?:0x[0-9a-fA-F]+|\d+)\b")),
+    ("D_comma", re.compile(r"\b(?:if|while)\s*\([^;{}]*[^!=<>]=[^=][^;{}]*,")),
+    ("E_yoda", re.compile(r"(?:^|[\(\{,;:?!]|&&|\|\|)\s*-?(?:0x[0-9a-fA-F]+|\d+)[uUlL]*\s*(?:<=|>=|<|>)\s*[A-Za-z_\(]", re.M)),
+    ("E_bit", re.compile(r"\b\w+\s*<\s*(?:0x[0-9a-fA-F]+|\d+)[uUlL]*\s*\)\s*\^\s*1\b|\bif\s*\(\s*!\s*\([^;{}]*==[^;{}]*\)\s*\)|\b1\s*<\s*\(\s*u16\s*\)\s*\([^)]*\+\s*\d+\s*\)|\(\s*u16\s*\)\s*\([^)]*\+\s*\d+\s*\)\s*>\s*1\b")),
+    ("E_ram", re.compile(r"-0x7[fF][0-9a-fA-F]{6}\b|\b0x3ffd0784\b|\b(?:trap|halt_baddata)\s*\(")),
+    ("F_ssa", re.compile(r"^\s+(?:const\s+|volatile\s+|unsigned\s+|signed\s+|struct\s+)*[A-Za-z_][A-Za-z0-9_]*\s+[*\s]*([A-Za-z_][A-Za-z0-9_]*_(?:0\d|[2-9]))\b", re.M)),
+)
+_TELL_STEM_RE = re.compile(r"\b(?:work_acc|work_word|word_cursor|frame_slot|status_flags|saved_ctx|caller_slot|abi_reg|cond_flag|half_cursor|byte_cursor|carry_word|text_cursor|gte_reg|local_buf|fmt_arg|fmt_args|cfg_stage|skip_branch|cond_ok|loop_active|loop_running|tmp_val|accum_val|step_val|reg_val|hi_half|slot_buf|slot_base|cur_tmp_val)\b")
+
+
+def find_d4_tell_artifacts(text: str) -> list[str]:
+    """Return sorted unique D4 decompiler-tell violations across all 6 tell families."""
+    noc = re.sub(r'"(?:\\.|[^"\\])*"', '""', re.sub(r"/\*.*?\*/", "", re.sub(r"//[^\n]*", "", text), flags=re.S))
+    hits = {f"{k}:{m.group(0).strip()[:24]}" for k, rx in _TELL_RX for m in rx.finditer(noc) if not (k == "F_ssa" and (m.group(1).startswith(("g_", "overlay_", "matrix_", "vec_")) or re.match(r"^p11_|^ovl\d+_", m.group(1))))}
+    for ln in noc.splitlines():
+        if (m := _TELL_STEM_RE.search(ln)) and not re.search(r"(?:\.|->)\s*$", ln[: m.start()]):
+            hits.add(f"F_stem:{m.group(0)}")
+    for sm in re.finditer(r"\bswitch\s*\([^)]*\)\s*\{", noc):
+        if (end_i := match_fwd(noc, sm.end() - 1)) > sm.end() and (dm := re.search(r"\bdefault\s*:", noc[sm.end() : end_i])) and re.search(r"\bcase\b", noc[sm.end() + dm.end() : end_i]):
+            hits.add("E_switch:mid_default")
     return sorted(hits)

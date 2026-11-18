@@ -1,6 +1,6 @@
 # HarvestMoonBackToNature-PlayStation — Clean-Room Specifications & Data Contracts
 
-**Version:** `0.2.1` (`2026-11-17`) · **Study Axis:** `S4` · **Decomp Axis:** `D4` · **Recomp Goal:** `R3`
+**Version:** `0.2.1` (`2026-11-18`) · **Study Axis:** `S4` · **Decomp Axis:** `D4` · **Recomp Goal:** `R3`
 
 This routing index links the four specification spokes (`Dev/docs/specifications/`), the three empirical findings spokes (`Dev/docs/findings/`), their matching pure-stdlib Python tools (`Dev/scripts/`), and the machine-readable coverage ledger [`Dev/schemas/spec_coverage.json`](../schemas/spec_coverage.json) (`68 / 68` fields mapped, `unresolvedFieldCount: 0`).
 
@@ -31,7 +31,7 @@ This routing index links the four specification spokes (`Dev/docs/specifications
 
 - **Control Manifest:** [`Dev/research.manifest.json`](../research.manifest.json) (`version = "0.2.1"`, `gameId = "harvest-moon-btn"`, `platform = "ps1"`, `serialOrHash = "SLUS-01115"`, `currentDecompTier = "D4"`, `currentStudyTier = "S4"`, `recompProjectPath = "../../Personal/HMBackToNature-Recomp"`).
 - **Umbrella & Modular C Types:** [`harvestmoonbtn_types.h`](../schemas/harvestmoonbtn_types.h) plus [`primitives_and_sdk.h`](../schemas/types/primitives_and_sdk.h), [`engine_and_afile.h`](../schemas/types/engine_and_afile.h), [`render_and_gte.h`](../schemas/types/render_and_gte.h), [`farm_npc_and_sim.h`](../schemas/types/farm_npc_and_sim.h), and [`ui_diary_and_overlays.h`](../schemas/types/ui_diary_and_overlays.h) (`4` enums, `21` typedefs, `57` structs, neutral PS1 ABI comments).
-- **Machine-Readable Ledgers:** [`spec_coverage.json`](../schemas/spec_coverage.json) (`68` mapped / `0` unresolved), [`standalone_integrity.json`](../schemas/standalone_integrity.json), [`call_graph.json`](../schemas/call_graph.json) (`3,828` nodes, `strings: []`), [`clusters.json`](../schemas/clusters.json) (`23` domains), [`globals_map.json`](../schemas/globals_map.json) (`3,497` symbols), [`functions_catalog.json`](../schemas/functions_catalog.json) (`2,575` game functions), [`d4_symbol_overrides.json`](../schemas/d4_symbol_overrides.json) (`48` `hm_res_*` + `10` `spillGlobals`), [`d4_build_report.json`](../schemas/d4_build_report.json), [`s4_verify_report.json`](../schemas/s4_verify_report.json), and [`decomp_recipe.json`](../schemas/decomp_recipe.json).
+- **Machine-Readable Ledgers:** [`spec_coverage.json`](../schemas/spec_coverage.json) (`68` mapped / `0` unresolved), [`standalone_integrity.json`](../schemas/standalone_integrity.json), [`call_graph.json`](../schemas/call_graph.json) (`3,828` nodes, `strings: []`), [`clusters.json`](../schemas/clusters.json) (`23` domains), [`globals_map.json`](../schemas/globals_map.json) (`3,497` symbols), [`functions_catalog.json`](../schemas/functions_catalog.json) (`2,575` game functions), [`d4_symbol_overrides.json`](../schemas/d4_symbol_overrides.json) (`48` `hm_res_*` + `10` `spillGlobals`), `Dev/schemas/d4_rewrites/*.json` (`11` clean-room shards), [`d4_build_report.json`](../schemas/d4_build_report.json) (`3,610,812` B, `0` warnings), [`s4_verify_report.json`](../schemas/s4_verify_report.json), and [`decomp_recipe.json`](../schemas/decomp_recipe.json) (`targetDecompTier: "D4"`).
 
 ---
 

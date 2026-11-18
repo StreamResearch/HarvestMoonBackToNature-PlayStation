@@ -38,7 +38,7 @@
   {
     "program": "SLUS_011.15",
     "address": "0x80011f5c",
-    "name": "hm_clamp_fade_level",
+    "name": "hm_text_acquire_scratch_ctx",
     "return_type": "s32",
     "params": [
       {
@@ -47,12 +47,12 @@
       }
     ],
     "domain": "core_mainloop",
-    "summary": "Clamps brightness fade value to valid hardware range [0..255] before screen scaling"
+    "summary": "Allocates bytes from active display GsWORKBASE aux primitive scratch buffer with frame-sync wait"
   },
   {
     "program": "SLUS_011.15",
     "address": "0x80011fd8",
-    "name": "hm_step_screen_fade",
+    "name": "hm_text_release_scratch_ctx",
     "return_type": "void",
     "params": [
       {
@@ -61,7 +61,7 @@
       }
     ],
     "domain": "core_mainloop",
-    "summary": "Advances active fade-in or fade-out counter toward target brightness level"
+    "summary": "Commits active display GsWORKBASE aux primitive scratch buffer pointer with overflow wait"
   },
   {
     "program": "SLUS_011.15",
@@ -1272,8 +1272,8 @@
     "return_type": "void",
     "params": [
       {
-        "name": "out_mat",
-        "type": "MATRIX *"
+        "name": "out_vec",
+        "type": "VECTOR *"
       },
       {
         "name": "rx",

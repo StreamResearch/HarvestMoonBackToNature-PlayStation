@@ -1,6 +1,6 @@
 # HarvestMoonBackToNature-PlayStation — Operations, Build, `.decomp` & Pre-Public Runbook
 
-**Version:** `0.2.1` (`2026-11-17`) · **Compiler:** `zig cc` (`ZIG_EXE` or `PATH`, `mipsel-freestanding-eabi`, `mips2`) · **Python:** `3.12+` (`python` on `PATH`)
+**Version:** `0.2.1` (`2026-11-18`) · **Compiler:** `zig cc` (`ZIG_EXE` or `PATH`, `mipsel-freestanding-eabi`, `mips2`) · **Python:** `3.12+` (`python` on `PATH`)
 
 ## 1. Prerequisites, Portability & Clean-Room BYO Media
 - **Required Toolchain:** `python` (`3.12+`, pure stdlib — zero external pip dependencies required for scripts/tests). Optional tools: `zig` (`ZIG_EXE` env -> `shutil.which("zig")` -> `%LOCALAPPDATA%` fallback), `clangd`, and `7z`.
@@ -13,6 +13,7 @@
 ### 2.1 Isolated Unit Tests & Offline Synthetic Verification (Zero Retail Media Needed)
 ```powershell
 python -B -m unittest discover -s Dev/scripts/tests -v
+python -B Dev/scripts/materialize_decomp_tiers.py --offline-synthetic --data-dir "$env:TEMP\hmbtn-tiers" --log-dir Dev/logs
 python -B Dev/scripts/verify_stage0_stage1.py --offline-synthetic --log-dir Dev/logs
 python -B Dev/scripts/verify_stage2_stage3.py --offline-synthetic --log-dir Dev/logs
 python -B Dev/scripts/build_and_verify_d4.py --offline-synthetic --data-dir "$env:TEMP\hmbtn-d4" --log-dir Dev/logs
@@ -24,7 +25,7 @@ python -B Dev/scripts/verify_track_d4.py --offline-synthetic --data-dir "$env:TE
 # Export and self-validate tracked root HarvestMoonBackToNature-PlayStation.decomp
 python -B Dev/scripts/export_decomp_bundle.py --verify-cleanroom
 ```
-- Emits ZIP root `module.decomp.json` (`moduleId: "harvest-moon-btn"`, `engineId: "reStation"`, `compatibleEngineTrack: "0.2.x"`, `targetDecompTier: "D5"`, `preloadRomDir: "data/rom"`, `recipeEntryPoint: "Dev/scripts/hmbtn_unpack.py"`) plus clean-room `Dev/schemas/` and `Dev/scripts/` (never `Corpus/`, `Archive/`, `Dev/docs/`, `.gpr`, `*.g.cs`, or `*.Generated.dll`).
+- Emits ZIP root `module.decomp.json` (`moduleId: "harvest-moon-btn"`, `engineId: "reStation"`, `compatibleEngineTrack: "0.2.x"`, `targetDecompTier: "D4"`, `goalDecompTier: "D4"`, `preloadRomDir: "data/rom"`, `recipeEntryPoint: "Dev/scripts/hmbtn_unpack.py"`) plus clean-room `Dev/schemas/` (incl. `d4_rewrites/*.json`) and `Dev/scripts/` (`67` entries, `1,302,218` B; never `Corpus/`, `Archive/`, `Dev/docs/`, `.gpr`, `*.g.cs`, or `*.Generated.dll`).
 
 ### 2.3 Live BYO-Media Unpack, `D4.craftsmanship`, Parsers & Universal `decomp_cli` Checks
 ```powershell
@@ -50,7 +51,7 @@ python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track HarvestMoonBackToN
 python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track HarvestMoonBackToNature-PlayStation --tier S4 --no-clangd
 python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track HarvestMoonBackToNature-PlayStation --no-clangd
 ```
-- `craftsmanship_d4_normalizer.py` also supports `--dry-run` to preview changes without touching `Corpus/readable/`, and `--verify-clean` exits `0` only when all `512` `.c` files and `3` headers carry zero Ghidra or strict `T5` craftsmanship artifacts.
+- `craftsmanship_d4_normalizer.py` also supports `--dry-run` to preview changes without touching `Corpus/readable/`, `--verify-clean` exits `0` only when all `512` `.c` files and `9` headers carry zero Ghidra or strict `6`-tell decompiler artifacts, and `materialize_decomp_tiers.py --tier all --data-dir Corpus` syncs/preserves distinct `Corpus/tiers/{D1_Raw,D2_Structured,D3_Mapped,D4_FunctionalRewrite}/` trees without overwriting distinct `D3_Mapped` baselines.
 
 ## 3. Workspace & `clangd` Inspection
 - Open [HarvestMoonBackToNature-PlayStation.code-workspace](../HarvestMoonBackToNature-PlayStation.code-workspace) in VS Code (`python.defaultInterpreterPath: "python"`, relative sibling `../../Personal/R&D/Dev/tools/decomp/decomp_cli.py` tasks).

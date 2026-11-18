@@ -209,7 +209,7 @@ class TestHmbtnDecompCleanroom(unittest.TestCase):
             (rdir / "include" / "harvestmoonbtn_functions.h").write_text('#pragma once\n#include "harvestmoonbtn_types.h"\nundefined4 demo_fn(undefined2 param_1, int param_flag);\n', encoding="utf-8")
             (rdir / "include" / "ghidra_compat.h").write_text("#pragma once\n#include <stdint.h>\n#include <stddef.h>\ntypedef int code();\n", encoding="utf-8")
             (rdir / "sdk" / "sdk_01.c").write_text('#include "../include/harvestmoonbtn_types.h"\n// Function: sdk_stub @ 0x80011270 (size=0x8, sdk=true)\nvoid sdk_stub(void)\n\n{\n  return;\n}\n', encoding="utf-8")
-            src_c = '#include "../../include/harvestmoonbtn_types.h"\n#include "../../include/harvestmoonbtn_globals.h"\n#include "../../include/harvestmoonbtn_functions.h"\n/**\n * Sample (*pbVar1 + puVar4[0]) using FUN_80011ef0 and DAT_8005e384.\n * @address 0x8001e390 (SLUS_011.15)\n * @domain render_gte_sprites\n * @callers none\n * @callees none\n */\n// Function: gfx_floor_mesh_sample_height_v0 @ 0x8001e390 (size=0x40, sdk=false)\n/* WARNING: Unknown calling convention */\ns32 gfx_floor_mesh_sample_height_v0(undefined2 param_1, int param_flag)\n\n{\n  int in_v0;\n  u32 uVar1;\n  undefined1 auStack_8[8];\n  S obj;\n  obj.local_x = (int)param_1 + -1;\n  obj.param_1 = param_flag;\n  if ((void *)0x0 == &UNK_8003ef10) { goto LAB_8001e3b0; }\n  (*(code *)(uintptr_t)(PTR_LAB_80121780))();\n  (*(code *)(&g_core_engine_state_8005e384))();\n  uVar1 = (u32)_local_30 + FUN_80011ef0() + auStack_8[0] + in_v0;\n  return (s32)(uVar1 + obj.local_x + obj.param_1);\nLAB_8001e3b0:\n  return (s32)switchD_80013b8c_caseD_2[0];\n}\n'
+            src_c = '#include "../../include/harvestmoonbtn_types.h"\n#include "../../include/harvestmoonbtn_globals.h"\n#include "../../include/harvestmoonbtn_functions.h"\n/**\n * Sample (*pbVar1 + puVar4[0]) using FUN_80011ef0 and DAT_8005e384.\n * @address 0x8001e390 (SLUS_011.15)\n * @domain render_gte_sprites\n * @callers none\n * @callees none\n */\n// Function: gfx_floor_mesh_sample_height_v0 @ 0x8001e390 (size=0x40, sdk=false)\n/* WARNING: Unknown calling convention */\ns32 gfx_floor_mesh_sample_height_v0(undefined2 param_1, int param_flag)\n\n{\n  int in_v0;\n  u32 uVar1;\n  undefined1 auStack_8[8];\n  S obj;\n  obj.local_x = (int)param_1 + -1;\n  obj.param_1 = param_flag;\n  if ((void *)0x0 == (void *)(uintptr_t)UNK_8003ef10) { goto LAB_8001e3b0; }\n  (*(code *)(uintptr_t)(PTR_LAB_80121780))();\n  (*(code *)(&g_core_engine_state_8005e384))();\n  uVar1 = (u32)_local_30 + FUN_80011ef0() + auStack_8[0] + in_v0;\n  return (s32)(uVar1 + obj.local_x + obj.param_1);\nLAB_8001e3b0:\n  return (s32)switchD_80013b8c_caseD_2[0];\n}\n'
             (rdir / "src" / "render_gte_sprites" / "render_gte_sprites_07.c").write_text(src_c, encoding="utf-8")
 
             res = craft_norm.normalize_readable_tree(rdir, SCHEMAS_DIR)
@@ -231,12 +231,13 @@ class TestHmbtnDecompCleanroom(unittest.TestCase):
             self.assertIn("hm_res_sys_wait_vblank()", norm_src)
             self.assertNotIn("_80011ef0", norm_src)
             compat_txt = (rdir / "include" / "ghidra_compat.h").read_text(encoding="utf-8")
-            self.assertIn("typedef int32_t (*HmCallbackFn)();", compat_txt)
+            self.assertIn("typedef int32_t (*HmCallbackFn)(void);", compat_txt)
             self.assertIn("HM_HOST_PARITY", compat_txt)
             if zig := shutil.which("zig"):
                 obj_out = root / "test.o"
-                cc = subprocess.run([zig, "cc", "-std=gnu11", "-Wno-everything", f"-I{rdir / 'include'}", "-include", str(rdir / "include" / "ghidra_compat.h"), "-c", str(rdir / "src" / "render_gte_sprites" / "render_gte_sprites_07.c"), "-o", str(obj_out)], capture_output=True, text=True, timeout=30)
+                cc = subprocess.run([zig, "cc", "-std=gnu11", "-Wall", "-Wextra", "-Wno-unused-parameter", f"-I{rdir / 'include'}", "-include", str(rdir / "include" / "ghidra_compat.h"), "-c", str(rdir / "src" / "render_gte_sprites" / "render_gte_sprites_07.c"), "-o", str(obj_out)], capture_output=True, text=True, timeout=30)
                 self.assertEqual(cc.returncode, 0, cc.stderr)
+                self.assertNotIn(": warning:", cc.stderr, cc.stderr)
 
     def test_decomp_recipe_and_bundle_if_present(self) -> None:
         recipe_p = SCHEMAS_DIR / "decomp_recipe.json"

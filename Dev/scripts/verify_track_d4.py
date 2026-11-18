@@ -99,13 +99,13 @@ def _find_banned_keys(obj: Any) -> list[str]:
 def _check_craftsmanship(readable_dir: Path, failures: list[str]) -> None:
     if str(SCRIPT_DIR) not in sys.path:
         sys.path.insert(0, str(SCRIPT_DIR))
-    from craftsmanship_d4_type_gates import find_strict_craftsmanship_artifacts
+    from craftsmanship_d4_type_gates import find_d4_tell_artifacts, find_strict_craftsmanship_artifacts
 
     c_files = sorted(readable_dir.rglob("*.c")) if readable_dir.is_dir() else []
     craft_files, craft_hits = 0, 0
     for cf in c_files:
         txt = cf.read_text(encoding="utf-8", errors="replace")
-        hits = len(_GHIDRA_CRAFT_RE.findall(txt)) + len(find_strict_craftsmanship_artifacts(txt, check_raw_types=True))
+        hits = len(_GHIDRA_CRAFT_RE.findall(txt)) + len(find_strict_craftsmanship_artifacts(txt, check_raw_types=True)) + len(find_d4_tell_artifacts(txt))
         if hits:
             craft_files += 1
             craft_hits += hits
@@ -161,7 +161,7 @@ def run_checks(data_dir: Path | None, offline_synthetic: bool, zig_exe: Path | N
     total_cnt = int(rep.get("assertionsTotalCount", rep.get("parityTestsTotal", passed_cnt)))
     is_passed = rep.get("isPassed") if rep.get("isPassed") is not None else rep.get("parityPassed")
 
-    _check("D4.compile_counts", comp_cnt >= 512 and int(rep.get("totalObjects", comp_cnt)) >= 513 and err_cnt == 0 and warn_cnt == 0, f"compiled={comp_cnt} err={err_cnt} warn={warn_cnt}", failures)
+    _check("D4.compile_counts", comp_cnt == 512 and int(rep.get("totalObjects", comp_cnt)) >= 513 and err_cnt == 0 and warn_cnt == 0 and int(rep.get("craftsmanshipTellCount", 0)) == 0, f"compiled={comp_cnt} err={err_cnt} warn={warn_cnt} tells={rep.get('craftsmanshipTellCount', 0)}", failures)
     _check("D4.parity", is_passed is True and passed_cnt >= 12 and total_cnt >= 12 and passed_cnt == total_cnt, f"isPassed={is_passed} assertions={passed_cnt}/{total_cnt}", failures)
 
     d4_gate = ((manifest.get("gates") or {}).get("D4") or {})
@@ -196,7 +196,8 @@ def run_checks(data_dir: Path | None, offline_synthetic: bool, zig_exe: Path | N
             _check("D4.corpus_media", False, f"MISSING_CORPUS_MEDIA: missing {readable_dir}", failures)
         else:
             c_files = sorted(readable_dir.rglob("*.c"))
-            _check("D4.c_files", len(c_files) >= 500 and comp_cnt >= len(c_files), f"found={len(c_files)} compiled={comp_cnt}", failures)
+            tiers_ok = all((corpus_dir / "tiers" / t).is_dir() and any((corpus_dir / "tiers" / t).rglob("*.c")) for t in ("D1_Raw", "D2_Structured", "D3_Mapped", "D4_FunctionalRewrite"))
+            _check("D4.c_files", len(c_files) == 512 and comp_cnt >= len(c_files) and tiers_ok, f"found={len(c_files)} compiled={comp_cnt} tiers={tiers_ok}", failures)
             _check_craftsmanship(readable_dir, failures)
             arch_rel = str(rep.get("archivePath") or rep.get("archiveFile") or "work/d4_build/libharvest_moon_btn_d4.a")
             arch = corpus_dir / arch_rel

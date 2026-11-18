@@ -1,6 +1,6 @@
 # HarvestMoonBackToNature-PlayStation — Architecture & Clean-Room System Map
 
-**Version:** `0.2.1` (`2026-11-17`) · **Platform:** `ps1` (`SLUS-01115`) · **Pipeline:** `native_ghidra_c` · **ABI:** `ps1-mipsel` (`LP32`, `sizeof(long) == 4`)
+**Version:** `0.2.1` (`2026-11-18`) · **Platform:** `ps1` (`SLUS-01115`) · **Pipeline:** `native_ghidra_c` · **ABI:** `ps1-mipsel` (`LP32`, `sizeof(long) == 4`)
 
 ---
 
@@ -16,7 +16,7 @@ flowchart LR
     Unpack -->|Slot B 0x8012DDE8| SlotB["2 Co-Resident Slot B Overlays\nPart 15 (138) + Part 30 (30)"]
     SLUS <-->|Direct + 48 hm_res_* Calls| SlotA
     SlotA <-->|Co-Resident RAM Window| SlotB
-    Unpack --> Corpus["Corpus/ (Gitignored)\nstandalone/ + readable/ + work/"]
+    Unpack --> Corpus["Corpus/ (Gitignored)\nstandalone/ + tiers/D1..D4 + readable/"]
     Corpus -->|Clean-Room Schemas & .decomp| Recomp["HMBackToNature-Recomp (Read-Only)\nreStation 0.2.x (R2 -> R3)"]
 ```
 
@@ -39,8 +39,8 @@ flowchart TB
     S2A --> Bundle
     Overrides["d4_symbol_overrides.json (48 hm_res_* + 1,064 unindexed + 10 spillGlobals)"] --> Norm["patch_ps1_reexport_and_compat.py\n+ craftsmanship_d4_*"]
     Bundle --> Norm
-    Norm --> Readable["Corpus/readable/ (512 .c TUs + 9 .h)"]
-    Readable --> BuildD4["build_and_verify_d4.py + d4_harness/ (12/12 Parity)"]
+    Norm --> Tiers["Corpus/tiers/D1_Raw..D4_FunctionalRewrite\n+ Corpus/readable/ (512 .c TUs + 9 .h)"]
+    Tiers --> BuildD4["build_and_verify_d4.py + d4_harness/ (12/12 Parity)"]
     Types --> Export["export_decomp_bundle.py -> .decomp"]
     BuildD4 --> Export
 ```
@@ -58,9 +58,9 @@ flowchart TB
 
 1. **BYO-Disc Verification & Unpack:** [hmbtn_unpack.py](../scripts/hmbtn_unpack.py#L82-L271) validates `requiredDiscChecksums` (hashing full `133,935,104`-byte `A_FILE.BIN` without size caps; failing closed with `MISSING_CORPUS_MEDIA` on empty input), parses `A_FILE.HDT`, scans all `22` `0x800145F0` callers, synthesizes `13` linked overlay EXEs (`Slot B` EXEs splice `SLUS_011.15 + Part 11 + Part 15/30`), and delegates `Part 9`/`0x0E`/`.TIM`/`.XA` extraction to [hmbtn_assets.py](../scripts/hmbtn_assets.py).
 2. **Stage 1–3 Indexing & Typification:** [stage1_indexer.py](../scripts/stage1_indexer.py) parses `SLUS_011.15` + `13` overlay lifts, consumes retail strings strictly in memory for `classify_domain()`, clears all `call_graph.json` `"strings"` arrays to `[]`, computes `Tarjan SCC` waves (`0..24`), and indexes `3,497` globals. [stage2_globals_builder.py](../scripts/stage2_globals_builder.py) and [stage2_anchors_builder.py](../scripts/stage2_anchors_builder.py) produce disjoint `LP32`-verified `globals_map.json` and `225` typed anchors, merged with `6` shards into `functions_catalog.json` (`2,575` game functions).
-3. **Stage 4 Assembly & `D4.craftsmanship` Normalization:** [patch_ps1_reexport_and_compat.py](../scripts/patch_ps1_reexport_and_compat.py) lowers `._off_sz_` subpieces, `undefined1 [2|4]` stack buffers, `(*(code *)...)` calls, and void-return promotions while [craftsmanship_d4_unfold_chunk.py](../scripts/craftsmanship_d4_unfold_chunk.py) restores `55` constant-folded bodies from read-only `Corpus/standalone/decompiled/` before `stage4_assembler` emits `512` `.c` TUs. [craftsmanship_d4_normalizer.py](../scripts/craftsmanship_d4_normalizer.py) (with `helpers`, [craftsmanship_d4_ast_cleaner.py](../scripts/craftsmanship_d4_ast_cleaner.py), [craftsmanship_d4_type_gates.py](../scripts/craftsmanship_d4_type_gates.py), and [d4_symbol_overrides.json](../schemas/d4_symbol_overrides.json)) removes all Ghidra craft, promotes `@symbol`/`@address` Doxygen headers, standardizes `u8`..`s64`/`NULL`/struct offsets, and formats with `Dev/.clang-format` (`4`-space K&R, `<= 400` lines/multi-func `.c`).
-4. **Two-Pass `D4` Build & `12/12` Parity:** [build_and_verify_d4.py](../scripts/build_and_verify_d4.py) runs **Pass 1** (`zig cc -target mipsel-freestanding-eabi -mcpu=mips2 -msoft-float` over `512` `.c` + `globals_defs.c` -> `513` ELF32 MIPS objects batched into `libharvest_moon_btn_d4.a`) and **Pass 2** (`x86-windows-gnu` with `-DHM_HOST_PARITY` over `4` lifted TUs + `d4_harness/*.c` -> `12/12` assertions PASS; `--offline-synthetic` backed by [d4_synthetic_corpus.py](../scripts/d4_synthetic_corpus.py)).
-5. **Format Decoders & `.decomp` Export:** Four modular decoders (`hmbtn_overlays.py`, `hmbtn_sound.py`, `hmbtn_sprites.py`, `hmbtn_save_diary.py`) verify `68/68` spec fields, and [export_decomp_bundle.py](../scripts/export_decomp_bundle.py#L147-L221) packages `module.decomp.json`, `Dev/schemas/`, and `Dev/scripts/` into a clean-room `.decomp` archive verified by `validate_cleanroom_archive()`.
+3. **Multi-Tier Preservation & `D4_FunctionalRewrite` ([materialize_decomp_tiers.py](../scripts/materialize_decomp_tiers.py)):** [patch_ps1_reexport_and_compat.py](../scripts/patch_ps1_reexport_and_compat.py) lowers `._off_sz_` subpieces, `undefined1 [2|4]` stack buffers, `(*(code *)...)` calls, and void-return promotions while [craftsmanship_d4_unfold_chunk.py](../scripts/craftsmanship_d4_unfold_chunk.py) restores `55` constant-folded bodies from read-only `Corpus/standalone/decompiled/` into distinct `D3_Mapped`. File-by-file/function-by-function `D4_FunctionalRewrite` under `Corpus/tiers/D4_FunctionalRewrite/` (synced to `Corpus/readable/`, tracked cleanly by `11` metadata shards in `Dev/schemas/d4_rewrites/*.json` with zero C bodies leaked) eliminates all `6` decompiler-tell families enforced by [craftsmanship_d4_type_gates.py](../scripts/craftsmanship_d4_type_gates.py) and formats with `Dev/.clang-format` (`4`-space K&R, `<= 400` lines/multi-func `.c`).
+4. **Zero-Warning Two-Pass `D4` Build & `12/12` Parity:** [build_and_verify_d4.py](../scripts/build_and_verify_d4.py) runs **Pass 1** (`zig cc -target mipsel-freestanding-eabi -mcpu=mips2 -msoft-float -Wall -Wextra -Wno-unused-parameter` over `512` `.c` + `globals_defs.c` -> `513` ELF32 MIPS objects batched into `libharvest_moon_btn_d4.a`, `3,610,812` B, `0` warnings) and **Pass 2** (`x86-windows-gnu` with `-DHM_HOST_PARITY` -> `12/12` assertions PASS; `--offline-synthetic` backed by [d4_synthetic_corpus.py](../scripts/d4_synthetic_corpus.py)).
+5. **Format Decoders & `.decomp` Export:** Four modular decoders (`hmbtn_overlays.py`, `hmbtn_sound.py`, `hmbtn_sprites.py`, `hmbtn_save_diary.py`) verify `68/68` spec fields, and [export_decomp_bundle.py](../scripts/export_decomp_bundle.py#L147-L221) packages `module.decomp.json`, `Dev/schemas/` (incl. `d4_rewrites/`), and `Dev/scripts/` (`67` entries, `1,302,218` B) into a clean-room `.decomp` archive verified by `validate_cleanroom_archive()`.
 
 ---
 
@@ -83,11 +83,12 @@ flowchart TB
 | [Dev/scripts/craftsmanship_d4_type_gates.py](../scripts/craftsmanship_d4_type_gates.py) | `226` (`<= 250`) | `build_struct_field_lookup`, `fix_unfolded_struct_exprs`, `standardize_c_types`, strict craft/typing gates |
 | [Dev/scripts/craftsmanship_d4_normalizer.py](../scripts/craftsmanship_d4_normalizer.py) | `245` (`<= 250`) | `normalize_readable_tree`, Doxygen normalization, strict artifact scrub (`--verify-clean`, `--dry-run`) |
 | [Dev/scripts/patch_ps1_reexport_and_compat.py](../scripts/patch_ps1_reexport_and_compat.py) | `236` (`<= 250`) | Pre-assembly P-code lowering + unfold restoration + `stage4_assembler` + format/normalize driver |
-| [Dev/scripts/d4_synthetic_corpus.py](../scripts/d4_synthetic_corpus.py) | `171` (`<= 250`) | `_seed_synthetic_corpus`, `_generate_globals_and_stubs` (clean Doxygen + `hm_res_*` stubs) |
-| [Dev/scripts/build_and_verify_d4.py](../scripts/build_and_verify_d4.py) | `203` (`<= 250`) | `resolve_zig_exe`, `resolve_tools_dir`, `build_and_verify` (Pass 1 ELF32 + Pass 2 `12/12` host parity) |
+| [Dev/scripts/materialize_decomp_tiers.py](../scripts/materialize_decomp_tiers.py) | `201` (`<= 250`) | `materialize_tiers`, distinct `D1_Raw`..`D4_FunctionalRewrite` tier materializer + `--offline-synthetic` |
+| [Dev/scripts/d4_synthetic_corpus.py](../scripts/d4_synthetic_corpus.py) | `173` (`<= 250`) | `_seed_synthetic_corpus`, `_generate_globals_and_stubs` (clean Doxygen + `hm_res_*` stubs) |
+| [Dev/scripts/build_and_verify_d4.py](../scripts/build_and_verify_d4.py) | `217` (`<= 250`) | `resolve_zig_exe`, `resolve_tools_dir`, `build_and_verify` (`-Wall -Wextra`, Pass 1 ELF32 + Pass 2 `12/12`) |
 | [Dev/scripts/verify_stage0_stage1.py](../scripts/verify_stage0_stage1.py) | `195` (`<= 250`) | `sha256_file`, `is_readonly`, Stage 0/1 integrity & schema parity suite (`7` checks) |
-| [Dev/scripts/verify_stage2_stage3.py](../scripts/verify_stage2_stage3.py) | `249` (`<= 250`) | Stage 2/3/4 `LP32` + `D4.craftsmanship` + `clangd` + `<= 400` line verifier (`8` checks) |
-| [Dev/scripts/verify_track_d4.py](../scripts/verify_track_d4.py) | `197` (`<= 250`) | Independent `D4` verifier (`513` ELF32 `.o`, `0` craft artifacts, `>= 12` parity, SLOC/line caps) |
+| [Dev/scripts/verify_stage2_stage3.py](../scripts/verify_stage2_stage3.py) | `248` (`<= 250`) | Stage 2/3/4 `LP32` + `D4_FunctionalRewrite` + `clangd` (`0e/0w`) + `<= 400` line verifier (`8` checks) |
+| [Dev/scripts/verify_track_d4.py](../scripts/verify_track_d4.py) | `198` (`<= 250`) | Independent `D4` verifier (`513` ELF32 `.o`, `0` `6`-tell hits, `0` warnings, `>= 12` parity, SLOC caps) |
 | [Dev/scripts/export_decomp_bundle.py](../scripts/export_decomp_bundle.py) | `208` (`<= 250`) | `build_module_decomp_manifest`, `validate_cleanroom_archive`, `export_decomp_bundle` |
 | [Dev/scripts/tests/test_hmbtn_parsers.py](../scripts/tests/test_hmbtn_parsers.py) | `133` (test) | Isolated parser unit & `--offline-synthetic` / fail-closed CLI tests |
 | [Dev/scripts/tests/test_hmbtn_decomp_cleanroom.py](../scripts/tests/test_hmbtn_decomp_cleanroom.py) | `<= 250` (test) | `validate_cleanroom_tree`, `spec_coverage`, normalizer cleanliness, SLOC & `.decomp` export tests |

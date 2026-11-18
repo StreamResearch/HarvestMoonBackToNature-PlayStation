@@ -5898,7 +5898,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 2,
-    "summary": "Loads A_FILE tomato/effect sprite pack (0x25000, 0x5800 B), unpacks VRAM, copies tables to g_ovl25_tomato_sprite_pack_value/g_npc_weather_particles_interact_swimmer_value, and inits g_ovl25_props_tomato_arc_sprite_value."
+    "summary": "Loads A_FILE tomato/effect sprite pack (0x25000, 0x5800 B), unpacks VRAM, copies tables to g_ovl25_tomato_sprite_pack_value/g_ui_framed_window_border_sprite, and inits g_ovl25_props_tomato_arc_sprite_value."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -6583,7 +6583,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 2,
-    "summary": "Polls splash pack A_FILE read (0x25000, 0x5800 B); on completion, unpacks VRAM via hm_vram_unpack_0x0d_pack_auto and copies table to g_npc_weather_particles_interact_swimmer_value."
+    "summary": "Polls splash pack A_FILE read (0x25000, 0x5800 B); on completion, unpacks VRAM via hm_vram_unpack_0x0d_pack_auto and copies table to g_ui_framed_window_border_sprite."
   },
   {
     "program": "OVL_part27_id0c.EXE",

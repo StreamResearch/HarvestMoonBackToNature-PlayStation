@@ -1,0 +1,4042 @@
+{
+  "schemaVersion": 2,
+  "shardId": "src_core_gfx",
+  "taskId": "HMBTN:0.2.1:T8",
+  "rewriteTier": "D4_FunctionalRewrite",
+  "compilerFlags": [
+    "-Wall",
+    "-Wextra",
+    "-Wno-unused-parameter"
+  ],
+  "zeroDecompilerTellsVerified": true,
+  "zeroWarningsVerified": true,
+  "generatedAtUtc": "2026-11-18T06:28:42.012Z",
+  "fileCount": 35,
+  "symbolCount": 285,
+  "files": [
+    {
+      "relpath": "src/audio_spu_vab/audio_spu_vab_01.c",
+      "lineCount": 258,
+      "codeSloc": 134,
+      "symbolCount": 11,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_01.c",
+          "address": "0x8001fce4",
+          "symbol": "spu_reset_master_fade",
+          "signature": "void spu_reset_master_fade(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Initializes master audio volume fade state g_audio_spu_master_fade_value..1c to full 0x7f0000 fixed-point volume.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_01.c",
+          "address": "0x8001fd84",
+          "symbol": "spu_tick_master_fade",
+          "signature": "void spu_tick_master_fade(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "master_vol",
+            "tick_state": "scaled_vol"
+          },
+          "docstringSummary": "Advances fixed-point master volume ramp g_audio_spu_master_fade_tick_state_1 by step g_audio_spu_master_fade_tick_start_state, clamps [0..0x7f0000], and calls SsSetMVol.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_01.c",
+          "address": "0x8001fe00",
+          "symbol": "spu_start_master_fade",
+          "signature": "void spu_start_master_fade(s32 frames)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Computes master audio fade increment g_audio_spu_master_fade_start_state / frames into g_audio_spu_master_fade_tick_start_state and activates fade g_audio_spu_master_fade_tick_state_seq_start. p11_evt_step_bgm_volume_fade, p11_ovl_finalize_area_transition_load, hm_ovl15_memcard_ui_loop, hm_ovl15_memcard_new_game_setup, hm_ovl15_memcard_render_slots, hm_ovl17_swim_race_init (+7 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_01.c",
+          "address": "0x8001ff70",
+          "symbol": "spu_clear_vab_slot_table",
+          "signature": "void spu_clear_vab_slot_table(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "i": "slot_i"
+          },
+          "docstringSummary": "Zeros 24-entry audio bank state table ending at g_audio_spu_clear_vab_slot_value.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_01.c",
+          "address": "0x8001ff98",
+          "symbol": "spu_reset_seq_and_vab_slots",
+          "signature": "void spu_reset_seq_and_vab_slots(void)",
+          "typedArraysUsed": [
+            "g_audio_spu_seq_vab_slots_enqueue_value_1",
+            "g_audio_spu_seq_vab_slots_enqueue_value_slot_arg",
+            "g_audio_spu_seq_vab_slots_enqueue_value_slot_slot",
+            "g_audio_spu_seq_vab_slots_free_value_1",
+            "g_audio_spu_seq_vab_slots_free_value_2",
+            "g_audio_spu_seq_vab_slots_free_value_tick_async",
+            "g_audio_spu_seq_vab_slots_play_value_1",
+            "g_audio_spu_seq_vab_slots_play_value_slot_free",
+            "g_audio_spu_seq_vab_slots_shutdown_value",
+            "g_audio_spu_seq_vab_slots_system_value_1",
+            "g_audio_spu_seq_vab_slots_system_value_free_tick",
+            "g_audio_spu_seq_vab_slots_trigger_value_1",
+            "g_audio_spu_seq_vab_slots_trigger_value_voice_voice"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "i": "slot_i",
+            "j": "voice_i"
+          },
+          "docstringSummary": "Resets VAB transfer queue slots g_audio_spu_seq_vab_slots_free_state_tick_async..560 and SEQ handle/status arrays g_audio_spu_seq_vab_slots_play_value_slot_volume[0]..c088.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_01.c",
+          "address": "0x800200e4",
+          "symbol": "spu_open_vab_header_slot",
+          "signature": "u32 spu_open_vab_header_slot(u32 vh_addr, u32 vb_addr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Stops active sequences if needed, sets transfer mode g_audio_spu_open_vab_header_reopen_state_slot_free=0x1010, and records VH/VB buffers g_audio_spu_open_vab_header_reopen_state_1.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_01.c",
+          "address": "0x80020148",
+          "symbol": "spu_enqueue_vab_slot",
+          "signature": "u32 spu_enqueue_vab_slot(s32 vab_id)",
+          "typedArraysUsed": [
+            "g_audio_spu_seq_vab_slots_enqueue_value_slot_slot"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Queues a VAB bank ID (shifted << 1) into g_audio_spu_seq_vab_slots_enqueue_value_slot_slot at queue tail g_audio_spu_seq_vab_slots_enqueue_state.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_01.c",
+          "address": "0x80020174",
+          "symbol": "spu_enqueue_vab_slot_with_arg",
+          "signature": "u32 spu_enqueue_vab_slot_with_arg(s32 vab_id, u32 arg)",
+          "typedArraysUsed": [
+            "g_audio_spu_seq_vab_slots_enqueue_value_1",
+            "g_audio_spu_seq_vab_slots_enqueue_value_slot_arg",
+            "g_audio_spu_seq_vab_slots_enqueue_value_slot_slot"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Queues VAB ID (<< 1) plus flag=1 and extra payload into g_audio_spu_seq_vab_slots_enqueue_value_slot_slot/68/88 queue arrays.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_01.c",
+          "address": "0x800201c4",
+          "symbol": "spu_play_seq_slot",
+          "signature": "u32 spu_play_seq_slot(s32 vab_slot, s32 seq_slot, s16 vol_l, s16 vol_r, s16 loop_cnt)",
+          "typedArraysUsed": [
+            "g_audio_spu_seq_vab_slots_play_value_1",
+            "g_audio_spu_seq_vab_slots_play_value_slot_free"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Stops all voices via SsUtAllKeyOff, calls SsSeqPlay and SsSeqSetVol, and marks sequence slot active if free.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_01.c",
+          "address": "0x8002029c",
+          "symbol": "spu_set_seq_volume_uniform",
+          "signature": "u32 spu_set_seq_volume_uniform(s32 vab_slot, s32 seq_slot, u32 unused, s16 vol)",
+          "typedArraysUsed": [
+            "g_audio_spu_seq_vab_slots_play_value_1"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Calls SsSeqSetVol with symmetric (vol, vol) when sequence slot status in g_audio_spu_seq_vab_slots_play_value_1 equals 0 (playing). hm_ovl15_memcard_render_slots",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_01.c",
+          "address": "0x800202f8",
+          "symbol": "spu_stop_or_fade_seq_slot",
+          "signature": "u32 spu_stop_or_fade_seq_slot(s32 vab_slot, s32 seq_slot, s32 fade_ticks)",
+          "typedArraysUsed": [
+            "g_audio_spu_seq_vab_slots_play_value_1"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "seq_id"
+          },
+          "docstringSummary": "Immediately stops active sequence slot via SsSeqStop or triggers crescendo/decrescendo fade when fade_ticks > 0.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/audio_spu_vab/audio_spu_vab_02.c",
+      "lineCount": 286,
+      "codeSloc": 124,
+      "symbolCount": 16,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_02.c",
+          "address": "0x8002039c",
+          "symbol": "spu_set_seq_volume_safe",
+          "signature": "u32 spu_set_seq_volume_safe(s32 vab_slot, s32 seq_slot, s32 vol)",
+          "typedArraysUsed": [
+            "g_audio_spu_seq_vab_slots_play_value_1"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Sets sequence volume via SsSeqSetVol if slot is open and vol <= 0x7d.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_02.c",
+          "address": "0x80020414",
+          "symbol": "spu_stop_seq_slot",
+          "signature": "u32 spu_stop_seq_slot(s32 vab_slot, s32 seq_slot)",
+          "typedArraysUsed": [
+            "g_audio_spu_seq_vab_slots_play_value_1"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Stops an open sequence handle in g_audio_spu_seq_vab_slots_play_value_slot_volume via SsSeqStop and sets status g_audio_spu_seq_vab_slots_play_value_1 to -1.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_02.c",
+          "address": "0x8002047c",
+          "symbol": "spu_pause_seq_slot",
+          "signature": "u32 spu_pause_seq_slot(s32 vab_slot, s32 seq_slot)",
+          "typedArraysUsed": [
+            "g_audio_spu_seq_vab_slots_play_value_1"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Pauses playing sequence handle via SsSeqPause and updates slot status g_audio_spu_seq_vab_slots_play_value_1 to 1.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_02.c",
+          "address": "0x800204e0",
+          "symbol": "spu_resume_seq_slot",
+          "signature": "u32 spu_resume_seq_slot(s32 vab_slot, s32 seq_slot)",
+          "typedArraysUsed": [
+            "g_audio_spu_seq_vab_slots_play_value_1"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Resumes paused sequence handle via SsSeqReplay and restores slot status g_audio_spu_seq_vab_slots_play_value_1 to 0.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_02.c",
+          "address": "0x80020540",
+          "symbol": "spu_set_reserved_voices",
+          "signature": "u32 spu_set_reserved_voices(s8 voice_count)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "SsSetReservedVoice_2": "reserved"
+          },
+          "docstringSummary": "Calls SsSetReservedVoice(voice_count) and returns 0 on success or -1 if negative.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_02.c",
+          "address": "0x80020570",
+          "symbol": "spu_trigger_sfx_preset",
+          "signature": "s32 spu_trigger_sfx_preset(s16 vab_id, s32 sfx_idx, s16 vol_l, s16 vol_r)",
+          "typedArraysUsed": [
+            "g_audio_spu_trigger_sfx_preset_voice_count_1",
+            "g_audio_spu_trigger_sfx_preset_voice_count_2",
+            "g_audio_spu_trigger_sfx_preset_voice_count_3",
+            "g_audio_spu_trigger_sfx_preset_voice_count_4"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Loads tone/note/pan parameters from SFX table g_audio_spu_trigger_sfx_preset_voice_count_1[0] (stride 0xe) and triggers playback via SsUtKeyOn/SsUtSetVVol.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_02.c",
+          "address": "0x8002066c",
+          "symbol": "spu_trigger_sfx_on_voice",
+          "signature": "u32 spu_trigger_sfx_on_voice(u32 vab_id, s32 sfx_idx, u32 vol_l, u32 vol_r, u32 pitch_mod, s32 voice_id)",
+          "typedArraysUsed": [
+            "g_audio_spu_trigger_sfx_preset_voice_count_1",
+            "g_audio_spu_trigger_sfx_preset_voice_count_2",
+            "g_audio_spu_trigger_sfx_preset_voice_count_3",
+            "g_audio_spu_trigger_sfx_preset_voice_count_4",
+            "g_audio_spu_trigger_sfx_voice_value_1",
+            "g_audio_spu_trigger_sfx_voice_value_2",
+            "g_audio_spu_trigger_sfx_voice_value_3",
+            "g_audio_spu_trigger_sfx_voice_value_4",
+            "g_audio_spu_trigger_sfx_voice_value_5"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "voice_id_2": "slot_word_off"
+          },
+          "docstringSummary": "Reads tone preset from g_audio_spu_trigger_sfx_preset_voice_count_1[0] and triggers playback explicitly on hardware voice voice_id via SsUtKeyOnV.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_02.c",
+          "address": "0x80020768",
+          "symbol": "spu_key_off_vab_prog",
+          "signature": "u32 spu_key_off_vab_prog(s32 vab_id, s32 prog_id, s32 pitch)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Calls PS1 SDK SsVoKeyOff for packed (vab_id << 8 | prog_id) and pitch, returning 0.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_02.c",
+          "address": "0x80020790",
+          "symbol": "spu_stop_voice_channel",
+          "signature": "u32 spu_stop_voice_channel(s16 voice_id)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "carry_word": "key_off_rc"
+          },
+          "docstringSummary": "Mutes SPU hardware voice via SsUtSetVVol(voice_id, 0, 0) and releases key via SsUtKeyOffV.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_02.c",
+          "address": "0x800207e4",
+          "symbol": "spu_set_voice_volume",
+          "signature": "u32 spu_set_voice_volume(s16 voice_id, s16 vol_l, s16 vol_r)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Sets left/right SPU voice volume via SsUtSetVVol and returns 0.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_02.c",
+          "address": "0x80020900",
+          "symbol": "spu_set_reverb_type_muted",
+          "signature": "s16 spu_set_reverb_type_muted(s16 reverb_type)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "SsUtSetReverbType_2": "prev_type"
+          },
+          "docstringSummary": "Selects SPU reverb algorithm via SsUtSetReverbType and zeroes depth via SsUtSetReverbDepth(0, 0).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_02.c",
+          "address": "0x8002093c",
+          "symbol": "spu_set_reverb_depth_uniform",
+          "signature": "void spu_set_reverb_depth_uniform(s16 depth)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Sets symmetric left/right SPU reverb depth via SsUtSetReverbDepth(depth, depth).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_02.c",
+          "address": "0x80020964",
+          "symbol": "spu_set_reverb_vol_uniform",
+          "signature": "void spu_set_reverb_vol_uniform(s16 vol)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Sets symmetric left/right SPU reverb return volume via SsSetRVol(vol, vol).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_02.c",
+          "address": "0x8002098c",
+          "symbol": "spu_set_reverb_feedback",
+          "signature": "void spu_set_reverb_feedback(s16 feedback)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Configures SPU reverb feedback level via SsUtSetReverbFeedback.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_02.c",
+          "address": "0x800209b0",
+          "symbol": "spu_set_reverb_delay",
+          "signature": "void spu_set_reverb_delay(s16 delay)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Configures SPU reverb delay time via SsUtSetReverbDelay.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_02.c",
+          "address": "0x80020e38",
+          "symbol": "spu_get_active_vab_slot",
+          "signature": "u32 spu_get_active_vab_slot(void)",
+          "typedArraysUsed": [
+            "g_audio_spu_seq_vab_slots_enqueue_value_slot_slot"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Returns currently active VAB queue entry from g_audio_spu_seq_vab_slots_enqueue_value_slot_slot[g_audio_spu_seq_vab_slots_free_state_active_slot].",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/audio_spu_vab/audio_spu_vab_03.c",
+      "lineCount": 242,
+      "codeSloc": 96,
+      "symbolCount": 14,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_03.c",
+          "address": "0x80021484",
+          "symbol": "spu_check_voice_active",
+          "signature": "u32 spu_check_voice_active(s32 voice_id)",
+          "typedArraysUsed": [
+            "g_audio_spu_seq_vab_slots_trigger_value_1",
+            "g_audio_spu_seq_vab_slots_trigger_value_voice_voice"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "caller_slot": "key_status"
+          },
+          "docstringSummary": "Queries SpuGetAllKeysStatus and resets/keys off voice_id slot in g_audio_spu_seq_vab_slots_trigger_value_voice_voice/g_audio_spu_seq_vab_slots_trigger_value_1 if stopped.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_03.c",
+          "address": "0x800215ec",
+          "symbol": "spu_set_stream_sector_params",
+          "signature": "void spu_set_stream_sector_params(u32 bank_id, u32 afile_id, u32 sector_offset)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Stores pending CD-to-SPU stream bank, AFILE ID, and offset into g_audio_spu_stream_sector_params_start_state..7c0.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_03.c",
+          "address": "0x80021604",
+          "symbol": "spu_start_stream_transfer",
+          "signature": "void spu_start_stream_transfer(u32 dst_buf)",
+          "typedArraysUsed": [
+            "g_audio_spu_tick_vab_async_prepare_table"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Initializes SPU stream transfer destination g_audio_spu_start_stream_transfer_tick_state_2, byte size g_audio_spu_start_stream_transfer_tick_cfg from g_audio_spu_tick_vab_async_prepare_table, and sector count g_audio_spu_start_stream_transfer_tick_state_dma_chunk.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_03.c",
+          "address": "0x800217b0",
+          "symbol": "spu_find_free_voice_by_prio",
+          "signature": "s32 spu_find_free_voice_by_prio(s32 min_prio, s32 min_voice, s32 max_voice, s32 key_status)",
+          "typedArraysUsed": [
+            "g_audio_trigger_spu_voice_find_table"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Scans voice priority table g_audio_trigger_spu_voice_find_table across [min_voice..max_voice] for an off voice matching priority threshold.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_03.c",
+          "address": "0x80021820",
+          "symbol": "spu_alloc_oldest_voice_slot",
+          "signature": "s32 spu_alloc_oldest_voice_slot(s32 min_voice, s32 max_voice)",
+          "typedArraysUsed": [
+            "g_audio_spu_seq_vab_slots_trigger_value_1",
+            "g_audio_spu_seq_vab_slots_trigger_value_voice_voice"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "i": "voice_i",
+            "work_acc": "state_rank",
+            "j": "oldest_tick",
+            "work_acc_2": "best_voice"
+          },
+          "docstringSummary": "Scans g_audio_spu_seq_vab_slots_trigger_value_voice_voice/g_audio_spu_seq_vab_slots_trigger_value_1 across [min_voice..max_voice] to select the best free or oldest SPU voice.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_03.c",
+          "address": "0x800276d4",
+          "symbol": "spu_sdk_init_sound_system",
+          "signature": "void spu_sdk_init_sound_system(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK wrapper calling ResetCallback, SsUtReverbOff, SpuClearReverbWorkArea(7), and _SsInit.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_03.c",
+          "address": "0x80029354",
+          "symbol": "spu_sdk_set_reverb_type_stub",
+          "signature": "void spu_sdk_set_reverb_type_stub(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Mid-function PS1 SDK NRPN jump-table fragment inside _SsSetNrpnVabAttr reading caller frame byte 0x48($sp) in SLUS_011.15; passes 0 to SsUtSetReverbType in standalone C.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_03.c",
+          "address": "0x800293b4",
+          "symbol": "spu_sdk_set_reverb_fb_stub",
+          "signature": "void spu_sdk_set_reverb_fb_stub(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Mid-function PS1 SDK NRPN jump-table fragment inside _SsSetNrpnVabAttr reading caller frame byte 0x48($sp) in SLUS_011.15; passes 0 to SsUtSetReverbFeedback in standalone C.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_03.c",
+          "address": "0x800293e4",
+          "symbol": "spu_sdk_set_reverb_delay_stub1",
+          "signature": "void spu_sdk_set_reverb_delay_stub1(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Mid-function PS1 SDK NRPN jump-table fragment inside _SsSetNrpnVabAttr reading caller frame byte 0x48($sp) in SLUS_011.15; passes 0 to SsUtSetReverbDelay in standalone C.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_03.c",
+          "address": "0x80029414",
+          "symbol": "spu_sdk_set_reverb_delay_stub2",
+          "signature": "void spu_sdk_set_reverb_delay_stub2(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Mid-function PS1 SDK NRPN jump-table fragment inside _SsSetNrpnVabAttr reading caller frame byte 0x48($sp) in SLUS_011.15; passes 0 to SsUtSetReverbDelay in standalone C.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_03.c",
+          "address": "0x8002e054",
+          "symbol": "spu_sdk_disable_reverb",
+          "signature": "void spu_sdk_disable_reverb(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK SPU wrapper calling SpuSetReverb(0) to disable hardware reverb.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_03.c",
+          "address": "0x8002e074",
+          "symbol": "spu_sdk_enable_reverb",
+          "signature": "void spu_sdk_enable_reverb(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK SPU wrapper calling SpuSetReverb(1) to enable hardware reverb.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_03.c",
+          "address": "0x8002e734",
+          "symbol": "spu_sdk_clear_irq_flag",
+          "signature": "void spu_sdk_clear_irq_flag(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK SPU wrapper clearing SPU transfer state global g_sdk_ss_vm_allocate_spu_irq_state to 0.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_03.c",
+          "address": "0x8002e744",
+          "symbol": "spu_sdk_set_irq_flag_two",
+          "signature": "void spu_sdk_set_irq_flag_two(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK SPU wrapper setting SPU transfer state global g_sdk_ss_vm_allocate_spu_irq_state to 2.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/audio_spu_vab/audio_spu_vab_04.c",
+      "lineCount": 250,
+      "codeSloc": 98,
+      "symbolCount": 14,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_04.c",
+          "address": "0x8002ec24",
+          "symbol": "spu_sdk_set_voice_pair_ca",
+          "signature": "void spu_sdk_set_voice_pair_ca(u32 addr, u32 mask)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK SPU internal helper forwarding parameters to _SpuSetAnyVoice with registers 0xca/0xcb.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_04.c",
+          "address": "0x8002ef14",
+          "symbol": "spu_sdk_get_voice_pair_ca",
+          "signature": "void spu_sdk_get_voice_pair_ca(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK SPU internal helper querying _SpuGetAnyVoice on registers 0xca/0xcb.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_04.c",
+          "address": "0x8002ef74",
+          "symbol": "spu_sdk_set_voice_pair_cc",
+          "signature": "void spu_sdk_set_voice_pair_cc(u32 addr, u32 mask)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK SPU internal helper forwarding parameters to _SpuSetAnyVoice with registers 0xcc/0xcd.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_04.c",
+          "address": "0x8002efa4",
+          "symbol": "spu_sdk_get_voice_pair_cc",
+          "signature": "void spu_sdk_get_voice_pair_cc(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK SPU internal helper querying _SpuGetAnyVoice on registers 0xcc/0xcd.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_04.c",
+          "address": "0x8002f564",
+          "symbol": "spu_sdk_set_wait_mode",
+          "signature": "void spu_sdk_set_wait_mode(s32 wait_flag)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK SPU helper setting g_sdk_spu_wait_mode_state to 1 when wait_flag != 1, else 0. VS_VH_OBJ_358, VS_VTBP_OBJ_DC",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_04.c",
+          "address": "0x8002f58c",
+          "symbol": "spu_sdk_is_wait_mode_enabled",
+          "signature": "bool spu_sdk_is_wait_mode_enabled(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK SPU helper returning true when SPU wait flag g_sdk_spu_wait_mode_state != 1.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_04.c",
+          "address": "0x80031ba4",
+          "symbol": "spu_sdk_set_mono",
+          "signature": "void spu_sdk_set_mono(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK SsSetMono implementation setting global audio mono flag g_audio_vm_noise_mask to 1.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_04.c",
+          "address": "0x80031bb4",
+          "symbol": "spu_sdk_set_stereo",
+          "signature": "void spu_sdk_set_stereo(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK SsSetStereo implementation clearing global audio mono flag g_audio_vm_noise_mask to 0.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_04.c",
+          "address": "0x8001fae8",
+          "symbol": "spu_key_off_default_voice",
+          "signature": "void spu_key_off_default_voice(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Calls spu_check_voice_active (spu_check_voice_active) to verify and stop idle hardware voice slot. ovl17_run_exit_transition, ovl17_run_race_finish_announce, ovl19_phase_exit_festival, hm_ovl19_chicken_sumo_loop, ovl19_phase_post_bout_result, ovl21_phase_exit_cleanup (+4 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_04.c",
+          "address": "0x8001fb10",
+          "symbol": "spu_stop_voice_23",
+          "signature": "u32 spu_stop_voice_23(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Mutes and keys off SPU channel 23 (0x17) via spu_stop_voice_channel and returns 0.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_04.c",
+          "address": "0x8001fb30",
+          "symbol": "hm_audio_set_spu_reverb",
+          "signature": "u32 hm_audio_set_spu_reverb(s16 reverb_type, s16 depth_l, s16 depth_r, s16 flags)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "rev_depth"
+          },
+          "docstringSummary": "Configures SPU hardware reverb type and stereo depth via SsUtSetReverbType/Depth hm_ovl19_chicken_sumo_init, hm_ovl21_horse_race_init, hm_ovl23_dog_race_init, hm_ovl25_tomato_fest_init, hm_ovl27_title_intro_loop (+2 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_04.c",
+          "address": "0x8001fbbc",
+          "symbol": "spu_stop_bgm_seq",
+          "signature": "u32 spu_stop_bgm_seq(s16 vab_slot)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Stops sequence slot 0 for vab_slot via spu_stop_seq_slot and returns 0. p11_animl_fade_and_swap_bgm, p11_evt_fade_and_stop_bgm, ovl17_run_exit_transition, ovl19_phase_exit_festival, ovl21_phase_exit_cleanup (+6 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_04.c",
+          "address": "0x8001fbf0",
+          "symbol": "hm_audio_play_bgm_seq",
+          "signature": "void hm_audio_play_bgm_seq(s16 seq_id)",
+          "typedArraysUsed": [
+            "g_audio_play_bgm_seq_table"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "seq_id_2": "track_id"
+          },
+          "docstringSummary": "Stops active BGM keys and starts playback of requested SEQ music track p11_ovl_reset_scene_and_area_state, ovl17_init_festival_audio, ovl19_init_festival_audio, ovl21_setup_festival_bgm, ovl23_setup_race_bgm, ovl25_start_festival_bgm (+5 more) spu_enqueue_vab_slot_with_arg, SsUtAllKeyOff",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_04.c",
+          "address": "0x8001fea4",
+          "symbol": "spu_init_audio_driver",
+          "signature": "void spu_init_audio_driver(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Initializes PS1 SDK SPU/SEQ tables (6x1 at g_cd_spu_driver_value_2), tick mode 1, reserves 22 voices, and resets audio state. spu_sdk_init_sound_system, SsSetSerialAttr, SsSetSerialVol, SsSetTableSize, SsSetTickMode (+2 more)",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/audio_spu_vab/audio_spu_vab_05.c",
+      "lineCount": 254,
+      "codeSloc": 164,
+      "symbolCount": 8,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_05.c",
+          "address": "0x80020818",
+          "symbol": "hm_audio_init_spu_seq_system",
+          "signature": "u32 hm_audio_init_spu_seq_system(void)",
+          "typedArraysUsed": [
+            "g_audio_spu_seq_vab_slots_system_value_1",
+            "g_audio_spu_seq_vab_slots_system_value_free_tick"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "SsSeqOpen_2": "seq_id",
+            "carry_word": "slot_i"
+          },
+          "docstringSummary": "Initializes PS1 SPU/SEQ subsystem via SsStart and opens VAB/SEQ slots p11_ovl_finalize_area_transition_load, hm_ovl17_swim_race_init, hm_ovl19_chicken_sumo_init, hm_ovl21_horse_race_init, hm_ovl23_dog_race_init (+7 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_05.c",
+          "address": "0x800209d4",
+          "symbol": "spu_enable_reverb_wrap",
+          "signature": "void spu_enable_reverb_wrap(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Wrapper enabling SPU hardware reverb via spu_sdk_enable_reverb.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_05.c",
+          "address": "0x800209f4",
+          "symbol": "spu_disable_reverb_wrap",
+          "signature": "void spu_disable_reverb_wrap(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Wrapper disabling SPU hardware reverb via spu_sdk_disable_reverb.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_05.c",
+          "address": "0x80020a14",
+          "symbol": "spu_set_mono_mode",
+          "signature": "void spu_set_mono_mode(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Enables mono output via spu_sdk_set_mono, clears stereo flag g_audio_spu_driver_seq_mono_state, and calls cd_xa_sync_noop.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_05.c",
+          "address": "0x80020a40",
+          "symbol": "spu_set_stereo_mode",
+          "signature": "void spu_set_stereo_mode(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Enables stereo output via spu_sdk_set_stereo, sets g_audio_spu_driver_seq_mono_state=1, and calls cd_xa_sync_noop.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_05.c",
+          "address": "0x80020a94",
+          "symbol": "spu_shutdown_audio",
+          "signature": "u32 spu_shutdown_audio(void)",
+          "typedArraysUsed": [
+            "g_audio_spu_seq_vab_slots_shutdown_value"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "seq_slot": "slot_i"
+          },
+          "docstringSummary": "Mutes master volume (SsSetMVol), stops all sequence slots across all VABs, and frees sound bank slots.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_05.c",
+          "address": "0x80020b80",
+          "symbol": "hm_audio_free_vab_and_seq",
+          "signature": "u32 hm_audio_free_vab_and_seq(s32 vab_id, s32 seq_slot)",
+          "typedArraysUsed": [
+            "g_audio_free_vab_seq_spu_table",
+            "g_audio_spu_seq_vab_slots_enqueue_value_1",
+            "g_audio_spu_seq_vab_slots_enqueue_value_slot_arg",
+            "g_audio_spu_seq_vab_slots_enqueue_value_slot_slot",
+            "g_audio_spu_seq_vab_slots_free_value_1",
+            "g_audio_spu_seq_vab_slots_free_value_2",
+            "g_audio_spu_seq_vab_slots_free_value_tick_async",
+            "g_audio_spu_seq_vab_slots_play_value_1",
+            "g_audio_spu_seq_vab_slots_play_value_slot_free",
+            "g_audio_spu_seq_vab_slots_shutdown_value",
+            "g_audio_spu_seq_vab_slots_system_value_1",
+            "g_audio_spu_seq_vab_slots_system_value_free_tick"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "vab_addr",
+            "i": "slot_i"
+          },
+          "docstringSummary": "Closes active SEQ sequence and releases loaded VAB sound bank memory ovl17_init_festival_audio, ovl19_phase_exit_festival, ovl19_init_festival_audio, ovl21_phase_exit_cleanup, ovl21_setup_festival_bgm (+10 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_05.c",
+          "address": "0x800212a8",
+          "symbol": "hm_audio_trigger_spu_voice",
+          "signature": "s32 hm_audio_trigger_spu_voice(s32 sfx_id, u32 vol_l, u32 vol_r)",
+          "typedArraysUsed": [
+            "g_audio_spu_seq_vab_slots_trigger_value_1",
+            "g_audio_spu_seq_vab_slots_trigger_value_voice_voice",
+            "g_audio_spu_trigger_sfx_preset_voice_count_1",
+            "g_audio_spu_trigger_sfx_preset_voice_count_2",
+            "g_audio_spu_trigger_sfx_preset_voice_count_3",
+            "g_audio_spu_trigger_sfx_preset_voice_count_4",
+            "g_audio_trigger_spu_voice_count_1",
+            "g_audio_trigger_spu_voice_count_2",
+            "g_audio_trigger_spu_voice_find_table",
+            "g_audio_trigger_spu_voice_value"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "vabId": "vab_id",
+            "by_prio": "voice_id",
+            "VSync_2": "vsync_now",
+            "prng_next": "right_vol",
+            "volr": "left_vol",
+            "voll": "note",
+            "note": "key_status",
+            "caller_slot": "prio_tick",
+            "VSync_3": "preset_off"
+          },
+          "docstringSummary": "Allocates free SPU hardware channel via SpuGetAllKeysStatus and triggers SsUtKeyOnV SpuGetAllKeysStatus, SsUtKeyOnV, VSync",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/audio_spu_vab/audio_spu_vab_06.c",
+      "lineCount": 329,
+      "codeSloc": 231,
+      "symbolCount": 8,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_06.c",
+          "address": "0x80021b90",
+          "symbol": "hm_audio_start_cd_xa_stream",
+          "signature": "void hm_audio_start_cd_xa_stream(s32 xa_track)",
+          "typedArraysUsed": [
+            "g_cd_start_xa_stream_count",
+            "g_cd_start_xa_stream_value_1",
+            "g_cd_xa_channel_table"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "chan_val",
+            "flag_get": "cd_ok",
+            "CdControlB_2": "cd_mode",
+            "frame_slot": "xa_filter"
+          },
+          "docstringSummary": "Configures CD-ROM XA audio filtering and begins streaming XA music channel p11_animl_tick_cutscene_fx_slots, p11_evt_control_xa_audio_stream, p11_ui_start_cooking_dish_sequence, hm_ovl30_flag_browser_loop CdControlB",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_06.c",
+          "address": "0x8001fabc",
+          "symbol": "hm_audio_play_sfx",
+          "signature": "u32 hm_audio_play_sfx(s16 sfx_id)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Triggers resident sound effect sfx_id with default stereo volume via SPU voice dispatcher p11_field_use_fishing_rod_or_lure, hm_ovl11_execute_player_action, p11_field_finish_pickup_or_start_eat, p11_field_start_eat_held_item, p11_field_release_charged_tool_swing, p11_field_tick_player_action_substate (+128 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_06.c",
+          "address": "0x8001fe7c",
+          "symbol": "spu_enable_stereo_and_xa",
+          "signature": "void spu_enable_stereo_and_xa(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Selects stereo audio output via spu_set_stereo_mode and locates XA streams via cd_locate_xa_streams.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_06.c",
+          "address": "0x800200e8",
+          "symbol": "spu_reopen_vab_header_slot",
+          "signature": "u32 spu_reopen_vab_header_slot(u32 vh_addr, u32 vb_addr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Stops active audio if needed via spu_shutdown_audio, sets g_audio_spu_open_vab_header_reopen_state_slot_free=0x1010, and records new VH/VB buffers.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_06.c",
+          "address": "0x800214fc",
+          "symbol": "spu_prepare_vab_transfer_bank",
+          "signature": "u32 spu_prepare_vab_transfer_bank(s16 vab_cmd)",
+          "typedArraysUsed": [
+            "g_audio_spu_seq_vab_slots_enqueue_value_slot_arg",
+            "g_audio_spu_seq_vab_slots_enqueue_value_slot_slot",
+            "g_audio_spu_tick_vab_async_prepare_table"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Resolves VAB bank table offsets in g_audio_spu_tick_vab_async_prepare_table and queues AFILE load state in g_audio_spu_driver_tick_prepare_state..554.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_06.c",
+          "address": "0x80021668",
+          "symbol": "spu_tick_stream_dma_chunk",
+          "signature": "u32 spu_tick_stream_dma_chunk(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "SsVabTransCompleted_2": "async_done"
+          },
+          "docstringSummary": "Advances asynchronous CD-to-SPU DMA stream transfer across 0x800-byte/sector chunks using hm_cd_enqueue_async_read and SpuWrite.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_06.c",
+          "address": "0x80020e58",
+          "symbol": "spu_tick_vab_async_loader",
+          "signature": "u32 spu_tick_vab_async_loader(void)",
+          "typedArraysUsed": [
+            "g_audio_free_vab_seq_spu_table",
+            "g_audio_spu_seq_vab_slots_enqueue_value_1",
+            "g_audio_spu_seq_vab_slots_enqueue_value_slot_slot",
+            "g_audio_spu_seq_vab_slots_free_value_1",
+            "g_audio_spu_seq_vab_slots_free_value_2",
+            "g_audio_spu_seq_vab_slots_free_value_tick_async",
+            "g_audio_spu_seq_vab_slots_shutdown_value",
+            "g_audio_spu_seq_vab_slots_system_value_1",
+            "g_audio_spu_seq_vab_slots_system_value_free_tick",
+            "g_audio_spu_tick_vab_async_prepare_table"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "SsVabOpenHead_2": "vab_id",
+            "carry_word": "active_idx",
+            "async_read": "slot_id",
+            "work_acc": "arg_slot_idx",
+            "slot_tick": "hdr_buf"
+          },
+          "docstringSummary": "State machine (g_audio_spu_driver_tick_prepare_state cases 0..10) driving queued VAB header/body CD reads and SsVabOpenHead/TransBody. spu_start_stream_transfer, spu_tick_stream_dma_chunk, SsVabOpenHead, SsVabTransCompleted, memcpy",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/audio_spu_vab/audio_spu_vab_06.c",
+          "address": "0x8001fd10",
+          "symbol": "hm_audio_tick_seq_fade",
+          "signature": "u32 hm_audio_tick_seq_fade(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Updates active BGM volume envelope fade curves once per frame p11_ovl_finalize_area_transition_load, hm_ovl27_title_intro_loop, hm_ovl28_credits_ending_loop, hm_frame_sync_and_poll",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/cd_afile_overlays/cd_afile_overlays_01.c",
+      "lineCount": 229,
+      "codeSloc": 86,
+      "symbolCount": 14,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_01.c",
+          "address": "0x80014554",
+          "symbol": "hm_cd_read_named_file",
+          "signature": "u32 hm_cd_read_named_file(char *filename, u32 *dst_buf)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "CdReadSync_2": "file_info"
+          },
+          "docstringSummary": "Resolves ISO9660 path via CdSearchFile and streams file sectors synchronously into dst_buf",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_01.c",
+          "address": "0x80014748",
+          "symbol": "hm_cd_init_afile_system",
+          "signature": "u32 hm_cd_init_afile_system(s32 load_toc)",
+          "typedArraysUsed": [
+            "g_cd_afile_toc_head"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Initializes CD subsystem callbacks and reads master A_FILE.BIN index table into RAM",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_01.c",
+          "address": "0x800218bc",
+          "symbol": "cd_xa_sync_noop",
+          "signature": "void cd_xa_sync_noop(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "No-op XA CD audio synchronization stub.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_01.c",
+          "address": "0x800218c4",
+          "symbol": "cd_locate_xa_streams",
+          "signature": "void cd_locate_xa_streams(void)",
+          "typedArraysUsed": [
+            "g_cd_locate_xa_streams_dat_ptr"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "cond_flag": "stream_idx"
+          },
+          "docstringSummary": "Resolves CD file positions for \\STR\\01.XA;1 through \\STR\\04.XA;1 via CdSearchFile into g_cd_locate_xa_streams_start_table[0].",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_01.c",
+          "address": "0x80021b20",
+          "symbol": "cd_stop_xa_stream",
+          "signature": "void cd_stop_xa_stream(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Mutes CD serial audio via SsSetSerialVol and sends CdControl pause command when g_cd_xa_stream_active is active.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_01.c",
+          "address": "0x80021cd8",
+          "symbol": "cd_send_xa_seek_cmd",
+          "signature": "u32 cd_send_xa_seek_cmd(u8 cd_cmd)",
+          "typedArraysUsed": [
+            "g_cd_xa_channel_table"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "CdControl_2": "cmd_ok",
+            "work_word": "seek_rc"
+          },
+          "docstringSummary": "Loads XA sector params from g_cd_xa_channel_table[0], converts LBA g_cd_xa_target_lba via CdIntToPos, and issues CdControl(cd_cmd).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_01.c",
+          "address": "0x80035a14",
+          "symbol": "cd_sdk_get_last_cmd",
+          "signature": "u8 cd_sdk_get_last_cmd(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK CdLastCom accessor returning last CD command byte from g_cd_ctrl_ready_flag.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_01.c",
+          "address": "0x80035a24",
+          "symbol": "cd_sdk_flush",
+          "signature": "void cd_sdk_flush(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK CdFlush wrapper invoking internal CD_flush(). hm_audio_start_cd_xa_stream, CDR_1_OBJ_378",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_01.c",
+          "address": "0x80035a44",
+          "symbol": "cd_sdk_sync",
+          "signature": "void cd_sdk_sync(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK CdSync wrapper invoking internal CD_sync(). hm_vram_queue_rect_upload, hm_afile_read_or_load_overlay, cd_tick_xa_stream",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_01.c",
+          "address": "0x800367c4",
+          "symbol": "cd_sdk_get_status_byte",
+          "signature": "u8 cd_sdk_get_status_byte(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK CD status byte getter returning g_sdk_control_f_b_const.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_01.c",
+          "address": "0x800367d4",
+          "symbol": "cd_sdk_get_last_pos_byte",
+          "signature": "u8 cd_sdk_get_last_pos_byte(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK CD position/status getter returning g_sdk_cw_cd_last_flag.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_01.c",
+          "address": "0x800367e4",
+          "symbol": "cd_sdk_get_result_buf",
+          "signature": "u8 *cd_sdk_get_result_buf(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK CD result buffer pointer getter returning &g_sdk_cw_result_value[0].",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_01.c",
+          "address": "0x800367f4",
+          "symbol": "cd_sdk_ready",
+          "signature": "void cd_sdk_ready(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK CdReady wrapper invoking internal CD_ready().",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_01.c",
+          "address": "0x80036814",
+          "symbol": "cd_sdk_set_sync_cb",
+          "signature": "u32 cd_sdk_set_sync_cb(u32 cb)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK CdSyncCallback setter swapping callback pointer in g_cd_sync_callback. CDR_1_OBJ_7F0",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/cd_afile_overlays/cd_afile_overlays_02.c",
+      "lineCount": 292,
+      "codeSloc": 191,
+      "symbolCount": 9,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_02.c",
+          "address": "0x80036834",
+          "symbol": "cd_sdk_set_ready_cb",
+          "signature": "u32 cd_sdk_set_ready_cb(u32 cb)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK CdReadyCallback setter swapping callback pointer in g_cd_ready_callback.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_02.c",
+          "address": "0x80036974",
+          "symbol": "cd_sdk_get_sector2",
+          "signature": "bool cd_sdk_get_sector2(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK CdGetSector2 wrapper calling CD_getsector2() and returning true on success (0).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_02.c",
+          "address": "0x80036a84",
+          "symbol": "cd_sdk_set_dma_cb",
+          "signature": "void cd_sdk_set_dma_cb(u32 cb)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK wrapper registering CD-ROM DMA channel 3 callback via DMACallback(3, cb).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_02.c",
+          "address": "0x80036ab4",
+          "symbol": "cd_sdk_data_sync",
+          "signature": "void cd_sdk_data_sync(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK CdDataSync wrapper invoking internal CD_datasync().",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_02.c",
+          "address": "0x800145f0",
+          "symbol": "hm_afile_load_entry_sync",
+          "signature": "u32 hm_afile_load_entry_sync(s32 entry_idx, s32 sub_idx, u8 *dst_buf, u32 *size_out)",
+          "typedArraysUsed": [
+            "g_cd_afile_toc_head"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "CdControl_2": "cd_status",
+            "toc_head": "next_offset",
+            "toc_head_2": "entry_offset",
+            "frame_slot": "cd_mode"
+          },
+          "docstringSummary": "Looks up index in A_FILE.BIN TOC table, issues CdRead sectors, and blocks until completion (+1 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_02.c",
+          "address": "0x800147bc",
+          "symbol": "hm_cd_poll_async_queue",
+          "signature": "u32 hm_cd_poll_async_queue(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "entry_i",
+            "i": "bin_info"
+          },
+          "docstringSummary": "Advances pending CD async read queue and invokes completion handlers on CdSync done",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_02.c",
+          "address": "0x80014854",
+          "symbol": "hm_cd_get_afile_lba_size",
+          "signature": "u32 hm_cd_get_afile_lba_size(s32 entry_idx, s32 sub_idx, s32 mode)",
+          "typedArraysUsed": [
+            "g_cd_afile_toc_head"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "CdControl_2": "cd_ok",
+            "work_word": "queue_busy",
+            "toc_head": "start_sector",
+            "toc_head_2": "end_offset"
+          },
+          "docstringSummary": "Computes sector LBA and byte length for an A_FILE.BIN archive entry",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_02.c",
+          "address": "0x80014988",
+          "symbol": "hm_cd_enqueue_async_read",
+          "signature": "u32 hm_cd_enqueue_async_read(s16 slot, u32 mode_flags, s32 entry_idx, u32 *dst_buf, s32 callback)",
+          "typedArraysUsed": [
+            "g_cd_afile_toc_head"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "CdControl_2": "cd_rc",
+            "async_read": "read_state",
+            "frame_slot": "cd_mode"
+          },
+          "docstringSummary": "Enqueues an asynchronous A_FILE.BIN CD sector transfer into the resident CD job ring spu_tick_stream_dma_chunk CdReadBreak, CdRead (+1 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_02.c",
+          "address": "0x80014cbc",
+          "symbol": "hm_afile_read_or_load_overlay",
+          "signature": "u32 *hm_afile_read_or_load_overlay(s32 entry_idx, s32 sub_idx, s32 mode, u32 *dst_buf, s32 flags, s32 extra)",
+          "typedArraysUsed": [
+            "g_cd_afile_toc_head"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "CdReadSync_2": "sync_rc",
+            "toc_head": "entry_off"
+          },
+          "docstringSummary": "Loads an A_FILE.BIN archive entry or executable overlay part directly into target RAM p11_evt_load_current_cutscene_pack, p11_dlg_load_shop_item_icon_sheet, p11_dlg_upload_tv_or_menu_icon_sheet, p11_ui_open_farm_status_screen, p11_ui_load_town_map_season_pack, ovl15_diary_load_overlay_font_or_data (+32 more) CdControl, CdReadBreak, CdRead (+2 more)",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/cd_afile_overlays/cd_afile_overlays_03.c",
+      "lineCount": 115,
+      "codeSloc": 90,
+      "symbolCount": 1,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/cd_afile_overlays/cd_afile_overlays_03.c",
+          "address": "0x80014b44",
+          "symbol": "hm_cd_is_queue_busy",
+          "signature": "u32 hm_cd_is_queue_busy(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "CdReadSync_2": "sync_rc",
+            "work_word": "queue_done"
+          },
+          "docstringSummary": "Returns non-zero while resident CD async read queue has active or pending transfers",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/core_mainloop/core_mainloop_01.c",
+      "lineCount": 276,
+      "codeSloc": 89,
+      "symbolCount": 16,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/core_mainloop/core_mainloop_01.c",
+          "address": "0x80011278",
+          "symbol": "hm_crt0_start",
+          "signature": "void hm_crt0_start(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "CRT0 startup entry clearing BSS and branching into resident boot init and main loop",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_01.c",
+          "address": "0x80011334",
+          "symbol": "sys_run_vsync_cb_and_swap",
+          "signature": "void sys_run_vsync_cb_and_swap(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Invokes pending one-shot VSync callback g_core_engine_state.vsync_cb, clears it, then triggers post-swap handlers hm_cd_is_queue_busy and hm_gpu_swap_buffers_and_draw_ot.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_01.c",
+          "address": "0x80011ee8",
+          "symbol": "sys_noop_callback",
+          "signature": "u32 sys_noop_callback(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Empty void callback stub returning immediately for default VSync or event function pointer slots.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_01.c",
+          "address": "0x80011f2c",
+          "symbol": "sys_set_vsync_stride",
+          "signature": "void sys_set_vsync_stride(u8 stride)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Stores frame VSync interval stride byte into g_sys_vsync_stride to throttle frame pacing.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_01.c",
+          "address": "0x80011f38",
+          "symbol": "sys_get_vsync_stride",
+          "signature": "u8 sys_get_vsync_stride(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Returns current frame VSync interval stride byte from g_sys_vsync_stride. cd_tick_xa_stream",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_01.c",
+          "address": "0x80011f44",
+          "symbol": "sys_set_draw_enable",
+          "signature": "void sys_set_draw_enable(u32 enabled)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Sets display draw-enable flag g_sys_draw_enable controlling buffer swap and PutDispEnv/PutDrawEnv submission.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_01.c",
+          "address": "0x80011f50",
+          "symbol": "sys_set_frame_sync_flag",
+          "signature": "void sys_set_frame_sync_flag(u32 flag)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Updates frame synchronization control word g_sys_frame_sync_flag. sys_init_display_timing, hm_clear_pad_state",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_01.c",
+          "address": "0x8001205c",
+          "symbol": "sys_get_highram_free_bytes",
+          "signature": "s32 sys_get_highram_free_bytes(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Computes remaining high-RAM arena bytes between g_core_engine_state.prim_arena - 0x49000 and heap water-mark g_sys_highram_reserved_base. sys_get_highram_used_bytes",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_01.c",
+          "address": "0x800120bc",
+          "symbol": "sys_get_highram_arena_ptr",
+          "signature": "u32 sys_get_highram_arena_ptr(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Returns base address of active OT/sprite arena pointer stored in g_core_engine_state.prim_arena. hm_dialogue_reset_window_state",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_01.c",
+          "address": "0x800129e8",
+          "symbol": "hm_get_frame_tick",
+          "signature": "u32 hm_get_frame_tick(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Returns current monotonic frame tick counter incremented by frame sync loop hm_text_release_scratch_ctx, hm_sprite_init_0x0e_anim, gfx_sprite_lookup_part_idx",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_01.c",
+          "address": "0x800129f4",
+          "symbol": "sys_enable_video_output",
+          "signature": "void sys_enable_video_output(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Calls PS1 SDK SetDispMask(1) to unblank PlayStation video output.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_01.c",
+          "address": "0x80012a34",
+          "symbol": "hm_prng_next",
+          "signature": "u32 hm_prng_next(u32 mod_max)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Linear-congruential PRNG step advancing global seed and returning modulo-bounded value p11_core_respawn_weather_particle, p11_core_apply_typhoon_camera_jitter, p11_core_try_trigger_storm_damage, p11_core_step_daily_npc_affection, hm_ovl11_set_scene_prop_anim_state, p11_core_try_trigger_npc_greeting (+101 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_01.c",
+          "address": "0x80012cb4",
+          "symbol": "hm_clamp_int_ref",
+          "signature": "u32 hm_clamp_int_ref(s32 min_val, s32 *val_ptr, s32 max_val)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Checks whether min_val VSync(-1) ticks have elapsed since *val_ptr (updating *val_ptr on init or when max_val == 1). hm_text_render_glyph_stream",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_01.c",
+          "address": "0x80013438",
+          "symbol": "sys_set_sync_mode",
+          "signature": "void sys_set_sync_mode(u32 mode)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Stores frame sync/VSync mode parameter into global g_core_wait_vsync_sync_mode_state.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_01.c",
+          "address": "0x8001af44",
+          "symbol": "hm_event_flag_get",
+          "signature": "u32 hm_event_flag_get(u32 bit_idx)",
+          "typedArraysUsed": [
+            "g_hm_event_flags_bitset"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Tests bit index bit_idx inside global persistent game progress bitfield g_hm_event_flags_bitset p11_cd_load_area_scene_bundle, p11_core_resolve_daily_weather, hm_ovl11_advance_time_and_day, p11_core_update_calendar_event_flags, p11_core_update_hud_clock_visibility, p11_core_tick_npc_actor_ai (+73 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_01.c",
+          "address": "0x8001af70",
+          "symbol": "hm_event_flag_set",
+          "signature": "u32 hm_event_flag_set(u32 bit_idx, s16 value)",
+          "typedArraysUsed": [
+            "g_hm_event_flags_bitset"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Sets or clears bit index bit_idx inside persistent game progress bitfield g_hm_event_flags_bitset hm_ovl11_frame_render_and_sim, hm_ovl11_sync_upload_area_vram, p11_core_sync_weather_event_flags, p11_core_try_trigger_storm_damage, p11_core_reset_calendar_new_game, hm_ovl11_advance_time_and_day (+70 more)",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/core_mainloop/core_mainloop_02.c",
+      "lineCount": 269,
+      "codeSloc": 121,
+      "symbolCount": 14,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/core_mainloop/core_mainloop_02.c",
+          "address": "0x8001f250",
+          "symbol": "sys_int_pow",
+          "signature": "s32 sys_int_pow(s32 base, s32 exp)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "base_2": "result",
+            "work_acc": "result"
+          },
+          "docstringSummary": "Computes integer power base**exp via repeated multiplication (returning 1 when exp <= 0). hm_ovl11_tick_npc_ai_and_talk, hm_ovl11_update_shop_or_tv_menu, hm_ovl11_run_rucksack_pause_menu, p11_ui_has_ingredient_in_bag_or_fridge, p11_ui_draw_staged_ingredients_grid, p11_ui_draw_cooking_source_pocket (+4 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_02.c",
+          "address": "0x80021d64",
+          "symbol": "sys_debug_stub_noop",
+          "signature": "void sys_debug_stub_noop(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Empty resident stub returning immediately without side effects.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_02.c",
+          "address": "0x80021e60",
+          "symbol": "sys_init_locale_data_ptrs",
+          "signature": "void sys_init_locale_data_ptrs(s32 lang_mode)",
+          "typedArraysUsed": [
+            "g_farm_field_plot_slot"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Initializes global dialogue/text/font pointer slots and g_farm_field_plot_slot prop-group bases for the selected language mode.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_02.c",
+          "address": "0x80021fd0",
+          "symbol": "sys_clear_submode_stack",
+          "signature": "void sys_clear_submode_stack(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Resets global overlay/submode state fields g_core_ovl_stack_depth and g_core_minigame_state.phase_state to zero.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_02.c",
+          "address": "0x80026ea4",
+          "symbol": "sys_sdk_set_otc_dma_cb",
+          "signature": "void sys_sdk_set_otc_dma_cb(u32 cb)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK wrapper registering DMA channel 4 (GPU OTC) interrupt callback via DMACallback(4, cb).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_02.c",
+          "address": "0x80033814",
+          "symbol": "sys_sdk_set_video_mode",
+          "signature": "u32 sys_sdk_set_video_mode(u32 mode)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "mode_state": "prev_mode"
+          },
+          "docstringSummary": "PS1 SDK SetVideoMode implementation swapping video mode global g_cd_video_mode_state and returning previous value.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_02.c",
+          "address": "0x80033828",
+          "symbol": "sys_sdk_get_video_mode",
+          "signature": "u32 sys_sdk_get_video_mode(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK GetVideoMode implementation returning current NTSC/PAL flag g_cd_video_mode_state.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_02.c",
+          "address": "0x80041b7c",
+          "symbol": "sys_sdk_bios_b0_call",
+          "signature": "u32 sys_sdk_bios_b0_call(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PlayStation BIOS 0xB0 vector trampoline stub. CDR_1_OBJ_378",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_02.c",
+          "address": "0x800425dc",
+          "symbol": "sys_sdk_bios_a0_call",
+          "signature": "void sys_sdk_bios_a0_call(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PlayStation BIOS 0xA0 vector trampoline stub.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_02.c",
+          "address": "0x800426a4",
+          "symbol": "sys_sdk_enter_critical_section",
+          "signature": "void sys_sdk_enter_critical_section(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK EnterCriticalSection issuing BIOS syscall(0) to mask interrupts. _patch_card (+13 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_02.c",
+          "address": "0x800426b4",
+          "symbol": "sys_sdk_exit_critical_section",
+          "signature": "void sys_sdk_exit_critical_section(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK ExitCriticalSection issuing BIOS syscall(0) to restore interrupts. InitCARD, StartCARD (+11 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_02.c",
+          "address": "0x80011f5c",
+          "symbol": "hm_text_acquire_scratch_ctx",
+          "signature": "s32 hm_text_acquire_scratch_ctx(s32 size_bytes)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Allocates size_bytes from active display GsWORKBASE aux primitive pool with overflow sync wait. p11_ui_draw_cached_item_icon, hm_ovl28_credits_draw_gouraud_quad, gfx_alloc_tile1_prim, gfx_alloc_line_f2_prim, gfx_alloc_poly_g4_rect, gfx_alloc_poly_f4_rect (+15 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_02.c",
+          "address": "0x80011fd8",
+          "symbol": "hm_text_release_scratch_ctx",
+          "signature": "void hm_text_release_scratch_ctx(u32 workbase_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Commits active display GsWORKBASE aux primitive pool pointer after overflow sync wait. hm_ovl28_credits_draw_gouraud_quad, gfx_alloc_poly_f4_with_tpage, hm_sprite_submit_0x0e_quad, hm_sprite_submit_scaled_rot, gfx_sprite_submit_scaled_rot, gfx_sprite_submit_basic (+7 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_02.c",
+          "address": "0x80012098",
+          "symbol": "sys_get_highram_used_bytes",
+          "signature": "s32 sys_get_highram_used_bytes(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Computes used bytes in high-RAM arena by subtracting sys_get_highram_free_bytes from g_core_engine_state.prim_arena.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/core_mainloop/core_mainloop_03.c",
+      "lineCount": 244,
+      "codeSloc": 190,
+      "symbolCount": 4,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/core_mainloop/core_mainloop_03.c",
+          "address": "0x800120c8",
+          "symbol": "hm_apply_screen_brightness",
+          "signature": "void hm_apply_screen_brightness(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Applies current fade multiplier across GPU display RGB overlay state",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_03.c",
+          "address": "0x80012d30",
+          "symbol": "hm_wait_vsync_and_cd_sync",
+          "signature": "void hm_wait_vsync_and_cd_sync(void)",
+          "typedArraysUsed": [
+            "g_gfx_disp_ctx_buf0"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "glyph_timing": "next_step",
+            "pad_input": "cur_frames",
+            "work_word": "fade_alpha_byte",
+            "work_word_2": "raw_alpha",
+            "display_counter": "target_frames",
+            "status_flags": "alpha_level",
+            "work_acc": "fade_step"
+          },
+          "docstringSummary": "Waits for DrawSync, VSync, and pending CD async reads while pumping audio sequence state hm_poll_pad_input, sys_set_sync_mode, PutDispEnv",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_03.c",
+          "address": "0x80013328",
+          "symbol": "sys_init_display_timing",
+          "signature": "void sys_init_display_timing(s16 max_frames)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Initializes frame pacing globals g_core_wait_vsync_sync_debug_display_state_glyph_timing, g_core_wait_vsync_sync_debug_display_counter_1 (clamped <= 0x1f), g_core_wait_vsync_sync_display_state, and resets draw/sync flags. ovl17_fade_in_festival_phase, ovl19_phase_fade_in_arena, ovl21_phase_fade_out_start, ovl23_phase_fade_out_start, hm_ovl23_dog_race_loop, ovl25_phase_start_exit_fade",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_03.c",
+          "address": "0x8003ee94",
+          "symbol": "sys_sdk_patch_bios_table",
+          "signature": "void sys_sdk_patch_bios_table(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Enters critical section, patches BIOS vector entries from g_core_patch_bios_table_value_1, and flushes instruction/data cache via FlushCache.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/core_mainloop/core_mainloop_04.c",
+      "lineCount": 367,
+      "codeSloc": 330,
+      "symbolCount": 3,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/core_mainloop/core_mainloop_04.c",
+          "address": "0x80011370",
+          "symbol": "hm_main",
+          "signature": "void hm_main(void)",
+          "typedArraysUsed": [
+            "g_gfx_disp_ctx_buf0"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "DrawSync_2": "vsync_i"
+          },
+          "docstringSummary": "Resident engine entrypoint: initializes PS1 subsystems, loads A_FILE overlays, and drives main state loop hm_draw_clear_tile_rect, hm_memcard_reset_state, hm_memcard_init_subsystems, pad_set_repeat_timing (+32 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_04.c",
+          "address": "0x80011338",
+          "symbol": "hm_boot_init",
+          "signature": "void hm_boot_init(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Executes active VSync frame callback g_core_engine_state.vsync_cb and runs post-swap CD/GPU synchronization via hm_cd_is_queue_busy and hm_gpu_swap_buffers_and_draw_ot.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/core_mainloop/core_mainloop_04.c",
+          "address": "0x80011c24",
+          "symbol": "hm_frame_sync_and_poll",
+          "signature": "void hm_frame_sync_and_poll(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "DrawSync_2": "draw_busy",
+            "busy_flag": "is_ovl_busy"
+          },
+          "docstringSummary": "Per-frame tick barrier synchronizing VSync, controller pad polling, and CD async queue hm_wait_vsync_and_cd_sync, hm_clear_pad_state, hm_memcard_poll_status, gfx_get_overlay_busy_flag (+4 more)",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/core_mainloop/core_mainloop_05.c",
+      "lineCount": 45,
+      "codeSloc": 36,
+      "symbolCount": 1,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/core_mainloop/core_mainloop_05.c",
+          "address": "0x80012ab0",
+          "symbol": "hm_screen_align_tool",
+          "signature": "void hm_screen_align_tool(s16 x_off, s16 y_off)",
+          "typedArraysUsed": [
+            "g_gfx_disp_ctx_buf0"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Interactive screen centering alignment helper reading pad directions and updating DISPENV offsets",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/input_memcard/input_memcard_01.c",
+      "lineCount": 296,
+      "codeSloc": 177,
+      "symbolCount": 11,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/input_memcard/input_memcard_01.c",
+          "address": "0x80013394",
+          "symbol": "hm_poll_pad_input",
+          "signature": "bool hm_poll_pad_input(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Checks frame-sync mode and display vsync counter thresholds before controller polling p11_core_tick_npc_actor_ai, hm_ovl11_update_player_controller, p11_field_try_start_idle_yawn_emote, hm_ovl11_handle_area_door_warp, hm_ovl11_update_all_animals (+51 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/input_memcard/input_memcard_01.c",
+          "address": "0x80013aa4",
+          "symbol": "pad_set_repeat_timing",
+          "signature": "void pad_set_repeat_timing(u32 delay, u32 rate)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Reads controller button state globals g_core_engine_state.pad_p1/g_core_engine_state.pad_p2 for repeat configuration.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/input_memcard/input_memcard_01.c",
+          "address": "0x80013ac8",
+          "symbol": "pad_set_analog_config",
+          "signature": "void pad_set_analog_config(u32 port, u32 mode)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Reads controller globals g_core_engine_state.pad_p1/g_core_engine_state.pad_p2 during analog pad mode configuration stub.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/input_memcard/input_memcard_01.c",
+          "address": "0x80013af8",
+          "symbol": "pad_get_io_state",
+          "signature": "u32 pad_get_io_state(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Returns global pad/input enable state word g_io_pad_state_memcard_target_state.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/input_memcard/input_memcard_01.c",
+          "address": "0x80013f90",
+          "symbol": "pad_clear_slot_state",
+          "signature": "u32 pad_clear_slot_state(u32 *slot_ctx)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Zeros pad descriptor state fields at offsets 1..5 and 8..10 in the given slot structure.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/input_memcard/input_memcard_01.c",
+          "address": "0x80014064",
+          "symbol": "hm_pad_init_direct_and_actuators",
+          "signature": "void hm_pad_init_direct_and_actuators(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Initializes DualShock direct pad RX buffers via PadInitDirect, binds port actuators, and starts polling",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/input_memcard/input_memcard_01.c",
+          "address": "0x800140c8",
+          "symbol": "pad_align_actuator",
+          "signature": "s32 pad_align_actuator(s32 port_idx)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "PadGetState_2": "pad_state",
+            "PadSetActAlign_2": "align_rc",
+            "frame_slot": "port_ids"
+          },
+          "docstringSummary": "Checks PadGetState == 6 on port 0x00 or 0x10 and aligns DualShock actuators using table g_io_pad_align_actuator_value.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/input_memcard/input_memcard_01.c",
+          "address": "0x800142d8",
+          "symbol": "pad_calc_analog_magnitude",
+          "signature": "u32 pad_calc_analog_magnitude(u32 axis_x, u32 axis_y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "csqrt_2": "dx",
+            "work_word": "x_byte",
+            "work_word_2": "sq_dist",
+            "axis_y_2": "clamped_mag"
+          },
+          "docstringSummary": "Applies deadzone (0x5c..0xa4) around center 0x80 and computes analog stick magnitude via csqrt.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/input_memcard/input_memcard_01.c",
+          "address": "0x80014388",
+          "symbol": "pad_calc_analog_angle",
+          "signature": "s32 pad_calc_analog_angle(u32 axis_x, u32 axis_y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "abs_x",
+            "ratan2_2": "abs_y",
+            "x": "raw_angle",
+            "work_acc_2": "scaled_deg",
+            "axis_y_2": "deg_val",
+            "axis_x_2": "x_byte"
+          },
+          "docstringSummary": "Applies deadzone around 0x80 and computes quantized analog stick direction angle via ratan2.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/input_memcard/input_memcard_01.c",
+          "address": "0x80014494",
+          "symbol": "hm_memcard_set_target_slot",
+          "signature": "void hm_memcard_set_target_slot(char port, char slot, s32 file_idx)",
+          "typedArraysUsed": [
+            "g_io_memcard_target_slot_count",
+            "g_io_memcard_target_slot_flag",
+            "g_io_pad_actuator_p1"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "file_idx_2": "act_off"
+          },
+          "docstringSummary": "Selects active Memory Card port, slot, and save diary index for subsequent I/O",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/input_memcard/input_memcard_01.c",
+          "address": "0x8003eae4",
+          "symbol": "mc_sdk_init_card_and_bu",
+          "signature": "void mc_sdk_init_card_and_bu(s32 shared_flag)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK InitCard wrapper calling InitCARD(shared_flag), StartCARD(), and BIOS _bu_init().",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/input_memcard/input_memcard_02.c",
+      "lineCount": 196,
+      "codeSloc": 120,
+      "symbolCount": 7,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/input_memcard/input_memcard_02.c",
+          "address": "0x8003eb14",
+          "symbol": "mc_sdk_stop_card",
+          "signature": "void mc_sdk_stop_card(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK StopCard wrapper calling BIOS StopCARD().",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/input_memcard/input_memcard_02.c",
+          "address": "0x800134c4",
+          "symbol": "hm_clear_pad_state",
+          "signature": "void hm_clear_pad_state(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "ot_ctx": "disp_idx"
+          },
+          "docstringSummary": "Zeroes active controller edge/repeat state buffers to flush stale button presses",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/input_memcard/input_memcard_02.c",
+          "address": "0x800139fc",
+          "symbol": "hm_memcard_reset_state",
+          "signature": "void hm_memcard_reset_state(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Resets resident Memory Card state machine globals and clears pending card slot flags",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/input_memcard/input_memcard_02.c",
+          "address": "0x80013a24",
+          "symbol": "hm_memcard_init_subsystems",
+          "signature": "void hm_memcard_init_subsystems(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Initializes PS1 Memory Card driver and registers card polling status tables",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/input_memcard/input_memcard_02.c",
+          "address": "0x8001413c",
+          "symbol": "pad_get_analog_stick_x",
+          "signature": "u8 pad_get_analog_stick_x(s32 port)",
+          "typedArraysUsed": [
+            "g_io_memcard_dispatch_pad_analog_flag",
+            "g_io_pad_analog_stick_x_angle_flag_1",
+            "g_io_pad_analog_stick_x_angle_flag_2"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "port_2": "rx_off",
+            "status_flags": "pad_id_nibble"
+          },
+          "docstringSummary": "Reads DualShock stick axis byte from pad buffer g_io_memcard_dispatch_pad_analog_flag[0] (stride 0x22) and normalizes digital/analog deadzone.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/input_memcard/input_memcard_02.c",
+          "address": "0x80014250",
+          "symbol": "pad_get_analog_angle_state",
+          "signature": "u32 pad_get_analog_angle_state(s32 port)",
+          "typedArraysUsed": [
+            "g_io_memcard_dispatch_pad_analog_flag",
+            "g_io_pad_analog_stick_x_angle_flag_1",
+            "g_io_pad_analog_stick_x_angle_flag_2",
+            "g_io_pad_analog_stick_x_angle_flag_state"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "port_2": "rx_off"
+          },
+          "docstringSummary": "Returns -1 for non-DualShock pads or calls pad_calc_analog_magnitude on DualShock analog bytes in g_io_memcard_dispatch_pad_analog_flag[0].",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/input_memcard/input_memcard_02.c",
+          "address": "0x80013fc0",
+          "symbol": "hm_memcard_dispatch_io",
+          "signature": "u32 hm_memcard_dispatch_io(s32 op_code)",
+          "typedArraysUsed": [
+            "g_io_memcard_dispatch_flag",
+            "g_io_memcard_dispatch_pad_analog_flag",
+            "g_io_pad_raw_rx_p1"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "pad_id_nibble",
+            "carry_word": "rx_off"
+          },
+          "docstringSummary": "Dispatches async Memory Card read/write/create/delete commands by operation code",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/input_memcard/input_memcard_03.c",
+      "lineCount": 169,
+      "codeSloc": 144,
+      "symbolCount": 2,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/input_memcard/input_memcard_03.c",
+          "address": "0x80013cd0",
+          "symbol": "hm_memcard_scan_save_slots",
+          "signature": "u32 hm_memcard_scan_save_slots(u32 *out_mask, u8 card_slot)",
+          "typedArraysUsed": [
+            "g_ovl27_field_demo_input_playback_dispatch_state"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "status_flags": "demo_buttons",
+            "dispatch_io": "raw_pad",
+            "carry_word": "slot_idx",
+            "card_slot_2": "edge_mask",
+            "work_word": "remap_bits",
+            "work_acc": "held_mask"
+          },
+          "docstringSummary": "Scans Memory Card directory entries on card_slot and populates valid save slot mask hm_memcard_set_target_slot",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/input_memcard/input_memcard_03.c",
+          "address": "0x80013b04",
+          "symbol": "hm_memcard_poll_status",
+          "signature": "void hm_memcard_poll_status(void)",
+          "typedArraysUsed": [
+            "g_io_memcard_poll_status_value"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "cond_flag": "retry_port",
+            "PadGetState_2": "pad_state",
+            "align_actuator": "align_rc",
+            "port_idx_2": "port_ids"
+          },
+          "docstringSummary": "Polls Memory Card hardware insertion and completion events via MemCardSync PadInfoMode",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/render_gte_sprites/render_gte_sprites_01.c",
+      "lineCount": 265,
+      "codeSloc": 176,
+      "symbolCount": 8,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_01.c",
+          "address": "0x80011db0",
+          "symbol": "gfx_flush_display_and_ots",
+          "signature": "void gfx_flush_display_and_ots(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Applies DISPENV and DRAWENV on active display buffer when g_sys_draw_enable equals 1 and flushes ordering tables g_core_engine_state.clear_ot/g_core_engine_state.disp_ot_ctx.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_01.c",
+          "address": "0x800121d8",
+          "symbol": "gfx_clear_active_ot_ctx",
+          "signature": "void gfx_clear_active_ot_ctx(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "disp_ctx": "ot_idx"
+          },
+          "docstringSummary": "Clears the active display context's primary ordering table via ClearOTagR when its OT pointer is non-null.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_01.c",
+          "address": "0x80012598",
+          "symbol": "gfx_init_ot_buffers_large",
+          "signature": "void gfx_init_ot_buffers_large(void)",
+          "typedArraysUsed": [
+            "g_gfx_disp_ctx_buf0"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "buf_i",
+            "work_acc_2": "aux_off"
+          },
+          "docstringSummary": "Zeros 0x3ee50 bytes at g_gfx_highram_vram_arena and initializes double-buffered HmDisplayOtCtx OT/primitive pools at g_gfx_disp_ctx_buf0[0].",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_01.c",
+          "address": "0x800128dc",
+          "symbol": "gfx_copy_prim_backup_slot",
+          "signature": "void gfx_copy_prim_backup_slot(s32 slot, s32 use_full_stride)",
+          "typedArraysUsed": [
+            "g_gfx_disp_ctx_buf0"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "copy_bytes"
+          },
+          "docstringSummary": "Copies 0x10000 or active context primitive buffer bytes from g_cd_main_copy_value into backup buffer g_gfx_disp_ctx_buf0[0].prim_buf_end when slot is zero.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_01.c",
+          "address": "0x80012a14",
+          "symbol": "hm_enable_display_mask",
+          "signature": "void hm_enable_display_mask(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Enables live video output via PS1 GPU SetDispMask after initial frame buffer clear",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_01.c",
+          "address": "0x80012a68",
+          "symbol": "hm_draw_clear_tile_rect",
+          "signature": "void hm_draw_clear_tile_rect(s16 x, s16 y, s16 w, s16 h, u8 r, u8 g, u8 b)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Submits a flat colored TILE primitive into the active ordering table to clear a rectangle",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_01.c",
+          "address": "0x80013668",
+          "symbol": "gfx_reset_640x480_gpu_env",
+          "signature": "void gfx_reset_640x480_gpu_env(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Initializes and applies a 640x480 (0x280x0x1e0) DISPENV and DRAWENV at VRAM (0,0).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_01.c",
+          "address": "0x8001526c",
+          "symbol": "gfx_emit_tile1_prim",
+          "signature": "u32 *gfx_emit_tile1_prim(u32 *prim_buf, u32 *ot_entry, s16 x, s16 y, u32 rgb, s16 semi_trans)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Builds a 1x1 TILE_1 primitive (code 0x68/0x6a) at (x,y), links it into ot_entry, and returns the next buffer pointer.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/render_gte_sprites/render_gte_sprites_02.c",
+      "lineCount": 250,
+      "codeSloc": 156,
+      "symbolCount": 8,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_02.c",
+          "address": "0x8001530c",
+          "symbol": "gfx_emit_line_f2_prim",
+          "signature": "u32 *gfx_emit_line_f2_prim(u32 *prim_buf, u32 *ot_entry, s16 x0, s16 y0, s16 x1, s16 y1, u32 rgb, s16 semi_trans)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Builds a flat LINE_F2 primitive (code 0x40/0x42) between (x0,y0) and (x1,y1), links into ot_entry, and advances prim_buf.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_02.c",
+          "address": "0x800153bc",
+          "symbol": "gfx_emit_poly_g4_rect",
+          "signature": "u32 *gfx_emit_poly_g4_rect(u32 *prim_buf, u32 *ot_entry, s16 x, s16 y, s16 w, s16 h, u32 c0, u32 c1, u32 c2, u32 c3, s16 semi_trans)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Builds a 4-corner Gouraud POLY_G4 rectangle (code 0x38/0x3a) with per-vertex colors, links into ot_entry, and returns next prim pointer.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_02.c",
+          "address": "0x800154cc",
+          "symbol": "gfx_emit_poly_f4_rect",
+          "signature": "u32 *gfx_emit_poly_f4_rect(u32 *prim_buf, u32 *ot_entry, s16 x, s16 y, s16 w, s16 h, u32 rgb, s16 semi_trans)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Builds a flat-shaded POLY_F4 rectangle (code 0x28/0x2a) at (x,y,w,h), links into ot_entry, and advances prim_buf.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_02.c",
+          "address": "0x80015594",
+          "symbol": "gfx_emit_tile_rect_prim",
+          "signature": "u32 *gfx_emit_tile_rect_prim(u32 *prim_buf, u32 *ot_entry, s16 x, s16 y, s16 w, s16 h, u32 rgb, s16 semi_trans)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Builds a colored TILE primitive (code 0x60/0x62) of size (w,h) at (x,y), links into ot_entry, and advances prim_buf.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_02.c",
+          "address": "0x80015840",
+          "symbol": "hm_sprite_set_anim_state",
+          "signature": "u32 hm_sprite_set_anim_state(s32 slot_id, u8 anim_idx)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Assigns active animation sequence index on a 0x0E sprite descriptor slot p11_field_update_watercan_or_idle_anim, p11_field_update_tool_carry_move_anim, p11_field_update_walk_or_sprint_anim, p11_field_update_swim_or_idle_sprite_anim, p11_field_update_carry_or_mounted_sprite_anim, hm_ovl11_modify_player_stamina (+66 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_02.c",
+          "address": "0x80015880",
+          "symbol": "gfx_sprite_set_header_and_ctx",
+          "signature": "void gfx_sprite_set_header_and_ctx(HmSpriteActor *actor, HmLzSpriteHeader *spr_hdr, u32 user_ctx)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Assigns compressed sprite header pointer spr_hdr and user context word user_ctx on HmSpriteActor.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_02.c",
+          "address": "0x800158e4",
+          "symbol": "hm_sprite_step_0x0e_frame",
+          "signature": "void hm_sprite_step_0x0e_frame(HmSpriteActor *anim_data)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "anim_flags_2": "cleared_flags",
+            "work_acc": "next_timer",
+            "status_flags": "max_ticks",
+            "work_word": "ctrl_byte"
+          },
+          "docstringSummary": "Advances frame timer and loops or clamps keyframe cursor for a 0x0E sprite descriptor p11_field_render_and_step_particle_slot, hm_ovl11_spawn_soil_splash_fx, p11_field_render_animal_actor_sprite, p11_field_render_npc_or_livestock_mesh, p11_npc_step_cutscene_actor_sprite, p11_evt_draw_and_step_cutscene_prop (+5 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_02.c",
+          "address": "0x80015aac",
+          "symbol": "gfx_sprite_lookup_cel_id",
+          "signature": "u16 gfx_sprite_lookup_cel_id(s32 sprite_sheet, u32 anim_id, u32 frame_idx)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "cel_idx"
+          },
+          "docstringSummary": "Indexes sprite sheet tables at +0x28 and +0x2c by anim_id and frame_idx (stride 10) to resolve the 16-bit cel/frame ID.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/render_gte_sprites/render_gte_sprites_03.c",
+      "lineCount": 295,
+      "codeSloc": 267,
+      "symbolCount": 2,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_03.c",
+          "address": "0x80016280",
+          "symbol": "hm_sprite_build_sprt_packet",
+          "signature": "void hm_sprite_build_sprt_packet(u32 *ot_ptr, HmLzSpriteHeader *spr_hdr, u32 *pal_ptr, s32 frame_idx, u8 flags, u8 alpha, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "cel_off_x",
+            "work_word_2": "cel_off_y",
+            "work_word_3": "part_i",
+            "work_word_4": "u_base",
+            "work_word_5": "u_total",
+            "work_acc": "v_total",
+            "work_word_6": "is_8bpp",
+            "magic_type_2": "spr_w",
+            "i": "spr_u"
+          },
+          "docstringSummary": "Emits an unscaled PS1 SPRT GPU packet from parsed 0x0E frame dimensions and UV coordinates",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_03.c",
+          "address": "0x800165d8",
+          "symbol": "hm_sprite_build_poly_ft4_packet",
+          "signature": "u32 *hm_sprite_build_poly_ft4_packet(u32 *ot_ptr, HmLzSpriteHeader *spr_hdr, s32 frame_idx, u32 flags, u8 mode, s16 x, s16 y, s32 sx, s32 sy, s32 rx, u16 ry, s16 cx, u16 cy, s16 z_off, s16 rot)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "status_flags": "part_i",
+            "work_acc": "part_attr",
+            "work_word": "is_8bpp",
+            "work_acc_2": "u_min",
+            "work_acc_3": "v_min",
+            "work_acc_4": "u_max",
+            "work_acc_5": "v_max",
+            "work_word_2": "tex_w",
+            "work_acc_6": "tex_h",
+            "work_word_3": "clut_x",
+            "work_acc_7": "clut_y",
+            "work_acc_8": "tex_x",
+            "work_word_4": "tex_y",
+            "status_flags_2": "tpage_x_base",
+            "work_acc_9": "tpage_u_off",
+            "z_off_2": "tpage_y_base",
+            "status_flags_3": "uv_v_off",
+            "work_acc_10": "x0",
+            "status_flags_4": "x1",
+            "work_word_5": "y0",
+            "status_flags_5": "y1",
+            "cx_2": "px0"
+          },
+          "docstringSummary": "Emits a scaled/rotated textured POLY_FT4 packet into the active OT and returns next packet cursor gfx_sprite_draw_save_retaddr, gfx_sprite_submit_scaled_rot, gfx_sprite_submit_basic",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/render_gte_sprites/render_gte_sprites_04.c",
+      "lineCount": 212,
+      "codeSloc": 180,
+      "symbolCount": 2,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_04.c",
+          "address": "0x80017300",
+          "symbol": "hm_vram_unpack_0x0d_lz_rle",
+          "signature": "void hm_vram_unpack_0x0d_lz_rle(char *src_pack, s16 vram_x, s16 vram_y, s16 clut_x, s16 clut_y, s32 flags)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "chunk_count",
+            "cond_flag": "chunk_i",
+            "work_acc_2": "chunk_flags",
+            "i": "chunk_bytes",
+            "j": "row_cnt",
+            "status_flags": "row_words",
+            "k": "row_bytes",
+            "idx": "y_i",
+            "idx_2": "byte_i",
+            "idx_3": "pass_i",
+            "work_word": "col_byte",
+            "work_acc_3": "rle"
+          },
+          "docstringSummary": "Decompresses 0x0D LZ/RLE texture/CLUT payload into texture staging buffer and calls LoadImage gfx_sprite_update_actor_slot",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_04.c",
+          "address": "0x8001782c",
+          "symbol": "hm_vram_upload_tim_chunk",
+          "signature": "s32 hm_vram_upload_tim_chunk(char *tim_hdr, u32 *buf_ptr, u16 mode, s16 dx, s16 dy)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "cond_flag": "chunk_count",
+            "work_word": "chunk_i",
+            "i": "row_cnt",
+            "j": "row_bytes",
+            "work_acc": "y_i",
+            "k": "byte_i",
+            "work_acc_2": "rle"
+          },
+          "docstringSummary": "Parses TIM/pixel rectangle header and uploads image/CLUT data to PS1 VRAM via LoadImage",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/render_gte_sprites/render_gte_sprites_05.c",
+      "lineCount": 231,
+      "codeSloc": 129,
+      "symbolCount": 9,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_05.c",
+          "address": "0x80019070",
+          "symbol": "gfx_emit_font_glyph_sprt",
+          "signature": "u32 *gfx_emit_font_glyph_sprt(u32 *prim_buf, u32 *ot_entry, u32 glyph_id, s16 x, s16 y, u8 r, u8 g, u8 b, u32 color_idx, s32 semi_trans)",
+          "typedArraysUsed": [
+            "g_ui_emit_font_glyph_sprt_value"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "clut_row"
+          },
+          "docstringSummary": "Emits a 12x12 font SPRT + DR_TPAGE packet using glyph UV lookup and CLUT table g_ui_emit_font_glyph_sprt_value, linking into ot_entry.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_05.c",
+          "address": "0x8001b100",
+          "symbol": "gfx_clear_overlay_busy_flag",
+          "signature": "u32 gfx_clear_overlay_busy_flag(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Clears screen transition/filter busy flag g_gfx_gpu_ot_sprites_clear_overlay_state to 0. hm_ovl15_memcard_render_slots",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_05.c",
+          "address": "0x8001b10c",
+          "symbol": "gfx_get_overlay_busy_flag",
+          "signature": "u32 gfx_get_overlay_busy_flag(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Returns screen transition/filter busy flag g_gfx_gpu_ot_sprites_clear_overlay_state.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_05.c",
+          "address": "0x8001b258",
+          "symbol": "gfx_tick_screen_filter_slots",
+          "signature": "void gfx_tick_screen_filter_slots(void)",
+          "typedArraysUsed": [
+            "g_rodata_spu_dispatch_tbl"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "i": "slot_i"
+          },
+          "docstringSummary": "Iterates screen fade/filter slots in g_gfx_tick_screen_filter_slots_start_value[0] and invokes active handlers via table g_rodata_spu_dispatch_tbl[0].",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_05.c",
+          "address": "0x8001b4d0",
+          "symbol": "gfx_set_filter_slot_noop",
+          "signature": "void gfx_set_filter_slot_noop(s32 slot, u32 param)",
+          "typedArraysUsed": [
+            "g_gfx_start_screen_filter_tick_slot_table"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Empty stub for screen filter slot parameter assignment.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_05.c",
+          "address": "0x8001b4e4",
+          "symbol": "gfx_reset_filter_slot",
+          "signature": "void gfx_reset_filter_slot(s32 slot)",
+          "typedArraysUsed": [
+            "g_gfx_start_screen_filter_tick_slot_table",
+            "g_gfx_tick_fade_wipe_slot_filter_table"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Clears filter slot entry g_gfx_tick_screen_filter_slots_start_value[slot] and resets auxiliary color flags g_gfx_tick_fade_wipe_slot_filter_flag_1/g_gfx_tick_fade_wipe_slot_filter_flag_2.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_05.c",
+          "address": "0x8001b6a0",
+          "symbol": "gfx_gte_rebuild_iso_view_matrix",
+          "signature": "void gfx_gte_rebuild_iso_view_matrix(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "delta",
+            "compute_state": "z_axis",
+            "compute_state_2": "x_axis",
+            "compute_state_3": "neg_eye",
+            "compute_cfg": "roll_mat"
+          },
+          "docstringSummary": "Recomputes GTE view/projection matrix from eye g_gfx_camera_iso_state and target g_gfx_camera_iso_state_target using CrossProduct0/VectorNormal/ScaleMatrix.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_05.c",
+          "address": "0x8001b9f8",
+          "symbol": "gfx_cam_set_eye",
+          "signature": "void gfx_cam_set_eye(u32 x, u32 y, u32 z, u32 roll)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Stores camera eye coordinates into g_gfx_camera_iso_state..df0 and roll into g_gfx_camera_iso_state.roll, marking view matrix dirty (g_gfx_camera_iso_state.custom_view_flag=0). ovl21_apply_camera_lookat, ovl25_apply_camera_lookat, gfx_init_3d_scene_defaults",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_05.c",
+          "address": "0x8001ba40",
+          "symbol": "gfx_cam_set_target",
+          "signature": "void gfx_cam_set_target(u32 x, u32 y, u32 z)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Stores camera look-at target into g_gfx_camera_iso_state_target..dfc and marks GTE view matrix dirty (g_gfx_camera_iso_state.custom_view_flag=0). ovl21_apply_camera_lookat, ovl25_apply_camera_lookat, gfx_init_3d_scene_defaults",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/render_gte_sprites/render_gte_sprites_06.c",
+      "lineCount": 233,
+      "codeSloc": 157,
+      "symbolCount": 7,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_06.c",
+          "address": "0x8001bd64",
+          "symbol": "gfx_light_set_vec_and_rgb",
+          "signature": "void gfx_light_set_vec_and_rgb(s32 light_idx, SVECTOR *dir, u16 r, u16 g, u8 b)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "light_idx_2": "norm_dir"
+          },
+          "docstringSummary": "Normalizes dir with VectorNormalSS and configures light direction and RGB color matrices for slot light_idx.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_06.c",
+          "address": "0x8001be18",
+          "symbol": "gfx_light_set_rot_and_rgb",
+          "signature": "void gfx_light_set_rot_and_rgb(s32 light_idx, s16 rx, s16 ry, u32 rz, u8 r, u8 g, u8 b)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "light_idx_2": "mat"
+          },
+          "docstringSummary": "Builds light rotation matrix via RotMatrix_gte/ApplyMatrix and updates GTE light and color matrices for light_idx.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_06.c",
+          "address": "0x8001c1c0",
+          "symbol": "gfx_frustum_cull_point_planes",
+          "signature": "u32 gfx_frustum_cull_point_planes(s16 *world_pos)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "build_state": "dx",
+            "work_word": "diff",
+            "vy_2": "dz",
+            "vx_2": "nx",
+            "svec": "ny",
+            "svec_2": "nz"
+          },
+          "docstringSummary": "Tests world point offset from camera eye g_gfx_frustum_cull_point_planes_build_state_1 against six view frustum planes using GTE vector/matrix products.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_06.c",
+          "address": "0x8001d21c",
+          "symbol": "gfx_tri_in_screen_bounds",
+          "signature": "bool gfx_tri_in_screen_bounds(s32 x0_y0, s32 x1_y1, s32 x2_y2)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Checks packed screen-space vertex coords against 320x240 viewport margins [-0x13..0x153].",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_06.c",
+          "address": "0x8001d2d8",
+          "symbol": "gfx_quad_in_screen_bounds",
+          "signature": "bool gfx_quad_in_screen_bounds(s16 x0, s16 x1, s16 x2, s16 x3)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Checks four horizontal screen coordinates against viewport bounds [-0x13..0x153], returning true if any vertex is inside.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_06.c",
+          "address": "0x8001d348",
+          "symbol": "gfx_build_frustum_planes",
+          "signature": "void gfx_build_frustum_planes(s32 *eye, s32 *target)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "i": "plane_mats",
+            "frame_slot": "look_delta",
+            "frame_slot_2": "look_dir",
+            "frame_slot_3": "i"
+          },
+          "docstringSummary": "Builds 6 camera frustum clipping planes at g_gfx_frustum_cull_point_planes_build_count from eye and target vectors using GTE RotMatrix and CrossProduct12.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_06.c",
+          "address": "0x8001d6b8",
+          "symbol": "gfx_gte_refresh_rot_matrix",
+          "signature": "void gfx_gte_refresh_rot_matrix(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "i": "rot_mat"
+          },
+          "docstringSummary": "Reads current GTE rotation matrix via gte_ReadRotMatrix and normalizes/updates matrix state.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/render_gte_sprites/render_gte_sprites_07.c",
+      "lineCount": 273,
+      "codeSloc": 165,
+      "symbolCount": 10,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_07.c",
+          "address": "0x8001dbf0",
+          "symbol": "gfx_init_poly_ft4_uv_tpage_clut",
+          "signature": "void gfx_init_poly_ft4_uv_tpage_clut(char *prim, s32 u, s32 v, char w, char h, s32 tpage_xy, s32 clut_xy)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "u_min",
+            "GetTPage_2": "v_min",
+            "work_acc_2": "u_max",
+            "work_acc_3": "v_max"
+          },
+          "docstringSummary": "Writes quad UV coordinates onto a POLY_FT4 and populates tpage and clut fields via getTPage/getClut helpers.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_07.c",
+          "address": "0x8001dca8",
+          "symbol": "gfx_prim_cull_stub_zero",
+          "signature": "u32 gfx_prim_cull_stub_zero(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Returns 0 unconditionally as a disabled 3D primitive culling/clipping stub.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_07.c",
+          "address": "0x8001dfd4",
+          "symbol": "hm_gte_project_svector_to_ot",
+          "signature": "u32 hm_gte_project_svector_to_ot(s32 *out_screen, SVECTOR *world_pos)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "gte_flg",
+            "work_word": "screen_xy",
+            "frame_slot": "otz"
+          },
+          "docstringSummary": "Transforms single SVECTOR via GTE perspective projection and returns depth OTZ + screen XY hm_ovl11_handle_area_door_warp, hm_ovl11_spawn_soil_splash_fx, p11_field_render_npc_or_livestock_mesh, hm_ovl11_render_livestock_models, hm_ovl11_project_npc_bubble_pos, p11_ovl_draw_floating_marker_fx (+6 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_07.c",
+          "address": "0x8001e088",
+          "symbol": "gfx_gte_rtps_get_otz",
+          "signature": "u32 gfx_gte_rtps_get_otz(SVECTOR *vertex)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "caller_slot": "screen_xy"
+          },
+          "docstringSummary": "Transforms one SVECTOR through GTE gte_ldv0/gte_rtps and returns the resulting ordering table Z value.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_07.c",
+          "address": "0x8001e158",
+          "symbol": "gfx_ot_submit_noop",
+          "signature": "void gfx_ot_submit_noop(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Empty stub following ordering table boundary selection.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_07.c",
+          "address": "0x8001e160",
+          "symbol": "gfx_reset_dual_ot_prims",
+          "signature": "void gfx_reset_dual_ot_prims(void)",
+          "typedArraysUsed": [
+            "g_gfx_disp_ctx_buf0"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "buf_i"
+          },
+          "docstringSummary": "Initializes both frame slots at g_gfx_disp_ctx_buf0[0].main_ot_len..704 inside arena g_core_engine_state.prim_arena with 0x800-entry OTs and primitive pointers.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_07.c",
+          "address": "0x8001e26c",
+          "symbol": "gfx_vec3_bounded_length",
+          "signature": "s32 gfx_vec3_bounded_length(s32 *vec, s32 limit)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "SquareRoot0_2": "vec_item"
+          },
+          "docstringSummary": "Computes Squared/SquareRoot0 vector magnitude if components lie within [-limit, limit].",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_07.c",
+          "address": "0x8001e38c",
+          "symbol": "gfx_floor_mesh_sample_height",
+          "signature": "s32 gfx_floor_mesh_sample_height(void)",
+          "typedArraysUsed": [
+            "g_gfx_floor_mesh_sample_height_v0_lut32_1",
+            "g_gfx_floor_mesh_sample_height_v0_lut32_2",
+            "g_gfx_floor_mesh_sample_height_v0_lut32_point_tri"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "normal",
+            "vec_item": "edge_a",
+            "caller_slot": "edge_b",
+            "v0_lut32": "p1x",
+            "v0_lut32_2": "p1y",
+            "vec_item_2": "p1z"
+          },
+          "docstringSummary": "Reads g_gfx_floor_mesh_sample_height_gte_state and falls through into 3D floor collision mesh height sampler. hm_gte_update_camera_matrix",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_07.c",
+          "address": "0x8001e390",
+          "symbol": "gfx_floor_mesh_sample_height_v0",
+          "signature": "s32 gfx_floor_mesh_sample_height_v0(void)",
+          "typedArraysUsed": [
+            "g_gfx_floor_mesh_sample_height_v0_lut32_1",
+            "g_gfx_floor_mesh_sample_height_v0_lut32_2",
+            "g_gfx_floor_mesh_sample_height_v0_lut32_point_tri"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "normal",
+            "vec_item": "edge_a",
+            "frame_slot": "edge_b",
+            "v0_lut32": "p1x",
+            "v0_lut32_2": "p1y",
+            "vec_item_2": "p1z"
+          },
+          "docstringSummary": "Register-passed floor collision triangle height sampler returning ground height for active triangles.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_07.c",
+          "address": "0x8001e78c",
+          "symbol": "gfx_point_near_xz",
+          "signature": "u32 gfx_point_near_xz(s32 x0, s32 z0, s32 x1, s32 z1)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "vec3_state": "half_span"
+          },
+          "docstringSummary": "Tests if (x0,z0) lies within bounding margin (g_gfx_gte_camera_matrix_point_vec3_state >> 1) + 600 of (x1,z1) on both X and Z axes.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/render_gte_sprites/render_gte_sprites_08.c",
+      "lineCount": 277,
+      "codeSloc": 169,
+      "symbolCount": 10,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_08.c",
+          "address": "0x8001e7dc",
+          "symbol": "gfx_vec3_near_box",
+          "signature": "u32 gfx_vec3_near_box(s32 *pos_a, s32 *pos_b)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Checks if two 3D integer vectors are within (g_gfx_gte_camera_matrix_point_vec3_state >> 1) + 600 along all axes.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_08.c",
+          "address": "0x8001e878",
+          "symbol": "gfx_point_in_floor_tri",
+          "signature": "u32 gfx_point_in_floor_tri(s16 *v0, s16 *v1, s16 *v2)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Tests whether active probe point g_gfx_floor_mesh_sample_height_v0_lut32_gte_camera lies inside 2D projected triangle (v0, v1, v2) and computes g_gfx_point_floor_tri_regs_state_2.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_08.c",
+          "address": "0x8001e8a8",
+          "symbol": "gfx_point_in_floor_tri_regs",
+          "signature": "u32 gfx_point_in_floor_tri_regs(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Register-arg entry point for 2D floor triangle point-in-triangle test against g_gfx_point_floor_tri_regs_const_1..50c.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_08.c",
+          "address": "0x8001f038",
+          "symbol": "gfx_set_subcam_angles",
+          "signature": "void gfx_set_subcam_angles(s32 rx, s32 ry, s32 rz)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Updates sub-camera rotation angles g_gfx_subcam_defaults_angles_compute_state_heading..300 and marks g_gfx_subcam_defaults_angles_apply_count dirty when any angle changed.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_08.c",
+          "address": "0x8001f1e0",
+          "symbol": "hm_gte_build_rot_matrix",
+          "signature": "void hm_gte_build_rot_matrix(MATRIX *out_mat, s32 rx, s32 ry, u32 rz)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Constructs 3x3 fixed-point GTE rotation matrix using rsin/rcos lookup helpers",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_08.c",
+          "address": "0x8001f278",
+          "symbol": "hm_clut_lerp_rgb_triple",
+          "signature": "void hm_clut_lerp_rgb_triple(s32 base_val, s32 target_val, s32 *out_r, s32 *out_g, s32 *out_b)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Interpolates RGB channel triple for lighting and time-of-day palette tinting p11_animl_apply_time_of_day_bg_tint, p11_field_step_daylight_tint_fade, ovl25_update_sky_color_cycle, hm_clut_blend_palette",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_08.c",
+          "address": "0x8001f338",
+          "symbol": "gfx_vec3_copy",
+          "signature": "void gfx_vec3_copy(u32 *dst, u32 *src)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Copies 3-word vector components from src to dst. gfx_apply_subcam_offset, gfx_copy_subcam_origin, gfx_vec3_distance_and_dir",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_08.c",
+          "address": "0x8001f39c",
+          "symbol": "gfx_vec3_sub",
+          "signature": "void gfx_vec3_sub(s32 *dst, s32 *src)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Subtracts 3D integer vector src from dst in place.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_08.c",
+          "address": "0x8001f5ec",
+          "symbol": "gfx_vec3_norm_dot",
+          "signature": "s32 gfx_vec3_norm_dot(VECTOR *vec_a, VECTOR *vec_b)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Normalizes vec_a and vec_b via VectorNormal and returns their integer dot product.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_08.c",
+          "address": "0x8001fab4",
+          "symbol": "gfx_vram_page_offset_zero",
+          "signature": "u32 gfx_vram_page_offset_zero(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Returns 0 unconditionally as a VRAM page/tile offset stub.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/render_gte_sprites/render_gte_sprites_09.c",
+      "lineCount": 193,
+      "codeSloc": 66,
+      "symbolCount": 13,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_09.c",
+          "address": "0x80037994",
+          "symbol": "gfx_sdk_set_geom_offset",
+          "signature": "void gfx_sdk_set_geom_offset(s32 ofx, s32 ofy)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK SetGeomOffset writing shifted screen center offsets into GTE OFX and OFY registers. GsSetOffset, gfx_sdk_init_geom_defaults",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_09.c",
+          "address": "0x800379b4",
+          "symbol": "gfx_sdk_set_geom_screen",
+          "signature": "void gfx_sdk_set_geom_screen(u32 proj_dist)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK SetGeomScreen loading projection distance H into GTE register via gte_ldH. gfx_init_3d_scene_defaults, gfx_sdk_set_geom_screen_wrap",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_09.c",
+          "address": "0x80038654",
+          "symbol": "gfx_sdk_set_fog_near_dqa",
+          "signature": "void gfx_sdk_set_fog_near_dqa(u32 dqa)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK SetFogNear helper loading depth-cue multiplier DQA into GTE register via gte_ldDQA.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_09.c",
+          "address": "0x80038664",
+          "symbol": "gfx_sdk_set_fog_near_dqb",
+          "signature": "void gfx_sdk_set_fog_near_dqb(u32 dqb)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK SetFogNear helper loading depth-cue offset DQB into GTE register via gte_ldDQB.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_09.c",
+          "address": "0x800386d4",
+          "symbol": "gfx_sdk_count_leading_bits",
+          "signature": "u32 gfx_sdk_count_leading_bits(u32 val)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "gte_stLZCR_2": "lzcr"
+          },
+          "docstringSummary": "PS1 SDK GTE leading-sign counter writing val to LZCS and reading result from LZCR.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_09.c",
+          "address": "0x800396c4",
+          "symbol": "gfx_sdk_set_gs_workbase",
+          "signature": "void gfx_sdk_set_gs_workbase(u32 workbase)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK GsSetWorkBase implementation storing scratchpad/OT packet pointer into g_gfx_gs_workbase_state.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_09.c",
+          "address": "0x800396d4",
+          "symbol": "gfx_sdk_get_gs_workbase",
+          "signature": "u32 gfx_sdk_get_gs_workbase(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK GsGetWorkBase implementation returning active GS packet cursor g_gfx_gs_workbase_state.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_09.c",
+          "address": "0x8003e264",
+          "symbol": "gfx_sdk_term_prim_stub",
+          "signature": "void gfx_sdk_term_prim_stub(u32 *prim)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK TermPrim GPU ordering-table primitive terminator macro stub.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_09.c",
+          "address": "0x8003e284",
+          "symbol": "gfx_sdk_set_semi_trans",
+          "signature": "void gfx_sdk_set_semi_trans(s32 prim, s32 enable)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK SetSemiTrans helper toggling bit 1 on GPU primitive command tag byte (+7).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_09.c",
+          "address": "0x8003e2b4",
+          "symbol": "gfx_sdk_set_shade_tex",
+          "signature": "void gfx_sdk_set_shade_tex(s32 prim, s32 enable)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK SetShadeTex helper toggling bit 0 on GPU primitive command tag byte (+7).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_09.c",
+          "address": "0x8003e304",
+          "symbol": "gfx_sdk_set_poly_ft4_stub",
+          "signature": "void gfx_sdk_set_poly_ft4_stub(s32 prim)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK SetPolyFT4 GPU primitive tag initializer stub.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_09.c",
+          "address": "0x8003e324",
+          "symbol": "gfx_sdk_set_sprt8_stub",
+          "signature": "void gfx_sdk_set_sprt8_stub(s32 prim)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK SetSprt8 GPU primitive tag initializer stub.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_09.c",
+          "address": "0x8003e344",
+          "symbol": "gfx_sdk_set_tile_stub",
+          "signature": "void gfx_sdk_set_tile_stub(s32 prim)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK SetTile GPU primitive tag initializer stub.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/render_gte_sprites/render_gte_sprites_10.c",
+      "lineCount": 283,
+      "codeSloc": 181,
+      "symbolCount": 8,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_10.c",
+          "address": "0x8001231c",
+          "symbol": "gfx_init_ot_buffers_small",
+          "signature": "void gfx_init_ot_buffers_small(void)",
+          "typedArraysUsed": [
+            "g_gfx_disp_ctx_buf0"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "buf_i",
+            "i": "aux_off"
+          },
+          "docstringSummary": "Zeros 0x3ee50 bytes at g_gfx_highram_vram_arena and initializes compact double-buffered HmDisplayOtCtx OT/primitive pools at g_gfx_disp_ctx_buf0[0].",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_10.c",
+          "address": "0x80014bcc",
+          "symbol": "hm_vram_queue_rect_upload",
+          "signature": "void hm_vram_queue_rect_upload(u32 src_addr, u32 vram_x, u32 vram_y, s32 w, u32 *clut_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "CdControl_2": "cd_rc",
+            "frame_slot": "cd_mode"
+          },
+          "docstringSummary": "Schedules LoadImage DMA transfer of pixel rectangle and optional CLUT into PS1 VRAM hm_ovl11_copy_map_slot_a, hm_ovl11_copy_map_slot_b, p11_cd_load_festival_field_vram, hm_ovl11_copy_actor_pack, p11_cd_load_common_ui_arena_chunk (+11 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_10.c",
+          "address": "0x80015644",
+          "symbol": "gfx_emit_poly_f4_with_tpage",
+          "signature": "u32 *gfx_emit_poly_f4_with_tpage(u32 ot_ctx, u32 *ot_entry, s16 x, s16 y, s16 w, s16 h, u32 rgb, s16 semi_trans, u8 abr_mode)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Calls gfx_emit_poly_f4_rect and prepends a DR_TPAGE/ABR blend mode packet onto ot_entry.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_10.c",
+          "address": "0x80015704",
+          "symbol": "hm_sprite_init_0x0e_anim",
+          "signature": "void hm_sprite_init_0x0e_anim(HmLzSpriteHeader *anim_hdr, HmSpriteActor *slot_out)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "frame_tick": "magic_val"
+          },
+          "docstringSummary": "Initializes 0x0E sprite animation pack descriptor and reports ANI INIT ERROR on invalid magic hm_ovl11_load_weather_sprites, hm_ovl11_interact_farm_objects, p11_field_init_player_emote_sprite, p11_field_reset_sweat_and_ambient_particles, p11_field_init_winter_pond_sprite, p11_crop_init_world_entity_or_weather_sprite (+34 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_10.c",
+          "address": "0x80015b24",
+          "symbol": "gfx_sprite_lookup_part_idx",
+          "signature": "u32 gfx_sprite_lookup_part_idx(s32 sprite_sheet, s32 table_hdr, u32 key)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "entry_count",
+            "status_flags": "entry_size",
+            "bcmp_2": "idx"
+          },
+          "docstringSummary": "Searches table_hdr entries at sprite_sheet+0x1c via bcmp to resolve matching sprite part/bank index.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_10.c",
+          "address": "0x80015e3c",
+          "symbol": "gfx_sprite_draw_frame_wrapper",
+          "signature": "void gfx_sprite_draw_frame_wrapper(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Register-forwarding wrapper invoking core sprite frame submission routine hm_sprite_build_sprt_packet.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_10.c",
+          "address": "0x80015e78",
+          "symbol": "gfx_sprite_draw_layer_wrapper",
+          "signature": "void gfx_sprite_draw_layer_wrapper(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Register-forwarding wrapper invoking layered sprite draw routine hm_sprite_build_poly_ft4_packet.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_10.c",
+          "address": "0x80016054",
+          "symbol": "gfx_sprite_draw_save_retaddr",
+          "signature": "void gfx_sprite_draw_save_retaddr(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Captures caller return address into g_ovl15_diary_serialize_save_payload_deserialize_state_sprite_retaddr and forwards to layered sprite draw routine hm_sprite_build_poly_ft4_packet. p11_field_render_and_step_particle_slot, hm_ovl11_spawn_soil_splash_fx, p11_field_render_animal_actor_sprite, p11_npc_step_cutscene_actor_sprite, p11_evt_draw_and_step_cutscene_prop",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/render_gte_sprites/render_gte_sprites_11.c",
+      "lineCount": 196,
+      "codeSloc": 88,
+      "symbolCount": 9,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_11.c",
+          "address": "0x8001719c",
+          "symbol": "hm_vram_unpack_0x0d_pack_auto",
+          "signature": "void hm_vram_unpack_0x0d_pack_auto(u32 pack_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Inspects 0x0D pack header and dispatches LZ/RLE VRAM decompression to embedded coords hm_ovl11_copy_map_slot_b, p11_cd_load_festival_field_vram, hm_ovl11_copy_actor_pack, hm_ovl11_sync_upload_area_vram, p11_cd_load_debug_field_vram (+30 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_11.c",
+          "address": "0x800171cc",
+          "symbol": "gfx_sprite_reset_actor_slot",
+          "signature": "void gfx_sprite_reset_actor_slot(u32 actor)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Calls sprite actor command hm_vram_unpack_0x0d_lz_rle with op=1 and zero bounds to reset/release actor slot.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_11.c",
+          "address": "0x80017200",
+          "symbol": "gfx_sprite_spawn_actor_slot",
+          "signature": "void gfx_sprite_spawn_actor_slot(u32 actor, s16 x, s16 y, s16 z, s16 flags)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Calls hm_vram_unpack_0x0d_lz_rle with op=0 to initialize a world/screen sprite actor at (x,y,z). p11_dlg_load_item_icon_to_vram, p11_dlg_upload_tv_or_menu_icon_sheet, p11_animl_tv_upload_frame_tim, p11_animl_tv_close_screen",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_11.c",
+          "address": "0x80017240",
+          "symbol": "gfx_sprite_update_actor_slot",
+          "signature": "void gfx_sprite_update_actor_slot(u32 actor, s16 x, s16 y, s16 z, s16 flags)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Calls hm_vram_unpack_0x0d_lz_rle with op=2 to update sprite actor coordinates and flags.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_11.c",
+          "address": "0x8001b2cc",
+          "symbol": "gfx_start_screen_filter",
+          "signature": "u32 gfx_start_screen_filter(s32 slot, s32 effect_type)",
+          "typedArraysUsed": [
+            "g_gfx_start_screen_filter_dat_ptr",
+            "g_gfx_start_screen_filter_tick_slot_table",
+            "g_gfx_start_screen_filter_value"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "io_state": "req_prio"
+          },
+          "docstringSummary": "Starts screen fade/wipe slot g_gfx_tick_screen_filter_slots_start_value[slot] with effect_type when g_core_engine_flags0 bit 0x10000 is clear and pad IO is ready. p11_field_integrate_player_physics, p11_field_check_exit_trigger_and_warp, p11_dlg_open_shipping_memo_menu, p11_dlg_open_farm_ledger_menu, p11_ui_run_options_settings_menu, p11_ui_update_fishing_state_machine (+2 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_11.c",
+          "address": "0x8001b3cc",
+          "symbol": "gfx_reset_primary_filter_slot",
+          "signature": "void gfx_reset_primary_filter_slot(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Wrapper calling gfx_reset_filter_slot (gfx_reset_filter_slot) on default filter slot.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_11.c",
+          "address": "0x8001b3ec",
+          "symbol": "gfx_tick_fade_wipe_slot",
+          "signature": "void gfx_tick_fade_wipe_slot(s32 slot)",
+          "typedArraysUsed": [
+            "g_gfx_start_screen_filter_tick_slot_table"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "next_tick"
+          },
+          "docstringSummary": "Advances brightness wipe timer in g_gfx_tick_fade_wipe_slot_filter_table/g_gfx_start_screen_filter_tick_slot_table[slot] and resets slot upon reaching target byte.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_11.c",
+          "address": "0x8001b530",
+          "symbol": "gfx_init_3d_scene_defaults",
+          "signature": "void gfx_init_3d_scene_defaults(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Configures default 320x240 geom offset (160,120), H=1000, eye (0,0,0x1000), target (0,0,-0x1000), and zeroed scene state. memset",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_11.c",
+          "address": "0x8001b5dc",
+          "symbol": "hm_gte_init_light_fog_matrices",
+          "signature": "void hm_gte_init_light_fog_matrices(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Loads GTE light, color, far-color, and fog-near matrices for 3D scene rendering ovl19_run_bracket_intro, ovl19_dispatch_festival_phase, ovl21_phase_fade_in_wait, ovl21_dispatch_match_phase, ovl21_phase_fade_out_start, ovl21_phase_exit_cleanup (+2 more)",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/render_gte_sprites/render_gte_sprites_12.c",
+      "lineCount": 353,
+      "codeSloc": 320,
+      "symbolCount": 1,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_12.c",
+          "address": "0x8001c37c",
+          "symbol": "hm_gte_emit_model_polys",
+          "signature": "void hm_gte_emit_model_polys(s32 poly_count, s32 *prim_stream)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "screen_bounds": "rem",
+            "carry_word": "gte_flag",
+            "carry_word_2": "otz",
+            "carry_word_3": "tag_hdr"
+          },
+          "docstringSummary": "Inner GTE loop calling gte_ldv0/gte_stsxy3_g3/gte_stopz to cull and emit textured/Gouraud tris & quads",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/render_gte_sprites/render_gte_sprites_13.c",
+      "lineCount": 273,
+      "codeSloc": 157,
+      "symbolCount": 10,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_13.c",
+          "address": "0x8001e04c",
+          "symbol": "gfx_gte_project_vec3_16",
+          "signature": "u8 gfx_gte_project_vec3_16(u32 ctx, u16 *pos32)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "to_ot": "svec"
+          },
+          "docstringSummary": "Packs 3-axis coords from pos32[0,2,4] into a local SVECTOR and projects via hm_gte_project_svector_to_ot.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_13.c",
+          "address": "0x8001e0b8",
+          "symbol": "gfx_clamp_ot_index_stub",
+          "signature": "void gfx_clamp_ot_index_stub(s32 ot_idx, s32 prim_type)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Clamps ot_idx against g_core_engine_state.disp_ot_ctx+0x110 and indexes active OT slot at g_core_engine_state.disp_ot_ctx+0x120. gfx_queue_vram_pix_upload",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_13.c",
+          "address": "0x8001e9f8",
+          "symbol": "gfx_quad_floor_point_test",
+          "signature": "u32 gfx_quad_floor_point_test(s32 v0, s32 v1, s32 v2, s32 v3)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "v2_2": "hit"
+          },
+          "docstringSummary": "Tests active probe point against a floor quad by splitting degenerate/valid corners into gfx_point_in_floor_tri checks.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_13.c",
+          "address": "0x8001efa4",
+          "symbol": "gfx_init_subcam_defaults",
+          "signature": "void gfx_init_subcam_defaults(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Sets initial sub-camera angles (800,600,0) via gfx_set_subcam_angles and resets g_gfx_subcam_defaults_value_4..314.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_13.c",
+          "address": "0x8001f084",
+          "symbol": "gfx_compute_subcam_heading",
+          "signature": "void gfx_compute_subcam_heading(u32 *out_a, u32 *out_b, s32 *out_angle)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "ratan2_2": "delta"
+          },
+          "docstringSummary": "Computes sub-camera horizontal look vector delta via gfx_vec3_copy/sub and yaw angle via ratan2.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_13.c",
+          "address": "0x8001f100",
+          "symbol": "gfx_apply_subcam_offset",
+          "signature": "void gfx_apply_subcam_offset(s32 *delta)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "When g_gfx_subcam_defaults_apply_flag equals 2 and delta is non-zero, copies sub-camera offset via gfx_vec3_copy(&g_gfx_apply_subcam_offset_value).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_13.c",
+          "address": "0x8001f190",
+          "symbol": "gfx_copy_subcam_origin",
+          "signature": "void gfx_copy_subcam_origin(u32 out_pos)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Copies active sub-camera origin vector from g_gfx_subcam_defaults_compute_copy_value into out_pos via gfx_vec3_copy.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_13.c",
+          "address": "0x8001f42c",
+          "symbol": "gfx_vec3_distance_and_dir",
+          "signature": "bool gfx_vec3_distance_and_dir(u32 pos_a, s32 unused, s32 *pos_b, s32 *out_dir)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "SquareRoot0_2": "delta",
+            "frame_slot": "dist"
+          },
+          "docstringSummary": "Computes Euclidean distance between pos_a and pos_b via SquareRoot0 and outputs normalized or fallback direction.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_13.c",
+          "address": "0x8001f664",
+          "symbol": "gfx_draw_vram_rect_sync",
+          "signature": "void gfx_draw_vram_rect_sync(u32 *vram_src, u32 *unused_ot, u16 flags, s16 x, s16 y, s16 w, s16 h, u16 mode, s16 sync_flag)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "page_y",
+            "offset_zero": "rect"
+          },
+          "docstringSummary": "Flushes DrawSync after building VRAM RECT from (x,y,w,h) during textured region setup.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_13.c",
+          "address": "0x8001f774",
+          "symbol": "hm_clut_blend_palette",
+          "signature": "void hm_clut_blend_palette(u16 *dst_clut, u16 *src_clut, u16 *tint_clut, u32 weight, u32 count)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "status_flags": "src_rgb",
+            "work_word": "tint_rgb",
+            "i": "out_rgb",
+            "frame_slot": "src_px",
+            "frame_slot_2": "tint_px",
+            "frame_slot_3": "blended",
+            "frame_slot_4": "i"
+          },
+          "docstringSummary": "Blends 16-bit PS1 CLUT entries between source and tint palettes for dawn/dusk/night shading",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/render_gte_sprites/render_gte_sprites_14.c",
+      "lineCount": 267,
+      "codeSloc": 101,
+      "symbolCount": 14,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_14.c",
+          "address": "0x80038fe4",
+          "symbol": "gfx_sdk_set_geom_screen_wrap",
+          "signature": "void gfx_sdk_set_geom_screen_wrap(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK wrapper invoking gfx_sdk_set_geom_screen (gfx_sdk_set_geom_screen).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_14.c",
+          "address": "0x80039674",
+          "symbol": "gfx_sdk_init_geom_defaults",
+          "signature": "void gfx_sdk_init_geom_defaults(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "PS1 SDK GsInit3D/geometry setup calling InitGeom, SetFarColor(0,0,0), SetGeomOffset(0,0), and zeroing g_sdk_gs_buff_offset_geom_count_defaults/9e.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_14.c",
+          "address": "0x80012298",
+          "symbol": "hm_init_gpu_display_mode",
+          "signature": "u32 hm_init_gpu_display_mode(s32 mode)",
+          "typedArraysUsed": [
+            "g_gfx_gpu_display_mode_fn_ptr"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Configures double-buffered GPU DISPENV and DRAWENV geometry for selected screen resolution GsSetDrawBuffOffset, GsSetOffset, DrawSync",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_14.c",
+          "address": "0x80014e90",
+          "symbol": "gfx_alloc_tile1_prim",
+          "signature": "void gfx_alloc_tile1_prim(u32 ot_entry, s16 x, s16 y, u32 rgb, s16 semi_trans)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Allocates 0xc bytes from frame primitive pool hm_text_acquire_scratch_ctx and emits a 1x1 TILE_1 primitive into ot_entry.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_14.c",
+          "address": "0x80014f0c",
+          "symbol": "gfx_alloc_line_f2_prim",
+          "signature": "void gfx_alloc_line_f2_prim(u32 ot_entry, s16 x0, s16 y0, s16 x1, s16 y1, u32 rgb, s16 semi_trans)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Allocates 0x10 bytes from hm_text_acquire_scratch_ctx and emits a LINE_F2 primitive into ot_entry.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_14.c",
+          "address": "0x80014fac",
+          "symbol": "gfx_alloc_poly_g4_rect",
+          "signature": "u32 gfx_alloc_poly_g4_rect(u32 ot_entry, s16 x, s16 y, s16 w, s16 h, u32 c0, u32 c1, u32 c2, u32 c3, s16 semi_trans)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Allocates primitive storage via hm_text_acquire_scratch_ctx and emits a 4-color Gouraud POLY_G4 rectangle into ot_entry.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_14.c",
+          "address": "0x80015074",
+          "symbol": "gfx_alloc_poly_f4_rect",
+          "signature": "void gfx_alloc_poly_f4_rect(u32 ot_entry, s16 x, s16 y, s16 w, s16 h, u32 rgb, s16 semi_trans)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Allocates 0x18 bytes from hm_text_acquire_scratch_ctx and emits a flat POLY_F4 rectangle into ot_entry. p11_ui_draw_tool_exp_progress_bar",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_14.c",
+          "address": "0x80015114",
+          "symbol": "hm_draw_poly_f4_panel",
+          "signature": "void hm_draw_poly_f4_panel(u32 ot_idx, s16 x, s16 y, s16 w, s16 h, u32 rgba, s16 semi_trans)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Appends a semi-transparent or opaque flat POLY_F4 quad primitive to the ordering table p11_ui_draw_betting_menu_overlay, p11_ui_run_animal_picker_dialog, ovl28_credits_render_and_step, hud_res_step_dialog_tokens, evt_res_tick_yesno_dialog, evt_res_tick_naming_screen",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_14.c",
+          "address": "0x800151b4",
+          "symbol": "gfx_alloc_poly_f4_with_tpage",
+          "signature": "void gfx_alloc_poly_f4_with_tpage(u32 ot_entry, s16 x, s16 y, s16 w, s16 h, u32 rgb, s16 semi_trans, u8 abr_mode)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Allocates primitive buffer, builds POLY_F4 + DR_TPAGE via gfx_emit_poly_f4_with_tpage, and advances pool via hm_text_release_scratch_ctx.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_14.c",
+          "address": "0x80015ca0",
+          "symbol": "gfx_sprite_draw_actor_simple",
+          "signature": "u32 gfx_sprite_draw_actor_simple(u32 sprite_sheet, u32 ot_ctx, s32 actor, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Draws sprite actor current cel (+4) at (x,y) via gfx_sprite_draw_layer_wrapper and ticks actor animation via hm_sprite_step_0x0e_frame.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_14.c",
+          "address": "0x80015d1c",
+          "symbol": "hm_sprite_flush_active_lists",
+          "signature": "void hm_sprite_flush_active_lists(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Flushes queued active sprite slots into GPU ordering tables prior to OT swap",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_14.c",
+          "address": "0x80015ee8",
+          "symbol": "hm_sprite_submit_0x0e_quad",
+          "signature": "u32 hm_sprite_submit_0x0e_quad(u32 ot_ptr, HmLzSpriteHeader *spr_hdr, u8 frame_idx, u8 pal_idx, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "frame_slot": "scratch_ptr"
+          },
+          "docstringSummary": "Builds and links a 0x0E sprite frame primitive at (x, y) into the ordering table hm_ovl11_update_player_movement, hm_ovl11_handle_area_door_warp, p11_field_render_animal_actor_sprite, p11_spr_render_outdoor_field_crops, p11_spr_render_greenhouse_crops, p11_evt_draw_world_prop_bubble_icons (+46 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_14.c",
+          "address": "0x80015f80",
+          "symbol": "hm_sprite_submit_scaled_rot",
+          "signature": "void hm_sprite_submit_scaled_rot(u32 ot_ptr, HmLzSpriteHeader *spr_hdr, u8 frame_idx, u8 pal_idx, s16 x, s16 y, u32 scale_x, u32 scale_y, u16 angle)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Applies screen fade scaling then submits a transformed 0x0E sprite quad hm_sprite_play_at_pos, gfx_sprite_draw_actor_tinted hm_sprite_build_poly_ft4_packet",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_14.c",
+          "address": "0x800160c8",
+          "symbol": "gfx_sprite_submit_scaled_rot",
+          "signature": "void gfx_sprite_submit_scaled_rot(u32 sprite_sheet, u32 ot_entry, u8 anim_id, u8 frame_id, s16 x, s16 y, u32 scale, u32 rot_z, u16 flags, s16 r, s16 g, s16 b, s16 semi_trans)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Allocates GPU packet memory, submits transformed/colored sprite quad via hm_sprite_build_poly_ft4_packet, and commits pool pointer via hm_text_release_scratch_ctx. hm_sprite_build_poly_ft4_packet",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/render_gte_sprites/render_gte_sprites_15.c",
+      "lineCount": 277,
+      "codeSloc": 176,
+      "symbolCount": 8,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_15.c",
+          "address": "0x800161ac",
+          "symbol": "gfx_sprite_submit_basic",
+          "signature": "void gfx_sprite_submit_basic(u32 sprite_sheet, u32 ot_entry, u8 anim_id, u8 frame_id, s16 x, s16 y, u32 scale, u32 flags, u16 clut_override)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Submits uncolored sprite cel via hm_sprite_build_poly_ft4_packet with default RGB (-1) and advances primitive pool via hm_text_release_scratch_ctx. hm_sprite_build_poly_ft4_packet",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_15.c",
+          "address": "0x80016b7c",
+          "symbol": "gfx_sprite_draw_part_offset",
+          "signature": "s32 gfx_sprite_draw_part_offset(s32 sprite_sheet, u16 part_key, u32 out_prim, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Resolves sprite part index via gfx_sprite_lookup_part_idx and emits its primitive via hm_vram_upload_tim_chunk.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_15.c",
+          "address": "0x80017284",
+          "symbol": "gfx_sprite_draw_frame_direct",
+          "signature": "void gfx_sprite_draw_frame_direct(u32 sprite_sheet, u32 part_key, u8 anim_id, u8 frame_idx, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "carry_word": "part_idx"
+          },
+          "docstringSummary": "Resolves cel ID and part index via gfx_sprite_lookup_cel_id/part_idx and draws into active frame via hm_vram_upload_tim_chunk.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_15.c",
+          "address": "0x8001b074",
+          "symbol": "hm_gpu_reset_ot_and_sprites",
+          "signature": "void hm_gpu_reset_ot_and_sprites(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Clears double-buffered reverse ordering tables via ClearOTagR and resets sprite scratch pointers hm_vram_unpack_0x0d_pack_auto, ClearOTagR",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_15.c",
+          "address": "0x8001bfec",
+          "symbol": "hm_gte_draw_static_model",
+          "signature": "void hm_gte_draw_static_model(s32 *mesh_node)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "i": "submesh_count",
+            "work_acc": "i",
+            "caller_slot": "spad_scratch"
+          },
+          "docstringSummary": "Pushes GTE matrix stack, transforms static 3D model primitives, and emits packets to OT",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_15.c",
+          "address": "0x8001c0d4",
+          "symbol": "hm_gte_draw_animated_model",
+          "signature": "s32 hm_gte_draw_animated_model(s32 *anim_node, u32 frame, u32 matrix_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "point_planes": "mesh_base",
+            "anim_node_2": "bone_table",
+            "i": "submesh_count",
+            "work_acc": "i",
+            "caller_slot": "spad_scratch"
+          },
+          "docstringSummary": "Evaluates hierarchical bone transforms for animated 3D character/animal mesh and submits polygons ovl25_draw_stage_3d_model gfx_gte_refresh_rot_matrix, PushMatrix, PopMatrix",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_15.c",
+          "address": "0x8001dcb0",
+          "symbol": "gfx_emit_gte_ot_poly_b",
+          "signature": "u32 *gfx_emit_gte_ot_poly_b(u32 *prim_ctx, s32 otz_shift)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "stub_zero": "gte_flag",
+            "ot_idx": "otz",
+            "caller_slot": "ot_idx",
+            "NULL": "poly"
+          },
+          "docstringSummary": "Transforms vertices with GTE, checks culling/bounds, and links primitive into ordering table via gfx_clamp_ot_index_stub.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_15.c",
+          "address": "0x8001de4c",
+          "symbol": "gfx_emit_gte_ot_poly_a",
+          "signature": "u32 *gfx_emit_gte_ot_poly_a(u32 *prim_ctx, u32 ot_param)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "stub_zero": "gte_flag",
+            "caller_slot": "poly"
+          },
+          "docstringSummary": "Transforms quad/tri vertices through GTE, tests bounds via gfx_prim_cull_stub_zero, and submits packet into active OT via gfx_clamp_ot_index_stub.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/render_gte_sprites/render_gte_sprites_16.c",
+      "lineCount": 232,
+      "codeSloc": 155,
+      "symbolCount": 6,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_16.c",
+          "address": "0x8001eae4",
+          "symbol": "gfx_floor_cell_hit_test",
+          "signature": "u32 gfx_floor_cell_hit_test(s32 mesh_base, s32 *cell_ptr)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "floor_tri": "vert_base"
+          },
+          "docstringSummary": "Tests triangle/quad floor collision cell at cell_ptr against active probe point using gfx_point_in_floor_tri/quad test.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_16.c",
+          "address": "0x8001f8a4",
+          "symbol": "gfx_queue_vram_clut_upload",
+          "signature": "void gfx_queue_vram_clut_upload(s32 *tim_ctx, s32 x_offset, s32 y_offset)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "max_steps",
+            "tim_ctx_2": "next_step",
+            "work_acc_2": "step_s16"
+          },
+          "docstringSummary": "Queues a DR_LOAD DMA packet into the active OT slot to upload CLUT palette data from tim_ctx to VRAM.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_16.c",
+          "address": "0x8001fa0c",
+          "symbol": "gfx_queue_vram_pix_upload",
+          "signature": "void gfx_queue_vram_pix_upload(s32 *tim_ctx, u32 ot_slot)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Builds a RECT from tim_ctx+0xc and queues a DR_LOAD packet to upload pixel data to VRAM.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_16.c",
+          "address": "0x80015bf0",
+          "symbol": "hm_sprite_play_at_pos",
+          "signature": "void hm_sprite_play_at_pos(HmSpriteActor *slot_ptr, s32 anim_id, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Steps and draws a 0x0E sprite animation slot at screen coordinates (x, y) p11_ui_draw_town_map_markers, ovl17_draw_swimmer_idle_or_splash, ovl19_draw_actor_3d_sprite, ovl19_draw_prop_3d_sprite, hm_ovl21_horse_race_payout, ovl23_draw_trail_marks (+9 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_16.c",
+          "address": "0x80015c50",
+          "symbol": "gfx_sprite_draw_actor_at",
+          "signature": "void gfx_sprite_draw_actor_at(u32 sprite_sheet, s32 actor, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Draws sprite actor active animation/cel at (x,y) via hm_sprite_submit_0x0e_quad and advances animation timer via hm_sprite_step_0x0e_frame.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_16.c",
+          "address": "0x80015d6c",
+          "symbol": "gfx_sprite_draw_actor_tinted",
+          "signature": "void gfx_sprite_draw_actor_tinted(u32 sprite_sheet, s32 actor, s16 x, s16 y, u32 scale, u32 flags, u16 clut)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Draws scaled/tinted sprite actor frame via hm_sprite_submit_scaled_rot and updates actor animation state via hm_sprite_step_0x0e_frame.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/render_gte_sprites/render_gte_sprites_17.c",
+      "lineCount": 271,
+      "codeSloc": 215,
+      "symbolCount": 4,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_17.c",
+          "address": "0x80016c08",
+          "symbol": "gfx_sprite_emit_char_frame",
+          "signature": "u32 *gfx_sprite_emit_char_frame(u32 *prim_buf, u32 *ot_entry, s32 sprite_sheet, s16 x, s16 y, u16 part_key, s32 flip_flags, s32 scale, s16 r, s16 g, s16 b)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "cached_parts",
+            "status_flags": "part_count",
+            "work_acc_2": "idx",
+            "cond_flag": "j",
+            "work_acc_3": "cache_count",
+            "work_word": "slot_tag",
+            "work_acc_4": "vram_off",
+            "work_acc_5": "total_vram",
+            "part_offset": "part_w_px",
+            "part_offset_2": "tex_vram_y",
+            "work_acc_6": "tex_u_px",
+            "work_word_2": "slot_raw",
+            "i": "tex_mode",
+            "work_word_3": "found",
+            "work_word_4": "u0",
+            "work_word_5": "u1",
+            "j": "v0",
+            "work_acc_7": "v1",
+            "work_word_6": "px",
+            "work_acc_8": "py",
+            "work_acc_9": "pw",
+            "frame_slot": "ph"
+          },
+          "docstringSummary": "Emits full character/entity sprite primitive using gfx_sprite_draw_part_offset, applying active display scale/flip/tint.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_17.c",
+          "address": "0x8001afe0",
+          "symbol": "gfx_reset_ot_sprite_table",
+          "signature": "void gfx_reset_ot_sprite_table(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Clears 0x1300 bytes at g_gfx_ot_sprite_table_gpu_swap_clearotagr_arg[0] and resets screen color/tint state via hm_gpu_reset_ot_and_sprites.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_17.c",
+          "address": "0x8001b028",
+          "symbol": "gfx_set_screen_tint_rgb",
+          "signature": "void gfx_set_screen_tint_rgb(s16 r0, s16 g0, s16 b0, s16 r1, s16 g1, s16 b1)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Forwards six RGB tint/gradient parameters directly to screen overlay configuration helper hm_gpu_reset_ot_and_sprites.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_17.c",
+          "address": "0x8001b118",
+          "symbol": "hm_gpu_swap_buffers_and_draw_ot",
+          "signature": "void hm_gpu_swap_buffers_and_draw_ot(void)",
+          "typedArraysUsed": [
+            "g_gfx_disp_ctx_buf0"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Flushes sprite lists, waits DrawSync/VSync, swaps active DISPENV/DRAWENV, and calls DrawOTag PutDrawEnv, PutDispEnv",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/render_gte_sprites/render_gte_sprites_18.c",
+      "lineCount": 157,
+      "codeSloc": 114,
+      "symbolCount": 3,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_18.c",
+          "address": "0x8001e4c0",
+          "symbol": "hm_gte_update_camera_matrix",
+          "signature": "u32 hm_gte_update_camera_matrix(s32 *cam_cfg, MATRIX *view_mat)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "near_xz": "probe_pos",
+            "i": "cell_center",
+            "work_acc": "submesh_count",
+            "j": "matched_cell",
+            "work_acc_2": "cached_count",
+            "work_acc_3": "mesh_base",
+            "frame_slot": "i"
+          },
+          "docstringSummary": "Computes world-to-camera rotation and translation matrix from camera pitch/yaw/target gfx_floor_cell_hit_test",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_18.c",
+          "address": "0x8001e6fc",
+          "symbol": "gfx_find_floor_collision_cell",
+          "signature": "u32 gfx_find_floor_collision_cell(s32 *mesh_hdr, u32 probe_pt)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "hit_test": "mesh_base",
+            "work_acc": "i"
+          },
+          "docstringSummary": "Iterates floor cell index list g_gfx_gte_camera_matrix_find_state and tests each triangle/quad cell via gfx_floor_cell_hit_test.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/render_gte_sprites/render_gte_sprites_18.c",
+          "address": "0x80015dd4",
+          "symbol": "gfx_sprite_emit_active_char",
+          "signature": "u32 gfx_sprite_emit_active_char(u32 prim_buf, u32 sprite_sheet, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Reads active frame OT from g_core_engine_state.disp_ot_ctx+0x118 and emits character sprite frame via gfx_sprite_emit_char_frame.",
+          "zeroTellsVerified": true
+        }
+      ]
+    }
+  ]
+}

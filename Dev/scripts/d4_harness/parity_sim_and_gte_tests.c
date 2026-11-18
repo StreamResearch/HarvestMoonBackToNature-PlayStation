@@ -107,7 +107,7 @@ static int test_field_tool_stamina_and_fishing_sim(void) {
 
     HmPlayerState pstate;
     memset(&pstate, 0, sizeof(pstate));
-    *(s16 *)&pstate.action_sub_vars[10] = 6;
+    pstate.action_sub_vars[10] = 6u;
     p11_field_add_tool_experience(&pstate, 500);
     int xp1 = (pstate.tool_exp_and_timers[4] == 500u);
     p11_field_add_tool_experience(&pstate, 70000);
@@ -123,11 +123,11 @@ static int test_field_tool_stamina_and_fishing_sim(void) {
     int rng_ok = (g_hm_prng_seed == exp_seed)
         && (r == (((exp_seed >> 16) * 100u) >> 16)) && (r < 100u);
 
-    g_hm_event_flags_bitset = 0u;
+    g_hm_event_flags_bitset[0] = 0u;
     hm_event_flag_set(5u, 1);
     hm_event_flag_set(31u, 1);
     int bit_set = (hm_event_flag_get(5u) == 1u) && (hm_event_flag_get(31u) == 1u)
-        && (hm_event_flag_get(6u) == 0u) && (g_hm_event_flags_bitset == ((1u << 5) | (1u << 31)));
+        && (hm_event_flag_get(6u) == 0u) && (g_hm_event_flags_bitset[0] == ((1u << 5) | (1u << 31)));
     hm_event_flag_set(5u, 0);
     int bit_clr = (hm_event_flag_get(5u) == 0u) && (hm_event_flag_get(31u) == 1u);
 

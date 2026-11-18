@@ -216,7 +216,7 @@ def build_compat_block(globals_txt: str, readable_dir: Path | None = None, overr
     scalar_unidx = set(unidx.values()) - ptr_globals - arr_unidx
     lines = [
         MARKER_BEGIN, "#ifndef HMBTN_PS1_COMPAT_EXTS", "#define HMBTN_PS1_COMPAT_EXTS",
-        "#ifndef HMBTN_CALLBACK_FN_DEFINED", "#define HMBTN_CALLBACK_FN_DEFINED", "typedef int32_t (*HmCallbackFn)();", "#endif",
+        "#ifndef HMBTN_CALLBACK_FN_DEFINED", "#define HMBTN_CALLBACK_FN_DEFINED", "typedef int32_t (*HmCallbackFn)(void);", "#endif",
         "#define ZEXT48(x) ((uint64_t)(uint32_t)(x))",
         "#define ZEXT44(x) ((uint32_t)(x))", "#define SEXT48(x) ((int64_t)(int32_t)(x))", "#define ABS(x) ((x) < 0 ? -(x) : (x))",
         "#ifdef HM_HOST_PARITY", '#include "hm_gte_cop2.h"', "#else", "#define setCopReg(c, r, ...) ((void)0)", "#endif",

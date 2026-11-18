@@ -422,7 +422,7 @@
     "DAT_8005e8a7": "g_gfx_tick_fade_wipe_slot_filter_flag_2",
     "DAT_8005e9c9": "g_io_memcard_dispatch_pad_analog_flag",
     "DAT_8005f0a8": "g_ui_hud_preset_label_cfg",
-    "DAT_8005f0c8": "g_ui_text_render_glyph_stream_hud_table",
+    "DAT_8005f0c8": "g_hud_macro_token_table",
     "DAT_8005f0f8": "g_ui_font_lookup_kanji_glyph_hud_value",
     "DAT_8005f2e8": "g_gfx_ot_sprite_table_gpu_swap_clearotagr_arg",
     "UNK_8005f364": "g_gfx_gpu_swap_buffers_ot_region",
@@ -655,7 +655,7 @@
     "DAT_80080000": "g_npc_evt_map_prop_bubble_value",
     "DAT_8008f7f8": "g_anim_weather_sprites_barn_sheep_value",
     "DAT_80093e90": "g_anim_sprite_setup_model_data_1",
-    "DAT_800977f8": "g_npc_weather_particles_interact_swimmer_value",
+    "DAT_800977f8": "g_ui_framed_window_border_sprite",
     "DAT_8009a3f8": "g_farm_festival_field_vram_sweat_crop_table",
     "DAT_8009f78c": "g_gfx_active_map_desc",
     "DAT_800a0378": "g_core_event_script_ctx",
@@ -2748,7 +2748,7 @@
         },
         "reg_v1": {
           "name": "prev_prompt_mode",
-          "init": "g_core_vblank_frame_flag_off_2",
+          "init": "g_core_vblank_frame_flag[1]",
           "note": "/* $gp+0xc6 set by fallthrough prologue @ 0x80023710 */"
         }
       }

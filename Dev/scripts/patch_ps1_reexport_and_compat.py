@@ -242,8 +242,12 @@ def main(argv: list[str] | None = None) -> int:
     wg.generate_track_workspace(PROJ_ROOT)
     if ws_saved is not None:
         ws_p.write_bytes(ws_saved)
-    if (cl_p := READABLE_DIR / ".clangd").is_file() and "-Wno-int-conversion" not in (cl_t := cl_p.read_text(encoding="utf-8", errors="replace")):
-        cl_p.write_text(cl_t.replace("\n\nIndex:", "\n    - -Wno-int-conversion\n    - -Wno-incompatible-pointer-types\n    - -Wno-incompatible-function-pointer-types\n    - -Wno-implicit-function-declaration\n    - -Wno-pointer-sign\n    - -ferror-limit=0\n\nIndex:"), encoding="utf-8", newline="\n")
+    if (cl_p := READABLE_DIR / ".clangd").is_file():
+        cl_t = cl_p.read_text(encoding="utf-8", errors="replace")
+        cl_t = re.sub(r"\nDiagnostics:\n  Suppress:\n(?:    - [^\n]+\n)+", "\n", cl_t)
+        if "-Wall" not in cl_t:
+            cl_t = cl_t.replace("\n\nIndex:", "\n    - -Wall\n    - -Wextra\n    - -Wno-unused-parameter\n\nIndex:")
+        cl_p.write_text(cl_t, encoding="utf-8", newline="\n")
 
     globals_h = READABLE_DIR / "include" / "harvestmoonbtn_globals.h"
     g_txt = globals_h.read_text(encoding="utf-8", errors="replace")

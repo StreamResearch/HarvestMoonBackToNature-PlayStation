@@ -8,7 +8,22 @@ typedef struct HmEventScriptCtx {
     u16 *scene_data;          /* +0x00 */
     u32 scene_flags;          /* +0x04 */
     u16 *active_trigger;      /* +0x08 */
-    u32 script_work_vars[58]; /* +0x0C */
+    u32 script_work_head[5];  /* +0x0C */
+    u16 script_var_05_lo;     /* +0x20 */
+    u16 script_var_05_hi;     /* +0x22 */
+    u16 script_var_06_lo;     /* +0x24 */
+    u16 script_var_06_hi;     /* +0x26 */
+    u16 script_var_07_lo;     /* +0x28 */
+    u16 script_var_07_hi;     /* +0x2A */
+    u16 script_var_08_lo;     /* +0x2C */
+    u16 script_var_08_hi;     /* +0x2E */
+    u16 script_var_09_lo;     /* +0x30 */
+    u16 script_var_09_hi;     /* +0x32 */
+    u32 script_work_body[46]; /* +0x34 */
+    u8  scene_req_byte0;      /* +0xEC */
+    u8  scene_req_byte1;      /* +0xED */
+    u16 scene_req_mode;       /* +0xEE */
+    u32 script_work_tail;     /* +0xF0 */
     s32 active_bgm_id;        /* +0xF4 */
     u32 target_map_id;        /* +0xF8 */
     u32 transition_args[5];   /* +0xFC */
@@ -19,44 +34,67 @@ typedef struct HmEventScriptCtx {
 
 /* Rucksack / HUD inventory menu state (0x8012d52c..0x8012d5ab in 80113cd0) */
 typedef struct HmHudInventoryCtx {
-    s32 menu_state;         /* +0x00 */
-    s16 cursor_x;           /* +0x04 */
-    s16 cursor_y;           /* +0x06 */
-    s16 scroll_offset;      /* +0x08 */
-    s16 active_tab;         /* +0x0A */
-    u32 slot_mask;          /* +0x0C */
-    s16 selected_item;      /* +0x10 */
-    s16 selected_tool;      /* +0x12 */
-    u32 panel_work_vars[27];/* +0x14 */
+    s32 menu_state;            /* +0x00 */
+    s16 cursor_x;              /* +0x04 */
+    s16 cursor_y;              /* +0x06 */
+    s16 scroll_offset;         /* +0x08 */
+    s16 active_tab;            /* +0x0A */
+    u32 slot_mask;             /* +0x0C */
+    s16 selected_item;         /* +0x10 */
+    s16 selected_tool;         /* +0x12 */
+    u16 panel_state_lo;        /* +0x14 */
+    u16 panel_state_hi;        /* +0x16 */
+    u32 panel_reserved_18;     /* +0x18 */
+    s32 panel_list_params[4];  /* +0x1C */
+    u32 panel_slot_table[6];   /* +0x2C */
+    u16 panel_item_slots[10];  /* +0x44 */
+    u8  panel_slot_flags[8];   /* +0x58 */
+    u16 panel_cursor_u16[10];  /* +0x60 */
+    u8  panel_submode_bytes[4];/* +0x74 */
+    u16 panel_cursor_state;    /* +0x78 */
+    u16 panel_cursor_sub;      /* +0x7A */
+    u32 panel_end_slot;        /* +0x7C */
 } HmHudInventoryCtx; /* 0x80 */
 
 /* Dialogue / choice text window state (0x8005e444..0x8005e4bb in 800183e0) */
 typedef struct HmDialogueBoxCtx {
-    u16 glyph_count;       /* +0x00 */
-    u16 window_metrics[4]; /* +0x02 */
-    u16 box_mode;          /* +0x0A */
-    u32 box_flags;         /* +0x0C */
-    s32 choice_index;      /* +0x10 */
-    s32 cursor_pos;        /* +0x14 */
-    s32 page_offset;       /* +0x18 */
-    u32 page_stride;       /* +0x1C */
-    s32 line_index;        /* +0x20 */
-    u32 line_step;         /* +0x24 */
-    s32 pause_timer;       /* +0x28 */
-    s32 col_x;             /* +0x2C */
-    s32 row_y;             /* +0x30 */
-    u32 layout_rects[4];   /* +0x34 */
-    s32 voice_sfx_idx;     /* +0x44 */
-    s32 blink_timer;       /* +0x48 */
-    u32 cursor_anim_vars[4];/* +0x4C */
-    u16 speed_delay;       /* +0x5C */
-    u16 line_state;        /* +0x5E */
-    u32 render_flags;      /* +0x60 */
-    u16 *text_cursor;      /* +0x64 */
-    s32 text_index;        /* +0x68 */
-    u16 *text_base;        /* +0x6C */
-    s32 active_flag;       /* +0x70 */
-    s32 finish_flag;       /* +0x74 */
+    u16 glyph_count;         /* +0x00 */
+    u16 step_state;          /* +0x02 */
+    s32 type_timer;          /* +0x04 */
+    u16 char_delay;          /* +0x08 */
+    u16 box_mode;            /* +0x0A */
+    u32 box_flags;           /* +0x0C */
+    u16 choice_index;        /* +0x10 */
+    u16 choice_pad;          /* +0x12 */
+    s32 cursor_pos;          /* +0x14 */
+    s32 page_offset;         /* +0x18 */
+    u16 active_portrait_id;  /* +0x1C */
+    u16 portrait_pad_1e;     /* +0x1E */
+    s32 line_index;          /* +0x20 */
+    u16 loaded_portrait_id;  /* +0x24 */
+    u16 portrait_pad_26;     /* +0x26 */
+    s32 pause_timer;         /* +0x28 */
+    u16 speaker_id;          /* +0x2C */
+    u16 speaker_pad_2e;      /* +0x2E */
+    s32 row_y;               /* +0x30 */
+    s16 layout_x;            /* +0x34 */
+    s16 layout_y;            /* +0x36 */
+    u16 layout_col;          /* +0x38 */
+    u16 layout_line_count;   /* +0x3A */
+    u16 layout_target_lines; /* +0x3C */
+    u16 layout_last_style;   /* +0x3E */
+    u32 layout_rect_extra;   /* +0x40 */
+    s32 voice_sfx_idx;       /* +0x44 */
+    s32 blink_timer;         /* +0x48 */
+    s16 cursor_anim_vars[8]; /* +0x4C */
+    u16 speed_delay;         /* +0x5C */
+    u16 line_state;          /* +0x5E */
+    u32 render_flags;        /* +0x60 */
+    u16 *text_cursor;        /* +0x64 */
+    s32 text_index;          /* +0x68 */
+    u16 *text_base;          /* +0x6C */
+    s32 active_flag;         /* +0x70 */
+    s32 finish_flag;         /* +0x74 */
 } HmDialogueBoxCtx; /* 0x78 */
 
 /* Shop / vendor menu state (0x8012d798..0x8012d813 in 801173c0) */
@@ -100,22 +138,25 @@ typedef struct HmSaveSlotSummary {
 
 /* Diary / Memory Card overlay state block (0x80137584..0x801376df in OVL_part15) */
 typedef struct HmDiarySaveBlob {
-    u8  state;                  /* +0x00 */
-    u8  prev_state;             /* +0x01 */
-    u8  sub_state;              /* +0x02 */
-    u8  card_flag;              /* +0x03 */
-    u16 cursor_item;            /* +0x04 */
-    u16 selected_slot;          /* +0x06 */
-    u16 active_port;            /* +0x08 */
-    u16 menu_mode;              /* +0x0A */
-    s32 card_result;            /* +0x0C */
-    u16 confirm_cursor;         /* +0x10 */
-    u16 retry_limit;            /* +0x12 */
-    u16 prompt_id;              /* +0x14 */
-    u16 card_busy;              /* +0x16 */
-    u32 slot_and_card_work[77]; /* +0x18 */
-    u8  *save_buf_ptr;          /* +0x14C */
-    u32 transfer_tail[3];       /* +0x150 */
+    u8  state;                    /* +0x00 */
+    u8  prev_state;               /* +0x01 */
+    u8  sub_state;                /* +0x02 */
+    u8  card_flag;                /* +0x03 */
+    u8  cursor_item;              /* +0x04 */
+    u8  cursor_sub;               /* +0x05 */
+    u16 selected_slot;            /* +0x06 */
+    u16 active_port;              /* +0x08 */
+    u16 menu_mode;                /* +0x0A */
+    s32 card_result;              /* +0x0C */
+    u16 confirm_cursor;           /* +0x10 */
+    u16 retry_limit;              /* +0x12 */
+    u16 prompt_id;                /* +0x14 */
+    u16 card_busy;                /* +0x16 */
+    u16 slot_work_u16[6];         /* +0x18 */
+    u32 slot_and_card_work[72];   /* +0x24 */
+    u8  card_name_buf[8];         /* +0x144 */
+    u8  *save_buf_ptr;            /* +0x14C */
+    u32 transfer_tail[3];         /* +0x150 */
 } HmDiarySaveBlob; /* 0x15C */
 
 /* Festival / minigame shared control block (0x80070cc4..0x80070ceb) */

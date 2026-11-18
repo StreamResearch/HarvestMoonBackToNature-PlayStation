@@ -8,11 +8,25 @@
 
 #ifndef HMBTN_SDK_COMPAT_FWD
 #define HMBTN_SDK_COMPAT_FWD
-typedef s32 f();
+typedef enum HmGlyphToken {
+    GLYPH_TOK_PAD        = 0x0FFD,
+    GLYPH_TOK_MACRO_BIT  = 0x4000,
+    GLYPH_TOK_INDEX_MASK = 0x0FFF,
+    GLYPH_TOK_TYPE_MASK  = 0xF000,
+    GLYPH_TOK_NEWLINE    = 0xFFFE,
+    GLYPH_TOK_END        = 0xFFFF
+} HmGlyphToken;
+typedef void (*HmVoidCallback)(void);
+typedef s32 (*HmCallback1Fn)(s32 arg0);
+typedef s32 (*HmCallback2Fn)(s32 arg0, s32 arg1);
+typedef s32 (*HmCallback3Fn)(s32 arg0, s32 arg1, s32 arg2);
+typedef s32 (*HmCallback4Fn)(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+typedef s32 (*HmCallback5Fn)(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+typedef s32 (*HmCallback6Fn)(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
 typedef void (*MemCB)(s32, s32);
 #ifndef HMBTN_CALLBACK_FN_DEFINED
 #define HMBTN_CALLBACK_FN_DEFINED
-typedef s32 (*HmCallbackFn)();
+typedef s32 (*HmCallbackFn)(void);
 #endif
 typedef struct __jmp_buf_tag __jmp_buf_tag;
 typedef struct DIRENTRY {

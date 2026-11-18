@@ -207,11 +207,11 @@ def _check_clangd(readable_dir: Path, find_clangd_fn: Any, offline_synthetic: bo
     summary, all_ok = [], True
     for t in targets:
         proc = subprocess.run([clangd, f"--check={t}"], capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=30)
-        m = re.search(r"All checks completed,\s*(\d+)\s*errors", (proc.stdout or "") + "\n" + (proc.stderr or ""))
+        out = (proc.stdout or "") + "\n" + (proc.stderr or "")
+        m, warns = re.search(r"All checks completed,\s*(\d+)\s*errors", out), len(re.findall(r"^W\[|\bwarning:", out, re.M))
         errs = int(m.group(1)) if m else -1
-        if proc.returncode != 0 or errs != 0:
-            all_ok = False
-        summary.append(f"{t.name}={errs}")
+        if proc.returncode != 0 or errs != 0 or warns != 0: all_ok = False
+        summary.append(f"{t.name}={errs}e/{warns}w")
     return all_ok, ", ".join(summary)
 
 

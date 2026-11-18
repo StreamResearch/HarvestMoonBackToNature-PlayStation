@@ -6,7 +6,6 @@
   "platformId": "ps1",
   "engineId": "reStation",
   "decompSchemaVersion": "1.0.0",
-  "targetDecompTier": "D4",
   "pipelineFamily": "native_ghidra_c",
   "serialOrHash": "SLUS-01115",
   "abiProfile": "ps1-psyq-mipsel",
@@ -100,7 +99,7 @@
     "globalsTotal": 3497,
     "globalsMapped": 3497,
     "domainsCount": 23,
-    "readableFiles": 522,
+    "readableFiles": 521,
     "workspaceReady": true
   },
   "gates": {
@@ -122,7 +121,7 @@
     },
     "D4": {
       "passed": true,
-      "verifiedAtUtc": "2026-11-17T20:15:52.885Z",
+      "verifiedAtUtc": "2026-11-18T06:33:13.536Z",
       "report": "schemas/d4_build_report.json"
     },
     "R0": {
@@ -171,14 +170,14 @@
     },
     "S4": {
       "passed": true,
-      "verifiedAtUtc": "2026-11-14T00:34:46.211Z"
+      "verifiedAtUtc": "2026-11-18T06:34:00.000Z"
     },
     "S5": {
       "passed": false,
       "verifiedAtUtc": null
     }
   },
-  "updatedAtUtc": "2026-11-17T20:15:53.427Z",
+  "updatedAtUtc": "2026-11-18T06:34:00.000Z",
   "manifestType": "research-repo",
   "researchAxis": "decomp",
   "currentStudyTier": "S4",

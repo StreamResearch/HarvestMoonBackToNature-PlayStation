@@ -9,6 +9,22 @@
       "path": "../Corpus/readable"
     },
     {
+      "name": "Tier 4 (D4_FunctionalRewrite) — Idiomatic Human C",
+      "path": "../Corpus/tiers/D4_FunctionalRewrite"
+    },
+    {
+      "name": "Tier 3 (D3_Mapped) — 100% Mapped & Regex-Clean",
+      "path": "../Corpus/tiers/D3_Mapped"
+    },
+    {
+      "name": "Tier 2 (D2_Structured) — Structured & Named",
+      "path": "../Corpus/tiers/D2_Structured"
+    },
+    {
+      "name": "Tier 1 (D1_Raw) — Raw Ghidra Output",
+      "path": "../Corpus/tiers/D1_Raw"
+    },
+    {
       "name": "2. Harvest Moon: Back to Nature — Schemas & Catalog",
       "path": "./schemas"
     },

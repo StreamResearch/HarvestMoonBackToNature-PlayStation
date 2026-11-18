@@ -1,0 +1,2065 @@
+{
+  "schemaVersion": 2,
+  "shardId": "src_ui_npc",
+  "taskId": "HMBTN:0.2.1:T8",
+  "rewriteTier": "D4_FunctionalRewrite",
+  "compilerFlags": [
+    "-Wall",
+    "-Wextra",
+    "-Wno-unused-parameter"
+  ],
+  "zeroDecompilerTellsVerified": true,
+  "zeroWarningsVerified": true,
+  "generatedAtUtc": "2026-11-18T06:28:41.674Z",
+  "fileCount": 17,
+  "symbolCount": 142,
+  "files": [
+    {
+      "relpath": "src/npc_dialogue_events/npc_dialogue_events_01.c",
+      "lineCount": 269,
+      "codeSloc": 125,
+      "symbolCount": 12,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_01.c",
+          "address": "0x80017a38",
+          "symbol": "hm_text_set_margins",
+          "signature": "void hm_text_set_margins(u16 margin_x, u16 margin_y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Sets global text wrapping margin X/Y bounds hm_ovl11_run_rucksack_pause_menu, p11_ui_tick_calendar_and_map_menu, p11_ui_run_calendar_festival_list, p11_ui_run_options_settings_menu, hm_ovl11_run_diary_save_prompt, p11_ui_update_kitchen_cooking_ui (+12 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_01.c",
+          "address": "0x80017b18",
+          "symbol": "hm_text_set_render_mode",
+          "signature": "void hm_text_set_render_mode(u32 mode_flags)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Sets active dialogue/font glyph rendering mode word hm_ovl11_update_shop_or_tv_menu, p11_ui_update_calendar_month_view, hm_ovl11_run_rucksack_pause_menu, hm_ovl11_run_calendar_and_map_menu, p11_ui_show_calendar_festival_msg, p11_ui_show_farm_map_building_msg (+46 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_01.c",
+          "address": "0x8001a970",
+          "symbol": "hm_text_fetch_script_entry",
+          "signature": "s16 *hm_text_fetch_script_entry(s32 msg_id, s16 *out_len, s32 bank_id)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_PAD"
+          ],
+          "localRenames": {
+            "work_acc": "digits",
+            "msg_id_2": "abs_val",
+            "i": "nonzero_seen",
+            "j": "i",
+            "caller_slot": "out_len"
+          },
+          "docstringSummary": "Formats signed integer msg_id into up to min(bank_id, 10) right-aligned PS1 glyph tokens at out_len (0x0FFD leading pad, 0x0069 '-', 0x0040..0x0049 '0'..'9') and returns end pointer. p11_ui_draw_storage_unit_qty, p11_ui_draw_calendar_header_date, p11_ui_draw_calendar_day_number, p11_ui_draw_hud_clock_widget, p11_ui_draw_status_overview_page, p11_ui_draw_status_record_counts (+22 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_01.c",
+          "address": "0x80021fe4",
+          "symbol": "evt_res_get_portrait_buf_if_idle",
+          "signature": "u8 *evt_res_get_portrait_buf_if_idle(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "dlg_value_ptr": "NULL"
+          },
+          "docstringSummary": "Returns portrait buffer pointer g_npc_entity_model_pack_livestock_dlg_value if portrait DMA flag g_core_evt_portrait_buf_if_clear_flag is zero, else NULL.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_01.c",
+          "address": "0x80022008",
+          "symbol": "evt_res_clear_portrait_busy",
+          "signature": "u32 evt_res_clear_portrait_busy(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Clears portrait DMA busy flag g_core_evt_portrait_buf_if_clear_flag to zero.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_01.c",
+          "address": "0x80022014",
+          "symbol": "evt_res_find_race_entry_id",
+          "signature": "u32 evt_res_find_race_entry_id(s32 table_ptr, s16 entry_id)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "i": "race_idx",
+            "work_acc": "slot_idx"
+          },
+          "docstringSummary": "Searches 2D race/event schedule table at table_ptr for a matching s16 entry_id, returning 1 if found.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_01.c",
+          "address": "0x800225c4",
+          "symbol": "evt_res_dispatch_submode_cb",
+          "signature": "u32 evt_res_dispatch_submode_cb(void)",
+          "typedArraysUsed": [
+            "g_rodata_card_dispatch_tbl"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Invokes active dialog/overlay submode callback from jump table g_rodata_card_dispatch_tbl indexed by g_core_submode_state. ovl19_dispatch_festival_phase, ovl21_dispatch_match_phase, ovl23_dispatch_prerace_phase, ovl25_update_scene_and_dispatch_mode, hm_ovl27_title_draw_menu",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_01.c",
+          "address": "0x8002261c",
+          "symbol": "hm_dialogue_set_window_state",
+          "signature": "bool hm_dialogue_set_window_state(s32 win_id, s32 state)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "submode_state": "was_active"
+          },
+          "docstringSummary": "Transitions specified dialogue/menu window slot win_id into open, active, or closing state hm_ovl11_handle_item_pickup_carry, p11_field_offer_fish_to_lake_goddess, p11_field_feed_or_gift_coop_chicken, p11_field_feed_barn_livestock_fodder, p11_field_feed_dog_or_horse_bowl, p11_field_deposit_item_into_shipping_bin (+119 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_01.c",
+          "address": "0x800226b0",
+          "symbol": "evt_res_is_dialog_idle_or_choice",
+          "signature": "u32 evt_res_is_dialog_idle_or_choice(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Returns 1 if dialogue state g_npc_dialogue_window_state_evt_dialog_state equals 2 or 5 (idle/waiting), else 0. p11_dlg_handle_storage_menu_pad_input, p11_ui_update_storage_menu_cursor, p11_ui_update_calendar_month_view, p11_ui_poll_inventory_menu_input, p11_ui_update_calendar_month_cursor, hm_ovl11_run_rucksack_pause_menu (+20 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_01.c",
+          "address": "0x800226d8",
+          "symbol": "evt_res_set_dialog_fade_flag",
+          "signature": "u32 evt_res_set_dialog_fade_flag(u32 enabled)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Writes dialogue fade/window lock flag into g_npc_evt_dialog_fade_flag_tick_state. hm_ovl11_update_shop_or_tv_menu, p11_ui_update_calendar_month_view, hm_ovl11_run_rucksack_pause_menu, hm_ovl11_run_calendar_and_map_menu, p11_ui_show_calendar_festival_msg, p11_ui_show_farm_map_building_msg (+45 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_01.c",
+          "address": "0x80022af0",
+          "symbol": "evt_res_get_dialog_speaker_style",
+          "signature": "s32 evt_res_get_dialog_speaker_style(void)",
+          "typedArraysUsed": [
+            "g_npc_evt_dialog_speaker_style_value"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Maps dialogue style index g_npc_dialogue_window_state_evt_state_dialog_speaker (< 5, else 0) through g_npc_evt_dialog_speaker_style_value to return window style ID.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_01.c",
+          "address": "0x80022f1c",
+          "symbol": "evt_res_get_npc_affection_tier",
+          "signature": "u32 evt_res_get_npc_affection_tier(s32 npc_idx)",
+          "typedArraysUsed": [
+            "g_npc_actor0_affection",
+            "g_npc_evt_affection_tier_value"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "actor_slot",
+            "work_word_2": "affection"
+          },
+          "docstringSummary": "Reads NPC affection score from g_npc_actor0_affection (0x1d4-byte record stride = 234 u16s) via table g_npc_evt_affection_tier_value and returns tier 0..6.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/npc_dialogue_events/npc_dialogue_events_02.c",
+      "lineCount": 224,
+      "codeSloc": 117,
+      "symbolCount": 9,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_02.c",
+          "address": "0x8002301c",
+          "symbol": "evt_res_reset_yesno_prompt",
+          "signature": "void evt_res_reset_yesno_prompt(void)",
+          "typedArraysUsed": [
+            "g_core_vblank_frame_flag"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Clears yes/no prompt state g_core_vblank_frame_flag[0], g_core_vblank_frame_flag[1], and selection index g_npc_evt_yesno_prompt_close_v0_state to zero.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_02.c",
+          "address": "0x80023100",
+          "symbol": "evt_res_reset_naming_state",
+          "signature": "u32 evt_res_reset_naming_state(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Resets player/farm naming screen state globals g_npc_evt_naming_state_open_screen_state_kana_alnum..35c to initial values. hm_ovl27_title_draw_menu, evt_res_open_naming_screen_kana, evt_res_open_naming_screen_alnum, evt_res_open_naming_screen_default",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_02.c",
+          "address": "0x80023288",
+          "symbol": "evt_res_render_yesno_window",
+          "signature": "void evt_res_render_yesno_window(void)",
+          "typedArraysUsed": [
+            "g_core_vblank_frame_flag"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "state"
+          },
+          "docstringSummary": "Draws yes/no choice frame/menu and commits prompt dismissal when state g_core_vblank_frame_flag reaches 3.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_02.c",
+          "address": "0x800236ec",
+          "symbol": "evt_res_enter_yesno_active",
+          "signature": "void evt_res_enter_yesno_active(void)",
+          "typedArraysUsed": [
+            "g_core_vblank_frame_flag"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Saves current cursor index into prompt options[1], clears g_core_vblank_frame_flag[1] to 0, and advances g_core_vblank_frame_flag[0] to state 2 (active input).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_02.c",
+          "address": "0x80023710",
+          "symbol": "evt_res_close_yesno_prompt",
+          "signature": "void evt_res_close_yesno_prompt(void)",
+          "typedArraysUsed": [
+            "g_core_vblank_frame_flag"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Saves selection into prompt options[2], clears cursor state, advances g_core_vblank_frame_flag[0] to 3 (closing), and notifies evt_res_commit_dialog_close.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_02.c",
+          "address": "0x80023794",
+          "symbol": "evt_res_step_yesno_cursor",
+          "signature": "s32 evt_res_step_yesno_cursor(s16 cur_sel)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "cur_sel_2": "pad_status"
+          },
+          "docstringSummary": "Processes up/down D-pad flags in g_core_engine_state.pad_p1 to cycle yes/no/choice cursor selection.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_02.c",
+          "address": "0x80023a74",
+          "symbol": "evt_res_clear_naming_buf",
+          "signature": "void evt_res_clear_naming_buf(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_END"
+          ],
+          "localRenames": {},
+          "docstringSummary": "Fills the 8-character naming-screen glyph buffer at g_npc_evt_open_naming_screen_alnum_state backwards with terminator/blank tokens. evt_res_open_naming_screen_default",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_02.c",
+          "address": "0x80023b5c",
+          "symbol": "evt_res_format_naming_kana",
+          "signature": "void evt_res_format_naming_kana(s16 *out_tokens)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_END",
+            "GLYPH_TOK_PAD"
+          ],
+          "localRenames": {
+            "work_word": "i"
+          },
+          "docstringSummary": "Converts active naming buffer g_npc_evt_open_naming_screen_alnum_state into bordered glyph string in out_tokens using table g_npc_evt_format_naming_kana_count.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_02.c",
+          "address": "0x80023c2c",
+          "symbol": "evt_res_format_naming_alnum",
+          "signature": "void evt_res_format_naming_alnum(u16 *out_tokens)",
+          "typedArraysUsed": [
+            "g_npc_evt_format_naming_alnum_table"
+          ],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_END",
+            "GLYPH_TOK_PAD"
+          ],
+          "localRenames": {
+            "cond_flag": "i"
+          },
+          "docstringSummary": "Converts active naming buffer g_npc_evt_open_naming_screen_alnum_state into alphanumeric glyph string in out_tokens using table g_npc_evt_format_naming_alnum_table[0].",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/npc_dialogue_events/npc_dialogue_events_03.c",
+      "lineCount": 287,
+      "codeSloc": 191,
+      "symbolCount": 7,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_03.c",
+          "address": "0x80023dbc",
+          "symbol": "evt_res_tick_naming_input",
+          "signature": "void evt_res_tick_naming_input(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_END",
+            "GLYPH_TOK_PAD"
+          ],
+          "localRenames": {
+            "or_choice": "pad_edge",
+            "tick_counter": "sfx_id"
+          },
+          "docstringSummary": "Handles directional, page-switch, backspace, and confirm pad inputs on the naming-screen character grid.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_03.c",
+          "address": "0x800243d0",
+          "symbol": "evt_res_clamp_naming_grid_col",
+          "signature": "s32 evt_res_clamp_naming_grid_col(s32 row, s32 col, s32 moving_right)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Handles column skip gaps (cols 2..4) on row 13 of the naming-screen character grid when moving left or right.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_03.c",
+          "address": "0x80024448",
+          "symbol": "evt_res_draw_naming_cursor",
+          "signature": "void evt_res_draw_naming_cursor(u32 cell_idx)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "idx",
+            "i": "col"
+          },
+          "docstringSummary": "Maps naming grid index cell_idx (% 0xe) to pixel coordinates and draws the cursor via evt_res_draw_cursor_hand.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_03.c",
+          "address": "0x800244fc",
+          "symbol": "evt_res_query_naming_cell",
+          "signature": "u32 evt_res_query_naming_cell(u32 cell_idx, u32 charset_mode)",
+          "typedArraysUsed": [
+            "g_npc_evt_query_naming_cell_jtbl_ptr_1"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "idx"
+          },
+          "docstringSummary": "Dispatches naming-screen cell lookup via jump table g_npc_evt_query_naming_cell_jtbl_ptr for charset_mode < 2.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_03.c",
+          "address": "0x80021da8",
+          "symbol": "hm_dialogue_reset_window_state",
+          "signature": "void hm_dialogue_reset_window_state(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Clears all open UI/dialogue box descriptors and resets active text cursor state",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_03.c",
+          "address": "0x8002206c",
+          "symbol": "evt_res_init_derby_odds",
+          "signature": "void evt_res_init_derby_odds(void)",
+          "typedArraysUsed": [
+            "g_npc_evt_derby_odds_count_1",
+            "g_npc_evt_derby_odds_table_2",
+            "g_ovl11_ovl_betting_racer_row_all_table",
+            "g_ovl11_ovl_betting_racer_row_setup_count",
+            "g_ovl17_swimmer_lanes_count",
+            "g_ovl17_swimmer_lanes_evt_count"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "open_cfg16": "race_mode",
+            "work_word": "race_idx",
+            "work_word_2": "racer_idx"
+          },
+          "docstringSummary": "Clears 0x108 bytes at g_ui_festival_bet_pool_empty_open_cfg16 and populates randomized horse race participant lineup and odds.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_03.c",
+          "address": "0x80022738",
+          "symbol": "evt_res_commit_dialog_close",
+          "signature": "u32 evt_res_commit_dialog_close(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Unlocks HUD/pad input flags (hm_text_set_render_mode(1), g_npc_evt_dialog_fade_flag_tick_state=1) and advances dialog box state g_core_submode_state from 4 to 5. hm_ovl11_render_hud_clock_and_stamina, hm_ovl11_update_shop_or_tv_menu, p11_dlg_handle_storage_menu_pad_input, p11_ui_show_storage_item_tooltip, p11_ui_update_calendar_month_view, p11_ui_poll_inventory_menu_input (+64 more)",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/npc_dialogue_events/npc_dialogue_events_04.c",
+      "lineCount": 279,
+      "codeSloc": 189,
+      "symbolCount": 7,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_04.c",
+          "address": "0x80022df8",
+          "symbol": "evt_res_restore_dialog_pad_mask",
+          "signature": "u32 evt_res_restore_dialog_pad_mask(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Restores pad mask g_npc_evt_restore_dialog_pad_const via hm_event_flag_set(3, ...) and syncs bit 0x08000000 of g_core_engine_flags0 from g_npc_evt_dialog_box_idle_suspend_state.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_04.c",
+          "address": "0x80023030",
+          "symbol": "evt_res_open_yesno_prompt",
+          "signature": "void evt_res_open_yesno_prompt(u32 prompt_text)",
+          "typedArraysUsed": [
+            "g_core_vblank_frame_flag"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Resets yes/no state via evt_res_reset_yesno_prompt, binds prompt_text to g_npc_evt_open_yesno_prompt_options_state, and sets state g_core_vblank_frame_flag=1.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_04.c",
+          "address": "0x80023130",
+          "symbol": "evt_res_open_naming_screen_kana",
+          "signature": "void evt_res_open_naming_screen_kana(u32 target_buf)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Initializes naming screen targeting target_buf in kana/mode-1 with confirm-page flag g_npc_evt_naming_state_open_render_state=1.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_04.c",
+          "address": "0x80023170",
+          "symbol": "evt_res_open_naming_screen_alnum",
+          "signature": "void evt_res_open_naming_screen_alnum(u32 target_buf)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Initializes naming screen targeting target_buf in alphanumeric mode (g_npc_evt_naming_state_open_screen_state_1=0, g_npc_evt_naming_state_open_screen_state_kana_alnum=1). hm_ovl27_title_draw_menu",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_04.c",
+          "address": "0x800231ac",
+          "symbol": "evt_res_open_naming_screen_default",
+          "signature": "void evt_res_open_naming_screen_default(u32 target_buf)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Initializes naming screen targeting target_buf in default mode (g_npc_evt_naming_state_open_screen_state_1=1, g_npc_evt_naming_state_open_screen_state_kana_alnum=1). hm_ovl11_draw_memo_and_recipes_ui, hm_ovl27_title_draw_menu",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_04.c",
+          "address": "0x800241ec",
+          "symbol": "evt_res_move_naming_cursor",
+          "signature": "u32 evt_res_move_naming_cursor(u32 cell_idx, s16 pad_dir, u32 wrap_mode)",
+          "typedArraysUsed": [
+            "g_npc_evt_move_naming_cursor_dat_ptr_1",
+            "g_npc_evt_move_naming_cursor_dat_ptr_2",
+            "g_npc_evt_move_naming_cursor_jtbl_ptr"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "idx",
+            "cond_flag": "move_horizontal",
+            "work_word": "step_dir",
+            "cell_idx_2": "step_flags",
+            "work_word_2": "idx"
+          },
+          "docstringSummary": "Steps active naming-screen grid cursor cell_idx according to D-pad direction bitmask and row-13 column rules.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_04.c",
+          "address": "0x8001a284",
+          "symbol": "hm_font_lookup_kanji_glyph",
+          "signature": "u16 *hm_font_lookup_kanji_glyph(u32 glyph_code)",
+          "typedArraysUsed": [
+            "g_anim_chicken_coop_tbl",
+            "g_anim_livestock_barn_tbl",
+            "g_farm_field_all_animal_pickup_sync_cfg16"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "sync_cfg16": "token_id",
+            "macro_id": "i"
+          },
+          "docstringSummary": "Resolves script macro token (0x400A..0x4022) to the corresponding dynamic string buffer (player/pet/farm/animal name or formatted numeric counter). hud_res_count_line_glyphs",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/npc_dialogue_events/npc_dialogue_events_05.c",
+      "lineCount": 312,
+      "codeSloc": 193,
+      "symbolCount": 9,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_05.c",
+          "address": "0x800223d4",
+          "symbol": "evt_res_emit_window_tile",
+          "signature": "void evt_res_emit_window_tile(u32 tile_grid, HmCallbackFn draw_fn)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "draw_tile_fn",
+            "work_acc": "scroll_off",
+            "work_acc_2": "tile_phase",
+            "work_acc_3": "row_y",
+            "i": "col_x"
+          },
+          "docstringSummary": "Iterates tile grid descriptors at g_gfx_sprite_ot_ctx/g_ui_framed_window_border_sprite and invokes draw_fn per active dialogue/UI tile.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_05.c",
+          "address": "0x80022528",
+          "symbol": "evt_res_draw_window_border_tile",
+          "signature": "void evt_res_draw_window_border_tile(u32 sprite_sheet, u32 tile_idx, u8 frame_idx, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Draws a 9-slice dialogue window border sprite tile at bank 0x1d into the active OT slot via gfx_sprite_draw_frame_wrapper.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_05.c",
+          "address": "0x800226f0",
+          "symbol": "evt_res_init_dialog_box_idle",
+          "signature": "void evt_res_init_dialog_box_idle(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Restores dialog pad mask, resets dialog state g_npc_dialogue_window_state_evt_dialog_state=2, clears g_core_submode_state=0, and enables HUD fade/lock. p11_ui_tick_rucksack_pause_menu, hm_ovl11_run_calendar_and_map_menu, p11_ui_tick_diary_save_prompt, p11_ui_exit_kitchen_cooking_menu, hm_ovl11_dispatch_festival_or_minigame, p11_ovl_init_overlay_scene_state (+10 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_05.c",
+          "address": "0x80022964",
+          "symbol": "evt_res_suspend_dialog_box",
+          "signature": "u32 evt_res_suspend_dialog_box(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Saves pad state g_core_engine_flags0/g_npc_evt_restore_dialog_pad_const, switches dialog state g_npc_dialogue_window_state_evt_dialog_state=0xe, and pauses active dialogue window. evt_res_get_dialog_speaker_style",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_05.c",
+          "address": "0x80022fe0",
+          "symbol": "evt_res_apply_portrait_and_free",
+          "signature": "void evt_res_apply_portrait_and_free(s32 *portrait_req)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "portrait_id"
+          },
+          "docstringSummary": "If portrait_req[0] != -1, releases previous portrait allocation via hm_vram_unpack_0x0d_pack_auto and updates loaded portrait ID.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_05.c",
+          "address": "0x80023718",
+          "symbol": "evt_res_close_yesno_prompt_v0",
+          "signature": "void evt_res_close_yesno_prompt_v0(void)",
+          "typedArraysUsed": [
+            "g_core_vblank_frame_flag"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "prompt_options_ctx": "prev_prompt_mode"
+          },
+          "docstringSummary": "Register-entry wrapper clearing yes/no cursor, setting state g_core_vblank_frame_flag=3, and calling evt_res_commit_dialog_close.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_05.c",
+          "address": "0x8002374c",
+          "symbol": "evt_res_confirm_yesno_prompt",
+          "signature": "void evt_res_confirm_yesno_prompt(void)",
+          "typedArraysUsed": [
+            "g_core_vblank_frame_flag"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Advances yes/no prompt state g_core_vblank_frame_flag to 4 (confirmed) and triggers evt_res_commit_dialog_close.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_05.c",
+          "address": "0x80018b98",
+          "symbol": "hm_text_render_glyph_stream",
+          "signature": "u32 hm_text_render_glyph_stream(u32 ot_idx, u32 str_ptr, u16 *style_ptr, s16 x, s16 y, s32 w, s32 h, u32 color, s32 line_h, s32 pad)",
+          "typedArraysUsed": [
+            "g_hud_macro_token_table"
+          ],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_END",
+            "GLYPH_TOK_INDEX_MASK",
+            "GLYPH_TOK_MACRO_BIT",
+            "GLYPH_TOK_NEWLINE",
+            "GLYPH_TOK_PAD"
+          ],
+          "localRenames": {
+            "status_flags": "can_advance_state",
+            "cond_flag": "at_end",
+            "glyph_count_2": "str_ptr"
+          },
+          "docstringSummary": "Decodes control codes, Kanji/ASCII glyph indices, and submits character sprites to OT hm_text_render_glyph_stream, hud_res_draw_text_default, hud_res_draw_text_centered, hud_res_draw_text_right_aligned hud_res_decode_portrait_idx, hud_res_free_portrait_slot, hm_font_lookup_kanji_glyph, hm_audio_play_sfx",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_05.c",
+          "address": "0x8002238c",
+          "symbol": "evt_res_draw_window_border_a",
+          "signature": "void evt_res_draw_window_border_a(u32 tile_grid)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Renders dialogue window inner tiles by passing evt_res_draw_window_fill_tile into evt_res_emit_window_tile. hm_ovl15_memcard_ui_loop, hm_ovl15_memcard_new_game_setup, hm_ovl15_memcard_render_slots",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/npc_dialogue_events/npc_dialogue_events_06.c",
+      "lineCount": 217,
+      "codeSloc": 99,
+      "symbolCount": 10,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_06.c",
+          "address": "0x800223b0",
+          "symbol": "evt_res_draw_window_border_b",
+          "signature": "void evt_res_draw_window_border_b(u32 tile_grid)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Renders dialogue window outer tiles by passing evt_res_draw_window_border_tile into evt_res_emit_window_tile.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_06.c",
+          "address": "0x800224f0",
+          "symbol": "evt_res_draw_window_fill_tile",
+          "signature": "void evt_res_draw_window_fill_tile(u32 sprite_sheet, u32 tile_idx, u8 frame_idx, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Draws a dialogue window tile sprite at bank 0x1d into the active OT slot via hm_sprite_submit_0x0e_quad.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_06.c",
+          "address": "0x80023064",
+          "symbol": "evt_res_tick_yesno_dialog",
+          "signature": "u32 evt_res_tick_yesno_dialog(void)",
+          "typedArraysUsed": [
+            "g_core_vblank_frame_flag"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "abi_reg": "state"
+          },
+          "docstringSummary": "Draws backing tint rect via hm_draw_poly_f4_panel, steps yes/no window via evt_res_render_yesno_window, and returns prompt status.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_06.c",
+          "address": "0x80023600",
+          "symbol": "evt_res_tick_yesno_input",
+          "signature": "void evt_res_tick_yesno_input(void)",
+          "typedArraysUsed": [
+            "g_core_vblank_frame_flag"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "or_choice": "state",
+            "yesno_cursor_ptr": "confirm_fn",
+            "yesno_prompt_ptr": "cancel_fn",
+            "yesno_active_ptr": "step_fn",
+            "work_acc": "pad_edge"
+          },
+          "docstringSummary": "Dispatches active yes/no cursor movement and confirm/cancel actions when evt_res_is_dialog_idle_or_choice is set. evt_res_close_yesno_prompt, evt_res_confirm_yesno_prompt, evt_res_step_yesno_cursor",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_06.c",
+          "address": "0x80023dc0",
+          "symbol": "evt_res_tick_naming_input_v0",
+          "signature": "void evt_res_tick_naming_input_v0(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Register-entry wrapper delegating naming-screen pad navigation, cursor step, and character entry to evt_res_tick_naming_input (4-byte fallthrough from 0x80023dbc).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_06.c",
+          "address": "0x80017b3c",
+          "symbol": "hm_text_draw_dialog_line",
+          "signature": "void hm_text_draw_dialog_line(u32 ot_idx, u32 msg_ptr, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "fade_level": "prim_cursor"
+          },
+          "docstringSummary": "Acquires GsWORKBASE scratch primitive cursor via hm_text_acquire_scratch_ctx, draws a positioned dialogue line via hm_text_render_glyph_stream, and commits the updated cursor. p11_ui_draw_calendar_header_date, p11_ui_draw_calendar_day_number, p11_ui_draw_calendar_weekday_bar, hm_ovl11_run_rucksack_pause_menu, p11_ui_draw_hud_clock_widget, p11_ui_update_farm_status_screen (+52 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_06.c",
+          "address": "0x80022580",
+          "symbol": "evt_res_draw_dialog_frame",
+          "signature": "u32 evt_res_draw_dialog_frame(u32 ot_entry, u32 style, s16 x, s16 y, s16 w, s16 h)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Forwards dialogue box bounds (x,y,w,h) to resident 9-slice window renderer hm_draw_font_string. hm_ovl11_run_rucksack_pause_menu, p11_ui_draw_hud_clock_widget, p11_ui_update_farm_status_screen, hm_ovl11_run_calendar_and_map_menu, p11_ui_run_calendar_festival_list, p11_ui_run_options_settings_menu (+28 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_06.c",
+          "address": "0x80022ea4",
+          "symbol": "evt_res_sync_portrait_on_speaker",
+          "signature": "void evt_res_sync_portrait_on_speaker(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Reads current speaker ID from hud_res_get_active_speaker_id, computes affection tier via evt_res_get_npc_affection_tier, and updates g_npc_evt_sync_portrait_speaker_cfg. evt_res_get_npc_affection_tier",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_06.c",
+          "address": "0x800245f4",
+          "symbol": "evt_res_draw_icon_space",
+          "signature": "void evt_res_draw_icon_space(u32 ot_entry, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Draws blank UI glyph sprite (group 0x2a, id 0) at (x,y) via hm_ui_draw_framed_window.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_06.c",
+          "address": "0x8002462c",
+          "symbol": "evt_res_draw_icon_circle",
+          "signature": "void evt_res_draw_icon_circle(u32 ot_entry, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Draws PlayStation Circle button icon sprite (group 0x27, id 0) at (x,y) via hm_ui_draw_framed_window.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/npc_dialogue_events/npc_dialogue_events_07.c",
+      "lineCount": 274,
+      "codeSloc": 100,
+      "symbolCount": 14,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_07.c",
+          "address": "0x80024664",
+          "symbol": "evt_res_draw_icon_triangle",
+          "signature": "void evt_res_draw_icon_triangle(u32 ot_entry, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Draws PlayStation Triangle button icon sprite (group 0x27, id 2) at (x,y) via hm_ui_draw_framed_window.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_07.c",
+          "address": "0x8002469c",
+          "symbol": "evt_res_draw_icon_cross",
+          "signature": "void evt_res_draw_icon_cross(u32 ot_entry, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Draws PlayStation Cross button icon sprite (group 0x27, id 1) at (x,y) via hm_ui_draw_framed_window.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_07.c",
+          "address": "0x800246d4",
+          "symbol": "evt_res_draw_icon_square",
+          "signature": "void evt_res_draw_icon_square(u32 ot_entry, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Draws PlayStation Square button icon sprite (group 0x27, id 3) at (x,y) via hm_ui_draw_framed_window.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_07.c",
+          "address": "0x80024780",
+          "symbol": "evt_res_draw_icon_currency",
+          "signature": "void evt_res_draw_icon_currency(u32 ot_entry, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "abi_reg": "variant_idx"
+          },
+          "docstringSummary": "Draws currency/G icon sprite (group 0x29) using pre-prologue animated variant index via hm_ui_draw_framed_window.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_07.c",
+          "address": "0x800247d0",
+          "symbol": "evt_res_draw_icon_heart",
+          "signature": "void evt_res_draw_icon_heart(u32 ot_entry, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "abi_reg": "variant_idx"
+          },
+          "docstringSummary": "Draws heart status icon sprite (group 0x28) using pre-prologue animated variant index via hm_ui_draw_framed_window.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_07.c",
+          "address": "0x80024820",
+          "symbol": "evt_res_draw_icon_star",
+          "signature": "void evt_res_draw_icon_star(u32 ot_entry, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "abi_reg": "variant_idx"
+          },
+          "docstringSummary": "Draws star icon sprite (group 0xd) using pre-prologue animated variant index via hm_ui_draw_framed_window.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_07.c",
+          "address": "0x80024870",
+          "symbol": "evt_res_draw_icon_arrow_small",
+          "signature": "void evt_res_draw_icon_arrow_small(u32 ot_entry, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "abi_reg": "variant_idx"
+          },
+          "docstringSummary": "Draws small arrow icon sprite (group 0xc) using pre-prologue animated variant index via hm_ui_draw_framed_window.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_07.c",
+          "address": "0x800248b0",
+          "symbol": "evt_res_draw_cursor_hand",
+          "signature": "u32 evt_res_draw_cursor_hand(u32 ot_entry, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Draws standard menu cursor hand sprite (group 0xb, id 1) at (x,y) via hm_ui_draw_framed_window. hm_ovl11_run_rucksack_pause_menu, hm_ovl11_run_calendar_and_map_menu, p11_ui_run_calendar_festival_list, p11_ui_run_options_settings_menu, hm_ovl11_run_diary_save_prompt, p11_ui_run_recipe_book_cursor (+17 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_07.c",
+          "address": "0x800248e8",
+          "symbol": "evt_res_draw_icon_badge",
+          "signature": "void evt_res_draw_icon_badge(u32 ot_entry, s16 x, s16 y, s16 variant_id)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Draws menu badge/status icon sprite (group 0x18, variant_id) at (x,y) via hm_ui_draw_framed_window. ovl19_draw_actor_3d_sprite, ovl19_draw_prop_3d_sprite, hm_ovl21_horse_race_payout, ovl23_draw_trainer_sprite, hm_ovl25_tomato_fest_throw",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_07.c",
+          "address": "0x80024924",
+          "symbol": "evt_res_draw_icon_note",
+          "signature": "void evt_res_draw_icon_note(u32 ot_entry, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Draws music note/prompt glyph sprite (group 0x1e, id 0) at (x,y) via hm_ui_draw_framed_window.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_07.c",
+          "address": "0x800249d0",
+          "symbol": "evt_res_draw_icon_dot",
+          "signature": "void evt_res_draw_icon_dot(u32 ot_entry, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "abi_reg": "variant_idx"
+          },
+          "docstringSummary": "Draws dot/bullet icon sprite (group 7) using pre-prologue animated variant index via hm_ui_draw_framed_window.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_07.c",
+          "address": "0x80024a10",
+          "symbol": "evt_res_draw_glyph_sprite",
+          "signature": "void evt_res_draw_glyph_sprite(u32 ot_entry, s16 x, s16 y, s16 glyph_id)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Draws character-grid UI glyph sprite (group 0x2b, glyph_id) at (x,y) via hm_ui_draw_framed_window. p11_ui_draw_animal_status_row, p11_ui_draw_seasonal_balance_row, p11_ui_draw_animal_picker_row, ovl15_diary_draw_trade_animal_row, ovl27_draw_memcard_notice_dialog, evt_res_draw_yesno_options (+1 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_07.c",
+          "address": "0x8001ac10",
+          "symbol": "hm_text_draw_box_with_message",
+          "signature": "void hm_text_draw_box_with_message(u32 msg_id, u32 x, u32 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Draws framed UI box and renders resolved dialogue script entry at (x, y) ovl15_diary_save_state_probe_ports, ovl15_diary_save_state_no_card, ovl15_diary_save_state_select_port, ovl15_diary_save_state_check_port, ovl15_diary_save_state_card_error, ovl15_diary_save_state_card_retry_wait (+69 more) evt_res_draw_dialog_frame",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_07.c",
+          "address": "0x80022794",
+          "symbol": "evt_res_render_paged_text_window",
+          "signature": "u32 evt_res_render_paged_text_window(u32 ot_entry, u32 text_tokens, s16 x, s16 y, s16 w, s16 h, s32 *scroll_state, s32 lines_per_page, s32 page_mode)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "need_advance",
+            "work_acc": "cur_step",
+            "work_acc_2": "box_x",
+            "per_page": "box_y",
+            "x_00": "box_w",
+            "y_00": "box_h"
+          },
+          "docstringSummary": "Draws opening/closing animated dialogue window bounds via evt_res_draw_dialog_frame and returns 1 once the animation completes. evt_res_tick_dialog_page_compact",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/npc_dialogue_events/npc_dialogue_events_08.c",
+      "lineCount": 270,
+      "codeSloc": 145,
+      "symbolCount": 10,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_08.c",
+          "address": "0x80023a9c",
+          "symbol": "evt_res_draw_naming_header_box",
+          "signature": "void evt_res_draw_naming_header_box(s32 charset_mode)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_END",
+            "GLYPH_TOK_PAD"
+          ],
+          "localRenames": {
+            "naming_alnum_ptr": "i"
+          },
+          "docstringSummary": "Draws naming-screen entered name box using kana/alnum formatters on g_npc_evt_naming_charset_grid_header_value and hm_text_draw_dialog_line. evt_res_format_naming_alnum",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_08.c",
+          "address": "0x80023d08",
+          "symbol": "evt_res_draw_naming_grid_frame",
+          "signature": "void evt_res_draw_naming_grid_frame(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Draws the main 230x86 naming-screen character selection window at (45,64) and its header prompt text.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_08.c",
+          "address": "0x80024108",
+          "symbol": "evt_res_draw_prompt_label_box",
+          "signature": "void evt_res_draw_prompt_label_box(u32 label_id, u32 selected_idx)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Draws prompt option label box, checks idle dialog readiness, and highlights active selection. hm_dialogue_set_window_state, evt_res_is_dialog_idle_or_choice, evt_res_set_dialog_fade_flag, evt_res_draw_cursor_hand",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_08.c",
+          "address": "0x8002445c",
+          "symbol": "evt_res_draw_naming_cursor_hi",
+          "signature": "void evt_res_draw_naming_cursor_hi(s32 cell_idx)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Fallthrough entry drawing naming-grid cursor at cell_idx via evt_res_draw_naming_cursor.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_08.c",
+          "address": "0x800229f4",
+          "symbol": "evt_res_open_affection_dialog",
+          "signature": "u32 evt_res_open_affection_dialog(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Resolves speaker style via evt_res_get_dialog_speaker_style, streams dialogue text via hm_afile_read_or_load_overlay, and renders window. evt_res_clear_portrait_busy, evt_res_render_paged_text_window, evt_res_get_dialog_speaker_style, evt_res_apply_portrait_and_free",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_08.c",
+          "address": "0x80022b20",
+          "symbol": "evt_res_tick_dialog_page_std",
+          "signature": "u32 evt_res_tick_dialog_page_std(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Ticks standard 12-line paged dialogue box via evt_res_render_paged_text_window at (26,164,267,62).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_08.c",
+          "address": "0x80022d70",
+          "symbol": "evt_res_tick_dialog_page_compact",
+          "signature": "u32 evt_res_tick_dialog_page_compact(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Ticks compact 6-line paged dialogue box via evt_res_render_paged_text_window at (26,164,267,62).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_08.c",
+          "address": "0x800233b4",
+          "symbol": "evt_res_draw_yesno_options",
+          "signature": "void evt_res_draw_yesno_options(void)",
+          "typedArraysUsed": [
+            "g_core_vblank_frame_flag"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Renders the yes/no prompt box at (171,32,133,28), preset options via hud_res_draw_preset_label, and selection icons. evt_res_draw_glyph_sprite",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_08.c",
+          "address": "0x8002348c",
+          "symbol": "evt_res_draw_naming_charset_grid",
+          "signature": "void evt_res_draw_naming_charset_grid(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_END"
+          ],
+          "localRenames": {
+            "i": "ot_entry",
+            "work_acc": "i"
+          },
+          "docstringSummary": "Draws the full naming-screen character grid window at (20,56,279,103) and populates all character tiles via evt_res_draw_glyph_sprite. evt_res_draw_dialog_frame, evt_res_draw_glyph_sprite",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_08.c",
+          "address": "0x80023910",
+          "symbol": "evt_res_tick_yesno_confirm",
+          "signature": "void evt_res_tick_yesno_confirm(void)",
+          "typedArraysUsed": [
+            "g_core_vblank_frame_flag"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Draws yes/no prompt label (0x3a7) and handles pad confirm/cancel transitions for g_npc_evt_yesno_prompt_close_v0_state. evt_res_draw_prompt_label_box",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/npc_dialogue_events/npc_dialogue_events_09.c",
+      "lineCount": 194,
+      "codeSloc": 128,
+      "symbolCount": 5,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_09.c",
+          "address": "0x80024030",
+          "symbol": "evt_res_tick_naming_confirm",
+          "signature": "void evt_res_tick_naming_confirm(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Draws naming confirmation prompt (0x3a6) and commits/cancels the entered name upon pad confirm. evt_res_draw_prompt_label_box",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_09.c",
+          "address": "0x80023290",
+          "symbol": "evt_res_render_yesno_window_v0",
+          "signature": "void evt_res_render_yesno_window_v0(void)",
+          "typedArraysUsed": [
+            "g_core_vblank_frame_flag"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "abi_reg": "ot_entry",
+            "work_acc": "state",
+            "ot_entry": "sel"
+          },
+          "docstringSummary": "Register-v0 entry wrapper rendering yes/no prompt options and dispatching confirm/input handling for g_core_vblank_frame_flag[0]. evt_res_draw_yesno_options, evt_res_draw_naming_charset_grid, evt_res_tick_yesno_input, evt_res_tick_yesno_confirm, evt_res_draw_cursor_hand",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_09.c",
+          "address": "0x800239f8",
+          "symbol": "evt_res_render_naming_screen",
+          "signature": "void evt_res_render_naming_screen(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Orchestrates naming-screen rendering (header box, character grid, confirm dialog) and routes input by g_npc_evt_naming_state_open_screen_state_kana_alnum. evt_res_draw_naming_header_box, evt_res_draw_naming_grid_frame, evt_res_tick_naming_input, evt_res_tick_naming_confirm, evt_res_draw_naming_cursor",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_09.c",
+          "address": "0x800231ec",
+          "symbol": "evt_res_tick_naming_screen",
+          "signature": "u32 evt_res_tick_naming_screen(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "abi_reg": "state"
+          },
+          "docstringSummary": "Applies naming-screen dim overlay via hm_draw_poly_f4_panel, steps evt_res_render_naming_screen, and returns 1 when complete (-1 on cancel, 2 while active).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/npc_dialogue_events/npc_dialogue_events_09.c",
+          "address": "0x80022b98",
+          "symbol": "evt_res_tick_resident_dialog",
+          "signature": "u32 evt_res_tick_resident_dialog(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "cond_flag": "show_portrait",
+            "color_idx": "saved_color"
+          },
+          "docstringSummary": "Top-level resident dialogue window update drawing dialogue frame, running hud_res_render_dialogue_box, and handling choice/close state transitions. hud_res_render_dialogue_box, evt_res_draw_dialog_frame, evt_res_sync_portrait_on_speaker",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/ui_inventory_hud/ui_inventory_hud_01.c",
+      "lineCount": 374,
+      "codeSloc": 165,
+      "symbolCount": 20,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_01.c",
+          "address": "0x800132b8",
+          "symbol": "hm_draw_debug_glyph",
+          "signature": "u32 hm_draw_debug_glyph(s16 x, s16 y, u16 glyph_id)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Queues a debug overlay glyph sprite using screen coordinates and glyph ID. hm_ovl11_step_daily_animal_status, p11_evt_control_screen_fade, p11_ui_update_kitchen_cooking_ui, p11_ovl_finalize_area_transition_load, p11_ui_run_clinic_shop_sm, p11_ui_run_special_item_upgrade_sm (+17 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_01.c",
+          "address": "0x80017a48",
+          "symbol": "hud_res_set_text_color_idx",
+          "signature": "void hud_res_set_text_color_idx(u32 color_idx)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Clamps text color palette index to <= 6 and stores it into g_ui_dialogue_box_ctx.box_flags. p11_ui_draw_calendar_day_number, p11_ui_draw_calendar_weekday_bar, p11_ui_tick_rucksack_pause_menu, p11_ui_draw_hud_clock_widget, p11_ui_update_kitchen_cooking_ui, hm_ovl11_draw_town_map_overlay (+11 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_01.c",
+          "address": "0x80017a64",
+          "symbol": "hud_res_get_text_color_idx",
+          "signature": "u32 hud_res_get_text_color_idx(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Returns active text color palette index from g_ui_dialogue_box_ctx.box_flags. p11_ui_draw_calendar_day_number, p11_ui_draw_calendar_weekday_bar, p11_ui_tick_rucksack_pause_menu, p11_ui_draw_hud_clock_widget, p11_ui_update_kitchen_cooking_ui, hm_ovl11_draw_town_map_overlay (+10 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_01.c",
+          "address": "0x80017a70",
+          "symbol": "hud_res_set_text_speed",
+          "signature": "void hud_res_set_text_speed(u32 speed_idx)",
+          "typedArraysUsed": [
+            "g_ui_hud_text_speed_table"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Clamps speed preset index (< 3, else 1) and loads character delay from g_ui_hud_text_speed_table into g_ui_dialogue_box_ctx.char_delay.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_01.c",
+          "address": "0x80017aa0",
+          "symbol": "hud_res_get_text_speed_idx",
+          "signature": "u32 hud_res_get_text_speed_idx(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "char_delay"
+          },
+          "docstringSummary": "Maps current character delay g_ui_dialogue_box_ctx.char_delay (0, 5, or other) back to text speed index 0, 2, or 1.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_01.c",
+          "address": "0x80017acc",
+          "symbol": "hud_res_arm_text_step",
+          "signature": "void hud_res_arm_text_step(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Transitions dialogue typewriter step state g_ui_dialogue_box_ctx.step_state from 0 (idle) to 1 (armed).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_01.c",
+          "address": "0x80017ae8",
+          "symbol": "hud_res_advance_text_step",
+          "signature": "void hud_res_advance_text_step(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "When g_ui_dialogue_box_ctx.step_state is 1 or 3, resets it to 0 and increments glyph_count.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_01.c",
+          "address": "0x80017b30",
+          "symbol": "hud_res_get_active_speaker_id",
+          "signature": "s32 hud_res_get_active_speaker_id(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Returns current speaker/portrait actor ID stored in g_ui_dialogue_box_ctx.speaker_id.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_01.c",
+          "address": "0x80017c30",
+          "symbol": "hud_res_get_loaded_portrait_id",
+          "signature": "u16 hud_res_get_loaded_portrait_id(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Returns currently cached portrait slot ID from g_ui_dialogue_box_ctx.loaded_portrait_id.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_01.c",
+          "address": "0x80017c3c",
+          "symbol": "hud_res_set_loaded_portrait_id",
+          "signature": "void hud_res_set_loaded_portrait_id(u16 portrait_id)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Updates both g_ui_dialogue_box_ctx.loaded_portrait_id and active_portrait_id with the active dialogue portrait ID.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_01.c",
+          "address": "0x80017e34",
+          "symbol": "hud_res_concat_tok_str",
+          "signature": "s16 *hud_res_concat_tok_str(s16 *dst, s16 *src)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_acc": "dst"
+          },
+          "docstringSummary": "Appends a 0xFFFF-terminated 16-bit glyph token string from src onto the end of dst and returns a pointer to the new terminator in dst.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_01.c",
+          "address": "0x80018b8c",
+          "symbol": "hud_res_clear_text_ptr",
+          "signature": "void hud_res_clear_text_ptr(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Clears active dialogue script pointer g_ui_dialogue_box_ctx.text_base to null.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_01.c",
+          "address": "0x80019030",
+          "symbol": "hud_res_get_dialog_line_y",
+          "signature": "s32 hud_res_get_dialog_line_y(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_NEWLINE"
+          ],
+          "localRenames": {
+            "work_acc": "line_y"
+          },
+          "docstringSummary": "Computes dialogue window text Y coordinate using g_ui_dialogue_box_ctx.layout_y, subtracting (12 + g_ui_text_margins_hud_box_counter_1) if the previous token was newline (0xFFFE).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_01.c",
+          "address": "0x800195f4",
+          "symbol": "hud_res_get_text_step_state",
+          "signature": "u16 hud_res_get_text_step_state(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Returns current dialogue wait/step state g_ui_dialogue_box_ctx.step_state.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_01.c",
+          "address": "0x80019600",
+          "symbol": "hud_res_reset_text_step",
+          "signature": "void hud_res_reset_text_step(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Resets dialogue glyph counter and step state to 0.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_01.c",
+          "address": "0x800198e0",
+          "symbol": "hud_res_measure_tok_str_width",
+          "signature": "s32 hud_res_measure_tok_str_width(u16 *tokens, s32 max_glyphs, s16 spacing)",
+          "typedArraysUsed": [
+            "g_hud_macro_token_table"
+          ],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_END",
+            "GLYPH_TOK_INDEX_MASK",
+            "GLYPH_TOK_MACRO_BIT",
+            "GLYPH_TOK_NEWLINE",
+            "GLYPH_TOK_TYPE_MASK"
+          ],
+          "localRenames": {},
+          "docstringSummary": "Recursively measures pixel width of a 16-bit glyph token string including 0x4000 macro expansions in g_hud_macro_token_table. hud_res_draw_text_right_aligned",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_01.c",
+          "address": "0x80019e50",
+          "symbol": "hud_res_map_choice_result",
+          "signature": "u32 hud_res_map_choice_result(s32 choice_idx)",
+          "typedArraysUsed": [
+            "g_ui_hud_map_choice_result_value"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Maps 1-based choice index (1..4, else 0) through lookup table g_ui_hud_map_choice_result_value.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_01.c",
+          "address": "0x80019fac",
+          "symbol": "hud_res_decode_portrait_idx",
+          "signature": "s32 hud_res_decode_portrait_idx(u32 token)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Converts portrait control token (0x0FEF - (token & 0xFFFF)) into signed portrait resource index. hud_res_draw_choice_cursor_offset, hud_res_switch_portrait_by_token, hud_res_draw_choice_cursor_abs",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_01.c",
+          "address": "0x8001a574",
+          "symbol": "hud_res_expand_script_macro",
+          "signature": "u32 hud_res_expand_script_macro(s32 macro_id)",
+          "typedArraysUsed": [
+            "g_ui_font_lookup_kanji_glyph_hud_value",
+            "g_ui_hud_expand_script_macro_fn_ptr_1"
+          ],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_END"
+          ],
+          "localRenames": {},
+          "docstringSummary": "Invokes text macro handler g_ui_hud_expand_script_macro_fn_ptr_1[macro_id % 3](macro_id / 3) and splices the expanded glyphs into g_ui_dialogue_box_ctx.text_cursor.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_01.c",
+          "address": "0x8001a8d0",
+          "symbol": "hud_res_ascii_to_glyph_tok",
+          "signature": "u32 hud_res_ascii_to_glyph_tok(u32 ascii_ch)",
+          "typedArraysUsed": [
+            "g_ui_hud_ascii_glyph_tok_flag"
+          ],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_NEWLINE",
+            "GLYPH_TOK_PAD"
+          ],
+          "localRenames": {},
+          "docstringSummary": "Translates an ASCII byte to an internal 16-bit font glyph token via character class table g_ui_hud_ascii_glyph_tok_flag and punctuation switch.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/ui_inventory_hud/ui_inventory_hud_02.c",
+      "lineCount": 106,
+      "codeSloc": 39,
+      "symbolCount": 6,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_02.c",
+          "address": "0x8001aa7c",
+          "symbol": "hud_res_copy_6tok_preset",
+          "signature": "u16 *hud_res_copy_6tok_preset(s32 preset_idx, u16 *dst)",
+          "typedArraysUsed": [
+            "g_ui_hud_copy_6tok_preset_table"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "i",
+            "i": "dst"
+          },
+          "docstringSummary": "Copies 6 halfword glyph tokens from table g_ui_hud_copy_6tok_preset_table into dst. evt_res_draw_naming_charset_grid",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_02.c",
+          "address": "0x8001aca0",
+          "symbol": "hud_res_reset_portrait_cache",
+          "signature": "void hud_res_reset_portrait_cache(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Resets active dialogue portrait globals g_ui_dialogue_box_ctx.choice_index and active_portrait_id to 0xFFFF and loaded_portrait_id to 0xFFFD.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_02.c",
+          "address": "0x800179e8",
+          "symbol": "hud_res_clear_text_ptr_wrap",
+          "signature": "void hud_res_clear_text_ptr_wrap(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Tail-calls hud_res_clear_text_ptr to clear active dialogue token pointer.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_02.c",
+          "address": "0x80017c04",
+          "symbol": "hud_res_get_dialog_line_y_wrap",
+          "signature": "void hud_res_get_dialog_line_y_wrap(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Tail-calls hud_res_get_dialog_line_y to compute dialogue line Y offset.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_02.c",
+          "address": "0x8001a808",
+          "symbol": "hud_res_append_record_name",
+          "signature": "u32 hud_res_append_record_name(u32 dst_tokens, s32 record, s32 flag_mode)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "flags",
+            "status_flags": "flag_match"
+          },
+          "docstringSummary": "Checks visibility bits 0x100 and 0x80000 at record + 0x34 and appends record name tokens via hud_res_concat_tok_str.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_02.c",
+          "address": "0x8001a870",
+          "symbol": "hud_res_resolve_macro_name",
+          "signature": "s16 *hud_res_resolve_macro_name(u32 macro_id, s16 *tokens, s32 entry_idx)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_END",
+            "GLYPH_TOK_PAD"
+          ],
+          "localRenames": {},
+          "docstringSummary": "Calls hm_text_fetch_script_entry(macro_id, tokens, entry_idx - 1), terminates with GLYPH_TOK_END, and skips leading GLYPH_TOK_PAD tokens if present.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/ui_inventory_hud/ui_inventory_hud_03.c",
+      "lineCount": 203,
+      "codeSloc": 117,
+      "symbolCount": 7,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_03.c",
+          "address": "0x8001ae34",
+          "symbol": "hud_res_find_active_flag_bit",
+          "signature": "s32 hud_res_find_active_flag_bit(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "i": "table_idx"
+          },
+          "docstringSummary": "Scans active player/NPC festival flag tables using sys_int_pow(2, equipped_tool + 1) to select the active entry value in range 0x15..0x19.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_03.c",
+          "address": "0x80019e80",
+          "symbol": "hud_res_draw_cursor_indicator",
+          "signature": "void hud_res_draw_cursor_indicator(u32 *ot_entry, u16 x, u16 y, s16 glyph_id)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Allocates an 80x80 SPRT packet and 8-byte DR_TPAGE packet from hm_text_acquire_scratch_ctx and links both into ot_entry when glyph_id != -1. hud_res_draw_choice_cursor_abs",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_03.c",
+          "address": "0x80019fc4",
+          "symbol": "hud_res_free_portrait_slot",
+          "signature": "void hud_res_free_portrait_slot(s16 portrait_id)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Releases active portrait VRAM/sprite allocation via hm_vram_unpack_0x0d_pack_auto and evt_res_clear_portrait_busy when slot changes. hud_res_switch_portrait_by_token",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_03.c",
+          "address": "0x8001a018",
+          "symbol": "hud_res_load_portrait_slot",
+          "signature": "void hud_res_load_portrait_slot(s16 portrait_id, s32 slot_mode)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "pause_timer_2": "target_id"
+          },
+          "docstringSummary": "Acquires portrait DMA buffer via evt_res_get_portrait_buf_if_idle and loads portrait AFILE entry via hm_afile_read_or_load_overlay. hud_res_switch_portrait_by_token",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_03.c",
+          "address": "0x8001a668",
+          "symbol": "hud_res_append_unflagged_item",
+          "signature": "s32 hud_res_append_unflagged_item(u32 item_idx)",
+          "typedArraysUsed": [
+            "g_anim_livestock_barn_tbl"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Appends name tokens into g_ui_font_lookup_kanji_glyph_hud_value from item/recipe array g_anim_livestock_barn_tbl (20 entries) where flag 0x10000 is clear.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_03.c",
+          "address": "0x8001a6fc",
+          "symbol": "hud_res_append_flagged_item",
+          "signature": "s32 hud_res_append_flagged_item(u32 item_idx)",
+          "typedArraysUsed": [
+            "g_anim_livestock_barn_tbl"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Appends name tokens into g_ui_font_lookup_kanji_glyph_hud_value from item/recipe array g_anim_livestock_barn_tbl (20 entries) where flag 0x10000 is set.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_03.c",
+          "address": "0x8001a790",
+          "symbol": "hud_res_append_tool_name",
+          "signature": "s32 hud_res_append_tool_name(u32 tool_idx)",
+          "typedArraysUsed": [
+            "g_anim_chicken_coop_tbl"
+          ],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Appends name tokens into g_ui_font_lookup_kanji_glyph_hud_value from 10-entry tool/crop table g_anim_chicken_coop_tbl via hud_res_append_record_name.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/ui_inventory_hud/ui_inventory_hud_04.c",
+      "lineCount": 245,
+      "codeSloc": 132,
+      "symbolCount": 9,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_04.c",
+          "address": "0x800136d4",
+          "symbol": "hm_draw_font_string",
+          "signature": "void hm_draw_font_string(u32 ot_idx, s16 x, s16 y, s32 str_ptr, s16 color_mode)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Draws a bordered wooden dialog/panel box to the specified ordering table. Note: str_ptr and color_mode historically carry box pixel width and height in Wave 0. p11_ui_draw_2choice_prompt_box, p11_ui_draw_10slot_shop_list, evt_res_draw_dialog_frame",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_04.c",
+          "address": "0x8001929c",
+          "symbol": "hud_res_measure_line_tokens",
+          "signature": "s16 hud_res_measure_line_tokens(u16 *tokens, u16 stop_tok, s16 max_glyphs, u16 *out_count)",
+          "typedArraysUsed": [
+            "g_hud_macro_token_table"
+          ],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_END",
+            "GLYPH_TOK_INDEX_MASK",
+            "GLYPH_TOK_MACRO_BIT",
+            "GLYPH_TOK_NEWLINE"
+          ],
+          "localRenames": {
+            "status_flags": "stop_matches",
+            "line_tokens": "consumed",
+            "i": "limit",
+            "j": "stop_matches"
+          },
+          "docstringSummary": "Counts glyphs matching stop_tok up to max_glyphs (or unlimited when max_glyphs == 0), recursively expanding embedded 0x4000 macro tokens via hm_font_lookup_kanji_glyph or g_hud_macro_token_table, and optionally writes total consumed tokens to out_count.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_04.c",
+          "address": "0x8001945c",
+          "symbol": "hud_res_count_line_glyphs",
+          "signature": "u32 hud_res_count_line_glyphs(u16 *tokens, u16 stop_tok, s16 max_glyphs)",
+          "typedArraysUsed": [
+            "g_hud_macro_token_table"
+          ],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_END",
+            "GLYPH_TOK_INDEX_MASK",
+            "GLYPH_TOK_MACRO_BIT",
+            "GLYPH_TOK_NEWLINE"
+          ],
+          "localRenames": {
+            "status_flags": "total_glyphs",
+            "line_glyphs": "limit"
+          },
+          "docstringSummary": "Walks a glyph token string up to stop_tok or GLYPH_TOK_END, recursively counting expanded macro tokens via hm_font_lookup_kanji_glyph and g_hud_macro_token_table. hud_res_count_line_glyphs, hud_res_collect_dialog_choice_lines",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_04.c",
+          "address": "0x8001acbc",
+          "symbol": "hud_res_open_portrait_by_token",
+          "signature": "void hud_res_open_portrait_by_token(u16 token)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Resets portrait cache, decodes token via hud_res_decode_portrait_idx, and loads/frees portrait slot. hud_res_reset_portrait_cache",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_04.c",
+          "address": "0x8001ad00",
+          "symbol": "hud_res_draw_choice_cursor_offset",
+          "signature": "void hud_res_draw_choice_cursor_offset(u32 ot_entry, u16 token, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Decodes cursor glyph token via hud_res_decode_portrait_idx and draws indicator offset by (-4, -0x54).",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_04.c",
+          "address": "0x8001ad6c",
+          "symbol": "hud_res_switch_portrait_by_token",
+          "signature": "bool hud_res_switch_portrait_by_token(u16 token)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "portrait_id": "loaded_id",
+            "portrait_id_2": "active_id"
+          },
+          "docstringSummary": "Checks if decoded portrait ID differs from hud_res_get_loaded_portrait_id and switches portrait slots when changed. hud_res_load_portrait_slot",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_04.c",
+          "address": "0x8001add8",
+          "symbol": "hud_res_draw_choice_cursor_abs",
+          "signature": "void hud_res_draw_choice_cursor_abs(u32 ot_entry, u16 token, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Decodes glyph token via hud_res_decode_portrait_idx and renders indicator at exact (x, y) via hud_res_draw_cursor_indicator.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_04.c",
+          "address": "0x80024a4c",
+          "symbol": "hm_ui_draw_framed_window",
+          "signature": "void hm_ui_draw_framed_window(u32 ot_idx, u8 style_id, u8 corner_flags, s16 w, s16 h)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Renders 9-slice framed menu/dialogue window border tiles at active window dimensions evt_res_draw_icon_cross, evt_res_draw_icon_square, evt_res_draw_icon_currency, evt_res_draw_icon_heart, evt_res_draw_icon_star (+6 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_04.c",
+          "address": "0x80017d9c",
+          "symbol": "hud_res_draw_wrapped_text",
+          "signature": "void hud_res_draw_wrapped_text(u32 ot_entry, u32 tokens, s16 x, s16 y, u32 clip_rect)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "fade_level": "prim_cursor"
+          },
+          "docstringSummary": "Acquires the active GsWORKBASE primitive cursor via hm_text_acquire_scratch_ctx (formerly misnamed hm_clamp_fade_level), draws multiline dialogue text via hm_text_render_glyph_stream, and commits the advanced primitive cursor via hm_text_release_scratch_ctx (formerly misnamed hm_step_screen_fade). p11_ui_run_cooking_seasoning_menu",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/ui_inventory_hud/ui_inventory_hud_05.c",
+      "lineCount": 259,
+      "codeSloc": 173,
+      "symbolCount": 6,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_05.c",
+          "address": "0x80017fa0",
+          "symbol": "hud_res_step_dialog_tokens",
+          "signature": "void hud_res_step_dialog_tokens(char *ctx_buf)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_END"
+          ],
+          "localRenames": {
+            "ctx_buf_2": "fmt_vals",
+            "cond_flag": "fmt_buf",
+            "centered_right": "line_glyph_counts",
+            "box_counter": "tok_idx",
+            "busy_flag": "line_idx",
+            "status_flags": "i",
+            "x": "saved_margin_x",
+            "work_acc": "saved_margin_y",
+            "i": "saved_color",
+            "work_acc_2": "draw_x",
+            "frame_slot": "draw_y"
+          },
+          "docstringSummary": "Formats a printf-style debug/HUD string into glyph tokens (handling %i, %d, %x, %s) and renders each non-empty line with a dark POLY_F4 backing box. hm_text_render_glyph_stream, hud_res_ascii_to_glyph_tok, gfx_get_overlay_busy_flag, sprintf",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_05.c",
+          "address": "0x800191b4",
+          "symbol": "hud_res_wrap_text_to_width",
+          "signature": "s16 *hud_res_wrap_text_to_width(s16 *tokens, s16 stop_tok, s32 max_w, s32 max_lines)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_END"
+          ],
+          "localRenames": {
+            "line_glyphs": "match_count"
+          },
+          "docstringSummary": "Wraps glyph token stream to line/width bounds using hud_res_count_line_glyphs, returning pointer past fit slice. hud_res_advance_dialog_choice_page, hud_res_collect_dialog_choice_lines",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_05.c",
+          "address": "0x80019564",
+          "symbol": "hud_res_draw_text_default",
+          "signature": "void hud_res_draw_text_default(u32 ot_entry, u32 tokens, s16 x, s16 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "fade_level": "prim_cursor"
+          },
+          "docstringSummary": "Renders a glyph token string at (x,y) with default 0x1000 scale and palette via hm_text_render_glyph_stream.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_05.c",
+          "address": "0x800197fc",
+          "symbol": "hud_res_draw_text_centered",
+          "signature": "void hud_res_draw_text_centered(u32 ot_entry, u32 unused_pool, u32 tokens, s16 x, s16 y, s16 box_w, u32 flags, s16 spacing)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "fade_level": "prim_cursor"
+          },
+          "docstringSummary": "Measures string width with hud_res_measure_tok_str_width and draws horizontally centered text within box_w. hm_text_render_glyph_stream, hud_res_measure_tok_str_width",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_05.c",
+          "address": "0x800199f8",
+          "symbol": "hud_res_draw_text_right_aligned",
+          "signature": "void hud_res_draw_text_right_aligned(u32 ot_entry, u32 unused_pool, u32 tokens, s16 x, s16 y, s16 box_w, u32 flags, s16 spacing)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "fade_level": "prim_cursor"
+          },
+          "docstringSummary": "Measures string width with hud_res_measure_tok_str_width and draws right-aligned text anchored to x + box_w. hm_text_render_glyph_stream, hud_res_measure_tok_str_width",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_05.c",
+          "address": "0x800193f0",
+          "symbol": "hud_res_measure_wrapped_height",
+          "signature": "s32 hud_res_measure_wrapped_height(u32 tokens, u32 max_w)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_NEWLINE"
+          ],
+          "localRenames": {},
+          "docstringSummary": "Computes next line token pointer for wrapped token string by pairing hud_res_wrap_text_to_width and hud_res_count_line_glyphs.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/ui_inventory_hud/ui_inventory_hud_06.c",
+      "lineCount": 140,
+      "codeSloc": 91,
+      "symbolCount": 4,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_06.c",
+          "address": "0x80019610",
+          "symbol": "hud_res_draw_tok_centered_clipped",
+          "signature": "u32 hud_res_draw_tok_centered_clipped(u32 ot_entry, u32 unused_pool, u32 *tokens, s16 x, s16 y, s16 box_w, u32 flags, s16 spacing, s16 max_lines)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_END",
+            "GLYPH_TOK_NEWLINE"
+          ],
+          "localRenames": {
+            "cond_flag": "line_buf",
+            "work_word": "y_cur",
+            "unaligned_s32": "done",
+            "i": "byte_count",
+            "work_word_2": "byte_count"
+          },
+          "docstringSummary": "Copies tokenized text into stack line_buf[42] (82-byte copy + GLYPH_TOK_END) and renders centered lines within box_w via hud_res_draw_text_centered.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_06.c",
+          "address": "0x80019ad0",
+          "symbol": "hud_res_draw_tok_right_clipped",
+          "signature": "u32 hud_res_draw_tok_right_clipped(u32 ot_entry, u32 unused_pool, u32 *tokens, s16 x, s16 y, s16 box_w, u32 flags, s16 spacing, s16 max_lines)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_END",
+            "GLYPH_TOK_NEWLINE"
+          ],
+          "localRenames": {
+            "cond_flag": "line_buf",
+            "work_word": "y_cur",
+            "unaligned_s32": "done",
+            "i": "byte_count",
+            "work_word_2": "byte_count"
+          },
+          "docstringSummary": "Copies tokenized text into stack line_buf[42] (82-byte copy + GLYPH_TOK_END) and renders right-aligned lines within box_w via hud_res_draw_text_right_aligned.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_06.c",
+          "address": "0x80019e14",
+          "symbol": "hud_res_draw_cursor_aligned",
+          "signature": "void hud_res_draw_cursor_aligned(u32 ot_entry, s32 x, s32 y)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Renders choice menu cursor sprite offset by (+8, +6) via evt_res_draw_cursor_hand. hud_res_tick_choice_menu_input",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_06.c",
+          "address": "0x8001a11c",
+          "symbol": "hud_res_advance_dialog_choice_page",
+          "signature": "void hud_res_advance_dialog_choice_page(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_NEWLINE"
+          ],
+          "localRenames": {},
+          "docstringSummary": "Advances active dialogue token cursor g_ui_dialogue_box_ctx.text_cursor past choice marker 0x0FFB and resets step state.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/ui_inventory_hud/ui_inventory_hud_07.c",
+      "lineCount": 162,
+      "codeSloc": 91,
+      "symbolCount": 5,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_07.c",
+          "address": "0x8001a19c",
+          "symbol": "hud_res_collect_dialog_choice_lines",
+          "signature": "void hud_res_collect_dialog_choice_lines(void)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_END",
+            "GLYPH_TOK_NEWLINE"
+          ],
+          "localRenames": {
+            "line_glyphs": "max_lines"
+          },
+          "docstringSummary": "Scans choice line markers in g_ui_hud_collect_dialog_choice_value_1/g_ui_hud_collect_dialog_choice_value_2 against g_ui_dialogue_box_ctx.text_cursor to populate interactive choice prompts.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_07.c",
+          "address": "0x8001aaf4",
+          "symbol": "hud_res_draw_preset_label",
+          "signature": "void hud_res_draw_preset_label(s16 x, s16 y, u32 unused_arg, s16 preset_idx, s16 max_chars)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_END",
+            "GLYPH_TOK_PAD"
+          ],
+          "localRenames": {
+            "bank_id": "width"
+          },
+          "docstringSummary": "Formats integer preset value x into g_ui_hud_preset_label_cfg via hm_text_fetch_script_entry and draws it via hm_text_draw_dialog_line. ovl15_diary_run_trade_animal_list, hm_ovl17_swim_race_award, evt_res_draw_yesno_options, evt_res_draw_naming_charset_grid",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_07.c",
+          "address": "0x80017c4c",
+          "symbol": "hud_res_draw_box_text_centered",
+          "signature": "void hud_res_draw_box_text_centered(u32 ot_entry, u32 tokens, s16 x, s16 y, s16 box_w)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "fade_level": "prim_cursor"
+          },
+          "docstringSummary": "Renders centered dialogue/HUD text within box_w using current spacing g_ui_text_margins_hud_box_counter_1 via hud_res_draw_tok_centered_clipped. hud_res_draw_tok_centered_clipped",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_07.c",
+          "address": "0x80017cf4",
+          "symbol": "hud_res_draw_box_text_right",
+          "signature": "void hud_res_draw_box_text_right(u32 ot_entry, u32 tokens, s16 x, s16 y, s16 box_w)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "fade_level": "prim_cursor"
+          },
+          "docstringSummary": "Renders right-aligned dialogue/HUD text within box_w using current spacing g_ui_text_margins_hud_box_counter_1 via hud_res_draw_tok_right_clipped.",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_07.c",
+          "address": "0x80019cbc",
+          "symbol": "hud_res_tick_choice_menu_input",
+          "signature": "s32 hud_res_tick_choice_menu_input(s16 x, s16 y, u16 *cursor_ptr, s16 choice_cnt)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {
+            "work_word": "selected",
+            "choice_cnt_2": "selected"
+          },
+          "docstringSummary": "Handles up/down/confirm D-pad input on an interactive dialogue choice list and draws the aligned cursor.",
+          "zeroTellsVerified": true
+        }
+      ]
+    },
+    {
+      "relpath": "src/ui_inventory_hud/ui_inventory_hud_08.c",
+      "lineCount": 281,
+      "codeSloc": 241,
+      "symbolCount": 2,
+      "zeroTellsVerified": true,
+      "symbols": [
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_08.c",
+          "address": "0x800183e0",
+          "symbol": "hud_res_render_dialogue_box",
+          "signature": "u32 hud_res_render_dialogue_box(u32 *ot_entry, u16 *tokens, s16 x, s16 y, u32 clip_rect, s16 line_stride)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [
+            "GLYPH_TOK_END",
+            "GLYPH_TOK_MACRO_BIT",
+            "GLYPH_TOK_NEWLINE"
+          ],
+          "localRenames": {
+            "work_word": "scroll_step",
+            "cond_flag": "speed_idx",
+            "step_state": "choice_result",
+            "line_tokens": "pad_held",
+            "carry_word": "pad_edge",
+            "menu_input": "step_state",
+            "carry_word_2": "draw_y",
+            "int_ref": "rect",
+            "glyph_count_2": "portrait_token",
+            "status_flags": "choice_result"
+          },
+          "docstringSummary": "Core dialogue renderer emitting DR_AREA scissor packets, advancing typewriter delay, and drawing visible glyphs/choices. hud_res_get_text_speed_idx, hud_res_arm_text_step, hud_res_advance_text_step, hud_res_wrap_text_to_width, hud_res_measure_line_tokens (+14 more)",
+          "zeroTellsVerified": true
+        },
+        {
+          "relpath": "src/ui_inventory_hud/ui_inventory_hud_08.c",
+          "address": "0x80017bc8",
+          "symbol": "hud_res_render_dialogue_box_wrap",
+          "signature": "void hud_res_render_dialogue_box_wrap(u32 ot_entry, u32 tokens, s16 x, s16 y, u32 clip_rect, s16 line_stride)",
+          "typedArraysUsed": [],
+          "enumConstantsUsed": [],
+          "localRenames": {},
+          "docstringSummary": "Thin wrapper sign-extending bounds arguments into hud_res_render_dialogue_box.",
+          "zeroTellsVerified": true
+        }
+      ]
+    }
+  ]
+}

@@ -56,8 +56,8 @@
       "SLUS_011.15"
     ],
     "name": "g_rodata_spu_dispatch_tbl",
-    "c_type": "void *",
-    "size": 4,
+    "c_type": "void *[79]",
+    "size": 316,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
@@ -72,8 +72,8 @@
       "SLUS_011.15"
     ],
     "name": "g_rodata_card_dispatch_tbl",
-    "c_type": "void *",
-    "size": 4,
+    "c_type": "void *[535]",
+    "size": 2140,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
@@ -103,7 +103,7 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_sdk_kprintf_c1_c_cfc_ro_table_1",
+    "name": "g_sdk_kprintf_c1_c_cfc_ro_table",
     "c_type": "u8",
     "size": 1,
     "kind": "standalone",
@@ -120,13 +120,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_kprintf_c1_c_cfc_ro_table_2",
-    "c_type": "u8",
-    "size": 1,
+    "c_type": "u8[455]",
+    "size": 455,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
     "confidence": "medium",
-    "evidence": "resident_rodata_pre; 2 funcs/2 refs"
+    "evidence": "Promoted indexed lookup table/array (u8[455]) within verified span"
   },
   {
     "address": "0x80010d80",
@@ -184,13 +184,13 @@
       "SLUS_011.15"
     ],
     "name": "g_cd_afile_toc_head",
-    "c_type": "HmAfileTocEntry",
-    "size": 40,
+    "c_type": "HmAfileTocEntry[32]",
+    "size": 1280,
     "kind": "standalone",
     "parent_address": null,
     "domain": "cd_afile_overlays",
     "confidence": "high",
-    "evidence": "A_FILE.BIN resident archive TOC entry base (stride 0x28 in SLUS_011.15@800147bc)"
+    "evidence": "A_FILE.BIN resident archive TOC table (32 x 40B)"
   },
   {
     "address": "0x80049044",
@@ -200,13 +200,13 @@
       "SLUS_011.15"
     ],
     "name": "g_ui_emit_font_glyph_sprt_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[6]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
   },
   {
     "address": "0x80049050",
@@ -216,13 +216,13 @@
       "SLUS_011.15"
     ],
     "name": "g_ui_hud_text_speed_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[4]",
+    "size": 8,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "high",
+    "evidence": "UI text speed preset delay lookup table (4 halfwords)"
   },
   {
     "address": "0x80049058",
@@ -232,13 +232,13 @@
       "SLUS_011.15"
     ],
     "name": "g_ui_hud_map_choice_result_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[4]",
+    "size": 16,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "high",
+    "evidence": "Dialogue choice index result mapping table (4 words)"
   },
   {
     "address": "0x80049068",
@@ -280,13 +280,13 @@
       "SLUS_011.15"
     ],
     "name": "g_ui_hud_append_record_name_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[4]",
+    "size": 8,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "high",
+    "evidence": "UI record name suffix token buffer (4 halfwords)"
   },
   {
     "address": "0x8004908c",
@@ -296,13 +296,13 @@
       "SLUS_011.15"
     ],
     "name": "g_ui_hud_copy_6tok_preset_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[19][6]",
+    "size": 228,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "high",
+    "evidence": "UI 6-token calendar/diary preset glyph table (19 x 6 halfwords)"
   },
   {
     "address": "0x80049170",
@@ -312,13 +312,13 @@
       "SLUS_011.15"
     ],
     "name": "g_gfx_start_screen_filter_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[62]",
+    "size": 248,
     "kind": "standalone",
     "parent_address": null,
     "domain": "render_gte_sprites",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[62]) within verified span"
   },
   {
     "address": "0x80049268",
@@ -424,13 +424,13 @@
       "SLUS_011.15"
     ],
     "name": "g_audio_play_bgm_seq_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u8[76]",
+    "size": 76,
     "kind": "standalone",
     "parent_address": null,
     "domain": "audio_spu_vab",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[76]) within verified span"
   },
   {
     "address": "0x800492e0",
@@ -456,13 +456,13 @@
       "SLUS_011.15"
     ],
     "name": "g_audio_spu_tick_vab_async_prepare_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[151]",
+    "size": 604,
     "kind": "standalone",
     "parent_address": null,
     "domain": "audio_spu_vab",
-    "confidence": "low",
-    "evidence": "resident_data; 3 funcs/26 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[151]) within verified span"
   },
   {
     "address": "0x800495cc",
@@ -568,13 +568,13 @@
       "SLUS_011.15"
     ],
     "name": "g_audio_trigger_spu_voice_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[540]",
+    "size": 1080,
     "kind": "standalone",
     "parent_address": null,
     "domain": "audio_spu_vab",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[540]) within verified span"
   },
   {
     "address": "0x80049a10",
@@ -584,13 +584,13 @@
       "SLUS_011.15"
     ],
     "name": "g_audio_trigger_spu_voice_find_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[23]",
+    "size": 92,
     "kind": "standalone",
     "parent_address": null,
     "domain": "audio_spu_vab",
-    "confidence": "low",
-    "evidence": "resident_data; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[23]) within verified span"
   },
   {
     "address": "0x80049a6c",
@@ -648,13 +648,13 @@
       "SLUS_011.15"
     ],
     "name": "g_cd_start_xa_stream_value_1",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[76]",
+    "size": 152,
     "kind": "standalone",
     "parent_address": null,
     "domain": "cd_afile_overlays",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[76]) within verified span"
   },
   {
     "address": "0x80049b1c",
@@ -1081,13 +1081,13 @@
       "OVL_part15_id10.EXE"
     ],
     "name": "g_ui_shop_tv_menu_seasonal_portrait_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[824]",
+    "size": 1648,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "resident_data; 6 funcs/9 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[824]) within verified span"
   },
   {
     "address": "0x80051dcc",
@@ -1145,13 +1145,13 @@
       "SLUS_011.15"
     ],
     "name": "g_npc_evt_format_naming_alnum_table",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[6]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[6]) within verified span"
   },
   {
     "address": "0x8005393a",
@@ -2507,13 +2507,13 @@
       "SLUS_011.15"
     ],
     "name": "g_npc_evt_dialog_speaker_style_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[6]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
   },
   {
     "address": "0x80055988",
@@ -2523,13 +2523,13 @@
       "SLUS_011.15"
     ],
     "name": "g_npc_evt_affection_tier_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[70]",
+    "size": 140,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[70]) within verified span"
   },
   {
     "address": "0x80055a14",
@@ -3115,13 +3115,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_spu_clear_reverb_work_mode_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[15]",
+    "size": 60,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 2 funcs/4 refs; sdk=_SpuIsInAllocateArea_:arg0"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[15]) within verified span"
   },
   {
     "address": "0x80055b48",
@@ -3275,13 +3275,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_spu_note2pitch_pitch2note_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[11]",
+    "size": 22,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 3 funcs/5 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[11]) within verified span"
   },
   {
     "address": "0x80055fa2",
@@ -3339,13 +3339,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_ss_pitch_note_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[144]",
+    "size": 288,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[144]) within verified span"
   },
   {
     "address": "0x8005647c",
@@ -3531,13 +3531,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_sin_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[1384]",
+    "size": 2768,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[1384]) within verified span"
   },
   {
     "address": "0x80057524",
@@ -3611,13 +3611,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_start_intr_vsync_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[8]",
+    "size": 32,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 3 funcs/4 refs; sdk=INTR_VB_OBJ_F0:arg0"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
   },
   {
     "address": "0x800575d4",
@@ -3819,13 +3819,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_cw_result_value",
-    "c_type": "u32",
+    "c_type": "u8[4]",
     "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[4]) within verified span"
   },
   {
     "address": "0x80057668",
@@ -3867,13 +3867,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_bios_value_1",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[32]",
+    "size": 128,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[32]) within verified span"
   },
   {
     "address": "0x80057790",
@@ -3883,13 +3883,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_cw_value_1",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[32]",
+    "size": 128,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[32]) within verified span"
   },
   {
     "address": "0x80057810",
@@ -3899,13 +3899,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_bios_value_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[32]",
+    "size": 128,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[32]) within verified span"
   },
   {
     "address": "0x80057890",
@@ -3915,13 +3915,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_cw_value_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[25]",
+    "size": 100,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/3 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[25]) within verified span"
   },
   {
     "address": "0x800578f4",
@@ -3995,13 +3995,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_control_f_b_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[32]",
+    "size": 128,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 3 funcs/3 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[32]) within verified span"
   },
   {
     "address": "0x800579d4",
@@ -4235,13 +4235,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_rcos_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[1032]",
+    "size": 2064,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[1032]) within verified span"
   },
   {
     "address": "0x80058264",
@@ -4283,13 +4283,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_square_root0_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[202]",
+    "size": 404,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[202]) within verified span"
   },
   {
     "address": "0x80058428",
@@ -4299,13 +4299,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_inv_square_root_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[190]",
+    "size": 380,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[190]) within verified span"
   },
   {
     "address": "0x800585a4",
@@ -4555,13 +4555,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_push_matrix_value_8",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[185]",
+    "size": 740,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[185]) within verified span"
   },
   {
     "address": "0x800588c4",
@@ -4587,13 +4587,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_ratan2_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[1048]",
+    "size": 2096,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[1048]) within verified span"
   },
   {
     "address": "0x8005d0f4",
@@ -4651,13 +4651,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_fnt_open_count_1",
-    "c_type": "u16",
+    "c_type": "u8[2]",
     "size": 2,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[2]) within verified span"
   },
   {
     "address": "0x8005d0fc",
@@ -4715,13 +4715,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_fnt_open_count_5",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[7]",
+    "size": 14,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[7]) within verified span"
   },
   {
     "address": "0x8005d110",
@@ -4795,13 +4795,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_fnt_open_value_3",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[85]",
+    "size": 340,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[85]) within verified span"
   },
   {
     "address": "0x8005d274",
@@ -5082,7 +5082,7 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_sdk_graph_value_1",
+    "name": "g_sdk_graph_value",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -5115,13 +5115,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_graph_value_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[3]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[3]) within verified span"
   },
   {
     "address": "0x8005dda0",
@@ -5131,13 +5131,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_graph_value_3",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[3]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[3]) within verified span"
   },
   {
     "address": "0x8005ddac",
@@ -5226,7 +5226,7 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_sdk_put_disp_env_count_d4_c",
+    "name": "g_sdk_put_disp_env_count",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -5243,13 +5243,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_put_disp_env_count_1",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[19]",
+    "size": 38,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[19]) within verified span"
   },
   {
     "address": "0x8005de10",
@@ -5259,13 +5259,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_put_disp_env_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u8[44]",
+    "size": 44,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 2 funcs/6 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[44]) within verified span"
   },
   {
     "address": "0x8005de3c",
@@ -5402,7 +5402,7 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_sdk_kanjitrans_count_1",
+    "name": "g_sdk_kanjitrans_count",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -5419,13 +5419,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_kanjitrans_count_2",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[63]",
+    "size": 126,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[63]) within verified span"
   },
   {
     "address": "0x8005df30",
@@ -5450,7 +5450,7 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_sdk_kt02_cc_count_1",
+    "name": "g_sdk_kt02_cc_count",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -5467,13 +5467,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_kt02_cc_count_2",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[55]",
+    "size": 110,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[55]) within verified span"
   },
   {
     "address": "0x8005dff4",
@@ -5595,13 +5595,13 @@
       "SLUS_011.15"
     ],
     "name": "g_ui_hud_ascii_glyph_tok_flag",
-    "c_type": "u8",
-    "size": 1,
+    "c_type": "u8[167]",
+    "size": 167,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[167]) within verified span"
   },
   {
     "address": "0x8005e0cc",
@@ -5611,13 +5611,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_start_rcnt_stop_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[6]",
+    "size": 24,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[6]) within verified span"
   },
   {
     "address": "0x8005e0e4",
@@ -6139,13 +6139,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_pad_sio_mode_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[2]",
+    "size": 8,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_data; 3 funcs/8 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[2]) within verified span"
   },
   {
     "address": "0x8005e22c",
@@ -6412,13 +6412,13 @@
       "SLUS_011.15"
     ],
     "name": "g_io_memcard_poll_status_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[3]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "input_memcard",
-    "confidence": "low",
-    "evidence": "resident_data; 1 funcs/3 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[3]) within verified span"
   },
   {
     "address": "0x8005e2b0",
@@ -6828,13 +6828,13 @@
       "SLUS_011.15"
     ],
     "name": "g_core_vblank_frame_flag",
-    "c_type": "s32",
+    "c_type": "u16[2]",
     "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "core_mainloop",
     "confidence": "high",
-    "evidence": "VSync / mainloop timing synchronization flag in SLUS_011.15@8002301c"
+    "evidence": "Prompt state + yes/no prompt choice halfword pair"
   },
   {
     "address": "0x8005e33a",
@@ -6843,7 +6843,7 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_core_vblank_frame_flag_off_2",
+    "name": "g_core_vblank_frame_flag_idx1",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -7771,7 +7771,7 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_ui_dialogue_box_ctx_window_metrics",
+    "name": "g_ui_dialogue_box_ctx_step_state",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -7787,9 +7787,9 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_ui_dialogue_box_ctx_window_metrics_idx1",
-    "c_type": "u16",
-    "size": 2,
+    "name": "g_ui_dialogue_box_ctx_type_timer",
+    "c_type": "s32",
+    "size": 4,
     "kind": "struct_member",
     "parent_address": "0x8005e444",
     "domain": "ui_inventory_hud",
@@ -7803,7 +7803,7 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_ui_dialogue_box_ctx_window_metrics_idx3",
+    "name": "g_ui_dialogue_box_ctx_char_delay",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -7852,8 +7852,8 @@
       "SLUS_011.15"
     ],
     "name": "g_ui_dialogue_box_ctx_choice_index",
-    "c_type": "s32",
-    "size": 4,
+    "c_type": "u16",
+    "size": 2,
     "kind": "struct_member",
     "parent_address": "0x8005e444",
     "domain": "ui_inventory_hud",
@@ -7899,9 +7899,9 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_ui_dialogue_box_ctx_page_stride",
-    "c_type": "u32",
-    "size": 4,
+    "name": "g_ui_dialogue_box_ctx_active_portrait_id",
+    "c_type": "u16",
+    "size": 2,
     "kind": "struct_member",
     "parent_address": "0x8005e444",
     "domain": "ui_inventory_hud",
@@ -7931,9 +7931,9 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_ui_dialogue_box_ctx_line_step",
-    "c_type": "u32",
-    "size": 4,
+    "name": "g_ui_dialogue_box_ctx_loaded_portrait_id",
+    "c_type": "u16",
+    "size": 2,
     "kind": "struct_member",
     "parent_address": "0x8005e444",
     "domain": "ui_inventory_hud",
@@ -7963,9 +7963,9 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_ui_dialogue_box_ctx_col_x",
-    "c_type": "s32",
-    "size": 4,
+    "name": "g_ui_dialogue_box_ctx_speaker_id",
+    "c_type": "u16",
+    "size": 2,
     "kind": "struct_member",
     "parent_address": "0x8005e444",
     "domain": "ui_inventory_hud",
@@ -7995,8 +7995,8 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_ui_dialogue_box_ctx_layout_rects",
-    "c_type": "u16",
+    "name": "g_ui_dialogue_box_ctx_layout_x",
+    "c_type": "s16",
     "size": 2,
     "kind": "struct_member",
     "parent_address": "0x8005e444",
@@ -8011,8 +8011,8 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_ui_dialogue_box_ctx_layout_rects_off_2",
-    "c_type": "u16",
+    "name": "g_ui_dialogue_box_ctx_layout_y",
+    "c_type": "s16",
     "size": 2,
     "kind": "struct_member",
     "parent_address": "0x8005e444",
@@ -8027,7 +8027,7 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_ui_dialogue_box_ctx_layout_rects_idx1",
+    "name": "g_ui_dialogue_box_ctx_layout_col",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -8043,7 +8043,7 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_ui_dialogue_box_ctx_layout_rects_off_6",
+    "name": "g_ui_dialogue_box_ctx_layout_line_count",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -8059,7 +8059,7 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_ui_dialogue_box_ctx_layout_rects_idx2",
+    "name": "g_ui_dialogue_box_ctx_layout_target_lines",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -8075,7 +8075,7 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_ui_dialogue_box_ctx_layout_rects_off_a",
+    "name": "g_ui_dialogue_box_ctx_layout_last_style",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -8091,7 +8091,7 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_ui_dialogue_box_ctx_layout_rects_idx3",
+    "name": "g_ui_dialogue_box_ctx_layout_rect_extra",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -8155,8 +8155,8 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_ui_dialogue_box_ctx_cursor_anim_vars_idx3",
-    "c_type": "u16",
+    "name": "g_ui_dialogue_box_ctx_cursor_anim_vars_idx6",
+    "c_type": "s16",
     "size": 2,
     "kind": "struct_member",
     "parent_address": "0x8005e444",
@@ -8171,8 +8171,8 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_ui_dialogue_box_ctx_cursor_anim_vars_off_e",
-    "c_type": "u16",
+    "name": "g_ui_dialogue_box_ctx_cursor_anim_vars_idx7",
+    "c_type": "s16",
     "size": 2,
     "kind": "struct_member",
     "parent_address": "0x8005e444",
@@ -8316,13 +8316,13 @@
       "SLUS_011.15"
     ],
     "name": "g_gfx_tick_fade_wipe_slot_filter_table",
-    "c_type": "u32",
+    "c_type": "u16[2]",
     "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "render_gte_sprites",
-    "confidence": "low",
-    "evidence": "resident_data; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
   },
   {
     "address": "0x8005e4c4",
@@ -8348,13 +8348,13 @@
       "SLUS_011.15"
     ],
     "name": "g_gfx_start_screen_filter_tick_slot_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[2]",
+    "size": 8,
     "kind": "standalone",
     "parent_address": null,
     "domain": "render_gte_sprites",
-    "confidence": "low",
-    "evidence": "resident_data; 4 funcs/4 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[2]) within verified span"
   },
   {
     "address": "0x8005e4d0",
@@ -9067,7 +9067,7 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_cd_start_xa_stream_value_2",
+    "name": "g_cd_start_xa_stream_value",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -10727,13 +10727,13 @@
       "SLUS_011.15"
     ],
     "name": "g_core_wait_vsync_sync_count_9",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[13]",
+    "size": 26,
     "kind": "standalone",
     "parent_address": null,
     "domain": "core_mainloop",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[13]) within verified span"
   },
   {
     "address": "0x8005e910",
@@ -10774,7 +10774,7 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_core_wait_vsync_sync_value_1",
+    "name": "g_core_wait_vsync_sync_value",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -10791,13 +10791,13 @@
       "SLUS_011.15"
     ],
     "name": "g_core_wait_vsync_sync_value_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[26]",
+    "size": 104,
     "kind": "standalone",
     "parent_address": null,
     "domain": "core_mainloop",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[26]) within verified span"
   },
   {
     "address": "0x8005e980",
@@ -11015,13 +11015,13 @@
       "SLUS_011.15"
     ],
     "name": "g_core_clear_pad_state_count_9",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[13]",
+    "size": 26,
     "kind": "standalone",
     "parent_address": null,
     "domain": "core_mainloop",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[13]) within verified span"
   },
   {
     "address": "0x8005e9b0",
@@ -11062,7 +11062,7 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_core_clear_pad_state_value_1",
+    "name": "g_core_clear_pad_state_value",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -11079,13 +11079,13 @@
       "SLUS_011.15"
     ],
     "name": "g_core_clear_pad_state_value_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[4]",
+    "size": 16,
     "kind": "standalone",
     "parent_address": null,
     "domain": "core_mainloop",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[4]) within verified span"
   },
   {
     "address": "0x8005e9c8",
@@ -11143,13 +11143,13 @@
       "SLUS_011.15"
     ],
     "name": "g_io_memcard_dispatch_flag",
-    "c_type": "u8",
-    "size": 1,
+    "c_type": "u8[3]",
+    "size": 3,
     "kind": "standalone",
     "parent_address": null,
     "domain": "input_memcard",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[3]) within verified span"
   },
   {
     "address": "0x8005e9ce",
@@ -11175,13 +11175,13 @@
       "SLUS_011.15"
     ],
     "name": "g_io_pad_analog_stick_x_angle_flag_2",
-    "c_type": "u8",
-    "size": 1,
+    "c_type": "u8[27]",
+    "size": 27,
     "kind": "standalone",
     "parent_address": null,
     "domain": "input_memcard",
-    "confidence": "low",
-    "evidence": "resident_bss; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[27]) within verified span"
   },
   {
     "address": "0x8005e9ea",
@@ -11239,13 +11239,13 @@
       "SLUS_011.15"
     ],
     "name": "g_io_memcard_target_slot_count",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[3]",
+    "size": 6,
     "kind": "standalone",
     "parent_address": null,
     "domain": "input_memcard",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[3]) within verified span"
   },
   {
     "address": "0x8005ea20",
@@ -11287,13 +11287,13 @@
       "SLUS_011.15"
     ],
     "name": "g_gfx_vram_unpack_0x0d_lz_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[256]",
+    "size": 512,
     "kind": "standalone",
     "parent_address": null,
     "domain": "render_gte_sprites",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/9 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[256]) within verified span"
   },
   {
     "address": "0x8005f028",
@@ -11303,13 +11303,13 @@
       "SLUS_011.15"
     ],
     "name": "g_ui_hud_dialog_tokens_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[31]",
+    "size": 124,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/5 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[31]) within verified span"
   },
   {
     "address": "0x8005f0a6",
@@ -11350,14 +11350,14 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_ui_text_render_glyph_stream_hud_table",
-    "c_type": "u32",
-    "size": 4,
+    "name": "g_hud_macro_token_table",
+    "c_type": "u16 *[12]",
+    "size": 48,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "resident_bss; 4 funcs/5 refs"
+    "confidence": "high",
+    "evidence": "HUD macro token string pointer table (12 pointers)"
   },
   {
     "address": "0x8005f0f8",
@@ -11367,13 +11367,13 @@
       "SLUS_011.15"
     ],
     "name": "g_ui_font_lookup_kanji_glyph_hud_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[224]",
+    "size": 448,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "resident_bss; 5 funcs/7 refs; sdk=memcpy:arg1"
+    "confidence": "high",
+    "evidence": "HUD font kanji/macro glyph expansion scratch buffer"
   },
   {
     "address": "0x8005f2b8",
@@ -12295,13 +12295,13 @@
       "SLUS_011.15"
     ],
     "name": "g_audio_free_vab_seq_spu_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[8]",
+    "size": 32,
     "kind": "standalone",
     "parent_address": null,
     "domain": "audio_spu_vab",
-    "confidence": "low",
-    "evidence": "resident_bss; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
   },
   {
     "address": "0x8006bf48",
@@ -12310,7 +12310,7 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_audio_spu_seq_vab_slots_enqueue_value_slot_slot",
+    "name": "g_audio_spu_seq_vab_slots_enqueue_value",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -12327,13 +12327,13 @@
       "SLUS_011.15"
     ],
     "name": "g_audio_spu_seq_vab_slots_enqueue_value_slot_arg",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[8]",
+    "size": 32,
     "kind": "standalone",
     "parent_address": null,
     "domain": "audio_spu_vab",
-    "confidence": "low",
-    "evidence": "resident_bss; 4 funcs/4 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
   },
   {
     "address": "0x8006bf88",
@@ -12343,13 +12343,13 @@
       "SLUS_011.15"
     ],
     "name": "g_audio_spu_seq_vab_slots_enqueue_value_1",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[8]",
+    "size": 32,
     "kind": "standalone",
     "parent_address": null,
     "domain": "audio_spu_vab",
-    "confidence": "low",
-    "evidence": "resident_bss; 4 funcs/4 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
   },
   {
     "address": "0x8006bfa8",
@@ -12359,13 +12359,13 @@
       "SLUS_011.15"
     ],
     "name": "g_audio_spu_seq_vab_slots_shutdown_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[8]",
+    "size": 32,
     "kind": "standalone",
     "parent_address": null,
     "domain": "audio_spu_vab",
-    "confidence": "low",
-    "evidence": "resident_bss; 4 funcs/5 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
   },
   {
     "address": "0x8006bfc8",
@@ -12375,13 +12375,13 @@
       "SLUS_011.15"
     ],
     "name": "g_audio_spu_seq_vab_slots_play_value_slot_volume",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[16]",
+    "size": 32,
     "kind": "standalone",
     "parent_address": null,
     "domain": "audio_spu_vab",
-    "confidence": "low",
-    "evidence": "resident_bss; 11 funcs/12 refs; sdk=SsSeqPause:arg0,SsSeqReplay:arg0,SsSeqSetVol:arg0"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[16]) within verified span"
   },
   {
     "address": "0x8006bfe8",
@@ -12391,13 +12391,13 @@
       "SLUS_011.15"
     ],
     "name": "g_audio_spu_seq_vab_slots_free_value_tick_async",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[8]",
+    "size": 32,
     "kind": "standalone",
     "parent_address": null,
     "domain": "audio_spu_vab",
-    "confidence": "low",
-    "evidence": "resident_bss; 3 funcs/4 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
   },
   {
     "address": "0x8006c008",
@@ -12406,7 +12406,7 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_audio_spu_seq_vab_slots_free_value_1",
+    "name": "g_audio_spu_seq_vab_slots_free_value",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -12423,13 +12423,13 @@
       "SLUS_011.15"
     ],
     "name": "g_audio_spu_seq_vab_slots_system_value_free_tick",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[8]",
+    "size": 32,
     "kind": "standalone",
     "parent_address": null,
     "domain": "audio_spu_vab",
-    "confidence": "low",
-    "evidence": "resident_bss; 4 funcs/5 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
   },
   {
     "address": "0x8006c048",
@@ -12439,13 +12439,13 @@
       "SLUS_011.15"
     ],
     "name": "g_audio_spu_seq_vab_slots_free_value_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[8]",
+    "size": 32,
     "kind": "standalone",
     "parent_address": null,
     "domain": "audio_spu_vab",
-    "confidence": "low",
-    "evidence": "resident_bss; 3 funcs/3 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
   },
   {
     "address": "0x8006c068",
@@ -12454,7 +12454,7 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_audio_spu_seq_vab_slots_system_value_1",
+    "name": "g_audio_spu_seq_vab_slots_system_value",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -12471,13 +12471,13 @@
       "SLUS_011.15"
     ],
     "name": "g_audio_spu_seq_vab_slots_play_value_1",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[8]",
+    "size": 32,
     "kind": "standalone",
     "parent_address": null,
     "domain": "audio_spu_vab",
-    "confidence": "low",
-    "evidence": "resident_bss; 9 funcs/14 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
   },
   {
     "address": "0x8006c0a8",
@@ -12487,13 +12487,13 @@
       "SLUS_011.15"
     ],
     "name": "g_audio_spu_seq_vab_slots_play_value_slot_free",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[8]",
+    "size": 32,
     "kind": "standalone",
     "parent_address": null,
     "domain": "audio_spu_vab",
-    "confidence": "low",
-    "evidence": "resident_bss; 3 funcs/3 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
   },
   {
     "address": "0x8006c0c8",
@@ -12503,13 +12503,13 @@
       "SLUS_011.15"
     ],
     "name": "g_audio_spu_seq_vab_slots_trigger_value_voice_voice",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[24]",
+    "size": 96,
     "kind": "standalone",
     "parent_address": null,
     "domain": "audio_spu_vab",
-    "confidence": "low",
-    "evidence": "resident_bss; 4 funcs/4 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[24]) within verified span"
   },
   {
     "address": "0x8006c128",
@@ -12519,13 +12519,13 @@
       "SLUS_011.15"
     ],
     "name": "g_audio_spu_seq_vab_slots_trigger_value_1",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[24]",
+    "size": 96,
     "kind": "standalone",
     "parent_address": null,
     "domain": "audio_spu_vab",
-    "confidence": "low",
-    "evidence": "resident_bss; 4 funcs/4 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[24]) within verified span"
   },
   {
     "address": "0x8006c188",
@@ -12599,13 +12599,13 @@
       "SLUS_011.15"
     ],
     "name": "g_audio_spu_trigger_sfx_voice_value_5",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[116]",
+    "size": 464,
     "kind": "standalone",
     "parent_address": null,
     "domain": "audio_spu_vab",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[116]) within verified span"
   },
   {
     "address": "0x8006c368",
@@ -13131,13 +13131,13 @@
       "SLUS_011.15"
     ],
     "name": "g_hm_event_flags_bitset",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[37]",
+    "size": 148,
     "kind": "standalone",
     "parent_address": null,
     "domain": "core_mainloop",
     "confidence": "high",
-    "evidence": "Base of packed 32-bit scenario/event bitset read and mutated by hm_event_flag_get / hm_event_flag_set"
+    "evidence": "Resident event bitset array (37 words)"
   },
   {
     "address": "0x8006c904",
@@ -13277,13 +13277,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_evt_copy_script_bytecode_dispatch_cfg",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[644]",
+    "size": 2576,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "resident_bss; 2 funcs/5 refs; sdk=memset:arg0"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[644]) within verified span"
   },
   {
     "address": "0x80070000",
@@ -14131,13 +14131,13 @@
       "SLUS_011.15"
     ],
     "name": "g_ui_snapshot_status_summary_animal_diary_cfg",
-    "c_type": "u32",
+    "c_type": "s16[2]",
     "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "resident_bss; 6 funcs/9 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[2]) within verified span"
   },
   {
     "address": "0x80070d1c",
@@ -14327,13 +14327,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_map_palette_slices_tick_shop_cfg16",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[192]",
+    "size": 384,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "resident_bss; 9 funcs/10 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[192]) within verified span"
   },
   {
     "address": "0x80070ec2",
@@ -14376,13 +14376,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_evt_sum_shipped_items_generate_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[26]",
+    "size": 52,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "resident_bss; 6 funcs/17 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[26]) within verified span"
   },
   {
     "address": "0x800711f8",
@@ -14424,13 +14424,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_villager_heart_level_earnings_seasonal_cfg",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[7]",
+    "size": 28,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "resident_bss; 4 funcs/12 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[7]) within verified span"
   },
   {
     "address": "0x8007121c",
@@ -14665,13 +14665,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_evt_stage_item_into_commit_count",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[24]",
+    "size": 48,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "resident_bss; 2 funcs/3 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[24]) within verified span"
   },
   {
     "address": "0x800712f2",
@@ -19025,13 +19025,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_tick_all_ground_value_1",
-    "c_type": "u32",
+    "c_type": "s16[2]",
     "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[2]) within verified span"
   },
   {
     "address": "0x80075bf8",
@@ -19041,13 +19041,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_tick_all_ground_value_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[29]",
+    "size": 116,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[29]) within verified span"
   },
   {
     "address": "0x80075c6c",
@@ -19056,7 +19056,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_farm_field_tick_all_ground_value_3",
+    "name": "g_farm_field_tick_all_ground_value",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -19091,13 +19091,13 @@
       "OVL_part30_id0f.EXE"
     ],
     "name": "g_farm_field_tick_wild_critter_dbg_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[60]",
+    "size": 120,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "resident_bss; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[60]) within verified span"
   },
   {
     "address": "0x8007608c",
@@ -19481,13 +19481,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_actor_position_value",
-    "c_type": "u32",
+    "c_type": "u16[2]",
     "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
   },
   {
     "address": "0x80076234",
@@ -19565,13 +19565,13 @@
       "OVL_part30_id0f.EXE"
     ],
     "name": "g_npc_evt_bind_cutscene_pack_spawn_table",
-    "c_type": "u32",
+    "c_type": "u16[2]",
     "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "resident_bss; 8 funcs/19 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
   },
   {
     "address": "0x80076240",
@@ -19733,13 +19733,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_spawn_warp_actor_value_1",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[9]",
+    "size": 36,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[9]) within verified span"
   },
   {
     "address": "0x80076280",
@@ -19799,7 +19799,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_npc_spawn_warp_actor_value_2",
+    "name": "g_npc_spawn_warp_actor_value",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -19851,13 +19851,13 @@
       "OVL_part30_id0f.EXE"
     ],
     "name": "g_npc_spawn_warp_actor_dbg_value_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[2]",
+    "size": 8,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "resident_bss; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[2]) within verified span"
   },
   {
     "address": "0x800762a0",
@@ -19883,13 +19883,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_face_actor_toward_player_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[11]",
+    "size": 44,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[11]) within verified span"
   },
   {
     "address": "0x800762d0",
@@ -19915,13 +19915,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_spawn_warp_actor_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u8[44]",
+    "size": 44,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[44]) within verified span"
   },
   {
     "address": "0x80076300",
@@ -20174,13 +20174,13 @@
       "SLUS_011.15"
     ],
     "name": "g_farm_field_plot_slot",
-    "c_type": "HmFieldPlotCell",
+    "c_type": "u8 *[6]",
     "size": 24,
     "kind": "standalone",
     "parent_address": null,
-    "domain": "farm_crops_field",
+    "domain": "npc_dialogue_events",
     "confidence": "high",
-    "evidence": "Interactive farm plot cell record (0x18 bytes ending at 0x8007a5dc)"
+    "evidence": "Pointer table of 6 prop/plot locale group bases (24 bytes ending at 0x8007a5dc)"
   },
   {
     "address": "0x8007a5c8",
@@ -20190,9 +20190,9 @@
       "OVL_part11_id06.EXE",
       "SLUS_011.15"
     ],
-    "name": "g_farm_field_plot_slot_flags",
-    "c_type": "u16",
-    "size": 2,
+    "name": "g_farm_field_plot_slot_off_4",
+    "c_type": "u32",
+    "size": 4,
     "kind": "struct_member",
     "parent_address": "0x8007a5c4",
     "domain": "npc_dialogue_events",
@@ -20207,9 +20207,9 @@
       "OVL_part11_id06.EXE",
       "SLUS_011.15"
     ],
-    "name": "g_farm_field_plot_slot_pos_x",
-    "c_type": "s16",
-    "size": 2,
+    "name": "g_farm_field_plot_slot_off_8",
+    "c_type": "u32",
+    "size": 4,
     "kind": "struct_member",
     "parent_address": "0x8007a5c4",
     "domain": "npc_dialogue_events",
@@ -20224,9 +20224,9 @@
       "OVL_part11_id06.EXE",
       "SLUS_011.15"
     ],
-    "name": "g_farm_field_plot_slot_growth_stage",
-    "c_type": "u8",
-    "size": 1,
+    "name": "g_farm_field_plot_slot_off_c",
+    "c_type": "u32",
+    "size": 4,
     "kind": "struct_member",
     "parent_address": "0x8007a5c4",
     "domain": "npc_dialogue_events",
@@ -20240,9 +20240,9 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_farm_field_plot_slot_pos_z",
-    "c_type": "s16",
-    "size": 2,
+    "name": "g_farm_field_plot_slot_off_10",
+    "c_type": "u32",
+    "size": 4,
     "kind": "struct_member",
     "parent_address": "0x8007a5c4",
     "domain": "audio_spu_vab",
@@ -20256,9 +20256,9 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_farm_field_plot_slot_attr_1",
-    "c_type": "u16",
-    "size": 2,
+    "name": "g_farm_field_plot_slot_off_14",
+    "c_type": "u32",
+    "size": 4,
     "kind": "struct_member",
     "parent_address": "0x8007a5c4",
     "domain": "audio_spu_vab",
@@ -20833,13 +20833,13 @@
       "OVL_part30_id0f.EXE"
     ],
     "name": "g_npc_give_harvest_sprite_treat_evt_count",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[6]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "resident_bss; 5 funcs/8 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[6]) within verified span"
   },
   {
     "address": "0x8007a65a",
@@ -20849,13 +20849,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_face_actor_toward_player_facing_table",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[2]",
+    "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "resident_bss; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
   },
   {
     "address": "0x8007a65e",
@@ -20898,13 +20898,13 @@
       "OVL_part30_id0f.EXE"
     ],
     "name": "g_npc_give_harvest_sprite_treat_dbg_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[32]",
+    "size": 128,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "resident_bss; 2 funcs/3 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[32]) within verified span"
   },
   {
     "address": "0x8007a6ec",
@@ -21146,13 +21146,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_core_birthday_anniversary_flags_evt_value",
-    "c_type": "u32",
+    "c_type": "u16[2]",
     "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "core_mainloop",
-    "confidence": "low",
-    "evidence": "resident_bss; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
   },
   {
     "address": "0x8007ad18",
@@ -21161,7 +21161,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_npc_evt_record_scheduled_milestone_schedule_count_wedding_birth",
+    "name": "g_npc_evt_record_scheduled_milestone_schedule_count",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -21178,13 +21178,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_evt_record_scheduled_milestone_schedule_count_1",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[19]",
+    "size": 38,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "resident_bss; 4 funcs/5 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[19]) within verified span"
   },
   {
     "address": "0x8007ad40",
@@ -21329,13 +21329,13 @@
       "OVL_part17_id07.EXE"
     ],
     "name": "g_ui_festival_bet_pool_empty_open_table",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[20]",
+    "size": 40,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "resident_bss; 6 funcs/7 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[20]) within verified span"
   },
   {
     "address": "0x8007ad82",
@@ -21796,13 +21796,13 @@
       "OVL_part30_id0f.EXE"
     ],
     "name": "g_gfx_tick_affection_weather_cutscene_dbg_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "char[7]",
+    "size": 7,
     "kind": "standalone",
     "parent_address": null,
     "domain": "render_gte_sprites",
-    "confidence": "low",
-    "evidence": "resident_bss; 2 funcs/7 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (char[7]) within verified span"
   },
   {
     "address": "0x8007aeff",
@@ -21828,13 +21828,13 @@
       "OVL_part30_id0f.EXE"
     ],
     "name": "g_ovl30_dbg_page_ke_n_count",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "char[3]",
+    "size": 3,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part30_id0f",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/6 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (char[3]) within verified span"
   },
   {
     "address": "0x8007af03",
@@ -22379,13 +22379,13 @@
       "OVL_part15_id10.EXE"
     ],
     "name": "g_ovl15_advance_tv_channel_episode_diary_state",
-    "c_type": "u32",
+    "c_type": "u8[4]",
     "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part15_id10",
-    "confidence": "low",
-    "evidence": "resident_bss; 3 funcs/4 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[4]) within verified span"
   },
   {
     "address": "0x8007afe8",
@@ -22584,14 +22584,14 @@
       "OVL_part27_id0c.EXE",
       "SLUS_011.15"
     ],
-    "name": "g_npc_weather_particles_interact_swimmer_value",
-    "c_type": "u32",
-    "size": 4,
+    "name": "g_ui_framed_window_border_sprite",
+    "c_type": "HmSpriteActor",
+    "size": 48,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "resident_bss; 11 funcs/11 refs"
+    "confidence": "high",
+    "evidence": "UI 9-slice framed menu/dialogue border sprite actor state"
   },
   {
     "address": "0x80098bf8",
@@ -22665,13 +22665,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_cache_field_tile_pointers_spr_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[1125]",
+    "size": 4500,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "resident_bss; 7 funcs/7 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[1125]) within verified span"
   },
   {
     "address": "0x8009f78c",
@@ -23007,7 +23007,7 @@
       "OVL_part21_id09.EXE",
       "OVL_part25_id0b.EXE"
     ],
-    "name": "g_core_event_script_ctx_script_work_vars",
+    "name": "g_core_event_script_ctx_script_work_head",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -23026,7 +23026,7 @@
       "OVL_part21_id09.EXE",
       "OVL_part25_id0b.EXE"
     ],
-    "name": "g_core_event_script_ctx_script_work_vars_idx1",
+    "name": "g_core_event_script_ctx_script_work_head_idx1",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -23045,7 +23045,7 @@
       "OVL_part21_id09.EXE",
       "OVL_part25_id0b.EXE"
     ],
-    "name": "g_core_event_script_ctx_script_work_vars_idx2",
+    "name": "g_core_event_script_ctx_script_work_head_idx2",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -23064,7 +23064,7 @@
       "OVL_part21_id09.EXE",
       "OVL_part25_id0b.EXE"
     ],
-    "name": "g_core_event_script_ctx_script_work_vars_idx3",
+    "name": "g_core_event_script_ctx_script_work_head_idx3",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -23083,7 +23083,7 @@
       "OVL_part21_id09.EXE",
       "OVL_part25_id0b.EXE"
     ],
-    "name": "g_core_event_script_ctx_script_work_vars_idx4",
+    "name": "g_core_event_script_ctx_script_work_head_idx4",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -23099,7 +23099,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_core_event_script_ctx_script_work_vars_idx5",
+    "name": "g_core_event_script_ctx_script_var_05_lo",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -23115,7 +23115,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_core_event_script_ctx_script_work_vars_off_16",
+    "name": "g_core_event_script_ctx_script_var_05_hi",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -23246,7 +23246,7 @@
       "OVL_part11_id06.EXE",
       "OVL_part25_id0b.EXE"
     ],
-    "name": "g_core_event_script_ctx_script_work_vars_idx11",
+    "name": "g_core_event_script_ctx_script_work_body_idx1",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -23263,9 +23263,9 @@
       "OVL_part11_id06.EXE",
       "OVL_part25_id0b.EXE"
     ],
-    "name": "g_core_event_script_ctx_script_work_vars_idx56",
-    "c_type": "u32",
-    "size": 4,
+    "name": "g_core_event_script_ctx_scene_req_byte0",
+    "c_type": "u8",
+    "size": 1,
     "kind": "struct_member",
     "parent_address": "0x800a0378",
     "domain": "farm_crops_field",
@@ -23279,7 +23279,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_core_event_script_ctx_script_work_vars_idx57",
+    "name": "g_core_event_script_ctx_script_work_tail",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -23508,13 +23508,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_dlg_upload_portrait_sprite_item_value_vram_icon",
-    "c_type": "u32",
+    "c_type": "u16[2]",
     "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "resident_bss; 2 funcs/7 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
   },
   {
     "address": "0x800a04c0",
@@ -23540,13 +23540,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_gfx_spawn_render_entity_item_count",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[7]",
+    "size": 14,
     "kind": "standalone",
     "parent_address": null,
     "domain": "render_gte_sprites",
-    "confidence": "low",
-    "evidence": "resident_bss; 2 funcs/3 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[7]) within verified span"
   },
   {
     "address": "0x800a04d0",
@@ -23588,13 +23588,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_dlg_upload_portrait_sprite_item_value_1",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[126]",
+    "size": 252,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "resident_bss; 2 funcs/3 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[126]) within verified span"
   },
   {
     "address": "0x800a05d0",
@@ -23604,13 +23604,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_spu_any_voice_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[132]",
+    "size": 264,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/10 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[132]) within verified span"
   },
   {
     "address": "0x800a06d8",
@@ -23716,14 +23716,14 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_npc_framed_window_value",
-    "c_type": "u32",
+    "name": "g_ui_framed_window_sprite_ptr",
+    "c_type": "HmSpriteActor *",
     "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/1 refs"
+    "confidence": "high",
+    "evidence": "Active framed window border sprite cache pointer"
   },
   {
     "address": "0x800a0758",
@@ -25109,13 +25109,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_ss_vm_allocate_flush_count_2",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[187]",
+    "size": 374,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_bss; 3 funcs/3 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[187]) within verified span"
   },
   {
     "address": "0x800a1788",
@@ -25157,13 +25157,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_ss_vm_allocate_flush_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[16]",
+    "size": 64,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_bss; 2 funcs/5 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[16]) within verified span"
   },
   {
     "address": "0x800a17d0",
@@ -25301,13 +25301,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_ss_vm_vset_up_vab_table_open_head",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s32[16]",
+    "size": 64,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_bss; 4 funcs/4 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s32[16]) within verified span"
   },
   {
     "address": "0x800a1830",
@@ -25317,13 +25317,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_ss_vm_vset_up_vab_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[16]",
+    "size": 64,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_bss; 4 funcs/4 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[16]) within verified span"
   },
   {
     "address": "0x800a1870",
@@ -25349,13 +25349,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_ss_vm_vset_up_vab_table_1",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[16]",
+    "size": 64,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_bss; 4 funcs/4 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[16]) within verified span"
   },
   {
     "address": "0x800a18b8",
@@ -25797,8 +25797,8 @@
       "SLUS_011.15"
     ],
     "name": "g_audio_vab_open_status",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[4]",
+    "size": 16,
     "kind": "standalone",
     "parent_address": null,
     "domain": "audio_spu_vab",
@@ -25941,13 +25941,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_iso9660_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[9]",
+    "size": 36,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/1 refs; sdk=ISO9660_OBJ_8FC:arg1"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[9]) within verified span"
   },
   {
     "address": "0x800a20a8",
@@ -26341,13 +26341,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_gs_sort_clear_count_4",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[2]",
+    "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
   },
   {
     "address": "0x800a3f03",
@@ -28044,13 +28044,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_kanji_fnt_open_count_5",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "s16[7]",
+    "size": 14,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[7]) within verified span"
   },
   {
     "address": "0x800b5cb4",
@@ -28140,13 +28140,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_kanji_fnt_open_value_4",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s32[40]",
+    "size": 160,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s32[40]) within verified span"
   },
   {
     "address": "0x800b5d68",
@@ -28412,13 +28412,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_sys_obj_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[1533]",
+    "size": 6132,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_bss; 2 funcs/3 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[1533]) within verified span"
   },
   {
     "address": "0x800b75b8",
@@ -28876,13 +28876,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_user_open_execute_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[4]",
+    "size": 16,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_bss; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[4]) within verified span"
   },
   {
     "address": "0x800b76b8",
@@ -29195,7 +29195,7 @@
     "referencing_programs": [
       "SLUS_011.15"
     ],
-    "name": "g_sdk_card_create2_value_low_c",
+    "name": "g_sdk_card_create2_value",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -29228,13 +29228,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_card_create2_value_1",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[4]",
+    "size": 16,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_bss; 3 funcs/8 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[4]) within verified span"
   },
   {
     "address": "0x800b7938",
@@ -29756,13 +29756,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_mcxcmd25_e0_flag",
-    "c_type": "u8",
-    "size": 1,
+    "c_type": "u8[7]",
+    "size": 7,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_bss; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[7]) within verified span"
   },
   {
     "address": "0x800b7a5a",
@@ -29788,13 +29788,13 @@
       "SLUS_011.15"
     ],
     "name": "g_sdk_mcx_sio_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[38]",
+    "size": 152,
     "kind": "standalone",
     "parent_address": null,
     "domain": "sdk",
-    "confidence": "low",
-    "evidence": "resident_bss; 3 funcs/4 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[38]) within verified span"
   },
   {
     "address": "0x800b7b80",
@@ -30284,13 +30284,13 @@
       "OVL_part08_id04.EXE"
     ],
     "name": "g_ovl08_font_test_grid_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[64]",
+    "size": 256,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part08_id04",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[64]) within verified span"
   },
   {
     "address": "0x800b8608",
@@ -30396,13 +30396,13 @@
       "OVL_part28_id0d.EXE"
     ],
     "name": "g_ovl28_credits_script_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u8[66]",
+    "size": 66,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part28_id0d",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[66]) within verified span"
   },
   {
     "address": "0x800b93ae",
@@ -30636,13 +30636,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_feed_pet_cow_sheep_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[40]",
+    "size": 160,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[40]) within verified span"
   },
   {
     "address": "0x800b961c",
@@ -30797,13 +30797,13 @@
       "OVL_part28_id0d.EXE"
     ],
     "name": "g_ovl28_credits_spawn_line_table",
-    "c_type": "u32",
+    "c_type": "u16[2]",
     "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part28_id0d",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
   },
   {
     "address": "0x800b9638",
@@ -30925,13 +30925,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_query_pasture_tile_grass_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[103]",
+    "size": 412,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[103]) within verified span"
   },
   {
     "address": "0x800ba9e4",
@@ -30941,13 +30941,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_pet_dog_dispatch_state_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[40]",
+    "size": 160,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[40]) within verified span"
   },
   {
     "address": "0x800baa84",
@@ -31213,13 +31213,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_tick_shop_hud_state_value_1",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[8]",
+    "size": 32,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[8]) within verified span"
   },
   {
     "address": "0x800bb248",
@@ -31229,13 +31229,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_tick_shop_hud_state_value_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[29]",
+    "size": 116,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[29]) within verified span"
   },
   {
     "address": "0x800bb2bc",
@@ -31341,13 +31341,13 @@
       "OVL_part17_id07.EXE"
     ],
     "name": "g_ovl17_setup_race_participants_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[47]",
+    "size": 188,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part17_id07",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[47]) within verified span"
   },
   {
     "address": "0x800bb5f0",
@@ -31357,13 +31357,13 @@
       "OVL_part17_id07.EXE"
     ],
     "name": "g_ovl17_pool_crowd_value_1",
-    "c_type": "u32",
+    "c_type": "s16[2]",
     "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part17_id07",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[2]) within verified span"
   },
   {
     "address": "0x800bb5f4",
@@ -31421,13 +31421,13 @@
       "OVL_part17_id07.EXE"
     ],
     "name": "g_ovl17_odds_board_payout_value_3",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[18]",
+    "size": 36,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part17_id07",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[18]) within verified span"
   },
   {
     "address": "0x800bb710",
@@ -32269,13 +32269,13 @@
       "OVL_part10_id05.EXE"
     ],
     "name": "g_ovl10_pock_cmd_apl_state_7",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[6]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part10_id05",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/11 refs; sdk=McxExecApl:arg1,sprintf:arg2"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
   },
   {
     "address": "0x800bb9a8",
@@ -32576,13 +32576,13 @@
       "OVL_part23_id0a.EXE"
     ],
     "name": "g_ovl23_trainers_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[4]",
+    "size": 8,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part23_id0a",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[4]) within verified span"
   },
   {
     "address": "0x800bba90",
@@ -32592,13 +32592,13 @@
       "OVL_part23_id0a.EXE"
     ],
     "name": "g_ovl23_dogs_value_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[6]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part23_id0a",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[6]) within verified span"
   },
   {
     "address": "0x800bba9c",
@@ -32624,13 +32624,13 @@
       "OVL_part23_id0a.EXE"
     ],
     "name": "g_ovl23_roll_trainer_dir_prob_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[20]",
+    "size": 40,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part23_id0a",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[20]) within verified span"
   },
   {
     "address": "0x800bbadc",
@@ -32833,13 +32833,13 @@
       "OVL_part10_id05.EXE"
     ],
     "name": "g_ovl10_debug_menu_value_3",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[14]",
+    "size": 56,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part10_id05",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[14]) within verified span"
   },
   {
     "address": "0x800bbb74",
@@ -32993,13 +32993,13 @@
       "OVL_part21_id09.EXE"
     ],
     "name": "g_ovl21_state_record_loss_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[8]",
+    "size": 16,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part21_id09",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[8]) within verified span"
   },
   {
     "address": "0x800bcc24",
@@ -33008,7 +33008,7 @@
     "referencing_programs": [
       "OVL_part21_id09.EXE"
     ],
-    "name": "g_ovl21_launch_queued_throws_value_1",
+    "name": "g_ovl21_launch_queued_throws_value",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -33040,7 +33040,7 @@
     "referencing_programs": [
       "OVL_part21_id09.EXE"
     ],
-    "name": "g_ovl21_match_actors_target_count_reticle",
+    "name": "g_ovl21_match_actors_target_count",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -33057,13 +33057,13 @@
       "OVL_part21_id09.EXE"
     ],
     "name": "g_ovl21_match_actors_target_count_1",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[11]",
+    "size": 22,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part21_id09",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[11]) within verified span"
   },
   {
     "address": "0x800bcc60",
@@ -33137,13 +33137,13 @@
       "OVL_part21_id09.EXE"
     ],
     "name": "g_ovl21_state_announce_team0_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[4]",
+    "size": 8,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part21_id09",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[4]) within verified span"
   },
   {
     "address": "0x800bcccc",
@@ -33153,13 +33153,13 @@
       "OVL_part21_id09.EXE"
     ],
     "name": "g_ovl21_state_announce_team1_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[4]",
+    "size": 8,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part21_id09",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[4]) within verified span"
   },
   {
     "address": "0x800bccd4",
@@ -33169,13 +33169,13 @@
       "OVL_part21_id09.EXE"
     ],
     "name": "g_ovl21_state_judge_winner_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[8]",
+    "size": 16,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part21_id09",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[8]) within verified span"
   },
   {
     "address": "0x800bcce4",
@@ -33762,13 +33762,13 @@
       "OVL_part19_id08.EXE"
     ],
     "name": "g_ovl19_fighter_positions_value_1",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[4]",
+    "size": 8,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part19_id08",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[4]) within verified span"
   },
   {
     "address": "0x800bcef0",
@@ -33778,13 +33778,13 @@
       "OVL_part19_id08.EXE"
     ],
     "name": "g_ovl19_spectators_crowd_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[3]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part19_id08",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[3]) within verified span"
   },
   {
     "address": "0x800bcefc",
@@ -33793,7 +33793,7 @@
     "referencing_programs": [
       "OVL_part19_id08.EXE"
     ],
-    "name": "g_ovl19_fighter_positions_value_2",
+    "name": "g_ovl19_fighter_positions_value",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -33826,13 +33826,13 @@
       "OVL_part19_id08.EXE"
     ],
     "name": "g_ovl19_phase_post_bout_result_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u8[52]",
+    "size": 52,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part19_id08",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[52]) within verified span"
   },
   {
     "address": "0x800bcf58",
@@ -33842,13 +33842,13 @@
       "OVL_part19_id08.EXE"
     ],
     "name": "g_ovl19_fighter_ai_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u8[32]",
+    "size": 32,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part19_id08",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[32]) within verified span"
   },
   {
     "address": "0x800bcf78",
@@ -33906,13 +33906,13 @@
       "OVL_part19_id08.EXE"
     ],
     "name": "g_ovl19_roll_opponent_affection_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[6]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part19_id08",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[6]) within verified span"
   },
   {
     "address": "0x800bcff0",
@@ -33923,13 +33923,13 @@
       "OVL_part27_id0c.EXE"
     ],
     "name": "g_ovl19_phase_announce_match_calendar_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[4]",
+    "size": 8,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part19_id08",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[4]) within verified span"
   },
   {
     "address": "0x800bcff8",
@@ -33939,13 +33939,13 @@
       "OVL_part19_id08.EXE"
     ],
     "name": "g_ovl19_chicken_name_offset_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[20]",
+    "size": 80,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part19_id08",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[20]) within verified span"
   },
   {
     "address": "0x800bd048",
@@ -34739,13 +34739,13 @@
       "OVL_part17_id07.EXE"
     ],
     "name": "g_ovl17_swim_race_rankings_camera_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[2]",
+    "size": 8,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part17_id07",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 7 funcs/13 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[2]) within verified span"
   },
   {
     "address": "0x800bd888",
@@ -34883,13 +34883,13 @@
       "OVL_part17_id07.EXE"
     ],
     "name": "g_ovl17_ai_swimmer_inputs_unpack_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[18]",
+    "size": 36,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part17_id07",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[18]) within verified span"
   },
   {
     "address": "0x800bda74",
@@ -34947,13 +34947,13 @@
       "OVL_part17_id07.EXE"
     ],
     "name": "g_ovl17_swim_race_finish_rankings_state",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[5]",
+    "size": 10,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part17_id07",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 7 funcs/16 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[5]) within verified span"
   },
   {
     "address": "0x800bdb0e",
@@ -35090,7 +35090,7 @@
     "referencing_programs": [
       "OVL_part17_id07.EXE"
     ],
-    "name": "g_ovl17_push_wake_trail_particle_particles_value_1",
+    "name": "g_ovl17_push_wake_trail_particle_particles_value",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -35107,13 +35107,13 @@
       "OVL_part17_id07.EXE"
     ],
     "name": "g_ovl17_push_wake_trail_particle_particles_value_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[358]",
+    "size": 716,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part17_id07",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[358]) within verified span"
   },
   {
     "address": "0x800bddf0",
@@ -36691,13 +36691,13 @@
       "OVL_part23_id0a.EXE"
     ],
     "name": "g_ovl23_dog_race_ai_count",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "s16[3]",
+    "size": 6,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part23_id0a",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 2 funcs/4 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[3]) within verified span"
   },
   {
     "address": "0x800bfa88",
@@ -37058,7 +37058,7 @@
     "referencing_programs": [
       "OVL_part23_id0a.EXE"
     ],
-    "name": "g_ovl23_push_trainer_trail_mark_count_1",
+    "name": "g_ovl23_push_trainer_trail_mark_count",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -37075,13 +37075,13 @@
       "OVL_part23_id0a.EXE"
     ],
     "name": "g_ovl23_push_trainer_trail_mark_count_2",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[213]",
+    "size": 426,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part23_id0a",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[213]) within verified span"
   },
   {
     "address": "0x800bfe44",
@@ -38183,13 +38183,13 @@
       "OVL_part21_id09.EXE"
     ],
     "name": "g_ovl21_match_actors_launch_count",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[2]",
+    "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part21_id09",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 2 funcs/5 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
   },
   {
     "address": "0x800c046a",
@@ -38407,13 +38407,13 @@
       "OVL_part21_id09.EXE"
     ],
     "name": "g_ovl21_launch_queued_throws_value_2",
-    "c_type": "u32",
+    "c_type": "u16[2]",
     "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part21_id09",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
   },
   {
     "address": "0x800c0490",
@@ -39751,13 +39751,13 @@
       "OVL_part27_id0c.EXE"
     ],
     "name": "g_ovl27_status_prompt_box_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s32[12]",
+    "size": 48,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part27_id0c",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s32[12]) within verified span"
   },
   {
     "address": "0x800c4a80",
@@ -40039,13 +40039,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_cd_area_scene_bundle_value_4",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[1017]",
+    "size": 4068,
     "kind": "standalone",
     "parent_address": null,
     "domain": "cd_afile_overlays",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[1017]) within verified span"
   },
   {
     "address": "0x8012279c",
@@ -40054,7 +40054,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_cd_copy_map_slot_b_table_1",
+    "name": "g_cd_copy_map_slot_b_table",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -40071,13 +40071,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_cd_copy_map_slot_b_table_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[4]",
+    "size": 16,
     "kind": "standalone",
     "parent_address": null,
     "domain": "cd_afile_overlays",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[4]) within verified span"
   },
   {
     "address": "0x801227b0",
@@ -40086,7 +40086,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_cd_copy_map_slot_table_1",
+    "name": "g_cd_copy_map_slot_table",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -40103,13 +40103,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_cd_copy_map_slot_table_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[6]",
+    "size": 24,
     "kind": "standalone",
     "parent_address": null,
     "domain": "cd_afile_overlays",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[6]) within verified span"
   },
   {
     "address": "0x801227cc",
@@ -40118,7 +40118,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_cd_copy_actor_pack_table_1",
+    "name": "g_cd_copy_actor_pack_table",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -40135,13 +40135,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_cd_copy_actor_pack_table_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[10]",
+    "size": 40,
     "kind": "standalone",
     "parent_address": null,
     "domain": "cd_afile_overlays",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[10]) within verified span"
   },
   {
     "address": "0x801227f8",
@@ -40150,7 +40150,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_cd_afile_subentry_value_1",
+    "name": "g_cd_afile_subentry_value",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -40167,13 +40167,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_cd_afile_subentry_value_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[5]",
+    "size": 20,
     "kind": "standalone",
     "parent_address": null,
     "domain": "cd_afile_overlays",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[5]) within verified span"
   },
   {
     "address": "0x80122810",
@@ -40182,7 +40182,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_cd_sync_upload_area_vram_table_1",
+    "name": "g_cd_sync_upload_area_vram_table",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -40199,13 +40199,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_cd_sync_upload_area_vram_table_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[175]",
+    "size": 700,
     "kind": "standalone",
     "parent_address": null,
     "domain": "cd_afile_overlays",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[175]) within verified span"
   },
   {
     "address": "0x80122ad0",
@@ -40263,13 +40263,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_core_test_prop_aabb_hit_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[4]",
+    "size": 8,
     "kind": "standalone",
     "parent_address": null,
     "domain": "core_mainloop",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[4]) within verified span"
   },
   {
     "address": "0x80122e74",
@@ -40311,13 +40311,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_core_grid_tile_world_find_override_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[62]",
+    "size": 124,
     "kind": "standalone",
     "parent_address": null,
     "domain": "core_mainloop",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 3 funcs/4 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[62]) within verified span"
   },
   {
     "address": "0x80122f88",
@@ -40343,13 +40343,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_core_nearby_greetings_value_1",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[64]",
+    "size": 256,
     "kind": "standalone",
     "parent_address": null,
     "domain": "core_mainloop",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[64]) within verified span"
   },
   {
     "address": "0x8012308c",
@@ -40359,13 +40359,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_render_player_sprite_value_1",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[6]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
   },
   {
     "address": "0x80123098",
@@ -40375,13 +40375,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_render_player_sprite_value_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[6]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
   },
   {
     "address": "0x801230a4",
@@ -40391,13 +40391,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_render_player_sprite_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[6]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
   },
   {
     "address": "0x801230b0",
@@ -40423,13 +40423,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_probe_actor_interaction_count",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[15]",
+    "size": 30,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[15]) within verified span"
   },
   {
     "address": "0x801230d0",
@@ -40470,7 +40470,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_farm_field_integrate_player_physics_count_1",
+    "name": "g_farm_field_integrate_player_physics_count",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -40487,13 +40487,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_integrate_player_physics_count_2",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "s16[7]",
+    "size": 14,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[7]) within verified span"
   },
   {
     "address": "0x80123110",
@@ -40502,7 +40502,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_farm_field_probe_ground_ahead_item_count_pickup_carry",
+    "name": "g_farm_field_probe_ground_ahead_item_count",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -40519,13 +40519,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_probe_ground_ahead_item_count_1",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[15]",
+    "size": 30,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[15]) within verified span"
   },
   {
     "address": "0x80123130",
@@ -40534,7 +40534,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_farm_field_spawn_thrown_item_interact_value_tile",
+    "name": "g_farm_field_spawn_thrown_item_interact_value",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -40551,13 +40551,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_spawn_thrown_item_interact_value_1",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[7]",
+    "size": 28,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 2 funcs/3 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[7]) within verified span"
   },
   {
     "address": "0x80123150",
@@ -40615,13 +40615,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_carried_item_sprite_count",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[31]",
+    "size": 62,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[31]) within verified span"
   },
   {
     "address": "0x8012319c",
@@ -40631,13 +40631,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_use_hoe_target_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[6]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
   },
   {
     "address": "0x801231a8",
@@ -40647,13 +40647,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_use_watering_tiles_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[6]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
   },
   {
     "address": "0x801231b4",
@@ -40663,13 +40663,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_use_sickle_target_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[6]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
   },
   {
     "address": "0x801231c0",
@@ -40728,13 +40728,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_player_emote_sprite_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[36]",
+    "size": 72,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[36]) within verified span"
   },
   {
     "address": "0x80123244",
@@ -40744,13 +40744,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_execute_player_action_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[3]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[3]) within verified span"
   },
   {
     "address": "0x80123250",
@@ -40824,13 +40824,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_resolve_player_wall_count_4",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "s16[13]",
+    "size": 26,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[13]) within verified span"
   },
   {
     "address": "0x80123290",
@@ -40840,13 +40840,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_tool_hit_livestock_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[10]",
+    "size": 20,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/3 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[10]) within verified span"
   },
   {
     "address": "0x801232a4",
@@ -40872,13 +40872,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_apply_scripted_pad_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[4]",
+    "size": 8,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[4]) within verified span"
   },
   {
     "address": "0x801232bc",
@@ -40887,7 +40887,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_farm_field_barn_coop_spawn_count_1",
+    "name": "g_farm_field_barn_coop_spawn_count",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -40904,13 +40904,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_barn_coop_spawn_count_2",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[5]",
+    "size": 10,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[5]) within verified span"
   },
   {
     "address": "0x801232c8",
@@ -41032,13 +41032,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_target_octant_direction_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[10]",
+    "size": 20,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[10]) within verified span"
   },
   {
     "address": "0x80123a14",
@@ -41064,13 +41064,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_compute_seek_move_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[10]",
+    "size": 20,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[10]) within verified span"
   },
   {
     "address": "0x80123a2c",
@@ -41112,13 +41112,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_place_barn_animal_value_3",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[22]",
+    "size": 88,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[22]) within verified span"
   },
   {
     "address": "0x80123a8c",
@@ -41160,13 +41160,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_place_coop_chicken_value_3",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[6]",
+    "size": 24,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[6]) within verified span"
   },
   {
     "address": "0x80123aac",
@@ -41175,7 +41175,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_farm_field_critter_spawn_zone_count_1",
+    "name": "g_farm_field_critter_spawn_zone_count",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -41192,13 +41192,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_critter_spawn_zone_count_2",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[143]",
+    "size": 286,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[143]) within verified span"
   },
   {
     "address": "0x80123bcc",
@@ -41463,7 +41463,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_gfx_spr_tile_blocked_oob_count_1",
+    "name": "g_gfx_spr_tile_blocked_oob_count",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -41480,13 +41480,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_gfx_spr_tile_blocked_oob_count_2",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "s16[3]",
+    "size": 6,
     "kind": "standalone",
     "parent_address": null,
     "domain": "render_gte_sprites",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[3]) within verified span"
   },
   {
     "address": "0x80123e0c",
@@ -41495,7 +41495,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_gfx_spr_grass_autotile_neighborhood_table_1",
+    "name": "g_gfx_spr_grass_autotile_neighborhood_table",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -41512,13 +41512,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_gfx_spr_grass_autotile_neighborhood_table_2",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[3]",
+    "size": 6,
     "kind": "standalone",
     "parent_address": null,
     "domain": "render_gte_sprites",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[3]) within verified span"
   },
   {
     "address": "0x80123e14",
@@ -41544,13 +41544,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_resolve_season_map_id_value",
-    "c_type": "u32",
+    "c_type": "s16[2]",
     "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[2]) within verified span"
   },
   {
     "address": "0x80123e54",
@@ -41623,7 +41623,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_anim_barn_cow_lookup_frame_count_1",
+    "name": "g_anim_barn_cow_lookup_frame_count",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -41640,13 +41640,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_barn_cow_lookup_frame_count_2",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[71]",
+    "size": 142,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[71]) within verified span"
   },
   {
     "address": "0x80123f00",
@@ -41783,7 +41783,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_anim_barn_sheep_lookup_frame_count_1",
+    "name": "g_anim_barn_sheep_lookup_frame_count",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -41800,13 +41800,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_barn_sheep_lookup_frame_count_2",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[47]",
+    "size": 94,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[47]) within verified span"
   },
   {
     "address": "0x80123fb8",
@@ -41927,7 +41927,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_anim_coop_chicken_lookup_frame_count_1",
+    "name": "g_anim_coop_chicken_lookup_frame_count",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -41944,13 +41944,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_coop_chicken_lookup_frame_count_2",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[55]",
+    "size": 110,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[55]) within verified span"
   },
   {
     "address": "0x80124078",
@@ -42104,13 +42104,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_livestock_status_panel_evt_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[452]",
+    "size": 1808,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 2 funcs/4 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[452]) within verified span"
   },
   {
     "address": "0x801247e8",
@@ -42120,13 +42120,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_snapshot_vram_save_slot_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[53]",
+    "size": 212,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 3 funcs/6 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[53]) within verified span"
   },
   {
     "address": "0x801248bc",
@@ -42216,13 +42216,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_gift_affection_delta_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[20]",
+    "size": 40,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[20]) within verified span"
   },
   {
     "address": "0x801248f4",
@@ -42232,13 +42232,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_dlg_show_script_message_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[10]",
+    "size": 20,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[10]) within verified span"
   },
   {
     "address": "0x80124908",
@@ -42392,13 +42392,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_dlg_new_year_fortune_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u8[12]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[12]) within verified span"
   },
   {
     "address": "0x801249f8",
@@ -42440,13 +42440,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_dlg_eval_dialogue_ids_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[16]",
+    "size": 32,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[16]) within verified span"
   },
   {
     "address": "0x80124a1c",
@@ -42520,13 +42520,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_event_script_read_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[236]",
+    "size": 944,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 2 funcs/3 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[236]) within verified span"
   },
   {
     "address": "0x80124dd8",
@@ -42616,13 +42616,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_barn_cow_setup_model_sheep_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[24]",
+    "size": 96,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[24]) within verified span"
   },
   {
     "address": "0x80124f48",
@@ -42632,13 +42632,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_coop_chicken_setup_model_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[976]",
+    "size": 3904,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[976]) within verified span"
   },
   {
     "address": "0x80125e88",
@@ -42679,7 +42679,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_farm_field_house_upgrade_spawn_table_1",
+    "name": "g_farm_field_house_upgrade_spawn_table",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -42696,13 +42696,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_house_upgrade_spawn_table_2",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[5]",
+    "size": 10,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[5]) within verified span"
   },
   {
     "address": "0x80125f24",
@@ -42712,13 +42712,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_core_current_scene_indoor_flag_render_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[1638]",
+    "size": 3276,
     "kind": "standalone",
     "parent_address": null,
     "domain": "core_mainloop",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 5 funcs/5 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[1638]) within verified span"
   },
   {
     "address": "0x80126bf0",
@@ -42728,13 +42728,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_all_daily_schedules_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[40]",
+    "size": 160,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[40]) within verified span"
   },
   {
     "address": "0x80126c90",
@@ -42776,13 +42776,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_evt_map_prop_bubble_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[4]",
+    "size": 8,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[4]) within verified span"
   },
   {
     "address": "0x80126ca0",
@@ -42807,7 +42807,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_npc_evt_apply_season_prop_count_1",
+    "name": "g_npc_evt_apply_season_prop_count",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -42824,13 +42824,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_evt_apply_season_prop_count_2",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[21]",
+    "size": 42,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[21]) within verified span"
   },
   {
     "address": "0x80126e2c",
@@ -43032,13 +43032,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_storage_menu_cursor_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u8[284]",
+    "size": 284,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[284]) within verified span"
   },
   {
     "address": "0x80126f74",
@@ -43048,13 +43048,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_dlg_upload_tv_menu_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[4]",
+    "size": 8,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[4]) within verified span"
   },
   {
     "address": "0x80126f7c",
@@ -43176,13 +43176,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_calendar_cell_badge_count",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[5]",
+    "size": 10,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[5]) within verified span"
   },
   {
     "address": "0x80126fe0",
@@ -43288,13 +43288,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_rucksack_pause_menu_value_1",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u8[500]",
+    "size": 500,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[500]) within verified span"
   },
   {
     "address": "0x801271e8",
@@ -43336,13 +43336,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_rucksack_pause_menu_value_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[7]",
+    "size": 28,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[7]) within verified span"
   },
   {
     "address": "0x80127208",
@@ -43432,13 +43432,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_tool_upgrade_tier_stars_exp_value",
-    "c_type": "u32",
+    "c_type": "u16[2]",
     "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 3 funcs/7 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
   },
   {
     "address": "0x80127218",
@@ -43816,13 +43816,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_shipped_items_page_value_1",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u8[124]",
+    "size": 124,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[124]) within verified span"
   },
   {
     "address": "0x801272f4",
@@ -43864,13 +43864,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_animal_page_badge_value_1",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u8[24]",
+    "size": 24,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[24]) within verified span"
   },
   {
     "address": "0x80127370",
@@ -43880,13 +43880,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_sprite_row_rank_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[6]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
   },
   {
     "address": "0x8012737c",
@@ -43896,13 +43896,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_affection_face_icon_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u8[12]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[12]) within verified span"
   },
   {
     "address": "0x80127388",
@@ -43912,13 +43912,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_tool_exp_progress_bar_value_1",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[5]",
+    "size": 20,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[5]) within verified span"
   },
   {
     "address": "0x8012739c",
@@ -43928,13 +43928,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_tool_exp_progress_bar_value_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[5]",
+    "size": 20,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[5]) within verified span"
   },
   {
     "address": "0x801273b0",
@@ -44104,13 +44104,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ovl11_ui_menu_substate",
-    "c_type": "s32",
+    "c_type": "u8[4]",
     "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part11_id06",
     "confidence": "high",
-    "evidence": "OVL_part11 menu/UI substate"
+    "evidence": "Overlay 11 UI menu substate byte flags"
   },
   {
     "address": "0x801273e5",
@@ -44119,7 +44119,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ovl11_ui_menu_substate_off_1",
+    "name": "g_ovl11_ui_menu_substate_idx1",
     "c_type": "u8",
     "size": 1,
     "kind": "struct_member",
@@ -44135,7 +44135,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ovl11_ui_menu_substate_off_2",
+    "name": "g_ovl11_ui_menu_substate_idx2",
     "c_type": "u8",
     "size": 1,
     "kind": "struct_member",
@@ -44151,7 +44151,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ovl11_ui_menu_substate_off_3",
+    "name": "g_ovl11_ui_menu_substate_idx3",
     "c_type": "u8",
     "size": 1,
     "kind": "struct_member",
@@ -44280,13 +44280,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_recipe_detail_panel_kitchen_selected_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[8]",
+    "size": 16,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 4 funcs/4 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[8]) within verified span"
   },
   {
     "address": "0x80127404",
@@ -44360,13 +44360,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ovl11_ovl_door_swing_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[258]",
+    "size": 1032,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part11_id06",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[258]) within verified span"
   },
   {
     "address": "0x801278e4",
@@ -44376,13 +44376,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_tv_channel_sprite_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[4]",
+    "size": 8,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[4]) within verified span"
   },
   {
     "address": "0x801278ec",
@@ -44424,13 +44424,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_tv_dispatch_channel_schedule_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[20]",
+    "size": 40,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[20]) within verified span"
   },
   {
     "address": "0x80127918",
@@ -44439,7 +44439,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_anim_pet_horse_lookup_frame_count_1",
+    "name": "g_anim_pet_horse_lookup_frame_count",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -44456,13 +44456,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_pet_horse_lookup_frame_count_2",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[175]",
+    "size": 350,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[175]) within verified span"
   },
   {
     "address": "0x80127a78",
@@ -44711,7 +44711,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_anim_pet_dog_lookup_frame_count_1",
+    "name": "g_anim_pet_dog_lookup_frame_count",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -44728,13 +44728,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_pet_dog_lookup_frame_count_2",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[39]",
+    "size": 78,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[39]) within verified span"
   },
   {
     "address": "0x80127b88",
@@ -44791,7 +44791,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_anim_sprite_lookup_frame_count_1",
+    "name": "g_anim_sprite_lookup_frame_count",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -44808,13 +44808,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_sprite_lookup_frame_count_2",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[135]",
+    "size": 270,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[135]) within verified span"
   },
   {
     "address": "0x80127cb4",
@@ -44856,13 +44856,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_sprite_choose_idle_action_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[4]",
+    "size": 8,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[4]) within verified span"
   },
   {
     "address": "0x80127cf4",
@@ -44872,13 +44872,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_sprite_interact_talk_gift_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[8]",
+    "size": 16,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[8]) within verified span"
   },
   {
     "address": "0x80127d04",
@@ -44888,13 +44888,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_sprite_play_tea_party_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[8]",
+    "size": 16,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[8]) within verified span"
   },
   {
     "address": "0x80127d14",
@@ -44903,7 +44903,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_anim_sprite_hire_dialog_value_1",
+    "name": "g_anim_sprite_hire_dialog_value",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -44920,13 +44920,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_sprite_hire_dialog_value_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[8]",
+    "size": 16,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[8]) within verified span"
   },
   {
     "address": "0x80127d34",
@@ -45000,13 +45000,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_sprite_hire_dialog_table_5",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[6]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
   },
   {
     "address": "0x80127d48",
@@ -45192,13 +45192,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_barn_stall_pos_value_3",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[22]",
+    "size": 88,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[22]) within verified span"
   },
   {
     "address": "0x80127ec0",
@@ -45240,13 +45240,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_coop_perch_pos_value_3",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s32[6]",
+    "size": 24,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s32[6]) within verified span"
   },
   {
     "address": "0x80127ee0",
@@ -45304,13 +45304,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_place_sprite_work_value_4",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[25]",
+    "size": 100,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[25]) within verified span"
   },
   {
     "address": "0x80127f50",
@@ -45320,13 +45320,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_harvest_sprite_task_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[8]",
+    "size": 16,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[8]) within verified span"
   },
   {
     "address": "0x80127f60",
@@ -45336,13 +45336,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_season_sunset_hour_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[4]",
+    "size": 8,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[4]) within verified span"
   },
   {
     "address": "0x80127f68",
@@ -45592,13 +45592,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_apply_mine_tile_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[12]",
+    "size": 24,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[12]) within verified span"
   },
   {
     "address": "0x801281f0",
@@ -45624,13 +45624,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_farm_field_dig_mine_floor_count",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[7]",
+    "size": 14,
     "kind": "standalone",
     "parent_address": null,
     "domain": "farm_crops_field",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[7]) within verified span"
   },
   {
     "address": "0x80128200",
@@ -45688,13 +45688,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_carpenter_menu_ctx_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[5]",
+    "size": 20,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[5]) within verified span"
   },
   {
     "address": "0x80128278",
@@ -45703,7 +45703,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_woodcutter_shop_sm_count_1",
+    "name": "g_ui_woodcutter_shop_sm_count",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -45720,13 +45720,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_woodcutter_shop_sm_count_2",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[9]",
+    "size": 18,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[9]) within verified span"
   },
   {
     "address": "0x8012828c",
@@ -45800,13 +45800,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_special_item_upgrade_sm_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[6]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
   },
   {
     "address": "0x801282dc",
@@ -45816,13 +45816,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_setup_tv_shopping_festival_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[3]",
+    "size": 6,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[3]) within verified span"
   },
   {
     "address": "0x801282e2",
@@ -45848,13 +45848,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_lookup_sprite_icon_table_1",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[6]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[6]) within verified span"
   },
   {
     "address": "0x801282f0",
@@ -45864,13 +45864,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_lookup_sprite_icon_table_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[152]",
+    "size": 304,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[152]) within verified span"
   },
   {
     "address": "0x80128420",
@@ -45960,13 +45960,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_town_map_cursor_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u8[116]",
+    "size": 116,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[116]) within verified span"
   },
   {
     "address": "0x80128524",
@@ -45992,13 +45992,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_advance_tv_channel_episode_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[10]",
+    "size": 20,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[10]) within verified span"
   },
   {
     "address": "0x80128540",
@@ -46167,7 +46167,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_apply_goddess_wish_fortune_table_1",
+    "name": "g_ui_apply_goddess_wish_fortune_table",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -46184,13 +46184,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_apply_goddess_wish_fortune_table_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[16]",
+    "size": 32,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[16]) within verified span"
   },
   {
     "address": "0x80128580",
@@ -46200,13 +46200,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_select_top_bachelorette_portraits_apply_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[58]",
+    "size": 116,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[58]) within verified span"
   },
   {
     "address": "0x801285f4",
@@ -46232,13 +46232,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ovl11_ovl_roll_timed_weather_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[82]",
+    "size": 164,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part11_id06",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[82]) within verified span"
   },
   {
     "address": "0x801286d0",
@@ -46312,13 +46312,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ovl11_story_progression_milestones_table",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[6]",
+    "size": 12,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part11_id06",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[6]) within verified span"
   },
   {
     "address": "0x80128764",
@@ -46328,13 +46328,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ovl11_ovl_build_season_icon_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[48]",
+    "size": 96,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part11_id06",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[48]) within verified span"
   },
   {
     "address": "0x801287c4",
@@ -46344,13 +46344,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ovl11_ovl_apply_grid_cell_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u8[8]",
+    "size": 8,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part11_id06",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[8]) within verified span"
   },
   {
     "address": "0x801287cc",
@@ -46759,7 +46759,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_core_nearby_greetings_value_2",
+    "name": "g_core_nearby_greetings_value",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -48504,13 +48504,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_fade_palette_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[10]",
+    "size": 20,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[10]) within verified span"
   },
   {
     "address": "0x80128e28",
@@ -48552,13 +48552,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_fade_palette_b_value",
-    "c_type": "u32",
+    "c_type": "u16[2]",
     "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
   },
   {
     "address": "0x80128e30",
@@ -48856,13 +48856,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_evt_populate_cutscene_offset_bind_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[25]",
+    "size": 100,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[25]) within verified span"
   },
   {
     "address": "0x80129224",
@@ -48904,13 +48904,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_evt_alloc_cutscene_sprite_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s32[108]",
+    "size": 432,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 1 funcs/1 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s32[108]) within verified span"
   },
   {
     "address": "0x801293f4",
@@ -49000,13 +49000,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_anim_snapshot_vram_save_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[50]",
+    "size": 200,
     "kind": "standalone",
     "parent_address": null,
     "domain": "animals_livestock",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[50]) within verified span"
   },
   {
     "address": "0x801294e8",
@@ -49208,13 +49208,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ovl11_script_vm_vars",
-    "c_type": "s32",
-    "size": 4,
+    "c_type": "s32[20]",
+    "size": 80,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
     "confidence": "high",
-    "evidence": "High-fanout (55 funcs/142 refs) dialogue/event script VM register/variable array base"
+    "evidence": "Overlay 11 cutscene/event script VM variable table"
   },
   {
     "address": "0x801295b0",
@@ -49496,13 +49496,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_dlg_item_icon_vram_upload_count_1",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[3]",
+    "size": 6,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 5 funcs/7 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[3]) within verified span"
   },
   {
     "address": "0x80129650",
@@ -49528,13 +49528,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_dlg_item_icon_vram_upload_count",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[7]",
+    "size": 14,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 4 funcs/5 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[7]) within verified span"
   },
   {
     "address": "0x80129660",
@@ -49543,7 +49543,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_dlg_item_icon_vram_cached_table_scaled_poly",
+    "name": "g_ui_dlg_item_icon_vram_cached_table",
     "c_type": "u16",
     "size": 2,
     "kind": "standalone",
@@ -49560,13 +49560,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_dlg_item_icon_vram_cached_table_1",
-    "c_type": "u16",
-    "size": 2,
+    "c_type": "u16[2]",
+    "size": 4,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 4 funcs/4 refs; sdk=GetClut:arg1"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[2]) within verified span"
   },
   {
     "address": "0x80129666",
@@ -49576,13 +49576,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_npc_dlg_cached_item_empty_lru_count",
-    "c_type": "u16",
+    "c_type": "u8[2]",
     "size": 2,
     "kind": "standalone",
     "parent_address": null,
     "domain": "npc_dialogue_events",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 3 funcs/3 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u8[2]) within verified span"
   },
   {
     "address": "0x80129668",
@@ -49928,13 +49928,13 @@
       "OVL_part11_id06.EXE"
     ],
     "name": "g_ui_snapshot_status_summary_screen_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "s16[13]",
+    "size": 26,
     "kind": "standalone",
     "parent_address": null,
     "domain": "ui_inventory_hud",
-    "confidence": "low",
-    "evidence": "slot_a_part11; 2 funcs/4 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (s16[13]) within verified span"
   },
   {
     "address": "0x8012cde2",
@@ -50023,7 +50023,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_animal_page_badge_value_2",
+    "name": "g_ui_animal_page_badge_value",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -50039,7 +50039,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_shipped_items_page_value_2",
+    "name": "g_ui_shipped_items_page_value",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -51271,7 +51271,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_idx7",
+    "name": "g_ui_hud_inventory_ctx_panel_slot_table_idx1",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -51287,7 +51287,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_idx8",
+    "name": "g_ui_hud_inventory_ctx_panel_slot_table_idx2",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -51303,7 +51303,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_idx9",
+    "name": "g_ui_hud_inventory_ctx_panel_slot_table_idx3",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -51319,7 +51319,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_idx10",
+    "name": "g_ui_hud_inventory_ctx_panel_slot_table_idx4",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -51351,9 +51351,9 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_idx13",
-    "c_type": "u32",
-    "size": 4,
+    "name": "g_ui_hud_inventory_ctx_panel_item_slots_idx2",
+    "c_type": "u16",
+    "size": 2,
     "kind": "struct_member",
     "parent_address": "0x8012d52c",
     "domain": "ui_inventory_hud",
@@ -51367,7 +51367,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_idx14",
+    "name": "g_ui_hud_inventory_ctx_panel_item_slots_idx4",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -51383,7 +51383,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_off_3a",
+    "name": "g_ui_hud_inventory_ctx_panel_item_slots_idx5",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -51399,7 +51399,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_idx15",
+    "name": "g_ui_hud_inventory_ctx_panel_item_slots_idx6",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -51415,7 +51415,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_off_3e",
+    "name": "g_ui_hud_inventory_ctx_panel_item_slots_idx7",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -51431,9 +51431,9 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_idx16",
-    "c_type": "u32",
-    "size": 4,
+    "name": "g_ui_hud_inventory_ctx_panel_item_slots_idx8",
+    "c_type": "u16",
+    "size": 2,
     "kind": "struct_member",
     "parent_address": "0x8012d52c",
     "domain": "ui_inventory_hud",
@@ -51479,7 +51479,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_off_46",
+    "name": "g_ui_hud_inventory_ctx_panel_slot_flags_idx2",
     "c_type": "u8",
     "size": 1,
     "kind": "struct_member",
@@ -51495,7 +51495,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_off_47",
+    "name": "g_ui_hud_inventory_ctx_panel_slot_flags_idx3",
     "c_type": "u8",
     "size": 1,
     "kind": "struct_member",
@@ -51511,7 +51511,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_idx18",
+    "name": "g_ui_hud_inventory_ctx_panel_slot_flags_idx4",
     "c_type": "u8",
     "size": 1,
     "kind": "struct_member",
@@ -51527,7 +51527,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_off_49",
+    "name": "g_ui_hud_inventory_ctx_panel_slot_flags_idx5",
     "c_type": "u8",
     "size": 1,
     "kind": "struct_member",
@@ -51543,7 +51543,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_off_4a",
+    "name": "g_ui_hud_inventory_ctx_panel_slot_flags_idx6",
     "c_type": "u8",
     "size": 1,
     "kind": "struct_member",
@@ -51559,7 +51559,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_off_4b",
+    "name": "g_ui_hud_inventory_ctx_panel_slot_flags_idx7",
     "c_type": "u8",
     "size": 1,
     "kind": "struct_member",
@@ -51575,7 +51575,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_idx19",
+    "name": "g_ui_hud_inventory_ctx_panel_cursor_u16",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -51623,7 +51623,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_off_52",
+    "name": "g_ui_hud_inventory_ctx_panel_cursor_u16_idx3",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -51639,7 +51639,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_idx21",
+    "name": "g_ui_hud_inventory_ctx_panel_cursor_u16_idx4",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -51655,7 +51655,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_off_56",
+    "name": "g_ui_hud_inventory_ctx_panel_cursor_u16_idx5",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -51671,7 +51671,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_idx22",
+    "name": "g_ui_hud_inventory_ctx_panel_cursor_u16_idx6",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -51687,7 +51687,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_off_5a",
+    "name": "g_ui_hud_inventory_ctx_panel_cursor_u16_idx7",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -51703,7 +51703,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_idx23",
+    "name": "g_ui_hud_inventory_ctx_panel_cursor_u16_idx8",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -51719,7 +51719,7 @@
     "referencing_programs": [
       "OVL_part11_id06.EXE"
     ],
-    "name": "g_ui_hud_inventory_ctx_panel_work_vars_off_5e",
+    "name": "g_ui_hud_inventory_ctx_panel_cursor_u16_idx9",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -55015,7 +55015,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work",
+    "name": "g_ovl15_diary_save_blob_slot_work_u16",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -55031,7 +55031,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_off_2",
+    "name": "g_ovl15_diary_save_blob_slot_work_u16_idx1",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -55047,7 +55047,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx1",
+    "name": "g_ovl15_diary_save_blob_slot_work_u16_idx2",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -55063,7 +55063,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_off_6",
+    "name": "g_ovl15_diary_save_blob_slot_work_u16_idx3",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -55079,9 +55079,9 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx2",
-    "c_type": "u32",
-    "size": 4,
+    "name": "g_ovl15_diary_save_blob_slot_work_u16_idx4",
+    "c_type": "u16",
+    "size": 2,
     "kind": "struct_member",
     "parent_address": "0x80137584",
     "domain": "overlay_part15_id10",
@@ -55095,7 +55095,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx6",
+    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx3",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -55111,7 +55111,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx7",
+    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx4",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -55127,7 +55127,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx8",
+    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx5",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -55143,7 +55143,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx15",
+    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx12",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -55159,7 +55159,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx16",
+    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx13",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -55175,7 +55175,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx17",
+    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx14",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -55191,7 +55191,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx23",
+    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx20",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -55207,7 +55207,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx24",
+    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx21",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -55223,7 +55223,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx25",
+    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx22",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -55239,7 +55239,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx47",
+    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx44",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -55255,7 +55255,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx52",
+    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx49",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -55271,7 +55271,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx61",
+    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx58",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -55287,7 +55287,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx63",
+    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx60",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -55303,7 +55303,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_off_fe",
+    "name": "g_ovl15_diary_save_blob_slot_and_card_work_off_f2",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -55319,7 +55319,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx65",
+    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx62",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -55335,7 +55335,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_off_106",
+    "name": "g_ovl15_diary_save_blob_slot_and_card_work_off_fa",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -55351,7 +55351,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx66",
+    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx63",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -55367,7 +55367,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_off_10a",
+    "name": "g_ovl15_diary_save_blob_slot_and_card_work_off_fe",
     "c_type": "u16",
     "size": 2,
     "kind": "struct_member",
@@ -55383,7 +55383,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx69",
+    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx66",
     "c_type": "u32",
     "size": 4,
     "kind": "struct_member",
@@ -55399,7 +55399,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_idx75",
+    "name": "g_ovl15_diary_save_blob_card_name_buf",
     "c_type": "u8",
     "size": 1,
     "kind": "struct_member",
@@ -55415,7 +55415,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_save_blob_slot_and_card_work_off_12d",
+    "name": "g_ovl15_diary_save_blob_card_name_buf_idx1",
     "c_type": "u8",
     "size": 1,
     "kind": "struct_member",
@@ -55880,13 +55880,13 @@
       "OVL_part15_id10.EXE"
     ],
     "name": "g_ovl15_diary_trade_picker_screen_slot_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u16[5]",
+    "size": 10,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part15_id10",
-    "confidence": "low",
-    "evidence": "slot_b_overlay; 2 funcs/10 refs; sdk=memset:arg0"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u16[5]) within verified span"
   },
   {
     "address": "0x80140eea",
@@ -56120,13 +56120,13 @@
       "OVL_part15_id10.EXE"
     ],
     "name": "g_ovl15_diary_add_trade_selection_remove_value",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[9]",
+    "size": 36,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part15_id10",
-    "confidence": "low",
-    "evidence": "slot_b_overlay; 2 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[9]) within verified span"
   },
   {
     "address": "0x80140fb8",
@@ -56135,7 +56135,7 @@
     "referencing_programs": [
       "OVL_part15_id10.EXE"
     ],
-    "name": "g_ovl15_diary_commit_remote_local_value_1",
+    "name": "g_ovl15_diary_commit_remote_local_value",
     "c_type": "u32",
     "size": 4,
     "kind": "standalone",
@@ -56152,13 +56152,13 @@
       "OVL_part15_id10.EXE"
     ],
     "name": "g_ovl15_diary_commit_remote_local_value_2",
-    "c_type": "u32",
-    "size": 4,
+    "c_type": "u32[1381]",
+    "size": 5524,
     "kind": "standalone",
     "parent_address": null,
     "domain": "overlay_part15_id10",
-    "confidence": "low",
-    "evidence": "slot_b_overlay; 1 funcs/2 refs"
+    "confidence": "medium",
+    "evidence": "Promoted indexed lookup table/array (u32[1381]) within verified span"
   },
   {
     "address": "0x80142550",

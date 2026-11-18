@@ -137,7 +137,7 @@ def build_and_verify(zig_exe: Path, readable_dir: Path, work_dir: Path, standalo
     c_files, parity_sources = sorted(readable_dir.rglob("*.c")), _resolve_parity_sources(readable_dir)
     globals_defs_c, host_stubs_c = _generate_globals_and_stubs(readable_dir, host_root, _collect_defined_fns(parity_sources))
     env, inc, compat = _zig_env(work_dir), str(readable_dir / "include"), str(readable_dir / "include/ghidra_compat.h")
-    cflags = [str(zig_exe), "cc", "-target", "mipsel-freestanding-eabi", "-mcpu=mips2", "-msoft-float", "-ffreestanding", "-fno-builtin", "-fno-strict-aliasing", "-std=gnu11", "-O1", "-g0", "-Wno-everything", f"-I{inc}", "-include", compat]
+    cflags = [str(zig_exe), "cc", "-target", "mipsel-freestanding-eabi", "-mcpu=mips2", "-msoft-float", "-ffreestanding", "-fno-builtin", "-fno-strict-aliasing", "-std=gnu11", "-O1", "-g0", "-Wall", "-Wextra", "-Wno-unused-parameter", f"-I{inc}", "-include", compat]
     all_tus = [(p, obj_root / p.relative_to(readable_dir).with_suffix(".o")) for p in c_files] + [(globals_defs_c, obj_root / "globals_defs.o")]
 
     def _compile_tu(pair: tuple[Path, Path]) -> tuple[str, int, str]:
@@ -161,40 +161,53 @@ def build_and_verify(zig_exe: Path, readable_dir: Path, work_dir: Path, standalo
     if ar_rc == 0:
         ar_rc = subprocess.run([str(zig_exe), "ar", "s", str(archive_path.resolve())], env=env, capture_output=True, text=True).returncode
     _emit_heartbeat(len(all_tus), len(all_tus), "Pass 1 MIPS build finished", start_ts, last_ts, force=True)
-    if fails or elf_bad or ar_rc != 0:
-        raise RuntimeError(f"Pass1 failed: fails={len(fails)} elf_bad={elf_bad} ar_rc={ar_rc}\n{fails[:5]}")
+    if fails or warn_cnt or elf_bad or ar_rc != 0:
+        raise RuntimeError(f"Pass1 failed: fails={len(fails)} warn_cnt={warn_cnt} elf_bad={elf_bad} ar_rc={ar_rc}\n{fails[:5]}")
 
     harness_dir = SCRIPT_DIR / "d4_harness"
     d4_sources = sorted(harness_dir.glob("*.c"))
     if not d4_sources:
         raise RuntimeError("No C translation units found in Dev/scripts/d4_harness/")
-    runner_exe = host_root / "d4_parity_runner.exe"
-    host_cmd = [str(zig_exe), "cc", "-target", "x86-windows-gnu", "-std=gnu11", "-O1", "-fno-strict-aliasing", "-Wno-everything", "-DHM_HOST_PARITY", f"-I{inc}", f"-I{harness_dir}", "-include", compat, *[str(s) for s in parity_sources], str(globals_defs_c), str(host_stubs_c), *[str(s) for s in d4_sources], "-o", str(runner_exe)]
+    runner_exe, host_objs, host_warns = host_root / "d4_parity_runner.exe", [], 0
+    ps1_hflags = [str(zig_exe), "cc", "-target", "x86-windows-gnu", "-ffreestanding", "-fno-builtin", "-std=gnu11", "-O1", "-fno-strict-aliasing", "-Wall", "-Wextra", "-Wno-unused-parameter", "-DHM_HOST_PARITY", f"-I{inc}", f"-I{harness_dir}", "-include", compat]
+    for idx, src in enumerate([*parity_sources, globals_defs_c, host_stubs_c]):
+        obj = host_root / f"p2_{idx}_{src.stem}.o"; host_objs.append(str(obj))
+        cr = subprocess.run([*ps1_hflags, "-c", str(src), "-o", str(obj)], env=env, capture_output=True, text=True)
+        host_warns += len(re.findall(r": warning:", cr.stderr or ""))
+        if cr.returncode != 0 or host_warns != 0:
+            raise RuntimeError(f"Pass2 TU failed ({src.name}, warns={host_warns}):\n{(cr.stderr or '')[:1200]}")
+    host_cmd = [str(zig_exe), "cc", "-target", "x86-windows-gnu", "-std=gnu11", "-O1", "-fno-strict-aliasing", "-Wall", "-Wextra", "-Wno-unused-parameter", "-DHM_HOST_PARITY", f"-I{inc}", f"-I{harness_dir}", *host_objs, *[str(s) for s in d4_sources], "-o", str(runner_exe)]
     host_build = subprocess.run(host_cmd, env=env, capture_output=True, text=True)
-    if host_build.returncode != 0:
-        raise RuntimeError(f"Pass2 build failed:\n{host_build.stderr[:1200]}")
+    host_warns += len(re.findall(r": warning:", host_build.stderr or ""))
+    warn_cnt += host_warns
+    if host_build.returncode != 0 or host_warns != 0:
+        raise RuntimeError(f"Pass2 build failed (warns={host_warns}):\n{host_build.stderr[:1200]}")
 
     run_res = subprocess.run([str(runner_exe), "--standalone-dir", str(standalone_dir)], capture_output=True, text=True)
     if run_res.returncode != 0:
         raise RuntimeError(f"Pass2 parity runner failed:\n{run_res.stdout}\n{run_res.stderr}")
     pj = json.loads(run_res.stdout.strip())
     passed_cnt, total_cnt = int(pj.get("assertionsPassedCount", pj.get("passed", 0))), int(pj.get("assertionsTotalCount", pj.get("total", 0)))
+    if str(SCRIPT_DIR) not in sys.path:
+        sys.path.insert(0, str(SCRIPT_DIR))
+    from craftsmanship_d4_type_gates import find_d4_tell_artifacts, find_strict_craftsmanship_artifacts
+    tell_cnt = sum(len(find_strict_craftsmanship_artifacts(t, check_raw_types=True)) + len(find_d4_tell_artifacts(t)) for cf in c_files for t in (cf.read_text(encoding="utf-8", errors="replace"),))
     now_utc = dt.datetime.now(dt.timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
-    is_passed = len(fails) == 0 and total_cnt > 0 and passed_cnt == total_cnt
+    is_passed = len(fails) == 0 and warn_cnt == 0 and tell_cnt == 0 and total_cnt > 0 and passed_cnt == total_cnt
     report = {
         "schemaVersion": 2, "gameId": game_id, "generatedAtUtc": now_utc, "verifiedAtUtc": now_utc,
         "zigTarget": "mipsel-freestanding-eabi", "zigCpu": "mips2", "readableFiles": len(c_files),
         "compiledFileCount": len(c_files), "compiledFiles": len(c_files), "totalObjects": len(all_tus),
         "elf32MipsVerifiedObjects": len(all_tus) - elf_bad, "archivePath": archive_path.relative_to(archive_base).as_posix(),
         "fileSizeBytes": archive_path.stat().st_size, "compilerErrorCount": len(fails), "compilerWarningCount": warn_cnt,
-        "compilerErrors": len(fails), "compilerWarnings": warn_cnt, "parityTarget": "x86-windows-gnu",
-        "assertionsPassedCount": passed_cnt, "assertionsTotalCount": total_cnt, "parityTestsPassed": passed_cnt,
-        "parityPassed": is_passed, "isPassed": is_passed,
+        "craftsmanshipTellCount": tell_cnt, "compilerErrors": len(fails), "compilerWarnings": warn_cnt,
+        "parityTarget": "x86-windows-gnu", "assertionsPassedCount": passed_cnt, "assertionsTotalCount": total_cnt,
+        "parityTestsPassed": passed_cnt, "parityPassed": is_passed, "isPassed": is_passed,
         "parityResults": [{"name": t["name"], "isPassed": bool(t.get("isPassed", t.get("passed")))} for t in pj.get("tests", [])],
     }
     report_out.parent.mkdir(parents=True, exist_ok=True)
     report_out.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
-    logger.info("D4 build complete: compiled=%d objs=%d assertions=%d/%d", len(c_files), len(all_tus), passed_cnt, total_cnt)
+    logger.info("D4 build complete: compiled=%d objs=%d tells=%d assertions=%d/%d", len(c_files), len(all_tus), tell_cnt, passed_cnt, total_cnt)
     return report
 
 
@@ -227,8 +240,9 @@ def main(argv: list[str] | None = None) -> int:
         sys.path.insert(0, str(tools_dir))
         from decomp.manifest_schema import load_manifest, save_manifest
         m_path = DEV_DIR / "research.manifest.json"; m_data = load_manifest(m_path)
-        m_data["currentDecompTier"], m_data["goalDecompTier"] = "D4", "D4"
-        m_data.setdefault("gates", {})["D4"] = {"passed": True, "verifiedAtUtc": rep["generatedAtUtc"], "report": "schemas/d4_build_report.json"}
+        m_data["currentDecompTier"] = "D4" if rep["isPassed"] else "D3"
+        m_data["goalDecompTier"] = "D4"
+        m_data.setdefault("gates", {})["D4"] = {"passed": bool(rep["isPassed"]), "verifiedAtUtc": rep["generatedAtUtc"] if rep["isPassed"] else None, "report": "schemas/d4_build_report.json"}
         save_manifest(m_path, m_data)
     print(json.dumps({"mode": "corpus", "isPassed": rep["isPassed"], "compiledFileCount": rep["compiledFileCount"], "fileSizeBytes": rep["fileSizeBytes"], "assertionsPassedCount": rep["assertionsPassedCount"], "assertionsTotalCount": rep["assertionsTotalCount"]}, indent=2))
     return 0 if rep["isPassed"] else 1

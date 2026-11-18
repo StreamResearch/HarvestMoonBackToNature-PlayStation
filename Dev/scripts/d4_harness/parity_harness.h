@@ -3,6 +3,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "ghidra_compat.h"
 #include "harvestmoonbtn_types.h"
 #include "harvestmoonbtn_globals.h"
 #include "hm_gte_cop2.h"

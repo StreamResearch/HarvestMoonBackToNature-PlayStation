@@ -32,7 +32,7 @@ _OLD_FIELDS = {
     "_state_0x8c": "mount_and_interact_vars", "_pad_0x11c": "step_flags_tail", "_meta_0x18": "care_and_breed_stats",
     "_anim_and_ai": "anim_and_ai_vars", "_runtime": "ai_and_render_vars", "_pad_0x04": "scene_flags",
     "_reserved_0x0c": "script_work_vars", "_reserved_0xfc": "transition_args", "_hud_state": "panel_work_vars",
-    "_pad_0x02": "window_metrics", "_pad_0x1c": "page_stride", "_pad_0x34": "layout_rects",
+    "_pad_0x02": "step_state", "_pad_0x1c": "active_portrait_id", "_pad_0x34": "layout_rects",
     "_pad_0x4c": "cursor_anim_vars", "_pad_0x60": "render_flags", "_state_0x18": "cursor_limits",
     "_state_0x2c": "prompt_state", "_items_0x38": "offer_slots", "_pad_0x0a": "summary_flags",
     "_meta_0x1c": "livestock_and_upgrade_counts", "_work_0x18": "slot_and_card_work", "_pad_0x150": "transfer_tail",
@@ -44,9 +44,9 @@ def rewrite_old_struct_fields(code: str) -> str:
     code = re.sub(r"\b(g_ovl30_debug_menu_ctx\s*(?:\.|->)\s*)_pad_0x0c\b", r"\1page_vars", code)
     code = re.sub(r"\b(g_ui_dialogue_box_ctx\s*(?:\.|->)\s*)_pad_0x0c\b", r"\1box_flags", code)
     code = re.sub(r"\b(g_core_player_state\s*(?:\.|->)\s*)_pad_0x24\b", r"\1held_item_state", code)
-    code = re.sub(r"\b(g_ui_dialogue_box_ctx\s*(?:\.|->)\s*)_pad_0x24\b", r"\1line_step", code)
+    code = re.sub(r"\b(g_ui_dialogue_box_ctx\s*(?:\.|->)\s*)_pad_0x24\b", r"\1loaded_portrait_id", code)
     code = re.sub(r"(\.|->)(\s*)_pad_0x0c\b", r"\1\2zone_flags", code)
-    code = re.sub(r"(\.|->)(\s*)_pad_0x24\b", r"\1\2line_step", code)
+    code = re.sub(r"(\.|->)(\s*)_pad_0x24\b", r"\1\2loaded_portrait_id", code)
     return re.sub(r"(\.|->)(\s*)(" + "|".join(_OLD_FIELDS) + r")\b", lambda m: f"{m.group(1)}{m.group(2)}{_OLD_FIELDS[m.group(3)]}", code)
 
 

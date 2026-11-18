@@ -32646,7 +32646,7 @@
     "params": [],
     "domain": "overlay_part25_id0b",
     "wave": 2,
-    "summary": "Loads A_FILE tomato/effect sprite pack (0x25000, 0x5800 B), unpacks VRAM, copies tables to g_ovl25_tomato_sprite_pack_value/g_npc_weather_particles_interact_swimmer_value, and inits g_ovl25_props_tomato_arc_sprite_value."
+    "summary": "Loads A_FILE tomato/effect sprite pack (0x25000, 0x5800 B), unpacks VRAM, copies tables to g_ovl25_tomato_sprite_pack_value/g_ui_framed_window_border_sprite, and inits g_ovl25_props_tomato_arc_sprite_value."
   },
   {
     "program": "OVL_part25_id0b.EXE",
@@ -33375,7 +33375,7 @@
     "params": [],
     "domain": "overlay_part27_id0c",
     "wave": 2,
-    "summary": "Polls splash pack A_FILE read (0x25000, 0x5800 B); on completion, unpacks VRAM via hm_vram_unpack_0x0d_pack_auto and copies table to g_npc_weather_particles_interact_swimmer_value."
+    "summary": "Polls splash pack A_FILE read (0x25000, 0x5800 B); on completion, unpacks VRAM via hm_vram_unpack_0x0d_pack_auto and copies table to g_ui_framed_window_border_sprite."
   },
   {
     "program": "OVL_part27_id0c.EXE",
@@ -34543,7 +34543,7 @@
     "program": "SLUS_011.15",
     "address": "0x80011f5c",
     "ghidra_name": "FUN_80011f5c",
-    "name": "hm_clamp_fade_level",
+    "name": "hm_text_acquire_scratch_ctx",
     "return_type": "s32",
     "params": [
       {
@@ -34553,13 +34553,13 @@
     ],
     "domain": "core_mainloop",
     "wave": 1,
-    "summary": "Clamps brightness fade value to valid hardware range [0..255] before screen scaling"
+    "summary": "Allocates bytes from active display GsWORKBASE aux primitive scratch buffer with frame-sync wait"
   },
   {
     "program": "SLUS_011.15",
     "address": "0x80011fd8",
     "ghidra_name": "FUN_80011fd8",
-    "name": "hm_step_screen_fade",
+    "name": "hm_text_release_scratch_ctx",
     "return_type": "void",
     "params": [
       {
@@ -34569,7 +34569,7 @@
     ],
     "domain": "core_mainloop",
     "wave": 1,
-    "summary": "Advances active fade-in or fade-out counter toward target brightness level"
+    "summary": "Commits active display GsWORKBASE aux primitive scratch buffer pointer with overflow wait"
   },
   {
     "program": "SLUS_011.15",
@@ -35448,7 +35448,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Allocates 0xc bytes from frame primitive pool hm_clamp_fade_level and emits a 1x1 TILE_1 primitive into ot_entry."
+    "summary": "Allocates 0xc bytes from frame primitive pool hm_text_acquire_scratch_ctx and emits a 1x1 TILE_1 primitive into ot_entry."
   },
   {
     "program": "SLUS_011.15",
@@ -35488,7 +35488,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Allocates 0x10 bytes from hm_clamp_fade_level and emits a LINE_F2 primitive into ot_entry."
+    "summary": "Allocates 0x10 bytes from hm_text_acquire_scratch_ctx and emits a LINE_F2 primitive into ot_entry."
   },
   {
     "program": "SLUS_011.15",
@@ -35540,7 +35540,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Allocates primitive storage via hm_clamp_fade_level and emits a 4-color Gouraud POLY_G4 rectangle into ot_entry."
+    "summary": "Allocates primitive storage via hm_text_acquire_scratch_ctx and emits a 4-color Gouraud POLY_G4 rectangle into ot_entry."
   },
   {
     "program": "SLUS_011.15",
@@ -35580,7 +35580,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Allocates 0x18 bytes from hm_clamp_fade_level and emits a flat POLY_F4 rectangle into ot_entry."
+    "summary": "Allocates 0x18 bytes from hm_text_acquire_scratch_ctx and emits a flat POLY_F4 rectangle into ot_entry."
   },
   {
     "program": "SLUS_011.15",
@@ -35664,7 +35664,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Allocates primitive buffer, builds POLY_F4 + DR_TPAGE via gfx_emit_poly_f4_with_tpage, and advances pool via hm_step_screen_fade."
+    "summary": "Allocates primitive buffer, builds POLY_F4 + DR_TPAGE via gfx_emit_poly_f4_with_tpage, and advances pool via hm_text_release_scratch_ctx."
   },
   {
     "program": "SLUS_011.15",
@@ -36412,7 +36412,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Allocates GPU packet memory, submits transformed/colored sprite quad via hm_sprite_build_poly_ft4_packet, and commits pool pointer via hm_step_screen_fade."
+    "summary": "Allocates GPU packet memory, submits transformed/colored sprite quad via hm_sprite_build_poly_ft4_packet, and commits pool pointer via hm_text_release_scratch_ctx."
   },
   {
     "program": "SLUS_011.15",
@@ -36460,7 +36460,7 @@
     ],
     "domain": "render_gte_sprites",
     "wave": 2,
-    "summary": "Submits uncolored sprite cel via hm_sprite_build_poly_ft4_packet with default RGB (-1) and advances primitive pool via hm_step_screen_fade."
+    "summary": "Submits uncolored sprite cel via hm_sprite_build_poly_ft4_packet with default RGB (-1) and advances primitive pool via hm_text_release_scratch_ctx."
   },
   {
     "program": "SLUS_011.15",
@@ -37196,7 +37196,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 4,
-    "summary": "Allocates scratch buffer via hm_clamp_fade_level and draws multiline dialogue text via hm_text_render_glyph_stream and hm_step_screen_fade."
+    "summary": "Allocates scratch buffer via hm_text_acquire_scratch_ctx and draws multiline dialogue text via hm_text_render_glyph_stream and hm_text_release_scratch_ctx."
   },
   {
     "program": "SLUS_011.15",
@@ -37660,7 +37660,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 0,
-    "summary": "Recursively measures pixel width of a 16-bit glyph token string including 0x4000 macro expansions in g_ui_text_render_glyph_stream_hud_table."
+    "summary": "Recursively measures pixel width of a 16-bit glyph token string including 0x4000 macro expansions in g_hud_macro_token_table."
   },
   {
     "program": "SLUS_011.15",
@@ -37848,7 +37848,7 @@
     ],
     "domain": "ui_inventory_hud",
     "wave": 2,
-    "summary": "Allocates 0x14 + 8 bytes from hm_clamp_fade_level and links a text cursor sprite/glyph packet when glyph_id != -1."
+    "summary": "Allocates 0x14 + 8 bytes from hm_text_acquire_scratch_ctx and links a text cursor sprite/glyph packet when glyph_id != -1."
   },
   {
     "program": "SLUS_011.15",
@@ -39316,8 +39316,8 @@
     "return_type": "void",
     "params": [
       {
-        "name": "out_mat",
-        "type": "MATRIX *"
+        "name": "out_vec",
+        "type": "VECTOR *"
       },
       {
         "name": "rx",
@@ -40761,7 +40761,7 @@
     ],
     "domain": "npc_dialogue_events",
     "wave": 2,
-    "summary": "Iterates tile grid descriptors at g_gfx_sprite_ot_ctx/g_npc_weather_particles_interact_swimmer_value and invokes draw_fn per active dialogue/UI tile."
+    "summary": "Iterates tile grid descriptors at g_gfx_sprite_ot_ctx/g_ui_framed_window_border_sprite and invokes draw_fn per active dialogue/UI tile."
   },
   {
     "program": "SLUS_011.15",
