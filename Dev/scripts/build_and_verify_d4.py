@@ -32,8 +32,8 @@ _SYMBOL_RE = re.compile(r"^\s*\*\s*@symbol\s+([A-Za-z_][A-Za-z0-9_]*)\b", re.M)
 _CDEF_RE = re.compile(r"^(?:[A-Za-z_][A-Za-z0-9_*\s]*?)\b([A-Za-z_][A-Za-z0-9_]*)\s*\([^;{}]*\)\s*\{", re.M)
 _C_KW = frozenset({"if", "else", "while", "for", "switch", "return", "sizeof", "typedef"})
 _PARITY_RELS = (
-    "src/core_mainloop/core_mainloop_01.c", "src/cd_afile_overlays/cd_afile_overlays_01.c",
-    "src/render_gte_sprites/render_gte_sprites_07.c", "overlays/OVL_part11_id06.EXE/ovl_part11_id06_06.c",
+    "src/core_mainloop/core_mainloop.c", "src/cd_afile_overlays/cd_afile_overlays.c",
+    "src/render_gte_sprites/render_gte_transforms.c", "overlays/OVL_part11_id06.EXE/p11_entry_and_tool_stamina.c",
 )
 
 

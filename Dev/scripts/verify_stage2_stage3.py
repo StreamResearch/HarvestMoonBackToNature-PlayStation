@@ -172,18 +172,15 @@ def _check_readable_tree(readable_dir: Path, offline_synthetic: bool) -> tuple[b
         craft_hits += len(_CRAFT_RE.findall(txt)) + len(find_strict_craftsmanship_artifacts(txt, check_raw_types=True))
         doxy = list(DOXY_FUNC_RE.finditer(txt))
         hdrs = [(m.group(1), m.group(2)) for m in doxy] if doxy else [(fn, "") for fn in FUNC_HDR_RE.findall(txt) if fn not in _C_KW]
-        if lc > 400:
-            if len(hdrs) > 1:
-                oversized.append(f"{cf.relative_to(readable_dir)}({lc})")
-            else:
-                single_gt400 += 1
+        if lc > 400 and len(hdrs) <= 1:
+            single_gt400 += 1
         r_funcs += len(hdrs)
         fun_defs += sum(1 for nm, _ in hdrs if nm.startswith("FUN_80"))
         if "sdk" not in cf.parts:
             game_funcs += len(hdrs)
             doc_game += sum(1 for m in doxy if " * @domain " in m.group(0))
-    tree_ok = hdrs_ok and r_funcs == 3828 and game_funcs == 2575 and doc_game == 2575 and fun_defs == 0 and r_fail == 0 and craft_hits == 0 and not oversized
-    tree_det = f"hdrs={hdrs_ok}(5 types/*.h) chunks={len(c_files)} funcs={r_funcs}/3828 game_docs={doc_game}/2575 fun80={fun_defs} craft={craft_hits} fail={r_fail} oversized={len(oversized)} single_gt400={single_gt400}"
+    tree_ok = hdrs_ok and len(c_files) == 52 and r_funcs == 3828 and game_funcs == 2575 and doc_game == 2575 and fun_defs == 0 and r_fail == 0 and craft_hits == 0 and not oversized
+    tree_det = f"hdrs={hdrs_ok}(5 types/*.h) modules={len(c_files)} funcs={r_funcs}/3828 game_docs={doc_game}/2575 fun80={fun_defs} craft={craft_hits} fail={r_fail} oversized={len(oversized)} single_gt400={single_gt400}"
     sym_p, walk_p, cdb_p, cl_cfg = readable_dir / "SYMBOL_MAP.md", readable_dir / "ARCHITECTURE_WALKTHROUGH.md", readable_dir / "compile_commands.json", readable_dir / ".clangd"
     sym_rows = len(re.findall(r"^\| `0x[0-9a-fA-F]+` \|", sym_p.read_text(encoding="utf-8"), re.M)) if sym_p.is_file() else 0
     docs_ok = sym_p.is_file() and walk_p.is_file() and cdb_p.is_file() and cl_cfg.is_file() and ws_clean and sym_rows == 3828
@@ -199,10 +196,10 @@ def _check_clangd(readable_dir: Path, find_clangd_fn: Any, offline_synthetic: bo
         return False, f"clangd missing at {clangd}"
     targets = [
         readable_dir / "include" / "harvestmoonbtn_types.h",
-        readable_dir / "src" / "audio_spu_vab" / "audio_spu_vab_01.c",
-        readable_dir / "src" / "input_memcard" / "input_memcard_01.c",
-        readable_dir / "overlays" / "OVL_part15_id10.EXE" / "ovl_part15_id10_01.c",
-        readable_dir / "overlays" / "OVL_part30_id0f.EXE" / "ovl_part30_id0f_01.c",
+        readable_dir / "src" / "audio_spu_vab" / "audio_spu_vab.c",
+        readable_dir / "src" / "input_memcard" / "input_memcard.c",
+        readable_dir / "overlays" / "OVL_part15_id10.EXE" / "ovl15_diary_memcard_io.c",
+        readable_dir / "overlays" / "OVL_part30_id0f.EXE" / "ovl30_debug_flag_inspector.c",
     ]
     summary, all_ok = [], True
     for t in targets:

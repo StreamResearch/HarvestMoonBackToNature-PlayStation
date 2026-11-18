@@ -1,6 +1,6 @@
 # Harvest Moon: Back to Nature (USA / `SLUS-01115`) — Stage 4 Readable Codebase Guide
 
-Stage 4 bundles all `2,575 / 2,575` named/typed game functions ([functions_catalog.json](../../schemas/functions_catalog.json)), `3,497` mapped globals ([globals_map.json](../../schemas/globals_map.json)), and `57` LP32 structs / `4` enums / `21` typedefs across `14` images into preserved distinct `Corpus/tiers/{D1_Raw,D2_Structured,D3_Mapped,D4_FunctionalRewrite}/` snapshots and `Corpus/readable/` (`525` non-cache files: `512` `.c`, `9` `.h`, `2` `.md`, `2` IDE configs), restores `55` folded bodies from read-only `Corpus/standalone/decompiled/`, formats via `Dev/.clang-format`, and completes file-by-file/function-by-function `D4_FunctionalRewrite` (`0` `6`-tell hits, `0` `-Wall -Wextra -Wno-unused-parameter` warnings, `0` `clangd` errors/warnings).
+Stage 4 bundles all `2,575 / 2,575` named/typed game functions ([functions_catalog.json](../../schemas/functions_catalog.json)), `3,497` mapped globals ([globals_map.json](../../schemas/globals_map.json)), and `57` LP32 structs / `4` enums / `21` typedefs across `14` images into preserved distinct `Corpus/tiers/{D1_Raw,D2_Structured,D3_Mapped,D4_FunctionalRewrite}/` snapshots and `Corpus/readable/` (`65` non-cache files: `52` logical/Psy-Q TU `.c` modules, `9` `.h`, `2` `.md`, `2` IDE configs), restores `55` folded bodies from read-only `Corpus/standalone/decompiled/`, formats via `Dev/.clang-format`, and completes true human-C `D4_FunctionalRewrite` (`0` `6`-tell hits, `0` `-Wall -Wextra -Wno-unused-parameter` warnings, `0` `clangd` errors/warnings).
 
 ---
 
@@ -20,33 +20,33 @@ Stage 4 bundles all `2,575 / 2,575` named/typed game functions ([functions_catal
 
 ---
 
-## 2. `readable/` Codebase Layout (`525` Files: `512` `.c`, `9` `.h`, `2` `.md`, `2` Configs)
+## 2. `readable/` Codebase Layout (`65` Files: `52` Logical `.c` Modules, `9` `.h`, `2` `.md`, `2` Configs)
 
 | Subtree | Files | Functions | Contents |
 | :--- | ---: | ---: | :--- |
-| `readable/` docs & IDE | `2` `.md`, `2` cfg | — | `SYMBOL_MAP.md` (`3,828` rows), `ARCHITECTURE_WALKTHROUGH.md`, `compile_commands.json`, `.clangd` |
+| `readable/` docs & IDE | `2` `.md`, `2` cfg | — | `SYMBOL_MAP.md` (`3,828` rows), `ARCHITECTURE_WALKTHROUGH.md`, `compile_commands.json` (`52` entries), `.clangd` |
 | `readable/include/` | `9` `.h` | — | `harvestmoonbtn_types.h`, `types/*.h` (`5`), `harvestmoonbtn_globals.h` (`3,497`), `harvestmoonbtn_functions.h`, `ghidra_compat.h` |
-| `readable/sdk/` | `129` `.c` | `1,253` | `sdk_01.c`..`sdk_129.c` (PS1 SDK routines in `SLUS_011.15` w/ Doxygen `@symbol`) |
-| `readable/src/<domain>/` | `52` `.c` | `428` | `7` resident domains (`audio_spu_vab`, `cd_afile_overlays`, `core_mainloop`, `input_memcard`, `npc_dialogue_events`, `render_gte_sprites`, `ui_inventory_hud`) |
-| `readable/overlays/<OVL>/` | `331` `.c` | `2,147` | `13` `OVL_part*_id*.EXE` folders (`OVL_part11_id06.EXE` = `224` `.c` files / `1,541` funcs) |
-| **Total Non-Cache Files** | **`525` (`512` `.c`)** | **`3,828 / 3,828`** | **`0` `_GHIDRA_CRAFT_RE` / strict-gate hits, `0` `FUN_80*`/`DAT_80*`/`arg_N`/`_80*`, `0` `DECOMPILE FAILED`** |
+| `readable/sdk/` | `15` `.c` | `1,253` | `psyq_*.c` original Psy-Q library TUs (`crt_libmath`, `libspu_*`, `libsnd_*`, `bios_intr_dma`, `libcd`, `libgte`, `libgs_fnt_kanji`, `libgpu`, `libmcrd_card`, `libc_stdio`, `kernel_rcnt_pad`, `libmcx_pda`, `libpad`) |
+| `readable/src/<domain>/` | `9` `.c` | `428` | `7` resident domain folders (`render_gte_sprites` split into `3` modules; `1` cohesive `.c` per other domain) |
+| `readable/overlays/<OVL>/` | `28` `.c` | `2,147` | `13` `OVL_part*_id*.EXE` folders (`OVL_part11_id06.EXE` = `14` subsystem `.c` files / `1,541` funcs; `OVL_part15_id10.EXE` = `3` modules; `1` `.c` per remaining overlay) |
+| **Total Non-Cache Files** | **`65` (`52` `.c`)** | **`3,828 / 3,828`** | **`0` `_GHIDRA_CRAFT_RE` / strict-gate hits, `0` `FUN_80*`/`DAT_80*`/`arg_N`/`_80*`, `0` `DECOMPILE FAILED`** |
 
-### Resident Domains (`readable/src/`: `52` `.c`) & Overlays (`readable/overlays/`: `331` `.c`)
+### Resident Domains (`readable/src/`: `9` `.c`) & Overlays (`readable/overlays/`: `28` `.c`)
 
 | Resident Domain (`src/`) | Funcs | `.c` Files | Overlay Binary (Slot) | Funcs | `.c` Files |
 | :--- | ---: | ---: | :--- | ---: | ---: |
-| `audio_spu_vab` | `71` | `6` | `OVL_part08_id04.EXE` (Slot A — Kanji font test/viewer) | `5` | `1` |
-| `cd_afile_overlays` | `25` | `3` | `OVL_part10_id05.EXE` (Slot A — Debug & PocketStation menu) | `23` | `7` |
-| `core_mainloop` | `38` | `5` | `OVL_part11_id06.EXE` (Slot A — Core Farm Engine) | `1,541` | `224` |
-| `input_memcard` | `20` | `3` | `OVL_part15_id10.EXE` (Slot B — Save/Load/Diary) | `138` | `26` |
-| `npc_dialogue_events` | `83` | `9` | `OVL_part17_id07.EXE` (Slot A — Swimming Festival) | `61` | `9` |
-| `render_gte_sprites` | `132` | `18` | `OVL_part19_id08.EXE` (Slot A — Chicken Sumo) | `76` | `11` |
-| `ui_inventory_hud` | `59` | `8` | `OVL_part21_id09.EXE` (Slot A — Horse Race Festival) | `67` | `10` |
-| — | — | — | `OVL_part23_id0a.EXE` (Slot A — Winter Dog Race) | `55` | `8` |
-| — | — | — | `OVL_part25_id0b.EXE` (Slot A — Tomato Festival) | `65` | `10` |
-| — | — | — | `OVL_part27_id0c.EXE` (Slot A — Opening Intro) | `53` | `8` |
-| — | — | — | `OVL_part28_id0d.EXE` (Slot A — Credits & Slideshow) | `27` | `4` |
-| — | — | — | `OVL_part30_id0f.EXE` (Slot B — Debug Event-Flag Inspector) | `30` | `12` |
+| `audio_spu_vab` | `71` | `1` | `OVL_part08_id04.EXE` (Slot A — Kanji font test/viewer) | `5` | `1` |
+| `cd_afile_overlays` | `25` | `1` | `OVL_part10_id05.EXE` (Slot A — Debug & PocketStation menu) | `23` | `1` |
+| `core_mainloop` | `38` | `1` | `OVL_part11_id06.EXE` (Slot A — Core Farm Engine) | `1,541` | `14` |
+| `input_memcard` | `20` | `1` | `OVL_part15_id10.EXE` (Slot B — Save/Load/Diary) | `138` | `3` |
+| `npc_dialogue_events` | `83` | `1` | `OVL_part17_id07.EXE` (Slot A — Swimming Festival) | `61` | `1` |
+| `render_gte_sprites` | `132` | `3` | `OVL_part19_id08.EXE` (Slot A — Chicken Sumo) | `76` | `1` |
+| `ui_inventory_hud` | `59` | `1` | `OVL_part21_id09.EXE` (Slot A — Horse Race Festival) | `67` | `1` |
+| — | — | — | `OVL_part23_id0a.EXE` (Slot A — Winter Dog Race) | `55` | `1` |
+| — | — | — | `OVL_part25_id0b.EXE` (Slot A — Tomato Festival) | `65` | `1` |
+| — | — | — | `OVL_part27_id0c.EXE` (Slot A — Opening Intro) | `53` | `1` |
+| — | — | — | `OVL_part28_id0d.EXE` (Slot A — Credits & Slideshow) | `27` | `1` |
+| — | — | — | `OVL_part30_id0f.EXE` (Slot B — Debug Event-Flag Inspector) | `30` | `1` |
 | — | — | — | `OVL_part31_id0e.EXE` (Slot A — PocketStation / MC Backup) | `6` | `1` |
 
 ---
@@ -54,7 +54,7 @@ Stage 4 bundles all `2,575 / 2,575` named/typed game functions ([functions_catal
 ## 3. IDE Workspace, `clangd` Compatibility & Verification Suite
 
 - **[HarvestMoonBackToNature-PlayStation.code-workspace](../../HarvestMoonBackToNature-PlayStation.code-workspace):** Configures `clangd` (`--compile-commands-dir`, `--header-insertion=never`, `C_Cpp.intelliSenseEngine: disabled`) and tasks across `Corpus/readable`, `Dev/schemas`, `Dev/docs`, and `Dev/scripts`.
-- **`ghidra_compat.h` (`HMBTN_PS1_COMPAT_EXTS`):** Defines `typedef int (*HmCallbackFn)();`, declares all `48` `extern int hm_res_*();` exports, guards `#ifdef HM_HOST_PARITY` (`#include "hm_gte_cop2.h"`), and keeps zero recursive `*_types.h` includes.
+- **`ghidra_compat.h` (`HMBTN_PS1_COMPAT_EXTS`):** Defines `typedef int32_t (*HmCallbackFn)(void);`, declares all `48` typed `hm_res_*` prototypes (`u32 hm_res_*(void)`, `void hm_res_*(...)`), guards `#ifdef HM_HOST_PARITY` (`#include "hm_gte_cop2.h"`), and keeps zero recursive `*_types.h` includes.
 
 ```powershell
 # 1. Verify Stage 2 + Stage 3 + Stage 4 + D4.craftsmanship invariants (offline or live Corpus)

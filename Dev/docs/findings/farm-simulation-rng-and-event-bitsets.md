@@ -92,7 +92,7 @@ Verified C layouts in [farm_npc_and_sim.h](../../schemas/types/farm_npc_and_sim.
 
 ---
 
-## 4. Tool Families, Stamina, Fatigue & Fishing Math (`ovl_part11_id06_06.c`)
+## 4. Tool Families, Stamina, Fatigue & Fishing Math (`p11_entry_and_tool_stamina.c`)
 
 Six pure leaf routines in `OVL_part11_id06.EXE` (`0x800CB0B0..0x800CD5BC`) govern tool classification, stamina penalties, fatigue thresholds, fishing mini-game physics, and tool proficiency XP:
 
@@ -126,7 +126,7 @@ s32 p11_field_calc_fishing_reel_power(s32 fish_timer) {
 
 ## 5. `37`-Entry NPC Affection & Livestock Simulation (`0x800C1D68`)
 
-Live NPC state occupies `37` slots (`0..36`, stride `0x1D4` = `468` B) at `g_npc_actor_tbl_base` (`ovl_part11_id06_47.c`), while chicken coop (`HmAnimalRecord[10]`, `0xB4` B at `0x800742EC`) and barn livestock (`HmNpcActor[20]`, `0xB8` B at `0x800749F4`) persist at `+0x0000` in unpacked saves. `ovl15_diary_serialize_save_payload` compacts the `37` NPC records into `14`-byte entries at `+0x1F34`:
+Live NPC state occupies `37` slots (`0..36`, stride `0x1D4` = `468` B) at `g_npc_actor_tbl_base` (`p11_calendar_and_animal_queries.c`), while chicken coop (`HmAnimalRecord[10]`, `0xB4` B at `0x800742EC`) and barn livestock (`HmNpcActor[20]`, `0xB8` B at `0x800749F4`) persist at `+0x0000` in unpacked saves. `ovl15_diary_serialize_save_payload` compacts the `37` NPC records into `14`-byte entries at `+0x1F34`:
 
 1. **Talked Bonus (`flags & 0x400`):** Bachelorette slots (`p11_core_dispatch_scene_fx_callback(i) == 1`) gain `+200` love points (`[0, 65535]`); general villagers gain `+1` friendship (`[0, 255]`).
 2. **Neglect Roll (`(flags & 0x600) == 0`):** Except exempt slots (`idx == 0x19` or `0x21 <= idx` with `0x23`), calls `hm_prng_next(10)`. On a `1-in-10` roll (`== 0`), subtracts `-200` love points or `-1` friendship before clamping.
@@ -146,16 +146,16 @@ PlayStation 1 `COP2` represents fractional coordinates and 3x3 rotation matrices
 
 | `COP2` Register / Macro | Verified Lifted Callers | Deterministic Host `Q12` Behavior (`hm_gte_cop2.h`) |
 | :--- | :--- | :--- |
-| **`SetRotMatrix` / `SetTransMatrix`** (`ldH`, `ldOFX/Y`, `ldZSF3/4`) | `gfx_gte_rebuild_iso_view_matrix`, `render_gte_sprites_09.c` | Populates `g_gte_ctrl[0..7]` (`R`, `TR`), `OFX`/`OFY` (`24..25`), `H` (`26`), `DQA`/`DQB` (`27..28`), `ZSF3`/`ZSF4` (`29..30`) |
+| **`SetRotMatrix` / `SetTransMatrix`** (`ldH`, `ldOFX/Y`, `ldZSF3/4`) | `gfx_gte_rebuild_iso_view_matrix`, `render_gte_transforms.c` | Populates `g_gte_ctrl[0..7]` (`R`, `TR`), `OFX`/`OFY` (`24..25`), `H` (`26`), `DQA`/`DQB` (`27..28`), `ZSF3`/`ZSF4` (`29..30`) |
 | **`RTPS` / `RTPT`** (`gte_rtps`, `gte_rtpt_b`, `gte_stflg`) | `hm_gte_project_svector_to_ot` (`0x8001DFD4`), `gfx_gte_rtps_get_otz` (`0x8001E088`), `hm_gte_emit_model_polys` | Computes `(R * v + (TR << 12)) >> 12`, sets `SZ3`, divides `H * 0x10000 / SZ3` clamped `[0..0x1FFFF]`, projects `SXY2`, sets `FLAG` (`g_gte_ctrl[31]`) bit `31` (`0x80000000`) + bit `17` on `SZ3 <= H/2` or overflow |
 | **`MVMVA` / `RTIR` / `OP12`** (`gte_rtir`, `gte_op12_b`, `copFunction`) | `gfx_gte_rebuild_iso_view_matrix` (`0x8001B6A0`), `ApplyMatrixLV` (`0x80037644`) | Multiplies `3x3` matrices (`R`/`LLM`/`LCM`) against `IR`/`V0..2` with optional `TR`/`BK`/`FC` translation and `>> 12` (`sf=1`) vs `>> 0` (`sf=0`) shift |
-| **`NCLIP`** (`gte_nclip_b`, `gte_stopz`) | `hm_gte_emit_model_polys` (`0x8001C37C`, `render_gte_sprites_12.c`) | Computes signed 2D screen cross product `SX0*(SY1-SY2) + SX1*(SY2-SY0) + SX2*(SY0-SY1)` into `MAC0`; `> 0` passes front-face cull |
-| **`AVSZ3` / `AVSZ4`** (`gte_avsz3_b`, `gte_avsz4_b`, `gte_stotz`) | `hm_gte_emit_model_polys` (`0x8001C37C`, `render_gte_sprites_15.c`) | Averages depths `ZSF3 * (SZ1+SZ2+SZ3) >> 12` (or `ZSF4 * sum4 >> 12`) clamped `[0..0xFFFF]` into `OTZ` (`>> 2` for `0x800`-slot OT) |
-| **`SQR0`** (`gte_sqr0_b`, `gte_stlvnl`) | `gfx_vec3_bounded_length` (`0x8001E26C`, `render_gte_sprites_07.c`) | Squares `IR1..3` into `MAC1..3` (`>> (sf*12)`) for fixed-point vector magnitude checks via `SquareRoot0` |
+| **`NCLIP`** (`gte_nclip_b`, `gte_stopz`) | `hm_gte_emit_model_polys` (`0x8001C37C`, `render_gte_transforms.c`) | Computes signed 2D screen cross product `SX0*(SY1-SY2) + SX1*(SY2-SY0) + SX2*(SY0-SY1)` into `MAC0`; `> 0` passes front-face cull |
+| **`AVSZ3` / `AVSZ4`** (`gte_avsz3_b`, `gte_avsz4_b`, `gte_stotz`) | `hm_gte_emit_model_polys` (`0x8001C37C`, `render_sprites_tilemap.c`) | Averages depths `ZSF3 * (SZ1+SZ2+SZ3) >> 12` (or `ZSF4 * sum4 >> 12`) clamped `[0..0xFFFF]` into `OTZ` (`>> 2` for `0x800`-slot OT) |
+| **`SQR0`** (`gte_sqr0_b`, `gte_stlvnl`) | `gfx_vec3_bounded_length` (`0x8001E26C`, `render_gte_transforms.c`) | Squares `IR1..3` into `MAC1..3` (`>> (sf*12)`) for fixed-point vector magnitude checks via `SquareRoot0` |
 
 ### `hm_gte_project_svector_to_ot` (`0x8001DFD4`) Pipeline & Pass 2 Parity (`12/12`)
 ```c
-// Lifted projection flow (render_gte_sprites_07.c)
+// Lifted projection flow (render_gte_transforms.c)
 gte_ldv0(world_pos);
 gte_rtps();
 gte_stflg(&flag);
@@ -168,7 +168,7 @@ if ((flag & 0x80000000) == 0) { // Bit 31 clear -> in front & valid depth
 return 0u;
 ```
 
-Compiling `render_gte_sprites_07.c` and `ovl_part11_id06_06.c` with `-DHM_HOST_PARITY` in [parity_sim_and_gte_tests.c](../../scripts/d4_harness/parity_sim_and_gte_tests.c) verifies `4` simulation & `COP2` assertions alongside the `8` core/media checks:
+Compiling `render_gte_transforms.c` and `p11_entry_and_tool_stamina.c` with `-DHM_HOST_PARITY` in [parity_sim_and_gte_tests.c](../../scripts/d4_harness/parity_sim_and_gte_tests.c) verifies `4` simulation & `COP2` assertions alongside the `8` core/media checks:
 1. `gte_rtps_q12_projection_and_flag`: Exercises real `hm_gte_project_svector_to_ot` & `gfx_gte_rtps_get_otz`, confirming projected screen XY, `OTZ`, and `Z=0` `FLAG` overflow rejection (`0x80000000`).
 2. `gte_nclip_winding_and_avsz3`: Verifies clockwise vs. counter-clockwise `gte_nclip_b` sign and `gte_avsz3_b` depth averaging.
 3. `field_tool_stamina_and_fishing_sim`: Exercises lifted `p11_field_*` functions (tool family, weather/late-night stamina, fishing tension/reel clamps, `0xFFFF` XP saturation) plus LCG PRNG & 32-bit event bitset invariants.

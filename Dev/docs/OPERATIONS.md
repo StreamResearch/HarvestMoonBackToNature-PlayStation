@@ -25,7 +25,7 @@ python -B Dev/scripts/verify_track_d4.py --offline-synthetic --data-dir "$env:TE
 # Export and self-validate tracked root HarvestMoonBackToNature-PlayStation.decomp
 python -B Dev/scripts/export_decomp_bundle.py --verify-cleanroom
 ```
-- Emits ZIP root `module.decomp.json` (`moduleId: "harvest-moon-btn"`, `engineId: "reStation"`, `compatibleEngineTrack: "0.2.x"`, `targetDecompTier: "D4"`, `goalDecompTier: "D4"`, `preloadRomDir: "data/rom"`, `recipeEntryPoint: "Dev/scripts/hmbtn_unpack.py"`) plus clean-room `Dev/schemas/` (incl. `d4_rewrites/*.json`) and `Dev/scripts/` (`67` entries, `1,302,218` B; never `Corpus/`, `Archive/`, `Dev/docs/`, `.gpr`, `*.g.cs`, or `*.Generated.dll`).
+- Emits ZIP root `module.decomp.json` (`moduleId: "harvest-moon-btn"`, `engineId: "reStation"`, `compatibleEngineTrack: "0.2.x"`, `targetDecompTier: "D4"`, `goalDecompTier: "D4"`, `preloadRomDir: "data/rom"`, `recipeEntryPoint: "Dev/scripts/hmbtn_unpack.py"`) plus clean-room `Dev/schemas/` (incl. `d4_rewrites/*.json`) and `Dev/scripts/` (`67` entries, `1,287,965` B; never `Corpus/`, `Archive/`, `Dev/docs/`, `.gpr`, `*.g.cs`, or `*.Generated.dll`).
 
 ### 2.3 Live BYO-Media Unpack, `D4.craftsmanship`, Parsers & Universal `decomp_cli` Checks
 ```powershell
@@ -51,11 +51,11 @@ python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track HarvestMoonBackToN
 python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track HarvestMoonBackToNature-PlayStation --tier S4 --no-clangd
 python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track HarvestMoonBackToNature-PlayStation --no-clangd
 ```
-- `craftsmanship_d4_normalizer.py` also supports `--dry-run` to preview changes without touching `Corpus/readable/`, `--verify-clean` exits `0` only when all `512` `.c` files and `9` headers carry zero Ghidra or strict `6`-tell decompiler artifacts, and `materialize_decomp_tiers.py --tier all --data-dir Corpus` syncs/preserves distinct `Corpus/tiers/{D1_Raw,D2_Structured,D3_Mapped,D4_FunctionalRewrite}/` trees without overwriting distinct `D3_Mapped` baselines.
+- `craftsmanship_d4_normalizer.py` also supports `--dry-run` to preview changes without touching `Corpus/readable/`, `--verify-clean` exits `0` only when all `52` logical `.c` modules and `9` headers carry zero Ghidra or strict `6`-tell decompiler artifacts, and `materialize_decomp_tiers.py --tier all --data-dir Corpus` syncs/preserves distinct `Corpus/tiers/{D1_Raw,D2_Structured,D3_Mapped,D4_FunctionalRewrite}/` trees without overwriting distinct `D3_Mapped` baselines.
 
 ## 3. Workspace & `clangd` Inspection
 - Open [HarvestMoonBackToNature-PlayStation.code-workspace](../HarvestMoonBackToNature-PlayStation.code-workspace) in VS Code (`python.defaultInterpreterPath: "python"`, relative sibling `../../Personal/R&D/Dev/tools/decomp/decomp_cli.py` tasks).
-- `Corpus/readable/compile_commands.json` configures `-target mipsel-unknown-none-elf -ffreestanding -std=gnu11` with `ghidra_compat.h` forced-included for `0`-error navigation across all `512` `.c` translation units (`129` `sdk`, `52` `src`, `331` `overlays`), formatted cleanly via `Dev/.clang-format` (`4`-space K&R).
+- `Corpus/readable/compile_commands.json` configures `-target mipsel-unknown-none-elf -ffreestanding -std=gnu11` with `ghidra_compat.h` forced-included for `0`-error navigation across all `52` logical & Psy-Q TU `.c` modules (`15` `sdk/`, `9` `src/`, `28` `overlays/`), formatted cleanly via `Dev/.clang-format` (`4`-space K&R).
 
 ## 4. Dual-Track Archival & Pre-Public Hygiene Scrub Runbook
 

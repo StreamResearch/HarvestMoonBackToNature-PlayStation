@@ -2,7 +2,7 @@
 
 **Findings ID:** `d4-craftsmanship-and-mips-abi-normalization` · **Parent Hub:** [Dev/docs/FINDINGS.md](../FINDINGS.md) · **Normalizer:** [craftsmanship_d4_normalizer.py](../../scripts/craftsmanship_d4_normalizer.py) · **Overrides:** [d4_symbol_overrides.json](../../schemas/d4_symbol_overrides.json)
 
-This empirical report documents the PlayStation 1 `MIPS32` little-endian `LP32` ABI constraints discovered while lifting *Harvest Moon: Back to Nature* (`SLUS-01115`), the pre-assembly decompiler P-code rewrites, and the strict `T5` source-first `D4.craftsmanship` normalization pass across all `512` `.c` translation units (`129` `sdk`, `52` `src`, `331` `overlays`).
+This empirical report documents the PlayStation 1 `MIPS32` little-endian `LP32` ABI constraints discovered while lifting *Harvest Moon: Back to Nature* (`SLUS-01115`), pre-assembly decompiler P-code rewrites, `D4.craftsmanship` normalization, and `T13` consolidation of all `3,828` functions into **`52` cohesive logical & Psy-Q TU `.c` modules** (`15` `sdk/`, `9` `src/`, `28` `overlays/`).
 
 ---
 
@@ -11,11 +11,11 @@ This empirical report documents the PlayStation 1 `MIPS32` little-endian `LP32` 
 | Pipeline Step | Responsible Script / Schema | Primary Input -> Output |
 | :--- | :--- | :--- |
 | **1. Pre-Assembly Lowering & Un-Fold** | [patch_ps1_reexport_and_compat.py](../../scripts/patch_ps1_reexport_and_compat.py) + [craftsmanship_d4_unfold_chunk.py](../../scripts/craftsmanship_d4_unfold_chunk.py) | `Corpus/work/reexported/*` + `55` standalone un-folded bodies -> C11-valid `.c` |
-| **2. Chunked Assembly** | `RD_DECOMP_TOOLS/stage4_assembler.py` | Reexported lifts -> `512` `.c` chunks (`<= 400` lines/multi-fn TU) + `9` `.h` + `compile_commands.json` |
+| **2. Assembly & Logical Consolidation** | `RD_DECOMP_TOOLS/stage4_assembler.py` -> `T13` coalescer | Reexported lifts -> `52` logical/Psy-Q TU `.c` modules (`Standard 24 §1.1` SLOC exemption) + `9` `.h` + `compile_commands.json` |
 | **3. Compat Header Synthesis** | [craftsmanship_d4_helpers.py](../../scripts/craftsmanship_d4_helpers.py) | `harvestmoonbtn_globals.h` + `d4_symbol_overrides.json` -> `HMBTN_PS1_COMPAT_EXTS` in `ghidra_compat.h` |
-| **4. `D4.craftsmanship` & Format Scrub** | [craftsmanship_d4_normalizer.py](../../scripts/craftsmanship_d4_normalizer.py) + `craftsmanship_d4_{ast_cleaner,type_gates}.py` | `512` `.c` + `3` `.h` -> `0` craft/strict hits, uniform `@symbol` Doxygen, `Dev/.clang-format` |
-| **5. `D4` Compile & Parity** | [build_and_verify_d4.py](../../scripts/build_and_verify_d4.py) + [d4_synthetic_corpus.py](../../scripts/d4_synthetic_corpus.py) | Pass 1 `513` MIPS ELF32 `.o` -> `.a` (`3,610,812` B, `0` `-Wall -Wextra` warnings) + Pass 2 `12/12` `-DHM_HOST_PARITY` assertions |
-| **6. `6`-Tell `D4_FunctionalRewrite` & Shards** | [materialize_decomp_tiers.py](../../scripts/materialize_decomp_tiers.py) + [craftsmanship_d4_type_gates.py](../../scripts/craftsmanship_d4_type_gates.py) | Distinct `D1_Raw..D4_FunctionalRewrite` tiers + `11` clean-room `Dev/schemas/d4_rewrites/*.json` shards (`0` `6`-tell hits, `0` C bodies) |
+| **4. `D4.craftsmanship` & Format Scrub** | [craftsmanship_d4_normalizer.py](../../scripts/craftsmanship_d4_normalizer.py) + `craftsmanship_d4_{ast_cleaner,type_gates}.py` | `52` `.c` + `9` `.h` -> `0` craft/strict/`6`-tell hits, uniform `@symbol` Doxygen, `Dev/.clang-format` |
+| **5. `D4` Compile & Parity** | [build_and_verify_d4.py](../../scripts/build_and_verify_d4.py) + [d4_synthetic_corpus.py](../../scripts/d4_synthetic_corpus.py) | Pass 1 `53` MIPS ELF32 `.o` -> `.a` (`2,895,210` B, `0` `-Wall -Wextra` warnings) + Pass 2 `12/12` `-DHM_HOST_PARITY` assertions |
+| **6. `6`-Tell `D4_FunctionalRewrite` & Shards** | [materialize_decomp_tiers.py](../../scripts/materialize_decomp_tiers.py) + [craftsmanship_d4_type_gates.py](../../scripts/craftsmanship_d4_type_gates.py) | Distinct `D1_Raw..D4_FunctionalRewrite` tiers (`D3`/`D4` `52`-module layout) + `11` clean-room `Dev/schemas/d4_rewrites/*.json` shards (`0` `6`-tell hits, `0` C bodies) |
 
 ---
 
@@ -90,7 +90,7 @@ Although pre-assembly lowering compiled all C translation units with `0` errors,
 - **Formatting Rules:** Collapses `)\n\n{` -> `) {`, strips redundant trailing `return;` in `void` functions only, and cleans `+ -<num>` -> `- <num>`.
 
 ```c
-/* Normalized SDK header (sdk/sdk_01..129.c) */
+/* Normalized SDK header (sdk/psyq_*.c) */
 /**
  * PS1 SDK runtime routine (CdSearchFile).
  * @symbol CdSearchFile
@@ -112,7 +112,7 @@ Although pre-assembly lowering compiled all C translation units with `0` errors,
 
 | Compatibility Layer Component | Scope & Symbol Count | Role in `ghidra_compat.h` |
 | :--- | :--- | :--- |
-| **`HmCallbackFn` & `48` `hm_res_*`** | `1` typedef + `48` `extern int hm_res_*();` | Cleanly types indirect function-pointer calls & uncataloged resident calls |
+| **`HmCallbackFn` & `48` `hm_res_*`** | `1` `typedef int32_t (*HmCallbackFn)(void);` + `48` typed `hm_res_*` prototypes | Cleanly types indirect function-pointer calls & uncataloged resident calls |
 | **`PS1_MMIO_16` Hardware Regs** | `36` `extern volatile uint16_t` | `SPU_MAIN_VOL_*`, `VOICE_00_*`, `JOY_MCD_*`, `TMR_*`, `I_STAT` / `I_MASK` |
 | **`PS1_MMIO_32` Hardware Regs** | `26` `extern volatile uint32_t` | `CDROM_REG0..3`, `DMA_*`, `GPU_REG0..1`, `SPU_VOICE_KEY_*`, `COMMON_DELAY` |
 | **Ghidra Width & Unaligned Helpers** | `ZEXT*`, `SEXT*`, `hm_read_unaligned_s32`, `hm_write_unaligned_u32` | Portable 3-, 5-, 6-, and 7-byte unaligned load/store and width extensions |
@@ -130,32 +130,32 @@ Although pre-assembly lowering compiled all C translation units with `0` errors,
 | **`farm_npc_and_sim.h`** | `HmCalendarClock`, `HmToolId`, `HmFieldPlotCell`, `HmAnimalRecord`, `HmNpcActor` | `0x80070cf2`, `0x80071a1e`, `0x8007a5c4`, `0x800742ec`, `0x800749f4` |
 | **`ui_diary_and_overlays.h`** | `HmSaveSlotSummary` | `0x801376e0` (`HmSaveSlotSummary[3]`) |
 
-2. **`512`-TU Scope Breakdown (`3,828` Functions + `3` Support Headers):** Normalization covers every resident and overlay translation unit under `Corpus/readable/` alongside `harvestmoonbtn_globals.h`, `harvestmoonbtn_functions.h`, and `ghidra_compat.h`:
+2. **`52`-Module Scope Breakdown (`3,828` Functions + `9` Headers):** Coalescing `512` mechanical `_NN.c` fragments covers every resident, SDK, and overlay translation unit under `Corpus/readable/` alongside `harvestmoonbtn_globals.h`, `harvestmoonbtn_functions.h`, and `ghidra_compat.h`:
 
 | Directory / Overlay Partition | `.c` Files | Functions | Role in Normalized Build |
 | :--- | ---: | ---: | :--- |
-| `sdk/` | `129` | `1,253` | PS1 BIOS / runtime library helpers |
-| `src/audio_spu_vab/` | `6` | `71` | SPU voice allocation & SEQ/VAB drivers |
-| `src/cd_afile_overlays/` | `3` | `25` | `A_FILE.HDT` streaming & overlay loader |
-| `src/core_mainloop/` | `5` | `38` | Frame loop, RNG, boot init & event bitsets |
-| `src/input_memcard/` | `3` | `20` | Pad polling & Memory Card slot drivers |
-| `src/npc_dialogue_events/` | `9` | `83` | Dialogue VM, NPC scripts & portraits |
-| `src/render_gte_sprites/` | `18` | `132` | COP2 GTE matrices, ordering tables & TIMs |
-| `src/ui_inventory_hud/` | `8` | `59` | HUD counters, rucksack & pause overlays |
-| `overlays/OVL_part08_id04.EXE/` | `1` | `5` | Kanji font test/viewer overlay (`hm_ovl08_font_test_*`) |
-| `overlays/OVL_part10_id05.EXE/` | `7` | `23` | `640x240` developer debug & PocketStation menu (`hm_ovl10_debug_*`) |
-| `overlays/OVL_part11_id06.EXE/` | `224` | `1,541` | Main farm simulation, tools & map logic (`hm_ovl11_*`, `p11_*`) |
-| `overlays/OVL_part15_id10.EXE/` | `26` | `138` | Slot B Memory Card New Game / Load / Save diary UI (`hm_ovl15_*`) |
-| `overlays/OVL_part17_id07.EXE/` | `9` | `61` | Summer Swimming Festival 6-racer minigame (`hm_ovl17_swim_race_*`) |
-| `overlays/OVL_part19_id08.EXE/` | `11` | `76` | Chicken Sumo Festival arena minigame (`hm_ovl19_chicken_sumo_*`) |
-| `overlays/OVL_part21_id09.EXE/` | `10` | `67` | Horse Race Festival & betting overlay (`hm_ovl21_horse_race_*`) |
-| `overlays/OVL_part23_id0a.EXE/` | `8` | `55` | Winter Dog Race Festival minigame (`hm_ovl23_dog_race_*`) |
-| `overlays/OVL_part25_id0b.EXE/` | `10` | `65` | Tomato Throwing Festival minigame (`hm_ovl25_tomato_fest_*`) |
-| `overlays/OVL_part27_id0c.EXE/` | `8` | `53` | Title screen, logo splash & attract-mode intro (`hm_ovl27_title_*`) |
-| `overlays/OVL_part28_id0d.EXE/` | `4` | `27` | Ending sequence & staff credits overlay (`hm_ovl28_credits_*`) |
-| `overlays/OVL_part30_id0f.EXE/` | `12` | `30` | Slot B debug event-flag & memory inspector (`hm_ovl30_flag_browser_*`) |
-| `overlays/OVL_part31_id0e.EXE/` | `1` | `6` | PocketStation / Memory Card backup utility (`hm_ovl31_pocket_*`) |
-| **Total (`Corpus/readable/`)** | **`512`** | **`3,828`** | Zero raw Ghidra craft, suffix, or `arg_N` leaks |
+| `sdk/` (`psyq_*.c`) | `15` | `1,253` | Original Psy-Q SDK TUs (`crt_libmath`, `libspu_*`, `libsnd_*`, `bios_intr_dma`, `libcd`, `libgte`, `libgs_fnt_kanji`, `libgpu`, `libmcrd_card`, `libc_stdio`, `kernel_rcnt_pad`, `libmcx_pda`, `libpad`) |
+| `src/audio_spu_vab/` | `1` | `71` | SPU voice allocation & SEQ/VAB drivers |
+| `src/cd_afile_overlays/` | `1` | `25` | `A_FILE.HDT` streaming & overlay loader |
+| `src/core_mainloop/` | `1` | `38` | Frame loop, RNG, boot init & event bitsets |
+| `src/input_memcard/` | `1` | `20` | Pad polling & Memory Card slot drivers |
+| `src/npc_dialogue_events/` | `1` | `83` | Dialogue VM, NPC scripts & portraits |
+| `src/render_gte_sprites/` | `3` | `132` | `render_vram_tim_lz.c`, `render_gte_transforms.c`, `render_sprites_tilemap.c` |
+| `src/ui_inventory_hud/` | `1` | `59` | HUD counters, rucksack & pause overlays |
+| `overlays/OVL_part08_id04.EXE/` | `1` | `5` | `ovl08_kanji_font_test.c` |
+| `overlays/OVL_part10_id05.EXE/` | `1` | `23` | `ovl10_pocketstation_debug.c` |
+| `overlays/OVL_part11_id06.EXE/` | `14` | `1,541` | `p11_*.c` gameplay modules (farm, crops, livestock, NPCs, UI, weather) |
+| `overlays/OVL_part15_id10.EXE/` | `3` | `138` | `ovl15_diary_{memcard_io,state_pack,menu_ui}.c` |
+| `overlays/OVL_part17_id07.EXE/` | `1` | `61` | `ovl17_swimming_festival.c` |
+| `overlays/OVL_part19_id08.EXE/` | `1` | `76` | `ovl19_chicken_sumo.c` |
+| `overlays/OVL_part21_id09.EXE/` | `1` | `67` | `ovl21_horse_race.c` |
+| `overlays/OVL_part23_id0a.EXE/` | `1` | `55` | `ovl23_dog_race.c` |
+| `overlays/OVL_part25_id0b.EXE/` | `1` | `65` | `ovl25_tomato_festival.c` |
+| `overlays/OVL_part27_id0c.EXE/` | `1` | `53` | `ovl27_title_opening.c` |
+| `overlays/OVL_part28_id0d.EXE/` | `1` | `27` | `ovl28_ending_credits.c` |
+| `overlays/OVL_part30_id0f.EXE/` | `1` | `30` | `ovl30_debug_flag_inspector.c` |
+| `overlays/OVL_part31_id0e.EXE/` | `1` | `6` | `ovl31_memcard_backup.c` |
+| **Total (`Corpus/readable/`)** | **`52`** | **`3,828`** | Zero raw Ghidra craft, `6`-tell hits, or `arg_N` leaks |
 3. **Catalog, Shard & Standard 18 Scrub:** Replaced `pbVar1` -> `tile_byte_ptr` and `puVar4` -> `slot_word_ptr` inside [functions_catalog.json](../../schemas/functions_catalog.json) and Stage 3 shards (`stage3_02_p11_ui_core.json`, `stage3_03_p11_farm_gfx.json`), and dropped banned `"unresolvedFields"` from [spec_coverage.json](../../schemas/spec_coverage.json).
 4. **Verification Commands:**
    ```powershell

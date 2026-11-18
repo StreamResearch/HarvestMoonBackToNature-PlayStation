@@ -129,7 +129,7 @@ def _materialize_d3_mapped(
     corpus_dir: Path, tier_dir: Path, tools_root: Path, logger: logging.Logger
 ) -> dict[str, Any]:
     d4_dir = corpus_dir / "tiers" / "D4_FunctionalRewrite"
-    if tier_dir.is_dir() and sum(1 for _ in tier_dir.rglob("*.c")) >= 512 and d4_dir.is_dir() and any(d4_dir.rglob("*.c")):
+    if tier_dir.is_dir() and sum(1 for _ in tier_dir.rglob("*.c")) >= 50 and d4_dir.is_dir() and any(d4_dir.rglob("*.c")):
         c_files = sum(1 for _ in tier_dir.rglob("*.c"))
         files = sum(1 for p in tier_dir.rglob("*") if p.is_file())
         logger.info("Preserved distinct D3_Mapped baseline: c_files=%d files=%d dst=%s", c_files, files, tier_dir)
@@ -165,8 +165,8 @@ def _materialize_synthetic(corpus_dir: Path, selected: list[str], logger: loggin
     samples = {
         "D1_Raw": ("SLUS_011.15/funcs/80011c24_FUN_80011c24.c", "void FUN_80011c24(void) { int iVar1 = DAT_8005e384; }\n"),
         "D2_Structured": ("src/core_mainloop/core_mainloop_01.c", "/* WARNING: */ void hm_frame_sync_and_poll(void) { int iVar1 = g_core_engine_state_8005e384.draw_ticks; }\n"),
-        "D3_Mapped": ("src/core_mainloop/core_mainloop_01.c", "/** @symbol hm_frame_sync_and_poll @address 0x80011c24 (SLUS_011.15) */\nvoid hm_frame_sync_and_poll(void) { s32 work_acc = g_core_engine_state.draw_ticks; }\n"),
-        "D4_FunctionalRewrite": ("src/core_mainloop/core_mainloop_01.c", "/** @symbol hm_frame_sync_and_poll @address 0x80011c24 (SLUS_011.15) */\nvoid hm_frame_sync_and_poll(void) { s32 tick = g_core_engine_state.draw_ticks; }\n"),
+        "D3_Mapped": ("src/core_mainloop/core_mainloop.c", "/** @symbol hm_frame_sync_and_poll @address 0x80011c24 (SLUS_011.15) */\nvoid hm_frame_sync_and_poll(void) { s32 work_acc = g_core_engine_state.draw_ticks; }\n"),
+        "D4_FunctionalRewrite": ("src/core_mainloop/core_mainloop.c", "/** @symbol hm_frame_sync_and_poll @address 0x80011c24 (SLUS_011.15) */\nvoid hm_frame_sync_and_poll(void) { s32 tick = g_core_engine_state.draw_ticks; }\n"),
     }
     summary: dict[str, Any] = {}
     for tier in selected:

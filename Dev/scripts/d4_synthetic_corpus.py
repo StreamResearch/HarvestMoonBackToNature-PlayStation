@@ -141,6 +141,7 @@ def _generate_globals_and_stubs(readable_dir: Path, out_dir: Path, defined_fns: 
         _C_INC.rstrip(),
         "void halt_baddata(void) {} void trap(int c, ...) { (void)c; } void halt(void) {} void stop(void) {}",
         "void IME(uint8_t v) { (void)v; } uint8_t daaOperand(uint8_t v, ...) { return v; }",
+        "int syscall(long c, ...) { (void)c; return 0; }",
     ]
     seen_f = set(defined_fns) | HOOKED_FUNCS | LIBC_SYMS | (EXTRA_STUBS - {"hm_res_cd_wait_load_sync", "hm_res_spr_anim_step_a", "hm_res_spr_anim_step_b"})
     for m in re.finditer(r"^\s*extern\s+(.+?[\s*])\s*(hm_res_[A-Za-z0-9_]+)\s*\(([^)]*)\)\s*;", compat_txt, re.M):
@@ -150,9 +151,10 @@ def _generate_globals_and_stubs(readable_dir: Path, out_dir: Path, defined_fns: 
         seen_f.add(nm)
         body = "{ }" if ret == "void" else ("{ return NULL; }" if "*" in ret else "{ return 0; }")
         s_lines.append(f"{ret} {nm}({params}) {body}")
-    for ln in (inc_dir / "harvestmoonbtn_functions.h").read_text(encoding="utf-8", errors="replace").splitlines():
-        s = re.sub(r"/\*.*?\*/\s*$", "", ln).strip()
-        m = re.match(r"^(?:extern\s+)?(.+?[\s*])\s*([A-Za-z_][A-Za-z0-9_]*)\s*\((.*)\)\s*;\s*$", s) if s and not s.startswith(("#", "/*", "//")) and s.endswith(");") else None
+    fn_clean = re.sub(r"(?m)^\s*#[^\n]*|/\*.*?\*/|//[^\n]*", "", (inc_dir / "harvestmoonbtn_functions.h").read_text(encoding="utf-8", errors="replace"), flags=re.S)
+    for raw_decl in fn_clean.split(";"):
+        s = " ".join(raw_decl.split()).strip()
+        m = re.match(r"^(?:extern\s+)?(.+?[\s*])\s*([A-Za-z_][A-Za-z0-9_]*)\s*\((.*)\)$", s) if s.endswith(")") else None
         if not m or m.group(2) in seen_f or "..." in m.group(3):
             continue
         ret, nm, params = m.group(1).strip(), m.group(2), m.group(3).strip()
@@ -193,8 +195,8 @@ def _seed_synthetic_corpus(root: Path) -> tuple[Path, Path, Path]:
         "int CdControl(u_char com, u_char *param, u_char *result);\nCdlLOC *CdIntToPos(int i, CdlLOC *p);\n",
         encoding="utf-8",
     )
-    (core_dir / "core_mainloop_01.c").write_text(_core_c(), encoding="utf-8")
-    (cd_dir / "cd_afile_overlays_01.c").write_text(_cd_c(), encoding="utf-8")
-    (gte_dir / "render_gte_sprites_07.c").write_text(_gte_c(), encoding="utf-8")
-    (ovl11_dir / "ovl_part11_id06_06.c").write_text(_ovl11_c(), encoding="utf-8")
+    (core_dir / "core_mainloop.c").write_text(_core_c(), encoding="utf-8")
+    (cd_dir / "cd_afile_overlays.c").write_text(_cd_c(), encoding="utf-8")
+    (gte_dir / "render_gte_transforms.c").write_text(_gte_c(), encoding="utf-8")
+    (ovl11_dir / "p11_entry_and_tool_stamina.c").write_text(_ovl11_c(), encoding="utf-8")
     return standalone, readable, work
