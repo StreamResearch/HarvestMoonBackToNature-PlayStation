@@ -37,6 +37,7 @@
     "Dev/scripts/craftsmanship_d4_ast_cleaner.py",
     "Dev/scripts/craftsmanship_d4_type_gates.py",
     "Dev/scripts/d4_synthetic_corpus.py",
-    "Dev/scripts/materialize_decomp_tiers.py"
+    "Dev/scripts/materialize_decomp_tiers.py",
+    "Dev/scripts/coalesce_d4_modules.py"
   ]
 }

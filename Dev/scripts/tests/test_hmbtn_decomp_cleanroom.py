@@ -117,6 +117,7 @@ class TestHmbtnDecompCleanroom(unittest.TestCase):
             SCRIPTS_DIR / "craftsmanship_d4_ast_cleaner.py",
             SCRIPTS_DIR / "craftsmanship_d4_type_gates.py",
             SCRIPTS_DIR / "patch_ps1_reexport_and_compat.py",
+            SCRIPTS_DIR / "coalesce_d4_modules.py",
             TESTS_DIR / "test_hmbtn_parsers.py",
             TESTS_DIR / "test_hmbtn_decomp_cleanroom.py",
         ]
@@ -142,6 +143,7 @@ class TestHmbtnDecompCleanroom(unittest.TestCase):
             SCRIPTS_DIR / "craftsmanship_d4_ast_cleaner.py",
             SCRIPTS_DIR / "craftsmanship_d4_type_gates.py",
             SCRIPTS_DIR / "patch_ps1_reexport_and_compat.py",
+            SCRIPTS_DIR / "coalesce_d4_modules.py",
             TESTS_DIR / "test_hmbtn_parsers.py",
             TESTS_DIR / "test_hmbtn_decomp_cleanroom.py",
             SCHEMAS_DIR / "spec_coverage.json",
@@ -240,6 +242,11 @@ class TestHmbtnDecompCleanroom(unittest.TestCase):
                 self.assertNotIn(": warning:", cc.stderr, cc.stderr)
 
     def test_decomp_recipe_and_bundle_if_present(self) -> None:
+        import coalesce_d4_modules as cdm
+        sym_map = cdm.load_rewrite_symbol_map(SCHEMAS_DIR)
+        self.assertEqual(len(sym_map), 3828)
+        self.assertEqual(len({v["relpath"] for v in sym_map.values()}), 52)
+        self.assertTrue(all(not ({"body", "code", "source"} & set(v)) for v in sym_map.values()))
         recipe_p = SCHEMAS_DIR / "decomp_recipe.json"
         exporter_p = SCRIPTS_DIR / "export_decomp_bundle.py"
         if not (recipe_p.is_file() and exporter_p.is_file()):

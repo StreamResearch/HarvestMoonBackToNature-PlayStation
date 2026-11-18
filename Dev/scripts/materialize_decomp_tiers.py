@@ -125,11 +125,20 @@ def _copy_readable_tree(src_dir: Path, dst_dir: Path, tools_root: Path) -> tuple
     return c_files, files
 
 
+def _coalesce_if_needed(tier_dir: Path, apply_d4: bool) -> dict[str, Any]:
+    if str(SCRIPT_DIR) not in sys.path:
+        sys.path.insert(0, str(SCRIPT_DIR))
+    from coalesce_d4_modules import coalesce_tier_dir
+    return coalesce_tier_dir(tier_dir, DEV_DIR / "schemas", DEV_DIR / ".clang-format", apply_d4_rewrites=apply_d4)
+
+
 def _materialize_d3_mapped(
     corpus_dir: Path, tier_dir: Path, tools_root: Path, logger: logging.Logger
 ) -> dict[str, Any]:
     d4_dir = corpus_dir / "tiers" / "D4_FunctionalRewrite"
     if tier_dir.is_dir() and sum(1 for _ in tier_dir.rglob("*.c")) >= 50 and d4_dir.is_dir() and any(d4_dir.rglob("*.c")):
+        if sum(1 for _ in tier_dir.rglob("*.c")) > 52:
+            _coalesce_if_needed(tier_dir, False)
         c_files = sum(1 for _ in tier_dir.rglob("*.c"))
         files = sum(1 for p in tier_dir.rglob("*") if p.is_file())
         logger.info("Preserved distinct D3_Mapped baseline: c_files=%d files=%d dst=%s", c_files, files, tier_dir)
@@ -139,6 +148,9 @@ def _materialize_d3_mapped(
         raise FileNotFoundError(str(src_dir))
     ts = _heartbeat(0.0, "Copying D3_Mapped from readable/...", force=True)
     c_files, files = _copy_readable_tree(src_dir, tier_dir, tools_root)
+    if c_files > 52:
+        _coalesce_if_needed(tier_dir, False)
+        c_files, files = sum(1 for _ in tier_dir.rglob("*.c")), sum(1 for p in tier_dir.rglob("*") if p.is_file())
     _heartbeat(ts, f"D3_Mapped complete ({c_files} .c files, {files} total)\n", force=True)
     logger.info("Materialized D3_Mapped: c_files=%d files=%d dst=%s", c_files, files, tier_dir)
     return {"path": str(tier_dir), "cFiles": c_files, "files": files}
@@ -147,17 +159,26 @@ def _materialize_d3_mapped(
 def _materialize_d4_rewrite(
     corpus_dir: Path, tier_dir: Path, tools_root: Path, logger: logging.Logger
 ) -> dict[str, Any]:
-    if not tier_dir.is_dir() or not any(tier_dir.rglob("*.c")):
+    if not tier_dir.is_dir() or sum(1 for _ in tier_dir.rglob("*.c")) != 52:
         d3_dir = corpus_dir / "tiers" / "D3_Mapped"
         src_dir = d3_dir if d3_dir.is_dir() and any(d3_dir.rglob("*.c")) else (corpus_dir / "readable")
         if not src_dir.is_dir() or not any(src_dir.rglob("*.c")):
             raise FileNotFoundError(str(src_dir))
         _copy_readable_tree(src_dir, tier_dir, tools_root)
+        _coalesce_if_needed(tier_dir, True)
+    if str(SCRIPT_DIR) not in sys.path:
+        sys.path.insert(0, str(SCRIPT_DIR))
+    from coalesce_d4_modules import load_rewrite_symbol_map
+    sym_map = load_rewrite_symbol_map(DEV_DIR / "schemas")
+    expected_mods = {v["relpath"] for v in sym_map.values() if v.get("relpath")}
+    missing_mods = [m for m in expected_mods if not (tier_dir / m).is_file()]
+    if missing_mods:
+        raise RuntimeError(f"D4_FunctionalRewrite missing modules: {missing_mods[:5]}")
     rewrites_dir = DEV_DIR / "schemas" / "d4_rewrites"
     meta_files = sorted(rewrites_dir.glob("*.json")) if rewrites_dir.is_dir() else []
     c_files = sum(1 for _ in tier_dir.rglob("*.c"))
-    logger.info("Validated D4_FunctionalRewrite: c_files=%d schema_shards=%d", c_files, len(meta_files))
-    return {"path": str(tier_dir), "cFiles": c_files, "rewriteMetadataFiles": len(meta_files)}
+    logger.info("Validated D4_FunctionalRewrite: c_files=%d symbols=%d schema_shards=%d", c_files, len(sym_map), len(meta_files))
+    return {"path": str(tier_dir), "cFiles": c_files, "symbolRecipes": len(sym_map), "rewriteMetadataFiles": len(meta_files)}
 
 
 def _materialize_synthetic(corpus_dir: Path, selected: list[str], logger: logging.Logger) -> dict[str, Any]:

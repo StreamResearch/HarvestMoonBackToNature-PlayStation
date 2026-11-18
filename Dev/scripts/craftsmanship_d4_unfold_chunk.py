@@ -217,11 +217,16 @@ def _write_chunk(out_p: Path, readable_dir: Path, preamble: str, cur: list[str],
 
 
 def format_and_rechunk_readable(readable_dir: Path, style_file: Path, max_lines: int = 385, rechunk: bool = False) -> dict[str, Any]:
-    """Run clang-format on C/headers, optionally rechunk >400L files, and sync index files."""
+    """Run clang-format on C/headers, coalesce 512->52 modules when schemas present, and sync indexes."""
     cf_exe = find_clang_format()
     if cf_exe is not None and style_file.is_file():
         top_hdrs = [readable_dir / "include" / n for n in ("harvestmoonbtn_globals.h", "harvestmoonbtn_functions.h", "ghidra_compat.h") if (readable_dir / "include" / n).is_file()]
         _run_clang_format(cf_exe, style_file, [*sorted(readable_dir.rglob("*.c")), *top_hdrs])
+    schemas_dir = readable_dir.parent.parent / "Dev" / "schemas"
+    if len(list(readable_dir.rglob("*.c"))) > 52 and (schemas_dir / "d4_rewrites").is_dir():
+        from coalesce_d4_modules import coalesce_tier_dir
+        res = coalesce_tier_dir(readable_dir, schemas_dir, style_file, apply_d4_rewrites=False)
+        return {"rechunked": 0, "coalesced": res["files"], "totalCFiles": res["files"]}
 
     dirs = defaultdict(list)
     for cf in sorted(readable_dir.rglob("*.c")): dirs[cf.parent].append(cf)
