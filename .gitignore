@@ -37,7 +37,7 @@ __pycache__/
 .cache/
 .clangd/
 *.tmp
-*.decomp
+*.tmp.decomp
 /Dev/data/
 /Dev/logs/
 

@@ -21,8 +21,8 @@ python -B Dev/scripts/verify_track_d4.py --offline-synthetic --data-dir "$env:TE
 
 ### 2.2 Clean-Room `.decomp` Bundle Export (`reStation` `0.2.x`)
 ```powershell
-# Export and self-validate against PsxCleanRoomValidator rules
-python -B Dev/scripts/export_decomp_bundle.py --out "$env:TEMP\hmbtn-v0.2.1.decomp" --verify-cleanroom
+# Export and self-validate tracked root HarvestMoonBackToNature-PlayStation.decomp
+python -B Dev/scripts/export_decomp_bundle.py --verify-cleanroom
 ```
 - Emits ZIP root `module.decomp.json` (`moduleId: "harvest-moon-btn"`, `engineId: "reStation"`, `compatibleEngineTrack: "0.2.x"`, `targetDecompTier: "D5"`, `preloadRomDir: "data/rom"`, `recipeEntryPoint: "Dev/scripts/hmbtn_unpack.py"`) plus clean-room `Dev/schemas/` and `Dev/scripts/` (never `Corpus/`, `Archive/`, `Dev/docs/`, `.gpr`, `*.g.cs`, or `*.Generated.dll`).
 

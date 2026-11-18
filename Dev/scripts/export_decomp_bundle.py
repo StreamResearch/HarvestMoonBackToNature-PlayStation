@@ -170,7 +170,7 @@ def _resolve_output_path(out_path: Path | None, data_dir: Path | None, root_dir:
     if data_dir is not None:
         base = Path(data_dir).resolve()
         return (base / "extracts" / filename) if base.name.lower() == "work" else (base / "work" / "extracts" / filename)
-    return (root_dir / "Corpus" / "work" / "extracts" / filename).resolve()
+    return (root_dir / f"{root_dir.name}.decomp").resolve()
 
 
 def _write_log(log_dir: Path | None, report: dict[str, Any]) -> None:

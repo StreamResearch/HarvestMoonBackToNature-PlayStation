@@ -4,7 +4,7 @@
 
 ## 1. Overview
 - **Research ID:** `harvest-moon-btn` (`axis=decomp` / `goalStudyTier=S5`)
-- **Verified Baseline (`D4 / S4 / R2`):** Targets PlayStation 1 (`SLUS-01115`) and packages clean-room `.decomp` modules (`v0.2.1`, `55` entries, `966,244` B, `0` violations) targeting `reStation` (`0.2.x`, consumed read-only by downstream `HMBackToNature-Recomp`).
+- **Verified Baseline (`D4 / S4 / R2`):** Targets PlayStation 1 (`SLUS-01115`) and packages clean-room [HarvestMoonBackToNature-PlayStation.decomp](HarvestMoonBackToNature-PlayStation.decomp) (`v0.2.1`, `55` entries, `966,246` B, `0` violations) targeting `reStation` (`0.2.x`, consumed read-only by downstream `HMBackToNature-Recomp`).
 - **Binary Surface (`14` Executable Units):** Resident `SLUS_011.15` (`323,584` B, `t_addr=0x80010000`, `pc0=0x80011278`, `.text=0x80011270..0x80048B10`) + `13` overlays synthesized from `A_FILE.BIN` (`133,935,104` B) across **Slot A** (`0x800B7E20`, `11` overlays incl. Part 11 `.text 0x800BBC34..0x80121780`) and **Slot B** (`0x8012DDE8`, Parts `15` & `30` co-resident with Part 11).
 - **Clean-Room Coverage & `D4.craftsmanship`:** `3,828` indexed functions (`2,575` named game + `1,253` PS1 SDK symbols across `23` domains, with serialized `call_graph.json` retail `strings` arrays cleared to `[]`), `3,497` `100%` suffix-free caller-semantic mapped globals plus `1,064` suffix-free `unindexedGlobals` (`0` `_[0-9a-f]{8}`, `0` `_word`/`_half`/`_byte`, `0` `g_dat_*`/`g_unk_*`), `6` neutral PS1 ABI headers (`4` enums, `21` typedefs, `57` structs, `0` placeholder struct fields), `512/512` `clang-format` K&R source-first C files (`55` un-folded bodies restored from read-only `Corpus/standalone/decompiled/`, `0` craftsmanship/mechanical-local/`arg_N` hits across `515` scanned files, `512/512` `clangd` `0` errors) compiled into `513` ELF32 MIPS objects (`libharvest_moon_btn_d4.a`, `3,669,114` B, `0` warnings), `12/12` LP32 + deterministic `Q12` `COP2` GTE & farm/save-XOR parity tests (`d4_harness/`), and four modular container decoders (`hmbtn_overlays.py`, `hmbtn_sound.py`, `hmbtn_sprites.py`, `hmbtn_save_diary.py`).
 
@@ -25,8 +25,8 @@ python -B Dev/scripts/verify_track_d4.py --offline-synthetic --log-dir Dev/logs
 # 3. Verify universal R&D decomp_cli gates (D4, S4, and default R1/R2)
 python -B "$env:RD_DECOMP_TOOLS\decomp_cli.py" verify --track HarvestMoonBackToNature-PlayStation
 
-# 4. Export & self-validate a clean-room .decomp package for reStation (0.2.x)
-python -B Dev/scripts/export_decomp_bundle.py --out "$env:TEMP\hmbtn-v0.2.1.decomp" --verify-cleanroom
+# 4. Export & self-validate the tracked root clean-room .decomp package for reStation (0.2.x)
+python -B Dev/scripts/export_decomp_bundle.py --verify-cleanroom
 
 # 5. Run BYO-disc unpacker or D4.craftsmanship normalizer check against extracted SLUS-01115 media
 python -B Dev/scripts/hmbtn_unpack.py --data-dir "<your-data-dir>" --log-dir Dev/logs
@@ -36,9 +36,10 @@ python -B Dev/scripts/craftsmanship_d4_normalizer.py --verify-clean --data-dir "
 > **Fail-Closed Missing-Media Gate:** Invoking `hmbtn_unpack.py`, `craftsmanship_d4_normalizer.py`, or container parsers without `--offline-synthetic` against an empty `--data-dir` exits non-zero and prints structured `{"status": "MISSING_CORPUS_MEDIA", ...}` JSON.
 
 ## 3. Repository Layout (3-Folder Clean-Room Standard)
-- `Corpus/` *(gitignored BYO-disc & derived C/build artifacts; zero files tracked in Git or `Archive/`)*: `standalone/` (read-only baseline), `readable/` (`.c`/`.h`/`compile_commands.json`), `work/` (D4 objects, `.decomp` extracts).
+- `Corpus/` *(gitignored BYO-disc & derived C/build artifacts; zero files tracked in Git or `Archive/`)*: `standalone/` (read-only baseline), `readable/` (`.c`/`.h`/`compile_commands.json`), `work/` (D4 objects, scratch `.decomp` extracts).
 - `Dev/`: [research.manifest.json](Dev/research.manifest.json), [HarvestMoonBackToNature-PlayStation.code-workspace](Dev/HarvestMoonBackToNature-PlayStation.code-workspace), `schemas/`, `scripts/`, `docs/`.
 - `Archive/`: Clean-room `-mx=9` `.7z` source snapshots (`Corpus/` excluded).
+- `HarvestMoonBackToNature-PlayStation.decomp`: Tracked root clean-room `.decomp` archive (`module.decomp.json`, `Dev/schemas/`, `Dev/scripts/`) for `reStation` (`0.2.x`).
 
 ## 4. Root Docs & Research Manual Shelf (`Dev/docs/`)
 - **Project Docs:** [FEATURES.md](FEATURES.md) | [ROADMAP.md](ROADMAP.md) | [CHANGELOG.md](CHANGELOG.md) | [SECURITY.md](SECURITY.md) | [active.state](active.state)
